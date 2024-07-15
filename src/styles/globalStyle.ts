@@ -1,4 +1,9 @@
 import { createGlobalStyle, css } from 'styled-components';
+import MontserratMedium from './fonts/Montserrat/Montserrat-Medium.ttf';
+import SuitBold from './fonts/Suit/SUIT-Bold.ttf';
+import SuitLight from './fonts/Suit/SUIT-Light.ttf';
+import SuitMedium from './fonts/Suit/SUIT-Medium.ttf';
+import SuitSemiBold from './fonts/Suit/SUIT-SemiBold.ttf';
 
 export const reset = css`
   html,
@@ -148,6 +153,38 @@ export const reset = css`
 `;
 export const GlobalStyle = createGlobalStyle`
 
+@font-face {
+  font-family: MontserratMedium;
+  font-style: normal;
+  src: url(${MontserratMedium}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitBold;
+  font-style: normal;
+  src: url(${SuitBold}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitSemiBold;
+  font-style: normal;
+  src: url(${SuitSemiBold}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitMedium;
+  font-style: normal;
+  src: url(${SuitMedium}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitLight;
+  font-style: normal;
+  src: url(${SuitLight}) format('truetype');
+}
+
+
+
 ${reset}
 
 
@@ -163,7 +200,6 @@ ${reset}
 
 * {
     box-sizing: border-box;
-    
 }
 
 /* 사파리 웹 뷰 브라우저 상속 스타일 제거 */

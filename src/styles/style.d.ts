@@ -8,8 +8,10 @@ declare module 'styled-components' {
     };
 
     fonts: {
-      // 아래 형식처럼 정의
-      h1: SerializedStyles;
+      title_bold_32: SerializedStyles;
+      title_bold_24: SerializedStyles;
+      title_medium_24: SerializedStyles;
+      title_bold_20: SerializedStyles;
     };
   }
 }

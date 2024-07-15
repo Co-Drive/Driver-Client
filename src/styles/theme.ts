@@ -1,4 +1,9 @@
-import { css } from 'styled-components';
+import { css, DefaultTheme } from 'styled-components';
+
+const commonFontStyle = css`
+  line-height: 120%;
+  letter-spacing: -1%;
+`;
 
 const colors = {
   // 아래 형식으로 정의
@@ -6,18 +11,32 @@ const colors = {
 };
 
 const fonts = {
-  // 아래 형식으로 정의
-  h1: css`
-    font-family: 'Pretendard';
-    font-size: 3.8rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 5.7rem;
-    letter-spacing: -0.04rem;
+  title_bold_32: css`
+    font-family: SuitBold;
+    font-size: 3.2rem;
+    ${commonFontStyle}
+  `,
+
+  title_bold_24: css`
+    font-family: SuitBold;
+    font-size: 2.4rem;
+    ${commonFontStyle}
+  `,
+
+  title_medium_24: css`
+    font-family: MontserratMedium;
+    font-size: 2.4rem;
+    ${commonFontStyle}
+  `,
+
+  title_bold_20: css`
+    font-family: SuitBold;
+    font-size: 2rem;
+    ${commonFontStyle}
   `,
 };
 
-const theme = {
+const theme: DefaultTheme = {
   colors,
   fonts,
 };
