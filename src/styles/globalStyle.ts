@@ -74,7 +74,6 @@ export const reset = css`
   header,
   hgroup,
   main,
-  menu,
   nav,
   output,
   ruby,
@@ -84,10 +83,12 @@ export const reset = css`
   mark,
   audio,
   video {
-    margin: 0;
     padding: 0;
+    margin: 0;
+
     border: 0;
-    font-size: 62.5%; // 1rem = 0.1px
+    font-size: 62.5%; /* 1rem = 0.1px */
+
     vertical-align: baseline;
   }
 
@@ -101,42 +102,48 @@ export const reset = css`
   header,
   hgroup,
   main,
-  menu,
   nav,
   section {
     display: block;
   }
+
   /* HTML5 hidden-attribute fix for newer browsers */
   *[hidden] {
     display: none;
   }
+
   body {
     line-height: 1;
   }
+
   menu,
   ol,
   ul {
     list-style: none;
   }
+
   blockquote,
   q {
     quotes: none;
   }
-  blockquote:before,
-  blockquote:after,
-  q:before,
-  q:after {
+
+  blockquote::before,
+  blockquote::after,
+  q::before,
+  q::after {
     content: '';
     content: none;
   }
+
   table {
     border-collapse: collapse;
     border-spacing: 0;
   }
+
   button {
-    cursor: pointer;
-    background: transparent;
     border: none;
+    background: transparent;
+    cursor: pointer;
   }
 `;
 export const GlobalStyle = createGlobalStyle`
@@ -149,31 +156,29 @@ ${reset}
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
 }
+
 #root::-webkit-scrollbar {
     display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
 
 * {
     box-sizing: border-box;
-    // 버튼 음영 제거
-    -webkit-tap-highlight-color:rgba(255,255,255,0);
-    // 글자 선택 방지
-    user-select: none;
-    // 링크 터치 금지
-    -webkit-touch-callout: none;
     
 }
+
+/* 사파리 웹 뷰 브라우저 상속 스타일 제거 */
+input, textarea,button {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
 input:disabled, textarea:disabled, input:disabled::placeholder, textarea:disabled::placeholder {
     opacity: 1; 
 }
 
-// 사파리 웹 뷰 브라우저 상속 스타일 제거
-input, textarea,button {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    border-radius: 0;
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-}
+
 `;
