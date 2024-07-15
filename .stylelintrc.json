@@ -87,6 +87,7 @@
           "background-position",
           "background-size",
           "color",
+          "font-family",
           "font-style",
           "font-weight",
           "font-size",
@@ -110,6 +111,7 @@
         "properties": ["white-space"]
       }
     ],
-    "property-no-vendor-prefix": null
+    "property-no-vendor-prefix": null,
+    "font-family-no-missing-generic-family-keyword": null
   }
 }
