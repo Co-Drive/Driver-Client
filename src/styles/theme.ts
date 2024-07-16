@@ -8,6 +8,26 @@ const commonFontStyle = css`
 const colors = {
   // 아래 형식으로 정의
   white: '#FFFFFF',
+  gray100: '#D8D9DD',
+  gray200: '#B2B4BA',
+  gray300: '#8B8E98',
+  gray400: '#646875',
+  gray500: '#494B53',
+  gray600: '#34363C',
+  gray700: '#292A2F',
+  gray800: '#141519',
+  gray900: '#0B0C0F',
+  green100: '#DCFFE4',
+  green200: '#B7FFC7',
+  green300: '#7DFF99',
+  green400: '#59FF7E',
+  purple100: '#F2DDFF',
+  purple200: '#E4B8FF',
+  purple300: '#CE7DFF',
+  popup: '#FF3D55',
+  codrive_green: '#08FF3F',
+  codrive_purple: '#BF57FF',
+  bg: '#0B0C0F',
 };
 
 const fonts = {
@@ -32,6 +52,76 @@ const fonts = {
   title_bold_20: css`
     font-family: SuitBold;
     font-size: 2rem;
+    ${commonFontStyle}
+  `,
+  title_medium_20: css`
+    font-family: SuitMedium;
+    font-size: 2rem;
+    ${commonFontStyle}
+  `,
+  title_semiBold_18: css`
+    font-family: SuitSemiBold;
+    font-size: 1.8rem;
+    ${commonFontStyle}
+  `,
+  title_bold_16: css`
+    font-family: SuitBold;
+    font-size: 1.6rem;
+    ${commonFontStyle}
+  `,
+  body_medium_16: css`
+    font-family: SuitMedium;
+    font-size: 1.6rem;
+    ${commonFontStyle}
+  `,
+  body_ligth_16: css`
+    font-family: SuitLight;
+    font-size: 1.6rem;
+    ${commonFontStyle}
+  `,
+  title_bold_14: css`
+    font-family: SuitBold;
+    font-size: 1.4rem;
+    ${commonFontStyle}
+  `,
+  title_semiBold_14: css`
+    font-family: SuitSemiBold;
+    font-size: 1.4rem;
+    ${commonFontStyle}
+  `,
+  title_regular_14: css`
+    font-family: SuitRegular;
+    font-size: 1.4rem;
+    ${commonFontStyle}
+  `,
+  body_medium_14: css`
+    font-family: SuitMedium;
+    font-size: 1.4rem;
+    ${commonFontStyle}
+  `,
+  detail_regular_12: css`
+    font-family: SuitRegular;
+    font-size: 1.2rem;
+    ${commonFontStyle}
+  `,
+  body_ligth_12: css`
+    font-family: SuitLight;
+    font-size: 1.2rem;
+    ${commonFontStyle}
+  `,
+  body_ligth_10: css`
+    font-family: SuitLight;
+    font-size: 1rem;
+    ${commonFontStyle}
+  `,
+  body_eng_medium_16: css`
+    font-family: MontserratMedium;
+    font-size: 1.6rem;
+    ${commonFontStyle}
+  `,
+  body_eng_medium_12: css`
+    font-family: MontserratMedium;
+    font-size: 1.2rem;
     ${commonFontStyle}
   `,
 };
