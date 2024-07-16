@@ -3,6 +3,7 @@ import MontserratMedium from './fonts/Montserrat/Montserrat-Medium.ttf';
 import SuitBold from './fonts/Suit/SUIT-Bold.ttf';
 import SuitLight from './fonts/Suit/SUIT-Light.ttf';
 import SuitMedium from './fonts/Suit/SUIT-Medium.ttf';
+import SuitRegular from './fonts/Suit/SUIT-Regular.ttf';
 import SuitSemiBold from './fonts/Suit/SUIT-SemiBold.ttf';
 
 export const reset = css`
@@ -175,6 +176,12 @@ export const GlobalStyle = createGlobalStyle`
   font-family: SuitMedium;
   font-style: normal;
   src: url(${SuitMedium}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitRegular;
+  font-style: normal;
+  src: url(${SuitRegular}) format('truetype');
 }
 
 @font-face {
