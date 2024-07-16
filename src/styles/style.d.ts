@@ -3,7 +3,6 @@ import 'styled-components';
 declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
-      // 아래 형식처럼 정의
       white: string;
       gray100: string;
       gray200: string;

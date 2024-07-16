@@ -6,7 +6,6 @@ const commonFontStyle = css`
 `;
 
 const colors = {
-  // 아래 형식으로 정의
   white: '#FFFFFF',
   gray100: '#D8D9DD',
   gray200: '#B2B4BA',
