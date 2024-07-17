@@ -1,13 +1,19 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 interface CommonInputProps {
   category: string;
   value: string;
+  isExitedNickname?: boolean;
   handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CommonInput = ({ category, value, handleChangeInputs }: CommonInputProps) => {
+const CommonInput = ({
+  category,
+  value,
+  isExitedNickname,
+  handleChangeInputs,
+}: CommonInputProps) => {
   const [placeholder, setPlaceholder] = useState('');
 
   const handlePlaceholder = () => {
@@ -40,38 +46,68 @@ const CommonInput = ({ category, value, handleChangeInputs }: CommonInputProps) 
   }, []);
 
   return (
-    <InputTextWrapper $category={category}>
-      {category === 'secretKey' && (
-        <CategoryWrapper>
-          {/* 여기 아이콘이 들어갈 예정 */}
-          <Text>비밀 그룹</Text>
-          <Divider>|</Divider>
-        </CategoryWrapper>
+    <CommonInputWrapper>
+      {/* 추후에 추가할 예외케이스: 비밀번호에 이모지를 입력한 경우 */}
+      <InputWrapper
+        $category={category}
+        $isError={
+          ((category === 'title' ||
+            category === 'password' ||
+            category === 'secretKey') &&
+            value.length > 20) ||
+          (category === 'num' && parseInt(value) > 50) ||
+          (category === 'nickname' && value.length > 10) ||
+          (category === 'nickname' && isExitedNickname)
+        }
+      >
+        {category === 'secretKey' && (
+          <CategoryWrapper>
+            {/* 여기 아이콘이 들어갈 예정 */}
+            <Text>비밀 그룹</Text>
+            <Divider>|</Divider>
+          </CategoryWrapper>
+        )}
+        {category === 'github' && (
+          <GithubURL $disabledGithubURL={value.length === 0}>
+            https://github.com/
+          </GithubURL>
+        )}
+        <label>
+          <Input
+            type="text"
+            name={category}
+            placeholder={placeholder}
+            $category={category}
+            value={value}
+            onChange={handleChangeInputs}
+          />
+        </label>
+        {category === 'num' && <Num>명</Num>}
+        {/* category === "nickname"일 때 체크 아이콘 들어올 예정 */}
+      </InputWrapper>
+
+      {isExitedNickname && (
+        <ErrorMessage>이미 사용중인 닉네임입니다</ErrorMessage>
       )}
-      {category === 'github' && (
-        <GithubURL $disabledGithubURL={value.length === 0}>
-          https://github.com/
-        </GithubURL>
-      )}
-      <label>
-        <Input
-          type="text"
-          name={category}
-          placeholder={placeholder}
-          $category={category}
-          value={value}
-          onChange={handleChangeInputs}
-        />
-      </label>
-      {category === 'num' && <Num>명</Num>}
-      {/* category === "nickname"일 때 체크 아이콘 들어올 예정 */}
-    </InputTextWrapper>
+    </CommonInputWrapper>
   );
 };
 
 export default CommonInput;
 
-const InputTextWrapper = styled.div<{ $category: string }>`
+const CommonInputWrapper = styled.article`
+  display: flex;
+  gap: 0.6rem;
+  flex-direction: column;
+
+  /* 나중에 없애기 */
+  margin-left: 5rem;
+`;
+
+const InputWrapper = styled.div<{
+  $category: string;
+  $isError?: boolean;
+}>`
   display: flex;
   justify-content: ${({ $category }) => {
     switch ($category) {
@@ -103,12 +139,14 @@ const InputTextWrapper = styled.div<{ $category: string }>`
   }};
   padding: 1rem 0;
 
-  /* 나중에 없애기 */
-  margin-left: 5rem;
-
   border-radius: 0.8rem;
   background-color: ${({ theme, $category }) =>
     $category === 'secretKey' ? theme.colors.gray500 : theme.colors.gray700};
+  ${({ $isError, theme }) =>
+    $isError &&
+    css`
+      box-shadow: 0 0 0 0.1rem ${theme.colors.alert};
+    `};
 `;
 
 const CategoryWrapper = styled.div`
@@ -146,7 +184,7 @@ const Input = styled.input<{ $category: string }>`
       case 'title':
         return `41.3rem`;
       case 'num':
-        return `2.5rem`;
+        return `7.5rem`;
       case 'nickname':
         return `14.2rem`;
       case 'github':
@@ -203,4 +241,9 @@ const Num = styled.p`
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_medium_16};
+`;
+
+const ErrorMessage = styled.p`
+  ${({ theme }) => theme.fonts.body_ligth_10};
+  color: ${({ theme }) => theme.colors.alert};
 `;
