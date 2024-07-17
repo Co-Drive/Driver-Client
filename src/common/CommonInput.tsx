@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ERROR_MSG } from '../constants/CommonInput/inputConst';
+import { CommonInputProps } from '../types/CommonInput/inputType';
 import { handleInput } from '../utils/handleInput';
-
-interface CommonInputProps {
-  category: string;
-  value: string;
-  isExitedNickname?: boolean;
-  isNotMatchedPW?: boolean;
-  handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
 const CommonInput = ({
   category,
