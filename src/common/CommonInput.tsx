@@ -46,7 +46,7 @@ const CommonInput = ({
   }, []);
 
   return (
-    <CommonInputWrapper>
+    <CommonInputWrapper $category={category}>
       <InputWrapper
         $category={category}
         $isError={
@@ -85,6 +85,10 @@ const CommonInput = ({
         {/* category === "nickname"일 때 체크 아이콘 들어올 예정 */}
       </InputWrapper>
 
+      {category === 'secretKey' && (
+        <Notice>최대 20자 이내로 입력해주세요</Notice>
+      )}
+
       {isExitedNickname && (
         <ErrorMessage>이미 사용중인 닉네임입니다</ErrorMessage>
       )}
@@ -94,10 +98,25 @@ const CommonInput = ({
 
 export default CommonInput;
 
-const CommonInputWrapper = styled.article`
+const CommonInputWrapper = styled.article<{ $category: string }>`
   display: flex;
   gap: 0.6rem;
   flex-direction: column;
+
+  width: ${({ $category }) => {
+    switch ($category) {
+      case 'title':
+        return `45.3rem`;
+      case 'num':
+        return `13.9rem`;
+      case 'password':
+        return `35rem`;
+      case 'secretKey':
+        return `40.5rem`;
+      default:
+        return `29.6rem`;
+    }
+  }};
 `;
 
 const InputWrapper = styled.div<{
@@ -119,20 +138,6 @@ const InputWrapper = styled.div<{
   }};
   align-items: center;
 
-  width: ${({ $category }) => {
-    switch ($category) {
-      case 'title':
-        return `45.3rem`;
-      case 'num':
-        return `13.9rem`;
-      case 'password':
-        return `35rem`;
-      case 'secretKey':
-        return `40.5rem`;
-      default:
-        return `29.6rem`;
-    }
-  }};
   padding: 1rem 0;
 
   border-radius: 0.8rem;
@@ -237,6 +242,13 @@ const Num = styled.p`
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_medium_16};
+`;
+
+const Notice = styled.p`
+  color: ${({ theme }) => theme.colors.gray300};
+
+  text-align: right;
+  ${({ theme }) => theme.fonts.detail_regular_12};
 `;
 
 const ErrorMessage = styled.p`
