@@ -55,8 +55,7 @@ const CommonInput = ({
             category === 'secretKey') &&
             value.length > 20) ||
           (category === 'num' && parseInt(value) > 50) ||
-          (category === 'nickname' && value.length > 10) ||
-          (category === 'nickname' && isExitedNickname)
+          (category === 'nickname' && (value.length > 10 || isExitedNickname))
         }
       >
         {category === 'secretKey' && (
