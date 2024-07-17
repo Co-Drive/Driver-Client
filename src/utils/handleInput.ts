@@ -10,7 +10,7 @@ export const handleInput = (
 
     // 숫자만 가능
     case 'num':
-      e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '');
+      e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '').slice(0, 3);
       break;
 
     // 한글, 영어, 일반적인 특수문자 가능, 공백 불가능, 11자 제한
@@ -27,7 +27,8 @@ export const handleInput = (
     // -, 영어 가능, 공백 불가능, 39자 제한(깃허브 유저네임 조건에 맞춤)
     case 'github':
       e.currentTarget.value = e.currentTarget.value
-        .replace(/[^a-zA-Z0-9_-]/g, '')
+        .replace(/[^a-zA-Z0-9-]/g, '')
+        .replace(/\s+/g, '')
         .slice(0, 39);
       break;
 
