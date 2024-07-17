@@ -48,7 +48,11 @@ const InputText = ({ category, value, handleChangeInputs }: InputTextProps) => {
           <Divider>|</Divider>
         </CategoryWrapper>
       )}
-      {category === 'github' && <GithubURL>https://github.com/</GithubURL>}
+      {category === 'github' && (
+        <GithubURL $disabledGithubURL={value.length === 0}>
+          https://github.com/
+        </GithubURL>
+      )}
       <label>
         <Input
           type="text"
@@ -128,11 +132,12 @@ const Divider = styled.p`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-const GithubURL = styled.p`
+const GithubURL = styled.p<{ $disabledGithubURL: boolean }>`
   margin-left: 2rem;
 
   ${({ theme }) => theme.fonts.body_ligth_16};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme, $disabledGithubURL }) =>
+    $disabledGithubURL ? theme.colors.gray300 : theme.colors.white};
 `;
 
 const Input = styled.input<{ $category: string }>`
