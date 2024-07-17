@@ -3,9 +3,11 @@ import styled, { css } from 'styled-components';
 
 interface InputTextProps {
   category: string;
+  value: string;
+  handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputText = ({ category }: InputTextProps) => {
+const InputText = ({ category, value, handleChangeInputs }: InputTextProps) => {
   const [placeholder, setPlaceholder] = useState('');
 
   const handlePlaceholder = () => {
@@ -53,6 +55,8 @@ const InputText = ({ category }: InputTextProps) => {
           name={category}
           placeholder={placeholder}
           $category={category}
+          value={value}
+          onChange={handleChangeInputs}
         />
       </label>
       {category === 'num' && <Num>명</Num>}
