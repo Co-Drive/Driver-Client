@@ -86,7 +86,9 @@ const CommonInput = ({
       </InputWrapper>
 
       {category === 'secretKey' && (
-        <Notice>최대 20자 이내로 입력해주세요</Notice>
+        <Notice $excessLength={value.length > 20}>
+          최대 20자 이내로 입력해주세요
+        </Notice>
       )}
 
       {isExitedNickname && (
@@ -244,8 +246,9 @@ const Num = styled.p`
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-const Notice = styled.p`
-  color: ${({ theme }) => theme.colors.gray300};
+const Notice = styled.p<{ $excessLength: boolean }>`
+  color: ${({ theme, $excessLength }) =>
+    $excessLength ? theme.colors.alert : theme.colors.gray300};
 
   text-align: right;
   ${({ theme }) => theme.fonts.detail_regular_12};
