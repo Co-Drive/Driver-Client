@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { handleInput } from '../utils/handleInput';
 
 interface CommonInputProps {
   category: string;
@@ -78,6 +79,7 @@ const CommonInput = ({
             $category={category}
             value={value}
             onChange={handleChangeInputs}
+            onInput={(e) => handleInput(e, category)}
           />
         </label>
         {category === 'num' && <Num>명</Num>}
