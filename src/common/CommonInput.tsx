@@ -188,7 +188,7 @@ const Input = styled.input<{ $category: string }>`
       case 'num':
         return `7.5rem`;
       case 'nickname':
-        return `14.2rem`;
+        return `15.5rem`;
       case 'github':
         return `12.3rem`;
       default:
