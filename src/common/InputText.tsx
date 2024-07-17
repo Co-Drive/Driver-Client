@@ -25,7 +25,7 @@ const InputText = ({ category }: InputTextProps) => {
       case 'password':
         setPlaceholder('비밀번호를 입력하세요');
         break;
-      case 'secret-key':
+      case 'secretKey':
         setPlaceholder('비밀번호를 입력해주세요');
         break;
       default:
@@ -39,7 +39,7 @@ const InputText = ({ category }: InputTextProps) => {
 
   return (
     <InputTextWrapper $category={category}>
-      {category === 'secret-key' && (
+      {category === 'secretKey' && (
         <CategoryWrapper>
           {/* 여기 아이콘이 들어갈 예정 */}
           <Text>비밀 그룹</Text>
@@ -87,7 +87,7 @@ const InputTextWrapper = styled.div<{ $category: string }>`
         return `13.9rem`;
       case 'password':
         return `35rem`;
-      case 'secret-key':
+      case 'secretKey':
         return `40.5rem`;
       default:
         return `29.6rem`;
@@ -100,7 +100,7 @@ const InputTextWrapper = styled.div<{ $category: string }>`
 
   border-radius: 0.8rem;
   background-color: ${({ theme, $category }) =>
-    $category === 'secret-key' ? theme.colors.gray500 : theme.colors.gray700};
+    $category === 'secretKey' ? theme.colors.gray500 : theme.colors.gray700};
 `;
 
 const CategoryWrapper = styled.div`
@@ -153,7 +153,7 @@ const Input = styled.input<{ $category: string }>`
         return `2rem`;
       case 'nickname':
         return `2rem`;
-      case 'secret-key':
+      case 'secretKey':
         return `0.8rem`;
       default:
         return 0;
@@ -170,7 +170,7 @@ const Input = styled.input<{ $category: string }>`
 
   border: none;
   background-color: ${({ theme, $category }) =>
-    $category === 'secret-key' ? theme.colors.gray500 : theme.colors.gray700};
+    $category === 'secretKey' ? theme.colors.gray500 : theme.colors.gray700};
   color: ${({ theme }) => theme.colors.white};
   ${({ theme, $category }) =>
     $category === 'github'
