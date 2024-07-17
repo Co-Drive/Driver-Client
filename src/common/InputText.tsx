@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 interface InputTextProps {
@@ -5,6 +6,37 @@ interface InputTextProps {
 }
 
 const InputText = ({ category }: InputTextProps) => {
+  const [placeholder, setPlaceholder] = useState('');
+
+  const handlePlaceholder = () => {
+    switch (category) {
+      case 'title':
+        setPlaceholder('제목');
+        break;
+      case 'num':
+        setPlaceholder('00');
+        break;
+      case 'nickname':
+        setPlaceholder('닉네임을 입력해주세요');
+        break;
+      case 'github':
+        setPlaceholder('');
+        break;
+      case 'password':
+        setPlaceholder('비밀번호를 입력하세요');
+        break;
+      case 'secret-key':
+        setPlaceholder('비밀번호를 입력해주세요');
+        break;
+      default:
+        setPlaceholder('');
+    }
+  };
+
+  useEffect(() => {
+    handlePlaceholder();
+  }, []);
+
   return (
     <InputTextWrapper $category={category}>
       {category === 'secret-key' && (
@@ -19,7 +51,7 @@ const InputText = ({ category }: InputTextProps) => {
         <Input
           type="text"
           name={category}
-          placeholder="제목"
+          placeholder={placeholder}
           $category={category}
         />
       </label>
