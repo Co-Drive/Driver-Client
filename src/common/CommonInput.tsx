@@ -47,7 +47,6 @@ const CommonInput = ({
 
   return (
     <CommonInputWrapper>
-      {/* 추후에 추가할 예외케이스: 비밀번호에 이모지를 입력한 경우 */}
       <InputWrapper
         $category={category}
         $isError={
@@ -99,9 +98,6 @@ const CommonInputWrapper = styled.article`
   display: flex;
   gap: 0.6rem;
   flex-direction: column;
-
-  /* 나중에 없애기 */
-  margin-left: 5rem;
 `;
 
 const InputWrapper = styled.div<{
