@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-interface InputTextProps {
+interface CommonInputProps {
   category: string;
   value: string;
   handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputText = ({ category, value, handleChangeInputs }: InputTextProps) => {
+const CommonInput = ({ category, value, handleChangeInputs }: CommonInputProps) => {
   const [placeholder, setPlaceholder] = useState('');
 
   const handlePlaceholder = () => {
@@ -69,7 +69,7 @@ const InputText = ({ category, value, handleChangeInputs }: InputTextProps) => {
   );
 };
 
-export default InputText;
+export default CommonInput;
 
 const InputTextWrapper = styled.div<{ $category: string }>`
   display: flex;
