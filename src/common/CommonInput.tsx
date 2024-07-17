@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { ERROR_MSG } from '../constants/CommonInput/inputConst';
 
 interface CommonInputProps {
   category: string;
   value: string;
   isExitedNickname?: boolean;
+  isNotMatchedPW?: boolean;
   handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -12,6 +14,7 @@ const CommonInput = ({
   category,
   value,
   isExitedNickname,
+  isNotMatchedPW,
   handleChangeInputs,
 }: CommonInputProps) => {
   const [placeholder, setPlaceholder] = useState('');
@@ -55,7 +58,9 @@ const CommonInput = ({
             category === 'secretKey') &&
             value.length > 20) ||
           (category === 'num' && parseInt(value) > 50) ||
-          (category === 'nickname' && (value.length > 10 || isExitedNickname))
+          (category === 'nickname' &&
+            (value.length > 10 || isExitedNickname)) ||
+          (category === 'password' && isNotMatchedPW)
         }
       >
         {category === 'secretKey' && (
@@ -90,8 +95,10 @@ const CommonInput = ({
         </Notice>
       )}
 
-      {isExitedNickname && (
-        <ErrorMessage>이미 사용중인 닉네임입니다</ErrorMessage>
+      {(isNotMatchedPW || isExitedNickname) && (
+        <ErrorMessage $isPW={category === 'password'}>
+          {ERROR_MSG[category as keyof typeof ERROR_MSG]}
+        </ErrorMessage>
       )}
     </CommonInputWrapper>
   );
@@ -253,7 +260,13 @@ const Notice = styled.p<{ $excessLength: boolean }>`
   ${({ theme }) => theme.fonts.detail_regular_12};
 `;
 
-const ErrorMessage = styled.p`
+const ErrorMessage = styled.p<{ $isPW: boolean }>`
   ${({ theme }) => theme.fonts.body_ligth_10};
   color: ${({ theme }) => theme.colors.alert};
+
+  ${({ $isPW }) =>
+    $isPW &&
+    css`
+      text-align: center;
+    `};
 `;
