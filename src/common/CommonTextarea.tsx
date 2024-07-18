@@ -10,7 +10,6 @@ const CommonTextarea = ({ category }: CommonTextareaProps) => {
 
   return (
     <CommonTextareaWrapper $textareaType={textareaType}>
-      <label htmlFor={category}></label>
       <Textarea
         id={category}
         name={category}
