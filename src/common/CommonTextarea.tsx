@@ -4,7 +4,7 @@ import { CommonTextareaProps } from '../types/\bCommonTextarea/TextareaType';
 const CommonTextarea = ({
   category,
   value,
-  handleChangeInputs,
+  handleChangeTextarea,
 }: CommonTextareaProps) => {
   const PLACEHOLDER = [
     '그룹에 대해서 간단하게 설명해주세요',
@@ -20,7 +20,7 @@ const CommonTextarea = ({
         placeholder={textareaType ? PLACEHOLDER[0] : PLACEHOLDER[1]}
         value={value}
         $disabled={value.length === 0}
-        onChange={handleChangeInputs}
+        onChange={handleChangeTextarea}
       ></Textarea>
     </CommonTextareaWrapper>
   );
