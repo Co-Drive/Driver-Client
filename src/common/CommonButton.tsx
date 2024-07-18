@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 interface CommonButtonProps {
-  isActive: boolean;
+  isActive?: boolean;
   category: string;
 }
 
-const CommonButton = ({ isActive, category }: CommonButtonProps) => {
+const CommonButton = ({ isActive = false, category }: CommonButtonProps) => {
   const getText = () => {
     switch (category) {
       case 'group_create':
@@ -48,7 +48,7 @@ const Button = styled.button<{ $category: string; $isActive: boolean }>`
   padding: ${({ $category }) => {
     switch ($category) {
       case 'group_create':
-        return '1rem 1.4rem';
+        return '1rem 1.4rem 1rem 4rem';
       case 'group_join':
         return '1rem 4.7rem 1rem 2rem';
       case 'account_create':
@@ -67,6 +67,6 @@ const Button = styled.button<{ $category: string; $isActive: boolean }>`
   }};
   color: ${({ theme, $isActive, $category }) => {
     if ($category === 'link_copy') return theme.colors.white;
-    $isActive ? theme.colors.gray900 : theme.colors.white;
+    return $isActive ? theme.colors.gray900 : theme.colors.white;
   }};
 `;
