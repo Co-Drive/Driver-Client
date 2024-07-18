@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
-import { CommonTextareaProps } from '../types/\bCommonTextarea/TextareaType';
+import { CommonTextareaProps } from '../types/CommonTextarea/TextareaType';
 
 const CommonTextarea = ({
   category,
