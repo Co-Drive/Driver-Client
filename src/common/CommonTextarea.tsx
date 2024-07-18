@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-
-interface CommonTextareaProps {
-  category: string;
-}
+import { CommonTextareaProps } from '../types/\bCommonTextarea/TextareaType';
 
 const CommonTextarea = ({ category }: CommonTextareaProps) => {
   const PLACEHOLDER = [
