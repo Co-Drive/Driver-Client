@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 import { CommonTextareaProps } from '../types/\bCommonTextarea/TextareaType';
 
 const CommonTextarea = ({
@@ -6,10 +7,6 @@ const CommonTextarea = ({
   value,
   handleChangeTextarea,
 }: CommonTextareaProps) => {
-  const PLACEHOLDER = [
-    '그룹에 대해서 간단하게 설명해주세요',
-    '진행 방식을 설명해주세요',
-  ];
   const isGroupType = category === 'group';
 
   return (
