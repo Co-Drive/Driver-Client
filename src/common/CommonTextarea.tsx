@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { CommonTextareaProps } from '../types/\bCommonTextarea/TextareaType';
 
-const CommonTextarea = ({ category }: CommonTextareaProps) => {
+const CommonTextarea = ({
+  category,
+  handleChangeInputs,
+}: CommonTextareaProps) => {
   const PLACEHOLDER = [
     '그룹에 대해서 간단하게 설명해주세요',
     '진행 방식을 설명해주세요',
@@ -14,6 +17,7 @@ const CommonTextarea = ({ category }: CommonTextareaProps) => {
         id={category}
         name={category}
         placeholder={textareaType ? PLACEHOLDER[0] : PLACEHOLDER[1]}
+        onChange={handleChangeInputs}
       ></Textarea>
     </CommonTextareaWrapper>
   );

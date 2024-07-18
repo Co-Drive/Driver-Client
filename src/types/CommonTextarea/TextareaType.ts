@@ -1,4 +1,4 @@
 export interface CommonTextareaProps {
-    category: string;
-  }
-  
+  category: string;
+  handleChangeInputs: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
