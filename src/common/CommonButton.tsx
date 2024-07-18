@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IcAdd, IcArrowRightGray, IcBtnCopy } from '../assets';
 
 interface CommonButtonProps {
   isActive?: boolean;
@@ -19,10 +20,32 @@ const CommonButton = ({ isActive = false, category }: CommonButtonProps) => {
     }
   };
 
+  const getIcon = () => {
+    switch (category) {
+      case 'group_create':
+        return IcAdd;
+      case 'group_join':
+        return IcArrowRightGray;
+      case 'link_copy':
+        return IcBtnCopy;
+      default:
+        return null;
+    }
+  };
+
+  // const IconComponent = getIcon();
+
   return (
     <>
       <Button $category={category} $isActive={isActive}>
-        {getText()}
+        {category === 'link_copy' ? (
+          <LogoCopyContainer>
+            {getText()}
+            <Icon as={IcBtnCopy} />
+          </LogoCopyContainer>
+        ) : (
+          getText()
+        )}
       </Button>
     </>
   );
@@ -30,21 +53,20 @@ const CommonButton = ({ isActive = false, category }: CommonButtonProps) => {
 
 export default CommonButton;
 
+const LogoCopyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* background-color: pink; */
+`;
+
 const Button = styled.button<{ $category: string; $isActive: boolean }>`
-  width: ${({ $category }) => {
-    switch ($category) {
-      case 'group_create':
-        return '14.2rem';
-      case 'group_join':
-        return '17.6rem';
-      case 'account_create':
-        return '17.8rem';
-      case 'link_copy':
-        return '17.6rem';
-      default:
-        return;
-    }
-  }};
+  display: flex;
+  justify-content: center;
+
+  ${({ theme }) => theme.fonts.title_bold_20}
+
   padding: ${({ $category }) => {
     switch ($category) {
       case 'group_create':
@@ -52,11 +74,9 @@ const Button = styled.button<{ $category: string; $isActive: boolean }>`
       case 'group_join':
         return '1rem 4.7rem 1rem 2rem';
       case 'account_create':
-        return '1.2rem 1.4rem';
+        return '1.2rem 5.4rem';
       case 'link_copy':
         return '1rem 2rem';
-      default:
-        return;
     }
   }};
 
@@ -69,4 +89,10 @@ const Button = styled.button<{ $category: string; $isActive: boolean }>`
     if ($category === 'link_copy') return theme.colors.white;
     return $isActive ? theme.colors.gray900 : theme.colors.white;
   }};
+`;
+
+const Icon = styled.svg`
+  margin-left: 0.8rem;
+
+  background-color: pink;
 `;
