@@ -23,7 +23,7 @@ const colors = {
   purple100: '#F2DDFF',
   purple200: '#E4B8FF',
   purple300: '#CE7DFF',
-  alert: '#FF3D55',
+  popup: '#FF3D55',
   codrive_green: '#08FF3F',
   codrive_purple: '#BF57FF',
   bg: '#0B0C0F',

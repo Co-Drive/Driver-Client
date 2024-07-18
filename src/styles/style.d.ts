@@ -20,7 +20,7 @@ declare module 'styled-components' {
       purple100: string;
       purple200: string;
       bg: string;
-      alert: string;
+      popup: string;
       codrive_purple: string;
       codrive_green: string;
     };
