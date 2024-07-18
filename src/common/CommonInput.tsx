@@ -243,6 +243,11 @@ const Input = styled.input<{ $category: string }>`
         return `left`;
     }
   }};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray300};
+    ${({ theme }) => theme.fonts.body_ligth_16};
+  }
 `;
 
 const Num = styled.p`
