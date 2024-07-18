@@ -1,5 +1,7 @@
 /// <reference types="vite-plugin-svgr/client" />
 
+import BtnGroupLock from './btn/btn_group_lock.svg?react';
+
 import IcAdd from './icon/ic_add.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
@@ -18,6 +20,7 @@ import IcWorkbook from './icon/ic_workbook.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
 export {
+  BtnGroupLock,
   IcAdd,
   IcArrowBottomGray,
   IcArrowLeftFill,

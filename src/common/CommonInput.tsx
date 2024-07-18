@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import { BtnGroupLock, IcSuccess } from '../assets';
 import { ERROR_MSG } from '../constants/CommonInput/inputConst';
 import { CommonInputProps } from '../types/CommonInput/inputType';
+import { handleInput } from '../utils/handleInput';
 
 const CommonInput = ({
   category,
@@ -10,6 +12,18 @@ const CommonInput = ({
   isNotMatchedPW,
   handleChangeInputs,
 }: CommonInputProps) => {
+  const isError =
+    ((category === 'title' ||
+      category === 'password' ||
+      category === 'secretKey') &&
+      value.length > 20) ||
+    (category === 'num' && parseInt(value) > 50) ||
+    (category === 'nickname' && (value.length > 10 || isExitedNickname)) ||
+    (category === 'password' && isNotMatchedPW);
+
+  const isNicknameSuccess =
+    category === 'nickname' && !isExitedNickname && value.length !== 0;
+
   const [placeholder, setPlaceholder] = useState('');
 
   const handlePlaceholder = () => {
@@ -43,22 +57,10 @@ const CommonInput = ({
 
   return (
     <CommonInputWrapper $category={category}>
-      <InputWrapper
-        $category={category}
-        $isError={
-          ((category === 'title' ||
-            category === 'password' ||
-            category === 'secretKey') &&
-            value.length > 20) ||
-          (category === 'num' && parseInt(value) > 50) ||
-          (category === 'nickname' &&
-            (value.length > 10 || isExitedNickname)) ||
-          (category === 'password' && isNotMatchedPW)
-        }
-      >
+      <InputWrapper $category={category} $isError={isError}>
         {category === 'secretKey' && (
           <CategoryWrapper>
-            {/* 여기 아이콘이 들어갈 예정 */}
+            <BtnGroupLock />
             <Text>비밀 그룹</Text>
             <Divider>|</Divider>
           </CategoryWrapper>
@@ -76,10 +78,15 @@ const CommonInput = ({
             $category={category}
             value={value}
             onChange={handleChangeInputs}
+            onInput={(e) => handleInput(e, category)}
           />
         </label>
         {category === 'num' && <Num>명</Num>}
-        {/* category === "nickname"일 때 체크 아이콘 들어올 예정 */}
+        {isNicknameSuccess && !isError && (
+          <IcWrapper $isNicknameSuccess={isNicknameSuccess}>
+            <IcSuccess />
+          </IcWrapper>
+        )}
       </InputWrapper>
 
       {category === 'secretKey' && (
@@ -192,7 +199,7 @@ const Input = styled.input<{ $category: string }>`
       case 'github':
         return `12.3rem`;
       default:
-        return `29.1rem`;
+        return `20.1rem`;
     }
   }};
   padding: 0.5rem 0 0.4rem;
@@ -236,6 +243,11 @@ const Input = styled.input<{ $category: string }>`
         return `left`;
     }
   }};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.gray300};
+    ${({ theme }) => theme.fonts.body_ligth_16};
+  }
 `;
 
 const Num = styled.p`
@@ -243,6 +255,14 @@ const Num = styled.p`
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_medium_16};
+`;
+
+const IcWrapper = styled.div<{ $isNicknameSuccess: boolean }>`
+  ${({ $isNicknameSuccess }) =>
+    $isNicknameSuccess &&
+    css`
+      margin-right: 1.2rem;
+    `};
 `;
 
 const Notice = styled.p<{ $excessLength: boolean }>`
