@@ -10,14 +10,14 @@ const CommonTextarea = ({
     '그룹에 대해서 간단하게 설명해주세요',
     '진행 방식을 설명해주세요',
   ];
-  const textareaType = category === 'group';
+  const isGroupType = category === 'group';
 
   return (
-    <CommonTextareaWrapper $textareaType={textareaType}>
+    <CommonTextareaWrapper $textareaType={isGroupType}>
       <Textarea
         id={category}
         name={category}
-        placeholder={textareaType ? PLACEHOLDER[0] : PLACEHOLDER[1]}
+        placeholder={isGroupType ? PLACEHOLDER[0] : PLACEHOLDER[1]}
         value={value}
         $disabled={value.length === 0}
         onChange={handleChangeTextarea}
