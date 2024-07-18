@@ -45,4 +45,6 @@ const Textarea = styled.textarea`
   background-color: ${({ theme }) => theme.colors.gray700};
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.body_ligth_16};
+
+  word-break: keep-all;
 `;
