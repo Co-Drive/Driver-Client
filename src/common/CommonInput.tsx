@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ERROR_MSG } from '../constants/CommonInput/inputConst';
 import { CommonInputProps } from '../types/CommonInput/inputType';
+import { handleInput } from '../utils/handleInput';
 
 const CommonInput = ({
   category,
@@ -76,6 +77,7 @@ const CommonInput = ({
             $category={category}
             value={value}
             onChange={handleChangeInputs}
+            onInput={(e) => handleInput(e, category)}
           />
         </label>
         {category === 'num' && <Num>명</Num>}
