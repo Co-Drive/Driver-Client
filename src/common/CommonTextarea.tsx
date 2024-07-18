@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 import { CommonTextareaProps } from '../types/\bCommonTextarea/TextareaType';
 
@@ -16,7 +16,6 @@ const CommonTextarea = ({
         name={category}
         placeholder={isGroupType ? PLACEHOLDER[0] : PLACEHOLDER[1]}
         value={value}
-        $disabled={value.length === 0}
         onChange={handleChangeTextarea}
       ></Textarea>
     </CommonTextareaWrapper>
@@ -33,7 +32,7 @@ const CommonTextareaWrapper = styled.article<{ $textareaType: boolean }>`
   background-color: ${({ theme }) => theme.colors.gray700};
 `;
 
-const Textarea = styled.textarea<{ $disabled: boolean }>`
+const Textarea = styled.textarea`
   width: calc(100% - 4rem);
   height: calc(100% - 4rem);
   margin: 2rem;
@@ -43,17 +42,13 @@ const Textarea = styled.textarea<{ $disabled: boolean }>`
 
   border: none;
   background-color: ${({ theme }) => theme.colors.gray700};
+  ${({ theme }) => theme.fonts.body_medium_16};
+  color: ${({ theme }) => theme.colors.white};
 
-  ${({ theme, $disabled }) =>
-    $disabled
-      ? css`
-          ${theme.fonts.body_ligth_16}
-          color: ${theme.colors.gray300}
-        `
-      : css`
-          ${theme.fonts.body_medium_16}
-          color: ${theme.colors.white}
-        `};
+  &::placeholder {
+    ${({ theme }) => theme.fonts.body_ligth_16};
+    color: ${({ theme }) => theme.colors.gray300};
+  }
 
   word-break: keep-all;
 `;
