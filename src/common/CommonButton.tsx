@@ -1,27 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
-import { IcAddBlack, IcAddGray, IcArrowRightBlack, IcBtnCopy } from '../assets';
-
-interface CommonButtonProps {
-  isActive?: boolean;
-  category: string;
-}
-
-const CONTENTS = [
-  {
-    category: 'group_create',
-    text: '그룹 생성하기',
-    icon_active: <IcAddBlack />,
-    icon_disabled: <IcAddGray />,
-  },
-  {
-    category: 'group_direct',
-    text: '그룹 바로가기',
-    icon: <IcArrowRightBlack />,
-  },
-  { category: 'account_create', text: '가입하기' },
-  { category: 'link_copy', text: '링크 복사하기', icon: <IcBtnCopy /> },
-  { category: 'group_join', text: '참여하기' },
-];
+import { CONTENTS } from '../constants/CommonBtn/BtnContent';
+import { CommonButtonProps } from '../types/CommonBtn/BtnType';
 
 const CommonButton = ({ isActive, category }: CommonButtonProps) => {
   return (
@@ -29,7 +9,7 @@ const CommonButton = ({ isActive, category }: CommonButtonProps) => {
       {CONTENTS.map((content) => {
         return (
           category === content.category && (
-            <>
+            <React.Fragment key={content.category}>
               {category === 'group_create' && (
                 <IconContainer>
                   {isActive ? content.icon_active : content.icon_disabled}
@@ -41,7 +21,7 @@ const CommonButton = ({ isActive, category }: CommonButtonProps) => {
               {(category === 'group_direct' || category === 'link_copy') && (
                 <IconContainer>{content.icon}</IconContainer>
               )}
-            </>
+            </React.Fragment>
           )
         );
       })}
