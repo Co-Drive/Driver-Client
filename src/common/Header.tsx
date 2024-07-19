@@ -3,76 +3,101 @@ import { IcHome, IcLogo } from '../assets';
 
 interface HeaderProps {
   isLogin: boolean;
+  nickname: string;
+  clickedCategory: string;
+  handleClickCategory: (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) => void;
 }
 
-const Header = ({ isLogin }: HeaderProps) => {
+const DATA = [
+  { icon: <IcHome />, text: '홈' },
+  { icon: <IcHome />, text: '문제풀이' },
+  { icon: <IcHome />, text: '그룹' },
+];
+
+const Header = ({
+  isLogin,
+  nickname,
+  clickedCategory,
+  handleClickCategory,
+}: HeaderProps) => {
   return (
-    <>
-      <HeaderContainer>
-        <LogoContainer>
-          <IcLogo />
-        </LogoContainer>
-        <NavBarContainer>
-          <NavBar>
-            <IconWrapper>
+    <HeaderContainer>
+      <LogoContainer>
+        <IcLogo />
+      </LogoContainer>
+      <NavBarContainer>
+        {DATA.map((v) => {
+          return (
+            <NavBar>
+              {isLogin && clickedCategory === v.text && (
+                <IconContainer>{v.icon}</IconContainer>
+              )}
+              <Text
+                onClick={(e) => handleClickCategory(e)}
+                $isClickedCategory={isLogin && clickedCategory === v.text}
+              >
+                {v.text}
+              </Text>
+            </NavBar>
+          );
+        })}
+        {/* <NavBar>
+            <IconContainer>
               <IcHome />
-            </IconWrapper>
-            <Text>홈</Text>
+            </IconContainer>
+            <Text onClick={(e) => handleClickCategory(e)}>홈</Text>
           </NavBar>
           <Text>문제풀이</Text>
-          <Text>그룹</Text>
-        </NavBarContainer>
-        <LoginBtnContainer $isLogin={isLogin}>
-          <LoginBtn>로그인</LoginBtn>
-        </LoginBtnContainer>
-      </HeaderContainer>
-    </>
+          <Text>그룹</Text> */}
+      </NavBarContainer>
+      <LoginBtnContainer $isLogin={isLogin}>
+        <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+      </LoginBtnContainer>
+    </HeaderContainer>
   );
 };
 
 export default Header;
 
-const HeaderContainer = styled.nav`
+const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
 
   margin: 0 23.9rem;
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 const LogoContainer = styled.div`
   margin-right: 3.5rem;
 
-  background-color: orange;
+  /* background-color: orange; */
 `;
 
-const NavBarContainer = styled.div`
+const NavBarContainer = styled.nav`
   display: flex;
   gap: 3rem;
 
-  background-color: blue;
+  /* background-color: blue; */
 `;
 
-const NavBar = styled.ul`
+const NavBar = styled.li`
   display: flex;
   gap: 0.6rem;
   justify-content: center;
   align-items: center;
 `;
 
-const IconWrapper = styled.li`
+const IconContainer = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const Text = styled.p`
+const Text = styled.p<{ $isClickedCategory: boolean }>`
   ${({ theme }) => theme.fonts.title_semiBold_18}
-  color: ${({ theme }) => theme.colors.gray300};
-`;
-
-const LoginBtn = styled.a`
-  ${({ theme }) => theme.fonts.title_semiBold_18}
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme, $isClickedCategory }) =>
+    $isClickedCategory ? theme.colors.white : theme.colors.gray300};
 `;
 
 const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
@@ -81,5 +106,10 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   margin-right: 2rem;
   margin-left: ${({ $isLogin }) => ($isLogin ? `42rem` : `44.9rem`)};
 
-  background-color: red;
+  /* background-color: red; */
+`;
+
+const LoginBtn = styled.button`
+  ${({ theme }) => theme.fonts.title_semiBold_18}
+  color: ${({ theme }) => theme.colors.white};
 `;
