@@ -1,17 +1,28 @@
 import styled from 'styled-components';
+import { IcHome, IcLogo } from '../assets';
 
-const Header = () => {
+interface HeaderProps {
+  isLogin: boolean;
+}
+
+const Header = ({ isLogin }: HeaderProps) => {
   return (
     <>
       <HeaderContainer>
-        <Logo className="nav_logo">로고</Logo>
+        <LogoContainer>
+          <IcLogo />
+        </LogoContainer>
         <NavBarContainer>
-          <NavBar href="">홈</NavBar>
-          <NavBar href="">문제풀이</NavBar>
-          <NavBar href="">그룹</NavBar>
+          <NavBar>
+            <IconWrapper>
+              <IcHome />
+            </IconWrapper>
+            <Text>홈</Text>
+          </NavBar>
+          <Text>문제풀이</Text>
+          <Text>그룹</Text>
         </NavBarContainer>
-
-        <LoginBtnContainer>
+        <LoginBtnContainer $isLogin={isLogin}>
           <LoginBtn>로그인</LoginBtn>
         </LoginBtnContainer>
       </HeaderContainer>
@@ -22,47 +33,53 @@ const Header = () => {
 export default Header;
 
 const HeaderContainer = styled.nav`
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 1440px;
-  /* height: 100%; */
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
-  width: 100%;
-  height: 11.6rem;
+  margin: 0 23.9rem;
 
-  background-color: #0f6;
+  background-color: pink;
 `;
+const LogoContainer = styled.div`
+  margin-right: 3.5rem;
 
-const Logo = styled.div`
-  margin-top: 2.8rem;
-  margin-left: 25.7rem;
-`;
-
-const NavBar = styled.a`
-  margin-top: 2.8rem;
-  margin-left: 3rem;
+  background-color: orange;
 `;
 
 const NavBarContainer = styled.div`
   display: flex;
+  gap: 3rem;
+
+  background-color: blue;
+`;
+
+const NavBar = styled.ul`
+  display: flex;
+  gap: 0.6rem;
   justify-content: center;
+  align-items: center;
+`;
 
-  /* flex-grow: 1; */
+const IconWrapper = styled.li`
+  display: flex;
+  align-items: center;
+`;
 
-  margin-right: 5rem;
+const Text = styled.p`
+  ${({ theme }) => theme.fonts.title_semiBold_18}
+  color: ${({ theme }) => theme.colors.gray300};
 `;
 
 const LoginBtn = styled.a`
-  margin-top: 3rem;
-  margin-right: 20rem;
-  margin-left: 56rem;
+  ${({ theme }) => theme.fonts.title_semiBold_18}
+  color: ${({ theme }) => theme.colors.white};
 `;
 
-const LoginBtnContainer = styled.div`
+const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
+
+  margin-right: 2rem;
+  margin-left: ${({ $isLogin }) => ($isLogin ? `42rem` : `44.9rem`)};
+
+  background-color: red;
 `;
