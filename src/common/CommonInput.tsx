@@ -266,10 +266,10 @@ const IcWrapper = styled.div<{ $isNicknameSuccess: boolean }>`
 `;
 
 const Notice = styled.p<{ $excessLength: boolean }>`
+  margin-left: 1.8rem;
+
   color: ${({ theme, $excessLength }) =>
     $excessLength ? theme.colors.alert : theme.colors.gray300};
-
-  text-align: right;
   ${({ theme }) => theme.fonts.detail_regular_12};
 `;
 
@@ -278,8 +278,11 @@ const ErrorMessage = styled.p<{ $isPW: boolean }>`
   color: ${({ theme }) => theme.colors.alert};
 
   ${({ $isPW }) =>
-    $isPW &&
-    css`
-      text-align: center;
-    `};
+    $isPW
+      ? css`
+          text-align: center;
+        `
+      : css`
+          margin-left: 1.8rem;
+        `};
 `;
