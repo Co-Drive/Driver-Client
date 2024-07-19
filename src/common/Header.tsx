@@ -30,7 +30,7 @@ const Header = ({
       <NavBarContainer>
         {DATA.map((v) => {
           return (
-            <NavBar>
+            <NavBar key={v.text}>
               {isLogin && clickedCategory === v.text && (
                 <IconContainer>{v.icon}</IconContainer>
               )}
@@ -43,14 +43,6 @@ const Header = ({
             </NavBar>
           );
         })}
-        {/* <NavBar>
-            <IconContainer>
-              <IcHome />
-            </IconContainer>
-            <Text onClick={(e) => handleClickCategory(e)}>홈</Text>
-          </NavBar>
-          <Text>문제풀이</Text>
-          <Text>그룹</Text> */}
       </NavBarContainer>
       <LoginBtnContainer $isLogin={isLogin}>
         <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
@@ -66,6 +58,8 @@ const HeaderContainer = styled.header`
   align-items: center;
 
   margin: 0 23.9rem;
+
+  border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray300};
 
   /* background-color: pink; */
 `;
@@ -112,4 +106,9 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
 const LoginBtn = styled.button`
   ${({ theme }) => theme.fonts.title_semiBold_18}
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const BorderLine = styled.div`
+  border-top: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+  background-color: pink;
 `;
