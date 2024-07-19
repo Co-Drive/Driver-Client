@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { BtnGroupLock, IcSuccess } from '../assets';
+import { IcSecretWhite, IcSuccess } from '../assets';
 import { ERROR_MSG } from '../constants/CommonInput/inputConst';
 import { CommonInputProps } from '../types/CommonInput/inputType';
 import { handleInput } from '../utils/handleInput';
@@ -60,7 +60,7 @@ const CommonInput = ({
       <InputWrapper $category={category} $isError={isError}>
         {category === 'secretKey' && (
           <CategoryWrapper>
-            <BtnGroupLock />
+            <IcSecretWhite />
             <Text>비밀 그룹</Text>
             <Divider>|</Divider>
           </CategoryWrapper>
