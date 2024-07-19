@@ -5,7 +5,7 @@ import { CommonButtonProps } from '../types/CommonBtn/BtnType';
 
 const CommonButton = ({ isActive, category }: CommonButtonProps) => {
   return (
-    <Button $category={category} $isActive={isActive}>
+    <Button type="button" $category={category} $isActive={isActive}>
       {CONTENTS.map((content) => {
         return (
           category === content.category && (
