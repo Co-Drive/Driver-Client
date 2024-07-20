@@ -1,20 +1,7 @@
 import styled from 'styled-components';
-import { IcHome, IcLogo } from '../assets';
-
-interface HeaderProps {
-  isLogin: boolean;
-  nickname: string;
-  clickedCategory: string;
-  handleClickCategory: (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-  ) => void;
-}
-
-const DATA = [
-  { icon: <IcHome />, text: '홈' },
-  { icon: <IcHome />, text: '문제풀이' },
-  { icon: <IcHome />, text: '그룹' },
-];
+import { IcLogo } from '../assets';
+import { DATA } from '../constants/Header/HeaderConst';
+import { HeaderProps } from '../types/Header/HeaderType';
 
 const Header = ({
   isLogin,
