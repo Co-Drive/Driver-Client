@@ -1,7 +1,19 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../assets';
 
 const CommonHashTag = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleOptions = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (option) => {
+    setIsOpen(false);
+  };
+
   return (
     <CommonHashTagWrapper>
       <CustomSelect>
@@ -30,20 +42,21 @@ const CommonHashTag = () => {
               Kotlin<RemoveTag>&times;</RemoveTag>
             </Tag>
           </SelectedOptions>
-          <Arrow>
-            <IcArrowBottomGray />
-            <IcArrowTopGray />
+          <Arrow onClick={toggleOptions}>
+            {isOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
           </Arrow>
         </SelectBox>
-        <Options>
-          <Option>Python</Option>
-          <Option>Java</Option>
-          <Option>Javascript</Option>
-          <Option>C++</Option>
-          <Option>C</Option>
-          <Option>C#</Option>
-          <Option>Kotlin</Option>
-        </Options>
+        {isOpen && (
+          <Options>
+            {['Python', 'Java', 'Javascript', 'C++', 'C', 'C#', 'Kotlin'].map(
+              (option) => (
+                <Option key={option} onClick={() => handleOptionClick(option)}>
+                  {option}
+                </Option>
+              )
+            )}
+          </Options>
+        )}
       </CustomSelect>
     </CommonHashTagWrapper>
   );
