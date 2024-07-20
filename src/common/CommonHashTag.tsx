@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcArrowBottomGray, IcArrowTopGray } from '../assets';
+import { IcArrowBottomGray, IcArrowTopGray, IcCancelSmall } from '../assets';
 
 const CommonHashTag = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedTag, setSelectedTag] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const toggleOptions = (e) => {
     e.stopPropagation();
@@ -11,58 +13,67 @@ const CommonHashTag = () => {
   };
 
   const handleOptionClick = (option) => {
+    setSelectedTag(option);
+    setInputValue(option);
     setIsOpen(false);
+  };
+
+  const removeTag = () => {
+    setSelectedTag('');
+    setInputValue('');
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
   };
 
   return (
     <CommonHashTagWrapper>
-      <CustomSelect>
-        <SelectBox>
-          <Input hidden />
-          <SelectedOptions>
-            <Tag>
-              Black<RemoveTag>&times;</RemoveTag>
-            </Tag>
-            <Tag>
-              Java<RemoveTag>&times;</RemoveTag>
-            </Tag>
-            <Tag>
-              Javascript<RemoveTag>&times;</RemoveTag>
-            </Tag>
-            <Tag>
-              C++<RemoveTag>&times;</RemoveTag>
-            </Tag>
-            <Tag>
-              C<RemoveTag>&times;</RemoveTag>
-            </Tag>
-            <Tag>
-              C#<RemoveTag>&times;</RemoveTag>
-            </Tag>
-            <Tag>
-              Kotlin<RemoveTag>&times;</RemoveTag>
-            </Tag>
-          </SelectedOptions>
-          <Arrow onClick={toggleOptions}>
-            {isOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
-          </Arrow>
-        </SelectBox>
-        {isOpen && (
-          <Options>
-            {['Python', 'Java', 'Javascript', 'C++', 'C', 'C#', 'Kotlin'].map(
-              (option) => (
-                <Option key={option} onClick={() => handleOptionClick(option)}>
-                  {option}
-                </Option>
-              )
-            )}
-          </Options>
-        )}
-      </CustomSelect>
+      <Select>
+        <CustomSelect>
+          <SelectBox>
+            <Input hidden value={inputValue} onChange={handleInputChange} />
+            <SelectedOptions>
+              {selectedTag === '' ? (
+                <Placeholder>자주 사용하는 언어를 선택해주세요</Placeholder>
+              ) : (
+                <Tag>
+                  {selectedTag}
+                  <IcCancelSmall onClick={removeTag} />
+                </Tag>
+              )}
+            </SelectedOptions>
+            <Arrow onClick={toggleOptions}>
+              {isOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
+            </Arrow>
+          </SelectBox>
+          {isOpen && (
+            <Options>
+              {['Python', 'Java', 'Javascript', 'C++', 'C', 'C#', 'Kotlin'].map(
+                (option) => (
+                  <Option
+                    key={option}
+                    onClick={() => handleOptionClick(option)}
+                  >
+                    {option}
+                  </Option>
+                )
+              )}
+            </Options>
+          )}
+        </CustomSelect>
+      </Select>
     </CommonHashTagWrapper>
   );
 };
 
 const CommonHashTagWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Select = styled.div`
   display: flex;
   gap: 2rem;
   align-items: flex-start;
@@ -72,10 +83,6 @@ const CustomSelect = styled.div`
   position: relative;
 
   width: 29.6rem;
-
-  &.open {
-    display: block;
-  }
 `;
 
 const SelectBox = styled.div`
@@ -105,6 +112,10 @@ const SelectedOptions = styled.div`
   color: wheat;
 `;
 
+const Placeholder = styled.div`
+  color: #d8d9dd;
+`;
+
 const Tag = styled.span`
   display: flex;
   align-items: center;
@@ -117,12 +128,10 @@ const Tag = styled.span`
   color: black;
 `;
 
-const RemoveTag = styled.span`
-  margin: 0 0.5rem;
-`;
-
 const Arrow = styled.div`
-  /* Only comments */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
 
 const Options = styled.div`
@@ -137,8 +146,8 @@ const Options = styled.div`
   background-color: #292a2f;
 
   text-align: center;
-
   max-height: 34.8rem;
+  overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
 `;
@@ -146,7 +155,6 @@ const Options = styled.div`
 const Option = styled.div`
   padding: 1.2rem;
 
-  color: wheat;
   color: #d8d9dd;
   cursor: pointer;
 `;
