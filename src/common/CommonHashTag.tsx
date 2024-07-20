@@ -7,22 +7,26 @@ const CommonHashTag = () => {
   const [selectedTag, setSelectedTag] = useState('');
   const [inputValue, setInputValue] = useState('');
 
+  /* 드롭다운 */
   const toggleOptions = (e) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
+  /* 옵션 선택 시 값 저장 */
   const handleOptionClick = (option) => {
     setSelectedTag(option);
     setInputValue(option);
     setIsOpen(false);
   };
 
+  /* 값 삭제 */
   const removeTag = () => {
     setSelectedTag('');
     setInputValue('');
   };
 
+  /* 상태 업데이트 */
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
