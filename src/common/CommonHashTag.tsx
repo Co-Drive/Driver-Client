@@ -4,60 +4,52 @@ import { IcArrowBottomGray, IcArrowTopGray } from '../assets';
 const CommonHashTag = () => {
   return (
     <CommonHashTagWrapper>
-      <Select>
-        <CustomSelect>
-          <SelectBox>
-            <Input hidden />
-            <SelectedOptions>
-              <Tag>
-                Black<RemoveTag>&times;</RemoveTag>
-              </Tag>
-              <Tag>
-                Java<RemoveTag>&times;</RemoveTag>
-              </Tag>
-              <Tag>
-                Javascript<RemoveTag>&times;</RemoveTag>
-              </Tag>
-              <Tag>
-                C++<RemoveTag>&times;</RemoveTag>
-              </Tag>
-              <Tag>
-                C<RemoveTag>&times;</RemoveTag>
-              </Tag>
-              <Tag>
-                C#<RemoveTag>&times;</RemoveTag>
-              </Tag>
-              <Tag>
-                Kotlin<RemoveTag>&times;</RemoveTag>
-              </Tag>
-            </SelectedOptions>
-            <Arrow>
-              <IcArrowBottomGray />
-              <IcArrowTopGray />
-            </Arrow>
-          </SelectBox>
-          <Options>
-            <Option>Python</Option>
-            <Option>Java</Option>
-            <Option>Javascript</Option>
-            <Option>C++</Option>
-            <Option>C</Option>
-            <Option>C#</Option>
-            <Option>Kotlin</Option>
-          </Options>
-        </CustomSelect>
-      </Select>
+      <CustomSelect>
+        <SelectBox>
+          <Input hidden />
+          <SelectedOptions>
+            <Tag>
+              Black<RemoveTag>&times;</RemoveTag>
+            </Tag>
+            <Tag>
+              Java<RemoveTag>&times;</RemoveTag>
+            </Tag>
+            <Tag>
+              Javascript<RemoveTag>&times;</RemoveTag>
+            </Tag>
+            <Tag>
+              C++<RemoveTag>&times;</RemoveTag>
+            </Tag>
+            <Tag>
+              C<RemoveTag>&times;</RemoveTag>
+            </Tag>
+            <Tag>
+              C#<RemoveTag>&times;</RemoveTag>
+            </Tag>
+            <Tag>
+              Kotlin<RemoveTag>&times;</RemoveTag>
+            </Tag>
+          </SelectedOptions>
+          <Arrow>
+            <IcArrowBottomGray />
+            <IcArrowTopGray />
+          </Arrow>
+        </SelectBox>
+        <Options>
+          <Option>Python</Option>
+          <Option>Java</Option>
+          <Option>Javascript</Option>
+          <Option>C++</Option>
+          <Option>C</Option>
+          <Option>C#</Option>
+          <Option>Kotlin</Option>
+        </Options>
+      </CustomSelect>
     </CommonHashTagWrapper>
   );
 };
 
 const CommonHashTagWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Select = styled.div`
   display: flex;
   gap: 2rem;
   align-items: flex-start;
