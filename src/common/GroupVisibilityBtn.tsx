@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 import { IcSecretGray, IcUnlockGray, IcUnlockWhite } from '../assets';
+import { GroupVisibilityBtnProps } from '../types/GroupVisibility/groupType';
 
-interface GroupVisibilityBtnProps {
-  isVisible: boolean;
-  isActive: boolean;
-}
 const GroupVisibilityBtn = ({
   isVisible,
   isActive,
