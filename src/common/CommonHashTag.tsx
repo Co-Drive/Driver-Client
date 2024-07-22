@@ -1,23 +1,24 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray, IcCancelSmall } from '../assets';
+import { CommonHashTagProps } from '../types/CommonHashTag/inputType';
 
 const CommonHashTag = ({
   selectedTag,
   inputValue,
   onTagChange,
   onInputChange,
-}) => {
+}: CommonHashTagProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   /* 드롭다운 */
-  const toggleOptions = (e) => {
+  const toggleOptions = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
   /* 옵션 선택 시 값 저장 */
-  const handleClickOption = (option) => {
+  const handleClickOption = (option: string) => {
     onTagChange(option);
     setIsOpen(false);
   };
@@ -29,7 +30,7 @@ const CommonHashTag = ({
   };
 
   /* 상태 업데이트 */
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     onInputChange(e.target.value);
   };
 
