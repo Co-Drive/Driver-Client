@@ -1,5 +1,7 @@
 import { createGlobalStyle, css } from 'styled-components';
 import MontserratMedium from './fonts/Montserrat/Montserrat-Medium.ttf';
+import MontserratRegular from './fonts/Montserrat/Montserrat-Regular.ttf';
+import MontserratSemibold from './fonts/Montserrat/Montserrat-SemiBold.ttf';
 import SuitBold from './fonts/Suit/SUIT-Bold.ttf';
 import SuitLight from './fonts/Suit/SUIT-Light.ttf';
 import SuitMedium from './fonts/Suit/SUIT-Medium.ttf';
@@ -159,9 +161,22 @@ export const reset = css`
 export const GlobalStyle = createGlobalStyle`
 
 @font-face {
+  font-family: MontserratSemibold;
+  font-style: normal;
+  src: url(${MontserratSemibold}) format('truetype');
+}
+
+
+@font-face {
   font-family: MontserratMedium;
   font-style: normal;
   src: url(${MontserratMedium}) format('truetype');
+}
+
+@font-face {
+  font-family: MontserratRegular;
+  font-style: normal;
+  src: url(${MontserratRegular}) format('truetype');
 }
 
 @font-face {
