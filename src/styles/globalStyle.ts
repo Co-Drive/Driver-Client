@@ -151,6 +151,10 @@ export const reset = css`
     background: transparent;
     cursor: pointer;
   }
+
+  .code-mirror * {
+    font-size: 1.6rem !important; /* 1.6rem을 원하는 값으로 설정 */
+  }
 `;
 export const GlobalStyle = createGlobalStyle`
 
