@@ -121,6 +121,8 @@ const CommonInputWrapper = styled.article<{ $category: string }>`
         return `35rem`;
       case 'secretKey':
         return `40.5rem`;
+      case 'nickname':
+        return `22.6rem`;
       default:
         return `29.6rem`;
     }
