@@ -15,21 +15,23 @@ const Header = ({
         <IcLogo />
       </LogoContainer>
       <NavBarContainer>
-        {DATA.map((v) => {
-          return (
-            <NavBar key={v.text}>
-              {isLogin && clickedCategory === v.text && (
-                <IconContainer>{v.icon}</IconContainer>
-              )}
-              <Text
-                onClick={(e) => handleClickCategory(e)}
-                $isClickedCategory={isLogin && clickedCategory === v.text}
-              >
-                {v.text}
-              </Text>
-            </NavBar>
-          );
-        })}
+        <NavBarUl>
+          {DATA.map((v) => {
+            return (
+              <NavBar key={v.text}>
+                {isLogin && clickedCategory === v.text && (
+                  <IconContainer>{v.icon}</IconContainer>
+                )}
+                <Text
+                  onClick={(e) => handleClickCategory(e)}
+                  $isClickedCategory={isLogin && clickedCategory === v.text}
+                >
+                  {v.text}
+                </Text>
+              </NavBar>
+            );
+          })}
+        </NavBarUl>
       </NavBarContainer>
       <LoginBtnContainer $isLogin={isLogin}>
         <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
@@ -53,6 +55,10 @@ const LogoContainer = styled.div`
 `;
 
 const NavBarContainer = styled.nav`
+  display: flex;
+`;
+
+const NavBarUl = styled.ul`
   display: flex;
   gap: 3rem;
 `;
