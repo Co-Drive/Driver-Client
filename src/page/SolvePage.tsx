@@ -34,6 +34,10 @@ const SolvePage = () => {
     });
   };
 
+  const handleClickGoTopBtn = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <SolvePageContainer>
       {ideItems.map((item) => {
@@ -48,6 +52,11 @@ const SolvePage = () => {
       })}
 
       <AddBtn type="button" onClick={handleClickAddBtn}></AddBtn>
+      {ideId > 0 && (
+        <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
+          위로
+        </GoTopBtn>
+      )}
     </SolvePageContainer>
   );
 };
@@ -66,4 +75,12 @@ const AddBtn = styled.button`
 
   background-color: ${({ theme }) => theme.colors.gray600};
   color: white;
+`;
+
+const GoTopBtn = styled.button`
+  padding: 3rem;
+  margin-top: 1rem;
+
+  background-color: ${({ theme }) => theme.colors.codrive_green};
+  color: black;
 `;
