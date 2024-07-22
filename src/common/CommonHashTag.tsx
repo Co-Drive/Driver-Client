@@ -14,7 +14,7 @@ const CommonHashTag = () => {
   };
 
   /* 옵션 선택 시 값 저장 */
-  const handleOptionClick = (option) => {
+  const handleClickOption = (option) => {
     setSelectedTag(option);
     setInputValue(option);
     setIsOpen(false);
@@ -27,7 +27,7 @@ const CommonHashTag = () => {
   };
 
   /* 상태 업데이트 */
-  const handleInputChange = (e) => {
+  const handleChangeInput = (e) => {
     setInputValue(e.target.value);
   };
 
@@ -36,7 +36,7 @@ const CommonHashTag = () => {
       <Select>
         <CustomSelect>
           <SelectBox>
-            <Input hidden value={inputValue} onChange={handleInputChange} />
+            <Input hidden value={inputValue} onChange={handleChangeInput} />
             <SelectedOptions>
               {selectedTag === '' ? (
                 <Placeholder>자주 사용하는 언어를 선택해주세요</Placeholder>
@@ -57,7 +57,7 @@ const CommonHashTag = () => {
                 (option) => (
                   <Option
                     key={option}
-                    onClick={() => handleOptionClick(option)}
+                    onClick={() => handleClickOption(option)}
                   >
                     {option}
                   </Option>
