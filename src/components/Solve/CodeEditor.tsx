@@ -57,7 +57,7 @@ const CodeEditor = () => {
         onChange={handleChangeCode}
         extensions={extensions}
         theme={dracula}
-        minHeight="38.2rem"
+        height="38.2rem"
       />
     </CodeMirrorWrapper>
   );
@@ -69,7 +69,7 @@ const CodeMirrorWrapper = styled.article`
   overflow: hidden auto;
 
   width: 92.6rem;
-  min-height: 38.2rem;
+  height: 38.2rem;
 
   border-radius: 0.8rem;
 
