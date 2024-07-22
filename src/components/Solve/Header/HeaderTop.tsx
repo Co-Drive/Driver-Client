@@ -29,8 +29,8 @@ const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
         />
       </TitleContainer>
 
-      <RightContainer>
-        <LevelContainer>
+      <LevelContainer>
+        <LevelDetailContainer>
           <LvText>난이도</LvText>
           <LvText>|</LvText>
           <LvStarContainer>
@@ -47,12 +47,12 @@ const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
               );
             })}
           </LvStarContainer>
-        </LevelContainer>
+        </LevelDetailContainer>
 
         <InfoIcContainer>
           {/* information 아이콘 들어갈 예정 */}
         </InfoIcContainer>
-      </RightContainer>
+      </LevelContainer>
     </HeaderTopContainer>
   );
 };
@@ -99,7 +99,7 @@ const TitleInput = styled.input`
   }
 `;
 
-const RightContainer = styled.div`
+const LevelContainer = styled.div`
   display: flex;
   gap: 7.4rem;
   justify-content: center;
@@ -110,7 +110,7 @@ const RightContainer = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
-const LevelContainer = styled.div`
+const LevelDetailContainer = styled.div`
   display: flex;
   gap: 1.2rem;
   justify-content: center;
