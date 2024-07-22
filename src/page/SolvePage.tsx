@@ -43,8 +43,9 @@ const SolvePage = () => {
   };
 
   const handleClickAddBtn = () => {
+    const lastItem = ideItems[ideItems.length - 1];
     const contents = {
-      id: ideId + 1,
+      id: lastItem.id + 1,
       code: '// code',
       memo: '',
     };
