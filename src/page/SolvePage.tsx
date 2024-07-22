@@ -2,6 +2,11 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import CodeSpace from '../components/Solve/CodeSpace';
 
+export interface handleChangeCodeProps {
+  newCode: string;
+  stringId: string;
+}
+
 const SolvePage = () => {
   const [_, setLevel] = useState(0);
   const [ide, setIde] = useState({
@@ -15,10 +20,12 @@ const SolvePage = () => {
     setLevel(clickedLv);
   };
 
-  const handleChangeCode = (newCode: string) => {
+  const handleChangeCode = ({ newCode, stringId }: handleChangeCodeProps) => {
+    const id = parseInt(stringId);
+
     setIde({
       ideItems: ideItems.map((item) =>
-        ideId === item.id ? { ...item, ['code']: newCode } : item
+        id === item.id ? { ...item, ['code']: newCode } : item
       ),
       ideId: ideId,
     });

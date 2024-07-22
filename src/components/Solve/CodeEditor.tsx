@@ -11,13 +11,15 @@ import { csharp } from '@replit/codemirror-lang-csharp';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import styled from 'styled-components';
+import { handleChangeCodeProps } from '../../page/SolvePage';
 
 interface CodeEditorProps {
+  stringId: string;
   code: string;
-  handleChangeCode: (newCode: string) => void;
+  handleChangeCode: ({ newCode, stringId }: handleChangeCodeProps) => void;
 }
 
-const CodeEditor = ({ code, handleChangeCode }: CodeEditorProps) => {
+const CodeEditor = ({ stringId, code, handleChangeCode }: CodeEditorProps) => {
   // 상수 파일로 분리할 예정
   const LANG_LIST = {
     c: () => StreamLanguage.define(c),
@@ -54,8 +56,9 @@ const CodeEditor = ({ code, handleChangeCode }: CodeEditorProps) => {
   return (
     <CodeMirrorWrapper className="code-mirror">
       <CodeMirror
+        id={stringId}
         value={code}
-        onChange={handleChangeCode}
+        onChange={(newCode) => handleChangeCode({ newCode, stringId })}
         extensions={extensions}
         theme={dracula}
         height="38.2rem"

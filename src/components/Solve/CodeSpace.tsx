@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { handleChangeCodeProps } from '../../page/SolvePage';
 import CodeEditor from './CodeEditor';
 import CodeSpaceHeader from './Header/CodeSpaceHeader';
 import Memo from './Memo';
@@ -7,7 +8,7 @@ interface CodeSpaceProps {
   ideItems: Array<{ id: number; code: string; memo: string }>;
   handleClickLv: (clickedLv: number) => void;
   handleClickDeleteBtn: (id: number) => void;
-  handleChangeCode: (newCode: string) => void;
+  handleChangeCode: ({ newCode, stringId }: handleChangeCodeProps) => void;
   handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
@@ -22,6 +23,7 @@ const CodeSpace = ({
     <CodeSpaceContainer>
       <CodeSpaceHeader handleClickLv={handleClickLv} />
       {ideItems.map((item) => {
+        console.log(item);
         return (
           <ContentsContainer key={item.id}>
             {item.id > 0 && (
@@ -32,9 +34,13 @@ const CodeSpace = ({
                 삭제
               </DeleteBtn>
             )}
-            <CodeEditor code={item.code} handleChangeCode={handleChangeCode} />
+            <CodeEditor
+              stringId={item.id.toString()}
+              code={item.code}
+              handleChangeCode={handleChangeCode}
+            />
             <Memo
-              id={item.id}
+              stringId={item.id.toString()}
               memo={item.memo}
               handleChangeMemo={handleChangeMemo}
             />
