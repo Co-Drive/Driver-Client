@@ -18,18 +18,18 @@ const SolvePage = () => {
   const handleChangeCode = (newCode: string) => {
     setIde({
       ideItems: ideItems.map((item) =>
-        ideId === item.id ? { ...item, code: newCode } : item
+        ideId === item.id ? { ...item, ['code']: newCode } : item
       ),
       ideId: ideId,
     });
   };
 
   const handleChangeMemo = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+    const { id, name, value } = e.target;
 
     setIde({
       ideItems: ideItems.map((item) =>
-        ideId === item.id ? { ...item, [name]: value } : item
+        parseInt(id) === item.id ? { ...item, [name]: value } : item
       ),
       ideId: ideId,
     });

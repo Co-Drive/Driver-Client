@@ -33,7 +33,11 @@ const CodeSpace = ({
               </DeleteBtn>
             )}
             <CodeEditor code={item.code} handleChangeCode={handleChangeCode} />
-            <Memo memo={item.memo} handleChangeMemo={handleChangeMemo} />
+            <Memo
+              id={item.id}
+              memo={item.memo}
+              handleChangeMemo={handleChangeMemo}
+            />
           </ContentsContainer>
         );
       })}
