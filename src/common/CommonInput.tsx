@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { BtnGroupLock, IcSuccess } from '../assets';
+import { IcSecretWhite, IcSuccess } from '../assets';
 import { ERROR_MSG } from '../constants/CommonInput/inputConst';
 import { CommonInputProps } from '../types/CommonInput/inputType';
 import { handleInput } from '../utils/handleInput';
@@ -60,7 +60,7 @@ const CommonInput = ({
       <InputWrapper $category={category} $isError={isError}>
         {category === 'secretKey' && (
           <CategoryWrapper>
-            <BtnGroupLock />
+            <IcSecretWhite />
             <Text>비밀 그룹</Text>
             <Divider>|</Divider>
           </CategoryWrapper>
@@ -121,6 +121,8 @@ const CommonInputWrapper = styled.article<{ $category: string }>`
         return `35rem`;
       case 'secretKey':
         return `40.5rem`;
+      case 'nickname':
+        return `22.6rem`;
       default:
         return `29.6rem`;
     }
@@ -266,10 +268,10 @@ const IcWrapper = styled.div<{ $isNicknameSuccess: boolean }>`
 `;
 
 const Notice = styled.p<{ $excessLength: boolean }>`
+  margin-left: 1.8rem;
+
   color: ${({ theme, $excessLength }) =>
     $excessLength ? theme.colors.alert : theme.colors.gray300};
-
-  text-align: right;
   ${({ theme }) => theme.fonts.detail_regular_12};
 `;
 
@@ -278,8 +280,11 @@ const ErrorMessage = styled.p<{ $isPW: boolean }>`
   color: ${({ theme }) => theme.colors.alert};
 
   ${({ $isPW }) =>
-    $isPW &&
-    css`
-      text-align: center;
-    `};
+    $isPW
+      ? css`
+          text-align: center;
+        `
+      : css`
+          margin-left: 1.8rem;
+        `};
 `;
