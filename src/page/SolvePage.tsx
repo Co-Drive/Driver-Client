@@ -50,6 +50,13 @@ const SolvePage = () => {
     });
   };
 
+  const handleClickDeleteBtn = (id: number) => {
+    setIde({
+      ideItems: ideItems.filter((item) => item.id !== id),
+      ideId: ideId - 1,
+    });
+  };
+
   const handleClickGoTopBtn = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -59,6 +66,7 @@ const SolvePage = () => {
       <CodeSpace
         ideItems={ideItems}
         handleClickLv={handleClickLv}
+        handleClickDeleteBtn={handleClickDeleteBtn}
         handleChangeCode={handleChangeCode}
         handleChangeMemo={handleChangeMemo}
       />

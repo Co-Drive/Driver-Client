@@ -6,6 +6,7 @@ import Memo from './Memo';
 interface CodeSpaceProps {
   ideItems: Array<{ id: number; code: string; memo: string }>;
   handleClickLv: (clickedLv: number) => void;
+  handleClickDeleteBtn: (id: number) => void;
   handleChangeCode: (newCode: string) => void;
   handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
@@ -13,6 +14,7 @@ interface CodeSpaceProps {
 const CodeSpace = ({
   ideItems,
   handleClickLv,
+  handleClickDeleteBtn,
   handleChangeCode,
   handleChangeMemo,
 }: CodeSpaceProps) => {
@@ -22,6 +24,14 @@ const CodeSpace = ({
       {ideItems.map((item) => {
         return (
           <ContentsContainer key={item.id}>
+            {item.id > 0 && (
+              <DeleteBtn
+                type="button"
+                onClick={() => handleClickDeleteBtn(item.id)}
+              >
+                삭제
+              </DeleteBtn>
+            )}
             <CodeEditor code={item.code} handleChangeCode={handleChangeCode} />
             <Memo memo={item.memo} handleChangeMemo={handleChangeMemo} />
           </ContentsContainer>
@@ -48,4 +58,12 @@ const ContentsContainer = styled.div`
   flex-direction: column;
 
   margin-top: 3.2rem;
+`;
+
+const DeleteBtn = styled.button`
+  padding: 3rem;
+  margin-top: 1rem;
+
+  background-color: ${({ theme }) => theme.colors.gray600};
+  color: white;
 `;
