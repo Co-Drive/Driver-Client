@@ -1,23 +1,36 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import CodeSpace from '../components/Solve/CodeSpace';
-
-export interface handleChangeCodeProps {
-  newCode: string;
-  stringId: string;
-}
+import { handleChangeCodeProps } from '../types/Solve/solveTypes';
 
 const SolvePage = () => {
-  const [_, setLevel] = useState(0);
+  const [questionInfo, setQuestionInfo] = useState({
+    title: '',
+    level: 0,
+    type: [],
+    platform: '',
+    link: '',
+  });
+
   const [ide, setIde] = useState({
     ideId: 0,
     ideItems: [{ id: 0, code: '// code', memo: '' }],
   });
 
+  // const { title, level, type, platform, link } = questionInfo;
   const { ideId, ideItems } = ide;
 
-  const handleClickLv = (clickedLv: number) => {
-    setLevel(clickedLv);
+  const handleClickQuestionInfo = (
+    category: string,
+    e:
+      | React.MouseEvent<HTMLLIElement, MouseEvent>
+      | React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = e.currentTarget;
+    setQuestionInfo({
+      ...questionInfo,
+      [category]: value,
+    });
   };
 
   const handleChangeCode = ({ newCode, stringId }: handleChangeCodeProps) => {
@@ -73,7 +86,8 @@ const SolvePage = () => {
     <SolvePageContainer>
       <CodeSpace
         ideItems={ideItems}
-        handleClickLv={handleClickLv}
+        questionInfo={questionInfo}
+        handleClickQuestionInfo={handleClickQuestionInfo}
         handleClickDeleteBtn={handleClickDeleteBtn}
         handleChangeCode={handleChangeCode}
         handleChangeMemo={handleChangeMemo}
