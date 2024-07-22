@@ -9,7 +9,7 @@ const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
 
   const handleClickIc = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const { value } = e.currentTarget;
-    handleClickQuestionInfo('level', e);
+    handleClickQuestionInfo({ category: 'level', e });
     setPaintedStar(
       Array(value)
         .fill(1)
@@ -24,7 +24,7 @@ const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
           placeholder="제목을 입력해주세요"
           value={title}
           onChange={(e) => {
-            handleClickQuestionInfo('title', e);
+            handleClickQuestionInfo({ category: 'title', e });
           }}
         />
       </TitleContainer>

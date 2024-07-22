@@ -1,14 +1,24 @@
+export interface handleChangeCodeProps {
+  newCode: string;
+  stringId: string;
+}
+
 interface changeCodeFnProps {
   handleChangeCode: ({ newCode, stringId }: handleChangeCodeProps) => void;
 }
 
+export interface handleClickQuestionInfoProps {
+  category: string;
+  e:
+    | React.MouseEvent<HTMLLIElement, MouseEvent>
+    | React.ChangeEvent<HTMLInputElement>;
+}
+
 interface clickQuestionInfoFnProps {
-  handleClickQuestionInfo: (
-    category: string,
-    e:
-      | React.MouseEvent<HTMLLIElement, MouseEvent>
-      | React.ChangeEvent<HTMLInputElement>
-  ) => void;
+  handleClickQuestionInfo: ({
+    category,
+    e,
+  }: handleClickQuestionInfoProps) => void;
 }
 
 export interface CodeEditorProps extends changeCodeFnProps {
@@ -35,9 +45,4 @@ export interface CodeSpaceProps
   ideItems: Array<{ id: number; code: string; memo: string }>;
   handleClickDeleteBtn: (id: number) => void;
   handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
-
-export interface handleChangeCodeProps {
-  newCode: string;
-  stringId: string;
 }

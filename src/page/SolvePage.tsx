@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import CodeSpace from '../components/Solve/CodeSpace';
-import { handleChangeCodeProps } from '../types/Solve/solveTypes';
+import {
+  handleChangeCodeProps,
+  handleClickQuestionInfoProps,
+} from '../types/Solve/solveTypes';
 
 const SolvePage = () => {
   const [questionInfo, setQuestionInfo] = useState({
@@ -20,12 +23,10 @@ const SolvePage = () => {
   // const { title, level, type, platform, link } = questionInfo;
   const { ideId, ideItems } = ide;
 
-  const handleClickQuestionInfo = (
-    category: string,
-    e:
-      | React.MouseEvent<HTMLLIElement, MouseEvent>
-      | React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleClickQuestionInfo = ({
+    category,
+    e,
+  }: handleClickQuestionInfoProps) => {
     const { value } = e.currentTarget;
     setQuestionInfo({
       ...questionInfo,
