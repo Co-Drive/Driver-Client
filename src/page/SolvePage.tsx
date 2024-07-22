@@ -20,7 +20,18 @@ const SolvePage = () => {
   };
 
   const handleClickAddBtn = () => {
-   
+    const contents = {
+      id: ideId + 1,
+      code: '// code',
+      memo: '',
+    };
+
+    setIde({
+      ideItems: ideItems.concat({
+        ...contents,
+      }),
+      ideId: ideId + 1,
+    });
   };
 
   return (
