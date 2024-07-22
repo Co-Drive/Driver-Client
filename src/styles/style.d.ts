@@ -26,24 +26,34 @@ declare module 'styled-components' {
     };
 
     fonts: {
+      // title
       title_bold_32: SerializedStyles;
+      title_bold_28: SerializedStyles;
       title_bold_24: SerializedStyles;
-      title_medium_24: SerializedStyles;
       title_bold_20: SerializedStyles;
-      title_medium_20: SerializedStyles;
-      title_semiBold_18: SerializedStyles;
       title_bold_16: SerializedStyles;
-      body_medium_16: SerializedStyles;
-      body_ligth_16: SerializedStyles;
       title_bold_14: SerializedStyles;
+      title_semiBold_18: SerializedStyles;
       title_semiBold_14: SerializedStyles;
+      title_medium_24: SerializedStyles;
+      title_medium_20: SerializedStyles;
+      title_regular_20: SerializedStyles;
       title_regular_14: SerializedStyles;
+
+      // body
+      body_medium_20: SerializedStyles;
+      body_medium_16: SerializedStyles;
       body_medium_14: SerializedStyles;
-      detail_regular_12: SerializedStyles;
+      body_ligth_16: SerializedStyles;
       body_ligth_12: SerializedStyles;
       body_ligth_10: SerializedStyles;
+      body_eng_semibold_14: SerializedStyles;
       body_eng_medium_16: SerializedStyles;
       body_eng_medium_12: SerializedStyles;
+      body_eng_regular_14: SerializedStyles;
+
+      // detail
+      detail_regular_12: SerializedStyles;
     };
   }
 }
