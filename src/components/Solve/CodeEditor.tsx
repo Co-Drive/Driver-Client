@@ -11,13 +11,7 @@ import { csharp } from '@replit/codemirror-lang-csharp';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import styled from 'styled-components';
-import { handleChangeCodeProps } from '../../page/SolvePage';
-
-interface CodeEditorProps {
-  stringId: string;
-  code: string;
-  handleChangeCode: ({ newCode, stringId }: handleChangeCodeProps) => void;
-}
+import { CodeEditorProps } from '../../types/Solve/solveTypes';
 
 const CodeEditor = ({ stringId, code, handleChangeCode }: CodeEditorProps) => {
   // 상수 파일로 분리할 예정

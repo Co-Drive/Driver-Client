@@ -1,14 +1,18 @@
 import styled from 'styled-components';
+import { CodeSpaceHeaderProps } from '../../../types/Solve/solveTypes';
 import HeaderTop from './HeaderTop';
 
-interface CodeSpaceHeaderProps {
-  handleClickLv: (clickedLv: number) => void;
-}
-
-const CodeSpaceHeader = ({ handleClickLv }: CodeSpaceHeaderProps) => {
+const CodeSpaceHeader = ({
+  questionInfo,
+  handleClickQuestionInfo,
+}: CodeSpaceHeaderProps) => {
+  const { title } = questionInfo;
   return (
     <Header>
-      <HeaderTop handleClickLv={handleClickLv} />
+      <HeaderTop
+        title={title}
+        handleClickQuestionInfo={handleClickQuestionInfo}
+      />
     </Header>
   );
 };

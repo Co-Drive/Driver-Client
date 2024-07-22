@@ -1,27 +1,23 @@
 import styled from 'styled-components';
-import { handleChangeCodeProps } from '../../page/SolvePage';
+import { CodeSpaceProps } from '../../types/Solve/solveTypes';
 import CodeEditor from './CodeEditor';
 import CodeSpaceHeader from './Header/CodeSpaceHeader';
 import Memo from './Memo';
 
-interface CodeSpaceProps {
-  ideItems: Array<{ id: number; code: string; memo: string }>;
-  handleClickLv: (clickedLv: number) => void;
-  handleClickDeleteBtn: (id: number) => void;
-  handleChangeCode: ({ newCode, stringId }: handleChangeCodeProps) => void;
-  handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
-
 const CodeSpace = ({
   ideItems,
-  handleClickLv,
+  questionInfo,
+  handleClickQuestionInfo,
   handleClickDeleteBtn,
   handleChangeCode,
   handleChangeMemo,
 }: CodeSpaceProps) => {
   return (
     <CodeSpaceContainer>
-      <CodeSpaceHeader handleClickLv={handleClickLv} />
+      <CodeSpaceHeader
+        handleClickQuestionInfo={handleClickQuestionInfo}
+        questionInfo={questionInfo}
+      />
       {ideItems.map((item) => {
         return (
           <ContentsContainer key={item.id}>
