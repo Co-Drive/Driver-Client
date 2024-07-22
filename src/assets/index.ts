@@ -1,8 +1,11 @@
 /// <reference types="vite-plugin-svgr/client" />
 
 import IcAdd from './icon/ic_add.svg?react';
+import IcAddBlack from './icon/ic_add_black.svg?react';
+import IcAddGray from './icon/ic_add_gray.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
+import IcArrowRightBlack from './icon/ic_arrow_right_black.svg?react';
 import IcArrowRightFill from './icon/ic_arrow_right_fill.svg?react';
 import IcArrowRightGray from './icon/ic_arrow_right_gray.svg?react';
 import IcArrowRightSmallGray from './icon/ic_arrow_right_small_gray.svg?react';
@@ -24,8 +27,11 @@ import IcWorkbook from './icon/ic_workbook.svg?react';
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
 export {
   IcAdd,
+  IcAddBlack,
+  IcAddGray,
   IcArrowBottomGray,
   IcArrowLeftFill,
+  IcArrowRightBlack,
   IcArrowRightFill,
   IcArrowRightGray,
   IcArrowRightSmallGray,
