@@ -72,9 +72,7 @@ const CommonHashTag = () => {
 };
 
 const CommonHashTagWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* Only comments */
 `;
 
 const Select = styled.div`
@@ -95,16 +93,15 @@ const SelectBox = styled.div`
   align-items: center;
 
   height: 4.8rem;
-  padding: 1.5rem 1.2rem 1.5rem 2rem;
+  padding: 1.5rem;
 
   border-radius: 0.8rem;
-  background-color: #292a2f;
-  color: wheat;
+  background-color: ${({ theme }) => theme.colors.gray700};
   cursor: pointer;
 `;
 
 const Input = styled.input`
-  color: wheat;
+  /* Only comments */
 `;
 
 const SelectedOptions = styled.div`
@@ -112,12 +109,15 @@ const SelectedOptions = styled.div`
   flex-wrap: wrap;
 
   margin-top: 0;
-
-  color: wheat;
 `;
 
 const Placeholder = styled.div`
-  color: #d8d9dd;
+  color: ${({ theme }) => theme.colors.gray300};
+  font-weight: 300;
+  font-size: 1rem;
+
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  text-align: center;
 `;
 
 const Tag = styled.span`
@@ -128,8 +128,9 @@ const Tag = styled.span`
   margin-right: 1rem;
 
   border-radius: 0.4rem;
-  background-color: #08ff3f;
-  color: black;
+  ${({ theme }) => theme.fonts.body_eng_medium_12};
+  background-color: ${({ theme }) => theme.colors.codrive_green};
+  color: ${({ theme }) => theme.colors.bg};
 `;
 
 const Arrow = styled.div`
@@ -147,7 +148,7 @@ const Options = styled.div`
 
   border-radius: 0.8rem;
   border-top: none;
-  background-color: #292a2f;
+  background-color: ${({ theme }) => theme.colors.gray700};
 
   text-align: center;
   max-height: 34.8rem;
@@ -158,9 +159,16 @@ const Options = styled.div`
 
 const Option = styled.div`
   padding: 1.2rem;
+  margin: 0.6rem 0.8rem;
 
-  color: #d8d9dd;
+  color: ${({ theme }) => theme.colors.gray100};
+  ${({ theme }) => theme.fonts.body_eng_medium_16};
   cursor: pointer;
+
+  &:hover {
+    border-radius: 0.6rem;
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
 `;
 
 export default CommonHashTag;
