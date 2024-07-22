@@ -23,7 +23,6 @@ const CodeSpace = ({
     <CodeSpaceContainer>
       <CodeSpaceHeader handleClickLv={handleClickLv} />
       {ideItems.map((item) => {
-        console.log(item);
         return (
           <ContentsContainer key={item.id}>
             {item.id > 0 && (
