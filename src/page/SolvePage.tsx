@@ -19,6 +19,17 @@ const SolvePage = () => {
     });
   };
 
+  const handleChangeMemo = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+
+    setIde({
+      ideItems: ideItems.map((item) =>
+        ideId === item.id ? { ...item, [name]: value } : item
+      ),
+      ideId: ideId,
+    });
+  };
+
   const handleClickAddBtn = () => {
     const contents = {
       id: ideId + 1,
@@ -47,6 +58,7 @@ const SolvePage = () => {
             ideId={ideId}
             ideItems={ideItems}
             handleChangeCode={handleChangeCode}
+            handleChangeMemo={handleChangeMemo}
           />
         );
       })}

@@ -6,16 +6,17 @@ interface CodeSpaceProps {
   ideId: number;
   ideItems: Array<{ id: number; code: string; memo: string }>;
   handleChangeCode: (newCode: string) => void;
+  handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const CodeSpace = ({ ideId, ideItems, handleChangeCode }: CodeSpaceProps) => {
+const CodeSpace = ({ ideId, ideItems, handleChangeCode, handleChangeMemo }: CodeSpaceProps) => {
   return (
     <CodeSpaceContainer>
       <CodeEditor
         code={ideItems[ideId].code}
         handleChangeCode={handleChangeCode}
       />
-      <Memo />
+      <Memo memo={ideItems[ideId].memo} handleChangeMemo={handleChangeMemo} />
     </CodeSpaceContainer>
   );
 };
@@ -27,4 +28,6 @@ const CodeSpaceContainer = styled.section`
   gap: 2.4rem;
   align-items: center;
   flex-direction: column;
+
+  margin-top: 3.2rem;
 `;
