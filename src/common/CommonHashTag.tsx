@@ -127,7 +127,7 @@ const Tag = styled.span`
   display: flex;
   align-items: center;
 
-  padding: 0.4rem 0.6rem;
+  padding: 0.6rem 1rem;
   margin-right: 1rem;
 
   border-radius: 0.4rem;
