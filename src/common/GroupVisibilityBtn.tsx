@@ -13,15 +13,9 @@ const GroupVisibilityBtn = ({
     <Button type="button" $isActive={isActive}>
       <ContentsContainer>
         <IconContainer>
-          {isVisible ? (
-            isActive ? (
-              <IcUnlockWhite />
-            ) : (
-              <IcUnlockGray />
-            )
-          ) : (
-            <IcSecretGray />
-          )}
+          {isVisible && isActive && <IcUnlockWhite />}
+          {isVisible && !isActive && <IcUnlockGray />}
+          {!isVisible && <IcSecretGray />}
         </IconContainer>
 
         <Text $isActive={isActive}>{isVisible ? '공개그룹' : '비밀그룹'}</Text>
