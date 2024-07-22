@@ -2,10 +2,13 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray, IcCancelSmall } from '../assets';
 
-const CommonHashTag = () => {
+const CommonHashTag = ({
+  selectedTag,
+  inputValue,
+  onTagChange,
+  onInputChange,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedTag, setSelectedTag] = useState('');
-  const [inputValue, setInputValue] = useState('');
 
   /* 드롭다운 */
   const toggleOptions = (e) => {
@@ -15,20 +18,19 @@ const CommonHashTag = () => {
 
   /* 옵션 선택 시 값 저장 */
   const handleClickOption = (option) => {
-    setSelectedTag(option);
-    setInputValue(option);
+    onTagChange(option);
     setIsOpen(false);
   };
 
   /* 값 삭제 */
   const removeTag = () => {
-    setSelectedTag('');
-    setInputValue('');
+    onTagChange('');
+    onInputChange('');
   };
 
   /* 상태 업데이트 */
   const handleChangeInput = (e) => {
-    setInputValue(e.target.value);
+    onInputChange(e.target.value);
   };
 
   return (
