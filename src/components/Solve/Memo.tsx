@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 interface MemoProps {
-  id: number;
+  stringId: string;
   memo: string;
   handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 // 디자인 확정된 후 전반적으로 마진/패딩/폰트 손 보기
-const Memo = ({ id, memo, handleChangeMemo }: MemoProps) => {
+const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
   return (
     <MemoContainer>
       <TitleContainer>
@@ -16,7 +16,7 @@ const Memo = ({ id, memo, handleChangeMemo }: MemoProps) => {
       </TitleContainer>
 
       <Textarea
-        id={id.toString()}
+        id={stringId}
         name="memo"
         value={memo}
         onChange={handleChangeMemo}
