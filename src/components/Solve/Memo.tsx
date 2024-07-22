@@ -16,7 +16,6 @@ export default Memo;
 const MemoContainer = styled.article`
   width: 92.6rem;
   height: 29.8rem;
-  margin-top: 2.4rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray800};
