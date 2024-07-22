@@ -1,22 +1,32 @@
 import styled from 'styled-components';
 import CodeEditor from './CodeEditor';
+import CodeSpaceHeader from './Header/CodeSpaceHeader';
 import Memo from './Memo';
 
 interface CodeSpaceProps {
-  ideId: number;
   ideItems: Array<{ id: number; code: string; memo: string }>;
+  handleClickLv: (clickedLv: number) => void;
   handleChangeCode: (newCode: string) => void;
   handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const CodeSpace = ({ ideId, ideItems, handleChangeCode, handleChangeMemo }: CodeSpaceProps) => {
+const CodeSpace = ({
+  ideItems,
+  handleClickLv,
+  handleChangeCode,
+  handleChangeMemo,
+}: CodeSpaceProps) => {
   return (
     <CodeSpaceContainer>
-      <CodeEditor
-        code={ideItems[ideId].code}
-        handleChangeCode={handleChangeCode}
-      />
-      <Memo memo={ideItems[ideId].memo} handleChangeMemo={handleChangeMemo} />
+      <CodeSpaceHeader handleClickLv={handleClickLv} />
+      {ideItems.map((item) => {
+        return (
+          <ContentsContainer key={item.id}>
+            <CodeEditor code={item.code} handleChangeCode={handleChangeCode} />
+            <Memo memo={item.memo} handleChangeMemo={handleChangeMemo} />
+          </ContentsContainer>
+        );
+      })}
     </CodeSpaceContainer>
   );
 };
@@ -24,6 +34,14 @@ const CodeSpace = ({ ideId, ideItems, handleChangeCode, handleChangeMemo }: Code
 export default CodeSpace;
 
 const CodeSpaceContainer = styled.section`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 3.2rem;
+`;
+
+const ContentsContainer = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
