@@ -1,28 +1,32 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { HeaderTopProps } from '../../../types/Solve/solveTypes';
 import Gray from './Gray';
 import Green from './Green';
 
-interface HeaderTopProps {
-  handleClickLv: (clickedLv: number) => void;
-}
-
-const HeaderTop = ({ handleClickLv }: HeaderTopProps) => {
+const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
   const [paintedStar, setPaintedStar] = useState(Array(5).fill(0));
 
-  const handleClickIc = (clickedLv: number) => {
-    handleClickLv(clickedLv);
+  const handleClickIc = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    const { value } = e.currentTarget;
+    handleClickQuestionInfo('level', e);
     setPaintedStar(
-      Array(clickedLv)
+      Array(value)
         .fill(1)
-        .concat(Array(5 - clickedLv).fill(0))
+        .concat(Array(5 - value).fill(0))
     );
   };
 
   return (
     <HeaderTopContainer>
       <TitleContainer>
-        <Title>멀리 뛰기</Title>
+        <TitleInput
+          placeholder="제목을 입력해주세요"
+          value={title}
+          onChange={(e) => {
+            handleClickQuestionInfo('title', e);
+          }}
+        />
       </TitleContainer>
 
       <RightContainer>
@@ -32,7 +36,11 @@ const HeaderTop = ({ handleClickLv }: HeaderTopProps) => {
           <LvStarContainer>
             {paintedStar.map((star, idx) => {
               return (
-                <LvIcContainer key={idx} onClick={() => handleClickIc(idx + 1)}>
+                <LvIcContainer
+                  key={idx}
+                  value={idx + 1}
+                  onClick={(e) => handleClickIc(e)}
+                >
                   {/* 난이도 아이콘으로 대체 예정 */}
                   {star ? <Green /> : <Gray />}
                 </LvIcContainer>
@@ -60,7 +68,6 @@ const HeaderTopContainer = styled.section`
   width: 100%;
 `;
 
-// 디자인 완성 후 변경 예정 (아마 input으로 바뀔듯)
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
@@ -71,9 +78,25 @@ const TitleContainer = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
-const Title = styled.p`
-  color: ${({ theme }) => theme.colors.gray300};
+const TitleInput = styled.input`
+  overflow: hidden;
+
+  width: 100%;
+
+  border: none;
+  outline: none;
+
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.gray100};
+
   ${({ theme }) => theme.fonts.title_medium_20};
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+
+  &::placeholder {
+    ${({ theme }) => theme.colors.gray300};
+  }
 `;
 
 const RightContainer = styled.div`
