@@ -1,18 +1,20 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import CodeEditor from './CodeEditor';
 import Memo from './Memo';
 
-const CodeSpace = () => {
-  const [code, setCode] = useState(`// code`);
+interface CodeSpaceProps {
+  ideId: number;
+  ideItems: Array<{ id: number; code: string; memo: string }>;
+  handleChangeCode: (newCode: string) => void;
+}
 
-  const handleChangeCode = (newCode: string) => {
-    setCode(newCode);
-  };
-
+const CodeSpace = ({ ideId, ideItems, handleChangeCode }: CodeSpaceProps) => {
   return (
     <CodeSpaceContainer>
-      <CodeEditor code={code} handleChangeCode={handleChangeCode} />
+      <CodeEditor
+        code={ideItems[ideId].code}
+        handleChangeCode={handleChangeCode}
+      />
       <Memo />
     </CodeSpaceContainer>
   );

@@ -10,15 +10,14 @@ import { swift } from '@codemirror/legacy-modes/mode/swift';
 import { csharp } from '@replit/codemirror-lang-csharp';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
-import { useState } from 'react';
 import styled from 'styled-components';
 
-const CodeEditor = () => {
-  const [code, setCode] = useState(`import react from "react"`);
+interface CodeEditorProps {
+  code: string;
+  handleChangeCode: (newCode: string) => void;
+}
 
-  // 나중에 state로 만들어서 유동적으로 바뀌게 할 예정
-  const LANGUAGE = 'javascript';
-
+const CodeEditor = ({ code, handleChangeCode }: CodeEditorProps) => {
   // 상수 파일로 분리할 예정
   const LANG_LIST = {
     c: () => StreamLanguage.define(c),
@@ -34,6 +33,12 @@ const CodeEditor = () => {
     ruby: () => StreamLanguage.define(ruby),
   };
 
+  const LANGUAGE = sessionStorage.getItem('language') as keyof typeof LANG_LIST;
+  if (!LANGUAGE) {
+    // 추후 주 언어를 선택해달라는 문구 + 마이페이지로 네비게이트 시키기
+    return;
+  }
+
   // extends에 항상 배열이 들어가도록 배열을 반환하는 함수
   const getExtensions = (language: keyof typeof LANG_LIST) => {
     // langSupport: 함수 반환
@@ -45,10 +50,6 @@ const CodeEditor = () => {
   };
 
   const extensions = getExtensions(LANGUAGE);
-
-  const handleChangeCode = (newCode: string) => {
-    setCode(newCode);
-  };
 
   return (
     <CodeMirrorWrapper className="code-mirror">
