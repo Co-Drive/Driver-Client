@@ -1,34 +1,10 @@
-import { cpp } from '@codemirror/lang-cpp';
-import { java } from '@codemirror/lang-java';
-import { javascript } from '@codemirror/lang-javascript';
-import { python } from '@codemirror/lang-python';
-import { StreamLanguage } from '@codemirror/language';
-import { c, kotlin, scala } from '@codemirror/legacy-modes/mode/clike';
-import { go } from '@codemirror/legacy-modes/mode/go';
-import { ruby } from '@codemirror/legacy-modes/mode/ruby';
-import { swift } from '@codemirror/legacy-modes/mode/swift';
-import { csharp } from '@replit/codemirror-lang-csharp';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import styled from 'styled-components';
+import { LANG_LIST } from '../../constants/CodeEditor/language';
 import { CodeEditorProps } from '../../types/Solve/solveTypes';
 
 const CodeEditor = ({ stringId, code, handleChangeCode }: CodeEditorProps) => {
-  // 상수 파일로 분리할 예정
-  const LANG_LIST = {
-    c: () => StreamLanguage.define(c),
-    csharp: () => csharp(),
-    scala: () => StreamLanguage.define(scala),
-    kotlin: () => StreamLanguage.define(kotlin),
-    java,
-    javascript,
-    python,
-    cpp,
-    go: () => StreamLanguage.define(go),
-    swift: () => StreamLanguage.define(swift),
-    ruby: () => StreamLanguage.define(ruby),
-  };
-
   const LANGUAGE = sessionStorage.getItem('language') as keyof typeof LANG_LIST;
   if (!LANGUAGE) {
     // 추후 주 언어를 선택해달라는 문구 + 마이페이지로 네비게이트 시키기
