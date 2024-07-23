@@ -2,27 +2,26 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IcAddFill } from '../assets';
 import CodeSpace from '../components/Solve/CodeSpace';
+import PageHeader from '../components/Solve/Header/PageHeader';
 import {
   handleChangeCodeProps,
   handleClickQuestionInfoProps,
 } from '../types/Solve/solveTypes';
-import PageHeader from '../components/Solve/Header/PageHeader';
 
 const SolvePage = () => {
   const [questionInfo, setQuestionInfo] = useState({
     title: '',
     level: 0,
-    type: [],
+    tags: [],
     platform: '',
-    link: '',
+    problemUrl: '',
   });
 
   const [ide, setIde] = useState({
     ideId: 0,
-    ideItems: [{ id: 0, code: '// code', memo: '' }],
+    ideItems: [{ id: 0, code: '', memo: '' }],
   });
 
-  // const { title, level, type, platform, link } = questionInfo;
   const { ideId, ideItems } = ide;
 
   const handleClickQuestionInfo = ({
@@ -62,7 +61,7 @@ const SolvePage = () => {
     const lastItem = ideItems[ideItems.length - 1];
     const contents = {
       id: lastItem.id + 1,
-      code: '// code',
+      code: '',
       memo: '',
     };
 
@@ -87,8 +86,8 @@ const SolvePage = () => {
 
   return (
     <SolvePageContainer>
-      <PageHeader />
-      
+      <PageHeader codeblocks={ideItems} questionInfo={questionInfo} />
+
       <CodeSpace
         ideItems={ideItems}
         questionInfo={questionInfo}

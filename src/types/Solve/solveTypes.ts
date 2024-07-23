@@ -42,9 +42,9 @@ export interface HeaderTopProps extends clickQuestionInfoFnProps {
 export interface CodeSpaceHeaderProps extends clickQuestionInfoFnProps {
   questionInfo: {
     title: string;
-    type: Array<String>;
+    tags: Array<String>;
     platform: string;
-    link: string;
+    problemUrl: string;
   };
 }
 
@@ -54,4 +54,16 @@ export interface CodeSpaceProps
     changeMemoFnProps {
   ideItems: Array<{ id: number; code: string; memo: string }>;
   handleClickDeleteBtn: (id: number) => void;
+}
+
+export interface PageHeaderProps {
+  questionInfo: {
+    title: string;
+    level: number;
+    tags: Array<String>;
+    platform: string;
+    problemUrl: string;
+  };
+
+  codeblocks: Array<{ id: number; code: string; memo: string }>;
 }
