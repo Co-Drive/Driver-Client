@@ -6,6 +6,7 @@ import {
   handleChangeCodeProps,
   handleClickQuestionInfoProps,
 } from '../types/Solve/solveTypes';
+import PageHeader from '../components/Solve/Header/PageHeader';
 
 const SolvePage = () => {
   const [questionInfo, setQuestionInfo] = useState({
@@ -86,6 +87,8 @@ const SolvePage = () => {
 
   return (
     <SolvePageContainer>
+      <PageHeader />
+      
       <CodeSpace
         ideItems={ideItems}
         questionInfo={questionInfo}
