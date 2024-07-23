@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IcArrowTopGray, IcMemoWhite } from '../../assets';
 
 interface MemoProps {
   stringId: string;
@@ -6,14 +7,17 @@ interface MemoProps {
   handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-// 디자인 확정된 후 전반적으로 마진/패딩/폰트 손 보기
 const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
   return (
     <MemoContainer>
-      <TitleContainer>
-        {/* 아이콘 들어올 자리 */}
-        <Title>메모장</Title>
-      </TitleContainer>
+      <TopBar>
+        <TitleContainer>
+          <IcMemoWhite />
+          <Title>메모장</Title>
+        </TitleContainer>
+
+        <IcArrowTopGray />
+      </TopBar>
 
       <Textarea
         id={stringId}
@@ -28,19 +32,28 @@ const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
 export default Memo;
 
 const MemoContainer = styled.article`
-  width: 92.6rem;
-  height: 29.8rem;
+  width: 100%;
+  padding: 2.4rem 2.2rem 2.6rem 2rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
-const TitleContainer = styled.div`
+const TopBar = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 
-  padding-top: 2.2rem;
-  padding-left: 2.2rem;
+  width: 100%;
+  padding: 0 0.4rem 2rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  gap: 1.1rem;
+  align-items: center;
 `;
 
 const Title = styled.p`
