@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { IcAddFill } from '../assets';
 import CodeSpace from '../components/Solve/CodeSpace';
 import {
   handleChangeCodeProps,
@@ -94,7 +95,9 @@ const SolvePage = () => {
         handleChangeMemo={handleChangeMemo}
       />
 
-      <AddBtn type="button" onClick={handleClickAddBtn}></AddBtn>
+      <AddBtnContainer>
+        <IcAddFill onClick={handleClickAddBtn} />
+      </AddBtnContainer>
       {ideId > 0 && (
         <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
           위로
@@ -110,14 +113,16 @@ const SolvePageContainer = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  margin: 6rem 25.7rem 20rem;
 `;
 
-const AddBtn = styled.button`
-  padding: 3rem;
-  margin-top: 1rem;
+const AddBtnContainer = styled.div`
+  display: flex;
+  justify-content: end;
 
-  background-color: ${({ theme }) => theme.colors.gray600};
-  color: white;
+  width: 100%;
+  margin-top: 1.8rem;
 `;
 
 const GoTopBtn = styled.button`

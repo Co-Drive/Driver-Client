@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { IcInformation, IcStarGray, IcStarGreen } from '../../../assets';
 import { HeaderTopProps } from '../../../types/Solve/solveTypes';
-import Gray from './Gray';
-import Green from './Green';
 
 const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
   const [selectedStar, setSelectedStar] = useState(Array(5).fill(0));
@@ -36,22 +35,15 @@ const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
           <LvStarContainer>
             {selectedStar.map((selected, idx) => {
               return (
-                <LvIcContainer
-                  key={idx}
-                  value={idx + 1}
-                  onClick={(e) => handleClickIc(e)}
-                >
-                  {/* 난이도 아이콘으로 대체 예정 */}
-                  {selected ? <Green /> : <Gray />}
-                </LvIcContainer>
+                <li key={idx} value={idx + 1} onClick={(e) => handleClickIc(e)}>
+                  {selected ? <IcStarGreen /> : <IcStarGray />}
+                </li>
               );
             })}
           </LvStarContainer>
         </LevelDetailContainer>
 
-        <InfoIcContainer>
-          {/* information 아이콘 들어갈 예정 */}
-        </InfoIcContainer>
+        <IcInformation />
       </LevelContainer>
     </HeaderTopContainer>
   );
@@ -101,7 +93,7 @@ const TitleInput = styled.input`
 
 const LevelContainer = styled.div`
   display: flex;
-  gap: 7.4rem;
+  gap: 7rem;
   justify-content: center;
   align-items: center;
 
@@ -118,25 +110,13 @@ const LevelDetailContainer = styled.div`
 `;
 
 const LvText = styled.p`
-  ${({ theme }) => theme.fonts.body_medium_20};
+  ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;
 
 const LvStarContainer = styled.ul`
   display: flex;
   gap: 0.4rem;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LvIcContainer = styled.li`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const InfoIcContainer = styled.div`
-  display: flex;
   justify-content: center;
   align-items: center;
 `;
