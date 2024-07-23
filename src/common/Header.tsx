@@ -3,50 +3,60 @@ import { IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
 
-const Header = ({
-  isLogin,
-  nickname,
-  clickedCategory,
-  handleClickCategory,
-}: HeaderProps) => {
+const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
+  const nickname = sessionStorage.getItem('nickname');
+  const isLogin = nickname && nickname.length > 0;
   return (
-    <HeaderContainer>
-      <LogoContainer>
-        <IcLogo />
-      </LogoContainer>
-      <NavBarContainer>
-        <NavBarUl>
-          {DATA.map((v) => {
-            return (
-              <NavBar key={v.text}>
-                {isLogin && clickedCategory === v.text && (
-                  <IconContainer>{v.icon}</IconContainer>
-                )}
-                <Text
-                  onClick={(e) => isLogin && handleClickCategory(e)}
-                  $isClickedCategory={clickedCategory === v.text}
-                >
-                  {v.text}
-                </Text>
-              </NavBar>
-            );
-          })}
-        </NavBarUl>
-      </NavBarContainer>
-      <LoginBtnContainer>
-        <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
-      </LoginBtnContainer>
-    </HeaderContainer>
+    <HeaderWrapper>
+      <HeaderContainer>
+        <LogoContainer>
+          <IcLogo />
+        </LogoContainer>
+        <NavBarContainer>
+          <NavBarUl>
+            {DATA.map((v) => {
+              return (
+                <NavBar key={v.text}>
+                  {isLogin && clickedCategory === v.text && (
+                    <IconContainer>{v.icon}</IconContainer>
+                  )}
+                  <Text
+                    onClick={(e) => isLogin && handleClickCategory(e)}
+                    $isClickedCategory={clickedCategory === v.text}
+                  >
+                    {v.text}
+                  </Text>
+                </NavBar>
+              );
+            })}
+          </NavBarUl>
+        </NavBarContainer>
+        <LoginBtnContainer $isLogin={isLogin ? true : false}>
+          <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+        </LoginBtnContainer>
+      </HeaderContainer>
+    </HeaderWrapper>
   );
 };
 
 export default Header;
 
+const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+`;
+
 const HeaderContainer = styled.header`
   display: flex;
+
+  /* justify-content: space-between; */
   align-items: center;
 
+  width: 100%;
   margin: 0 23.9rem;
+  max-width: 96.2rem;
 
   border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray300};
 `;
@@ -84,10 +94,10 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
   white-space: nowrap;
 `;
 
-const LoginBtnContainer = styled.div`
+const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
 
-  margin-left: 50.6rem;
+  margin-left: ${({ $isLogin }) => ($isLogin ? '46.2rem' : '50.6rem')};
 `;
 
 const LoginBtn = styled.button`
