@@ -214,6 +214,8 @@ ${reset}
     margin: 0 auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
+
+    background-color: ${({ theme }) => theme.colors.bg};
 }
 
 #root::-webkit-scrollbar {
