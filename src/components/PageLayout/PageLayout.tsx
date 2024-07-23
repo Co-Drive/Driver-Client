@@ -17,12 +17,16 @@ const PageLayout = ({ children }: PageLayoutProps) => {
 
   return (
     <>
-      <Header
-        isLogin={isLogin}
-        clickedCategory={clickedCategory}
-        handleClickCategory={handleClickCategory}
-        nickname={'매링구'}
-      />
+      {isLogin ? (
+        <Header
+          isLogin={isLogin}
+          clickedCategory={clickedCategory}
+          handleClickCategory={handleClickCategory}
+          nickname={'매링구'}
+        />
+      ) : (
+        <Header isLogin={isLogin} handleClickCategory={handleClickCategory} />
+      )}
       {children}
     </>
   );
