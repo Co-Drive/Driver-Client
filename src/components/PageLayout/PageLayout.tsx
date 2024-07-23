@@ -22,7 +22,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
           isLogin={isLogin}
           clickedCategory={clickedCategory}
           handleClickCategory={handleClickCategory}
-          nickname={'매링구'}
+          nickname={'나나나나나난나나나나나'}
         />
       ) : (
         <Header isLogin={isLogin} handleClickCategory={handleClickCategory} />

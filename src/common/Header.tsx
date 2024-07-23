@@ -34,7 +34,9 @@ const Header = ({
         </NavBarUl>
       </NavBarContainer>
       <LoginBtnContainer $isLogin={isLogin}>
-        <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+        <LoginBtn $isLogin={isLogin}>
+          {isLogin ? `${nickname} 님` : '로그인'}
+        </LoginBtn>
       </LoginBtnContainer>
     </HeaderContainer>
   );
@@ -79,16 +81,21 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
   ${({ theme }) => theme.fonts.title_semiBold_18}
   color: ${({ theme, $isClickedCategory }) =>
     $isClickedCategory ? theme.colors.white : theme.colors.gray300};
+  cursor: pointer;
+
+  white-space: nowrap;
 `;
 
 const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
 
-  margin-right: 2rem;
-  margin-left: ${({ $isLogin }) => ($isLogin ? `42rem` : `44.9rem`)};
+  margin-left: ${({ $isLogin }) => ($isLogin ? `50.6rem` : `25rem`)};
 `;
 
-const LoginBtn = styled.button`
-  ${({ theme }) => theme.fonts.title_semiBold_18}
+const LoginBtn = styled.button<{ $isLogin: boolean }>`
   color: ${({ theme }) => theme.colors.white};
+
+  white-space: nowrap;
+
+  ${({ theme }) => theme.fonts.title_semiBold_18}
 `;
