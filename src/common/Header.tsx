@@ -23,8 +23,8 @@ const Header = ({
                   <IconContainer>{v.icon}</IconContainer>
                 )}
                 <Text
-                  onClick={(e) => handleClickCategory(e)}
-                  $isClickedCategory={isLogin && clickedCategory === v.text}
+                  onClick={(e) => isLogin && handleClickCategory(e)}
+                  $isClickedCategory={clickedCategory === v.text}
                 >
                   {v.text}
                 </Text>
@@ -33,10 +33,8 @@ const Header = ({
           })}
         </NavBarUl>
       </NavBarContainer>
-      <LoginBtnContainer $isLogin={isLogin}>
-        <LoginBtn $isLogin={isLogin}>
-          {isLogin ? `${nickname} 님` : '로그인'}
-        </LoginBtn>
+      <LoginBtnContainer>
+        <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
       </LoginBtnContainer>
     </HeaderContainer>
   );
@@ -86,13 +84,13 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
   white-space: nowrap;
 `;
 
-const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
+const LoginBtnContainer = styled.div`
   display: flex;
 
-  margin-left: ${({ $isLogin }) => ($isLogin ? `50.6rem` : `25rem`)};
+  margin-left: 50.6rem;
 `;
 
-const LoginBtn = styled.button<{ $isLogin: boolean }>`
+const LoginBtn = styled.button`
   color: ${({ theme }) => theme.colors.white};
 
   white-space: nowrap;
