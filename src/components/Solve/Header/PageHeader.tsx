@@ -1,13 +1,51 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
-const PageHeader = () => {
+const BTN_CONTENTS = ['임시저장', '등록하기'];
+
+const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
+  const { title, level, tags, platform, problemUrl } = questionInfo;
+
+  const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
+  const disabledSave = !title || !level;
+  const disabledSubmit =
+    !title || !level || !tags.length || !platform || !problemUrl || isEmptyCode;
+
+  const DATA = {
+    title: title,
+    level: level,
+    tags: tags,
+    platform: platform,
+    problemUrl: problemUrl,
+    // id 제외, 나머지 값만 저장하기
+    codeblocks: codeblocks.map(({ id, ...rest }) => rest),
+  };
+
+  const handleClickBtn = () => {
+    // 서버 통신 코드로 바꿀 예정
+    console.log(DATA);
+  };
+
   return (
     <PageHeaderContainer>
       <Text>오늘 푼 문제 등록하기</Text>
 
       <BtnContainer>
-        <Button type="submit">임시저장</Button>
-        <Button type="submit">등록하기</Button>
+        {BTN_CONTENTS.map((content) => {
+          const saveBtn = content === '임시저장';
+          return (
+            <Button
+              key={content}
+              type="submit"
+              $disabled={saveBtn ? disabledSave : disabledSubmit}
+              onClick={() =>
+                (saveBtn ? !disabledSave : !disabledSubmit) && handleClickBtn()
+              }
+            >
+              {content}
+            </Button>
+          );
+        })}
       </BtnContainer>
     </PageHeaderContainer>
   );
@@ -37,11 +75,20 @@ const BtnContainer = styled.div`
   align-items: center;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ $disabled: boolean }>`
   padding: 1rem 2rem;
 
   border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.gray700};
-  color: ${({ theme }) => theme.colors.gray300};
+
+  ${({ theme, $disabled }) =>
+    $disabled
+      ? css`
+          background-color: ${theme.colors.gray700};
+          color: ${theme.colors.gray300};
+        `
+      : css`
+          background-color: ${theme.colors.gray500};
+          color: ${theme.colors.gray100};
+        `};
   ${({ theme }) => theme.fonts.body_ligth_16};
 `;
