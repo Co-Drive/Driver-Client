@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { CodeSpaceHeaderProps } from '../../../types/Solve/solveTypes';
+import HeaderBottom from './HeaderBottom';
 import HeaderTop from './HeaderTop';
 
 const CodeSpaceHeader = ({
@@ -13,6 +14,7 @@ const CodeSpaceHeader = ({
         title={title}
         handleClickQuestionInfo={handleClickQuestionInfo}
       />
+      <HeaderBottom />
     </Header>
   );
 };
