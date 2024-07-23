@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../../common/Header';
-
-interface PageLayoutProps {
-  category: string;
-  children: React.ReactNode;
-}
+import { PageLayoutProps } from '../../types/PageLayout/PageLayoutType';
 
 const PageLayout = ({ category, children }: PageLayoutProps) => {
   const [clickedCategory, setClickedCategory] = useState(category);
