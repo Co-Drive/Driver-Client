@@ -119,7 +119,8 @@ const fonts = {
   body_medium_16: css`
     font-family: SuitMedium;
     font-size: 1.6rem;
-    ${commonFontStyle}
+    line-height: 150%;
+    letter-spacing: -1%;
   `,
 
   body_medium_14: css`
