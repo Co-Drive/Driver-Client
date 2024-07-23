@@ -7,6 +7,10 @@ interface changeCodeFnProps {
   handleChangeCode: ({ newCode, stringId }: handleChangeCodeProps) => void;
 }
 
+interface changeMemoFnProps {
+  handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
 export interface handleClickQuestionInfoProps {
   category: string;
   e:
@@ -26,6 +30,11 @@ export interface CodeEditorProps extends changeCodeFnProps {
   code: string;
 }
 
+export interface MemoProps extends changeMemoFnProps {
+  stringId: string;
+  memo: string;
+}
+
 export interface HeaderTopProps extends clickQuestionInfoFnProps {
   title: string;
 }
@@ -41,8 +50,8 @@ export interface CodeSpaceHeaderProps extends clickQuestionInfoFnProps {
 
 export interface CodeSpaceProps
   extends CodeSpaceHeaderProps,
-    changeCodeFnProps {
+    changeCodeFnProps,
+    changeMemoFnProps {
   ideItems: Array<{ id: number; code: string; memo: string }>;
   handleClickDeleteBtn: (id: number) => void;
-  handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }

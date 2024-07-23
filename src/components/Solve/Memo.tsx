@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import { IcArrowTopGray, IcMemoWhite } from '../../assets';
-
-interface MemoProps {
-  stringId: string;
-  memo: string;
-  handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
+import { MemoProps } from '../../types/Solve/solveTypes';
 
 const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
   return (
