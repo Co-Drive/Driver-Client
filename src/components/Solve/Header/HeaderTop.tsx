@@ -5,12 +5,12 @@ import Gray from './Gray';
 import Green from './Green';
 
 const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
-  const [paintedStar, setPaintedStar] = useState(Array(5).fill(0));
+  const [selectedStar, setSelectedStar] = useState(Array(5).fill(0));
 
   const handleClickIc = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const { value } = e.currentTarget;
     handleClickQuestionInfo({ category: 'level', e });
-    setPaintedStar(
+    setSelectedStar(
       Array(value)
         .fill(1)
         .concat(Array(5 - value).fill(0))
@@ -34,7 +34,7 @@ const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
           <LvText>난이도</LvText>
           <LvText>|</LvText>
           <LvStarContainer>
-            {paintedStar.map((star, idx) => {
+            {selectedStar.map((selected, idx) => {
               return (
                 <LvIcContainer
                   key={idx}
@@ -42,7 +42,7 @@ const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
                   onClick={(e) => handleClickIc(e)}
                 >
                   {/* 난이도 아이콘으로 대체 예정 */}
-                  {star ? <Green /> : <Gray />}
+                  {selected ? <Green /> : <Gray />}
                 </LvIcContainer>
               );
             })}
