@@ -50,13 +50,13 @@ const HeaderWrapper = styled.div`
 
 const HeaderContainer = styled.header`
   display: flex;
-
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
 
   width: 100%;
   margin: 0 23.9rem;
-  max-width: 96.2rem;
+
+  /* max-width: 96.2rem; */
 
   border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray300};
 `;
