@@ -2,6 +2,7 @@
 
 import IcAdd from './icon/ic_add.svg?react';
 import IcAddBlack from './icon/ic_add_black.svg?react';
+import IcAddFill from './icon/ic_add_fill.svg?react';
 import IcAddGray from './icon/ic_add_gray.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
@@ -12,6 +13,7 @@ import IcArrowRightSmallGray from './icon/ic_arrow_right_small_gray.svg?react';
 import IcArrowTopGray from './icon/ic_arrow_top_gray.svg?react';
 import IcBtnCopy from './icon/ic_btn_copy.svg?react';
 import IcBtnInformation from './icon/ic_btn_information.svg?react';
+import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCode from './icon/ic_code.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
@@ -34,6 +36,7 @@ import IcWorkbook from './icon/ic_workbook.svg?react';
 export {
   IcAdd,
   IcAddBlack,
+  IcAddFill,
   IcAddGray,
   IcArrowBottomGray,
   IcArrowLeftFill,
@@ -44,6 +47,7 @@ export {
   IcArrowTopGray,
   IcBtnCopy,
   IcBtnInformation,
+  IcCancelFill,
   IcCancelSmall,
   IcCode,
   IcGroup,
