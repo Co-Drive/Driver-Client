@@ -48,7 +48,7 @@ const CodeEditor = ({ stringId, code, handleChangeCode }: CodeEditorProps) => {
   const extensions = getExtensions(LANGUAGE);
 
   return (
-    <CodeMirrorWrapper className="code-mirror">
+    <CodeMirrorContainer className="code-mirror">
       <CodeMirror
         id={stringId}
         value={code}
@@ -57,17 +57,18 @@ const CodeEditor = ({ stringId, code, handleChangeCode }: CodeEditorProps) => {
         theme={dracula}
         height="38.2rem"
       />
-    </CodeMirrorWrapper>
+    </CodeMirrorContainer>
   );
 };
 
 export default CodeEditor;
 
-const CodeMirrorWrapper = styled.article`
+const CodeMirrorContainer = styled.article`
   overflow: hidden auto;
 
   width: 92.6rem;
   height: 38.2rem;
+  margin-bottom: 1.8rem;
 
   border-radius: 0.8rem;
 
