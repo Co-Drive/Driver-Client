@@ -43,6 +43,12 @@ const fonts = {
     ${commonFontStyle}
   `,
 
+  title_bold_26: css`
+    font-family: SuitBold;
+    font-size: 2.6rem;
+    ${commonFontStyle}
+  `,
+
   title_bold_24: css`
     font-family: SuitBold;
     font-size: 2.4rem;
