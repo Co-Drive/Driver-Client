@@ -7,10 +7,12 @@ import PageLayout from '../components/PageLayout/PageLayout';
 
 const GroupJoin = () => {
   const [password, setPassword] = useState('');
+  const [isActive, setIsActive] = useState(false);
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPassword(value);
+    setIsActive(value.length > 0);
   };
 
   return (
@@ -27,7 +29,7 @@ const GroupJoin = () => {
             handleChangeInputs={handleChangeInputs}
           />
         </CommonInputContainer>
-        <CommonButton category="group_join" />
+        <CommonButton category="group_join" isActive={isActive} />
       </GroupJoinContainer>
     </PageLayout>
   );
