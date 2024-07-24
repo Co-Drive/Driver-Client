@@ -54,12 +54,15 @@ const HeaderBottom = ({
           // 선택한 태그 저장
           newTags = [...tags, selectedValue];
           updateQuestionInfo({ category: category, value: newTags });
+
+          if (tags.length === 1) handleToggleOption(category);
         } else if (tags.length === 2) {
           alert('최대 선택 개수는 2개 입니다.');
         }
       }
     } else {
       updateQuestionInfo({ category: category, value: selectedValue });
+      handleToggleOption(category);
     }
   };
 
