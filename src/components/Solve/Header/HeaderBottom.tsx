@@ -34,8 +34,7 @@ const HeaderBottom = ({
   questionInfo,
   handleClickQuestionInfo,
 }: HeaderBottomProps) => {
-  const { platform, problemUrl } = questionInfo;
-  const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
+  const { tags, platform, problemUrl } = questionInfo;
   const [isOptionOpen, setIsOptionOpen] = useState({
     tags: false,
     platform: false,
@@ -53,19 +52,15 @@ const HeaderBottom = ({
     });
   };
 
-  const handleClickSelectedTags = (selectedTag: string) => {
-    if (selectedTags.includes(selectedTag)) {
-      setSelectedTags(selectedTags.filter((tag) => tag !== selectedTag));
+  const handleClickTags = (selectedTag: string) => {
+    let newTags;
+    if (tags.includes(selectedTag)) {
+      newTags = tags.filter((tag) => tag !== selectedTag);
     } else {
-      if (selectedTags.length < 2)
-        setSelectedTags((prev) => [...prev, selectedTag]);
-      else {
-        setSelectedTags((prev) => [
-          ...prev.slice(prev.length - 1),
-          selectedTag,
-        ]);
-      }
+      newTags = [...tags, selectedTag];
     }
+
+    handleClickQuestionInfo({ category: 'tags', clickedValue: newTags });
   };
 
   return (
@@ -84,7 +79,7 @@ const HeaderBottom = ({
               <Input
                 readOnly={true}
                 placeholder={placeholder}
-                value={isTagCategory ? selectedTags.join(',') : platform}
+                value={isTagCategory ? tags.join(',') : platform}
                 $isTagCategory={isTagCategory}
               />
               {(isTagCategory && isOptionOpen.tags) ||
@@ -102,20 +97,20 @@ const HeaderBottom = ({
               }
               $isTagCategory={isTagCategory}
             >
-              {list.map((v) => {
+              {list.map((v: string) => {
                 return (
                   <List
                     key={v}
                     onClick={() => {
-                      if (isTagCategory) handleClickSelectedTags(v);
-
-                      handleClickQuestionInfo({
-                        category: selectedCategory,
-                        clickedValue: isTagCategory ? selectedTags : v,
-                      });
+                      isTagCategory
+                        ? handleClickTags(v)
+                        : handleClickQuestionInfo({
+                            category: 'platform',
+                            clickedValue: v,
+                          });
                     }}
                     $isClickedList={
-                      isTagCategory ? selectedTags.includes(v) : platform === v
+                      isTagCategory ? tags.includes(v) : platform === v
                     }
                   >
                     {v}
