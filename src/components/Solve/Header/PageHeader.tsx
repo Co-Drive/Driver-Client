@@ -38,6 +38,7 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
               key={content}
               type="submit"
               $disabled={saveBtn ? disabledSave : disabledSubmit}
+              $submitBtn={!saveBtn}
               onClick={() =>
                 (saveBtn ? !disabledSave : !disabledSubmit) && handleClickBtn()
               }
@@ -75,20 +76,26 @@ const BtnContainer = styled.div`
   align-items: center;
 `;
 
-const Button = styled.button<{ $disabled: boolean }>`
+const Button = styled.button<{ $disabled: boolean; $submitBtn: boolean }>`
   padding: 1rem 2rem;
 
   border-radius: 0.8rem;
 
-  ${({ theme, $disabled }) =>
+  ${({ theme, $disabled, $submitBtn }) =>
     $disabled
       ? css`
           background-color: ${theme.colors.gray700};
           color: ${theme.colors.gray300};
         `
-      : css`
-          background-color: ${theme.colors.gray500};
-          color: ${theme.colors.gray100};
-        `};
-  ${({ theme }) => theme.fonts.body_ligth_16};
+      : $submitBtn
+        ? css`
+            background-color: ${theme.colors.codrive_green};
+            color: ${theme.colors.gray900};
+          `
+        : css`
+            background-color: ${theme.colors.gray500};
+            color: ${theme.colors.gray100};
+          `};
+  ${({ theme, $disabled }) =>
+    $disabled ? theme.fonts.body_ligth_16 : theme.fonts.title_bold_16};
 `;
