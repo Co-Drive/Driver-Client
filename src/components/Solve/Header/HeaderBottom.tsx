@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcArrowBottomGray, IcArrowTopGray, IcLinkGray } from '../../../assets';
+import {
+  IcArrowBottomGray,
+  IcArrowTopGray,
+  IcLinkGray,
+  IcLinkWhite,
+} from '../../../assets';
 import { TAG_PLATFORM_LISTS } from '../../../constants/\bSolve/SolveConts';
 import {
   ClickedListProps,
@@ -121,7 +126,7 @@ const HeaderBottom = ({
       })}
 
       <LinkInputContainer>
-        <IcLinkGray />
+        {problemUrl.length ? <IcLinkWhite /> : <IcLinkGray />}
         <LinkInput
           placeholder="링크를 첨부해주세요"
           value={problemUrl}
