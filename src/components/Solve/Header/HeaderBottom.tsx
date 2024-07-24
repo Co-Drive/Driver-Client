@@ -7,11 +7,11 @@ import {
   UpdateQuestionInfoProps,
 } from '../../../types/Solve/solveTypes';
 
-const LISTS = [
+const TAG_PLATFORM_LISTS = [
   {
     category: 'tags',
     placeholder: '유형을 선택해주세요 (복수선택 가능)',
-    list: [
+    options: [
       '해시',
       '스택/큐',
       '힙 (Heap)',
@@ -30,7 +30,7 @@ const LISTS = [
   {
     category: 'platform',
     placeholder: '플랫폼을 선택해주세요',
-    list: ['백준', '프로그래머스', 'SWEA', '리트코드', '해커링크', '기타'],
+    options: ['백준', '프로그래머스', 'SWEA', '리트코드', '해커링크', '기타'],
   },
 ];
 
@@ -91,8 +91,8 @@ const HeaderBottom = ({
 
   return (
     <HeaderBottomContainer>
-      {LISTS.map((contents) => {
-        const { category, placeholder, list } = contents;
+      {TAG_PLATFORM_LISTS.map((list) => {
+        const { category, placeholder, options } = list;
         const isTagCategory = category === 'tags';
         const selectedCategory = isTagCategory ? 'tags' : 'platform';
 
@@ -116,32 +116,34 @@ const HeaderBottom = ({
               )}
             </InputContainer>
 
-            <Ul
+            <OptionContainer
               $hidden={
                 (isTagCategory && !isOptionOpen.tags) ||
                 (!isTagCategory && !isOptionOpen.platform)
               }
               $isTagCategory={isTagCategory}
             >
-              {list.map((v: string) => {
+              {options.map((option: string) => {
                 return (
-                  <List
-                    key={v}
+                  <Option
+                    key={option}
                     onClick={() => {
                       handleClickOption({
                         category: selectedCategory,
-                        selectedValue: v,
+                        selectedValue: option,
                       });
                     }}
                     $isClickedList={
-                      isTagCategory ? tags.includes(v) : platform === v
+                      isTagCategory
+                        ? tags.includes(option)
+                        : platform === option
                     }
                   >
-                    {v}
-                  </List>
+                    {option}
+                  </Option>
                 );
               })}
-            </Ul>
+            </OptionContainer>
           </SelectContainer>
         );
       })}
@@ -205,7 +207,10 @@ const Input = styled.input<{ $isTagCategory: boolean }>`
   }
 `;
 
-const Ul = styled.ul<{ $hidden: boolean; $isTagCategory: boolean }>`
+const OptionContainer = styled.ul<{
+  $hidden: boolean;
+  $isTagCategory: boolean;
+}>`
   display: ${({ $hidden }) => ($hidden ? 'none' : 'block')};
   position: absolute;
   top: 25rem;
@@ -221,7 +226,7 @@ const Ul = styled.ul<{ $hidden: boolean; $isTagCategory: boolean }>`
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-const List = styled.li<{ $isClickedList: boolean }>`
+const Option = styled.li<{ $isClickedList: boolean }>`
   width: 100%;
   padding: 1.2rem 0 0.7rem;
 
