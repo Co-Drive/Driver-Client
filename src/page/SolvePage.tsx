@@ -4,8 +4,8 @@ import { IcAddFill } from '../assets';
 import CodeSpace from '../components/Solve/CodeSpace';
 import PageHeader from '../components/Solve/Header/PageHeader';
 import {
-  handleChangeCodeProps,
-  handleClickQuestionInfoProps,
+  ClickQuestionInfoProps,
+  CodeProps,
 } from '../types/Solve/solveTypes';
 
 const SolvePage = () => {
@@ -28,7 +28,7 @@ const SolvePage = () => {
     category,
     e,
     clickedValue,
-  }: handleClickQuestionInfoProps) => {
+  }: ClickQuestionInfoProps) => {
     const value = e ? e.currentTarget.value : clickedValue;
     setQuestionInfo({
       ...questionInfo,
@@ -36,7 +36,7 @@ const SolvePage = () => {
     });
   };
 
-  const handleChangeCode = ({ newCode, stringId }: handleChangeCodeProps) => {
+  const handleChangeCode = ({ newCode, stringId }: CodeProps) => {
     const id = parseInt(stringId);
 
     setIde({
