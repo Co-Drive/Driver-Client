@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcArrowBottomGray, IcArrowTopGray, IcMemoWhite } from '../../assets';
+import {
+  IcArrowBottomGray,
+  IcArrowTopGray,
+  IcMemoGray,
+  IcMemoWhite,
+} from '../../assets';
 import { MemoProps } from '../../types/Solve/solveTypes';
 
 const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
@@ -14,8 +19,8 @@ const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
     <MemoContainer>
       <TopBar>
         <TitleContainer>
-          <IcMemoWhite />
-          <Title>메모장</Title>
+          {!isMemoOpen ? <IcMemoGray /> : <IcMemoWhite />}
+          <Title $isClosed={!isMemoOpen}>메모장</Title>
         </TitleContainer>
 
         {isMemoOpen ? (
@@ -62,9 +67,10 @@ const TitleContainer = styled.div`
   align-items: center;
 `;
 
-const Title = styled.p`
+const Title = styled.p<{ $isClosed: boolean }>`
   ${({ theme }) => theme.fonts.title_semiBold_18};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme, $isClosed }) =>
+    $isClosed ? theme.colors.gray300 : theme.colors.white};
 `;
 
 const TextareaContainer = styled.article<{ $isMemoOpen: boolean }>`
