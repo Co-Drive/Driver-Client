@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray, IcLinkGray } from '../../../assets';
-import { HeaderBottomProps } from '../../../types/Solve/solveTypes';
+import {
+  ClickedListProps,
+  HeaderBottomProps,
+  UpdateQuestionInfoProps,
+} from '../../../types/Solve/solveTypes';
 
 const LISTS = [
   {
@@ -52,15 +56,37 @@ const HeaderBottom = ({
     });
   };
 
-  const handleClickTags = (selectedTag: string) => {
-    let newTags;
-    if (tags.includes(selectedTag)) {
-      newTags = tags.filter((tag) => tag !== selectedTag);
-    } else {
-      newTags = [...tags, selectedTag];
-    }
+  // 선택한 문제 정보를 업데이트하는 함수
+  const updateQuestionInfo = ({ category, value }: UpdateQuestionInfoProps) => {
+    handleClickQuestionInfo({
+      category: category,
+      clickedValue: value,
+    });
+  };
 
-    handleClickQuestionInfo({ category: 'tags', clickedValue: newTags });
+  // 선택된 옵션을 문제 정보로 저장하는 함수
+  const handleClickOption = ({ category, selectedValue }: ClickedListProps) => {
+    const isTagCategory = category === 'tags';
+
+    if (isTagCategory) {
+      let newTags;
+      //  선택한 태그를 한 번 더 선택한 경우
+      if (tags.includes(selectedValue)) {
+        // 태그 배열에서 제외시킴
+        newTags = tags.filter((tag) => tag !== selectedValue);
+        updateQuestionInfo({ category: category, value: newTags });
+      } else {
+        if (tags.length < 2) {
+          // 선택한 태그 저장
+          newTags = [...tags, selectedValue];
+          updateQuestionInfo({ category: category, value: newTags });
+        } else if (tags.length === 2) {
+          alert('최대 선택 개수는 2개 입니다.');
+        }
+      }
+    } else {
+      updateQuestionInfo({ category: category, value: selectedValue });
+    }
   };
 
   return (
@@ -79,7 +105,7 @@ const HeaderBottom = ({
               <Input
                 readOnly={true}
                 placeholder={placeholder}
-                value={isTagCategory ? tags.join(',') : platform}
+                value={isTagCategory ? tags.join(', ') : platform}
                 $isTagCategory={isTagCategory}
               />
               {(isTagCategory && isOptionOpen.tags) ||
@@ -102,12 +128,10 @@ const HeaderBottom = ({
                   <List
                     key={v}
                     onClick={() => {
-                      isTagCategory
-                        ? handleClickTags(v)
-                        : handleClickQuestionInfo({
-                            category: 'platform',
-                            clickedValue: v,
-                          });
+                      handleClickOption({
+                        category: selectedCategory,
+                        selectedValue: v,
+                      });
                     }}
                     $isClickedList={
                       isTagCategory ? tags.includes(v) : platform === v
