@@ -1,51 +1,61 @@
 import styled from 'styled-components';
-import { IcLogo } from '../assets';
+import { IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
 
-const Header = ({
-  isLogin,
-  nickname,
-  clickedCategory,
-  handleClickCategory,
-}: HeaderProps) => {
+const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
+  const nickname = sessionStorage.getItem('nickname');
+  const isLogin = nickname && nickname.length > 0;
   return (
-    <HeaderContainer>
-      <LogoContainer>
-        <IcLogo />
-      </LogoContainer>
-      <NavBarContainer>
-        <NavBarUl>
-          {DATA.map((v) => {
-            return (
-              <NavBar key={v.text}>
-                {isLogin && clickedCategory === v.text && (
-                  <IconContainer>{v.icon}</IconContainer>
-                )}
-                <Text
-                  onClick={(e) => handleClickCategory(e)}
-                  $isClickedCategory={isLogin && clickedCategory === v.text}
-                >
-                  {v.text}
-                </Text>
-              </NavBar>
-            );
-          })}
-        </NavBarUl>
-      </NavBarContainer>
-      <LoginBtnContainer $isLogin={isLogin}>
-        <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
-      </LoginBtnContainer>
-    </HeaderContainer>
+    <HeaderWrapper>
+      <HeaderContainer>
+        <LogoContainer>
+          <IcLogo />
+        </LogoContainer>
+        <NavBarContainer>
+          <NavBarUl>
+            {DATA.map((v) => {
+              return (
+                <NavBar key={v.text}>
+                  {isLogin && clickedCategory === v.text && (
+                    <IconContainer>{v.icon}</IconContainer>
+                  )}
+                  <Text
+                    onClick={(e) => isLogin && handleClickCategory(e)}
+                    $isClickedCategory={clickedCategory === v.text}
+                  >
+                    {v.text}
+                  </Text>
+                </NavBar>
+              );
+            })}
+          </NavBarUl>
+        </NavBarContainer>
+        <LoginBtnContainer $isLogin={isLogin ? true : false}>
+          <IcLoginIcon />
+          <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+        </LoginBtnContainer>
+      </HeaderContainer>
+    </HeaderWrapper>
   );
 };
 
 export default Header;
 
-const HeaderContainer = styled.header`
+const HeaderWrapper = styled.header`
   display: flex;
+
+  width: 100%;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 
+  width: 100%;
+  padding-top: 4.9rem;
+  padding-bottom: 1.2rem;
   margin: 0 23.9rem;
 
   border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray300};
@@ -79,16 +89,21 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
   ${({ theme }) => theme.fonts.title_semiBold_18}
   color: ${({ theme, $isClickedCategory }) =>
     $isClickedCategory ? theme.colors.white : theme.colors.gray300};
+  cursor: pointer;
+
+  white-space: nowrap;
 `;
 
 const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
 
-  margin-right: 2rem;
-  margin-left: ${({ $isLogin }) => ($isLogin ? `42rem` : `44.9rem`)};
+  margin-left: ${({ $isLogin }) => ($isLogin ? '46.2rem' : '50.6rem')};
 `;
 
 const LoginBtn = styled.button`
-  ${({ theme }) => theme.fonts.title_semiBold_18}
   color: ${({ theme }) => theme.colors.white};
+
+  white-space: nowrap;
+
+  ${({ theme }) => theme.fonts.title_semiBold_18}
 `;
