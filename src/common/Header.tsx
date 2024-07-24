@@ -42,13 +42,13 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
 
 export default Header;
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.header`
   display: flex;
 
   width: 100%;
 `;
 
-const HeaderContainer = styled.header`
+const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
