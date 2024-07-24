@@ -77,6 +77,7 @@ const TextareaContainer = styled.article<{ $isMemoOpen: boolean }>`
   display: ${({ $isMemoOpen }) => ($isMemoOpen ? 'block' : 'none')};
 
   height: 29.2rem;
+  padding: 2rem 0.4rem 2.6rem 0.6rem;
 
   border-top: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
@@ -84,14 +85,14 @@ const TextareaContainer = styled.article<{ $isMemoOpen: boolean }>`
 const Textarea = styled.textarea`
   overflow: hidden auto;
 
-  width: calc(100% - 4rem);
-  height: calc(100% - 4.6rem);
-  margin: 2rem 0.6rem 2.6rem;
+  width: 100%;
+  height: 100%;
 
   border: none;
   outline: none;
 
   word-break: keep-all;
+  resize: none;
 
   ${({ theme }) => theme.fonts.body_medium_16};
   background-color: transparent;
