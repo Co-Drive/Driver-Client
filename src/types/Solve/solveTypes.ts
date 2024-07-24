@@ -73,3 +73,13 @@ export interface HeaderBottomProps extends ClickQuestionInfoFnProps {
     problemUrl: string;
   };
 }
+
+export interface UpdateQuestionInfoProps {
+  category: string;
+  value: string | Array<string>;
+}
+
+export interface ClickedListProps {
+  category: string;
+  selectedValue: string;
+}
