@@ -6,11 +6,11 @@ import CommonInput from '../common/CommonInput';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const GroupJoin = () => {
-  const [secretKey, setSecretKey] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setSecretKey(value);
+    setPassword(value);
   };
 
   return (
@@ -19,12 +19,14 @@ const GroupJoin = () => {
         <IconContainer>
           <IcSecretBigWhite />
         </IconContainer>
-        <Text>비밀그룹 생성하기</Text>
-        <CommonInput
-          category="secretKey"
-          value={secretKey}
-          handleChangeInputs={handleChangeInputs}
-        />
+        <Text>비밀그룹 참여하기</Text>
+        <CommonInputContainer>
+          <CommonInput
+            category="password"
+            value={password}
+            handleChangeInputs={handleChangeInputs}
+          />
+        </CommonInputContainer>
         <CommonButton category="group_join" />
       </GroupJoinContainer>
     </PageLayout>
@@ -39,13 +41,25 @@ const GroupJoinContainer = styled.main`
   align-items: center;
   flex-direction: column;
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 const IconContainer = styled.div`
-  background-color: red;
+  margin-top: 12.9rem;
+  margin-bottom: 1rem;
+
+  /* background-color: red; */
+`;
+
+const CommonInputContainer = styled.div`
+  margin-top: 4.2rem;
+  margin-bottom: 4.4rem;
+
+  /* background-color: blue; */
 `;
 
 const Text = styled.p`
-  background-color: darkgreen;
+  /* background-color: darkgreen; */
+  ${({ theme }) => theme.fonts.title_bold_24}
+  color: ${({ theme }) => theme.colors.white};
 `;
