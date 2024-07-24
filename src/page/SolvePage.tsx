@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcAddFill } from '../assets';
+import { IcAddFill, IcAddFillDisabled } from '../assets';
 import CodeSpace from '../components/Solve/CodeSpace';
 import PageHeader from '../components/Solve/Header/PageHeader';
-import {
-  ClickQuestionInfoProps,
-  CodeProps,
-} from '../types/Solve/solveTypes';
+import { ClickQuestionInfoProps, CodeProps } from '../types/Solve/solveTypes';
 
 const SolvePage = () => {
   const [questionInfo, setQuestionInfo] = useState({
@@ -99,7 +96,11 @@ const SolvePage = () => {
       />
 
       <AddBtnContainer>
-        <IcAddFill onClick={handleClickAddBtn} />
+        {ideItems[ideItems.length - 1].code.length ? (
+          <IcAddFill onClick={handleClickAddBtn} />
+        ) : (
+          <IcAddFillDisabled />
+        )}
       </AddBtnContainer>
       {ideId > 0 && (
         <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
@@ -125,7 +126,7 @@ const AddBtnContainer = styled.div`
   justify-content: end;
 
   width: 100%;
-  margin-top: 1.8rem;
+  margin: 1.8rem 25.7rem 0;
 `;
 
 const GoTopBtn = styled.button`
