@@ -14,7 +14,7 @@ const CodeSpaceHeader = ({
         title={title}
         handleClickQuestionInfo={handleClickQuestionInfo}
       />
-      <HeaderBottom />
+      <HeaderBottom questionInfo={questionInfo} handleClickQuestionInfo={handleClickQuestionInfo}/>
     </Header>
   );
 };

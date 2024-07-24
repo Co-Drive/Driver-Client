@@ -27,8 +27,9 @@ const SolvePage = () => {
   const handleClickQuestionInfo = ({
     category,
     e,
+    clickedValue,
   }: handleClickQuestionInfoProps) => {
-    const { value } = e.currentTarget;
+    const value = e ? e.currentTarget.value : clickedValue;
     setQuestionInfo({
       ...questionInfo,
       [category]: value,

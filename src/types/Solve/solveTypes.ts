@@ -13,9 +13,10 @@ interface changeMemoFnProps {
 
 export interface handleClickQuestionInfoProps {
   category: string;
-  e:
+  e?:
     | React.MouseEvent<HTMLLIElement, MouseEvent>
     | React.ChangeEvent<HTMLInputElement>;
+  clickedValue?: string | Array<string>;
 }
 
 interface clickQuestionInfoFnProps {
@@ -66,4 +67,12 @@ export interface PageHeaderProps {
   };
 
   codeblocks: Array<{ id: number; code: string; memo: string }>;
+}
+
+export interface HeaderBottomProps extends clickQuestionInfoFnProps {
+  questionInfo: {
+    tags: Array<String>;
+    platform: string;
+    problemUrl: string;
+  };
 }

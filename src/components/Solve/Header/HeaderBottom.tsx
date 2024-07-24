@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray, IcLinkGray } from '../../../assets';
+import { HeaderBottomProps } from '../../../types/Solve/solveTypes';
 
 const LISTS = [
   {
-    category: 'tag',
+    category: 'tags',
     placeholder: '유형을 선택해주세요 (복수선택 가능)',
     list: [
       '해시',
@@ -29,36 +30,96 @@ const LISTS = [
   },
 ];
 
-const HeaderBottom = () => {
-  const [isOptionOpen, setIsOptionOpen] = useState(false);
+const HeaderBottom = ({
+  questionInfo,
+  handleClickQuestionInfo,
+}: HeaderBottomProps) => {
+  const { tags, platform, problemUrl } = questionInfo;
+  const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
+  const [isOptionOpen, setIsOptionOpen] = useState({
+    tags: false,
+    platform: false,
+  });
 
-  const handleClickArrowBtn = () => {
-    setIsOptionOpen(!isOptionOpen);
+  const handleToggleOption = (category: string) => {
+    const isTagCategory = category === 'tags';
+    const toggleIsOptionOpen = isTagCategory
+      ? !isOptionOpen.tags
+      : !isOptionOpen.platform;
+
+    setIsOptionOpen({
+      ...isOptionOpen,
+      [category]: toggleIsOptionOpen,
+    });
+  };
+
+  const handleClickSelectedTags = (selectedTag: string) => {
+    if (selectedTags.includes(selectedTag)) {
+      setSelectedTags(selectedTags.filter((tag) => tag !== selectedTag));
+    } else {
+      if (selectedTags.length < 2)
+        setSelectedTags((prev) => [...prev, selectedTag]);
+      else {
+        setSelectedTags((prev) => [
+          ...prev.slice(prev.length - 1),
+          selectedTag,
+        ]);
+      }
+    }
   };
 
   return (
     <HeaderBottomContainer>
       {LISTS.map((contents) => {
         const { category, placeholder, list } = contents;
-        const isTagCategory = category === 'tag';
+        const isTagCategory = category === 'tags';
+        const selectedCategory = isTagCategory ? 'tags' : 'platform';
+
         return (
           <SelectContainer key={category}>
-            <InputContainer $isTagCategory={isTagCategory}>
+            <InputContainer
+              $isTagCategory={isTagCategory}
+              onClick={() => handleToggleOption(selectedCategory)}
+            >
               <Input
                 readOnly={true}
                 placeholder={placeholder}
+                value={platform}
+                // value={isTagCategory ? tags : platform}
                 $isTagCategory={isTagCategory}
               />
-              {isOptionOpen ? (
-                <IcArrowTopGray onClick={handleClickArrowBtn} />
+              {(isTagCategory && isOptionOpen.tags) ||
+              (!isTagCategory && isOptionOpen.platform) ? (
+                <IcArrowTopGray />
               ) : (
-                <IcArrowBottomGray onClick={handleClickArrowBtn} />
+                <IcArrowBottomGray />
               )}
             </InputContainer>
 
-            <Ul $hidden={!isOptionOpen} $isTagCategory={isTagCategory}>
+            <Ul
+              $hidden={
+                (isTagCategory && !isOptionOpen.tags) ||
+                (!isTagCategory && !isOptionOpen.platform)
+              }
+              $isTagCategory={isTagCategory}
+            >
               {list.map((v) => {
-                return <List key={v}>{v}</List>;
+                return (
+                  <List
+                    key={v}
+                    onClick={() => {
+                      if (isTagCategory) handleClickSelectedTags(v);
+
+                      handleClickQuestionInfo({
+                        category: selectedCategory,
+                        clickedValue: isTagCategory ? selectedTags : v,
+                      });
+                    }}
+                    $isClickedList={!isTagCategory && platform === v}
+                  >
+                    {v}
+                  </List>
+                );
               })}
             </Ul>
           </SelectContainer>
@@ -67,7 +128,13 @@ const HeaderBottom = () => {
 
       <LinkInputContainer>
         <IcLinkGray />
-        <LinkInput placeholder="링크를 첨부해주세요" />
+        <LinkInput
+          placeholder="링크를 첨부해주세요"
+          value={problemUrl}
+          onChange={(e) =>
+            handleClickQuestionInfo({ category: 'problemUrl', e })
+          }
+        />
       </LinkInputContainer>
     </HeaderBottomContainer>
   );
@@ -134,12 +201,13 @@ const Ul = styled.ul<{ $hidden: boolean; $isTagCategory: boolean }>`
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-const List = styled.li`
+const List = styled.li<{ $isClickedList: boolean }>`
   width: 100%;
   padding: 1.2rem 0 0.7rem;
 
   border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.gray800};
+  background-color: ${({ theme, $isClickedList }) =>
+    $isClickedList ? theme.colors.gray700 : theme.colors.gray800};
   ${({ theme }) => theme.fonts.body_medium_16};
   color: ${({ theme }) => theme.colors.gray100};
 
@@ -155,6 +223,7 @@ const LinkInputContainer = styled.article`
   justify-content: center;
   align-items: center;
 
+  width: 29.7rem;
   padding: 1.2rem 1.6rem 1.2rem 1.4rem;
 
   border-radius: 0.8rem;

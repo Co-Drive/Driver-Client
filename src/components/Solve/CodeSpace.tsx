@@ -16,8 +16,8 @@ const CodeSpace = ({
   return (
     <CodeSpaceContainer>
       <CodeSpaceHeader
-        handleClickQuestionInfo={handleClickQuestionInfo}
         questionInfo={questionInfo}
+        handleClickQuestionInfo={handleClickQuestionInfo}
       />
       {ideItems.map((item) => {
         return (
