@@ -34,7 +34,7 @@ const HeaderBottom = ({
   questionInfo,
   handleClickQuestionInfo,
 }: HeaderBottomProps) => {
-  const { tags, platform, problemUrl } = questionInfo;
+  const { platform, problemUrl } = questionInfo;
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
   const [isOptionOpen, setIsOptionOpen] = useState({
     tags: false,
@@ -84,8 +84,7 @@ const HeaderBottom = ({
               <Input
                 readOnly={true}
                 placeholder={placeholder}
-                value={platform}
-                // value={isTagCategory ? tags : platform}
+                value={isTagCategory ? selectedTags.join(',') : platform}
                 $isTagCategory={isTagCategory}
               />
               {(isTagCategory && isOptionOpen.tags) ||
@@ -115,7 +114,9 @@ const HeaderBottom = ({
                         clickedValue: isTagCategory ? selectedTags : v,
                       });
                     }}
-                    $isClickedList={!isTagCategory && platform === v}
+                    $isClickedList={
+                      isTagCategory ? selectedTags.includes(v) : platform === v
+                    }
                   >
                     {v}
                   </List>
