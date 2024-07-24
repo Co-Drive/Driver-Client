@@ -8,11 +8,25 @@ import PageLayout from '../components/PageLayout/PageLayout';
 const GroupJoin = () => {
   const [password, setPassword] = useState('');
   const [isActive, setIsActive] = useState(false);
+  const [isNotMatchedPW, setIsNotMatchedPW] = useState(false);
+  const [correctPassword, setCorrectPassword] = useState(false); // 백엔드에서 받아올 백엔드의 PassWord
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPassword(value);
     setIsActive(value.length > 0);
+    setIsNotMatchedPW(false); // 비밀번호가 틀렸다고 표시된 상태 초기화
+  };
+
+  const handleButtonClick = () => {
+    // console.log('버튼클릭');
+
+    if (correctPassword) {
+      console.log('그룹에 성공적으로 참여하였습니다');
+    } else {
+      setIsNotMatchedPW(true);
+      console.log('비밀번호가 틀렸습니다');
+    }
   };
 
   return (
@@ -27,9 +41,14 @@ const GroupJoin = () => {
             category="password"
             value={password}
             handleChangeInputs={handleChangeInputs}
+            isNotMatchedPW={isNotMatchedPW}
           />
         </CommonInputContainer>
-        <CommonButton category="group_join" isActive={isActive} />
+        <CommonButton
+          category="group_join"
+          isActive={isActive}
+          onClick={handleButtonClick}
+        />
       </GroupJoinContainer>
     </PageLayout>
   );
@@ -63,5 +82,5 @@ const CommonInputContainer = styled.div`
 const Text = styled.p`
   /* background-color: darkgreen; */
   ${({ theme }) => theme.fonts.title_bold_24}
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.white}
 `;
