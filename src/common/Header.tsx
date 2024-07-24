@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IcLogo } from '../assets';
+import { IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
 
@@ -32,6 +32,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
           </NavBarUl>
         </NavBarContainer>
         <LoginBtnContainer $isLogin={isLogin ? true : false}>
+          <IcLoginIcon />
           <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
         </LoginBtnContainer>
       </HeaderContainer>
@@ -43,7 +44,8 @@ export default Header;
 
 const HeaderWrapper = styled.div`
   display: flex;
-  justify-content: center;
+
+  /* justify-content: center; */
 
   width: 100%;
 `;
@@ -54,11 +56,15 @@ const HeaderContainer = styled.header`
   align-items: center;
 
   width: 100%;
+  padding-top: 4.9rem;
+  padding-bottom: 1.2rem;
   margin: 0 23.9rem;
 
   /* max-width: 96.2rem; */
 
   border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray300};
+
+  /* background-color: pink; */
 `;
 const LogoContainer = styled.div`
   margin-right: 3.5rem;
