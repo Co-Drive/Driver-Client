@@ -69,6 +69,9 @@ const HeaderBottom = ({
         const { category, placeholder, options } = list;
         const isTagCategory = category === 'tags';
         const selectedCategory = isTagCategory ? 'tags' : 'platform';
+        const isOptionHidden =
+          (isTagCategory && !isOptionOpen.tags) ||
+          (!isTagCategory && !isOptionOpen.platform);
 
         return (
           <SelectContainer key={category}>
@@ -82,19 +85,11 @@ const HeaderBottom = ({
                 value={isTagCategory ? tags.join(', ') : platform}
                 $isTagCategory={isTagCategory}
               />
-              {(isTagCategory && isOptionOpen.tags) ||
-              (!isTagCategory && isOptionOpen.platform) ? (
-                <IcArrowTopGray />
-              ) : (
-                <IcArrowBottomGray />
-              )}
+              {isOptionHidden ? <IcArrowBottomGray /> : <IcArrowTopGray />}
             </InputContainer>
 
             <OptionContainer
-              $hidden={
-                (isTagCategory && !isOptionOpen.tags) ||
-                (!isTagCategory && !isOptionOpen.platform)
-              }
+              $hidden={isOptionHidden}
               $isTagCategory={isTagCategory}
             >
               {options.map((option: string) => {
