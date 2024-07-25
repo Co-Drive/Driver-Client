@@ -32,6 +32,7 @@ const HeaderBottomContainer = styled.ul`
   justify-content: center;
 
   width: 100%;
+  margin-bottom: 2.2rem;
 `;
 
 const CommonTagStyle = styled.li`
@@ -48,9 +49,9 @@ const CommonTagStyle = styled.li`
 const Tag = styled(CommonTagStyle)`
   flex-grow: 2.8;
 
-  min-width: 39.4rem;
+  min-width: 34.9rem;
 
-  padding: 1.5rem 1.2rem 1.4rem 2rem;
+  padding: 1.5rem 0 1.4rem;
 `;
 
 const Platform = styled(CommonTagStyle)`
@@ -58,7 +59,7 @@ const Platform = styled(CommonTagStyle)`
 
   min-width: 12.4rem;
 
-  padding: 1.5rem 2rem 1.4rem;
+  padding: 1.5rem 0 1.4rem;
 `;
 
 const LinkContainer = styled(CommonTagStyle)`
@@ -66,7 +67,7 @@ const LinkContainer = styled(CommonTagStyle)`
 
   min-width: 41.7rem;
 
-  padding: 1.2rem 2rem 1.2rem 1.4rem;
+  padding: 1.2rem 0;
 `;
 
 const Link = styled.p`
