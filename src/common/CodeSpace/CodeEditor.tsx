@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import { LANG_LIST } from '../../constants/CodeEditor/language';
 import { CodeEditorProps } from '../../types/Solve/solveTypes';
 
-const CodeEditor = ({ stringId, code, handleChangeCode }: CodeEditorProps) => {
+const CodeEditor = ({
+  isReadOnly,
+  stringId,
+  code,
+  handleChangeCode,
+}: CodeEditorProps) => {
   const LANGUAGE = sessionStorage.getItem('language') as keyof typeof LANG_LIST;
   if (!LANGUAGE) {
     // 추후 주 언어를 선택해달라는 문구 + 마이페이지로 네비게이트 시키기

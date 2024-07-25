@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray, IcMemoWhite } from '../../assets';
 import { MemoProps } from '../../types/Solve/solveTypes';
 
-const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
+const Memo = ({ isReadOnly, stringId, memo, handleChangeMemo }: MemoProps) => {
   const [isMemoOpen, setIsMemoOpen] = useState(false);
 
   const handleclickArrow = () => {
