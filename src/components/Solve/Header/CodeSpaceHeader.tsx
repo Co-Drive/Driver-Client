@@ -14,7 +14,10 @@ const CodeSpaceHeader = ({
         title={title}
         handleClickQuestionInfo={handleClickQuestionInfo}
       />
-      <HeaderBottom questionInfo={questionInfo} handleClickQuestionInfo={handleClickQuestionInfo}/>
+      <HeaderBottom
+        questionInfo={questionInfo}
+        handleClickQuestionInfo={handleClickQuestionInfo}
+      />
     </Header>
   );
 };
@@ -28,5 +31,5 @@ const Header = styled.header`
   align-items: center;
   flex-direction: column;
 
-  width: 92.4rem;
+  width: 100%;
 `;

@@ -118,7 +118,7 @@ const SolvePageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  margin: 6rem 25.7rem 20rem;
+  padding: 6rem 25.7rem 20rem;
 `;
 
 const AddBtnContainer = styled.div`

@@ -82,7 +82,7 @@ const HeaderBottom = ({
           (!isTagCategory && !isOptionOpen.platform);
 
         return (
-          <SelectContainer key={category}>
+          <SelectContainer key={category} $isTagCategory={isTagCategory}>
             <InputContainer
               $isTagCategory={isTagCategory}
               onClick={() => handleToggleOption(selectedCategory)}
@@ -144,17 +144,19 @@ export default HeaderBottom;
 const HeaderBottomContainer = styled.section`
   display: flex;
   gap: 1.9rem;
+  justify-content: space-between;
   align-items: center;
-  justify-self: center;
 
   width: 100%;
 `;
 
-const SelectContainer = styled.article`
+const SelectContainer = styled.article<{ $isTagCategory: boolean }>`
   display: flex;
   gap: 0.8rem;
   justify-content: center;
   flex-direction: column;
+  flex-grow: ${({ $isTagCategory }) => ($isTagCategory ? 1.87 : 1)};
+  position: relative;
 `;
 
 const InputContainer = styled.div<{ $isTagCategory: boolean }>`
@@ -190,10 +192,10 @@ const OptionContainer = styled.ul<{
 }>`
   display: ${({ $hidden }) => ($hidden ? 'none' : 'block')};
   position: absolute;
-  top: 25rem;
-  z-index: 10;
+  top: 5.8rem;
+  z-index: 1;
 
-  width: ${({ $isTagCategory }) => ($isTagCategory ? `38.5rem` : `20.6rem`)};
+  width: 100%;
   padding: 0.8rem;
 
   border-radius: 0.8rem;
