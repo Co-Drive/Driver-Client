@@ -7,44 +7,53 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const nickname = sessionStorage.getItem('nickname');
   const isLogin = nickname && nickname.length > 0;
   return (
-    <HeaderContainer>
-      <LogoContainer>
-        <IcLogo />
-      </LogoContainer>
-      <NavBarContainer>
-        <NavBarUl>
-          {DATA.map((v) => {
-            return (
-              <NavBar key={v.text}>
-                {isLogin && clickedCategory === v.text && (
-                  <IconContainer>{v.icon}</IconContainer>
-                )}
-                <Text
-                  onClick={(e) => isLogin && handleClickCategory(e)}
-                  $isClickedCategory={clickedCategory === v.text}
-                >
-                  {v.text}
-                </Text>
-              </NavBar>
-            );
-          })}
-        </NavBarUl>
-      </NavBarContainer>
-      <LoginBtnContainer $isLogin={isLogin ? true : false}>
-        <IcLoginIcon />
-        <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
-      </LoginBtnContainer>
-    </HeaderContainer>
+    <HeaderWrapper>
+      <HeaderContainer>
+        <LogoContainer>
+          <IcLogo />
+        </LogoContainer>
+        <NavBarContainer>
+          <NavBarUl>
+            {DATA.map((v) => {
+              return (
+                <NavBar key={v.text}>
+                  {isLogin && clickedCategory === v.text && (
+                    <IconContainer>{v.icon}</IconContainer>
+                  )}
+                  <Text
+                    onClick={(e) => isLogin && handleClickCategory(e)}
+                    $isClickedCategory={clickedCategory === v.text}
+                  >
+                    {v.text}
+                  </Text>
+                </NavBar>
+              );
+            })}
+          </NavBarUl>
+        </NavBarContainer>
+        <LoginBtnContainer $isLogin={isLogin ? true : false}>
+          <IcLoginIcon />
+          <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+        </LoginBtnContainer>
+      </HeaderContainer>
+    </HeaderWrapper>
   );
 };
 
 export default Header;
+
+const HeaderWrapper = styled.header`
+  display: flex;
+
+  width: 100%;
+`;
 
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
+  width: 100%;
   padding-top: 4.9rem;
   padding-bottom: 1.2rem;
   margin: 0 23.9rem;
@@ -57,6 +66,7 @@ const LogoContainer = styled.div`
 
 const NavBarContainer = styled.nav`
   display: flex;
+  flex-grow: 1.5;
 `;
 
 const NavBarUl = styled.ul`
