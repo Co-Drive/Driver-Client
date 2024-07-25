@@ -10,6 +10,7 @@ import { MemoProps } from '../../types/Solve/solveTypes';
 
 const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
   const [isMemoOpen, setIsMemoOpen] = useState(false);
+  const isMemoDisabled = !isMemoOpen && !memo.length;
 
   const handleclickArrow = () => {
     setIsMemoOpen(!isMemoOpen);
@@ -19,8 +20,8 @@ const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
     <MemoContainer>
       <TopBar>
         <TitleContainer>
-          {!isMemoOpen ? <IcMemoGray /> : <IcMemoWhite />}
-          <Title $isClosed={!isMemoOpen}>메모장</Title>
+          {isMemoDisabled ? <IcMemoGray /> : <IcMemoWhite />}
+          <Title $isDisabled={isMemoDisabled}>메모장</Title>
         </TitleContainer>
 
         {isMemoOpen ? (
@@ -67,10 +68,10 @@ const TitleContainer = styled.div`
   align-items: center;
 `;
 
-const Title = styled.p<{ $isClosed: boolean }>`
+const Title = styled.p<{ $isDisabled: boolean }>`
   ${({ theme }) => theme.fonts.title_semiBold_18};
-  color: ${({ theme, $isClosed }) =>
-    $isClosed ? theme.colors.gray300 : theme.colors.white};
+  color: ${({ theme, $isDisabled }) =>
+    $isDisabled ? theme.colors.gray300 : theme.colors.white};
 `;
 
 const TextareaContainer = styled.article<{ $isMemoOpen: boolean }>`
