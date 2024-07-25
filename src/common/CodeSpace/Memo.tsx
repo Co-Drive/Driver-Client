@@ -11,18 +11,14 @@ const Memo = ({ isReadOnly, stringId, memo, handleChangeMemo }: MemoProps) => {
   };
 
   return (
-    <MemoContainer>
+    <MemoContainer onClick={handleclickArrow}>
       <TopBar>
         <TitleContainer>
           <IcMemoWhite />
           <Title>메모장</Title>
         </TitleContainer>
 
-        {isMemoOpen ? (
-          <IcArrowTopGray onClick={handleclickArrow} />
-        ) : (
-          <IcArrowBottomGray onClick={handleclickArrow} />
-        )}
+        {isMemoOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
       </TopBar>
 
       <TextareaContainer $isMemoOpen={isMemoOpen}>
