@@ -7,53 +7,44 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const nickname = sessionStorage.getItem('nickname');
   const isLogin = nickname && nickname.length > 0;
   return (
-    <HeaderWrapper>
-      <HeaderContainer>
-        <LogoContainer>
-          <IcLogo />
-        </LogoContainer>
-        <NavBarContainer>
-          <NavBarUl>
-            {DATA.map((v) => {
-              return (
-                <NavBar key={v.text}>
-                  {isLogin && clickedCategory === v.text && (
-                    <IconContainer>{v.icon}</IconContainer>
-                  )}
-                  <Text
-                    onClick={(e) => isLogin && handleClickCategory(e)}
-                    $isClickedCategory={clickedCategory === v.text}
-                  >
-                    {v.text}
-                  </Text>
-                </NavBar>
-              );
-            })}
-          </NavBarUl>
-        </NavBarContainer>
-        <LoginBtnContainer $isLogin={isLogin ? true : false}>
-          <IcLoginIcon />
-          <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
-        </LoginBtnContainer>
-      </HeaderContainer>
-    </HeaderWrapper>
+    <HeaderContainer>
+      <LogoContainer>
+        <IcLogo />
+      </LogoContainer>
+      <NavBarContainer>
+        <NavBarUl>
+          {DATA.map((v) => {
+            return (
+              <NavBar key={v.text}>
+                {isLogin && clickedCategory === v.text && (
+                  <IconContainer>{v.icon}</IconContainer>
+                )}
+                <Text
+                  onClick={(e) => isLogin && handleClickCategory(e)}
+                  $isClickedCategory={clickedCategory === v.text}
+                >
+                  {v.text}
+                </Text>
+              </NavBar>
+            );
+          })}
+        </NavBarUl>
+      </NavBarContainer>
+      <LoginBtnContainer $isLogin={isLogin ? true : false}>
+        <IcLoginIcon />
+        <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+      </LoginBtnContainer>
+    </HeaderContainer>
   );
 };
 
 export default Header;
-
-const HeaderWrapper = styled.header`
-  display: flex;
-
-  width: 100%;
-`;
 
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
   padding-top: 4.9rem;
   padding-bottom: 1.2rem;
   margin: 0 23.9rem;
@@ -96,8 +87,10 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
 
 const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
+  justify-content: end;
 
-  margin-left: ${({ $isLogin }) => ($isLogin ? '46.2rem' : '50.6rem')};
+  width: 23.2rem;
+  margin-left: ${({ $isLogin }) => ($isLogin ? '29.7rem' : '34.1rem')};
 `;
 
 const LoginBtn = styled.button`
