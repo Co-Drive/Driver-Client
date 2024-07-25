@@ -11,8 +11,8 @@ const Memo = ({ isReadOnly, stringId, memo, handleChangeMemo }: MemoProps) => {
   };
 
   return (
-    <MemoContainer onClick={handleclickArrow}>
-      <TopBar>
+    <MemoContainer>
+      <TopBar onClick={handleclickArrow}>
         <TitleContainer>
           <IcMemoWhite />
           <Title>메모장</Title>
