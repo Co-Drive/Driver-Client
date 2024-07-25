@@ -33,7 +33,12 @@ const CodeEditor = ({
       <CodeMirror
         id={stringId}
         value={code}
-        onChange={(newCode) => handleChangeCode({ newCode, stringId })}
+        readOnly={isReadOnly}
+        editable={!isReadOnly}
+        onChange={(newCode) => {
+          if (!isReadOnly && handleChangeCode)
+            handleChangeCode({ newCode, stringId });
+        }}
         extensions={extensions}
         theme={dracula}
         height="38.2rem"

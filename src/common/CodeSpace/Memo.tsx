@@ -30,7 +30,9 @@ const Memo = ({ isReadOnly, stringId, memo, handleChangeMemo }: MemoProps) => {
           id={stringId}
           name="memo"
           value={memo}
-          onChange={handleChangeMemo}
+          onChange={(e) => {
+            if (!isReadOnly && handleChangeMemo) handleChangeMemo(e);
+          }}
         />
       </TextareaContainer>
     </MemoContainer>
