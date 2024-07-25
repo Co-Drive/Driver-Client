@@ -59,26 +59,19 @@ const GroupJoinContainer = styled.main`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  /* background-color: pink; */
 `;
 
 const IconContainer = styled.div`
   margin-top: 12.9rem;
   margin-bottom: 1rem;
-
-  /* background-color: red; */
 `;
 
 const CommonInputContainer = styled.div`
   margin-top: 4.2rem;
   margin-bottom: 4.4rem;
-
-  /* background-color: blue; */
 `;
 
 const Text = styled.p`
-  /* background-color: darkgreen; */
   ${({ theme }) => theme.fonts.title_bold_24}
   color: ${({ theme }) => theme.colors.white}
 `;
