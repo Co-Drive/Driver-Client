@@ -29,5 +29,6 @@ export default PageLayout;
 const PageLayoutContainer = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 `;
