@@ -43,6 +43,8 @@ export default Memo;
 
 const MemoContainer = styled.article`
   width: 100%;
+  min-width: 92.6rem;
+
   padding: 2.4rem 2.6rem 0 2.4rem;
 
   border-radius: 0.8rem;
