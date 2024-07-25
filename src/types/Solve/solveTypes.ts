@@ -25,16 +25,18 @@ interface clickQuestionInfoFnProps {
   }: handleClickQuestionInfoProps) => void;
 }
 
-export interface CodeEditorProps extends changeCodeFnProps {
+export interface CodeEditorProps {
   isReadOnly: boolean;
   stringId: string;
   code: string;
+  handleChangeCode?: ({ newCode, stringId }: handleChangeCodeProps) => void;
 }
 
-export interface MemoProps extends changeMemoFnProps {
+export interface MemoProps {
   isReadOnly: boolean;
   stringId: string;
   memo: string;
+  handleChangeMemo?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 export interface HeaderTopProps extends clickQuestionInfoFnProps {
