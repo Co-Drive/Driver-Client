@@ -26,6 +26,7 @@ const Memo = ({ isReadOnly, stringId, memo, handleChangeMemo }: MemoProps) => {
           id={stringId}
           name="memo"
           value={memo}
+          readOnly={isReadOnly}
           onChange={(e) => {
             if (!isReadOnly && handleChangeMemo) handleChangeMemo(e);
           }}
