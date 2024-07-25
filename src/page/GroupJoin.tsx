@@ -9,7 +9,7 @@ const GroupJoin = () => {
   const [password, setPassword] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [isNotMatchedPW, setIsNotMatchedPW] = useState(false);
-  const [correctPassword, setCorrectPassword] = useState(false); // 백엔드에서 받아올 백엔드의 PassWord
+  const correctPassword = false; // 백엔드 사용자PW 비밀번호
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -19,8 +19,6 @@ const GroupJoin = () => {
   };
 
   const handleButtonClick = () => {
-    // console.log('버튼클릭');
-
     if (correctPassword) {
       console.log('그룹에 성공적으로 참여하였습니다');
     } else {
