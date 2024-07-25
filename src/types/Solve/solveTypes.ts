@@ -26,11 +26,13 @@ interface clickQuestionInfoFnProps {
 }
 
 export interface CodeEditorProps extends changeCodeFnProps {
+  isReadOnly: boolean;
   stringId: string;
   code: string;
 }
 
 export interface MemoProps extends changeMemoFnProps {
+  isReadOnly: boolean;
   stringId: string;
   memo: string;
 }
