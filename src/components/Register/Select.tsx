@@ -4,14 +4,19 @@ import CommonHashTag from '../../common/CommonHashTag';
 
 export interface SelectProps {
   isOpen: boolean;
+  selectedTag: string;
 }
 
-const Select = ({ isOpen }: SelectProps) => {
+const Select = ({ isOpen, selectedTag }: SelectProps) => {
   return (
     <SelectContainer>
       <HiddenInput />
       <SelectOptions>
-        <CommonHashTag />
+        {selectedTag === '' ? (
+          <Placeholder>자주 사용하는 언어를 선택해주세요</Placeholder>
+        ) : (
+          <CommonHashTag selectedTag={selectedTag} />
+        )}
       </SelectOptions>
       <ArrowToggle>
         {isOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
@@ -43,6 +48,15 @@ const SelectOptions = styled.div`
   flex-wrap: wrap;
 
   margin-top: 0;
+`;
+
+const Placeholder = styled.div`
+  color: ${({ theme }) => theme.colors.gray300};
+  font-weight: 300;
+  font-size: 1rem;
+
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  text-align: center;
 `;
 
 const ArrowToggle = styled.div`
