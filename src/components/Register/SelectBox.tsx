@@ -16,13 +16,19 @@ const SelectBox = () => {
     []
   );
 
+  // 선택된 태그 값 업데이트
+  const handleChangeTag = useCallback((value: string) => {
+    setSelectedTag(value);
+    setInputValue(value);
+  }, []);
+
   <SelectBoxContainer>
     <Select
       inputValue={inputValue}
       selectedTag={selectedTag}
       isOpen={isOpen}
       onToggleDropdown={handleToggleDropdown}
-      onTagChange={}
+      onTagChange={handleChangeTag}
     />
   </SelectBoxContainer>;
 };
