@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import Options from './Options';
 import Select from './Select';
 
 const SelectBox = () => {
@@ -22,6 +23,18 @@ const SelectBox = () => {
     setInputValue(value);
   }, []);
 
+  // 옵션을 클릭했을 때 호출되는 함수
+  // 선택한 옵션이 현재 선택된 태그와 다를 경우 태그를 변경하고 드롭다운을 닫음
+  const handleClickOption = useCallback(
+    (option: string) => {
+      if (option !== selectedTag) {
+        handleChangeTag(option);
+      }
+      setIsOpen(false);
+    },
+    [handleChangeTag, selectedTag]
+  );
+
   <SelectBoxContainer>
     <Select
       inputValue={inputValue}
@@ -30,6 +43,7 @@ const SelectBox = () => {
       onToggleDropdown={handleToggleDropdown}
       onTagChange={handleChangeTag}
     />
+    {isOpen && <Options onSelectOption={handleClickOption} />}
   </SelectBoxContainer>;
 };
 
