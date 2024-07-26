@@ -1,10 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Thumbnail } from '../assets';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
 const GroupComplete = () => {
-  const baseUrl = window.location.origin; // 그룹 생성 페이지가 만들어지면 대체될 예정
-  const GroupPage = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
+  const navigate = useNavigate();
+  const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -12,6 +13,11 @@ const GroupComplete = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleGroupPageRedirect = () => {
+    alert('그룹 페이지를 생성하고 유지보수 예정.');
+    navigate('/group-page'); // 그룹 페이지 생성 후 유지보수 예정
   };
 
   return (
@@ -31,7 +37,7 @@ const GroupComplete = () => {
           category="link_copy"
         />
         <CommonButton
-          onClick={() => GroupPage}
+          onClick={handleGroupPageRedirect}
           category="group_direct"
           isActive={true}
         />
