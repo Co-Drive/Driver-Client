@@ -5,9 +5,16 @@ import CommonHashTag from '../../common/CommonHashTag';
 export interface SelectProps {
   isOpen: boolean;
   selectedTag: string;
+  onToggleDropdown: (e: React.MouseEvent<HTMLDivElement> | null) => void;
+  onTagChange: (value: string) => void;
 }
 
-const Select = ({ isOpen, selectedTag }: SelectProps) => {
+const Select = ({
+  isOpen,
+  selectedTag,
+  onTagChange,
+  onToggleDropdown,
+}: SelectProps) => {
   return (
     <SelectContainer>
       <HiddenInput />
@@ -15,7 +22,13 @@ const Select = ({ isOpen, selectedTag }: SelectProps) => {
         {selectedTag === '' ? (
           <Placeholder>자주 사용하는 언어를 선택해주세요</Placeholder>
         ) : (
-          <CommonHashTag selectedTag={selectedTag} />
+          <CommonHashTag
+            selectedTag={selectedTag}
+            removeTag={() => {
+              onTagChange('');
+              onToggleDropdown(null);
+            }}
+          />
         )}
       </SelectOptions>
       <ArrowToggle>
