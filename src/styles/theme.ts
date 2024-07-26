@@ -30,9 +30,16 @@ const colors = {
 };
 
 const fonts = {
+  // title
   title_bold_32: css`
     font-family: SuitBold;
     font-size: 3.2rem;
+    ${commonFontStyle}
+  `,
+
+  title_bold_28: css`
+    font-family: SuitBold;
+    font-size: 2.8rem;
     ${commonFontStyle}
   `,
 
@@ -42,39 +49,14 @@ const fonts = {
     ${commonFontStyle}
   `,
 
-  title_medium_24: css`
-    font-family: MontserratMedium;
-    font-size: 2.4rem;
-    ${commonFontStyle}
-  `,
-
   title_bold_20: css`
     font-family: SuitBold;
     font-size: 2rem;
     ${commonFontStyle}
   `,
-  title_medium_20: css`
-    font-family: SuitMedium;
-    font-size: 2rem;
-    ${commonFontStyle}
-  `,
-  title_semiBold_18: css`
-    font-family: SuitSemiBold;
-    font-size: 1.8rem;
-    ${commonFontStyle}
-  `,
+
   title_bold_16: css`
     font-family: SuitBold;
-    font-size: 1.6rem;
-    ${commonFontStyle}
-  `,
-  body_medium_16: css`
-    font-family: SuitMedium;
-    font-size: 1.6rem;
-    ${commonFontStyle}
-  `,
-  body_ligth_16: css`
-    font-family: SuitLight;
     font-size: 1.6rem;
     ${commonFontStyle}
   `,
@@ -83,43 +65,108 @@ const fonts = {
     font-size: 1.4rem;
     ${commonFontStyle}
   `,
+
+  title_semiBold_18: css`
+    font-family: SuitSemiBold;
+    font-size: 1.8rem;
+    ${commonFontStyle}
+  `,
+
   title_semiBold_14: css`
     font-family: SuitSemiBold;
     font-size: 1.4rem;
     ${commonFontStyle}
   `,
+
+  title_medium_24: css`
+    font-family: MontserratMedium;
+    font-size: 2.4rem;
+    ${commonFontStyle}
+  `,
+
+  title_medium_20: css`
+    font-family: SuitMedium;
+    font-size: 2rem;
+    ${commonFontStyle}
+  `,
+
+  title_regular_20: css`
+    font-family: SuitRegular;
+    font-size: 2rem;
+    ${commonFontStyle}
+  `,
+
   title_regular_14: css`
     font-family: SuitRegular;
     font-size: 1.4rem;
     ${commonFontStyle}
   `,
+
+  // body
+  body_medium_20: css`
+    font-family: SuitMedium;
+    font-size: 2rem;
+    line-height: 120%;
+    letter-spacing: -1%;
+  `,
+
+  body_medium_16: css`
+    font-family: SuitMedium;
+    font-size: 1.6rem;
+    ${commonFontStyle}
+  `,
+
   body_medium_14: css`
     font-family: SuitMedium;
     font-size: 1.4rem;
     ${commonFontStyle}
   `,
-  detail_regular_12: css`
-    font-family: SuitRegular;
-    font-size: 1.2rem;
+
+  body_ligth_16: css`
+    font-family: SuitLight;
+    font-size: 1.6rem;
     ${commonFontStyle}
   `,
+
   body_ligth_12: css`
     font-family: SuitLight;
     font-size: 1.2rem;
     ${commonFontStyle}
   `,
+
   body_ligth_10: css`
     font-family: SuitLight;
     font-size: 1rem;
     ${commonFontStyle}
   `,
+
+  body_eng_semibold_14: css`
+    font-family: MontserratSemibold;
+    font-size: 1.4rem;
+    ${commonFontStyle}
+  `,
+
   body_eng_medium_16: css`
     font-family: MontserratMedium;
     font-size: 1.6rem;
     ${commonFontStyle}
   `,
+
   body_eng_medium_12: css`
     font-family: MontserratMedium;
+    font-size: 1.2rem;
+    ${commonFontStyle}
+  `,
+
+  body_eng_regular_14: css`
+    font-family: MontserratRegular;
+    font-size: 1.4rem;
+    ${commonFontStyle}
+  `,
+
+  // detail
+  detail_regular_12: css`
+    font-family: SuitRegular;
     font-size: 1.2rem;
     ${commonFontStyle}
   `,
