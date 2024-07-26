@@ -66,6 +66,7 @@ const LogoContainer = styled.div`
 
 const NavBarContainer = styled.nav`
   display: flex;
+  flex-grow: 1.5;
 `;
 
 const NavBarUl = styled.ul`
@@ -96,8 +97,10 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
 
 const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
+  justify-content: end;
 
-  margin-left: ${({ $isLogin }) => ($isLogin ? '46.2rem' : '50.6rem')};
+  width: 23.2rem;
+  margin-left: ${({ $isLogin }) => ($isLogin ? '29.7rem' : '34.1rem')};
 `;
 
 const LoginBtn = styled.button`
