@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../assets';
 import CommonHashTag from '../../common/CommonHashTag';
 
-const Select = () => {
+export interface SelectProps {
+  isOpen: boolean;
+}
+
+const Select = ({ isOpen }: SelectProps) => {
   return (
     <SelectContainer>
       <HiddenInput />
@@ -10,8 +14,7 @@ const Select = () => {
         <CommonHashTag />
       </SelectOptions>
       <ArrowToggle>
-        <IcArrowTopGray />
-        <IcArrowBottomGray />
+        {isOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
       </ArrowToggle>
     </SelectContainer>
   );
