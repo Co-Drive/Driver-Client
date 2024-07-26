@@ -3,6 +3,7 @@ import { IcArrowBottomGray, IcArrowTopGray } from '../../assets';
 import CommonHashTag from '../../common/CommonHashTag';
 
 export interface SelectProps {
+  inputValue: string;
   isOpen: boolean;
   selectedTag: string;
   onToggleDropdown: (e: React.MouseEvent<HTMLDivElement> | null) => void;
@@ -12,12 +13,16 @@ export interface SelectProps {
 const Select = ({
   isOpen,
   selectedTag,
+  inputValue,
   onTagChange,
   onToggleDropdown,
 }: SelectProps) => {
   return (
     <SelectContainer>
-      <HiddenInput />
+      <HiddenInput
+        value={inputValue}
+        onChange={(e) => onTagChange(e.target.value)}
+      />
       <SelectOptions>
         {selectedTag === '' ? (
           <Placeholder>자주 사용하는 언어를 선택해주세요</Placeholder>
