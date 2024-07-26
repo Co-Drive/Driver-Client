@@ -3,11 +3,8 @@ import styled from 'styled-components';
 import { Thumbnail } from '../assets';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { GroupCompleteProps } from '../types/GroupComplte/CompleteType';
 
-interface GroupCompleteProps {
-  thumbnailUrl: string;
-  groupPassword: string;
-}
 const GroupComplete = ({ thumbnailUrl, groupPassword }: GroupCompleteProps) => {
   const navigate = useNavigate();
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
