@@ -3,6 +3,17 @@ import { Thumbnail } from '../assets';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
 const GroupComplete = () => {
+  const baseUrl = window.location.origin; // 그룹 생성 페이지가 만들어지면 대체될 예정
+  const GroupPage = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
+  const handleCopyClipBoard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('클립보드에 링크가 복사되었어요.');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <PageLayout category={'group_create'}>
       <Title>그룹 생성이 완료되었어요!</Title>
@@ -15,8 +26,15 @@ const GroupComplete = () => {
         <Thumbnail />
       </ThumbnailContainer>
       <ButtonContainer>
-        <CommonButton category="link_copy" />
-        <CommonButton category="group_direct" isActive={true} />
+        <CommonButton
+          onClick={() => handleCopyClipBoard(`${baseUrl}${location.pathname}`)}
+          category="link_copy"
+        />
+        <CommonButton
+          onClick={() => GroupPage}
+          category="group_direct"
+          isActive={true}
+        />
       </ButtonContainer>
     </PageLayout>
   );
