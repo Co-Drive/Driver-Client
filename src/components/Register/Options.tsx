@@ -2,15 +2,17 @@ import styled from 'styled-components';
 import { LANGUAGES } from '../../constants/SelectBox/OptionsConst';
 import { OptionsProps } from '../../types/Register/RegisterType';
 
-const Options = ({ onSelectOption }: OptionsProps) => (
-  <OptionsContainer>
-    {LANGUAGES.map((option) => (
-      <Option key={option} onClick={() => onSelectOption(option)}>
-        {option}
-      </Option>
-    ))}
-  </OptionsContainer>
-);
+const Options = ({ onSelectOption }: OptionsProps) => {
+  return (
+    <OptionsContainer>
+      {LANGUAGES.map((option) => (
+        <Option key={option} onClick={() => onSelectOption(option)}>
+          {option}
+        </Option>
+      ))}
+    </OptionsContainer>
+  );
+};
 
 const OptionsContainer = styled.div`
   width: 29.6rem;
