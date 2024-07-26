@@ -18,7 +18,7 @@ const Select = ({
   onToggleDropdown,
 }: SelectProps) => {
   return (
-    <SelectContainer>
+    <SelectContainer onClick={onToggleDropdown}>
       <HiddenInput
         value={inputValue}
         onChange={(e) => onTagChange(e.target.value)}
