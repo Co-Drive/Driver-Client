@@ -1,14 +1,7 @@
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../assets';
 import CommonHashTag from '../../common/CommonHashTag';
-
-export interface SelectProps {
-  inputValue: string;
-  isOpen: boolean;
-  selectedTag: string;
-  onToggleDropdown: (e: React.MouseEvent<HTMLDivElement> | null) => void;
-  onTagChange: (value: string) => void;
-}
+import { SelectProps } from '../../types/Register/RegisterType';
 
 const Select = ({
   isOpen,
