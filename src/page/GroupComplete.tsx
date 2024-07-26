@@ -5,35 +5,24 @@ import PageLayout from '../components/PageLayout/PageLayout';
 const GroupComplete = () => {
   return (
     <PageLayout category={'group_create'}>
-      <MainContainer>
-        <Title>그룹 생성이 완료되었어요!</Title>
-        <PasswordContainer>
-          <PasswordText>
-            비밀번호 <Password>아자자화이팅</Password>
-          </PasswordText>
-        </PasswordContainer>
-        <ThumbnailContainer>
-          <Thumbnail />
-        </ThumbnailContainer>
-        <ButtonContainer>
-          <CommonButton category="link_copy" />
-          <CommonButton category="group_direct" isActive={true} />
-        </ButtonContainer>
-      </MainContainer>
+      <Title>그룹 생성이 완료되었어요!</Title>
+      <PasswordContainer>
+        <PasswordText>
+          비밀번호 <Password>아자자화이팅</Password>
+        </PasswordText>
+      </PasswordContainer>
+      <ThumbnailContainer>
+        <Thumbnail />
+      </ThumbnailContainer>
+      <ButtonContainer>
+        <CommonButton category="link_copy" />
+        <CommonButton category="group_direct" isActive={true} />
+      </ButtonContainer>
     </PageLayout>
   );
 };
 
 export default GroupComplete;
-
-const MainContainer = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  background-color: pink;
-`;
 
 const Title = styled.h1`
   margin-top: 7.4rem;
