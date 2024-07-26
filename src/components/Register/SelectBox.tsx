@@ -35,22 +35,30 @@ const SelectBox = () => {
     [handleChangeTag, selectedTag]
   );
 
-  <SelectBoxContainer>
-    <Select
-      inputValue={inputValue}
-      selectedTag={selectedTag}
-      isOpen={isOpen}
-      onToggleDropdown={handleToggleDropdown}
-      onTagChange={handleChangeTag}
-    />
-    {isOpen && <Options onSelectOption={handleClickOption} />}
-  </SelectBoxContainer>;
+  return (
+    <SelectBoxContainer>
+      <CustomSelect>
+        <Select
+          inputValue={inputValue}
+          selectedTag={selectedTag}
+          isOpen={isOpen}
+          onToggleDropdown={handleToggleDropdown}
+          onTagChange={handleChangeTag}
+        />
+        {isOpen && <Options onSelectOption={handleClickOption} />}
+      </CustomSelect>
+    </SelectBoxContainer>
+  );
 };
 
 const SelectBoxContainer = styled.div`
   display: flex;
   gap: 2rem;
   align-items: flex-start;
+`;
+
+const CustomSelect = styled.div`
+  position: relative;
 `;
 
 export default SelectBox;
