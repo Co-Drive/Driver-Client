@@ -28,38 +28,30 @@ const GroupJoin = () => {
   };
 
   return (
+    /* category 역할이 헤더 눌렀을 떄 어떤 페이지로 이동하냐인데, 그룹 생성 완료하면 변경하기  */
     <PageLayout category={'group'}>
-      <GroupJoinContainer>
-        <IconContainer>
-          <IcSecretBigWhite />
-        </IconContainer>
-        <Text>비밀그룹 참여하기</Text>
-        <CommonInputContainer>
-          <CommonInput
-            category="password"
-            value={password}
-            handleChangeInputs={handleChangeInputs}
-            isNotMatchedPW={isNotMatchedPW}
-          />
-        </CommonInputContainer>
-        <CommonButton
-          category="group_join"
-          isActive={isActive}
-          onClick={handleButtonClick}
+      <IconContainer>
+        <IcSecretBigWhite />
+      </IconContainer>
+      <Text>비밀그룹 참여하기</Text>
+      <CommonInputContainer>
+        <CommonInput
+          category="password"
+          value={password}
+          handleChangeInputs={handleChangeInputs}
+          isNotMatchedPW={isNotMatchedPW}
         />
-      </GroupJoinContainer>
+      </CommonInputContainer>
+      <CommonButton
+        category="group_join"
+        isActive={isActive}
+        onClick={handleButtonClick}
+      />
     </PageLayout>
   );
 };
 
 export default GroupJoin;
-
-const GroupJoinContainer = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
 
 const IconContainer = styled.div`
   margin-top: 12.9rem;
