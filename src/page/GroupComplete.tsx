@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import { Thumbnail } from '../assets';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
-const GroupComplete = () => {
+const GroupComplete = ({ thumbnailUrl }: { thumbnailUrl: string }) => {
   const navigate = useNavigate();
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
+
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -29,7 +30,11 @@ const GroupComplete = () => {
         </PasswordText>
       </PasswordContainer>
       <ThumbnailContainer>
-        <Thumbnail />
+        {thumbnailUrl ? (
+          <img src={thumbnailUrl} alt="사용자 썸네일" />
+        ) : (
+          <Thumbnail />
+        )}
       </ThumbnailContainer>
       <ButtonContainer>
         <CommonButton
@@ -74,7 +79,7 @@ const Password = styled.span`
 const ThumbnailContainer = styled.div`
   margin-bottom: 6.6rem;
 
-  background-color: aqua;
+  /* background-color: aqua; */
 `;
 
 const ButtonContainer = styled.span`
@@ -82,5 +87,5 @@ const ButtonContainer = styled.span`
   gap: 1.8rem;
   justify-content: center;
 
-  background-color: cornflowerblue;
+  /* background-color: cornflowerblue; */
 `;
