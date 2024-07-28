@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Thumbnail } from '../assets';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { GroupCompleteProps } from '../types/GroupComplte/CompleteType';
 
-const GroupComplete = ({ thumbnailUrl, groupPassword }: GroupCompleteProps) => {
+const GroupComplete = ({ groupPassword, thumbnailUrl }: GroupCompleteProps) => {
   const navigate = useNavigate();
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
 
@@ -34,11 +33,7 @@ const GroupComplete = ({ thumbnailUrl, groupPassword }: GroupCompleteProps) => {
         </PasswordText>
       </PasswordContainer>
       <ThumbnailContainer>
-        {thumbnailUrl ? (
-          <img src={thumbnailUrl} alt="사용자 썸네일" />
-        ) : (
-          <Thumbnail />
-        )}
+        <Img src={thumbnailUrl} alt="썸네일" />
       </ThumbnailContainer>
       <ButtonContainer>
         <CommonButton onClick={handleCopyClipBoard} category="link_copy" />
@@ -77,6 +72,11 @@ const Password = styled.span`
 
 const ThumbnailContainer = styled.div`
   margin-bottom: 6.6rem;
+`;
+
+const Img = styled.img`
+  width: 4.4rem;
+  height: 3.1rem;
 `;
 
 const ButtonContainer = styled.span`
