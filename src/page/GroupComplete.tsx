@@ -65,8 +65,6 @@ const Title = styled.h1`
 
 const PasswordContainer = styled.div`
   margin-bottom: 4rem;
-
-  /* background-color: purple; */
 `;
 
 const PasswordText = styled.p`
