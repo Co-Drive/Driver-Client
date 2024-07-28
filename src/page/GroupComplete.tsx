@@ -9,12 +9,14 @@ const GroupComplete = ({ thumbnailUrl, groupPassword }: GroupCompleteProps) => {
   const navigate = useNavigate();
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
 
-  const handleCopyClipBoard = async (text: string) => {
+  const handleCopyClipBoard = async () => {
+    const text = `${baseUrl}${location.pathname}`;
     try {
       await navigator.clipboard.writeText(text);
       alert('클립보드에 링크가 복사되었어요.');
     } catch (err) {
-      console.log(err);
+      // 에러 페이지 네비게이트 시키기
+      navigate('/error-page'); // 에러 페이지로 네비게이트
     }
   };
 
@@ -39,10 +41,7 @@ const GroupComplete = ({ thumbnailUrl, groupPassword }: GroupCompleteProps) => {
         )}
       </ThumbnailContainer>
       <ButtonContainer>
-        <CommonButton
-          onClick={() => handleCopyClipBoard(`${baseUrl}${location.pathname}`)}
-          category="link_copy"
-        />
+        <CommonButton onClick={handleCopyClipBoard} category="link_copy" />
         <CommonButton
           onClick={handleGroupPageRedirect}
           category="group_direct"
@@ -56,8 +55,7 @@ const GroupComplete = ({ thumbnailUrl, groupPassword }: GroupCompleteProps) => {
 export default GroupComplete;
 
 const Title = styled.h1`
-  margin-top: 7.4rem;
-  margin-bottom: 2.6rem;
+  margin: 7.4rem 0 2.6rem;
 
   ${({ theme }) => theme.fonts.title_bold_32};
   color: ${({ theme }) => theme.colors.codrive_green};
