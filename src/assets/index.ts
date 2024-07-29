@@ -12,6 +12,7 @@ import IcArrowRightFill from './icon/ic_arrow_right_fill.svg?react';
 import IcArrowRightGray from './icon/ic_arrow_right_gray.svg?react';
 import IcArrowRightSmallGray from './icon/ic_arrow_right_small_gray.svg?react';
 import IcArrowTopGray from './icon/ic_arrow_top_gray.svg?react';
+import IcArrowUpBig from './icon/ic_arrow_up_big.svg?react';
 import IcBtnCopy from './icon/ic_btn_copy.svg?react';
 import IcBtnInformation from './icon/ic_btn_information.svg?react';
 import IcCancelFill from './icon/ic_cancel_fill.svg?react';
@@ -51,6 +52,7 @@ export {
   IcArrowRightGray,
   IcArrowRightSmallGray,
   IcArrowTopGray,
+  IcArrowUpBig,
   IcBtnCopy,
   IcBtnInformation,
   IcCancelFill,
