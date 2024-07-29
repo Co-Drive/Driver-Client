@@ -38,8 +38,7 @@ const GroupCreate = () => {
         <Borderline />
         <Section>
           <GroupSetting>
-            그룹 설정
-            <Essential>*</Essential>
+            그룹 설정 <Essential>*</Essential>
           </GroupSetting>
           <ButtonContainer>
             <GroupButton
@@ -65,7 +64,7 @@ const GroupCreate = () => {
           <Label>
             대표 이미지 <Essential>*</Essential>
           </Label>
-          <ImageWrapper
+          <ImageContainer
             onClick={() => document.getElementById('fileInput')?.click()}
           >
             {previewImage ? (
@@ -79,24 +78,25 @@ const GroupCreate = () => {
               accept="image/*"
               onChange={handleImageChange}
             />
-            <p>612px * 368px 사이즈를 권장드려요</p>
-          </ImageWrapper>
+          </ImageContainer>
+          <EssentialText>612px * 368px 사이즈를 권장드려요</EssentialText>
         </ImageSection>
 
-        <section>
+        <TitleSection>
           <div>
             <Label>
               그룹 제목 <Essential>*</Essential>
             </Label>
+            <EssentialText>최대 20자 이내로 입력해주세요</EssentialText>
           </div>
-          <input type="text" placeholder={PLACEHOLDER[2]} />
-        </section>
+          <TitleInput type="text" placeholder={PLACEHOLDER[2]} />
+        </TitleSection>
 
         <section>
           <Label>
             모집 인원 <Essential>*</Essential>
           </Label>
-          <p>50명까지 가능해요</p>
+          <EssentialText>50명까지 가능해요</EssentialText>
           <input type="number" placeholder={PLACEHOLDER[3]} />
         </section>
 
@@ -145,11 +145,12 @@ const Borderline = styled.div`
 `;
 
 const Section = styled.section`
-  background-color: red;
+  /* background-color: red; */
 `;
 
 const GroupSetting = styled.h2`
   display: flex;
+  gap: 0.6rem;
   align-items: center;
 
   margin-top: 4rem;
@@ -195,8 +196,9 @@ const ImageSection = styled.section`
   /* background-color: blue; */
 `;
 
-const ImageWrapper = styled.div`
+const ImageContainer = styled.div`
   position: relative;
+
   cursor: pointer;
 
   img,
@@ -216,11 +218,35 @@ const ImageWrapper = styled.div`
 
 const HiddenInput = styled.input`
   position: absolute;
-  top: 0;
-  left: 0;
+  overflow: hidden;
 
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
+  width: 0;
+  height: 0;
+  padding: 0;
+
+  border: 0;
+`;
+
+const TitleSection = styled.section`
+  display: flex;
+  gap: 1.8rem;
+  flex-direction: column;
+
+  background-color: #4d8000;
+`;
+
+const TitleInput = styled.input`
+  width: 45.3rem;
+  height: 4.8rem;
+  padding: 1.5rem 2rem 1.4rem;
+
+  border-radius: 0.8rem;
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  background-color: ${({ theme }) => theme.colors.gray700};
+  color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const EssentialText = styled.p`
+  ${({ theme }) => theme.fonts.detail_regular_12};
+  color: ${({ theme }) => theme.colors.gray300};
 `;
