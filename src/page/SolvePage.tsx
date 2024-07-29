@@ -1,41 +1,40 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcAddFill } from '../assets';
+import { IcAddFill, IcAddFillDisabled } from '../assets';
+import PageLayout from '../components/PageLayout/PageLayout';
 import CodeSpace from '../components/Solve/CodeSpace';
-import {
-  handleChangeCodeProps,
-  handleClickQuestionInfoProps,
-} from '../types/Solve/solveTypes';
+import PageHeader from '../components/Solve/Header/PageHeader';
+import { ClickQuestionInfoProps, CodeProps } from '../types/Solve/solveTypes';
 
 const SolvePage = () => {
   const [questionInfo, setQuestionInfo] = useState({
     title: '',
     level: 0,
-    type: [],
+    tags: [],
     platform: '',
-    link: '',
+    problemUrl: '',
   });
 
   const [ide, setIde] = useState({
     ideId: 0,
-    ideItems: [{ id: 0, code: '// code', memo: '' }],
+    ideItems: [{ id: 0, code: '', memo: '' }],
   });
 
-  // const { title, level, type, platform, link } = questionInfo;
   const { ideId, ideItems } = ide;
 
   const handleClickQuestionInfo = ({
     category,
     e,
-  }: handleClickQuestionInfoProps) => {
-    const { value } = e.currentTarget;
+    clickedValue,
+  }: ClickQuestionInfoProps) => {
+    const value = e ? e.currentTarget.value : clickedValue;
     setQuestionInfo({
       ...questionInfo,
       [category]: value,
     });
   };
 
-  const handleChangeCode = ({ newCode, stringId }: handleChangeCodeProps) => {
+  const handleChangeCode = ({ newCode, stringId }: CodeProps) => {
     const id = parseInt(stringId);
 
     setIde({
@@ -61,7 +60,7 @@ const SolvePage = () => {
     const lastItem = ideItems[ideItems.length - 1];
     const contents = {
       id: lastItem.id + 1,
-      code: '// code',
+      code: '',
       memo: '',
     };
 
@@ -85,25 +84,33 @@ const SolvePage = () => {
   };
 
   return (
-    <SolvePageContainer>
-      <CodeSpace
-        ideItems={ideItems}
-        questionInfo={questionInfo}
-        handleClickQuestionInfo={handleClickQuestionInfo}
-        handleClickDeleteBtn={handleClickDeleteBtn}
-        handleChangeCode={handleChangeCode}
-        handleChangeMemo={handleChangeMemo}
-      />
+    <PageLayout category='문제풀이'>
+      <SolvePageContainer>
+        <PageHeader codeblocks={ideItems} questionInfo={questionInfo} />
 
-      <AddBtnContainer>
-        <IcAddFill onClick={handleClickAddBtn} />
-      </AddBtnContainer>
-      {ideId > 0 && (
-        <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
-          위로
-        </GoTopBtn>
-      )}
-    </SolvePageContainer>
+        <CodeSpace
+          ideItems={ideItems}
+          questionInfo={questionInfo}
+          handleClickQuestionInfo={handleClickQuestionInfo}
+          handleClickDeleteBtn={handleClickDeleteBtn}
+          handleChangeCode={handleChangeCode}
+          handleChangeMemo={handleChangeMemo}
+        />
+
+        <AddBtnContainer>
+          {ideItems[ideItems.length - 1].code.length ? (
+            <IcAddFill onClick={handleClickAddBtn} />
+          ) : (
+            <IcAddFillDisabled />
+          )}
+        </AddBtnContainer>
+        {ideId > 0 && (
+          <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
+            위로
+          </GoTopBtn>
+        )}
+      </SolvePageContainer>
+    </PageLayout>
   );
 };
 
@@ -114,7 +121,7 @@ const SolvePageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  margin: 6rem 25.7rem 20rem;
+  padding: 6rem 25.7rem 20rem;
 `;
 
 const AddBtnContainer = styled.div`
@@ -122,7 +129,7 @@ const AddBtnContainer = styled.div`
   justify-content: end;
 
   width: 100%;
-  margin-top: 1.8rem;
+  margin: 1.8rem 25.7rem 0;
 `;
 
 const GoTopBtn = styled.button`

@@ -3,6 +3,7 @@
 import IcAdd from './icon/ic_add.svg?react';
 import IcAddBlack from './icon/ic_add_black.svg?react';
 import IcAddFill from './icon/ic_add_fill.svg?react';
+import IcAddFillDisabled from './icon/ic_add_fill_disabled.svg?react';
 import IcAddGray from './icon/ic_add_gray.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
@@ -21,7 +22,9 @@ import IcHome from './icon/ic_home.svg?react';
 import IcLoginIcon from './icon/ic_login_Icon.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
 import IcLinkGray from './icon/ic_link_gray.svg?react';
+import IcLinkWhite from './icon/ic_link_white.svg?react';
 import IcLogo from './icon/ic_logo.svg?react';
+import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
 import IcSecretGray from './icon/ic_secret_gray.svg?react';
@@ -38,6 +41,7 @@ export {
   IcAdd,
   IcAddBlack,
   IcAddFill,
+  IcAddFillDisabled,
   IcAddGray,
   IcArrowBottomGray,
   IcArrowLeftFill,
@@ -56,7 +60,9 @@ export {
   IcLoginIcon,
   IcInformation,
   IcLinkGray,
+  IcLinkWhite,
   IcLogo,
+  IcMemoGray,
   IcMemoWhite,
   IcSecretBigWhite,
   IcSecretGray,
