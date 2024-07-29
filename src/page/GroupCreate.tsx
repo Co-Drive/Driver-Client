@@ -1,18 +1,34 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcSecretGray, IcUnlockGray } from '../assets';
+import { IcAddPhoto, IcSecretGray, IcUnlockGray } from '../assets';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 
+interface GroupCreateProps {
+  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 const GroupCreate = () => {
-  const [isPublicGroup, setIsPublickGroup] = useState(true);
+  const [isPublicGroup, setIspublicGroup] = useState(true);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handlePublicClick = () => {
-    if (!isPublicGroup) setIsPublickGroup(true);
+    if (!isPublicGroup) setIspublicGroup(true);
   };
 
   const handleSecretClick = () => {
-    if (isPublicGroup) setIsPublickGroup(false);
+    if (isPublicGroup) setIspublicGroup(false);
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(files[0]);
+    }
   };
 
   return (
@@ -45,53 +61,64 @@ const GroupCreate = () => {
           </ButtonContainer>
         </Section>
 
-        <section>
-          <label>
+        <ImageSection>
+          <Label>
             대표 이미지 <Essential>*</Essential>
-          </label>
-          <div>
-            <img alt="대표 이미지" />
-            <input type="file" accept="image/*" />
+          </Label>
+          <ImageWrapper
+            onClick={() => document.getElementById('fileInput')?.click()}
+          >
+            {previewImage ? (
+              <img src={previewImage} alt="대표 이미지" />
+            ) : (
+              <IcAddPhoto />
+            )}
+            <HiddenInput
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
             <p>612px * 368px 사이즈를 권장드려요</p>
-          </div>
-        </section>
+          </ImageWrapper>
+        </ImageSection>
 
         <section>
           <div>
-            <label>
+            <Label>
               그룹 제목 <Essential>*</Essential>
-            </label>
+            </Label>
           </div>
           <input type="text" placeholder={PLACEHOLDER[2]} />
         </section>
 
         <section>
-          <label>
+          <Label>
             모집 인원 <Essential>*</Essential>
-          </label>
+          </Label>
           <p>50명까지 가능해요</p>
           <input type="number" placeholder={PLACEHOLDER[3]} />
         </section>
 
         <section>
-          <label>
+          <Label>
             사용 언어 <Essential>*</Essential>
-          </label>
+          </Label>
           <select>
             <option>복수선택 가능</option>
           </select>
         </section>
 
         <section>
-          <label>
+          <Label>
             한 줄 소개 <Essential>*</Essential>
-          </label>
+          </Label>
           <textarea maxLength={60} placeholder={PLACEHOLDER[0]} />
         </section>
         <section>
-          <label>
+          <Label>
             진행 방식 <Essential>*</Essential>
-          </label>
+          </Label>
           <textarea maxLength={1000} placeholder={PLACEHOLDER[4]} />
         </section>
         <button>그룹 생성하기</button>
@@ -155,4 +182,45 @@ const GroupButton = styled.button<{ $isActive?: boolean }>`
   color: ${({ theme, $isActive }) =>
     $isActive ? theme.colors.white : theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_medium_16};
+`;
+
+const Label = styled.label`
+  ${({ theme }) => theme.fonts.title_bold_20};
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+const ImageSection = styled.section`
+  margin: 4.3rem 0 5rem;
+
+  /* background-color: blue; */
+`;
+
+const ImageWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+
+  img,
+  svg {
+    max-width: 100%;
+    max-height: 100%;
+
+    border-radius: 0.8rem;
+  }
+
+  input {
+    display: none;
+
+    /* input 요소 숨기기 */
+  }
+`;
+
+const HiddenInput = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
 `;
