@@ -134,5 +134,6 @@ const FollowerPageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  padding: 8.6rem 21.8rem 23.2rem 21.5rem;
+  width: 100%;
+  padding: 8.6rem 25.7rem 23.3rem;
 `;
