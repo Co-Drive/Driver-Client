@@ -28,6 +28,10 @@ const CodeSpace = ({
                 <IcCode />
                 <Text>codeblock</Text>
               </TextContainer>
+
+              {item.id == 0 && (
+                <Notice>코드블록은 최대 10개까지 추가 가능합니다</Notice>
+              )}
               {item.id > 0 && (
                 <IcCancelFill onClick={() => handleClickDeleteBtn(item.id)} />
               )}
@@ -94,4 +98,14 @@ const TextContainer = styled.div`
 const Text = styled.p`
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_12};
+`;
+
+const Notice = styled.p`
+  display: flex;
+  align-items: center;
+
+  margin-right: 0.2rem;
+
+  color: ${({ theme }) => theme.colors.green200};
+  ${({ theme }) => theme.fonts.detail_regular_12};
 `;
