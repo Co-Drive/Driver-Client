@@ -1,27 +1,39 @@
 import styled from 'styled-components';
 
-const ParticipatingGroup = () => {
+interface ParticipatingGroupProps {
+  group: Array<{
+    id: number;
+    imgSrc: string;
+    title: string;
+    tags: Array<string>;
+    introduce: string;
+  }>;
+}
+
+const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
   return (
     <ParticipatingCardContainer>
       <Title>참여 그룹</Title>
 
-      <CardContainer>
-        <Img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgQdMSF0UfUeev25_EDlcSS0jCfciYTLT-qw&s" />
-        <Contents>
-          <Name>이제는 더이상 물러날 곳이 없는 스터디</Name>
-          <TagContainer>
-            <Tag>#swift</Tag>
-            <Tag>#java</Tag>
-            <Tag>#javascript</Tag>
-          </TagContainer>
-          <Introduce>
-            안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요
-            스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다
-            설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은
-            두줄까지 가능합니다
-          </Introduce>
-        </Contents>
-      </CardContainer>
+      <GroupContainer>
+        {group.map((card) => {
+          const { id, imgSrc, title, tags, introduce } = card;
+          return (
+            <CardContainer key={id}>
+              <Img src={imgSrc} />
+              <Contents>
+                <Name>{title}</Name>
+                <TagContainer>
+                  {tags.map((tag) => {
+                    return <Tag key={tag}>{tag}</Tag>;
+                  })}
+                </TagContainer>
+                <Introduce>{introduce}</Introduce>
+              </Contents>
+            </CardContainer>
+          );
+        })}
+      </GroupContainer>
     </ParticipatingCardContainer>
   );
 };
@@ -43,7 +55,12 @@ const Title = styled.p`
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
 
-const CardContainer = styled.article`
+const GroupContainer = styled.article`
+  display: flex;
+  gap: 1.8rem;
+`;
+
+const CardContainer = styled.div`
   display: flex;
   gap: 2rem;
   flex-direction: column;
