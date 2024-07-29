@@ -1,35 +1,33 @@
-export interface handleChangeCodeProps {
+export interface CodeProps {
   newCode: string;
   stringId: string;
 }
 
-interface changeCodeFnProps {
-  handleChangeCode: ({ newCode, stringId }: handleChangeCodeProps) => void;
+interface ChangeCodeFnProps {
+  handleChangeCode: ({ newCode, stringId }: CodeProps) => void;
 }
 
-interface changeMemoFnProps {
+interface ChangeMemoFnProps {
   handleChangeMemo: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export interface handleClickQuestionInfoProps {
+export interface ClickQuestionInfoProps {
   category: string;
-  e:
+  e?:
     | React.MouseEvent<HTMLLIElement, MouseEvent>
     | React.ChangeEvent<HTMLInputElement>;
+  clickedValue?: string | Array<string>;
 }
 
-interface clickQuestionInfoFnProps {
-  handleClickQuestionInfo: ({
-    category,
-    e,
-  }: handleClickQuestionInfoProps) => void;
+interface ClickQuestionInfoFnProps {
+  handleClickQuestionInfo: ({ category, e }: ClickQuestionInfoProps) => void;
 }
 
 export interface CodeEditorProps {
   isReadOnly: boolean;
   stringId: string;
   code: string;
-  handleChangeCode?: ({ newCode, stringId }: handleChangeCodeProps) => void;
+  handleChangeCode?: ({ newCode, stringId }: CodeProps) => void;
 }
 
 export interface MemoProps {
@@ -39,23 +37,53 @@ export interface MemoProps {
   handleChangeMemo?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-export interface HeaderTopProps extends clickQuestionInfoFnProps {
+export interface HeaderTopProps extends ClickQuestionInfoFnProps {
   title: string;
 }
 
-export interface CodeSpaceHeaderProps extends clickQuestionInfoFnProps {
+export interface CodeSpaceHeaderProps extends ClickQuestionInfoFnProps {
   questionInfo: {
     title: string;
-    type: Array<String>;
+    tags: Array<string>;
     platform: string;
-    link: string;
+    problemUrl: string;
   };
 }
 
 export interface CodeSpaceProps
   extends CodeSpaceHeaderProps,
-    changeCodeFnProps,
-    changeMemoFnProps {
+    ChangeCodeFnProps,
+    ChangeMemoFnProps {
   ideItems: Array<{ id: number; code: string; memo: string }>;
   handleClickDeleteBtn: (id: number) => void;
+}
+
+export interface PageHeaderProps {
+  questionInfo: {
+    title: string;
+    level: number;
+    tags: Array<string>;
+    platform: string;
+    problemUrl: string;
+  };
+
+  codeblocks: Array<{ id: number; code: string; memo: string }>;
+}
+
+export interface HeaderBottomProps extends ClickQuestionInfoFnProps {
+  questionInfo: {
+    tags: Array<string>;
+    platform: string;
+    problemUrl: string;
+  };
+}
+
+export interface UpdateQuestionInfoProps {
+  category: string;
+  value: string | Array<string>;
+}
+
+export interface ClickedListProps {
+  category: string;
+  selectedValue: string;
 }

@@ -63,8 +63,8 @@ const HeaderTopContainer = styled.section`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-grow: 2.05;
 
-  width: 60.9rem;
   padding-bottom: 1.4rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};

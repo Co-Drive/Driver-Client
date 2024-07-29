@@ -17,8 +17,8 @@ const CodeSpace = ({
   return (
     <CodeSpaceContainer>
       <CodeSpaceHeader
-        handleClickQuestionInfo={handleClickQuestionInfo}
         questionInfo={questionInfo}
+        handleClickQuestionInfo={handleClickQuestionInfo}
       />
       {ideItems.map((item) => {
         return (
@@ -60,6 +60,7 @@ const CodeSpaceContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
+  width: 100%;
   margin-top: 3.2rem;
 `;
 
@@ -68,6 +69,7 @@ const ContentsContainer = styled.div`
   align-items: end;
   flex-direction: column;
 
+  width: 100%;
   margin-top: 3.2rem;
 `;
 
