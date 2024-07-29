@@ -50,8 +50,6 @@ const RecommendCardContainer = styled.article`
   gap: 3rem;
   justify-content: center;
   flex-direction: column;
-
-  width: 100%;
 `;
 
 const TitleContainer = styled.div`
@@ -77,8 +75,15 @@ const ContentsContainer = styled.article`
   gap: 2.2rem;
   align-items: center;
 
-  width: 100%;
-  overflow-x: hidden;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+
+  &:-webkit-scrollbar {
+    display: none;
+  }
+
+  width: 92.3rem;
+  overflow-x: auto;
 `;
 
 const CardContainer = styled.article`
@@ -87,7 +92,8 @@ const CardContainer = styled.article`
   align-items: center;
   flex-direction: column;
 
-  width: 18.9rem;
+  min-width: 18.9rem;
+
   padding-top: 2.8rem;
 
   border-radius: 0.8rem;
