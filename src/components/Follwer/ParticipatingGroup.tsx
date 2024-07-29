@@ -97,6 +97,9 @@ const GroupContainer = styled.article`
   gap: 4rem;
   flex-direction: column;
 
+  max-height: 58.2rem;
+  overflow-y: auto;
+
   width: 100%;
 `;
 
