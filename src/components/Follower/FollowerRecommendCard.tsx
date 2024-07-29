@@ -33,6 +33,15 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
     console.log('click!');
   };
 
+  const handleClickIcRight = () => {
+    const cardsContainer = document.getElementById('cardsContainer');
+    if (cardsContainer) {
+      // 최대 너비 구하기
+      const maxWidth = cardsContainer.scrollWidth - cardsContainer.clientWidth;
+      cardsContainer.scrollTo({ left: maxWidth, behavior: 'smooth' });
+    }
+  };
+
   return (
     <RecommendCardContainer>
       <TitleContainer>
@@ -61,7 +70,7 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
         })}
       </CardsContainer>
 
-      <IcRightContainer>
+      <IcRightContainer onClick={handleClickIcRight}>
         <IcArrowRightFill />
       </IcRightContainer>
     </RecommendCardContainer>
