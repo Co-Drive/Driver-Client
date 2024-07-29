@@ -41,7 +41,6 @@ const FollowerContainer = styled.article`
   gap: 4.3rem;
   align-items: center;
 
-  min-width: 92.4rem;
 
   width: 100%;
   padding-bottom: 4.3rem;

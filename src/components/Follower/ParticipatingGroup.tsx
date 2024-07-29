@@ -55,6 +55,7 @@ const ParticipatingCardContainer = styled.article`
   justify-content: center;
   flex-direction: column;
 
+  width: 100%;
   margin-top: 6rem;
 `;
 
@@ -87,7 +88,9 @@ const CardContainer = styled.div`
   gap: 2rem;
   flex-direction: column;
 
-  width: 29.6rem;
+  min-width: 29.6rem;
+
+  width: 100%;
   height: 27.1rem;
 `;
 

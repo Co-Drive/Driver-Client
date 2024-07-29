@@ -86,6 +86,7 @@ const RecommendCardContainer = styled.article`
   flex-direction: column;
   position: relative;
 
+  width: 100%;
   margin-top: 9.6rem;
 `;
 
@@ -125,7 +126,9 @@ const CardsContainer = styled.article`
     display: none;
   }
 
-  width: 92.3rem;
+  min-width: 92.3rem;
+
+  width: 100%;
   overflow-x: auto;
 `;
 
@@ -164,7 +167,7 @@ const Language = styled.p`
   margin-bottom: 2.8rem;
 
   color: ${({ theme }) => theme.colors.gray300};
-  ${({ theme }) => theme.fonts.body_eng_medium_12};
+  ${({ theme }) => theme.fonts.body_eng_regular_14};
 `;
 
 const FollowBtn = styled.button`
