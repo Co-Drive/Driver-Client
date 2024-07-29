@@ -97,7 +97,11 @@ const GroupCreate = () => {
               그룹 제목 <Essential>*</Essential>
             </Label>
             <EssentialText>최대 20자 이내로 입력해주세요</EssentialText>
-            <TitleInput type="text" placeholder={PLACEHOLDER[2]} />
+            <TitleInput
+              type="text"
+              maxLength={20}
+              placeholder={PLACEHOLDER[2]}
+            />
           </div>
           <RecruitmentContainer>
             <Label>
@@ -243,9 +247,6 @@ const HiddenInput = styled.input`
 const TitleSection = styled.section`
   display: flex;
   gap: 1.8rem;
-  align-items: flex-start;
-
-  background-color: #4d8000;
 `;
 
 const TitleInput = styled.input`
