@@ -1,5 +1,6 @@
 // import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { IcArrowLeftFill, IcArrowRightFill } from '../../assets';
 
 interface FollowerRecommendCardProps {
   recommend: Array<{
@@ -33,6 +34,9 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
         <Title>님을 위한 추천</Title>
       </TitleContainer>
 
+      <IcLeftContainer>
+        <IcArrowLeftFill />
+      </IcLeftContainer>
       <ContentsContainer>
         {recommend.map((info) => {
           const { profileImg, nickname, language, isFollowed } = info;
@@ -50,6 +54,9 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
           );
         })}
       </ContentsContainer>
+      <IcRightContainer>
+        <IcArrowRightFill />
+      </IcRightContainer>
     </RecommendCardContainer>
   );
 };
@@ -61,6 +68,7 @@ const RecommendCardContainer = styled.article`
   gap: 3rem;
   justify-content: center;
   flex-direction: column;
+  position: relative;
 `;
 
 const TitleContainer = styled.div`
@@ -79,6 +87,12 @@ const MyNickname = styled.p`
 const Title = styled.p`
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const IcLeftContainer = styled.div`
+  position: absolute;
+  top: 14.8rem;
+  left: -4.2rem;
 `;
 
 const ContentsContainer = styled.article`
@@ -143,4 +157,10 @@ const FollowBtn = styled.button`
   background-color: transparent;
   color: ${({ theme }) => theme.colors.codrive_purple};
   ${({ theme }) => theme.fonts.title_semiBold_14};
+`;
+
+const IcRightContainer = styled.div`
+  position: absolute;
+  top: 14.8rem;
+  right: -3.9rem;
 `;
