@@ -1,9 +1,20 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { IcSecretGray, IcUnlockGray } from '../assets';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 
 const GroupCreate = () => {
+  const [isPublicGroup, setIsPublickGroup] = useState(true);
+
+  const handlePublicClick = () => {
+    if (!isPublicGroup) setIsPublickGroup(true);
+  };
+
+  const handleSecretClick = () => {
+    if (isPublicGroup) setIsPublickGroup(false);
+  };
+
   return (
     <PageLayout category="group">
       <Form>
@@ -15,11 +26,11 @@ const GroupCreate = () => {
             <Essential>*</Essential>
           </GroupSetting>
           <ButtonContainer>
-            <GroupButton>
+            <GroupButton $isActive={isPublicGroup} onClick={handlePublicClick}>
               <IcUnlockGray />
               공개그룹
             </GroupButton>
-            <GroupButton>
+            <GroupButton $isActive={!isPublicGroup} onClick={handleSecretClick}>
               <IcSecretGray />
               비공개그룹
             </GroupButton>
@@ -99,7 +110,7 @@ const Borderline = styled.div`
 `;
 
 const Section = styled.section`
-  /* background-color: red; */
+  background-color: red;
 `;
 
 const GroupSetting = styled.h2`
@@ -123,7 +134,7 @@ const ButtonContainer = styled.div`
   margin-top: 2rem;
 `;
 
-const GroupButton = styled.button`
+const GroupButton = styled.button<{ $isActive?: boolean }>`
   display: flex;
   gap: 0.6rem;
   align-items: center;
@@ -131,7 +142,9 @@ const GroupButton = styled.button`
   padding: 1.5rem 1.6rem 1.4rem;
 
   border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.gray500};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.gray500 : theme.colors.gray700};
+  color: ${({ theme, $isActive }) =>
+    $isActive ? theme.colors.white : theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
