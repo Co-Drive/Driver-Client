@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import GroupCard from './GroupCard';
 
 interface ParticipatingGroupProps {
   group: Array<{
@@ -21,11 +20,18 @@ const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
           const { id, imgSrc, title, tags, introduce } = card;
 
           return (
-            <CardsContainer key={id}>
-              <CardContainer>
-                <GroupCard card={{ imgSrc, title, tags, introduce }} />
-              </CardContainer>
-            </CardsContainer>
+            <CardContainer key={id}>
+              <Img src={imgSrc} />
+              <Contents>
+                <Name>{title}</Name>
+                <TagContainer>
+                  {tags.map((tag) => {
+                    return <Tag key={tag}>{tag}</Tag>;
+                  })}
+                </TagContainer>
+                <Introduce>{introduce}</Introduce>
+              </Contents>
+            </CardContainer>
           );
         })}
       </GroupContainer>
@@ -51,7 +57,7 @@ const Title = styled.p`
 
 const GroupContainer = styled.article`
   display: grid;
-  gap: 4rem;
+  gap: 4rem 1.8rem;
   grid-template-columns: repeat(3, 1fr);
 
   width: 100%;
@@ -60,10 +66,6 @@ const GroupContainer = styled.article`
   overflow-y: auto;
 `;
 
-const CardsContainer = styled.div`
-  display: flex;
-  gap: 1.8rem;
-`;
 
 const CardContainer = styled.div`
   display: flex;
@@ -72,4 +74,51 @@ const CardContainer = styled.div`
 
   width: 29.6rem;
   height: 27.1rem;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 17.8rem;
+
+  border-radius: 1.6rem;
+  background-color: white;
+  object-fit: cover;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-direction: column;
+
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+`;
+
+const Name = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_16};
+`;
+
+const TagContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const Tag = styled.p`
+  color: ${({ theme }) => theme.colors.codrive_green};
+  ${({ theme }) => theme.fonts.body_eng_medium_12};
+`;
+
+const Introduce = styled.p`
+  overflow: hidden;
+
+  width: 100%;
+  height: 2.8rem;
+
+  color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.body_ligth_12};
+
+  white-space: pre-wrap;
+  word-break: break-all;
 `;
