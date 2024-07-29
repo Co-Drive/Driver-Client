@@ -39,8 +39,8 @@ const SelectBox = () => {
           inputValue={inputValue}
           selectedTag={selectedTag}
           isOpen={isOpen}
-          onToggleDropdown={handleToggleDropdown}
-          onTagChange={handleChangeTag}
+          handleToggleDropdown={handleToggleDropdown}
+          handleChangeTag={handleChangeTag}
         />
         {isOpen && <Options onSelectOption={handleClickOption} />}
       </CustomSelect>

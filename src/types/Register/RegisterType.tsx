@@ -6,6 +6,6 @@ export interface SelectProps {
   inputValue: string;
   isOpen: boolean;
   selectedTag: string;
-  onToggleDropdown: (e: React.MouseEvent<HTMLDivElement> | null) => void;
-  onTagChange: (value: string) => void;
+  handleToggleDropdown: (e: React.MouseEvent<HTMLDivElement> | null) => void;
+  handleChangeTag: (value: string) => void;
 }

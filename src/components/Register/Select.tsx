@@ -7,14 +7,14 @@ const Select = ({
   isOpen,
   selectedTag,
   inputValue,
-  onTagChange,
-  onToggleDropdown,
+  handleChangeTag,
+  handleToggleDropdown,
 }: SelectProps) => {
   return (
-    <SelectContainer onClick={onToggleDropdown}>
+    <SelectContainer onClick={handleToggleDropdown}>
       <HiddenInput
         value={inputValue}
-        onChange={(e) => onTagChange(e.target.value)}
+        onChange={(e) => handleChangeTag(e.target.value)}
       />
       <SelectOptions>
         {selectedTag === '' ? (
@@ -23,8 +23,8 @@ const Select = ({
           <CommonHashTag
             selectedTag={selectedTag}
             removeTag={() => {
-              onTagChange('');
-              onToggleDropdown(null);
+              handleChangeTag('');
+              handleToggleDropdown(null);
             }}
           />
         )}
