@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ParticipatingGroup from '../components/Follower/ParticipatingGroup';
+import FollowerRecommendCard from '../components/Follower/FollowerRecommendCard';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const DUMMY = {
@@ -60,42 +61,42 @@ const DUMMY = {
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐1',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐2',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐3',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐4',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐5',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐6',
       language: 'javascript',
       isFollowed: false,
     },
@@ -110,12 +111,15 @@ const FollowerPage = () => {
     // introduce,
     // github,
     group,
-    // recommend,
+    recommend,
   } = DUMMY;
   return (
     <PageLayout category="홈">
       <FollowerPageContainer>
         <ParticipatingGroup group={group} />
+      </FollowerPageContainer>
+      <FollowerPageContainer>
+        <FollowerRecommendCard recommend={recommend} />
       </FollowerPageContainer>
     </PageLayout>
   );
