@@ -15,6 +15,12 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
   const myNickname = sessionStorage.getItem('nickname');
   //   const navigate = useNavigate();
 
+  const handleClickIcLeft = () => {
+    const cardsContainer = document.getElementById('cardsContainer');
+    if (cardsContainer)
+      cardsContainer.scrollTo({ left: 0, behavior: 'smooth' });
+  };
+
   const handleClickContents = (nickname: string) => {
     // 라우팅 저장 후 콘솔 지우고 해당 코드로 변경 예정 !!
     // navigate(`/follower/${nickname}`);
@@ -34,10 +40,10 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
         <Title>님을 위한 추천</Title>
       </TitleContainer>
 
-      <IcLeftContainer>
+      <IcLeftContainer onClick={handleClickIcLeft}>
         <IcArrowLeftFill />
       </IcLeftContainer>
-      <ContentsContainer>
+      <CardsContainer id="cardsContainer">
         {recommend.map((info) => {
           const { profileImg, nickname, language, isFollowed } = info;
           return (
@@ -53,7 +59,8 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
             </CardContainer>
           );
         })}
-      </ContentsContainer>
+      </CardsContainer>
+
       <IcRightContainer>
         <IcArrowRightFill />
       </IcRightContainer>
@@ -95,7 +102,7 @@ const IcLeftContainer = styled.div`
   left: -4.2rem;
 `;
 
-const ContentsContainer = styled.article`
+const CardsContainer = styled.article`
   display: flex;
   gap: 2.2rem;
   align-items: center;
