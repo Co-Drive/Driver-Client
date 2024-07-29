@@ -29,6 +29,7 @@ declare module 'styled-components' {
       // title
       title_bold_32: SerializedStyles;
       title_bold_28: SerializedStyles;
+      title_bold_26: SerializedStyles;
       title_bold_24: SerializedStyles;
       title_bold_20: SerializedStyles;
       title_bold_16: SerializedStyles;
