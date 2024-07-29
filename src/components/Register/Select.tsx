@@ -11,7 +11,7 @@ const Select = ({
   handleToggleDropdown,
 }: SelectProps) => {
   return (
-    <SelectContainer onClick={handleToggleDropdown}>
+    <SelectContainer onClick={() => handleToggleDropdown(false)}>
       <HiddenInput
         value={inputValue}
         onChange={(e) => handleChangeTag(e.target.value)}
@@ -24,7 +24,7 @@ const Select = ({
             selectedTag={selectedTag}
             removeTag={() => {
               handleChangeTag('');
-              handleToggleDropdown(null);
+              handleToggleDropdown(false);
             }}
           />
         )}

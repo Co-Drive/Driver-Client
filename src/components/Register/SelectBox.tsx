@@ -9,9 +9,8 @@ const SelectBox = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   // 드롭다운 토글
-  const handleToggleDropdown = (e: React.MouseEvent<HTMLDivElement> | null) => {
-    if (e) e.stopPropagation();
-    setIsOpen((prev) => !prev);
+  const handleToggleDropdown = (shouldClose: boolean) => {
+    setIsOpen((prev) => (shouldClose ? false : !prev));
   };
 
   // 선택된 태그 값 업데이트
