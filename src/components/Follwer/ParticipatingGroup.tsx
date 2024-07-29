@@ -19,27 +19,14 @@ const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
       <GroupContainer>
         {group.map((card) => {
           const { id, imgSrc, title, tags, introduce } = card;
-          if (id % 3 === 0) {
-            return (
-              <CardsContainer key={id}>
-                <CardContainer>
-                  <GroupCard card={{ imgSrc, title, tags, introduce }} />
-                </CardContainer>
 
-                <CardContainer>
-                  {group[id + 1] && (
-                    <GroupCard card={{ imgSrc, title, tags, introduce }} />
-                  )}
-                </CardContainer>
-
-                <CardContainer>
-                  {group[id + 2] && (
-                    <GroupCard card={{ imgSrc, title, tags, introduce }} />
-                  )}
-                </CardContainer>
-              </CardsContainer>
-            );
-          }
+          return (
+            <CardsContainer key={id}>
+              <CardContainer>
+                <GroupCard card={{ imgSrc, title, tags, introduce }} />
+              </CardContainer>
+            </CardsContainer>
+          );
         })}
       </GroupContainer>
     </ParticipatingCardContainer>
@@ -63,14 +50,14 @@ const Title = styled.p`
 `;
 
 const GroupContainer = styled.article`
-  display: flex;
+  display: grid;
   gap: 4rem;
-  flex-direction: column;
+  grid-template-columns: repeat(3, 1fr);
+
+  width: 100%;
 
   max-height: 58.2rem;
   overflow-y: auto;
-
-  width: 100%;
 `;
 
 const CardsContainer = styled.div`
