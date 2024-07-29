@@ -7,12 +7,14 @@ interface FollowerInfoProps {
     nickname: string;
     isFollowed: boolean;
     introduce: string;
+    language: string;
     github: string;
   };
 }
 
 const FollowerInfo = ({ info }: FollowerInfoProps) => {
-  const { profileImg, nickname, isFollowed, introduce, github } = info;
+  const { profileImg, nickname, isFollowed, introduce, language, github } =
+    info;
 
   return (
     <FollowerContainer>
@@ -25,10 +27,10 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
           </FollowBtn>
         </TopInfoContainer>
         <Introduce>{introduce}</Introduce>
-        <GithubContainer>
+        <BottomInfoContainer>
+          <Language>{`#${language}`}</Language>
           <IcGithub />
-          <Github>{github}</Github>
-        </GithubContainer>
+        </BottomInfoContainer>
       </InfoContainer>
     </FollowerContainer>
   );
@@ -41,9 +43,8 @@ const FollowerContainer = styled.article`
   gap: 4.3rem;
   align-items: center;
 
-
   width: 100%;
-  padding-bottom: 4.3rem;
+  padding-bottom: 4rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
@@ -65,12 +66,14 @@ const InfoContainer = styled.article`
 const TopInfoContainer = styled.div`
   display: flex;
   gap: 4rem;
-  align-items: center;
+  align-items: end;
 
   margin: 0.1rem 0 1.6rem;
 `;
 
 const Nickname = styled.p`
+  margin-bottom: 0.2rem;
+
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
@@ -95,18 +98,22 @@ const FollowBtn = styled.button<{ $isFollowed: boolean }>`
 
 const Introduce = styled.p`
   color: ${({ theme }) => theme.colors.gray200};
-  ${({ theme }) => theme.fonts.title_medium_20};
+  ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-const GithubContainer = styled.div`
+const BottomInfoContainer = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 2.4rem;
   align-items: center;
 
   margin-top: 2rem;
 `;
 
-const Github = styled.p`
-  color: ${({ theme }) => theme.colors.gray200};
+const Language = styled.p`
+  padding: 1rem 1.2rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
+  color: ${({ theme }) => theme.colors.gray100};
   ${({ theme }) => theme.fonts.body_eng_regular_14};
 `;
