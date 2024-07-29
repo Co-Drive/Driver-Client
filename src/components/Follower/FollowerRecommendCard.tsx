@@ -1,3 +1,4 @@
+// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface FollowerRecommendCardProps {
@@ -11,6 +12,14 @@ interface FollowerRecommendCardProps {
 
 const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
   const myNickname = sessionStorage.getItem('nickname');
+  //   const navigate = useNavigate();
+
+  const handleClickContents = (nickname: string) => {
+    // 라우팅 저장 후 콘솔 지우고 해당 코드로 변경 예정 !!
+    // navigate(`/follower/${nickname}`);
+
+    console.log(nickname);
+  };
 
   const handleClickFollowBtn = () => {
     // 서버와 통신하는 코드로 대체할 예정
@@ -29,9 +38,11 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
           const { profileImg, nickname, language, isFollowed } = info;
           return (
             <CardContainer key={nickname}>
-              <ProfileImg src={profileImg} />
-              <Nickname>{nickname}</Nickname>
-              <Language>{`#${language}`}</Language>
+              <Contents onClick={() => handleClickContents(nickname)}>
+                <ProfileImg src={profileImg} />
+                <Nickname>{nickname}</Nickname>
+                <Language>{`#${language}`}</Language>
+              </Contents>
               <FollowBtn type="button" onClick={handleClickFollowBtn}>
                 {isFollowed ? '팔로잉' : '팔로우'}
               </FollowBtn>
@@ -87,17 +98,19 @@ const ContentsContainer = styled.article`
 `;
 
 const CardContainer = styled.article`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
   min-width: 18.9rem;
 
   padding-top: 2.8rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray800};
+`;
+
+const Contents = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const ProfileImg = styled.img`
