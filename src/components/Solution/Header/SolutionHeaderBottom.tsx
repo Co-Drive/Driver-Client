@@ -40,10 +40,11 @@ export default SolutionHeaderBottom;
 const HeaderBottomContainer = styled.ul`
   display: flex;
 
-  /* justify-content: space-between; */
-
   width: 100%;
-  margin-bottom: 2.2rem;
+  padding-bottom: 2.2rem;
+  padding-left: 0.7rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const Container = styled.li`

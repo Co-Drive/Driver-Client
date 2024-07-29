@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { IcAddFill, IcAddFillDisabled, IcCancelFill, IcCode } from '../assets';
 import CodeEditor from '../common/CodeSpace/CodeEditor';
 import Memo from '../common/CodeSpace/Memo';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -57,7 +58,15 @@ const SolutionPage = () => {
               {codeblocks.map((codeblock, idx) => {
                 const { code, memo } = codeblock;
                 return (
-                  <CodeBlckContainer key={idx}>
+                  <CodeBlckContainer key={idx} $isFirstCodeBlock={idx === 0}>
+                    <TopBar>
+                      <TextContainer>
+                        <IcCode />
+                        <Text>codeblock</Text>
+                      </TextContainer>
+
+                      {idx > 0 && <IcCancelFill />}
+                    </TopBar>
                     <CodeEditor
                       isReadOnly={true}
                       stringId={idx.toString()}
@@ -71,6 +80,13 @@ const SolutionPage = () => {
                   </CodeBlckContainer>
                 );
               })}
+              <AddBtnContainer>
+                {codeblocks[codeblocks.length - 1].code.length ? (
+                  <IcAddFill />
+                ) : (
+                  <IcAddFillDisabled />
+                )}
+              </AddBtnContainer>
             </React.Fragment>
           );
         })}
@@ -99,10 +115,46 @@ const SolutionPageHeader = styled.header`
   width: 100%;
 `;
 
-const CodeBlckContainer = styled.article`
+const CodeBlckContainer = styled.article<{ $isFirstCodeBlock: boolean }>`
   display: flex;
   flex-direction: column;
 
   width: 100%;
+  ${({ $isFirstCodeBlock }) =>
+    $isFirstCodeBlock &&
+    css`
+      margin-top: 2.4rem;
+    `};
   margin-bottom: 3.6rem;
+`;
+
+const TopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  margin-bottom: 0.8rem;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+
+  width: fit-content;
+  margin-top: 1rem;
+  margin-left: 0.8rem;
+`;
+
+const Text = styled.p`
+  color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.body_eng_medium_12};
+`;
+
+const AddBtnContainer = styled.div`
+  display: flex;
+  justify-content: end;
+
+  width: 100%;
+  margin-top: -1.8rem;
 `;
