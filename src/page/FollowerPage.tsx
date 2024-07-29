@@ -9,6 +9,7 @@ const DUMMY = {
   nickname: '코딩하는 갱얼쥐',
   isFollowed: false,
   introduce: '안녕하세요? 풀스택 개발자 코딩하는 갱얼쥐입니다.30자',
+  language: 'Javascript',
   github: 'https://github.com/Arooming',
   group: [
     {
@@ -56,13 +57,49 @@ const DUMMY = {
       introduce:
         '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
     },
+    {
+      id: 5,
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwwTi48CyZZGovLP7-u6CPqTn8ygolt2N5aA&s',
+      title: '이제는 더이상 물러날 곳이 없는 스터디',
+      tags: ['#swift', '#java', '#javascript'],
+      introduce:
+        '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
+    },
+    {
+      id: 6,
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgQdMSF0UfUeev25_EDlcSS0jCfciYTLT-qw&s',
+      title: '이제는 더이상 물러날 곳이 없는 스터디',
+      tags: ['#swift', '#java', '#javascript'],
+      introduce:
+        '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
+    },
+    {
+      id: 7,
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRolslbPtm3OymbdIwYgusZ9wqH4-fvxhln2A&s',
+      title: '이제는 더이상 물러날 곳이 없는 스터디',
+      tags: ['#swift', '#java', '#javascript'],
+      introduce:
+        '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
+    },
+    {
+      id: 8,
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwwTi48CyZZGovLP7-u6CPqTn8ygolt2N5aA&s',
+      title: '이제는 더이상 물러날 곳이 없는 스터디',
+      tags: ['#swift', '#java', '#javascript'],
+      introduce:
+        '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
+    },
   ],
   recommend: [
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐1',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
     {
@@ -76,28 +113,28 @@ const DUMMY = {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐3',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐4',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐5',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐6',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
   ],
@@ -109,6 +146,7 @@ const FollowerPage = () => {
     nickname,
     isFollowed,
     introduce,
+    language,
     github,
     group,
     recommend,
@@ -117,7 +155,14 @@ const FollowerPage = () => {
     <PageLayout category="홈">
       <FollowerPageContainer>
         <FollowerInfo
-          info={{ profileImg, nickname, isFollowed, introduce, github }}
+          info={{
+            profileImg,
+            nickname,
+            isFollowed,
+            introduce,
+            language,
+            github,
+          }}
         />
         <ParticipatingGroup group={group} />
 
@@ -135,5 +180,5 @@ const FollowerPageContainer = styled.section`
   flex-direction: column;
 
   width: 100%;
-  padding: 8.6rem 25.7rem 23.3rem;
+  padding: 8.6rem 25.7rem 21rem;
 `;
