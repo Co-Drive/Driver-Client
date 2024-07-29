@@ -1,16 +1,13 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IcAddPhoto, IcSecretGray, IcUnlockGray } from '../assets';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 
-interface GroupCreateProps {
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 const GroupCreate = () => {
   const [isPublicGroup, setIspublicGroup] = useState(true);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const memberCountRef = useRef<HTMLInputElement>(null);
 
   const handlePublicClick = () => {
     if (!isPublicGroup) setIspublicGroup(true);
@@ -28,6 +25,18 @@ const GroupCreate = () => {
         setPreviewImage(reader.result as string);
       };
       reader.readAsDataURL(files[0]);
+    }
+  };
+
+  const handleMemberCountChange = () => {
+    const value = memberCountRef.current?.value || '';
+    const numericValue = parseInt(value, 10);
+
+    // 입력 값이 숫자인지 확인하고, 두 자리까지만 허용하며, 최대 50까지만 허용
+    if (!isNaN(numericValue) && numericValue <= 50) {
+      memberCountRef.current!.value = value.slice(0, 2);
+    } else {
+      memberCountRef.current!.value = value.slice(0, -1);
     }
   };
 
@@ -88,17 +97,21 @@ const GroupCreate = () => {
               그룹 제목 <Essential>*</Essential>
             </Label>
             <EssentialText>최대 20자 이내로 입력해주세요</EssentialText>
+            <TitleInput type="text" placeholder={PLACEHOLDER[2]} />
           </div>
-          <TitleInput type="text" placeholder={PLACEHOLDER[2]} />
+          <RecruitmentContainer>
+            <Label>
+              모집 인원 <Essential>*</Essential>
+            </Label>
+            <EssentialText>50명까지 가능해요</EssentialText>
+            <NumberInput
+              type="number"
+              placeholder={PLACEHOLDER[3]}
+              ref={memberCountRef}
+              onInput={handleMemberCountChange}
+            />
+          </RecruitmentContainer>
         </TitleSection>
-
-        <section>
-          <Label>
-            모집 인원 <Essential>*</Essential>
-          </Label>
-          <EssentialText>50명까지 가능해요</EssentialText>
-          <input type="number" placeholder={PLACEHOLDER[3]} />
-        </section>
 
         <section>
           <Label>
@@ -230,7 +243,7 @@ const HiddenInput = styled.input`
 const TitleSection = styled.section`
   display: flex;
   gap: 1.8rem;
-  flex-direction: column;
+  align-items: flex-start;
 
   background-color: #4d8000;
 `;
@@ -247,6 +260,33 @@ const TitleInput = styled.input`
 `;
 
 const EssentialText = styled.p`
+  margin-bottom: 1.8rem;
+
   ${({ theme }) => theme.fonts.detail_regular_12};
+  color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const RecruitmentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const NumberInput = styled.input`
+  width: 13.9rem;
+  height: 5.3rem;
+  padding: 1.5rem 2rem 1.4rem;
+  margin: 0;
+
+  /* 숫자 입력 필드에서 스핀 버튼 제거 */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+
+    margin: 0;
+  }
+
+  border-radius: 0.8rem;
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  background-color: ${({ theme }) => theme.colors.gray700};
   color: ${({ theme }) => theme.colors.gray300};
 `;
