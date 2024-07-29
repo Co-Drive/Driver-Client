@@ -16,6 +16,10 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
   const { profileImg, nickname, isFollowed, introduce, language, github } =
     info;
 
+  const handleClickIcGithub = () => {
+    window.open(github);
+  };
+
   return (
     <FollowerContainer>
       <Img src={profileImg} />
@@ -29,7 +33,7 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
         <Introduce>{introduce}</Introduce>
         <BottomInfoContainer>
           <Language>{`#${language}`}</Language>
-          <IcGithub />
+          <IcGithub onClick={handleClickIcGithub} />
         </BottomInfoContainer>
       </InfoContainer>
     </FollowerContainer>
