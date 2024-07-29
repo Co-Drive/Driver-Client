@@ -1,3 +1,4 @@
+// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface ParticipatingGroupProps {
@@ -11,6 +12,13 @@ interface ParticipatingGroupProps {
 }
 
 const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
+  // 라우팅 정의 후, 콘솔은 지우고 navigate 코드로 변경할 예정입니다 !!
+  //   const navigate = useNavigate();
+  const handleClickCard = (id: number) => {
+    console.log(id);
+    // navigate(`/group/${id}`);
+  };
+
   return (
     <ParticipatingCardContainer>
       <Title>참여 그룹</Title>
@@ -20,7 +28,7 @@ const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
           const { id, imgSrc, title, tags, introduce } = card;
 
           return (
-            <CardContainer key={id}>
+            <CardContainer key={id} onClick={() => handleClickCard(id)}>
               <Img src={imgSrc} />
               <Contents>
                 <Name>{title}</Name>
@@ -65,7 +73,6 @@ const GroupContainer = styled.article`
   max-height: 58.2rem;
   overflow-y: auto;
 `;
-
 
 const CardContainer = styled.div`
   display: flex;
