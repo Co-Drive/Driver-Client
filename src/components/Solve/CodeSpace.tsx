@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { IcCancelFill, IcCode } from '../../assets';
 import { CodeSpaceProps } from '../../types/Solve/solveTypes';
-import CodeEditor from './CodeEditor';
+
+import CodeEditor from '../../common/CodeSpace/CodeEditor';
+import Memo from '../../common/CodeSpace/Memo';
 import CodeSpaceHeader from './Header/CodeSpaceHeader';
-import Memo from './Memo';
 
 const CodeSpace = ({
   ideItems,
@@ -33,12 +34,14 @@ const CodeSpace = ({
             </TopBar>
 
             <CodeEditor
+              isReadOnly={false}
               stringId={item.id.toString()}
               code={item.code}
               handleChangeCode={handleChangeCode}
             />
 
             <Memo
+              isReadOnly={false}
               stringId={item.id.toString()}
               memo={item.memo}
               handleChangeMemo={handleChangeMemo}

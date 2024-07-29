@@ -8,7 +8,7 @@ import {
 } from '../../assets';
 import { MemoProps } from '../../types/Solve/solveTypes';
 
-const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
+const Memo = ({ isReadOnly, stringId, memo, handleChangeMemo }: MemoProps) => {
   const [isMemoOpen, setIsMemoOpen] = useState(false);
   const isMemoDisabled = !isMemoOpen && !memo.length;
 
@@ -18,17 +18,13 @@ const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
 
   return (
     <MemoContainer>
-      <TopBar>
+      <TopBar onClick={handleclickArrow}>
         <TitleContainer>
           {isMemoDisabled ? <IcMemoGray /> : <IcMemoWhite />}
           <Title $isDisabled={isMemoDisabled}>메모장</Title>
         </TitleContainer>
 
-        {isMemoOpen ? (
-          <IcArrowTopGray onClick={handleclickArrow} />
-        ) : (
-          <IcArrowBottomGray onClick={handleclickArrow} />
-        )}
+        {isMemoOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
       </TopBar>
 
       <TextareaContainer $isMemoOpen={isMemoOpen}>
@@ -36,7 +32,10 @@ const Memo = ({ stringId, memo, handleChangeMemo }: MemoProps) => {
           id={stringId}
           name="memo"
           value={memo}
-          onChange={handleChangeMemo}
+          readOnly={isReadOnly}
+          onChange={(e) => {
+            if (!isReadOnly && handleChangeMemo) handleChangeMemo(e);
+          }}
         />
       </TextareaContainer>
     </MemoContainer>
@@ -47,6 +46,8 @@ export default Memo;
 
 const MemoContainer = styled.article`
   width: 100%;
+  min-width: 92.6rem;
+
   padding: 2.4rem 2.6rem 0 2.4rem;
 
   border-radius: 0.8rem;

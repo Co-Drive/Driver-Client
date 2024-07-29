@@ -19,10 +19,11 @@ import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCode from './icon/ic_code.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
-import IcLoginIcon from './icon/ic_login_Icon.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
 import IcLinkGray from './icon/ic_link_gray.svg?react';
+import IcLinkPurple from './icon/ic_link_purple.svg?react';
 import IcLinkWhite from './icon/ic_link_white.svg?react';
+import IcLoginIcon from './icon/ic_login_Icon.svg?react';
 import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
@@ -57,10 +58,11 @@ export {
   IcCode,
   IcGroup,
   IcHome,
-  IcLoginIcon,
   IcInformation,
   IcLinkGray,
+  IcLinkPurple,
   IcLinkWhite,
+  IcLoginIcon,
   IcLogo,
   IcMemoGray,
   IcMemoWhite,
