@@ -22,7 +22,7 @@ const DUMMY = {
     {
       id: 1,
       imgSrc:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgQdMSF0UfUeev25_EDlcSS0jCfciYTLT-qw&s',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRolslbPtm3OymbdIwYgusZ9wqH4-fvxhln2A&s',
       title: '이제는 더이상 물러날 곳이 없는 스터디',
       tags: ['#swift', '#java', '#javascript'],
       introduce:
@@ -31,7 +31,7 @@ const DUMMY = {
     {
       id: 2,
       imgSrc:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgQdMSF0UfUeev25_EDlcSS0jCfciYTLT-qw&s',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwwTi48CyZZGovLP7-u6CPqTn8ygolt2N5aA&s',
       title: '이제는 더이상 물러날 곳이 없는 스터디',
       tags: ['#swift', '#java', '#javascript'],
       introduce:
@@ -49,7 +49,7 @@ const DUMMY = {
     {
       id: 4,
       imgSrc:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgQdMSF0UfUeev25_EDlcSS0jCfciYTLT-qw&s',
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRolslbPtm3OymbdIwYgusZ9wqH4-fvxhln2A&s',
       title: '이제는 더이상 물러날 곳이 없는 스터디',
       tags: ['#swift', '#java', '#javascript'],
       introduce:
