@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ParticipatingGroup from '../components/\bFollwer/ParticipatingGroup';
+import ParticipatingGroup from '../components/Follower/ParticipatingGroup';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const DUMMY = {
