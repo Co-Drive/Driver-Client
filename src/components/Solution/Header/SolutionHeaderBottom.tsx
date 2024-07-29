@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IcLinkPurple } from '../../../assets';
+import { IcLinkWhite } from '../../../assets';
 
 export interface SolutionHeaderBottomProps {
   tags: Array<string>;
@@ -14,12 +14,23 @@ const SolutionHeaderBottom = ({
 }: SolutionHeaderBottomProps) => {
   return (
     <HeaderBottomContainer>
-      <Tag>{tags.join(', ')}</Tag>
-      <Platform>{platform}</Platform>
-      <LinkContainer>
-        <IcLinkPurple />
-        <Link>{problemUrl}</Link>
-      </LinkContainer>
+      <Container>
+        <Category>태그</Category>
+        <Tag>{tags.join(', ')}</Tag>
+      </Container>
+
+      <Container>
+        <Category>플랫폼</Category>
+        <Platform>{platform}</Platform>
+      </Container>
+
+      <Container>
+        <Category>링크 바로가기</Category>
+        <LinkContainer>
+          <IcLinkWhite />
+          <Link>{problemUrl}</Link>
+        </LinkContainer>
+      </Container>
     </HeaderBottomContainer>
   );
 };
@@ -28,54 +39,61 @@ export default SolutionHeaderBottom;
 
 const HeaderBottomContainer = styled.ul`
   display: flex;
-  gap: 1.8rem;
-  justify-content: center;
+
+  /* justify-content: space-between; */
 
   width: 100%;
   margin-bottom: 2.2rem;
 `;
 
-const CommonTagStyle = styled.li`
+const Container = styled.li`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 1.8rem;
+  flex-direction: column;
+  flex-grow: 1;
+`;
 
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.gray800};
-  color: ${({ theme }) => theme.colors.codrive_purple};
+const Category = styled.p`
+  color: ${({ theme }) => theme.colors.codrive_green};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
+const CommonTagStyle = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_medium_20};
+`;
+
 const Tag = styled(CommonTagStyle)`
-  flex-grow: 2.8;
+  padding: 1.2rem 0.8rem 1.2rem 0;
+  margin-right: 2.8rem;
 
-  min-width: 34.9rem;
-
-  padding: 1.5rem 0 1.4rem;
+  min-width: 44.5rem;
 `;
 
 const Platform = styled(CommonTagStyle)`
-  flex-grow: 1;
+  padding: 1.2rem 0.8rem 1.2rem 0;
+  margin-right: 2.6rem;
 
-  min-width: 12.4rem;
-
-  padding: 1.5rem 0 1.4rem;
+  min-width: 13.1rem;
 `;
 
 const LinkContainer = styled(CommonTagStyle)`
-  flex-grow: 3.4;
+  display: flex;
+  align-items: center;
 
-  min-width: 41.7rem;
+  min-width: 28.9rem;
 
   padding: 1.2rem 0;
 `;
 
 const Link = styled.p`
-  width: 35.1rem;
+  flex-grow: 1;
+
+  width: 25.7rem;
   margin-left: 0.8rem;
 
-  color: ${({ theme }) => theme.colors.codrive_purple};
-  ${({ theme }) => theme.fonts.title_bold_16};
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_medium_20};
 
   white-space: nowrap;
   text-overflow: ellipsis;
