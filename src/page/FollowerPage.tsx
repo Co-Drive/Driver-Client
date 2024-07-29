@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components';
+import FollowerRecommendCard from '../components/Follower/FollowerRecommendCard';
+import ParticipatingGroup from '../components/Follower/ParticipatingGroup';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const DUMMY = {
@@ -58,42 +60,42 @@ const DUMMY = {
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐1',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐2',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐3',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐4',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐5',
       language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
-      nickname: '코딩하는 갱얼쥐',
+      nickname: '코딩하는 갱얼쥐6',
       language: 'javascript',
       isFollowed: false,
     },
@@ -101,9 +103,23 @@ const DUMMY = {
 };
 
 const FollowerPage = () => {
-  const { profileImg, nickname, isFollowed, introduce, github } = DUMMY;
+  const {
+    profileImg,
+    nickname,
+    isFollowed,
+    introduce,
+    github,
+    group,
+    recommend,
+  } = DUMMY;
   return (
     <PageLayout category="홈">
+      <FollowerPageContainer>
+        <ParticipatingGroup group={group} />
+      </FollowerPageContainer>
+      <FollowerPageContainer>
+        <FollowerRecommendCard recommend={recommend} />
+      </FollowerPageContainer>
       <FollowerPageContainer>
         <FollowerContainer>
           <Img src={profileImg} />
@@ -132,7 +148,7 @@ const FollowerPageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  padding: 8.6rem 25.7rem 20rem;
+  padding: 8.6rem 21.8rem 23.2rem 21.5rem;
 `;
 
 const FollowerContainer = styled.article`
