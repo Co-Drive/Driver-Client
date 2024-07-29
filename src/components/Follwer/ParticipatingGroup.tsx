@@ -18,20 +18,58 @@ const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
       <GroupContainer>
         {group.map((card) => {
           const { id, imgSrc, title, tags, introduce } = card;
-          return (
-            <CardContainer key={id}>
-              <Img src={imgSrc} />
-              <Contents>
-                <Name>{title}</Name>
-                <TagContainer>
-                  {tags.map((tag) => {
-                    return <Tag key={tag}>{tag}</Tag>;
-                  })}
-                </TagContainer>
-                <Introduce>{introduce}</Introduce>
-              </Contents>
-            </CardContainer>
-          );
+          if (id % 3 === 0) {
+            return (
+              <CardsContainer key={id}>
+                <CardContainer>
+                  <Img src={imgSrc} />
+                  <Contents>
+                    <Name>{title}</Name>
+                    <TagContainer>
+                      {tags.map((tag) => {
+                        return <Tag key={tag}>{tag}</Tag>;
+                      })}
+                    </TagContainer>
+                    <Introduce>{introduce}</Introduce>
+                  </Contents>
+                </CardContainer>
+
+                <CardContainer>
+                  {group[id + 1] && (
+                    <>
+                      <Img src={imgSrc} />
+                      <Contents>
+                        <Name>{title}</Name>
+                        <TagContainer>
+                          {tags.map((tag) => {
+                            return <Tag key={tag}>{tag}</Tag>;
+                          })}
+                        </TagContainer>
+                        <Introduce>{introduce}</Introduce>
+                      </Contents>
+                    </>
+                  )}
+                </CardContainer>
+
+                <CardContainer>
+                  {group[id + 2] && (
+                    <>
+                      <Img src={imgSrc} />
+                      <Contents>
+                        <Name>{title}</Name>
+                        <TagContainer>
+                          {tags.map((tag) => {
+                            return <Tag key={tag}>{tag}</Tag>;
+                          })}
+                        </TagContainer>
+                        <Introduce>{introduce}</Introduce>
+                      </Contents>
+                    </>
+                  )}
+                </CardContainer>
+              </CardsContainer>
+            );
+          }
         })}
       </GroupContainer>
     </ParticipatingCardContainer>
@@ -44,7 +82,6 @@ const ParticipatingCardContainer = styled.article`
   display: flex;
   gap: 3rem;
   justify-content: center;
-  align-items: center;
   flex-direction: column;
 `;
 
@@ -56,6 +93,14 @@ const Title = styled.p`
 `;
 
 const GroupContainer = styled.article`
+  display: flex;
+  gap: 4rem;
+  flex-direction: column;
+
+  width: 100%;
+`;
+
+const CardsContainer = styled.div`
   display: flex;
   gap: 1.8rem;
 `;
