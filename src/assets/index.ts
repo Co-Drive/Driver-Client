@@ -3,6 +3,7 @@
 import IcAdd from './icon/ic_add.svg?react';
 import IcAddBlack from './icon/ic_add_black.svg?react';
 import IcAddGray from './icon/ic_add_gray.svg?react';
+import IcAddPhoto from './icon/ic_add_photo.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
 import IcArrowRightBlack from './icon/ic_arrow_right_black.svg?react';
@@ -30,6 +31,7 @@ export {
   IcAdd,
   IcAddBlack,
   IcAddGray,
+  IcAddPhoto,
   IcArrowBottomGray,
   IcArrowLeftFill,
   IcArrowRightBlack,
