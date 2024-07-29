@@ -5,7 +5,6 @@ import { SelectProps } from '../../types/Register/RegisterType';
 
 const Select = ({
   isOpen,
-  selectedTag,
   inputValue,
   handleChangeTag,
   handleToggleDropdown,
@@ -17,11 +16,11 @@ const Select = ({
         onChange={(e) => handleChangeTag(e.target.value)}
       />
       <SelectOptions>
-        {selectedTag === '' ? (
+        {inputValue === '' ? (
           <Placeholder>자주 사용하는 언어를 선택해주세요</Placeholder>
         ) : (
           <CommonHashTag
-            selectedTag={selectedTag}
+            selectedTag={inputValue}
             removeTag={() => {
               handleChangeTag('');
               handleToggleDropdown(false);
