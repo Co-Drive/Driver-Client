@@ -85,6 +85,8 @@ const RecommendCardContainer = styled.article`
   justify-content: center;
   flex-direction: column;
   position: relative;
+
+  margin-top: 9.6rem;
 `;
 
 const TitleContainer = styled.div`
