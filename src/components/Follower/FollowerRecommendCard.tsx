@@ -132,8 +132,7 @@ const ProfileImg = styled.img`
   height: 4.9rem;
   margin-bottom: 1.6rem;
 
-  border-radius: 1rem;
-  background-color: red;
+  border-radius: 5rem;
 `;
 
 const Nickname = styled.p`
