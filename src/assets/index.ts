@@ -13,6 +13,7 @@ import IcArrowTopGray from './icon/ic_arrow_top_gray.svg?react';
 import IcBtnCopy from './icon/ic_btn_copy.svg?react';
 import IcBtnInformation from './icon/ic_btn_information.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
+import IcGithub from './icon/ic_github.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcLoginIcon from './icon/ic_login_Icon.svg?react';
@@ -40,6 +41,7 @@ export {
   IcBtnCopy,
   IcBtnInformation,
   IcCancelSmall,
+  IcGithub,
   IcGroup,
   IcHome,
   IcLoginIcon,

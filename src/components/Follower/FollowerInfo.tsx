@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { IcGithub } from '../../assets';
 
 interface FollowerInfoProps {
   info: {
@@ -25,6 +26,7 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
         </TopInfoContainer>
         <Introduce>{introduce}</Introduce>
         <GithubContainer>
+          <IcGithub />
           <Github>{github}</Github>
         </GithubContainer>
       </InfoContainer>
