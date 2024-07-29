@@ -62,8 +62,6 @@ const SelectOptions = styled.div`
 
 const Placeholder = styled.div`
   color: ${({ theme }) => theme.colors.gray300};
-  font-weight: 300;
-  font-size: 1rem;
 
   ${({ theme }) => theme.fonts.body_ligth_16};
   text-align: center;

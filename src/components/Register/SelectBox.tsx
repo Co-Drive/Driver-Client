@@ -31,28 +31,20 @@ const SelectBox = () => {
 
   return (
     <SelectBoxContainer>
-      <CustomSelect>
-        <Select
-          inputValue={inputValue}
-          selectedTag={inputValue}
-          isOpen={isOpen}
-          handleToggleDropdown={handleToggleDropdown}
-          handleChangeTag={handleChangeTag}
-        />
-        {isOpen && <Options onSelectOption={handleClickOption} />}
-      </CustomSelect>
+      <Select
+        inputValue={inputValue}
+        selectedTag={inputValue}
+        isOpen={isOpen}
+        handleToggleDropdown={handleToggleDropdown}
+        handleChangeTag={handleChangeTag}
+      />
+      {isOpen && <Options onSelectOption={handleClickOption} />}
     </SelectBoxContainer>
   );
 };
 
 const SelectBoxContainer = styled.div`
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-`;
-
-const CustomSelect = styled.div`
-  position: relative;
+  /* Only comments */
 `;
 
 export default SelectBox;
