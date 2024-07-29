@@ -61,36 +61,42 @@ const DUMMY = {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐',
+      language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐',
+      language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐',
+      language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐',
+      language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐',
+      language: 'javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐',
+      language: 'javascript',
       isFollowed: false,
     },
   ],
