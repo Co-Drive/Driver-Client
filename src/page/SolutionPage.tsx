@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcAddFill, IcAddFillDisabled, IcCancelFill, IcCode } from '../assets';
 import CodeEditor from '../common/CodeSpace/CodeEditor';
@@ -29,6 +30,8 @@ const DUMMY = [
 ];
 
 const SolutionPage = () => {
+  const { state } = useLocation();
+
   return (
     <PageLayout category="문제풀이">
       <SolutionPageContainer>
@@ -43,6 +46,7 @@ const SolutionPage = () => {
             <React.Fragment key={title}>
               <SolutionPageHeader>
                 <SolutionHeaderTop
+                  followerInfo={state}
                   title={title}
                   date={date}
                   paintedStarArr={paintedStarArr}
@@ -64,9 +68,9 @@ const SolutionPage = () => {
                         <IcCode />
                         <Text>codeblock</Text>
                       </TextContainer>
-
-                      {idx > 0 && <IcCancelFill />}
+                      {!state && idx > 0 && <IcCancelFill />}
                     </TopBar>
+
                     <CodeEditor
                       isReadOnly={true}
                       stringId={idx.toString()}
@@ -80,13 +84,16 @@ const SolutionPage = () => {
                   </CodeBlckContainer>
                 );
               })}
-              <AddBtnContainer>
-                {codeblocks[codeblocks.length - 1].code.length ? (
-                  <IcAddFill />
-                ) : (
-                  <IcAddFillDisabled />
-                )}
-              </AddBtnContainer>
+
+              {!state && (
+                <AddBtnContainer>
+                  {codeblocks[codeblocks.length - 1].code.length ? (
+                    <IcAddFill />
+                  ) : (
+                    <IcAddFillDisabled />
+                  )}
+                </AddBtnContainer>
+              )}
             </React.Fragment>
           );
         })}

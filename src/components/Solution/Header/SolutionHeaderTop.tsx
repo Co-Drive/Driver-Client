@@ -2,25 +2,44 @@ import styled from 'styled-components';
 import {
   BtnHeart,
   BtnShare,
+  IcArrowRightSmallGray,
   IcInformation,
   IcStarGray,
   IcStarGreen,
 } from '../../../assets';
 
 export interface SolutionHeaderTopProps {
+  followerInfo?: {
+    profileImg: string;
+    nickname: string;
+  };
   title: string;
   date: string;
   paintedStarArr: Array<number>;
 }
 
 const SolutionHeaderTop = ({
+  followerInfo,
   title,
   date,
   paintedStarArr,
 }: SolutionHeaderTopProps) => {
   return (
     <SolutionHeaderTopContainer>
-      <Date>{`작성일자 | ${date}`}</Date>
+      {followerInfo ? (
+        <FollowerContainer>
+          <FollowerInfoContainer>
+            <Img src={followerInfo.profileImg} />
+            <Nickname>{`${followerInfo.nickname} 님`}</Nickname>
+            <IcArrowRightSmallGray />
+          </FollowerInfoContainer>
+
+          <Date>{`작성일자 | ${date}`}</Date>
+        </FollowerContainer>
+      ) : (
+        <Date>{`작성일자 | ${date}`}</Date>
+      )}
+
       <TopContainer>
         <Title>{title}</Title>
 
@@ -49,10 +68,12 @@ const SolutionHeaderTop = ({
           <IcInformation />
         </LevelContainer>
 
-        <BtnContainer>
-          <RemoveBtn type="button">삭제하기</RemoveBtn>
-          <ModifyBtn type="button">수정하기</ModifyBtn>
-        </BtnContainer>
+        {!followerInfo && (
+          <BtnContainer>
+            <RemoveBtn type="button">삭제하기</RemoveBtn>
+            <ModifyBtn type="button">수정하기</ModifyBtn>
+          </BtnContainer>
+        )}
       </BottomContainer>
     </SolutionHeaderTopContainer>
   );
@@ -71,6 +92,35 @@ const SolutionHeaderTopContainer = styled.div`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
+const FollowerContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  margin: 1rem 0 -1rem;
+`;
+
+const FollowerInfoContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  margin-bottom: 3.4rem;
+`;
+
+const Img = styled.img`
+  width: 2.6rem;
+  height: 2.6rem;
+
+  border-radius: 5rem;
+`;
+
+const Nickname = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_16};
+`;
+
 const Date = styled.p`
   margin-bottom: 3.4rem;
 
@@ -87,6 +137,8 @@ const TopContainer = styled.div`
 `;
 
 const Title = styled.p`
+  margin-left: 0.2rem;
+
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
@@ -104,7 +156,7 @@ const BottomContainer = styled.div`
   align-items: center;
 
   width: 100%;
-  margin: 1.8rem 0 2.7rem 0.4rem;
+  margin: 2.6rem 0 3.4rem 0.6rem;
 `;
 
 const LevelContainer = styled.div`
