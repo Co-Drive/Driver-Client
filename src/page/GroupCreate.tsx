@@ -26,11 +26,19 @@ const GroupCreate = () => {
             <Essential>*</Essential>
           </GroupSetting>
           <ButtonContainer>
-            <GroupButton $isActive={isPublicGroup} onClick={handlePublicClick}>
+            <GroupButton
+              type="button"
+              $isActive={isPublicGroup}
+              onClick={handlePublicClick}
+            >
               <IcUnlockGray />
               공개그룹
             </GroupButton>
-            <GroupButton $isActive={!isPublicGroup} onClick={handleSecretClick}>
+            <GroupButton
+              type="button"
+              $isActive={!isPublicGroup}
+              onClick={handleSecretClick}
+            >
               <IcSecretGray />
               비공개그룹
             </GroupButton>
