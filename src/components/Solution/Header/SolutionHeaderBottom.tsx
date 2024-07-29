@@ -54,12 +54,12 @@ const Container = styled.li`
   flex-grow: 1;
 `;
 
-const Category = styled.p`
+const Category = styled.span`
   color: ${({ theme }) => theme.colors.codrive_green};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
-const CommonTagStyle = styled.p`
+const CommonTagStyle = styled.span`
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_medium_20};
 `;
