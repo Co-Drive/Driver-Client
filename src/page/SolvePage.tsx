@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcAddFill, IcAddFillDisabled } from '../assets';
+import { IcAddFill, IcAddFillDisabled, IcArrowUpBig } from '../assets';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CodeSpace from '../components/Solve/CodeSpace';
 import PageHeader from '../components/Solve/Header/PageHeader';
@@ -84,7 +84,7 @@ const SolvePage = () => {
   };
 
   return (
-    <PageLayout category='문제풀이'>
+    <PageLayout category="문제풀이">
       <SolvePageContainer>
         <PageHeader codeblocks={ideItems} questionInfo={questionInfo} />
 
@@ -106,7 +106,7 @@ const SolvePage = () => {
         </AddBtnContainer>
         {ideId > 0 && (
           <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
-            위로
+            <IcArrowUpBig />
           </GoTopBtn>
         )}
       </SolvePageContainer>
@@ -120,6 +120,7 @@ const SolvePageContainer = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
 
   padding: 6rem 25.7rem 20rem;
 `;
@@ -133,9 +134,7 @@ const AddBtnContainer = styled.div`
 `;
 
 const GoTopBtn = styled.button`
-  padding: 3rem;
-  margin-top: 1rem;
-
-  background-color: ${({ theme }) => theme.colors.codrive_green};
-  color: black;
+  position: absolute;
+  bottom: 25rem;
+  left: 121.7rem;
 `;
