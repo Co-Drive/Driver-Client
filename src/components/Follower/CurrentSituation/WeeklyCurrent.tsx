@@ -11,7 +11,7 @@ const WeeklyCurrent = () => {
         const { profile, boards } = follower;
         const { imgSrc, nickname } = profile;
         return (
-          <BoardContainer>
+          <BoardContainer key={nickname}>
             <TopBar>
               <Profile>
                 <Img src={imgSrc} />
@@ -27,7 +27,7 @@ const WeeklyCurrent = () => {
               {boards.map((board) => {
                 const { count, date } = board;
                 return (
-                  <DailyBoard>
+                  <DailyBoard key={date}>
                     {/* count 관련 조건은 추후 수정 예정 */}
                     {count && <TestWeekboardStatus />}
                     <Date>{date}</Date>
