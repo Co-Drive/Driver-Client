@@ -1,9 +1,30 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray, TestWeekboardStatus } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
 
+interface ClickDailyBoardProps {
+  nickname: string;
+  date: string;
+}
+
 const WeeklyCurrent = () => {
   const { followers } = DUMMY;
+  const [clickedBoard, setClickedBoard] = useState({
+    clickedDate: '',
+    clickedNickname: '',
+  });
+
+  const { clickedDate, clickedNickname } = clickedBoard;
+
+  const handleClickDailyBoard = ({ nickname, date }: ClickDailyBoardProps) => {
+    setClickedBoard({
+      clickedDate: date,
+      clickedNickname: nickname,
+    });
+
+    // 서버 통신 -> 클릭한 닉네임과 날짜를 기반으로 문제 풀이 조회
+  };
 
   return (
     <BoardsContainer>
@@ -27,7 +48,18 @@ const WeeklyCurrent = () => {
               {boards.map((board) => {
                 const { count, date } = board;
                 return (
-                  <DailyBoard key={date}>
+                  <DailyBoard
+                    key={date}
+                    $isClicked={
+                      clickedDate === date && clickedNickname === nickname
+                    }
+                    onClick={() =>
+                      handleClickDailyBoard({
+                        nickname: nickname,
+                        date: date,
+                      })
+                    }
+                  >
                     {/* count 관련 조건은 추후 수정 예정 */}
                     {count && <TestWeekboardStatus />}
                     <Date>{date}</Date>
@@ -110,7 +142,7 @@ const WeeklyBoard = styled.div`
   row-gap: 0.5rem;
 `;
 
-const DailyBoard = styled.div`
+const DailyBoard = styled.div<{ $isClicked: boolean }>`
   display: flex;
   gap: 1.2rem;
   justify-content: center;
@@ -118,6 +150,10 @@ const DailyBoard = styled.div`
   flex-direction: column;
 
   padding: 0.8rem 1.05rem;
+
+  border-radius: 0.6rem;
+  background-color: ${({ $isClicked, theme }) =>
+    $isClicked ? theme.colors.gray700 : 'transparent'};
 `;
 
 const Date = styled.p`
