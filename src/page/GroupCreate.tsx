@@ -175,8 +175,7 @@ export default GroupCreate;
 
 const Form = styled.form`
   /* width: 100%; */
-
-  background-color: pink;
+  margin-bottom: 25.1rem;
 `;
 
 const Header = styled.header`
@@ -283,6 +282,7 @@ const TitleInput = styled.input`
   height: 4.8rem;
   padding: 1.5rem 2rem 1.4rem;
 
+  border: none;
   border-radius: 0.8rem;
   ${({ theme }) => theme.fonts.body_ligth_16};
   background-color: ${({ theme }) => theme.colors.gray700};
@@ -306,6 +306,8 @@ const NumberInput = styled.input`
   height: 5.3rem;
   padding: 1.5rem 2rem 1.4rem;
   margin: 0;
+
+  border: none;
 
   /* 숫자 입력 필드에서 스핀 버튼 제거 */
   &::-webkit-outer-spin-button,
@@ -362,6 +364,9 @@ const IntroTextarea = styled.textarea`
   width: 100%;
   height: 10rem;
   padding: 1.5rem 2rem 1.4rem;
+
+  border: none;
+
   resize: none;
 
   border-radius: 0.8rem;
@@ -383,6 +388,7 @@ const ProgressText = styled.textarea`
   padding: 1.5rem 2rem 1.4rem;
   resize: none;
 
+  border: none;
   border-radius: 0.8rem;
   ${({ theme }) => theme.fonts.body_ligth_16};
   background-color: ${({ theme }) => theme.colors.gray700};
