@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../assets';
 import Header from '../components/Follower/CurrentSituation/Header';
 import WeeklyCurrent from '../components/Follower/CurrentSituation/WeeklyCurrent';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { TOTAL_PAGES } from '../constants/Follower/currentConst';
 
 const FollowerCurrentPage = () => {
   const [filter, setFilter] = useState({
@@ -10,6 +12,9 @@ const FollowerCurrentPage = () => {
     isOptionOpen: false,
     sorting: '최신순',
   });
+
+  // 첫 화면에서 서버에 전체 리스트 수 아니면 전체 페이지 수 요청
+  const pagesArr = Array(TOTAL_PAGES).fill(0);
 
   const { isOptionOpen } = filter;
 
@@ -53,6 +58,15 @@ const FollowerCurrentPage = () => {
         />
 
         <WeeklyCurrent />
+
+        <PageNationBar>
+          <IcArrowLeftSmallGray />
+          {pagesArr.map((_, idx) => {
+            const page = idx + 1;
+            return <PageNumber key={page}>{page}</PageNumber>;
+          })}
+          <IcArrowRightSmallGray />
+        </PageNationBar>
       </FollowerCurrentPageContainer>
     </PageLayout>
   );
@@ -69,4 +83,24 @@ const FollowerCurrentPageContainer = styled.section`
 
   width: 100%;
   padding: 6rem 41.45rem 11.5rem;
+`;
+
+const PageNationBar = styled.div`
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 4.8rem;
+`;
+
+const PageNumber = styled.p`
+  padding: 0.4rem 1rem;
+
+  border-radius: 0.4rem;
+  background-color: transparent;
+  color: ${({ theme }) => theme.colors.gray200};
+
+  ${({ theme }) => theme.fonts.body_medium_16};
 `;
