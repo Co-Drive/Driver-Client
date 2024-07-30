@@ -264,3 +264,6 @@ export const CLICKED_DUMMY = {
     },
   ],
 };
+
+const TOTAL_LISTS = 6;
+export const TOTAL_PAGES = Math.ceil(TOTAL_LISTS / 4);
