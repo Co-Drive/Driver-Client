@@ -6,12 +6,14 @@ import {
   IcSecretGray,
   IcUnlockGray,
 } from '../assets';
+import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 
 const GroupCreate = () => {
   const [isPublicGroup, setIspublicGroup] = useState(true);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [isActive, setIsActive] = useState(false);
   const memberCountRef = useRef<HTMLInputElement>(null);
 
   const handlePublicClick = () => {
@@ -42,6 +44,16 @@ const GroupCreate = () => {
       memberCountRef.current!.value = value.slice(0, 2);
     } else {
       memberCountRef.current!.value = value.slice(0, -1);
+    }
+  };
+
+  const handleCreateButtonClick = () => {
+    if (!isActive) {
+      setIsActive(true);
+      console.log('그룹를 생성하도록 새로운 것입니다');
+      // navigator 로 이동
+    } else {
+      console.log('에러발생');
     }
   };
 
@@ -147,7 +159,13 @@ const GroupCreate = () => {
           </Label>
           <ProgressText maxLength={1000} placeholder={PLACEHOLDER[1]} />
         </ProgressSection>
-        <button>그룹 생성하기</button>
+        <CreateBtnContainer>
+          <CommonButton
+            isActive={isActive}
+            category="group_create"
+            onClick={handleCreateButtonClick}
+          />
+        </CreateBtnContainer>
       </Form>
     </PageLayout>
   );
@@ -369,4 +387,11 @@ const ProgressText = styled.textarea`
   ${({ theme }) => theme.fonts.body_ligth_16};
   background-color: ${({ theme }) => theme.colors.gray700};
   color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const CreateBtnContainer = styled.div`
+  display: flex;
+  justify-content: end;
+
+  margin-top: 3.8rem;
 `;
