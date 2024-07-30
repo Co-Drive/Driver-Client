@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray, TestWeekboardStatus } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
+import SolvedQuestionModal from './SolvedQuestionModal';
 
 interface WeeklyCurrentProps {
   clickedPage: number;
@@ -21,14 +22,16 @@ const WeeklyCurrent = ({ clickedPage }: WeeklyCurrentProps) => {
   const [clickedBoard, setClickedBoard] = useState({
     clickedDate: '',
     clickedNickname: '',
+    isModalOpen: false,
   });
 
-  const { clickedDate, clickedNickname } = clickedBoard;
+  const { clickedDate, clickedNickname, isModalOpen } = clickedBoard;
 
   const handleClickDailyBoard = ({ nickname, date }: ClickDailyBoardProps) => {
     setClickedBoard({
       clickedDate: date,
       clickedNickname: nickname,
+      isModalOpen: !isModalOpen,
     });
 
     // 서버 통신 -> 클릭한 닉네임과 날짜를 기반으로 문제 풀이 조회
@@ -60,7 +63,7 @@ const WeeklyCurrent = ({ clickedPage }: WeeklyCurrentProps) => {
                 return (
                   <DailyBoard
                     key={date}
-                    $isClicked={isClickedBoard}
+                    $isClicked={isClickedBoard && isModalOpen}
                     onClick={() =>
                       handleClickDailyBoard({
                         nickname: nickname,
@@ -71,6 +74,8 @@ const WeeklyCurrent = ({ clickedPage }: WeeklyCurrentProps) => {
                     {/* count 관련 조건은 추후 수정 예정 */}
                     {count && <TestWeekboardStatus />}
                     <Date>{date}</Date>
+
+                    {isClickedBoard && isModalOpen && <SolvedQuestionModal />}
                   </DailyBoard>
                 );
               })}
