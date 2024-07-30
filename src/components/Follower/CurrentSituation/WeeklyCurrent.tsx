@@ -14,14 +14,16 @@ const WeeklyCurrent = () => {
   const [clickedBoard, setClickedBoard] = useState({
     clickedDate: '',
     clickedNickname: '',
+    isModalOpen: false,
   });
 
-  const { clickedDate, clickedNickname } = clickedBoard;
+  const { clickedDate, clickedNickname, isModalOpen } = clickedBoard;
 
   const handleClickDailyBoard = ({ nickname, date }: ClickDailyBoardProps) => {
     setClickedBoard({
       clickedDate: date,
       clickedNickname: nickname,
+      isModalOpen: !isModalOpen,
     });
 
     // 서버 통신 -> 클릭한 닉네임과 날짜를 기반으로 문제 풀이 조회
@@ -53,7 +55,7 @@ const WeeklyCurrent = () => {
                 return (
                   <DailyBoard
                     key={date}
-                    $isClicked={isClickedBoard}
+                    $isClicked={isClickedBoard && isModalOpen}
                     onClick={() =>
                       handleClickDailyBoard({
                         nickname: nickname,
@@ -65,7 +67,7 @@ const WeeklyCurrent = () => {
                     {count && <TestWeekboardStatus />}
                     <Date>{date}</Date>
 
-                    {isClickedBoard && <SolvedQuestionModal />}
+                    {isClickedBoard && isModalOpen && <SolvedQuestionModal />}
                   </DailyBoard>
                 );
               })}
