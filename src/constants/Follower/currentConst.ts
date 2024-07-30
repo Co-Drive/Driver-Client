@@ -229,3 +229,38 @@ export const DUMMY = {
     },
   ],
 };
+
+export const CLICKED_DUMMY = {
+  questions: [
+    {
+      name: '피보나치 함수',
+      level: 3,
+      platform: '프로그래머스',
+      link: 'https://school.programmers.co.kr/learn/courses/30/lessons/87390',
+    },
+    {
+      name: '피보나치 함수',
+      level: 2,
+      platform: '프로그래머스',
+      link: 'https://school.programmers.co.kr/learn/courses/30/lessons/87390',
+    },
+    {
+      name: '피보나치 함수',
+      level: 4,
+      platform: '프로그래머스',
+      link: 'https://school.programmers.co.kr/learn/courses/30/lessons/87390',
+    },
+    {
+      name: '피보나치 함수',
+      level: 1,
+      platform: '프로그래머스',
+      link: 'https://school.programmers.co.kr/learn/courses/30/lessons/87390',
+    },
+    {
+      name: '피보나치 함수',
+      level: 5,
+      platform: '프로그래머스',
+      link: 'https://school.programmers.co.kr/learn/courses/30/lessons/87390',
+    },
+  ],
+};
