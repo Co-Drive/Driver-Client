@@ -87,6 +87,7 @@ const HeaderContainer = styled.header`
   flex-direction: column;
 
   width: 100%;
+  margin-bottom: 2.4rem;
 `;
 
 const TitleContainer = styled.div`
