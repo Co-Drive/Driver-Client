@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../../assets';
-import {
-  GROUPS,
-  SORTING,
-} from '../../../constants/FollowerCurrent/currentConst';
+import { GROUPS, SORTING } from '../../../constants/Follower/currentConst';
 
 interface HeaderProps {
   filter: {

@@ -3,43 +3,7 @@ import styled from 'styled-components';
 import { IcArrowRightSmallGray, TestWeekboardStatus } from '../assets';
 import Header from '../components/Follower/CurrentSituation/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
-
-const DUMMY = {
-  profile: {
-    imgSrc: 'https://avatars.githubusercontent.com/u/80264647?v=4',
-    nickname: '닉네임은총열글자입니',
-  },
-  boards: [
-    {
-      date: '26',
-      count: 1,
-    },
-    {
-      date: '27',
-      count: 0,
-    },
-    {
-      date: '28',
-      count: 0,
-    },
-    {
-      date: '29',
-      count: 0,
-    },
-    {
-      date: '30',
-      count: 0,
-    },
-    {
-      date: '31',
-      count: 0,
-    },
-    {
-      date: '1',
-      count: 0,
-    },
-  ],
-};
+import { DUMMY } from '../constants/Follower/currentConst';
 
 const FollowerCurrentPage = () => {
   const { profile, boards } = DUMMY;
