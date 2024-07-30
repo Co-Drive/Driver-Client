@@ -67,10 +67,16 @@ const FollowerCurrentPage = () => {
           </TopBar>
 
           <WeeklyBoard>
-            <DailyBoard>
-              <TestWeekboardStatus />
-              <Date>{boards[0].date}</Date>
-            </DailyBoard>
+            {boards.map((board) => {
+              const { count, date } = board;
+              return (
+                <DailyBoard>
+                  {/* count 관련 조건은 추후 수정 예정 */}
+                  {count && <TestWeekboardStatus />}
+                  <Date>{date}</Date>
+                </DailyBoard>
+              );
+            })}
           </WeeklyBoard>
         </WeeklyContainer>
       </FollowerCurrentPageContainer>
@@ -85,6 +91,9 @@ const FollowerCurrentPageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
+  min-width: 61.1rem;
+
+  width: 100%;
   padding: 6rem 41.45rem 11.5rem;
 `;
 
@@ -92,8 +101,6 @@ const WeeklyContainer = styled.article`
   display: flex;
   gap: 1.2rem;
   flex-direction: column;
-
-  min-width: 61.1rem;
 
   width: 100%;
 `;
