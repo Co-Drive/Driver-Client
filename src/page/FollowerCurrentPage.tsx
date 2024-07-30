@@ -1,9 +1,50 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { IcArrowRightSmallGray, TestWeekboardStatus } from '../assets';
 import Header from '../components/Follower/CurrentSituation/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
 
+const DUMMY = {
+  profile: {
+    imgSrc: 'https://avatars.githubusercontent.com/u/80264647?v=4',
+    nickname: '닉네임은총열글자입니',
+  },
+  boards: [
+    {
+      date: '26',
+      count: 1,
+    },
+    {
+      date: '27',
+      count: 0,
+    },
+    {
+      date: '28',
+      count: 0,
+    },
+    {
+      date: '29',
+      count: 0,
+    },
+    {
+      date: '30',
+      count: 0,
+    },
+    {
+      date: '31',
+      count: 0,
+    },
+    {
+      date: '1',
+      count: 0,
+    },
+  ],
+};
+
 const FollowerCurrentPage = () => {
+  const { profile, boards } = DUMMY;
+  const { imgSrc, nickname } = profile;
+
   const [filter, setFilter] = useState({
     clickedGroup: '',
     isOptionOpen: false,
@@ -48,6 +89,26 @@ const FollowerCurrentPage = () => {
           handleClickOption={handleClickOption}
           handleClickSorting={handleClickSorting}
         />
+
+        <WeeklyContainer>
+          <TopBar>
+            <Profile>
+              <Img src={imgSrc} />
+              <Nickname>{nickname}</Nickname>
+            </Profile>
+            <MoreBtn type="button">
+              <Text>그룹 더보기</Text>
+              <IcArrowRightSmallGray />
+            </MoreBtn>
+          </TopBar>
+
+          <WeeklyBoard>
+            <DailyBoard>
+              <TestWeekboardStatus />
+              <Date>{boards[0].date}</Date>
+            </DailyBoard>
+          </WeeklyBoard>
+        </WeeklyContainer>
       </FollowerCurrentPageContainer>
     </PageLayout>
   );
@@ -61,4 +122,83 @@ const FollowerCurrentPageContainer = styled.section`
   flex-direction: column;
 
   padding: 6rem 41.45rem 11.5rem;
+`;
+
+const WeeklyContainer = styled.article`
+  display: flex;
+  gap: 1.2rem;
+  flex-direction: column;
+
+  min-width: 61.1rem;
+
+  width: 100%;
+`;
+
+const TopBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+`;
+
+const Profile = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+`;
+
+const Img = styled.img`
+  width: 2.8rem;
+  height: 2.8rem;
+
+  border-radius: 5rem;
+
+  object-fit: cover;
+`;
+
+const Nickname = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_semiBold_14};
+`;
+
+const MoreBtn = styled.button`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+
+  padding: 1rem;
+
+  background-color: ${({ theme }) => theme.colors.gray800};
+`;
+
+const Text = styled.p`
+  color: ${({ theme }) => theme.colors.gray200};
+  ${({ theme }) => theme.fonts.detail_regular_12};
+`;
+
+const WeeklyBoard = styled.article`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  width: 100%;
+  padding: 1.2rem 1.2rem 1.2rem 1.6rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray800};
+  row-gap: 0.5rem;
+`;
+
+const DailyBoard = styled.div`
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  padding: 0.8rem 1.05rem;
+`;
+
+const Date = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_medium_16};
 `;
