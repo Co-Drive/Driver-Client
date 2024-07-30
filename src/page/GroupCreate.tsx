@@ -1,6 +1,11 @@
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { IcAddPhoto, IcSecretGray, IcUnlockGray } from '../assets';
+import {
+  IcAddPhoto,
+  IcArrowBottomGray,
+  IcSecretGray,
+  IcUnlockGray,
+} from '../assets';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 
@@ -117,21 +122,25 @@ const GroupCreate = () => {
           </RecruitmentContainer>
         </TitleSection>
 
-        <section>
+        <LanguageSection>
           <Label>
             사용 언어 <Essential>*</Essential>
           </Label>
-          <select>
-            <option>복수선택 가능</option>
-          </select>
-        </section>
+          <DropdownHeader>
+            <Dropdown>복수선택 가능</Dropdown>
+            <IconContainer>
+              <IcArrowBottomGray />
+            </IconContainer>
+          </DropdownHeader>
+        </LanguageSection>
 
-        <section>
+        <TextareaSection>
           <Label>
             한 줄 소개 <Essential>*</Essential>
           </Label>
-          <textarea maxLength={60} placeholder={PLACEHOLDER[0]} />
-        </section>
+          <StyeldTextarea maxLength={60} placeholder={PLACEHOLDER[0]} />
+        </TextareaSection>
+
         <section>
           <Label>
             진행 방식 <Essential>*</Essential>
@@ -147,6 +156,8 @@ const GroupCreate = () => {
 export default GroupCreate;
 
 const Form = styled.form`
+  /* width: 100%; */
+
   background-color: pink;
 `;
 
@@ -285,6 +296,55 @@ const NumberInput = styled.input`
 
     margin: 0;
   }
+
+  border-radius: 0.8rem;
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  background-color: ${({ theme }) => theme.colors.gray700};
+  color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const LanguageSection = styled.section`
+  position: relative;
+
+  margin-top: 4rem;
+`;
+
+const DropdownHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 61.1rem;
+  height: 4.8rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
+  cursor: pointer;
+`;
+
+const Dropdown = styled.div`
+  padding: 1rem;
+
+  /* position: absolute; */
+  color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const IconContainer = styled.div`
+  margin-right: 1.2rem;
+`;
+
+const TextareaSection = styled.section`
+  margin-top: 4rem;
+`;
+
+const StyeldTextarea = styled.textarea`
+  display: flex;
+  align-items: center;
+
+  width: 61.1rem;
+  height: 10rem;
+  padding: 1.5rem 2rem 1.4rem;
+  resize: none;
 
   border-radius: 0.8rem;
   ${({ theme }) => theme.fonts.body_ligth_16};
