@@ -49,8 +49,16 @@ const FollowerCurrentPage = () => {
     // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
+  const handleClickPrevBtn = () => {
+    setClickedPage((prev) => prev - 1);
+  };
+
   const handleClickPageNumber = (page: number) => {
     setClickedPage(page);
+  };
+
+  const handleClickNextBtn = () => {
+    setClickedPage((prev) => prev + 1);
   };
 
   return (
@@ -66,7 +74,9 @@ const FollowerCurrentPage = () => {
         <WeeklyCurrent clickedPage={clickedPage} />
 
         <PageNationBar>
-          <IcArrowLeftSmallGray />
+          <IcArrowLeftSmallGray
+            onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
+          />
           {pagesArr.map((_, idx) => {
             const page = idx + 1;
             return (
@@ -79,7 +89,9 @@ const FollowerCurrentPage = () => {
               </PageNumber>
             );
           })}
-          <IcArrowRightSmallGray />
+          <IcArrowRightSmallGray
+            onClick={() => clickedPage !== TOTAL_PAGES && handleClickNextBtn()}
+          />
         </PageNationBar>
       </FollowerCurrentPageContainer>
     </PageLayout>
