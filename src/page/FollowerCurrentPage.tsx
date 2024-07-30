@@ -28,6 +28,7 @@ const FollowerCurrentPage = () => {
       clickedGroup: selectedGroup,
       isOptionOpen: false,
     });
+    // 선택한 옵션에 따라 서버 통신 들어갈 예정
   };
 
   const handleClickSorting = (
@@ -38,6 +39,7 @@ const FollowerCurrentPage = () => {
       ...filter,
       sorting: innerHTML,
     });
+    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
   return (
