@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
+import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGroup';
 import FollowerInfo from '../components/Follower/FollowerInfo';
-import FollowerRecommendCard from '../components/Follower/FollowerRecommendCard';
-import ParticipatingGroup from '../components/Follower/ParticipatingGroup';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const DUMMY = {
