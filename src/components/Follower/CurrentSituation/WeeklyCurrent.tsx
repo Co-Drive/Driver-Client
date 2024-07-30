@@ -4,13 +4,21 @@ import { IcArrowRightSmallGray, TestWeekboardStatus } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
 import SolvedQuestionModal from './SolvedQuestionModal';
 
+interface WeeklyCurrentProps {
+  clickedPage: number;
+}
+
 interface ClickDailyBoardProps {
   nickname: string;
   date: string;
 }
 
-const WeeklyCurrent = () => {
+const WeeklyCurrent = ({ clickedPage }: WeeklyCurrentProps) => {
   const { followers } = DUMMY;
+
+  // 페이지마다 서버한테 팔로워 데이터 요청 (데이터 받아오기 전까지 임시코드)
+  const followersPerPage =
+    clickedPage === 1 ? followers.slice(0, 4) : followers.slice(5);
   const [clickedBoard, setClickedBoard] = useState({
     clickedDate: '',
     clickedNickname: '',
@@ -31,7 +39,7 @@ const WeeklyCurrent = () => {
 
   return (
     <BoardsContainer>
-      {followers.map((follower) => {
+      {followersPerPage.map((follower) => {
         const { profile, boards } = follower;
         const { imgSrc, nickname } = profile;
         return (

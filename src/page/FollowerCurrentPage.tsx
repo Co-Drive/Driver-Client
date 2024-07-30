@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../assets';
 import Header from '../components/Follower/CurrentSituation/Header';
 import WeeklyCurrent from '../components/Follower/CurrentSituation/WeeklyCurrent';
@@ -12,6 +12,8 @@ const FollowerCurrentPage = () => {
     isOptionOpen: false,
     sorting: '최신순',
   });
+
+  const [clickedPage, setClickedPage] = useState(1);
 
   // 첫 화면에서 서버에 전체 리스트 수 아니면 전체 페이지 수 요청
   const pagesArr = Array(TOTAL_PAGES).fill(0);
@@ -47,6 +49,10 @@ const FollowerCurrentPage = () => {
     // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
+  const handleClickPageNumber = (page: number) => {
+    setClickedPage(page);
+  };
+
   return (
     <PageLayout category="홈">
       <FollowerCurrentPageContainer>
@@ -57,13 +63,21 @@ const FollowerCurrentPage = () => {
           handleClickSorting={handleClickSorting}
         />
 
-        <WeeklyCurrent />
+        <WeeklyCurrent clickedPage={clickedPage} />
 
         <PageNationBar>
           <IcArrowLeftSmallGray />
           {pagesArr.map((_, idx) => {
             const page = idx + 1;
-            return <PageNumber key={page}>{page}</PageNumber>;
+            return (
+              <PageNumber
+                key={page}
+                $isClicked={clickedPage === page}
+                onClick={() => handleClickPageNumber(page)}
+              >
+                {page}
+              </PageNumber>
+            );
           })}
           <IcArrowRightSmallGray />
         </PageNationBar>
@@ -95,12 +109,19 @@ const PageNationBar = styled.div`
   margin-top: 4.8rem;
 `;
 
-const PageNumber = styled.p`
+const PageNumber = styled.p<{ $isClicked: boolean }>`
   padding: 0.4rem 1rem;
 
   border-radius: 0.4rem;
-  background-color: transparent;
-  color: ${({ theme }) => theme.colors.gray200};
-
+  ${({ theme, $isClicked }) =>
+    $isClicked
+      ? css`
+          background-color: ${theme.colors.gray700};
+          color: ${theme.colors.white};
+        `
+      : css`
+          background-color: transparent;
+          color: ${theme.colors.gray200};
+        `};
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
