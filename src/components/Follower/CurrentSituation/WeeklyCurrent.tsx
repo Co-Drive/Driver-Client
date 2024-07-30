@@ -7,7 +7,7 @@ import {
   IcStarMiniYellow,
   TestWeekboardStatus,
 } from '../../../assets';
-import { DUMMY } from '../../../constants/Follower/currentConst';
+import { CLICKED_DUMMY, DUMMY } from '../../../constants/Follower/currentConst';
 
 interface ClickDailyBoardProps {
   nickname: string;
@@ -22,9 +22,7 @@ const WeeklyCurrent = () => {
   });
 
   const { clickedDate, clickedNickname } = clickedBoard;
-  const paintedStarArr = Array(3)
-    .fill(1)
-    .concat(Array(5 - 3).fill(0));
+  const { questions } = CLICKED_DUMMY;
 
   const handleClickDailyBoard = ({ nickname, date }: ClickDailyBoardProps) => {
     setClickedBoard({
@@ -33,6 +31,10 @@ const WeeklyCurrent = () => {
     });
 
     // 서버 통신 -> 클릭한 닉네임과 날짜를 기반으로 문제 풀이 조회
+  };
+
+  const handleclickLink = (link: string) => {
+    window.open(link);
   };
 
   return (
@@ -56,12 +58,12 @@ const WeeklyCurrent = () => {
             <WeeklyBoard>
               {boards.map((board) => {
                 const { count, date } = board;
+                const isClickedBoard =
+                  clickedDate === date && clickedNickname === nickname;
                 return (
                   <DailyBoard
                     key={date}
-                    $isClicked={
-                      clickedDate === date && clickedNickname === nickname
-                    }
+                    $isClicked={isClickedBoard}
                     onClick={() =>
                       handleClickDailyBoard({
                         nickname: nickname,
@@ -73,31 +75,43 @@ const WeeklyCurrent = () => {
                     {count && <TestWeekboardStatus />}
                     <Date>{date}</Date>
 
-                    {clickedDate === date && clickedNickname === nickname && (
+                    {isClickedBoard && (
                       <ModalContainer>
-                        <QuestionContainer>
-                          <Name>피보나치 함수</Name>
-                          <DetailContainer>
-                            <LvStarContainer>
-                              {paintedStarArr.map((painted, idx) => {
-                                return (
-                                  <li key={idx}>
-                                    {painted ? (
-                                      <IcStarMiniYellow />
-                                    ) : (
-                                      <IcStarMiniGray />
-                                    )}
-                                  </li>
-                                );
-                              })}
-                            </LvStarContainer>
+                        {questions.map((question, idx) => {
+                          const { name, level, platform, link } = question;
+                          const paintedStarArr = Array(level)
+                            .fill(1)
+                            .concat(Array(5 - level).fill(0));
 
-                            <LinkBtn type="button">
-                              <IcLinkWhite />
-                              <Platform>프로그래머스</Platform>
-                            </LinkBtn>
-                          </DetailContainer>
-                        </QuestionContainer>
+                          return (
+                            <QuestionContainer key={idx}>
+                              <Name>{name}</Name>
+                              <DetailContainer>
+                                <LvStarContainer>
+                                  {paintedStarArr.map((painted, idx) => {
+                                    return (
+                                      <li key={idx}>
+                                        {painted ? (
+                                          <IcStarMiniYellow />
+                                        ) : (
+                                          <IcStarMiniGray />
+                                        )}
+                                      </li>
+                                    );
+                                  })}
+                                </LvStarContainer>
+
+                                <LinkBtn
+                                  type="button"
+                                  onClick={() => handleclickLink(link)}
+                                >
+                                  <IcLinkWhite />
+                                  <Platform>{platform}</Platform>
+                                </LinkBtn>
+                              </DetailContainer>
+                            </QuestionContainer>
+                          );
+                        })}
                       </ModalContainer>
                     )}
                   </DailyBoard>
@@ -117,7 +131,6 @@ const BoardsContainer = styled.article`
   display: flex;
   gap: 2.6rem;
   flex-direction: column;
-  position: relative;
 
   width: 100%;
 `;
@@ -172,6 +185,7 @@ const Text = styled.p`
 const WeeklyBoard = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  position: relative;
 
   padding: 1.2rem 1.2rem 1.2rem 1.6rem;
 
@@ -202,10 +216,15 @@ const Date = styled.p`
 const ModalContainer = styled.div`
   display: flex;
   gap: 1.2rem;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   position: absolute;
+  top: 12.9rem;
+
+  max-height: 50rem;
+  overflow-y: auto;
+
+  z-index: 1;
 
   padding: 1.2rem;
 
