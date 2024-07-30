@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import ParticipatingGroup from '../components/Follower/ParticipatingGroup';
-import FollowerRecommendCard from '../components/Follower/FollowerRecommendCard';
+import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
+import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGroup';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const DUMMY = {
