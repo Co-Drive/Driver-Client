@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { IcAddFill, IcAddFillDisabled, IcCancelFill, IcCode } from '../assets';
+import { IcCode } from '../assets';
 import CodeEditor from '../common/CodeSpace/CodeEditor';
 import Memo from '../common/CodeSpace/Memo';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -68,7 +68,6 @@ const SolutionPage = () => {
                         <IcCode />
                         <Text>codeblock</Text>
                       </TextContainer>
-                      {!state && idx > 0 && <IcCancelFill />}
                     </TopBar>
 
                     <CodeEditor
@@ -84,16 +83,6 @@ const SolutionPage = () => {
                   </CodeBlckContainer>
                 );
               })}
-
-              {!state && (
-                <AddBtnContainer>
-                  {codeblocks[codeblocks.length - 1].code.length ? (
-                    <IcAddFill />
-                  ) : (
-                    <IcAddFillDisabled />
-                  )}
-                </AddBtnContainer>
-              )}
             </React.Fragment>
           );
         })}
@@ -156,12 +145,4 @@ const TextContainer = styled.div`
 const Text = styled.p`
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_12};
-`;
-
-const AddBtnContainer = styled.div`
-  display: flex;
-  justify-content: end;
-
-  width: 100%;
-  margin-top: -1.8rem;
 `;
