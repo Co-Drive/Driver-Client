@@ -134,19 +134,19 @@ const GroupCreate = () => {
           </DropdownHeader>
         </LanguageSection>
 
-        <TextareaSection>
+        <IntroSection>
           <Label>
             한 줄 소개 <Essential>*</Essential>
           </Label>
-          <StyeldTextarea maxLength={60} placeholder={PLACEHOLDER[0]} />
-        </TextareaSection>
+          <IntroTextarea maxLength={60} placeholder={PLACEHOLDER[0]} />
+        </IntroSection>
 
-        <section>
+        <ProgressSection>
           <Label>
             진행 방식 <Essential>*</Essential>
           </Label>
-          <textarea maxLength={1000} placeholder={PLACEHOLDER[4]} />
-        </section>
+          <ProgressText maxLength={1000} placeholder={PLACEHOLDER[1]} />
+        </ProgressSection>
         <button>그룹 생성하기</button>
       </Form>
     </PageLayout>
@@ -323,26 +323,45 @@ const DropdownHeader = styled.div`
 `;
 
 const Dropdown = styled.div`
-  padding: 1rem;
+  padding: 1.5rem 2rem 1.4rem;
 
-  /* position: absolute; */
   color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.body_ligth_16};
 `;
 
 const IconContainer = styled.div`
   margin-right: 1.2rem;
 `;
 
-const TextareaSection = styled.section`
+const IntroSection = styled.section`
   margin-top: 4rem;
 `;
 
-const StyeldTextarea = styled.textarea`
+const IntroTextarea = styled.textarea`
   display: flex;
   align-items: center;
 
-  width: 61.1rem;
+  width: 100%;
   height: 10rem;
+  padding: 1.5rem 2rem 1.4rem;
+  resize: none;
+
+  border-radius: 0.8rem;
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  background-color: ${({ theme }) => theme.colors.gray700};
+  color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const ProgressSection = styled.section`
+  margin-top: 4.8rem;
+`;
+
+const ProgressText = styled.textarea`
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 26rem;
   padding: 1.5rem 2rem 1.4rem;
   resize: none;
 
