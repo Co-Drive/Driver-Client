@@ -3,53 +3,64 @@ import { IcArrowRightSmallGray, TestWeekboardStatus } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
 
 const WeeklyCurrent = () => {
-  const { profile, boards } = DUMMY;
-  const { imgSrc, nickname } = profile;
+  const { followers } = DUMMY;
 
   return (
-    <WeeklyContainer>
-      <TopBar>
-        <Profile>
-          <Img src={imgSrc} />
-          <Nickname>{nickname}</Nickname>
-        </Profile>
-        <MoreBtn type="button">
-          <Text>그룹 더보기</Text>
-          <IcArrowRightSmallGray />
-        </MoreBtn>
-      </TopBar>
+    <BoardsContainer>
+      {followers.map((follower) => {
+        const { profile, boards } = follower;
+        const { imgSrc, nickname } = profile;
+        return (
+          <BoardContainer>
+            <TopBar>
+              <Profile>
+                <Img src={imgSrc} />
+                <Nickname>{nickname}</Nickname>
+              </Profile>
+              <MoreBtn type="button">
+                <Text>그룹 더보기</Text>
+                <IcArrowRightSmallGray />
+              </MoreBtn>
+            </TopBar>
 
-      <WeeklyBoard>
-        {boards.map((board) => {
-          const { count, date } = board;
-          return (
-            <DailyBoard>
-              {/* count 관련 조건은 추후 수정 예정 */}
-              {count && <TestWeekboardStatus />}
-              <Date>{date}</Date>
-            </DailyBoard>
-          );
-        })}
-      </WeeklyBoard>
-    </WeeklyContainer>
+            <WeeklyBoard>
+              {boards.map((board) => {
+                const { count, date } = board;
+                return (
+                  <DailyBoard>
+                    {/* count 관련 조건은 추후 수정 예정 */}
+                    {count && <TestWeekboardStatus />}
+                    <Date>{date}</Date>
+                  </DailyBoard>
+                );
+              })}
+            </WeeklyBoard>
+          </BoardContainer>
+        );
+      })}
+    </BoardsContainer>
   );
 };
 
 export default WeeklyCurrent;
 
-const WeeklyContainer = styled.article`
+const BoardsContainer = styled.article`
   display: flex;
-  gap: 1.2rem;
+  gap: 2.6rem;
   flex-direction: column;
 
   width: 100%;
 `;
 
+const BoardContainer = styled.article`
+  display: flex;
+  gap: 1.2rem;
+  flex-direction: column;
+`;
+
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
-
-  width: 100%;
 `;
 
 const Profile = styled.div`
@@ -79,6 +90,7 @@ const MoreBtn = styled.button`
 
   padding: 1rem;
 
+  border-radius: 0.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
@@ -87,11 +99,10 @@ const Text = styled.p`
   ${({ theme }) => theme.fonts.detail_regular_12};
 `;
 
-const WeeklyBoard = styled.article`
+const WeeklyBoard = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 
-  width: 100%;
   padding: 1.2rem 1.2rem 1.2rem 1.6rem;
 
   border-radius: 0.8rem;
