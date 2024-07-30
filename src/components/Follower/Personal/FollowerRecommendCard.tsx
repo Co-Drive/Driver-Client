@@ -1,15 +1,7 @@
 // import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { IcArrowLeftFill, IcArrowRightFill } from '../../assets';
-
-interface FollowerRecommendCardProps {
-  recommend: Array<{
-    profileImg: string;
-    nickname: string;
-    language: string;
-    isFollowed: boolean;
-  }>;
-}
+import { IcArrowLeftFill, IcArrowRightFill } from '../../../assets';
+import { FollowerRecommendCardProps } from '../../../types/Follower/Personal/personalType';
 
 const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
   const myNickname = sessionStorage.getItem('nickname');

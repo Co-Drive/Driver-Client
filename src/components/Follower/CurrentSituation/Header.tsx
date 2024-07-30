@@ -1,26 +1,14 @@
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../../assets';
 import { GROUPS, SORTING } from '../../../constants/Follower/currentConst';
-
-interface HeaderProps {
-  filter: {
-    clickedGroup: string;
-    isOptionOpen: boolean;
-    sorting: string;
-  };
-  handleClickInput: () => void;
-  handleClickOption: (selectedGroup: string) => void;
-  handleClickSorting: (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-  ) => void;
-}
+import { FollowerHeaderProps } from '../../../types/Follower/Current/currentType';
 
 const Header = ({
   filter,
   handleClickInput,
   handleClickOption,
   handleClickSorting,
-}: HeaderProps) => {
+}: FollowerHeaderProps) => {
   const { clickedGroup, isOptionOpen, sorting } = filter;
   return (
     <HeaderContainer>
