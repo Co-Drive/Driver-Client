@@ -33,6 +33,8 @@ import IcSecretGray from './icon/ic_secret_gray.svg?react';
 import IcSecretWhite from './icon/ic_secret_white.svg?react';
 import IcStarGray from './icon/ic_star_gray.svg?react';
 import IcStarGreen from './icon/ic_star_green.svg?react';
+import IcStarMiniGray from './icon/ic_star_mini_gray.svg?react';
+import IcStarMiniYellow from './icon/ic_star_mini_yellow.svg?react';
 import IcSuccess from './icon/ic_success.svg?react';
 import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
@@ -74,6 +76,8 @@ export {
   IcSecretWhite,
   IcStarGray,
   IcStarGreen,
+  IcStarMiniGray,
+  IcStarMiniYellow,
   IcSuccess,
   IcUnlockGray,
   IcUnlockWhite,
