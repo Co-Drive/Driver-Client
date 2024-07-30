@@ -1,12 +1,8 @@
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
-import {
-  IcAddPhoto,
-  IcArrowBottomGray,
-  IcSecretGray,
-  IcUnlockGray,
-} from '../assets';
+import { IcAddPhoto, IcArrowBottomGray } from '../assets';
 import CommonButton from '../common/CommonButton';
+import GroupVisibilityBtn from '../common/GroupVisibilityBtn';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 
@@ -67,22 +63,16 @@ const GroupCreate = () => {
             그룹 설정 <Essential>*</Essential>
           </GroupSetting>
           <ButtonContainer>
-            <GroupButton
-              type="button"
-              $isActive={isPublicGroup}
+            <GroupVisibilityBtn
               onClick={handlePublicClick}
-            >
-              <IcUnlockGray />
-              공개그룹
-            </GroupButton>
-            <GroupButton
-              type="button"
-              $isActive={!isPublicGroup}
+              isVisible={true}
+              isActive={isPublicGroup}
+            />
+            <GroupVisibilityBtn
               onClick={handleSecretClick}
-            >
-              <IcSecretGray />
-              비공개그룹
-            </GroupButton>
+              isVisible={false}
+              isActive={!isPublicGroup}
+            />
           </ButtonContainer>
         </Section>
 
@@ -174,7 +164,6 @@ const GroupCreate = () => {
 export default GroupCreate;
 
 const Form = styled.form`
-  /* width: 100%; */
   margin-bottom: 25.1rem;
 `;
 
@@ -190,7 +179,7 @@ const Borderline = styled.div`
 `;
 
 const Section = styled.section`
-  /* background-color: red; */
+  /* inline-flex로 변경해서 내용에 따라 크기가 조절되도록 함 */
 `;
 
 const GroupSetting = styled.h2`
@@ -237,8 +226,6 @@ const Label = styled.label`
 
 const ImageSection = styled.section`
   margin: 4.3rem 0 5rem;
-
-  /* background-color: blue; */
 `;
 
 const ImageContainer = styled.div`

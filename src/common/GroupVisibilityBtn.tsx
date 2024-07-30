@@ -5,9 +5,10 @@ import { GroupVisibilityBtnProps } from '../types/GroupVisibility/groupType';
 const GroupVisibilityBtn = ({
   isVisible,
   isActive,
+  onClick,
 }: GroupVisibilityBtnProps) => {
   return (
-    <Button type="button" $isActive={isActive}>
+    <Button onClick={onClick} type="button" $isActive={isActive}>
       <ContentsContainer>
         <IconContainer>
           {isVisible && isActive && <IcUnlockWhite />}
