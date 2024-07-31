@@ -24,6 +24,7 @@ import IcSuccess from './icon/ic_success.svg?react';
 import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
+import Thumbnail from './icon/thumbnail.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
 export {
@@ -51,4 +52,5 @@ export {
   IcUnlockGray,
   IcUnlockWhite,
   IcWorkbook,
+  Thumbnail,
 };
