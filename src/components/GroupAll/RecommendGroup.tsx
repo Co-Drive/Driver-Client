@@ -10,7 +10,9 @@ const RecommendGroup = ({ user, group = [] }: RecommendGroupProps) => {
     <RecommendContainer>
       <Title>
         <Nickname>{user}</Nickname>님을 위한 오늘의 추천 그룹
-        <IcBtnInformation />
+        <Notic>
+          <IcBtnInformation />
+        </Notic>
       </Title>
       <GroupCardContainer>
         {group.map((card) => {
@@ -24,6 +26,7 @@ const RecommendGroup = ({ user, group = [] }: RecommendGroupProps) => {
                   <UserImg src={profile} />
                   <TextId>
                     <Text>{nickname} 님</Text>
+                    <Text>|</Text>
                     <Divider>{num} / 50명</Divider>
                   </TextId>
                 </CardHeader>
@@ -54,7 +57,6 @@ const RecommendContainer = styled.article`
 
 const Title = styled.header`
   display: flex;
-  gap: 2rem;
   align-items: center;
 
   margin-left: 0.2rem;
@@ -64,10 +66,19 @@ const Title = styled.header`
 `;
 
 const Nickname = styled.p`
+  margin-right: 0.4rem;
+
   color: ${({ theme }) => theme.colors.codrive_green};
+
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
 
+const Notic = styled.p`
+  display: flex;
+  align-items: center;
+
+  margin-left: 2.5rem;
+`;
 const GroupCardContainer = styled.article`
   display: grid;
   gap: 4rem 1.8rem;
@@ -115,8 +126,9 @@ const CardHeader = styled.div`
 `;
 
 const UserImg = styled.img`
-  width: 21px;
-  height: 21px;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-right: 0.6rem;
 
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.gray100};
@@ -125,21 +137,15 @@ const UserImg = styled.img`
 const TextId = styled.span`
   display: flex;
 
-  margin-left: 0.6rem;
-
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_medium_14};
 `;
 
 const Text = styled.span`
-  padding-right: 10px;
-
-  border-right: 1px solid #8b8e98;
+  margin-right: 1rem;
 `;
 
-const Divider = styled.span`
-  margin-left: 10px;
-`;
+const Divider = styled.span``;
 
 const CardBody = styled.div`
   display: flex;
