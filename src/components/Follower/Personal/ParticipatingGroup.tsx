@@ -1,15 +1,6 @@
 // import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
-interface ParticipatingGroupProps {
-  group: Array<{
-    id: number;
-    imgSrc: string;
-    title: string;
-    tags: Array<string>;
-    introduce: string;
-  }>;
-}
+import { ParticipatingGroupProps } from '../../../types/Follower/Personal/personalType';
 
 const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
   // 라우팅 정의 후, 콘솔은 지우고 navigate 코드로 변경할 예정입니다 !!
