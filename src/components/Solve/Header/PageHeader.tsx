@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
-import SaveModal from '../Modal/SaveModal';
+import SaveModal from '../Modal/Modal';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
@@ -57,7 +57,9 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
           );
         })}
       </BtnContainer>
-      {modalOpen && <SaveModal onClose={() => setModalOpen(false)} />}
+      {modalOpen && (
+        <SaveModal isSaveModal={true} onClose={() => setModalOpen(false)} />
+      )}
     </PageHeaderContainer>
   );
 };
