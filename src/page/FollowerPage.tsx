@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
 import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGroup';
+import FollowerInfo from '../components/Follower/FollowerInfo';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const DUMMY = {
-  profileImg: '',
+  profileImg: 'https://avatars.githubusercontent.com/u/80264647?v=4',
   nickname: '코딩하는 갱얼쥐',
   isFollowed: false,
-  introduce:
-    '나를 소개하는 문구를 적어주세요.아아아 최대 두줄까지만 적을 수 있게 하는거어떠나를 소개하는 문구를 적어주세요.아아아 최대 두줄까지만 적을 수 있게 하는거어떠',
+  introduce: '안녕하세요? 풀스택 개발자 코딩하는 갱얼쥐입니다.30자',
+  language: 'Javascript',
   github: 'https://github.com/Arooming',
   group: [
     {
@@ -56,13 +57,49 @@ const DUMMY = {
       introduce:
         '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
     },
+    {
+      id: 5,
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwwTi48CyZZGovLP7-u6CPqTn8ygolt2N5aA&s',
+      title: '이제는 더이상 물러날 곳이 없는 스터디',
+      tags: ['#swift', '#java', '#javascript'],
+      introduce:
+        '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
+    },
+    {
+      id: 6,
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgQdMSF0UfUeev25_EDlcSS0jCfciYTLT-qw&s',
+      title: '이제는 더이상 물러날 곳이 없는 스터디',
+      tags: ['#swift', '#java', '#javascript'],
+      introduce:
+        '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
+    },
+    {
+      id: 7,
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRolslbPtm3OymbdIwYgusZ9wqH4-fvxhln2A&s',
+      title: '이제는 더이상 물러날 곳이 없는 스터디',
+      tags: ['#swift', '#java', '#javascript'],
+      introduce:
+        '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
+    },
+    {
+      id: 8,
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwwTi48CyZZGovLP7-u6CPqTn8ygolt2N5aA&s',
+      title: '이제는 더이상 물러날 곳이 없는 스터디',
+      tags: ['#swift', '#java', '#javascript'],
+      introduce:
+        '안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다설명칸은 두줄까지 가능합니다 안녕하세요 스터디입니다 설명칸은 두줄까지 가능합니다',
+    },
   ],
   recommend: [
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐1',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
     {
@@ -76,28 +113,28 @@ const DUMMY = {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐3',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐4',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐5',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
     {
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐6',
-      language: 'javascript',
+      language: 'Javascript',
       isFollowed: false,
     },
   ],
@@ -105,20 +142,30 @@ const DUMMY = {
 
 const FollowerPage = () => {
   const {
-    // profileImg,
-    // nickname,
-    // isFollowed,
-    // introduce,
-    // github,
+    profileImg,
+    nickname,
+    isFollowed,
+    introduce,
+    language,
+    github,
     group,
     recommend,
   } = DUMMY;
   return (
     <PageLayout category="홈">
       <FollowerPageContainer>
+        <FollowerInfo
+          info={{
+            profileImg,
+            nickname,
+            isFollowed,
+            introduce,
+            language,
+            github,
+          }}
+        />
         <ParticipatingGroup group={group} />
-      </FollowerPageContainer>
-      <FollowerPageContainer>
+
         <FollowerRecommendCard recommend={recommend} />
       </FollowerPageContainer>
     </PageLayout>
@@ -132,5 +179,6 @@ const FollowerPageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  padding: 8.6rem 21.8rem 23.2rem 21.5rem;
+  width: 100%;
+  padding: 8.6rem 25.7rem 21rem;
 `;

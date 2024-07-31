@@ -18,6 +18,7 @@ import IcBtnInformation from './icon/ic_btn_information.svg?react';
 import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCode from './icon/ic_code.svg?react';
+import IcGithub from './icon/ic_github.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
@@ -58,6 +59,7 @@ export {
   IcCancelFill,
   IcCancelSmall,
   IcCode,
+  IcGithub,
   IcGroup,
   IcHome,
   IcInformation,
