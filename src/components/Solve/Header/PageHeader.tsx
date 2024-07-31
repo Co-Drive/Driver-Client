@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
+import SaveModal from '../../../common/Modal/Modal';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
-import SaveModal from '../Modal/Modal';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
