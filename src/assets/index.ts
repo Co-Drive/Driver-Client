@@ -18,6 +18,7 @@ import IcBtnCopy from './icon/ic_btn_copy.svg?react';
 import IcBtnInformation from './icon/ic_btn_information.svg?react';
 import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
+import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
 import IcCode from './icon/ic_code.svg?react';
 import IcGithub from './icon/ic_github.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
@@ -71,6 +72,7 @@ export {
   IcBtnInformation,
   IcCancelFill,
   IcCancelSmall,
+  IcCancelSmallWhite,
   IcCode,
   IcGithub,
   IcGroup,
@@ -94,6 +96,6 @@ export {
   IcUnlockGray,
   IcUnlockWhite,
   IcWorkbook,
-  Thumbnail,
   TestWeekboardStatus,
+  Thumbnail,
 };
