@@ -1,16 +1,25 @@
 // import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowLeftFill, IcArrowRightFill } from '../../../assets';
 import { FollowerRecommendCardProps } from '../../../types/Follower/Personal/personalType';
 
 const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
   const myNickname = sessionStorage.getItem('nickname');
+  const [transparency, setTransparency] = useState({
+    left: true,
+    right: false,
+  });
   //   const navigate = useNavigate();
 
   const handleClickIcLeft = () => {
     const cardsContainer = document.getElementById('cardsContainer');
     if (cardsContainer)
       cardsContainer.scrollTo({ left: 0, behavior: 'smooth' });
+    setTransparency({
+      left: true,
+      right: false,
+    });
   };
 
   const handleClickContents = (nickname: string) => {
@@ -31,6 +40,10 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
       // 최대 너비 구하기
       const maxWidth = cardsContainer.scrollWidth - cardsContainer.clientWidth;
       cardsContainer.scrollTo({ left: maxWidth, behavior: 'smooth' });
+      setTransparency({
+        left: false,
+        right: true,
+      });
     }
   };
 
@@ -41,7 +54,10 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
         <Title>님을 위한 추천</Title>
       </TitleContainer>
 
-      <IcLeftContainer onClick={handleClickIcLeft}>
+      <IcLeftContainer
+        onClick={handleClickIcLeft}
+        $transparency={transparency.left}
+      >
         <IcArrowLeftFill />
       </IcLeftContainer>
       <CardsContainer id="cardsContainer">
@@ -62,7 +78,10 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
         })}
       </CardsContainer>
 
-      <IcRightContainer onClick={handleClickIcRight}>
+      <IcRightContainer
+        onClick={handleClickIcRight}
+        $transparency={transparency.right}
+      >
         <IcArrowRightFill />
       </IcRightContainer>
     </RecommendCardContainer>
@@ -77,6 +96,9 @@ const RecommendCardContainer = styled.article`
   justify-content: center;
   flex-direction: column;
   position: relative;
+
+  width: 100%;
+  margin-top: 9.6rem;
 `;
 
 const TitleContainer = styled.div`
@@ -97,10 +119,12 @@ const Title = styled.p`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-const IcLeftContainer = styled.div`
+const IcLeftContainer = styled.div<{ $transparency: boolean }>`
   position: absolute;
   top: 14.8rem;
   left: -4.2rem;
+
+  opacity: ${({ $transparency }) => ($transparency ? 0 : 100)};
 `;
 
 const CardsContainer = styled.article`
@@ -115,7 +139,9 @@ const CardsContainer = styled.article`
     display: none;
   }
 
-  width: 92.3rem;
+  min-width: 92.3rem;
+
+  width: 100%;
   overflow-x: auto;
 `;
 
@@ -154,7 +180,7 @@ const Language = styled.p`
   margin-bottom: 2.8rem;
 
   color: ${({ theme }) => theme.colors.gray300};
-  ${({ theme }) => theme.fonts.body_eng_medium_12};
+  ${({ theme }) => theme.fonts.body_eng_regular_14};
 `;
 
 const FollowBtn = styled.button`
@@ -166,8 +192,10 @@ const FollowBtn = styled.button`
   ${({ theme }) => theme.fonts.title_semiBold_14};
 `;
 
-const IcRightContainer = styled.div`
+const IcRightContainer = styled.div<{ $transparency: boolean }>`
   position: absolute;
   top: 14.8rem;
   right: -3.9rem;
+
+  opacity: ${({ $transparency }) => ($transparency ? 0 : 100)};
 `;
