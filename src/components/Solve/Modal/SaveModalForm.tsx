@@ -1,18 +1,21 @@
 import styled from 'styled-components';
 import { IcCancelSmallWhite, IcSuccess } from '../../../assets';
+import { ModalProps } from '../../../types/Solve/solveTypes';
 
-const SaveModalForm = () => {
+const SaveModalForm = ({ onClose }: ModalProps) => {
   return (
     <ModalFormConatiner>
       <ContentsContainer>
-        <IcCancelContainer>
+        <IcCancelContainer onClick={onClose}>
           <IcCancelSmallWhite />
         </IcCancelContainer>
 
         <IcSuccess />
         <Notice>임시저장이 완료되었습니다</Notice>
         <BtnContainer>
-          <ContinueBtn type="button">마저 작성하기</ContinueBtn>
+          <ContinueBtn type="button" onClick={onClose}>
+            마저 작성하기
+          </ContinueBtn>
           <ExitBtn type="button">나가기</ExitBtn>
         </BtnContainer>
       </ContentsContainer>
