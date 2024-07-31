@@ -1,16 +1,15 @@
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
+import SaveModal from '../../../common/Modal/Modal';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
 const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const { title, level, tags, platform, problemUrl } = questionInfo;
-
   const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
-  const disabledSave = !title || !level;
-  const disabledSubmit =
-    !title || !level || !tags.length || !platform || !problemUrl || isEmptyCode;
-
   const DATA = {
     title: title,
     level: level,
@@ -21,7 +20,8 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
     codeblocks: codeblocks.map(({ id, ...rest }) => rest),
   };
 
-  const handleClickBtn = () => {
+  const handleClickBtn = (isSaveBtn: boolean) => {
+    if (isSaveBtn) setModalOpen(true);
     // 서버 통신 코드로 바꿀 예정
     console.log(DATA);
   };
@@ -33,6 +33,14 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
       <BtnContainer>
         {BTN_CONTENTS.map((content) => {
           const saveBtn = content === '임시저장';
+          const disabledSave = !title || !level;
+          const disabledSubmit =
+            !title ||
+            !level ||
+            !tags.length ||
+            !platform ||
+            !problemUrl ||
+            isEmptyCode;
           return (
             <Button
               key={content}
@@ -40,7 +48,8 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
               $disabled={saveBtn ? disabledSave : disabledSubmit}
               $submitBtn={!saveBtn}
               onClick={() =>
-                (saveBtn ? !disabledSave : !disabledSubmit) && handleClickBtn()
+                (saveBtn ? !disabledSave : !disabledSubmit) &&
+                handleClickBtn(saveBtn)
               }
             >
               {content}
@@ -48,6 +57,7 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
           );
         })}
       </BtnContainer>
+      {modalOpen && <SaveModal onClose={() => setModalOpen(false)} />}
     </PageHeaderContainer>
   );
 };

@@ -87,3 +87,7 @@ export interface ClickedListProps {
   category: string;
   selectedValue: string;
 }
+
+export interface ModalProps {
+  onClose?: () => void;
+}
