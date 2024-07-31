@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { handleCopyClipBoard } from '../utils/handleCopyClipBoard';
 
 // props 타입 정의해둔 것 지워주세용 !
 const GroupComplete = () => {
@@ -10,15 +11,10 @@ const GroupComplete = () => {
   const { groupPassword, thumbnailUrl } = state;
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
 
-  const handleCopyClipBoard = async () => {
-    const text = `${baseUrl}${location.pathname}`;
-    try {
-      await navigator.clipboard.writeText(text);
-      alert('클립보드에 링크가 복사되었어요.');
-    } catch (err) {
-      // 에러 페이지 네비게이트 시키기
-      navigate('/error-page'); // 에러 페이지로 네비게이트
-    }
+  const handleClickCopyBtn = () => {
+    handleCopyClipBoard(baseUrl)
+      .then(() => alert('링크가 복사되었습니다.'))
+      .catch(() => navigate('/error'));
   };
 
   const handleGroupPageRedirect = () => {
@@ -38,7 +34,10 @@ const GroupComplete = () => {
         <Img src={thumbnailUrl} alt="썸네일" />
       </ThumbnailContainer>
       <ButtonContainer>
-        <CommonButton onClick={handleCopyClipBoard} category="link_copy" />
+        <CommonButton
+          onClick={() => handleClickCopyBtn()}
+          category="link_copy"
+        />
         <CommonButton
           onClick={handleGroupPageRedirect}
           category="group_direct"
