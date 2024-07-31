@@ -1,11 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { GroupCompleteProps } from '../types/GroupComplte/CompleteType';
 
-const GroupComplete = ({ groupPassword, thumbnailUrl }: GroupCompleteProps) => {
+// props 타입 정의해둔 것 지워주세용 !
+const GroupComplete = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  const { groupPassword, thumbnailUrl } = state;
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
 
   const handleCopyClipBoard = async () => {
