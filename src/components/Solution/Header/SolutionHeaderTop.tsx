@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import {
   BtnHeart,
@@ -7,6 +8,8 @@ import {
   IcStarGray,
   IcStarGreen,
 } from '../../../assets';
+import Modal from '../../../common/Modal/Modal';
+import { handleCopyClipBoard } from '../../../utils/handleCopyClipBoard';
 
 export interface SolutionHeaderTopProps {
   followerInfo?: {
@@ -24,6 +27,17 @@ const SolutionHeaderTop = ({
   date,
   paintedStarArr,
 }: SolutionHeaderTopProps) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleClickShareBtn = () => {
+    handleCopyClipBoard({ isUsedBaseUrl: false });
+    setIsCopied(true);
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 3000);
+  };
+
   return (
     <SolutionHeaderTopContainer>
       {followerInfo ? (
@@ -40,12 +54,14 @@ const SolutionHeaderTop = ({
         <Date>{`작성일자 | ${date}`}</Date>
       )}
 
+      {isCopied && <Modal />}
+
       <TopContainer>
         <Title>{title}</Title>
 
         <BtnIcContainer>
           <BtnHeart />
-          <BtnShare />
+          <BtnShare onClick={handleClickShareBtn} />
         </BtnIcContainer>
       </TopContainer>
 
