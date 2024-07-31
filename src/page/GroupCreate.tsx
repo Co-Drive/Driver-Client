@@ -2,12 +2,15 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IcAddPhoto, IcArrowBottomGray } from '../assets';
 import CommonButton from '../common/CommonButton';
+import CommonInput from '../common/CommonInput';
 import GroupVisibilityBtn from '../common/GroupVisibilityBtn';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 
 const GroupCreate = () => {
   const [isPublicGroup, setIspublicGroup] = useState(true);
+  // const [isSecret, setIsSecret] = useState(false);
+  const [password, setPassword] = useState('');
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isActive, setIsActive] = useState(false);
   const memberCountRef = useRef<HTMLInputElement>(null);
@@ -20,6 +23,10 @@ const GroupCreate = () => {
     if (isPublicGroup) setIspublicGroup(false);
   };
 
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPassword(value);
+  };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
@@ -68,11 +75,19 @@ const GroupCreate = () => {
               isVisible={true}
               isActive={isPublicGroup}
             />
-            <GroupVisibilityBtn
-              onClick={handleSecretClick}
-              isVisible={false}
-              isActive={!isPublicGroup}
-            />
+            {isPublicGroup ? (
+              <GroupVisibilityBtn
+                onClick={handleSecretClick}
+                isVisible={false}
+                isActive={!isPublicGroup}
+              />
+            ) : (
+              <CommonInput
+                category="secretKey"
+                value={password}
+                handleChangeInputs={handlePasswordChange}
+              />
+            )}
           </ButtonContainer>
         </Section>
 
@@ -204,20 +219,20 @@ const ButtonContainer = styled.div`
   margin-top: 2rem;
 `;
 
-const GroupButton = styled.button<{ $isActive?: boolean }>`
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
+// const GroupButton = styled.button<{ $isActive?: boolean }>`
+//   display: flex;
+//   gap: 0.6rem;
+//   align-items: center;
 
-  padding: 1.5rem 1.6rem 1.4rem;
+//   padding: 1.5rem 1.6rem 1.4rem;
 
-  border-radius: 0.8rem;
-  background-color: ${({ theme, $isActive }) =>
-    $isActive ? theme.colors.gray500 : theme.colors.gray700};
-  color: ${({ theme, $isActive }) =>
-    $isActive ? theme.colors.white : theme.colors.gray300};
-  ${({ theme }) => theme.fonts.body_medium_16};
-`;
+//   border-radius: 0.8rem;
+//   background-color: ${({ theme, $isActive }) =>
+//     $isActive ? theme.colors.gray500 : theme.colors.gray700};
+//   color: ${({ theme, $isActive }) =>
+//     $isActive ? theme.colors.white : theme.colors.gray300};
+//   ${({ theme }) => theme.fonts.body_medium_16};
+// `;
 
 const Label = styled.label`
   ${({ theme }) => theme.fonts.title_bold_20};
