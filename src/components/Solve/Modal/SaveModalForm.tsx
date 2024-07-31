@@ -3,6 +3,12 @@ import { IcCancelSmallWhite, IcSuccess } from '../../../assets';
 import { ModalProps } from '../../../types/Solve/solveTypes';
 
 const SaveModalForm = ({ onClose }: ModalProps) => {
+  const handleClickExitBtn = () => {
+    // 풀었던 문제 리스트 중 임시작성 중인 문제가 있는 경우의 뷰로 navigate 할 예정
+
+    onClose();
+  };
+
   return (
     <ModalFormConatiner>
       <ContentsContainer>
@@ -16,7 +22,9 @@ const SaveModalForm = ({ onClose }: ModalProps) => {
           <ContinueBtn type="button" onClick={onClose}>
             마저 작성하기
           </ContinueBtn>
-          <ExitBtn type="button">나가기</ExitBtn>
+          <ExitBtn type="button" onClick={handleClickExitBtn}>
+            나가기
+          </ExitBtn>
         </BtnContainer>
       </ContentsContainer>
     </ModalFormConatiner>
@@ -25,7 +33,7 @@ const SaveModalForm = ({ onClose }: ModalProps) => {
 
 export default SaveModalForm;
 
-const ModalFormConatiner = styled.section`
+export const ModalFormConatiner = styled.section`
   position: fixed;
   top: 11.6rem;
 
