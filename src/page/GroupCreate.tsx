@@ -24,7 +24,7 @@ const GroupCreate = () => {
     setPassword(value);
   };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
+    const { files } = e.target;
     if (files && files.length > 0) {
       const reader = new FileReader();
       reader.onload = () => {
