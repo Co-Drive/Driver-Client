@@ -8,12 +8,7 @@ const GroupVisibilityBtn = ({
   onClick,
 }: GroupVisibilityBtnProps) => {
   return (
-    <Button
-      onClick={onClick}
-      type="button"
-      $isActive={isActive}
-      $isVisible={isVisible}
-    >
+    <Button onClick={onClick} type="button" $isActive={isActive}>
       <ContentsContainer $isVisible={isVisible}>
         <IconContainer>
           {isVisible && isActive && <IcUnlockWhite />}
@@ -29,12 +24,10 @@ const GroupVisibilityBtn = ({
 
 export default GroupVisibilityBtn;
 
-const Button = styled.button<{ $isActive: boolean; $isVisible: boolean }>`
-  width: ${({ $isVisible, $isActive }) =>
-    !$isVisible && $isActive ? '100%' : 'none'};
-  max-width: ${({ $isVisible }) => ($isVisible ? 'none' : '40.5rem')};
-
+const Button = styled.button<{ $isActive: boolean }>`
   padding: 1.5rem 1.6rem 1.4rem;
+
+  max-height: 5.3rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme, $isActive }) =>
@@ -44,11 +37,8 @@ const Button = styled.button<{ $isActive: boolean; $isVisible: boolean }>`
 const ContentsContainer = styled.div<{ $isVisible: boolean }>`
   display: flex;
   gap: 0.6rem;
-  justify-content: ${({ $isVisible }) =>
-    $isVisible ? 'center' : 'flex-start'};
+  justify-content: center;
   align-items: center;
-
-  width: 100%;
 `;
 
 const IconContainer = styled.div`
