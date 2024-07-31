@@ -89,6 +89,5 @@ export interface ClickedListProps {
 }
 
 export interface ModalProps {
-  isSaveModal?: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 }

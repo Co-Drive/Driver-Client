@@ -57,9 +57,7 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
           );
         })}
       </BtnContainer>
-      {modalOpen && (
-        <SaveModal isSaveModal={true} onClose={() => setModalOpen(false)} />
-      )}
+      {modalOpen && <SaveModal onClose={() => setModalOpen(false)} />}
     </PageHeaderContainer>
   );
 };
