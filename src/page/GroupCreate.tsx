@@ -2,27 +2,15 @@ import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IcAddPhoto, IcArrowBottomGray } from '../assets';
 import CommonButton from '../common/CommonButton';
-import CommonInput from '../common/CommonInput';
-import GroupVisibilityBtn from '../common/GroupVisibilityBtn';
+import GroupSetting from '../components/GroupCreate/GroupSetting';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { PLACEHOLDER } from '../constants/CommonTextarea/textareaConst';
 
 const GroupCreate = () => {
-  const [isPublicGroup, setIspublicGroup] = useState(true);
-  // const [isSecret, setIsSecret] = useState(false);
-  const [password, setPassword] = useState('');
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isActive, setIsActive] = useState(false);
   const memberCountRef = useRef<HTMLInputElement>(null);
 
-  const handleClickButton = () => {
-    setIspublicGroup(!isPublicGroup);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPassword(value);
-  };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (files && files.length > 0) {
@@ -61,31 +49,7 @@ const GroupCreate = () => {
       <Form>
         <Header>그룹 생성하기</Header>
         <Borderline />
-        <Section>
-          <GroupSetting>
-            그룹 설정 <Essential>*</Essential>
-          </GroupSetting>
-          <ButtonContainer>
-            <GroupVisibilityBtn
-              onClick={handleClickButton}
-              isVisible={true}
-              isActive={isPublicGroup}
-            />
-            {isPublicGroup ? (
-              <GroupVisibilityBtn
-                onClick={handleClickButton}
-                isVisible={false}
-                isActive={!isPublicGroup}
-              />
-            ) : (
-              <CommonInput
-                category="secretKey"
-                value={password}
-                handleChangeInputs={handlePasswordChange}
-              />
-            )}
-          </ButtonContainer>
-        </Section>
+        <GroupSetting />
 
         <ImageSection>
           <Label>
@@ -189,33 +153,14 @@ const Borderline = styled.div`
   border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray300};
 `;
 
-const Section = styled.section`
-  /* inline-flex로 변경해서 내용에 따라 크기가 조절되도록 함 */
-`;
-
-const GroupSetting = styled.h2`
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-
-  margin-top: 4rem;
-
-  ${({ theme }) => theme.fonts.title_bold_20};
-  color: ${({ theme }) => theme.colors.white};
-`;
-
 const Essential = styled.span`
   color: ${({ theme }) => theme.colors.codrive_purple};
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 1.8rem;
-
-  margin-top: 2rem;
 `;
+// ? 그룹 생성 styled
 
-// const GroupButton = styled.button<{ $isActive?: boolean }>`
+// const GroupButton = styled.button<{ $isActive?: boolean }>`;
 //   display: flex;
 //   gap: 0.6rem;
 //   align-items: center;
