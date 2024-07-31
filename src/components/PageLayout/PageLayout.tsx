@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../../common/Header';
 import { PageLayoutProps } from '../../types/PageLayout/PageLayoutType';
 
 const PageLayout = ({ category, children }: PageLayoutProps) => {
+  const navigate = useNavigate();
   const [clickedCategory, setClickedCategory] = useState(category);
+
+  const handleEarlyNavigate = (clickedNav: string) => {
+    switch (clickedNav) {
+      case '홈':
+        return navigate('/');
+      case '문제풀이':
+        return navigate('/solve');
+      case '그룹':
+        return navigate('/group');
+      default:
+        return navigate('/');
+    }
+  };
 
   const handleClickCategory = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => {
     const { innerHTML } = e.currentTarget;
     setClickedCategory(innerHTML);
+
+    handleEarlyNavigate(innerHTML);
   };
 
   return (
