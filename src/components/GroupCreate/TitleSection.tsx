@@ -1,20 +1,19 @@
-import { useRef } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { PLACEHOLDER } from '../../constants/CommonTextarea/textareaConst';
+import CommonInput from '../../common/CommonInput';
 
 const TitleSection = () => {
-  const memberCountRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState('');
+  const [text, setText] = useState('');
+  const handleMemberCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
 
-  const handleMemberCountChange = () => {
-    const value = memberCountRef.current?.value || '';
-    const numericValue = parseInt(value, 10);
+    setValue(value);
+  };
 
-    // 입력 값이 숫자인지 확인하고, 두 자리까지만 허용하며, 최대 50까지만 허용
-    if (!isNaN(numericValue) && numericValue <= 50) {
-      memberCountRef.current!.value = value.slice(0, 2);
-    } else {
-      memberCountRef.current!.value = value.slice(0, -1);
-    }
+  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setText(value);
   };
   return (
     <Section>
@@ -23,18 +22,21 @@ const TitleSection = () => {
           그룹 제목 <Essential>*</Essential>
         </Label>
         <EssentialText>최대 20자 이내로 입력해주세요</EssentialText>
-        <TitleInput type="text" maxLength={20} placeholder={PLACEHOLDER[2]} />
+        <CommonInput
+          category="title"
+          value={text}
+          handleChangeInputs={handleTextChange}
+        />
       </div>
       <RecruitmentContainer>
         <Label>
           모집 인원 <Essential>*</Essential>
         </Label>
         <EssentialText>50명까지 가능해요</EssentialText>
-        <NumberInput
-          type="number"
-          placeholder={PLACEHOLDER[3]}
-          ref={memberCountRef}
-          onInput={handleMemberCountChange}
+        <CommonInput
+          category="num"
+          value={value}
+          handleChangeInputs={handleMemberCountChange}
         />
       </RecruitmentContainer>
     </Section>
