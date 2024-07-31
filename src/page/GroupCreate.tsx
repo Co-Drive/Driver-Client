@@ -15,12 +15,8 @@ const GroupCreate = () => {
   const [isActive, setIsActive] = useState(false);
   const memberCountRef = useRef<HTMLInputElement>(null);
 
-  const handlePublicClick = () => {
-    if (!isPublicGroup) setIspublicGroup(true);
-  };
-
-  const handleSecretClick = () => {
-    if (isPublicGroup) setIspublicGroup(false);
+  const handleClickButton = () => {
+    setIspublicGroup(!isPublicGroup);
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,13 +67,13 @@ const GroupCreate = () => {
           </GroupSetting>
           <ButtonContainer>
             <GroupVisibilityBtn
-              onClick={handlePublicClick}
+              onClick={handleClickButton}
               isVisible={true}
               isActive={isPublicGroup}
             />
             {isPublicGroup ? (
               <GroupVisibilityBtn
-                onClick={handleSecretClick}
+                onClick={handleClickButton}
                 isVisible={false}
                 isActive={!isPublicGroup}
               />
