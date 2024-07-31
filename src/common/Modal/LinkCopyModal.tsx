@@ -18,7 +18,11 @@ const LinkCopyModalContainer = styled.article`
   justify-content: center;
   align-items: center;
 
-  padding: 2.6rem 2.6rem 2.6rem 3rem;
+  padding: 2.6rem 3rem 2.6rem 2.6rem;
+  margin: 20.4rem 60rem 0;
+
+  border-radius: 1.2rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
 `;
 
 const Text = styled.p`
