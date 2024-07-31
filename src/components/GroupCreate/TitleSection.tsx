@@ -50,18 +50,6 @@ const Section = styled.section`
   gap: 1.8rem;
 `;
 
-const TitleInput = styled.input`
-  width: 45.3rem;
-  height: 4.8rem;
-  padding: 1.5rem 2rem 1.4rem;
-
-  border: none;
-  border-radius: 0.8rem;
-  ${({ theme }) => theme.fonts.body_ligth_16};
-  background-color: ${({ theme }) => theme.colors.gray700};
-  color: ${({ theme }) => theme.colors.gray300};
-`;
-
 const EssentialText = styled.p`
   margin-bottom: 1.8rem;
 
@@ -72,28 +60,6 @@ const EssentialText = styled.p`
 const RecruitmentContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const NumberInput = styled.input`
-  width: 13.9rem;
-  height: 5.3rem;
-  padding: 1.5rem 2rem 1.4rem;
-  margin: 0;
-
-  border: none;
-
-  /* 숫자 입력 필드에서 스핀 버튼 제거 */
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-
-    margin: 0;
-  }
-
-  border-radius: 0.8rem;
-  ${({ theme }) => theme.fonts.body_ligth_16};
-  background-color: ${({ theme }) => theme.colors.gray700};
-  color: ${({ theme }) => theme.colors.gray300};
 `;
 
 const Label = styled.label`
