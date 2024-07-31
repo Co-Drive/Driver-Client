@@ -1,52 +1,47 @@
 import styled from 'styled-components';
 import { IcBtnInformation } from '../../assets';
-import PageLayout from '../PageLayout/PageLayout';
 import { RecommendGroupProps } from './../../types/GroupAll/GroupAllType';
-
 const RecommendGroup = ({ user, group = [] }: RecommendGroupProps) => {
   const handleClickCard = (id: number) => {
     /* 페이지 이동 */
   };
 
   return (
-    <PageLayout category={'홈'}>
-      <RecommendContainer>
-        <Title>
-          <Nickname>{user}</Nickname>님을 위한 오늘의 추천 그룹
-          <IcBtnInformation />
-        </Title>
-        <GroupCardContainer>
-          {group.map((card) => {
-            const { nickname, imgSrc, profile, num, title, content, tags } =
-              card;
+    <RecommendContainer>
+      <Title>
+        <Nickname>{user}</Nickname>님을 위한 오늘의 추천 그룹
+        <IcBtnInformation />
+      </Title>
+      <GroupCardContainer>
+        {group.map((card) => {
+          const { nickname, imgSrc, profile, num, title, content, tags } = card;
 
-            return (
-              <CardContainer key={num} onClick={() => handleClickCard(num)}>
-                <Img src={imgSrc} />
-                <Info>
-                  <CardHeader>
-                    <UserImg src={profile} />
-                    <TextId>
-                      <Text>{nickname} 님</Text>
-                      <Divider>{num} / 50명</Divider>
-                    </TextId>
-                  </CardHeader>
-                  <CardBody>
-                    <CardTitle>{title}</CardTitle>
-                    <CardContent>{content}</CardContent>
-                  </CardBody>
-                  <CardTags>
-                    {tags.map((tag) => (
-                      <Tag key={tag}>{tag}</Tag>
-                    ))}
-                  </CardTags>
-                </Info>
-              </CardContainer>
-            );
-          })}
-        </GroupCardContainer>
-      </RecommendContainer>
-    </PageLayout>
+          return (
+            <CardContainer key={num} onClick={() => handleClickCard(num)}>
+              <Img src={imgSrc} />
+              <Info>
+                <CardHeader>
+                  <UserImg src={profile} />
+                  <TextId>
+                    <Text>{nickname} 님</Text>
+                    <Divider>{num} / 50명</Divider>
+                  </TextId>
+                </CardHeader>
+                <CardBody>
+                  <CardTitle>{title}</CardTitle>
+                  <CardContent>{content}</CardContent>
+                </CardBody>
+                <CardTags>
+                  {tags.map((tag) => (
+                    <Tag key={tag}>{tag}</Tag>
+                  ))}
+                </CardTags>
+              </Info>
+            </CardContainer>
+          );
+        })}
+      </GroupCardContainer>
+    </RecommendContainer>
   );
 };
 
