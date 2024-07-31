@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ModalProps } from '../../types/Solve/solveTypes';
-import LinkCopyModal from './LinkCopyModal';
+import LinkCopyModalForm from './LinkCopyModalForm';
 import ModalPortal from './ModalPortal';
 import SaveModalForm from './SaveModalForm';
 
@@ -8,7 +8,7 @@ const Modal = ({ onClose }: ModalProps) => {
   return (
     <ModalPortal>
       <ModalFormConatiner>
-        {onClose ? <SaveModalForm onClose={onClose} /> : <LinkCopyModal />}
+        {onClose ? <SaveModalForm onClose={onClose} /> : <LinkCopyModalForm />}
       </ModalFormConatiner>
     </ModalPortal>
   );
