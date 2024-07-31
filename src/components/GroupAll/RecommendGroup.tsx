@@ -1,19 +1,7 @@
 import styled from 'styled-components';
 import { IcBtnInformation } from '../../assets';
 import PageLayout from '../PageLayout/PageLayout';
-
-interface RecommendGroupProps {
-  user: string;
-  group: Array<{
-    nickname: string;
-    imgSrc: string;
-    profile: string;
-    num: number;
-    title: string;
-    tags: Array<string>;
-    content: string;
-  }>;
-}
+import { RecommendGroupProps } from './../../types/GroupAll/GroupAllType';
 
 const RecommendGroup = ({ user, group = [] }: RecommendGroupProps) => {
   const handleClickCard = (id: number) => {
