@@ -38,8 +38,15 @@ import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 
+import BtnHeart from './btn/btn_heart.svg?react';
+import BtnShare from './btn/btn_share.svg?react';
+
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
 export {
+  // btn
+  BtnHeart,
+  BtnShare,
+  // icon
   IcAdd,
   IcAddBlack,
   IcAddFill,
