@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { IcCancelSmallWhite, IcSuccess } from '../../../assets';
-import { ModalProps } from '../../../types/Solve/solveTypes';
+import { IcCancelSmallWhite, IcSuccess } from '../../assets';
+import { ModalProps } from '../../types/Solve/solveTypes';
 
 const SaveModalForm = ({ onClose }: ModalProps) => {
   const handleClickExitBtn = () => {

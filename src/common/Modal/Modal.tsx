@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ModalProps } from '../../../types/Solve/solveTypes';
+import { ModalProps } from '../../types/Solve/solveTypes';
 import LinkCopyModal from './LinkCopyModal';
 import ModalPortal from './ModalPortal';
 import SaveModalForm from './SaveModalForm';
