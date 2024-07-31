@@ -3,15 +3,16 @@ import axios, { AxiosInstance } from 'axios';
 // axios instance 변수
 let apiInstance: AxiosInstance | null;
 
-export const api = () => {
+const API = () => {
   // axios instance가 존재하지 않는 경우에만 새로운 인스턴스 생성
   if (!apiInstance) {
     apiInstance = axios.create({
-      baseURL: import.meta.env.VITE_APP_BASE_URL,
+      baseURL: 'http://codrive.co.kr:8080',
     });
   }
 
-  const token = sessionStorage.getItem('token');
+  const token =
+    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzIyNTMxNTY3fQ.KcFk-vVEyMxHkwZwkLp9P2NnZWmvWgr-KCwpZdajrh-lD1OrWwqkl5Zww7xSM23XfyIUm55D_7Nr6Lb7WFN57Q';
   //   토큰과 인스턴스가 존재하는 경우, 헤더의 토큰 값을 axios header defaults로 정의
   if (token && apiInstance) {
     const headerToken = apiInstance.defaults.headers.common.Authorization;
@@ -24,3 +25,7 @@ export const api = () => {
 
   return apiInstance;
 };
+
+// () => AxiosInstance 형태인 API 활용 시, API().get('/') 과 같은 형태로 사용해야 함
+// AxiosInstance를 바로 활용하기 위해 새로운 변수에 API() 할당 -> api.get('/) 형태로 사용할 수 있도록 함
+export const api = API();
