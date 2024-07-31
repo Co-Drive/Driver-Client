@@ -91,13 +91,13 @@ const GroupCreate = () => {
           <Label>
             대표 이미지 <Essential>*</Essential>
           </Label>
-          <ImageContainer
-            onClick={() => document.getElementById('fileInput')?.click()}
-          >
+          <ImageContainer>
             {previewImage ? (
               <img src={previewImage} alt="대표 이미지" />
             ) : (
-              <IcAddPhoto />
+              <IcAddPhoto
+                onClick={() => document.getElementById('fileInput')?.click()}
+              />
             )}
             <HiddenInput
               id="fileInput"
@@ -241,7 +241,7 @@ const ImageSection = styled.section`
 
 const ImageContainer = styled.div`
   position: relative;
-
+  max-width: 20.4rem;
   cursor: pointer;
 
   img,
