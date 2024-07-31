@@ -6,7 +6,7 @@ import {
   IcLinkGray,
   IcLinkWhite,
 } from '../../../assets';
-import { TAG_PLATFORM_LISTS } from '../../../constants/\bSolve/SolveConts';
+import { TAG_PLATFORM_LISTS } from '../../../constants/Solve/SolveConts';
 import {
   ClickedListProps,
   HeaderBottomProps,
