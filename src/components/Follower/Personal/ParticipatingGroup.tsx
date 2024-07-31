@@ -45,10 +45,13 @@ const ParticipatingCardContainer = styled.article`
   gap: 3rem;
   justify-content: center;
   flex-direction: column;
+
+  width: 100%;
+  margin-top: 6rem;
 `;
 
 const Title = styled.p`
-  margin-left: 0.2rem;
+  margin-left: 0.3rem;
 
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_24};
@@ -60,9 +63,15 @@ const GroupContainer = styled.article`
   grid-template-columns: repeat(3, 1fr);
 
   width: 100%;
-
-  max-height: 58.2rem;
+  height: 58.2rem;
   overflow-y: auto;
+
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const CardContainer = styled.div`
@@ -70,7 +79,9 @@ const CardContainer = styled.div`
   gap: 2rem;
   flex-direction: column;
 
-  width: 29.6rem;
+  min-width: 29.6rem;
+
+  width: 100%;
   height: 27.1rem;
 `;
 
