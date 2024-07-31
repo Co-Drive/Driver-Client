@@ -10,38 +10,26 @@ const SaveModalForm = ({ onClose }: ModalProps) => {
   };
 
   return (
-    <ModalFormConatiner>
-      <ContentsContainer>
-        <IcCancelContainer onClick={onClose}>
-          <IcCancelSmallWhite />
-        </IcCancelContainer>
+    <ContentsContainer>
+      <IcCancelContainer onClick={onClose}>
+        <IcCancelSmallWhite />
+      </IcCancelContainer>
 
-        <IcSuccess />
-        <Notice>임시저장이 완료되었습니다</Notice>
-        <BtnContainer>
-          <ContinueBtn type="button" onClick={onClose}>
-            마저 작성하기
-          </ContinueBtn>
-          <ExitBtn type="button" onClick={handleClickExitBtn}>
-            나가기
-          </ExitBtn>
-        </BtnContainer>
-      </ContentsContainer>
-    </ModalFormConatiner>
+      <IcSuccess />
+      <Notice>임시저장이 완료되었습니다</Notice>
+      <BtnContainer>
+        <ContinueBtn type="button" onClick={onClose}>
+          마저 작성하기
+        </ContinueBtn>
+        <ExitBtn type="button" onClick={handleClickExitBtn}>
+          나가기
+        </ExitBtn>
+      </BtnContainer>
+    </ContentsContainer>
   );
 };
 
 export default SaveModalForm;
-
-export const ModalFormConatiner = styled.section`
-  position: fixed;
-  top: 11.6rem;
-
-  width: 100%;
-  height: calc(100vh - 11.6rem);
-
-  background-color: rgb(11 12 15 / 66%);
-`;
 
 const ContentsContainer = styled.article`
   display: flex;
