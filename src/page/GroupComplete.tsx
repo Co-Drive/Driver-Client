@@ -12,7 +12,7 @@ const GroupComplete = () => {
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
 
   const handleClickCopyBtn = () => {
-    handleCopyClipBoard(baseUrl)
+    handleCopyClipBoard({ baseUrl: baseUrl, isUsedBaseUrl: true })
       .then(() => alert('링크가 복사되었습니다.'))
       .catch(() => navigate('/error'));
   };
