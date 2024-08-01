@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import SaveModal from '../../../common/Modal/Modal';
 import { postRecords } from '../../../libs/apis/Solve/postRecords';
@@ -9,6 +10,7 @@ const BTN_CONTENTS = ['임시저장', '등록하기'];
 const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
+  const navigate = useNavigate();
   const { title, level, tags, platform, problemUrl } = questionInfo;
   const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
 
@@ -22,7 +24,7 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
       });
 
       const { recordId } = data;
-      console.log(recordId);
+      recordId && navigate(`/solution/${recordId}`);
     }
   };
 
