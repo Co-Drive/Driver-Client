@@ -1,13 +1,22 @@
 import styled from 'styled-components';
-import { PLACEHOLDER } from '../../constants/CommonTextarea/textareaConst';
+import CommonTextarea from '../../common/CommonTextarea';
 
-const IntroSection = () => {
+interface IntroSectionProps {
+  introValue: string;
+  handleIntroValue: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+const IntroSection = ({ introValue, handleIntroValue }: IntroSectionProps) => {
   return (
     <Section>
       <Label>
         한 줄 소개 <Essential>*</Essential>
       </Label>
-      <IntroTextarea maxLength={60} placeholder={PLACEHOLDER[0]} />
+      <CommonTextarea
+        category="intro"
+        value={introValue}
+        handleChangeTextarea={handleIntroValue}
+      />
     </Section>
   );
 };

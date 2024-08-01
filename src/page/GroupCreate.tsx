@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
 import ImageSection from '../components/GroupCreate/ImageSection';
-import IntroSection from '../components/GroupCreate/IntroSection';
 import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
@@ -19,8 +18,6 @@ const GroupCreate = () => {
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [recruited, setRecruited] = useState('');
-  const [Title, setTitle] = useState('');
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,14 +46,6 @@ const GroupCreate = () => {
       e.target.value = '';
     }
   };
-  const handleMemberCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, name } = e.target;
-    if (name === 'num') {
-      setRecruited(value);
-    } else if (name === 'title') {
-      setTitle(value);
-    }
-  };
 
   return (
     <PageLayout category="group">
@@ -74,12 +63,12 @@ const GroupCreate = () => {
           handleImageChange={handleImageChange}
         />
         <TitleSection
-          titleValue={Title}
-          recruitedValue={recruited}
-          handleMemberCountChange={handleMemberCountChange}
+          titleValue={inputs.title}
+          recruitedValue={inputs.num}
+          handleMemberCountChange={handleChangeInputs}
         />
         <LanguageSection />
-        <IntroSection />
+        {/* <IntroSection   /> */}
         <ProgressSection />
         <CreateButton />
       </Form>
