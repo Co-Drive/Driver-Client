@@ -1,20 +1,27 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import CommonInput from '../../common/CommonInput';
 
-const TitleSection = () => {
-  const [value, setValue] = useState('');
-  const [text, setText] = useState('');
-  const handleMemberCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+interface TitleSectionProps {
+  titleValue: string;
+  recruitedValue: string;
+  handleMemberCountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-    setValue(value);
-  };
+const TitleSection = ({
+  titleValue,
+  recruitedValue,
+  handleMemberCountChange,
+}: TitleSectionProps) => {
+  // const handleMemberCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value, name } = e.target;
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setText(value);
-  };
+  //   if (name === 'num') {
+  //     setRecruited(value);
+  //   } else if (name === 'title') {
+  //     setTitle(value);
+  //   }
+  // };
+
   return (
     <Section>
       <div>
@@ -24,8 +31,8 @@ const TitleSection = () => {
         <EssentialText>최대 20자 이내로 입력해주세요</EssentialText>
         <CommonInput
           category="title"
-          value={text}
-          handleChangeInputs={handleTextChange}
+          value={titleValue}
+          handleChangeInputs={handleMemberCountChange}
         />
       </div>
       <RecruitmentContainer>
@@ -35,7 +42,7 @@ const TitleSection = () => {
         <EssentialText>50명까지 가능해요</EssentialText>
         <CommonInput
           category="num"
-          value={value}
+          value={recruitedValue}
           handleChangeInputs={handleMemberCountChange}
         />
       </RecruitmentContainer>

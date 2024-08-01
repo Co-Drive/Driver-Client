@@ -15,13 +15,12 @@ const GroupCreate = () => {
     title: '',
     num: '',
     secretKey: '',
-    password: '',
-    nickname: '',
-    github: '',
   });
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [recruited, setRecruited] = useState('');
+  const [Title, setTitle] = useState('');
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -46,9 +45,16 @@ const GroupCreate = () => {
         console.log('ㅇㅇㅇ');
       };
       reader.readAsDataURL(file);
-
       // 파일 입력 필드 초기화
       e.target.value = '';
+    }
+  };
+  const handleMemberCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    if (name === 'num') {
+      setRecruited(value);
+    } else if (name === 'title') {
+      setTitle(value);
     }
   };
 
@@ -66,10 +72,12 @@ const GroupCreate = () => {
         <ImageSection
           previewImage={previewImage}
           handleImageChange={handleImageChange}
-          // fileInputKey={fileInputKey}
-          // handleImageClick={handleImageClick}
         />
-        <TitleSection />
+        <TitleSection
+          titleValue={Title}
+          recruitedValue={recruited}
+          handleMemberCountChange={handleMemberCountChange}
+        />
         <LanguageSection />
         <IntroSection />
         <ProgressSection />
