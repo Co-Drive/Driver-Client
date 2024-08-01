@@ -3,33 +3,21 @@ import CommonInput from '../../common/CommonInput';
 import GroupVisibilityBtn from '../../common/GroupVisibilityBtn';
 
 interface GroupSettingProps {
-  isVisible: boolean;
   isPublicGroup: boolean;
-  handleVisibilityChange: () => void;
   handleActiveChange: (active: boolean) => void;
   handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   secretKey: string;
 }
 
 const GroupSetting = ({
-  isVisible,
   handleActiveChange,
   isPublicGroup,
   handlePasswordChange,
   secretKey,
-  handleVisibilityChange,
 }: GroupSettingProps) => {
-  // const [isPublicGroup, setIspublicGroup] = useState(true);
-  // const [password, setPassword] = useState('');
-
   const handleClickButton = () => {
-    handleVisibilityChange();
     handleActiveChange(!isPublicGroup);
   };
-  // const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value } = e.target;
-  //   setPassword(value);
-  // };
 
   return (
     <Section>

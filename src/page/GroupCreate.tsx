@@ -19,7 +19,6 @@ const GroupCreate = () => {
     github: '',
   });
 
-  const [isVisible, setIsVisible] = useState(true); // 공개 여부 상태
   const [isPublicGroup, setIspublicGroup] = useState(false);
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +28,6 @@ const GroupCreate = () => {
       ...inputs,
       [name]: value,
     });
-  };
-
-  const handleVisible = () => {
-    setIsVisible((prev) => !prev);
   };
 
   const handleActiveChange = (active: boolean) => {
@@ -47,9 +42,7 @@ const GroupCreate = () => {
         <Header>그룹 생성하기</Header>
         <Borderline />
         <GroupSetting
-          isVisible={isVisible}
           isPublicGroup={isPublicGroup}
-          handleVisibilityChange={handleVisible}
           handleActiveChange={handleActiveChange}
           handlePasswordChange={handleChangeInputs}
           secretKey={inputs.secretKey}
