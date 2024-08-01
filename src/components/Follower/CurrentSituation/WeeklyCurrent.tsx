@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray, TestWeekboardStatus } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
@@ -9,6 +10,7 @@ import {
 import SolvedQuestionModal from './SolvedQuestionModal';
 
 const WeeklyCurrent = ({ clickedPage }: WeeklyCurrentProps) => {
+  const navigate = useNavigate();
   const { followers } = DUMMY;
 
   // 페이지마다 서버한테 팔로워 데이터 요청 (데이터 받아오기 전까지 임시코드)
@@ -32,10 +34,14 @@ const WeeklyCurrent = ({ clickedPage }: WeeklyCurrentProps) => {
     // 서버 통신 -> 클릭한 닉네임과 날짜를 기반으로 문제 풀이 조회
   };
 
+  const handleclickMoreBtn = (id: number) => {
+    navigate(`/follower/${id}`);
+  };
+
   return (
     <BoardsContainer>
       {followersPerPage.map((follower) => {
-        const { profile, boards } = follower;
+        const { id, profile, boards } = follower;
         const { imgSrc, nickname } = profile;
         return (
           <BoardContainer key={nickname}>
@@ -44,7 +50,7 @@ const WeeklyCurrent = ({ clickedPage }: WeeklyCurrentProps) => {
                 <Img src={imgSrc} />
                 <Nickname>{nickname}</Nickname>
               </Profile>
-              <MoreBtn type="button">
+              <MoreBtn type="button" onClick={() => handleclickMoreBtn(id)}>
                 <Text>그룹 더보기</Text>
                 <IcArrowRightSmallGray />
               </MoreBtn>
