@@ -126,6 +126,14 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
     setCurrentSlide((prev) => (prev + 1) % Math.ceil(items.length / 4));
   };
 
+  // 이전 슬라이드로 이동
+  const prevSlide = () => {
+    setCurrentSlide(
+      (prev) =>
+        (prev - 1 + Math.ceil(items.length / 4)) % Math.ceil(items.length / 4)
+    );
+  };
+
   const handleClickItem = (id: number) => {
     // 서버와 통신하는 코드로 대체할 예정
     console.log('click!', id);
@@ -141,7 +149,7 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
         </More>
       </TitleContainer>
       <CarouselContainer>
-        <CarouselButton>
+        <CarouselButton $isHidden={currentSlide === 0} onClick={prevSlide}>
           <IcArrowLeftFill />
         </CarouselButton>
         <CarouselWrapper>
