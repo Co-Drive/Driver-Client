@@ -8,6 +8,7 @@ import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
+
 const GroupCreate = () => {
   // 상태 객체 선언
   const [inputs, setInputs] = useState({
@@ -20,6 +21,9 @@ const GroupCreate = () => {
   });
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  // const fileInputRef = useRef<HTMLInputElement>(null);
+  // const [fileInputKey, setfileInputKey] = useState(0);
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -34,6 +38,26 @@ const GroupCreate = () => {
     setIspublicGroup(active);
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
+    if (file) {
+      // 이미지 미리보기 설정 (선택 사항)
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+
+      // 파일 입력 필드 초기화
+      e.target.value = '';
+    }
+  };
+
+  // const handleImageClick = (e: React.MouseEvent<HTMLInputElement>) => {
+  //   (e.target as HTMLInputElement).value =
+  //     (e.target as HTMLInputElement).value ?? '';
+  // };
+
   return (
     <PageLayout category="group">
       <Form>
@@ -45,7 +69,12 @@ const GroupCreate = () => {
           handlePasswordChange={handleChangeInputs}
           secretKey={inputs.secretKey}
         />
-        <ImageSection />
+        <ImageSection
+          previewImage={previewImage}
+          handleImageChange={handleImageChange}
+          // fileInputKey={fileInputKey}
+          // handleImageClick={handleImageClick}
+        />
         <TitleSection />
         <LanguageSection />
         <IntroSection />
