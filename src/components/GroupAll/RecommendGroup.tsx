@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { IcBtnInformation } from '../../assets';
 import { RecommendGroupProps } from './../../types/GroupAll/GroupAllType';
+
 const RecommendGroup = ({ user, group = [] }: RecommendGroupProps) => {
   const handleClickCard = (id: number) => {
     /* 페이지 이동 */
@@ -12,6 +13,10 @@ const RecommendGroup = ({ user, group = [] }: RecommendGroupProps) => {
         <Nickname>{user}</Nickname>님을 위한 오늘의 추천 그룹
         <Notic>
           <IcBtnInformation />
+          <Tooltip>
+            <TooUser>{user}</TooUser>님 만을 위해 <br /> 하루에 6개씩 랜덤으로
+            그룹을 추천해드려요
+          </Tooltip>
         </Notic>
       </Title>
       <GroupCardContainer>
@@ -69,16 +74,65 @@ const Nickname = styled.p`
   margin-right: 0.4rem;
 
   color: ${({ theme }) => theme.colors.codrive_green};
-
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
 
-const Notic = styled.p`
+const Notic = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
 
   margin-left: 2.5rem;
+
+  &:hover > div {
+    visibility: visible;
+    opacity: 1;
+  }
 `;
+
+const Tooltip = styled.div`
+  display: block;
+  position: absolute;
+  top: 157%;
+  visibility: hidden;
+
+  width: 22.8rem;
+  height: auto;
+  padding: 1.2rem 1.1rem;
+
+  border-radius: 0.8rem;
+  background: ${({ theme }) => theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+
+  white-space: nowrap;
+
+  opacity: 0;
+  transform: translate(-3%);
+  transition: opacity 0.3s ease-in-out;
+
+  &::after {
+    position: absolute;
+    bottom: 100%;
+    left: 5%;
+
+    margin-left: -0.1rem;
+
+    border-color: transparent transparent ${({ theme }) => theme.colors.gray600}
+      transparent;
+    border-width: 5px;
+    border-style: solid;
+    content: '';
+  }
+`;
+
+const TooUser = styled.p`
+  display: inline-flex;
+
+  color: ${({ theme }) => theme.colors.codrive_green};
+  ${({ theme }) => theme.fonts.detail_regular_12};
+`;
+
 const GroupCardContainer = styled.article`
   display: grid;
   gap: 4rem 1.8rem;
@@ -134,18 +188,20 @@ const UserImg = styled.img`
   background-color: ${({ theme }) => theme.colors.gray100};
 `;
 
-const TextId = styled.span`
+const TextId = styled.div`
   display: flex;
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_medium_14};
 `;
 
-const Text = styled.span`
+const Text = styled.p`
   margin-right: 1rem;
 `;
 
-const Divider = styled.span``;
+const Divider = styled.p`
+  /* Only comments */
+`;
 
 const CardBody = styled.div`
   display: flex;
@@ -188,7 +244,7 @@ const CardTags = styled.div`
   margin-top: auto;
 `;
 
-const Tag = styled.span`
+const Tag = styled.p`
   color: ${({ theme }) => theme.colors.codrive_green};
   ${({ theme }) => theme.fonts.body_eng_medium_12};
 `;
