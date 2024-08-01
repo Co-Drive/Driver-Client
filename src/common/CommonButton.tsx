@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import { CONTENTS } from '../constants/CommonBtn/BtnContent';
 import { CommonButtonProps } from '../types/CommonBtn/BtnType';
 
-const CommonButton = ({ isActive, category }: CommonButtonProps) => {
+const CommonButton = ({ isActive, category, onClick }: CommonButtonProps) => {
   return (
-    <Button type="button" $category={category} $isActive={isActive}>
+    <Button
+      type="button"
+      $category={category}
+      $isActive={isActive}
+      onClick={onClick}
+    >
       {CONTENTS.map((content) => {
         return (
           category === content.category && (
@@ -71,6 +76,6 @@ const BtnText = styled.p<{ $category: string; $isActive?: boolean }>`
       : theme.fonts.title_bold_20}
   color: ${({ theme, $isActive, $category }) => {
     if ($isActive || $category === 'group_direct') return theme.colors.gray900;
-    return theme.colors.white;
+    return theme.colors.gray300;
   }};
 `;
