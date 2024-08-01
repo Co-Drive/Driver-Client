@@ -121,6 +121,11 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
     setItems(dummyItems.sort(() => Math.random() - 0.5));
   }, []);
 
+  // 다음 슬라이드로 이동
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % Math.ceil(items.length / 4));
+  };
+
   const handleClickItem = (id: number) => {
     // 서버와 통신하는 코드로 대체할 예정
     console.log('click!', id);
@@ -161,7 +166,7 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
             ))}
           </CarouselContent>
         </CarouselWrapper>
-        <CarouselButton>
+        <CarouselButton onClick={nextSlide}>
           <IcArrowRightFill />
         </CarouselButton>
       </CarouselContainer>
