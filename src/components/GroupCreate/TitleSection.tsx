@@ -12,16 +12,6 @@ const TitleSection = ({
   recruitedValue,
   handleMemberCountChange,
 }: TitleSectionProps) => {
-  // const handleMemberCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { value, name } = e.target;
-
-  //   if (name === 'num') {
-  //     setRecruited(value);
-  //   } else if (name === 'title') {
-  //     setTitle(value);
-  //   }
-  // };
-
   return (
     <Section>
       <div>
