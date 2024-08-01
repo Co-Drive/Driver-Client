@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
 import ImageSection from '../components/GroupCreate/ImageSection';
+import IntroSection from '../components/GroupCreate/IntroSection';
 import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
@@ -14,12 +15,15 @@ const GroupCreate = () => {
     title: '',
     num: '',
     secretKey: '',
+    intro: '',
   });
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
+    e: React.ChangeEvent<T>
+  ) => {
     const { name, value } = e.target;
     console.log(name, value);
     setInputs({
@@ -68,7 +72,10 @@ const GroupCreate = () => {
           handleMemberCountChange={handleChangeInputs}
         />
         <LanguageSection />
-        {/* <IntroSection   /> */}
+        <IntroSection
+          introValue={inputs.intro}
+          handleChangeTextarea={handleChangeInputs}
+        />
         <ProgressSection />
         <CreateButton />
       </Form>
