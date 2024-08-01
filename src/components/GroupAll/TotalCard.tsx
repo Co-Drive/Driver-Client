@@ -177,7 +177,10 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
 export default TotalCard;
 
 const TotalContainer = styled.div`
-  width: 99.8rem;
+  width: 100%;
+  max-width: 99.8rem; /* 화면 크기에 따라 조정 가능 */
+
+  margin: 0 auto;
 `;
 
 const CarouselContainer = styled.div`
