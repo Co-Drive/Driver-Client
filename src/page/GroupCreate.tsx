@@ -34,8 +34,6 @@ const GroupCreate = () => {
     setIspublicGroup(active);
   };
 
-  // API 호출을 위한 핸들러
-
   return (
     <PageLayout category="group">
       <Form>

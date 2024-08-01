@@ -1,13 +1,7 @@
 import styled from 'styled-components';
 import CommonInput from '../../common/CommonInput';
 import GroupVisibilityBtn from '../../common/GroupVisibilityBtn';
-
-interface GroupSettingProps {
-  isPublicGroup: boolean;
-  handleActiveChange: (active: boolean) => void;
-  handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  secretKey: string;
-}
+import { GroupSettingProps } from '../../types/GroupCreate/GroupCreateType';
 
 const GroupSetting = ({
   handleActiveChange,
