@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import SaveModal from '../../../common/Modal/Modal';
+import { postRecords } from '../../../libs/apis/Solve/postRecords';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
@@ -10,20 +11,19 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
 
   const { title, level, tags, platform, problemUrl } = questionInfo;
   const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
-  const DATA = {
-    title: title,
-    level: level,
-    tags: tags,
-    platform: platform,
-    problemUrl: problemUrl,
-    // id 제외, 나머지 값만 저장하기
-    codeblocks: codeblocks.map(({ id, ...rest }) => rest),
-  };
 
-  const handleClickBtn = (isSaveBtn: boolean) => {
-    if (isSaveBtn) setModalOpen(true);
-    // 서버 통신 코드로 바꿀 예정
-    console.log(DATA);
+  const handleClickBtn = async (isSaveBtn: boolean) => {
+    if (isSaveBtn) {
+      setModalOpen(true);
+    } else {
+      const { data } = await postRecords({
+        questionInfo: questionInfo,
+        codeblocks: codeblocks,
+      });
+
+      const { recordId } = data;
+      console.log(recordId);
+    }
   };
 
   return (
