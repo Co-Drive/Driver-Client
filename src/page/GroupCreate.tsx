@@ -16,6 +16,7 @@ const GroupCreate = () => {
     num: '',
     secretKey: '',
     intro: '',
+    group: '',
   });
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
@@ -76,7 +77,10 @@ const GroupCreate = () => {
           introValue={inputs.intro}
           handleChangeTextarea={handleChangeInputs}
         />
-        <ProgressSection />
+        <ProgressSection
+          progressValue={inputs.group}
+          handleChangeTextarea={handleChangeInputs}
+        />
         <CreateButton />
       </Form>
     </PageLayout>

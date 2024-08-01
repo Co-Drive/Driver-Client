@@ -1,16 +1,15 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import CommonTextarea from '../../common/CommonTextarea';
 
-const ProgressSection = () => {
-  const [value, setValue] = useState('');
+interface ProgressSectionProps {
+  progressValue: string;
+  handleChangeTextarea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
 
-  const handleChangeTextarea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target;
-
-    setValue(value);
-  };
-
+const ProgressSection = ({
+  progressValue,
+  handleChangeTextarea,
+}: ProgressSectionProps) => {
   return (
     <Section>
       <Label>
@@ -18,7 +17,7 @@ const ProgressSection = () => {
       </Label>
       <CommonTextarea
         category="group"
-        value={value}
+        value={progressValue}
         handleChangeTextarea={handleChangeTextarea}
       />
     </Section>
