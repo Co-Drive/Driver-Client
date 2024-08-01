@@ -1,16 +1,6 @@
 import styled, { css } from 'styled-components';
 import { IcGithub } from '../../assets';
-
-interface FollowerInfoProps {
-  info: {
-    profileImg: string;
-    nickname: string;
-    isFollowed: boolean;
-    introduce: string;
-    language: string;
-    github: string;
-  };
-}
+import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
 
 const FollowerInfo = ({ info }: FollowerInfoProps) => {
   const { profileImg, nickname, isFollowed, introduce, language, github } =

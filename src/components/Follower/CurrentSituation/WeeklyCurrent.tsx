@@ -2,16 +2,11 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray, TestWeekboardStatus } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
+import {
+  ClickDailyBoardProps,
+  WeeklyCurrentProps,
+} from '../../../types/Follower/Current/currentType';
 import SolvedQuestionModal from './SolvedQuestionModal';
-
-interface WeeklyCurrentProps {
-  clickedPage: number;
-}
-
-interface ClickDailyBoardProps {
-  nickname: string;
-  date: string;
-}
 
 const WeeklyCurrent = ({ clickedPage }: WeeklyCurrentProps) => {
   const { followers } = DUMMY;
