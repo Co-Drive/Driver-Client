@@ -1,19 +1,35 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import CommonInput from '../../common/CommonInput';
 import GroupVisibilityBtn from '../../common/GroupVisibilityBtn';
 
-const GroupSetting = () => {
-  const [isPublicGroup, setIspublicGroup] = useState(true);
-  const [password, setPassword] = useState('');
+interface GroupSettingProps {
+  isVisible: boolean;
+  isPublicGroup: boolean;
+  handleVisibilityChange: () => void;
+  handleActiveChange: (active: boolean) => void;
+  handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  secretKey: string;
+}
+
+const GroupSetting = ({
+  isVisible,
+  handleActiveChange,
+  isPublicGroup,
+  handlePasswordChange,
+  secretKey,
+  handleVisibilityChange,
+}: GroupSettingProps) => {
+  // const [isPublicGroup, setIspublicGroup] = useState(true);
+  // const [password, setPassword] = useState('');
 
   const handleClickButton = () => {
-    setIspublicGroup(!isPublicGroup);
+    handleVisibilityChange();
+    handleActiveChange(!isPublicGroup);
   };
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setPassword(value);
-  };
+  // const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { value } = e.target;
+  //   setPassword(value);
+  // };
 
   return (
     <Section>
@@ -35,7 +51,7 @@ const GroupSetting = () => {
         ) : (
           <CommonInput
             category="secretKey"
-            value={password}
+            value={secretKey}
             handleChangeInputs={handlePasswordChange}
           />
         )}
