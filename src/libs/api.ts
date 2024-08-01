@@ -7,12 +7,11 @@ const API = () => {
   // axios instance가 존재하지 않는 경우에만 새로운 인스턴스 생성
   if (!apiInstance) {
     apiInstance = axios.create({
-      baseURL: 'http://codrive.co.kr:8080',
+      baseURL: import.meta.env.VITE_APP_BASE_URL,
     });
   }
 
-  const token =
-    'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzIyNTMxNTY3fQ.KcFk-vVEyMxHkwZwkLp9P2NnZWmvWgr-KCwpZdajrh-lD1OrWwqkl5Zww7xSM23XfyIUm55D_7Nr6Lb7WFN57Q';
+  const token = sessionStorage.getItem('token');
   //   토큰과 인스턴스가 존재하는 경우, 헤더의 토큰 값을 axios header defaults로 정의
   if (token && apiInstance) {
     const headerToken = apiInstance.defaults.headers.common.Authorization;
