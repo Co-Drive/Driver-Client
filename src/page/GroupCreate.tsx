@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
@@ -20,6 +20,7 @@ const GroupCreate = () => {
   });
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
@@ -52,6 +53,13 @@ const GroupCreate = () => {
     }
   };
 
+  useEffect(() => {
+    const allFiledsFilled = Object.values(inputs).every(
+      (value) => value !== ''
+    );
+    setIsActive(allFiledsFilled);
+  });
+
   return (
     <PageLayout category="group">
       <Form>
@@ -81,7 +89,7 @@ const GroupCreate = () => {
           progressValue={inputs.group}
           handleChangeTextarea={handleChangeInputs}
         />
-        <CreateButton />
+        <CreateButton isActive={isActive} />
       </Form>
     </PageLayout>
   );

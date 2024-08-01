@@ -1,13 +1,17 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
 
-const CreateButton = () => {
-  const [isActive, setIsActive] = useState(false);
+interface CreateButtonProps {
+  isActive: boolean;
+}
 
+const CreateButton = ({ isActive }: CreateButtonProps) => {
   const handleCreateButtonClick = () => {
-      setIsActive(true);
-      // navigator 로 이동
+    if (isActive) {
+      console.log('navigator 로 이동 로직 구현');
+    } else {
+      console.log('모든 필드 채워주세요');
+    }
   };
 
   return (
