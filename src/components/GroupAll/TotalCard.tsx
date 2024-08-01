@@ -121,6 +121,11 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
     setItems(dummyItems.sort(() => Math.random() - 0.5));
   }, []);
 
+  const handleClickItem = (id: number) => {
+    // 서버와 통신하는 코드로 대체할 예정
+    console.log('click!', id);
+  };
+
   return (
     <TotalContainer>
       <TitleContainer>
@@ -141,7 +146,7 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
                 {items.slice(index * 4, index * 4 + 4).map((card) => {
                   const { id, tags, title, contents } = card;
                   return (
-                    <CarouselItem key={id}>
+                    <CarouselItem key={id} onClick={() => handleClickItem(id)}>
                       <TagContainer>
                         {tags.map((tag, tagIndex) => (
                           <Tag key={tagIndex}>{tag}</Tag>
