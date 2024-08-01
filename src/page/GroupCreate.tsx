@@ -45,6 +45,7 @@ const GroupCreate = () => {
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result as string);
+        console.log('ㅇㅇㅇ');
       };
       reader.readAsDataURL(file);
 

@@ -32,21 +32,19 @@ const ImageSection = ({
       <Label>
         대표 이미지 <Essential>*</Essential>
       </Label>
-      <ImageContainer>
+      <ImageContainer
+        onClick={() => document.getElementById('fileInput')?.click()}
+      >
         {previewImage ? (
           <img src={previewImage} alt="대표 이미지" />
         ) : (
-          <IcAddPhoto
-            onClick={() => document.getElementById('fileInput')?.click()}
-          />
+          <IcAddPhoto />
         )}
         <HiddenInput
-          // key={fileInputKey}
           id="fileInput"
           type="file"
           accept="image/*"
           onChange={handleImageChange}
-          // onClick={handleImageClick}
         />
       </ImageContainer>
       <EssentialText>612px * 368px 사이즈를 권장드려요</EssentialText>
