@@ -5,15 +5,7 @@ import {
   IcArrowRightFill,
   IcArrowRightSmallGray,
 } from '../../assets';
-
-interface TotalCardProps {
-  item: Array<{
-    id: number;
-    title: string;
-    contents: string;
-    tags: Array<string>;
-  }>;
-}
+import { TotalCardProps } from '../../types/GroupAll/TotalCardType';
 
 const TotalCard = ({ item = [] }: TotalCardProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
