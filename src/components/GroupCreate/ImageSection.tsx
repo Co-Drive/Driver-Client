@@ -4,29 +4,12 @@ import { IcAddPhoto } from '../../assets';
 interface ImageSectionProps {
   previewImage: string | null;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  // fileInputKey: number;
-  // handleImageClick: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 const ImageSection = ({
   previewImage,
   handleImageChange,
-  // fileInputKey,
-  // handleImageClick,
 }: ImageSectionProps) => {
-  // const [previewImage, setPreviewImage] = useState<string | null>(null);
-
-  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { files } = e.target;
-  //   if (files && files.length > 0) {
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-  //       setPreviewImage(reader.result as string);
-  //     };
-  //     reader.readAsDataURL(files[0]);
-  //   }
-  // };
-
   return (
     <Section>
       <Label>

@@ -22,8 +22,6 @@ const GroupCreate = () => {
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  // const fileInputRef = useRef<HTMLInputElement>(null);
-  // const [fileInputKey, setfileInputKey] = useState(0);
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,11 +51,6 @@ const GroupCreate = () => {
       e.target.value = '';
     }
   };
-
-  // const handleImageClick = (e: React.MouseEvent<HTMLInputElement>) => {
-  //   (e.target as HTMLInputElement).value =
-  //     (e.target as HTMLInputElement).value ?? '';
-  // };
 
   return (
     <PageLayout category="group">
