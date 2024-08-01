@@ -55,7 +55,12 @@ const LanguageSection = () => {
                 <CommonHashTag
                   key={index}
                   selectedTag={tag}
-                  removeTag={() => removeTag(tag)}
+                  removeTag={(e) => {
+                    if (e) {
+                      e.stopPropagation();
+                    }
+                    removeTag(tag);
+                  }}
                 />
               ))
             )}
@@ -105,18 +110,19 @@ const DropdownContainer = styled.div`
   cursor: pointer;
 `;
 
-const DropdownHeader = styled.div`
-  /* background-color: pink; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+// const DropdownHeader = styled.div`
+//   /* background-color: pink; */
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
 
-  color: ${({ theme }) => theme.colors.gray300};
-  ${({ theme }) => theme.fonts.body_ligth_16};
-`;
+//   color: ${({ theme }) => theme.colors.gray300};
+//   ${({ theme }) => theme.fonts.body_ligth_16};
+// `;
 
 const DropdownItemContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   padding: 1.6rem;
 
