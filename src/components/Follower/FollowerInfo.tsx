@@ -1,10 +1,28 @@
+// import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcGithub } from '../../assets';
+import { deleteFollower } from '../../libs/apis/Follower/deleteFollower';
+import { postFollower } from '../../libs/apis/Follower/postFollower';
 import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
 
 const FollowerInfo = ({ info }: FollowerInfoProps) => {
   const { profileImg, nickname, isFollowed, introduce, language, github } =
     info;
+  // const navigate = useNavigate();
+
+  const handleClickFollowBtn = async () => {
+    try {
+      isFollowed ? await deleteFollower('문주') : await postFollower('문주');
+
+      // 추후 아래 코드로 변경할 예정
+      // isFollowed ? await deleteFollower(nickname) : await postFollower(nickname);
+    } catch (error) {
+      console.log(error);
+
+      // 추후 아래 코드로 변경할 예정
+      // navigate('/error');
+    }
+  };
 
   const handleClickIcGithub = () => {
     window.open(github);
@@ -16,7 +34,11 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
       <InfoContainer>
         <TopInfoContainer>
           <Nickname>{nickname}</Nickname>
-          <FollowBtn type="button" $isFollowed={isFollowed}>
+          <FollowBtn
+            type="button"
+            $isFollowed={isFollowed}
+            onClick={handleClickFollowBtn}
+          >
             {isFollowed ? '팔로잉' : '팔로우'}
           </FollowBtn>
         </TopInfoContainer>
