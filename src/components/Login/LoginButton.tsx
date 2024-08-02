@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { IcGithubLogo } from '../../assets';
+import { BtnJoinGitHub } from '../../assets';
 import { LoginBtnType } from '../../types/LoginBtn/LoginBtnType';
 
 const LoginButton = ({ onClick }: LoginBtnType) => {
   return (
     <Button type="button" onClick={onClick}>
-      <IcGithubLogo />
+      <BtnJoinGitHub />
       Github으로 시작하기
     </Button>
   );
@@ -23,9 +23,6 @@ const Button = styled.button`
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.white};
-
-  cursor: pointer;
-
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.gray900};
 `;

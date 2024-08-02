@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { IcLoginLogo } from '../assets';
+import { IcLoginBig } from '../assets';
 import LoginButton from '../components/Login/LoginButton';
+import PageLayout from '../components/PageLayout/PageLayout';
 
 const LoginPage = () => {
   const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
@@ -10,11 +11,13 @@ const LoginPage = () => {
     window.location.href = githubURL;
   };
   return (
-    <LoginContainer>
-      <Title>성공적인 코딩테스트를 위한 최적의 경로</Title>
-      <IcLoginLogo />
-      <LoginButton onClick={onClickSocialLogin} />
-    </LoginContainer>
+    <PageLayout category={'login'}>
+      <LoginContainer>
+        <Title>성공적인 코딩테스트를 위한 최적의 경로</Title>
+        <IcLoginBig />
+        <LoginButton onClick={onClickSocialLogin} />
+      </LoginContainer>
+    </PageLayout>
   );
 };
 
@@ -23,8 +26,8 @@ const LoginContainer = styled.div`
   align-items: center;
   flex-direction: column;
 
-  width: 420px;
-  height: 100%;
+  width: 100%;
+  padding-top: 20.4rem;
   margin: 0 auto;
 `;
 
