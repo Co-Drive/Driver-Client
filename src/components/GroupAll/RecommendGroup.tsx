@@ -1,55 +1,59 @@
 import styled from 'styled-components';
 import { IcBtnInformation } from '../../assets';
+import PageLayout from '../PageLayout/PageLayout';
 import { RecommendGroupProps } from './../../types/GroupAll/GroupAllType';
 
-const RecommendGroup = ({ user, group = [] }: RecommendGroupProps) => {
+const RecommendGroup = ({ user, group }: RecommendGroupProps) => {
   const handleClickCard = (id: number) => {
     /* 페이지 이동 */
   };
 
   return (
-    <RecommendContainer>
-      <Title>
-        <Nickname>{user}</Nickname>님을 위한 오늘의 추천 그룹
-        <Notic>
-          <IcBtnInformation />
-          <Tooltip>
-            <TooUser>{user}</TooUser>님 만을 위해 <br /> 하루에 6개씩 랜덤으로
-            그룹을 추천해드려요
-          </Tooltip>
-        </Notic>
-      </Title>
-      <GroupCardContainer>
-        {group.map((card) => {
-          const { nickname, imgSrc, profile, num, title, content, tags } = card;
+    <PageLayout category={'홈'}>
+      <RecommendContainer>
+        <Title>
+          <Nickname>{user}</Nickname>님을 위한 오늘의 추천 그룹
+          <Notic>
+            <IcBtnInformation />
+            <Tooltip>
+              <TooUser>{user}</TooUser>님 만을 위해 <br /> 하루에 6개씩 랜덤으로
+              그룹을 추천해드려요
+            </Tooltip>
+          </Notic>
+        </Title>
+        <GroupCardContainer>
+          {group.map((card) => {
+            const { nickname, imgSrc, profile, num, title, content, tags } =
+              card;
 
-          return (
-            <CardContainer key={num} onClick={() => handleClickCard(num)}>
-              <Img src={imgSrc} />
-              <Info>
-                <CardHeader>
-                  <UserImg src={profile} />
-                  <TextId>
-                    <Text>{nickname} 님</Text>
-                    <Text>|</Text>
-                    <Divider>{num} / 50명</Divider>
-                  </TextId>
-                </CardHeader>
-                <CardBody>
-                  <CardTitle>{title}</CardTitle>
-                  <CardContent>{content}</CardContent>
-                </CardBody>
-                <CardTags>
-                  {tags.map((tag) => (
-                    <Tag key={tag}>{tag}</Tag>
-                  ))}
-                </CardTags>
-              </Info>
-            </CardContainer>
-          );
-        })}
-      </GroupCardContainer>
-    </RecommendContainer>
+            return (
+              <CardContainer key={num} onClick={() => handleClickCard(num)}>
+                <Img src={imgSrc} />
+                <Info>
+                  <CardHeader>
+                    <UserImg src={profile} />
+                    <TextId>
+                      <Text>{nickname} 님</Text>
+                      <Text>|</Text>
+                      <p>{num} / 50명</p>
+                    </TextId>
+                  </CardHeader>
+                  <CardBody>
+                    <CardTitle>{title}</CardTitle>
+                    <CardContent>{content}</CardContent>
+                  </CardBody>
+                  <CardTags>
+                    {tags.map((tag) => (
+                      <Tag key={tag}>{tag}</Tag>
+                    ))}
+                  </CardTags>
+                </Info>
+              </CardContainer>
+            );
+          })}
+        </GroupCardContainer>
+      </RecommendContainer>
+    </PageLayout>
   );
 };
 
@@ -118,8 +122,7 @@ const Tooltip = styled.div`
 
     margin-left: -0.1rem;
 
-    border-color: transparent transparent ${({ theme }) => theme.colors.gray600}
-      transparent;
+    border-color: transparent transparent ${({ theme }) => theme.colors.gray600};
     border-width: 5px;
     border-style: solid;
     content: '';
@@ -199,10 +202,6 @@ const Text = styled.p`
   margin-right: 1rem;
 `;
 
-const Divider = styled.p`
-  /* Only comments */
-`;
-
 const CardBody = styled.div`
   display: flex;
   flex-direction: column;
@@ -218,7 +217,6 @@ const CardTitle = styled.h3`
 
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
-  font-weight: bold;
 
   white-space: nowrap;
   text-overflow: ellipsis;
