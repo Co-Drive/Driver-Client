@@ -7,7 +7,7 @@ import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
-const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
+const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -18,13 +18,17 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
     if (isSaveBtn) {
       setModalOpen(true);
     } else {
-      const { data } = await postRecords({
-        questionInfo: questionInfo,
-        codeblocks: codeblocks,
-      });
+      if (id) {
+        console.log('patch');
+      } else {
+        const { data } = await postRecords({
+          questionInfo: questionInfo,
+          codeblocks: codeblocks,
+        });
 
-      const { recordId } = data;
-      recordId && navigate(`/solution/${recordId}`);
+        const { recordId } = data;
+        recordId && navigate(`/solution/${recordId}`);
+      }
     }
   };
 
