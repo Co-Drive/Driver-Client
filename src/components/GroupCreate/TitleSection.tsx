@@ -14,28 +14,24 @@ const TitleSection = ({
 }: TitleSectionProps) => {
   return (
     <Section>
-      <div>
-        <Label>
-          그룹 제목 <Essential>*</Essential>
-        </Label>
+      <Label>
+        그룹 제목 <Essential>*</Essential>
         <EssentialText>최대 20자 이내로 입력해주세요</EssentialText>
         <CommonInput
           category="title"
           value={titleValue}
           handleChangeInputs={handleMemberCountChange}
         />
-      </div>
-      <RecruitmentContainer>
-        <Label>
-          모집 인원 <Essential>*</Essential>
-        </Label>
+      </Label>
+      <Label>
+        모집 인원 <Essential>*</Essential>
         <EssentialText>50명까지 가능해요</EssentialText>
         <CommonInput
           category="num"
           value={recruitedValue}
           handleChangeInputs={handleMemberCountChange}
         />
-      </RecruitmentContainer>
+      </Label>
     </Section>
   );
 };
@@ -48,23 +44,16 @@ const Section = styled.section`
 `;
 
 const EssentialText = styled.p`
-  margin-bottom: 1.8rem;
+  /* margin-bottom: 1.8rem; */
+  margin: 0.6rem 0 1.8rem;
 
   ${({ theme }) => theme.fonts.detail_regular_12};
+
   color: ${({ theme }) => theme.colors.gray300};
 `;
 
-const RecruitmentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const Label = styled.label`
-  display: flex;
-  gap: 0.6rem;
   align-items: center;
-
-  margin-bottom: 0.6rem;
 
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
