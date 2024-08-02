@@ -2,26 +2,11 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray } from '../../assets';
 import CommonHashTag from '../../common/CommonHashTag';
-const DUMMY = [
-  'Python',
-  'Java',
-  'C',
-  'C++',
-  'C#',
-  'Javascript',
-  'Kotlin',
-  'Ruby',
-  'Swift',
-  'Scala',
-  'Go',
-];
+import { DUMMY } from '../../constants/GroupCreate/LanguageConst';
+import { LanguageSectionProps } from '../../types/GroupCreate/GroupCreateType';
 
 const ALL_TAG = 'All';
 
-interface LanguageSectionProps {
-  selectedTags: string[];
-  setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
-}
 const LanguageSection = ({
   selectedTags,
   setSelectedTags,
@@ -74,7 +59,7 @@ const LanguageSection = ({
       <DropdownContainer onClick={toggleDropdown}>
         <div>
           {selectedTags.includes(ALL_TAG) ? (
-            <SelectedTagContainer>
+            <SelectedTagContainer key={ALL_TAG}>
               <CommonHashTag
                 selectedTag={ALL_TAG}
                 removeTag={() => removeTag(ALL_TAG)}
@@ -84,9 +69,8 @@ const LanguageSection = ({
             <DropdownText>최대 5개까지 선택해 주세요</DropdownText>
           ) : (
             selectedTags.map((tag, index) => (
-              <SelectedTagContainer>
+              <SelectedTagContainer key={index}>
                 <CommonHashTag
-                  key={index}
                   selectedTag={tag}
                   removeTag={(e) => {
                     if (e) e.stopPropagation();
@@ -151,10 +135,6 @@ const PickTagContainer = styled.div`
 
 const SelectedTagContainer = styled.div`
   display: inline-flex;
-
-  margin-left: 1.1rem;
-
-  background-color: blue;
 `;
 
 const Essential = styled.span`
@@ -168,22 +148,13 @@ const DropdownContainer = styled.div`
 
   width: 100%;
   height: 4.8rem;
+  padding: 1.5rem 2rem 1.4rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 
   cursor: pointer;
 `;
-
-// const DropdownHeader = styled.div`
-//   /* background-color: pink; */
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-
-//   color: ${({ theme }) => theme.colors.gray300};
-//   ${({ theme }) => theme.fonts.body_ligth_16};
-// `;
 
 const DropdownItemContainer = styled.div`
   display: flex;
@@ -228,8 +199,6 @@ const IconContainer = styled.div`
 `;
 
 const DropdownText = styled.p`
-  padding: 1.5rem 2rem 1.4rem;
-
   ${({ theme }) => theme.fonts.body_ligth_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;
