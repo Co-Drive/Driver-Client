@@ -37,6 +37,12 @@ const GroupCreate = () => {
 
   const handleActiveChange = (active: boolean) => {
     setIspublicGroup(active);
+    if (active) {
+      setInputs((prevInputs) => ({
+        ...prevInputs,
+        secretKey: '',
+      }));
+    }
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,11 +62,11 @@ const GroupCreate = () => {
 
   // 모든 데이터가 채워지면 그룹버튼 생성 활성화
   useEffect(() => {
-    const allFiledsFilled = Object.values(inputs).every(
-      (value) => value !== ''
-    );
-    setIsActive(allFiledsFilled);
-  });
+    const allFieldsFilled = (
+      Object.keys(inputs) as Array<keyof typeof inputs>
+    ).every((key) => key === 'secretKey' || inputs[key] !== '');
+    setIsActive(allFieldsFilled || (isPublicGroup && allFieldsFilled));
+  }, [inputs, isPublicGroup]);
 
   return (
     <PageLayout category="group">
