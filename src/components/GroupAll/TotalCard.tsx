@@ -110,7 +110,7 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
         contents: `이더리움과 Solidity를 사용한 블록체인 개발을 다룹니다.`,
       },
     ];
-    setItems(dummyItems.sort(() => Math.random() - 0.5));
+    setItems(dummyItems);
   }, []);
 
   const itemsPerPage = 4;
