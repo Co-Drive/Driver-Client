@@ -15,8 +15,6 @@ import { fetchRecords } from '../utils/fetchRecords';
 
 const SolvePage = () => {
   const { state } = useLocation();
-  const { recordId } = state;
-
   const [records, setRecords] = useState<RecordsTypes>();
 
   const [questionInfo, setQuestionInfo] = useState<QuestionInfoProps>({
@@ -100,14 +98,14 @@ const SolvePage = () => {
   };
 
   useEffect(() => {
-    fetchRecords({ changeRecords: changeRecords, recordId: recordId });
-  }, [recordId]);
+    fetchRecords({ changeRecords: changeRecords, recordId: state.recordId });
+  }, [state]);
 
   return (
     <PageLayout category="문제풀이">
       <SolvePageContainer>
         <PageHeader
-          id={recordId}
+          id={state?.recordId}
           codeblocks={ideItems}
           questionInfo={questionInfo}
         />
