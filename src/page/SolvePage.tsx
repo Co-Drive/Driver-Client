@@ -1,13 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcAddFill, IcAddFillDisabled, IcArrowUpBig } from '../assets';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CodeSpace from '../components/Solve/CodeSpace';
 import PageHeader from '../components/Solve/Header/PageHeader';
-import { ClickQuestionInfoProps, CodeProps } from '../types/Solve/solveTypes';
+import { RecordsTypes } from '../types/Solution/solutionTypes';
+import {
+  ClickQuestionInfoProps,
+  CodeProps,
+  QuestionInfoProps,
+} from '../types/Solve/solveTypes';
+import { fetchRecords } from '../utils/fetchRecords';
 
 const SolvePage = () => {
-  const [questionInfo, setQuestionInfo] = useState({
+  const { state } = useLocation();
+  const { recordId } = state;
+
+  const [records, setRecords] = useState<RecordsTypes>();
+
+  const [questionInfo, setQuestionInfo] = useState<QuestionInfoProps>({
     title: '',
     level: 0,
     tags: [],
@@ -83,10 +95,22 @@ const SolvePage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const changeRecords = (data: RecordsTypes) => {
+    setRecords(data);
+  };
+
+  useEffect(() => {
+    fetchRecords({ changeRecords: changeRecords, recordId: recordId });
+  }, [recordId]);
+
   return (
     <PageLayout category="문제풀이">
       <SolvePageContainer>
-        <PageHeader codeblocks={ideItems} questionInfo={questionInfo} />
+        <PageHeader
+          id={recordId}
+          codeblocks={ideItems}
+          questionInfo={questionInfo}
+        />
 
         <CodeSpace
           ideItems={ideItems}
