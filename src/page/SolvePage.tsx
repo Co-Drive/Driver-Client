@@ -17,6 +17,20 @@ const SolvePage = () => {
   const { state } = useLocation();
   const [records, setRecords] = useState<RecordsTypes>();
 
+  const {
+    title = '',
+    level = 0,
+    tags = [],
+    platform = '',
+    problemUrl = '',
+    codeblocks = [
+      {
+        code: '',
+        memo: '',
+      },
+    ],
+  } = records || {};
+
   const [questionInfo, setQuestionInfo] = useState<QuestionInfoProps>({
     title: '',
     level: 0,
@@ -101,6 +115,27 @@ const SolvePage = () => {
     useEffect(() => {
       fetchRecords({ changeRecords: changeRecords, recordId: state.recordId });
     }, [state]);
+
+    useEffect(() => {
+      if (records) {
+        setQuestionInfo({
+          title: title,
+          level: level,
+          tags: tags,
+          platform: platform,
+          problemUrl: problemUrl,
+        });
+
+        setIde({
+          ideId: 0,
+          ideItems: codeblocks.map((codeblock, idx) => ({
+            id: idx,
+            code: codeblock.code,
+            memo: codeblock.memo,
+          })),
+        });
+      }
+    }, [records]);
   }
 
   return (
