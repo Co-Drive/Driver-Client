@@ -1,4 +1,4 @@
-export interface RecommendGroupProps {
+export interface RecommendCardProps {
   user: string;
   group: Array<{
     nickname: string;
