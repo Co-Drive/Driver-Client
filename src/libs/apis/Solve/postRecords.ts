@@ -1,10 +1,10 @@
-import { PageHeaderProps } from '../../../types/Solve/solveTypes';
+import { PostRecordsProps } from '../../../types/Solve/solveTypes';
 import { api } from '../../api';
 
 export const postRecords = async ({
   questionInfo,
   codeblocks,
-}: PageHeaderProps) => {
+}: PostRecordsProps) => {
   const { title, level, tags, platform, problemUrl } = questionInfo;
 
   const data = await api.post('/records', {
