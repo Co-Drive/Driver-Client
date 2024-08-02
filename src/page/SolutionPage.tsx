@@ -7,46 +7,22 @@ import Memo from '../common/CodeSpace/Memo';
 import PageLayout from '../components/PageLayout/PageLayout';
 import SolutionHeaderBottom from '../components/Solution/Header/SolutionHeaderBottom';
 import SolutionHeaderTop from '../components/Solution/Header/SolutionHeaderTop';
-import { getRecords } from '../libs/apis/Solution/getRecords';
+import { RecordsTypes } from '../types/Solution/solutionTypes';
+import { fetchRecords } from '../utils/fetchRecords';
 
 const SolutionPage = () => {
   const { state } = useLocation();
   const { id } = useParams();
   if (!id) return;
 
-  const [records, setRecords] = useState<{
-    title: string;
-    // date: string;
-    level: number;
-    tags: Array<string>;
-    platform: string;
-    problemUrl: string;
-    codeblocks: Array<{
-      code: string;
-      memo: string;
-    }>;
-  }>();
+  const [records, setRecords] = useState<RecordsTypes>();
 
-  const fetchData = async () => {
-    try {
-      const { data } = await getRecords(parseInt(id));
-      const { title, level, tags, platform, problemUrl, codeblocks } = data;
-      setRecords({
-        title,
-        level,
-        tags,
-        platform,
-        problemUrl,
-        codeblocks,
-      });
-    } catch (err) {
-      // 추후 삭제, navigate 코드로 대체할 예정
-      console.log(err);
-    }
+  const changeRecords = (data: RecordsTypes) => {
+    setRecords(data);
   };
 
   useEffect(() => {
-    fetchData();
+    fetchRecords({ changeRecords: changeRecords, recordId: parseInt(id) });
   }, [id]);
 
   return (
