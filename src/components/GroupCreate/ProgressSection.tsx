@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonTextarea from '../../common/CommonTextarea';
 
@@ -10,6 +11,13 @@ const ProgressSection = ({
   progressValue,
   handleChangeTextarea,
 }: ProgressSectionProps) => {
+  const [charCount, setCharCount] = useState(0);
+  const maxChar = 1000;
+
+  useEffect(() => {
+    setCharCount(progressValue.length);
+  });
+
   return (
     <Section>
       <Label>
@@ -20,6 +28,9 @@ const ProgressSection = ({
         value={progressValue}
         handleChangeTextarea={handleChangeTextarea}
       />
+      <CharCount>
+        {charCount}/{maxChar}
+      </CharCount>
     </Section>
   );
 };
@@ -43,4 +54,14 @@ const Label = styled.label`
 
 const Essential = styled.span`
   color: ${({ theme }) => theme.colors.codrive_purple};
+`;
+
+const CharCount = styled.span`
+  display: flex;
+  justify-content: end;
+
+  margin-top: 0.8rem;
+
+  color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.detail_regular_12};
 `;
