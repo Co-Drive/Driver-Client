@@ -13,18 +13,22 @@ import IcArrowRightFill from './icon/ic_arrow_right_fill.svg?react';
 import IcArrowRightGray from './icon/ic_arrow_right_gray.svg?react';
 import IcArrowRightSmallGray from './icon/ic_arrow_right_small_gray.svg?react';
 import IcArrowTopGray from './icon/ic_arrow_top_gray.svg?react';
+import IcArrowUpBig from './icon/ic_arrow_up_big.svg?react';
 import IcBtnCopy from './icon/ic_btn_copy.svg?react';
 import IcBtnInformation from './icon/ic_btn_information.svg?react';
 import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
+import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
+import IcCode from './icon/ic_code.svg?react';
+import IcGithub from './icon/ic_github.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
 import IcLinkGray from './icon/ic_link_gray.svg?react';
 import IcLinkPurple from './icon/ic_link_purple.svg?react';
 import IcLinkWhite from './icon/ic_link_white.svg?react';
+import IcLoginBig from './icon/ic_login_big.svg?react';
 import IcLoginIcon from './icon/ic_login_Icon.svg?react';
-import IcLoginLogo from './icon/ic_login_logo.svg?react';
 import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
@@ -42,6 +46,7 @@ import IcWorkbook from './icon/ic_workbook.svg?react';
 import Thumbnail from './icon/thumbnail.svg?react';
 
 import BtnHeart from './btn/btn_heart.svg?react';
+import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
 import TestWeekboardStatus from './test_weekboard_status.svg?react';
 
@@ -49,6 +54,8 @@ import TestWeekboardStatus from './test_weekboard_status.svg?react';
 export {
   // btn
   BtnHeart,
+  BtnJoinGitHub,
+  // icon
   BtnShare,
   // icon
   IcAdd,
@@ -64,18 +71,22 @@ export {
   IcArrowRightGray,
   IcArrowRightSmallGray,
   IcArrowTopGray,
+  IcArrowUpBig,
   IcBtnCopy,
   IcBtnInformation,
   IcCancelFill,
   IcCancelSmall,
+  IcCancelSmallWhite,
+  IcCode,
+  IcGithub,
   IcGroup,
   IcHome,
   IcInformation,
   IcLinkGray,
   IcLinkPurple,
   IcLinkWhite,
+  IcLoginBig,
   IcLoginIcon,
-  IcLoginLogo,
   IcLogo,
   IcMemoGray,
   IcMemoWhite,
