@@ -28,7 +28,6 @@ const GroupCreate = () => {
     e: React.ChangeEvent<T>
   ) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setInputs({
       ...inputs,
       [name]: value,
@@ -52,7 +51,6 @@ const GroupCreate = () => {
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result as string);
-        console.log('ㅇㅇㅇ');
       };
       reader.readAsDataURL(file);
       // 파일 입력 필드 초기화

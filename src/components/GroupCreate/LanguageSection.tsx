@@ -29,8 +29,6 @@ const LanguageSection = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
-    console.log('토글다운');
-
     setIsDropdownOpen((prev) => !prev);
   };
 
@@ -46,7 +44,6 @@ const LanguageSection = ({
           ? [...selectedTags.filter((t) => t !== ALL_TAG), tag]
           : [...selectedTags, tag];
         setSelectedTags(newTags);
-        console.log('태그 추가 :', newTags);
 
         if (newTags.length >= 5) {
           toggleDropdown();
@@ -64,11 +61,8 @@ const LanguageSection = ({
   };
 
   const selectAllTags = () => {
-    // setSelectedTags([...DUMMY, ALL_TAG]);
-    // console.log([...DUMMY, ALL_TAG]);
     const allTags = [...DUMMY, ALL_TAG];
     setSelectedTags(allTags);
-    console.log('ALL 태그 모두 선택:', allTags);
     toggleDropdown(); // 드롭다운 닫기
   };
 
@@ -147,7 +141,6 @@ const Label = styled.label`
 
   margin-bottom: 1.8rem;
 
-  background-color: blue;
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
 `;
