@@ -15,7 +15,7 @@ const TitleSection = ({
   return (
     <Section>
       <Label>
-        그룹 제목 <Essential>*</Essential>
+        그룹 제목<Essential>*</Essential>
         <EssentialText>최대 20자 이내로 입력해주세요</EssentialText>
         <CommonInput
           category="title"
@@ -60,5 +60,7 @@ const Label = styled.label`
 `;
 
 const Essential = styled.span`
+  margin-left: 0.6rem;
+
   color: ${({ theme }) => theme.colors.codrive_purple};
 `;
