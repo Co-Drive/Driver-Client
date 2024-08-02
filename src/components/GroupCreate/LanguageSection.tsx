@@ -17,8 +17,15 @@ const DUMMY = [
 ];
 
 const ALL_TAG = 'All';
-const LanguageSection = () => {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+interface LanguageSectionProps {
+  selectedTags: string[];
+  setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+}
+const LanguageSection = ({
+  selectedTags,
+  setSelectedTags,
+}: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -149,7 +156,6 @@ const DropdownContainer = styled.div`
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 
-  /* background-color: pink; */
   cursor: pointer;
 `;
 
@@ -173,16 +179,6 @@ const DropdownItemContainer = styled.div`
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
   cursor: pointer;
-`;
-
-const AllButton = styled.div`
-  padding: 0.6rem 1rem;
-
-  border-radius: 0.4rem;
-  background-color: ${({ theme }) => theme.colors.gray500};
-  color: ${({ theme }) => theme.colors.gray200};
-  cursor: pointer;
-  ${({ theme }) => theme.fonts.body_eng_medium_12};
 `;
 
 const Borderline = styled.div`
@@ -213,8 +209,6 @@ const IconContainer = styled.div`
   align-items: center;
 
   margin-right: 1.2rem;
-
-  /* background-color: blue; */
 `;
 
 const DropdownText = styled.p`
@@ -237,8 +231,4 @@ const Label = styled.label`
 
 const Essential = styled.span`
   color: ${({ theme }) => theme.colors.codrive_purple};
-`;
-
-const HashTagContainer = styled.div`
-  margin-left: 1.6rem;
 `;

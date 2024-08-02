@@ -22,6 +22,7 @@ const GroupCreate = () => {
   const [isPublicGroup, setIspublicGroup] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -53,6 +54,7 @@ const GroupCreate = () => {
     }
   };
 
+  // 모든 데이터가 채워지면 그룹버튼 생성 활성화
   useEffect(() => {
     const allFiledsFilled = Object.values(inputs).every(
       (value) => value !== ''
@@ -80,7 +82,10 @@ const GroupCreate = () => {
           recruitedValue={inputs.num}
           handleMemberCountChange={handleChangeInputs}
         />
-        <LanguageSection />
+        <LanguageSection
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
         <IntroSection
           introValue={inputs.intro}
           handleChangeTextarea={handleChangeInputs}
