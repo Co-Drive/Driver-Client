@@ -97,9 +97,11 @@ const SolvePage = () => {
     setRecords(data);
   };
 
-  useEffect(() => {
-    fetchRecords({ changeRecords: changeRecords, recordId: state.recordId });
-  }, [state]);
+  if (state) {
+    useEffect(() => {
+      fetchRecords({ changeRecords: changeRecords, recordId: state.recordId });
+    }, [state]);
+  }
 
   return (
     <PageLayout category="문제풀이">
