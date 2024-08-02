@@ -31,6 +31,7 @@ const SolutionPage = () => {
         <SolutionPageContainer>
           <SolutionPageHeader>
             <SolutionHeaderTop
+              recordId={parseInt(id)}
               followerInfo={state}
               title={records.title}
               date={'2024.07.23'}
