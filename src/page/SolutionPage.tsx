@@ -17,6 +17,20 @@ const SolutionPage = () => {
 
   const [records, setRecords] = useState<RecordsTypes>();
 
+  const {
+    title = '',
+    level = 0,
+    tags = [],
+    platform = '',
+    problemUrl = '',
+    codeblocks = [
+      {
+        code: '',
+        memo: '',
+      },
+    ],
+  } = records || {};
+
   const changeRecords = (data: RecordsTypes) => {
     setRecords(data);
   };
@@ -33,21 +47,21 @@ const SolutionPage = () => {
             <SolutionHeaderTop
               recordId={parseInt(id)}
               followerInfo={state}
-              title={records.title}
+              title={title}
               date={'2024.07.23'}
-              paintedStarArr={Array(records.level)
+              paintedStarArr={Array(level)
                 .fill(1)
-                .concat(Array(5 - records.level).fill(0))}
+                .concat(Array(5 - level).fill(0))}
             />
 
             <SolutionHeaderBottom
-              tags={records.tags}
-              platform={records.platform}
-              problemUrl={records.problemUrl}
+              tags={tags}
+              platform={platform}
+              problemUrl={problemUrl}
             />
           </SolutionPageHeader>
 
-          {records.codeblocks.map((codeblock, idx) => {
+          {codeblocks.map((codeblock, idx) => {
             const { code, memo } = codeblock;
             return (
               <CodeBlckContainer key={idx} $isFirstCodeBlock={idx === 0}>
