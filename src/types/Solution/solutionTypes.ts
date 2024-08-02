@@ -10,3 +10,14 @@ export interface RecordsTypes {
     memo: string;
   }>;
 }
+
+export interface SolutionHeaderTopProps {
+  recordId: number;
+  followerInfo?: {
+    profileImg: string;
+    nickname: string;
+  };
+  title: string;
+  date: string;
+  paintedStarArr: Array<number>;
+}
