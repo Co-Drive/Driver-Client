@@ -113,21 +113,18 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
     setItems(dummyItems.sort(() => Math.random() - 0.5));
   }, []);
 
-  // 다음 슬라이드로 이동
+  const itemsPerPage = 4;
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % Math.ceil(items.length / 4));
+    setCurrentSlide((prev) => (prev + 1) % totalPages);
   };
 
-  // 이전 슬라이드로 이동
   const prevSlide = () => {
-    setCurrentSlide(
-      (prev) =>
-        (prev - 1 + Math.ceil(items.length / 4)) % Math.ceil(items.length / 4)
-    );
+    setCurrentSlide((prev) => (prev - 1 + totalPages) % totalPages);
   };
 
   const handleClickItem = (id: number) => {
-    // 서버와 통신하는 코드로 대체할 예정
     console.log('click!', id);
   };
 
@@ -146,22 +143,30 @@ const TotalCard = ({ item = [] }: TotalCardProps) => {
         </CarouselButton>
         <CarouselWrapper>
           <CarouselContent $currentSlide={currentSlide}>
-            {Array.from({ length: Math.ceil(items.length / 4) }, (_, index) => (
+            {Array.from({ length: totalPages }, (_, index) => (
               <CarouselSlide key={index}>
-                {items.slice(index * 4, index * 4 + 4).map((card) => {
-                  const { id, tags, title, contents } = card;
-                  return (
-                    <CarouselItem key={id} onClick={() => handleClickItem(id)}>
-                      <TagContainer>
-                        {tags.map((tag, tagIndex) => (
-                          <Tag key={tagIndex}>{tag}</Tag>
-                        ))}
-                      </TagContainer>
-                      <Title>{title}</Title>
-                      <Introduce>{contents}</Introduce>
-                    </CarouselItem>
-                  );
-                })}
+                {items
+                  .slice(
+                    index * itemsPerPage,
+                    index * itemsPerPage + itemsPerPage
+                  )
+                  .map((card) => {
+                    const { id, tags, title, contents } = card;
+                    return (
+                      <CarouselItem
+                        key={id}
+                        onClick={() => handleClickItem(id)}
+                      >
+                        <TagContainer>
+                          {tags.map((tag, tagIndex) => (
+                            <Tag key={tagIndex}>{tag}</Tag>
+                          ))}
+                        </TagContainer>
+                        <Title>{title}</Title>
+                        <Introduce>{contents}</Introduce>
+                      </CarouselItem>
+                    );
+                  })}
               </CarouselSlide>
             ))}
           </CarouselContent>
@@ -178,7 +183,7 @@ export default TotalCard;
 
 const TotalContainer = styled.div`
   width: 100%;
-  max-width: 99.8rem; /* 화면 크기에 따라 조정 가능 */
+  max-width: 99.8rem;
 
   margin: 0 auto;
 `;
@@ -243,7 +248,7 @@ const CarouselItem = styled.div`
   height: 14.5rem;
   padding: 2.2rem 1.8rem;
 
-  border-radius: 10px;
+  border-radius: 1.2rem;
   background-color: #333;
   color: #fff;
 `;
