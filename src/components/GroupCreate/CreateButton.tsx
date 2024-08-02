@@ -7,11 +7,7 @@ interface CreateButtonProps {
 
 const CreateButton = ({ isActive }: CreateButtonProps) => {
   const handleCreateButtonClick = () => {
-    if (isActive) {
       console.log('navigator 로 이동 로직 구현');
-    } else {
-      console.log('모든 필드 채워주세요');
-    }
   };
 
   return (
