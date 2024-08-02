@@ -77,18 +77,20 @@ const LanguageSection = ({
       <Label>
         사용 언어 <Essential>*</Essential>
       </Label>
-      <div>
-        <DropdownContainer onClick={toggleDropdown}>
-          <div>
-            {selectedTags.includes(ALL_TAG) ? (
+      <DropdownContainer onClick={toggleDropdown}>
+        <div>
+          {selectedTags.includes(ALL_TAG) ? (
+            <SelectedTagContainer>
               <CommonHashTag
                 selectedTag={ALL_TAG}
                 removeTag={() => removeTag(ALL_TAG)}
               />
-            ) : selectedTags.length === 0 ? (
-              <DropdownText>최대 5개까지 선택해 주세요</DropdownText>
-            ) : (
-              selectedTags.map((tag, index) => (
+            </SelectedTagContainer>
+          ) : selectedTags.length === 0 ? (
+            <DropdownText>최대 5개까지 선택해 주세요</DropdownText>
+          ) : (
+            selectedTags.map((tag, index) => (
+              <SelectedTagContainer>
                 <CommonHashTag
                   key={index}
                   selectedTag={tag}
@@ -97,34 +99,32 @@ const LanguageSection = ({
                     removeTag(tag);
                   }}
                 />
-              ))
-            )}
-          </div>
-          <IconContainer>
-            <IcArrowBottomGray />
-          </IconContainer>
-        </DropdownContainer>
-      </div>
+              </SelectedTagContainer>
+            ))
+          )}
+        </div>
+        <IconContainer>
+          <IcArrowBottomGray />
+        </IconContainer>
+      </DropdownContainer>
       {isDropdownOpen && (
         <DropdownItemContainer>
-          <div>
-            <DropdownItem
-              $isSelected={selectedTags.includes(ALL_TAG)}
-              onClick={selectAllTags}
-            >
-              {ALL_TAG}
-            </DropdownItem>
-          </div>
+          <DropdownItem
+            $isSelected={selectedTags.includes(ALL_TAG)}
+            onClick={selectAllTags}
+          >
+            {ALL_TAG}
+          </DropdownItem>
           <Borderline />
           {DUMMY.map((tag) => (
-            <Container key={tag}>
+            <PickTagContainer key={tag}>
               <DropdownItem
                 $isSelected={selectedTags.includes(tag)}
                 onClick={() => addTag(tag)}
               >
                 {tag}
               </DropdownItem>
-            </Container>
+            </PickTagContainer>
           ))}
         </DropdownItemContainer>
       )}
@@ -140,8 +140,32 @@ const Section = styled.section`
   margin-top: 4rem;
 `;
 
-const Container = styled.div`
+const Label = styled.label`
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+
+  margin-bottom: 1.8rem;
+
+  background-color: blue;
+  ${({ theme }) => theme.fonts.title_bold_20};
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+const PickTagContainer = styled.div`
   margin-bottom: 1rem;
+`;
+
+const SelectedTagContainer = styled.div`
+  display: inline-flex;
+
+  margin-left: 1.1rem;
+
+  background-color: blue;
+`;
+
+const Essential = styled.span`
+  color: ${({ theme }) => theme.colors.codrive_purple};
 `;
 
 const DropdownContainer = styled.div`
@@ -151,7 +175,6 @@ const DropdownContainer = styled.div`
 
   width: 100%;
   height: 4.8rem;
-  padding: 1.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
@@ -183,7 +206,7 @@ const DropdownItemContainer = styled.div`
 
 const Borderline = styled.div`
   width: 100%;
-  height: 1px;
+  height: 0.1rem;
   margin: 1.2rem 0;
 
   background-color: ${({ theme }) => theme.colors.gray500};
@@ -216,19 +239,4 @@ const DropdownText = styled.p`
 
   ${({ theme }) => theme.fonts.body_ligth_16};
   color: ${({ theme }) => theme.colors.gray300};
-`;
-
-const Label = styled.label`
-  display: flex;
-  gap: 0.6rem;
-  align-items: center;
-
-  margin-bottom: 1.8rem;
-
-  ${({ theme }) => theme.fonts.title_bold_20};
-  color: ${({ theme }) => theme.colors.white};
-`;
-
-const Essential = styled.span`
-  color: ${({ theme }) => theme.colors.codrive_purple};
 `;
