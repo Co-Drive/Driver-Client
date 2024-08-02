@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 import CommonInput from '../../common/CommonInput';
-
-interface TitleSectionProps {
-  titleValue: string;
-  recruitedValue: string;
-  handleMemberCountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { TitleSectionProps } from '../../types/GroupCreate/GroupCreateType';
 
 const TitleSection = ({
   titleValue,

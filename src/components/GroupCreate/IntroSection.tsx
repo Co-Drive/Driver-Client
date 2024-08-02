@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonTextarea from '../../common/CommonTextarea';
-
-interface IntroSectionProps {
-  introValue: string;
-  handleChangeTextarea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
+import { IntroSectionProps } from '../../types/GroupCreate/GroupCreateType';
 
 const IntroSection = ({
   introValue,

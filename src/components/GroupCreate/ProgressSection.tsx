@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonTextarea from '../../common/CommonTextarea';
-
-interface ProgressSectionProps {
-  progressValue: string;
-  handleChangeTextarea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
+import { ProgressSectionProps } from '../../types/GroupCreate/GroupCreateType';
 
 const ProgressSection = ({
   progressValue,

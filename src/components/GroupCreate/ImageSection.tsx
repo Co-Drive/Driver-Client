@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import { IcAddPhoto } from '../../assets';
-
-interface ImageSectionProps {
-  previewImage: string | null;
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import { ImageSectionProps } from '../../types/GroupCreate/GroupCreateType';
 
 const ImageSection = ({
   previewImage,
@@ -63,8 +59,6 @@ const ImageContainer = styled.div`
 
   input {
     display: none;
-
-    /* input 요소 숨기기 */
   }
 `;
 
