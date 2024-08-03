@@ -5,10 +5,11 @@ import { GroupVisibilityBtnProps } from '../types/GroupVisibility/groupType';
 const GroupVisibilityBtn = ({
   isVisible,
   isActive,
+  onClick,
 }: GroupVisibilityBtnProps) => {
   return (
-    <Button type="button" $isActive={isActive}>
-      <ContentsContainer>
+    <Button onClick={onClick} type="button" $isActive={isActive}>
+      <ContentsContainer $isVisible={isVisible}>
         <IconContainer>
           {isVisible && isActive && <IcUnlockWhite />}
           {isVisible && !isActive && <IcUnlockGray />}
@@ -26,12 +27,14 @@ export default GroupVisibilityBtn;
 const Button = styled.button<{ $isActive: boolean }>`
   padding: 1.5rem 1.6rem 1.4rem;
 
+  max-height: 5.3rem;
+
   border-radius: 0.8rem;
   background-color: ${({ theme, $isActive }) =>
     $isActive ? theme.colors.gray500 : theme.colors.gray700};
 `;
 
-const ContentsContainer = styled.div`
+const ContentsContainer = styled.div<{ $isVisible: boolean }>`
   display: flex;
   gap: 0.6rem;
   justify-content: center;
