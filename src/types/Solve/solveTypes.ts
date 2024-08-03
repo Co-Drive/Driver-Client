@@ -80,6 +80,10 @@ export interface PostRecordsProps {
   codeblocks: Array<{ id: number; code: string; memo: string }>;
 }
 
+export interface PatchRecordsProps extends PostRecordsProps {
+  id: number;
+}
+
 export interface PageHeaderProps extends PostRecordsProps {
   id?: number;
 }
