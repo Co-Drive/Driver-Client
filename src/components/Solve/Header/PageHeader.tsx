@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import SaveModal from '../../../common/Modal/Modal';
+import { patchRecords } from '../../../libs/apis/Solve/patchRecords';
 import { postRecords } from '../../../libs/apis/Solve/postRecords';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
@@ -18,16 +19,24 @@ const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
     if (isSaveBtn) {
       setModalOpen(true);
     } else {
-      if (id) {
-        console.log('patch');
-      } else {
-        const { data } = await postRecords({
-          questionInfo: questionInfo,
-          codeblocks: codeblocks,
-        });
+      try {
+        const { data } = id
+          ? await patchRecords({
+              id: id,
+              questionInfo: questionInfo,
+              codeblocks: codeblocks,
+            })
+          : await postRecords({
+              questionInfo: questionInfo,
+              codeblocks: codeblocks,
+            });
 
         const { recordId } = data;
-        recordId && navigate(`/solution/${recordId}`);
+        recordId
+          ? navigate(`/solution/${recordId}`)
+          : navigate(`/solution/${id}`);
+      } catch {
+        navigate('/error');
       }
     }
   };
