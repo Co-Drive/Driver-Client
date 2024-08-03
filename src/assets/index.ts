@@ -27,6 +27,7 @@ import IcInformation from './icon/ic_information.svg?react';
 import IcLinkGray from './icon/ic_link_gray.svg?react';
 import IcLinkPurple from './icon/ic_link_purple.svg?react';
 import IcLinkWhite from './icon/ic_link_white.svg?react';
+import IcLoginBig from './icon/ic_login_big.svg?react';
 import IcLoginIcon from './icon/ic_login_Icon.svg?react';
 import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
@@ -45,6 +46,7 @@ import IcWorkbook from './icon/ic_workbook.svg?react';
 import Thumbnail from './icon/thumbnail.svg?react';
 
 import BtnHeart from './btn/btn_heart.svg?react';
+import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
 import TestWeekboardStatus from './test_weekboard_status.svg?react';
 
@@ -52,6 +54,8 @@ import TestWeekboardStatus from './test_weekboard_status.svg?react';
 export {
   // btn
   BtnHeart,
+  BtnJoinGitHub,
+  // icon
   BtnShare,
   // icon
   IcAdd,
@@ -81,6 +85,7 @@ export {
   IcLinkGray,
   IcLinkPurple,
   IcLinkWhite,
+  IcLoginBig,
   IcLoginIcon,
   IcLogo,
   IcMemoGray,
