@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { RecommendCardProps } from './../../types/GroupAll/GroupAllType';
+import { RecommendCardProps } from '../../types/GroupAll/RecommendCardType';
 
 const RecommendCard = ({ group }: RecommendCardProps) => {
   const handleClickCard = (id: number) => {
@@ -7,7 +7,7 @@ const RecommendCard = ({ group }: RecommendCardProps) => {
   };
 
   return (
-    <Container>
+    <RecommendCardContainer>
       {group.map((card) => {
         const { nickname, imgSrc, profile, num, title, content, tags } = card;
 
@@ -36,18 +36,16 @@ const RecommendCard = ({ group }: RecommendCardProps) => {
           </CardContainer>
         );
       })}
-    </Container>
+    </RecommendCardContainer>
   );
 };
 
-const Container = styled.article`
+const RecommendCardContainer = styled.article`
   display: grid;
   gap: 4rem 1.8rem;
   grid-template-columns: repeat(3, 1fr);
 
   width: 100%;
-  max-height: 58.2rem;
-  overflow-y: auto;
 
   &::-webkit-scrollbar {
     display: none;
@@ -109,9 +107,10 @@ const Text = styled.p`
 const CardBody = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
 
-  padding-bottom: 2rem;
+  height: 8.7rem;
+
+  flex: 1;
 `;
 
 const CardTitle = styled.h3`
@@ -134,6 +133,8 @@ const CardContent = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
 
+  height: 5.3rem;
+
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_ligth_12};
   flex: 1;
@@ -143,7 +144,7 @@ const CardTags = styled.div`
   display: flex;
   gap: 1rem;
 
-  margin-top: auto;
+  padding-top: 2rem;
 `;
 
 const Tag = styled.p`
