@@ -15,7 +15,7 @@ import { fetchRecords } from '../utils/fetchRecords';
 
 const SolvePage = () => {
   const { state } = useLocation();
-  const {recordId} = state || {};
+  const { recordId } = state || {};
   const [records, setRecords] = useState<RecordsTypes>();
 
   const {
