@@ -35,8 +35,9 @@ const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
         recordId
           ? navigate(`/solution/${recordId}`)
           : navigate(`/solution/${id}`);
-      } catch {
-        navigate('/error');
+      } catch (err) {
+        // 추후 에러 페이지로 이동
+        console.log(err);
       }
     }
   };
