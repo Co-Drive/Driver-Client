@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import RecommendCard from '../components/GroupAll/RecommendCard';
+import RecommendCard from '../common/RecommendCard';
 import RecommendTitle from '../components/GroupAll/RecommendTitle';
 import TotalCard from '../components/GroupAll/TotalCard';
 import PageLayout from '../components/PageLayout/PageLayout';

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { RecommendCardProps } from '../../types/GroupAll/RecommendCardType';
+import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 
 const RecommendCard = ({ group }: RecommendCardProps) => {
   const handleClickCard = (id: number) => {
