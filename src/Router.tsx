@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import FollowerCurrentPage from './page/FollowerCurrentPage';
 import FollowerPage from './page/FollowerPage';
 import GroupComplete from './page/GroupComplete';
+import GroupCreate from './page/GroupCreate';
 import GroupJoin from './page/GroupJoin';
 import Home from './page/Home';
 import LoginPage from './page/LoginPage';
@@ -15,7 +16,7 @@ const Router = () => {
         <Route path="/" element={<Home />} />
         <Route path="/group" />
         <Route path="/group/:id" />
-        <Route path="/group-new" />
+        <Route path="/group-new" element={<GroupCreate />} />
         <Route path="/my-group" />
         <Route path="/group-join" element={<GroupJoin />} />
         <Route path="/group-complete" element={<GroupComplete />} />

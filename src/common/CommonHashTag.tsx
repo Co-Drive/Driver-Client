@@ -3,9 +3,9 @@ import { IcCancelSmall } from '../assets';
 import { CommonHashTagProps } from './../types/CommonHashTag/inputType';
 
 const CommonHashTag = ({ selectedTag, removeTag }: CommonHashTagProps) => (
-  <TagContainer>
+  <TagContainer onClick={removeTag}>
     {selectedTag}
-    <IcCancelSmall onClick={removeTag} />
+    <IcCancelSmall />
   </TagContainer>
 );
 
