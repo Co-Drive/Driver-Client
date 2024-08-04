@@ -26,7 +26,7 @@ export default CommonTextarea;
 
 const CommonTextareaWrapper = styled.article<{ $textareaType: boolean }>`
   width: 61.1rem;
-  height: ${({ $textareaType }) => ($textareaType ? `10rem` : `30rem`)};
+  height: ${({ $textareaType }) => ($textareaType ? '30rem' : '10rem')};
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
