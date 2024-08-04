@@ -5,6 +5,7 @@ import IcAddBlack from './icon/ic_add_black.svg?react';
 import IcAddFill from './icon/ic_add_fill.svg?react';
 import IcAddFillDisabled from './icon/ic_add_fill_disabled.svg?react';
 import IcAddGray from './icon/ic_add_gray.svg?react';
+import IcAddPhoto from './icon/ic_add_photo.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
 import IcArrowLeftSmallGray from './icon/ic_arrow_left_small_gray.svg?react';
@@ -63,6 +64,7 @@ export {
   IcAddFill,
   IcAddFillDisabled,
   IcAddGray,
+  IcAddPhoto,
   IcArrowBottomGray,
   IcArrowLeftFill,
   IcArrowLeftSmallGray,
