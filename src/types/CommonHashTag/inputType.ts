@@ -1,4 +1,4 @@
 export interface CommonHashTagProps {
   selectedTag: string;
-  removeTag: () => void;
+  removeTag: (event?: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
 }
