@@ -4,6 +4,9 @@ import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 const RecommendCard = ({ group }: RecommendCardProps) => {
   const handleClickCard = (id: number) => {
     /* 페이지 이동 */
+
+    // 추후 수정해주세요 !!
+    console.log(id);
   };
 
   return (
