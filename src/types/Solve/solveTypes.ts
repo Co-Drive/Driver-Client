@@ -39,12 +39,14 @@ export interface MemoProps {
 
 export interface HeaderTopProps extends ClickQuestionInfoFnProps {
   title: string;
+  level: number;
 }
 
 export interface CodeSpaceHeaderProps extends ClickQuestionInfoFnProps {
   questionInfo: {
     title: string;
     tags: Array<string>;
+    level: number;
     platform: string;
     problemUrl: string;
   };
@@ -58,7 +60,15 @@ export interface CodeSpaceProps
   handleClickDeleteBtn: (id: number) => void;
 }
 
-export interface PageHeaderProps {
+export interface QuestionInfoProps {
+  title: string;
+  level: number;
+  tags: Array<string>;
+  platform: string;
+  problemUrl: string;
+}
+
+export interface PostRecordsProps {
   questionInfo: {
     title: string;
     level: number;
@@ -68,6 +78,14 @@ export interface PageHeaderProps {
   };
 
   codeblocks: Array<{ id: number; code: string; memo: string }>;
+}
+
+export interface PatchRecordsProps extends PostRecordsProps {
+  id: number;
+}
+
+export interface PageHeaderProps extends PostRecordsProps {
+  id?: number;
 }
 
 export interface HeaderBottomProps extends ClickQuestionInfoFnProps {

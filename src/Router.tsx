@@ -21,7 +21,7 @@ const Router = () => {
         <Route path="/group-join" element={<GroupJoin />} />
         <Route path="/group-complete" element={<GroupComplete />} />
         <Route path="/solve" element={<SolvePage />} />
-        <Route path="/solution" element={<SolutionPage />} />
+        <Route path="/solution/:id" element={<SolutionPage />} />
         <Route path="/follower" element={<FollowerCurrentPage />} />
         <Route path="/follower/:id" element={<FollowerPage />} />
         <Route path="/login" element={<LoginPage />} />

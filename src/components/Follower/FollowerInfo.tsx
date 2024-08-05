@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { IcGithub } from '../../assets';
+import { handleClickLink } from '../../utils/handleClickLink';
 
 interface FollowerInfoProps {
   info: {
@@ -16,10 +17,6 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
   const { profileImg, nickname, isFollowed, introduce, language, github } =
     info;
 
-  const handleClickIcGithub = () => {
-    window.open(github);
-  };
-
   return (
     <FollowerContainer>
       <Img src={profileImg} />
@@ -33,7 +30,7 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
         <Introduce>{introduce}</Introduce>
         <BottomInfoContainer>
           <Language>{`#${language}`}</Language>
-          <IcGithub onClick={handleClickIcGithub} />
+          <IcGithub onClick={() => handleClickLink(github)} />
         </BottomInfoContainer>
       </InfoContainer>
     </FollowerContainer>
