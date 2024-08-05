@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import SaveModal from '../../../common/Modal/Modal';
+import { patchRecords } from '../../../libs/apis/Solve/patchRecords';
 import { postRecords } from '../../../libs/apis/Solve/postRecords';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
-const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
+const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -18,13 +19,26 @@ const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
     if (isSaveBtn) {
       setModalOpen(true);
     } else {
-      const { data } = await postRecords({
-        questionInfo: questionInfo,
-        codeblocks: codeblocks,
-      });
+      try {
+        const { data } = id
+          ? await patchRecords({
+              id: id,
+              questionInfo: questionInfo,
+              codeblocks: codeblocks,
+            })
+          : await postRecords({
+              questionInfo: questionInfo,
+              codeblocks: codeblocks,
+            });
 
-      const { recordId } = data;
-      recordId && navigate(`/solution/${recordId}`);
+        const { recordId } = data;
+        recordId
+          ? navigate(`/solution/${recordId}`)
+          : navigate(`/solution/${id}`);
+      } catch (err) {
+        // 추후 에러 페이지로 이동
+        console.log(err);
+      }
     }
   };
 
