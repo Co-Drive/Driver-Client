@@ -15,7 +15,6 @@ const RegisterPage = () => {
     intro: '',
   });
 
-  const [isExitedNickname, setIsExitedNickname] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('');
 
@@ -57,19 +56,17 @@ const RegisterPage = () => {
       nickname.length <= 10 &&
       intro.length > 0 &&
       intro.length <= 30 &&
-      !isExitedNickname &&
       github.length > 0 &&
       selectedLanguage.length > 0;
 
     setIsActive(isFormValid);
-  }, [nickname, isExitedNickname, selectedLanguage, intro, github]);
+  }, [nickname, selectedLanguage, intro, github]);
 
   return (
     <PageLayout category={'login'}>
       <RegisterContainer onSubmit={handleJoinBtnClick}>
         <NickName
           nickname={nickname}
-          isExitedNickname={isExitedNickname}
           handleChangeInputs={handleChangeInputs}
           handleNicknameCheck={handleNicknameCheck}
         />

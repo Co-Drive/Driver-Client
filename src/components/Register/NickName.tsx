@@ -5,7 +5,7 @@ import CommonInput from './../../common/CommonInput';
 
 const NickName = ({
   nickname,
-  isExitedNickname,
+
   handleChangeInputs,
   handleNicknameCheck,
 }: NickNameProps) => {
@@ -19,7 +19,6 @@ const NickName = ({
         <CommonInput
           category="nickname"
           value={nickname}
-          isExitedNickname={isExitedNickname}
           handleChangeInputs={handleChangeInputs}
         />
         <Button type="button" onClick={handleNicknameCheck}>
