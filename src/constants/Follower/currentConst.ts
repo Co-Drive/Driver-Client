@@ -5,6 +5,7 @@ export const SORTING = ['최신순', '|', '가나다순'];
 export const DUMMY = {
   followers: [
     {
+      id: 1,
       profile: {
         imgSrc: 'https://avatars.githubusercontent.com/u/80264647?v=4',
         nickname: '닉네임은총열글자입니',
@@ -41,6 +42,7 @@ export const DUMMY = {
       ],
     },
     {
+      id: 2,
       profile: {
         imgSrc:
           'https://i.pinimg.com/236x/b7/cd/1a/b7cd1acf6dc183795741c1c5ead481fd.jpg',
@@ -78,6 +80,7 @@ export const DUMMY = {
       ],
     },
     {
+      id: 3,
       profile: {
         imgSrc:
           'https://i.pinimg.com/236x/b8/03/af/b803afd5c604e555159e683072e4ca31.jpg',
@@ -115,6 +118,7 @@ export const DUMMY = {
       ],
     },
     {
+      id: 4,
       profile: {
         imgSrc:
           'https://i.pinimg.com/236x/df/13/e6/df13e6bfcd025ef8bc865b14b530f300.jpg',
@@ -153,6 +157,7 @@ export const DUMMY = {
     },
 
     {
+      id: 5,
       profile: {
         imgSrc:
           'https://i.pinimg.com/236x/a7/6a/47/a76a47686480dcfdd9a19043dbd99171.jpg',
@@ -191,6 +196,7 @@ export const DUMMY = {
     },
 
     {
+      id: 6,
       profile: {
         imgSrc:
           'https://i.pinimg.com/564x/35/ea/46/35ea46d7ff554bdd4f47f52b7f535f5e.jpg',

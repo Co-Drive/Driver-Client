@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   BtnHeart,
@@ -9,24 +10,17 @@ import {
   IcStarGreen,
 } from '../../../assets';
 import Modal from '../../../common/Modal/Modal';
+import { SolutionHeaderTopProps } from '../../../types/Solution/solutionTypes';
 import { handleCopyClipBoard } from '../../../utils/handleCopyClipBoard';
 
-export interface SolutionHeaderTopProps {
-  followerInfo?: {
-    profileImg: string;
-    nickname: string;
-  };
-  title: string;
-  date: string;
-  paintedStarArr: Array<number>;
-}
-
 const SolutionHeaderTop = ({
+  recordId,
   followerInfo,
   title,
   date,
   paintedStarArr,
 }: SolutionHeaderTopProps) => {
+  const navigate = useNavigate();
   const [isCopied, setIsCopied] = useState(false);
 
   const handleClickShareBtn = () => {
@@ -36,6 +30,10 @@ const SolutionHeaderTop = ({
     setTimeout(() => {
       setIsCopied(false);
     }, 1000);
+  };
+
+  const handleClickModifyBtn = () => {
+    navigate('/solve', { state: { recordId: recordId } });
   };
 
   return (
@@ -87,7 +85,9 @@ const SolutionHeaderTop = ({
         {!followerInfo && (
           <BtnContainer>
             <RemoveBtn type="button">삭제하기</RemoveBtn>
-            <ModifyBtn type="button">수정하기</ModifyBtn>
+            <ModifyBtn type="button" onClick={handleClickModifyBtn}>
+              수정하기
+            </ModifyBtn>
           </BtnContainer>
         )}
       </BottomContainer>
