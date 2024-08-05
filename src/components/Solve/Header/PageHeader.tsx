@@ -1,29 +1,45 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import SaveModal from '../../../common/Modal/Modal';
+import { patchRecords } from '../../../libs/apis/Solve/patchRecords';
+import { postRecords } from '../../../libs/apis/Solve/postRecords';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
-const PageHeader = ({ codeblocks, questionInfo }: PageHeaderProps) => {
+const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
+  const navigate = useNavigate();
   const { title, level, tags, platform, problemUrl } = questionInfo;
   const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
-  const DATA = {
-    title: title,
-    level: level,
-    tags: tags,
-    platform: platform,
-    problemUrl: problemUrl,
-    // id 제외, 나머지 값만 저장하기
-    codeblocks: codeblocks.map(({ id, ...rest }) => rest),
-  };
 
-  const handleClickBtn = (isSaveBtn: boolean) => {
-    if (isSaveBtn) setModalOpen(true);
-    // 서버 통신 코드로 바꿀 예정
-    console.log(DATA);
+  const handleClickBtn = async (isSaveBtn: boolean) => {
+    if (isSaveBtn) {
+      setModalOpen(true);
+    } else {
+      try {
+        const { data } = id
+          ? await patchRecords({
+              id: id,
+              questionInfo: questionInfo,
+              codeblocks: codeblocks,
+            })
+          : await postRecords({
+              questionInfo: questionInfo,
+              codeblocks: codeblocks,
+            });
+
+        const { recordId } = data;
+        recordId
+          ? navigate(`/solution/${recordId}`)
+          : navigate(`/solution/${id}`);
+      } catch (err) {
+        // 추후 에러 페이지로 이동
+        console.log(err);
+      }
+    }
   };
 
   return (

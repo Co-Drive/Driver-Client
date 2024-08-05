@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IcInformation, IcStarGray, IcStarGreen } from '../../../assets';
 import { HeaderTopProps } from '../../../types/Solve/solveTypes';
 
-const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
+const HeaderTop = ({
+  title,
+  level,
+  handleClickQuestionInfo,
+}: HeaderTopProps) => {
   const [selectedStar, setSelectedStar] = useState(Array(5).fill(0));
 
   const handleClickIc = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -15,6 +19,14 @@ const HeaderTop = ({ title, handleClickQuestionInfo }: HeaderTopProps) => {
         .concat(Array(5 - value).fill(0))
     );
   };
+
+  useEffect(() => {
+    setSelectedStar(
+      Array(level)
+        .fill(1)
+        .concat(Array(5 - level).fill(0))
+    );
+  }, [level]);
 
   return (
     <HeaderTopContainer>

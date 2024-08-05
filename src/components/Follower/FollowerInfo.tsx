@@ -1,23 +1,27 @@
+// import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcGithub } from '../../assets';
-
-interface FollowerInfoProps {
-  info: {
-    profileImg: string;
-    nickname: string;
-    isFollowed: boolean;
-    introduce: string;
-    language: string;
-    github: string;
-  };
-}
+import { deleteFollower } from '../../libs/apis/Follower/deleteFollower';
+import { postFollower } from '../../libs/apis/Follower/postFollower';
+import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
+import { handleClickLink } from '../../utils/handleClickLink';
 
 const FollowerInfo = ({ info }: FollowerInfoProps) => {
   const { profileImg, nickname, isFollowed, introduce, language, github } =
     info;
 
-  const handleClickIcGithub = () => {
-    window.open(github);
+  const handleClickFollowBtn = async () => {
+    try {
+      isFollowed ? await deleteFollower('문주') : await postFollower('문주');
+
+      // 추후 아래 코드로 변경할 예정
+      // isFollowed ? await deleteFollower(nickname) : await postFollower(nickname);
+    } catch (error) {
+      console.log(error);
+
+      // 추후 아래 코드로 변경할 예정
+      // navigate('/error');
+    }
   };
 
   return (
@@ -26,14 +30,18 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
       <InfoContainer>
         <TopInfoContainer>
           <Nickname>{nickname}</Nickname>
-          <FollowBtn type="button" $isFollowed={isFollowed}>
+          <FollowBtn
+            type="button"
+            $isFollowed={isFollowed}
+            onClick={handleClickFollowBtn}
+          >
             {isFollowed ? '팔로잉' : '팔로우'}
           </FollowBtn>
         </TopInfoContainer>
         <Introduce>{introduce}</Introduce>
         <BottomInfoContainer>
           <Language>{`#${language}`}</Language>
-          <IcGithub onClick={handleClickIcGithub} />
+          <IcGithub onClick={() => handleClickLink(github)} />
         </BottomInfoContainer>
       </InfoContainer>
     </FollowerContainer>

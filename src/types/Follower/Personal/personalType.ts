@@ -1,3 +1,14 @@
+export interface FollowerInfoProps {
+  info: {
+    profileImg: string;
+    nickname: string;
+    isFollowed: boolean;
+    introduce: string;
+    language: string;
+    github: string;
+  };
+}
+
 export interface ParticipatingGroupProps {
   group: Array<{
     id: number;

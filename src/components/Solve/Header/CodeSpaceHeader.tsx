@@ -7,11 +7,12 @@ const CodeSpaceHeader = ({
   questionInfo,
   handleClickQuestionInfo,
 }: CodeSpaceHeaderProps) => {
-  const { title } = questionInfo;
+  const { title, level } = questionInfo;
   return (
     <Header>
       <HeaderTop
         title={title}
+        level={level}
         handleClickQuestionInfo={handleClickQuestionInfo}
       />
       <HeaderBottom

@@ -9,10 +9,9 @@ import { TotalCardProps } from '../../types/GroupAll/TotalCardType';
 
 const TotalCard = ({ item }: TotalCardProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [items, setItems] = useState(item);
 
   const itemsPerPage = 4;
-  const totalPages = Math.ceil(items.length / itemsPerPage);
+  const totalPages = Math.ceil(item.length / itemsPerPage);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % totalPages);
@@ -43,7 +42,7 @@ const TotalCard = ({ item }: TotalCardProps) => {
           <CarouselContent $currentSlide={currentSlide}>
             {Array.from({ length: totalPages }, (_, index) => (
               <CarouselSlide key={index}>
-                {items
+                {item
                   .slice(
                     index * itemsPerPage,
                     index * itemsPerPage + itemsPerPage
