@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 import { IcLinkWhite, IcStarMiniGray, IcStarMiniYellow } from '../../../assets';
 import { CLICKED_DUMMY } from '../../../constants/Follower/currentConst';
+import { handleClickLink } from '../../../utils/handleClickLink';
 
 const SolvedQuestionModal = () => {
   const { questions } = CLICKED_DUMMY;
-
-  const handleclickLink = (link: string) => {
-    window.open(link);
-  };
 
   return (
     <ModalContainer>
@@ -31,7 +28,7 @@ const SolvedQuestionModal = () => {
                 })}
               </LvStarContainer>
 
-              <LinkBtn type="button" onClick={() => handleclickLink(link)}>
+              <LinkBtn type="button" onClick={() => handleClickLink(link)}>
                 <IcLinkWhite />
                 <Platform>{platform}</Platform>
               </LinkBtn>
