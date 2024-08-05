@@ -61,7 +61,7 @@ const InputWrapper = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 1.3rem 1.8rem;
+  padding: 1.5rem 1.8rem 1.4rem;
   margin-left: 1rem;
 
   border: none;
@@ -69,7 +69,6 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.codrive_green};
   color: ${({ theme }) => theme.colors.gray900};
   ${({ theme }) => theme.fonts.title_bold_16};
-  cursor: pointer;
 `;
 
 export default NickName;
