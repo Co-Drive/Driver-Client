@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { IcLinkWhite } from '../../../assets';
+import { handleClickLink } from '../../../utils/handleClickLink';
 
 export interface SolutionHeaderBottomProps {
   tags: Array<string>;
@@ -26,7 +27,7 @@ const SolutionHeaderBottom = ({
 
       <Container>
         <Category>링크 바로가기</Category>
-        <LinkContainer>
+        <LinkContainer onClick={() => handleClickLink(problemUrl)}>
           <IcLinkWhite />
           <Link>{problemUrl}</Link>
         </LinkContainer>

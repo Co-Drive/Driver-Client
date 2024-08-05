@@ -4,11 +4,11 @@ import { IcGithub } from '../../assets';
 import { deleteFollower } from '../../libs/apis/Follower/deleteFollower';
 import { postFollower } from '../../libs/apis/Follower/postFollower';
 import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
+import { handleClickLink } from '../../utils/handleClickLink';
 
 const FollowerInfo = ({ info }: FollowerInfoProps) => {
   const { profileImg, nickname, isFollowed, introduce, language, github } =
     info;
-  // const navigate = useNavigate();
 
   const handleClickFollowBtn = async () => {
     try {
@@ -22,10 +22,6 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
       // 추후 아래 코드로 변경할 예정
       // navigate('/error');
     }
-  };
-
-  const handleClickIcGithub = () => {
-    window.open(github);
   };
 
   return (
@@ -45,7 +41,7 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
         <Introduce>{introduce}</Introduce>
         <BottomInfoContainer>
           <Language>{`#${language}`}</Language>
-          <IcGithub onClick={handleClickIcGithub} />
+          <IcGithub onClick={() => handleClickLink(github)} />
         </BottomInfoContainer>
       </InfoContainer>
     </FollowerContainer>
