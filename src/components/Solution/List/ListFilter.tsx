@@ -112,14 +112,15 @@ const DateFilterContainer = styled.div`
   align-items: center;
   position: relative;
 
+  max-width: 17.9rem;
+
+  width: 17.9rem;
   padding: 1.3rem 1.4rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 
   outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
-
-  min-width: 18.52rem;
 `;
 
 const DateContainer = styled.div`
@@ -128,7 +129,7 @@ const DateContainer = styled.div`
   align-items: center;
 
   width: 100%;
-  padding-right: 1rem;
+  padding-right: 0.4rem;
   padding-left: 1.4rem;
 `;
 
