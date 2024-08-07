@@ -182,19 +182,18 @@ const LevelContainer = styled.div`
   align-items: center;
 `;
 
-const LevelDetailContainer = styled.div`
+export const LevelDetailContainer = styled.div`
   display: flex;
   gap: 1.2rem;
-  justify-content: center;
   align-items: center;
 `;
 
-const LvText = styled.p`
+export const LvText = styled.p`
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;
 
-const LvStarContainer = styled.ul`
+export const LvStarContainer = styled.ul`
   display: flex;
   gap: 0.4rem;
   justify-content: center;
