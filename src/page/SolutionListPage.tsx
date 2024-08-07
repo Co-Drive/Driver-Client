@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import PageLayout from '../components/PageLayout/PageLayout';
 import TempSave from '../components/Solution/List/TempSave';
+import SavedSolutionList from '../components/Solution/List/SavedSolutionList';
 
 const SolutionListPage = () => {
   const nickname = sessionStorage.getItem('nickname');
@@ -13,6 +14,8 @@ const SolutionListPage = () => {
         </TitleContainer>
 
         <TempSave />
+
+        <SavedSolutionList />
       </ListPageContainer>
     </PageLayout>
   );
