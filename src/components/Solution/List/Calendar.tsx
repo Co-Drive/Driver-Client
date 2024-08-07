@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
 
 interface CalendarProps {
   date: {
-    year: number;
-    month: number;
+    clickedYear: number;
+    clickedMonth: number;
   };
   handleClickPrevBtn: () => void;
   handleClickMonth: (month: number) => void;
@@ -17,19 +17,31 @@ const Calendar = ({
   handleClickMonth,
   handleClickNextBtn,
 }: CalendarProps) => {
-  const { year, month } = date;
+  const dummy = [1, 3, 5, 10];
+  const year = new Date().getFullYear();
+  const { clickedYear, clickedMonth } = date;
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
   return (
     <CalendarContainer>
       <YearContainer>
         <IcArrowLeftSmallGray onClick={handleClickPrevBtn} />
-        <Year>{year}</Year>
+        <Year>{clickedYear}</Year>
         <IcArrowRightSmallGray onClick={handleClickNextBtn} />
       </YearContainer>
 
       <MonthBoard>
         {monthCalendar.map((month) => {
-          return <Month key={month}>{month}</Month>;
+          const disabled = dummy.includes(month) || clickedYear > year;
+          return (
+            <Month
+              key={month}
+              $disabled={disabled}
+              $isClicked={clickedMonth === month}
+              onClick={() => !disabled && handleClickMonth(month)}
+            >
+              {month}
+            </Month>
+          );
         })}
       </MonthBoard>
     </CalendarContainer>
@@ -78,7 +90,7 @@ const MonthBoard = styled.div`
   border-bottom-right-radius: 1.2rem;
 `;
 
-const Month = styled.span`
+const Month = styled.span<{ $isClicked: boolean; $disabled: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,11 +99,25 @@ const Month = styled.span`
   height: 2.8rem;
 
   border-radius: 3rem;
-  color: ${({ theme }) => theme.colors.gray400};
-  ${({ theme }) => theme.fonts.title_bold_14};
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.gray500};
-    color: ${({ theme }) => theme.colors.gray100};
-  }
+  ${({ $disabled, $isClicked }) =>
+    $disabled
+      ? css`
+          color: ${({ theme }) => theme.colors.gray400};
+        `
+      : $isClicked
+        ? css`
+            background-color: ${({ theme }) => theme.colors.codrive_green};
+            color: ${({ theme }) => theme.colors.gray900};
+          `
+        : css`
+            color: ${({ theme }) => theme.colors.white};
+
+            &:hover {
+              background-color: ${({ theme }) => theme.colors.gray500};
+              color: ${({ theme }) => theme.colors.gray100};
+            }
+          `};
+
+  ${({ theme }) => theme.fonts.title_bold_14};
 `;
