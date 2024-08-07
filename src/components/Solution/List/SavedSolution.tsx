@@ -1,12 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightGray, IcLinkWhite } from '../../../assets';
 import { SavedSolutionProps } from '../../../types/Solution/solutionTypes';
 import Level from '../Level';
 
 const SavedSolution = ({ record }: SavedSolutionProps) => {
+  const navigate = useNavigate();
   const { recordId, title, level, tags, platform, problemUrl, createdAt } =
     record;
   const [month, date] = createdAt.split('.');
+
+  const handleClickArrow = () => {
+    navigate(`/solution/${recordId}`);
+  };
 
   return (
     <SavedSolutionContainer>
@@ -29,7 +35,7 @@ const SavedSolution = ({ record }: SavedSolutionProps) => {
         </Question>
       </QuesitonContainer>
 
-      <IcArrowRightGray />
+      <IcArrowRightGray onClick={handleClickArrow} />
     </SavedSolutionContainer>
   );
 };
