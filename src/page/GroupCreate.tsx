@@ -67,7 +67,7 @@ const GroupCreate = () => {
   }, [inputs, isPublicGroup]);
 
   return (
-    <PageLayout category="group">
+    <PageLayout category="그룹">
       <Form>
         <Header>그룹 생성하기</Header>
         <Borderline />
