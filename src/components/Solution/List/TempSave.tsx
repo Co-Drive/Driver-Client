@@ -1,24 +1,12 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import {
-  BtnStarGraySmall,
-  BtnStarPurpleSmall,
-  IcArrowRightBig,
-} from '../../../assets';
-import {
-  LevelDetailContainer,
-  LvStarContainer,
-  LvText,
-} from '../Header/SolutionHeaderTop';
+import { IcArrowRightBig } from '../../../assets';
+import Level from '../Level';
 
 const TempSave = () => {
   // 임시저장된 리스트 개수 받아오기 -> 그 수로 map 돌려서 숫자 아이콘 만들기
   const DUMMY = 3;
   const DUMMY_ARR = Array.from({ length: DUMMY }, (_, idx) => idx + 1);
-
-  const paintedStarArr = Array(3)
-    .fill(1)
-    .concat(Array(5 - 3).fill(0));
 
   const [isClickedNum, setIsClickedNum] = useState(1);
 
@@ -55,19 +43,8 @@ const TempSave = () => {
             <Time>22시 14분</Time>
           </DateContainer>
         </TopInfo>
-        <LevelDetailContainer>
-          <LvText>난이도</LvText>
-          <LvText>|</LvText>
-          <LvStarContainer>
-            {paintedStarArr.map((painted, idx) => {
-              return (
-                <li key={idx}>
-                  {painted ? <BtnStarPurpleSmall /> : <BtnStarGraySmall />}
-                </li>
-              );
-            })}
-          </LvStarContainer>
-        </LevelDetailContainer>
+        {/* 추후 서버에서 받아온 값으로 변경 예정 */}
+        <Level level={3} />
       </QuestionContainer>
       <WriteBtn type="button">
         <BtnTxt>마저 작성하러 가기</BtnTxt>
