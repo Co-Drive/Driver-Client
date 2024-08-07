@@ -9,6 +9,7 @@ import IcAddPhoto from './icon/ic_add_photo.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
 import IcArrowLeftSmallGray from './icon/ic_arrow_left_small_gray.svg?react';
+import IcArrowRightBig from './icon/ic_arrow_right_big.svg?react';
 import IcArrowRightBlack from './icon/ic_arrow_right_black.svg?react';
 import IcArrowRightFill from './icon/ic_arrow_right_fill.svg?react';
 import IcArrowRightGray from './icon/ic_arrow_right_gray.svg?react';
@@ -49,6 +50,8 @@ import Thumbnail from './icon/thumbnail.svg?react';
 import BtnHeart from './btn/btn_heart.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
+import BtnStarGraySmall from './btn/btn_star_gray_small.svg?react';
+import BtnStarPurpleSmall from './btn/btn_star_purple_small.svg?react';
 import TestWeekboardStatus from './test_weekboard_status.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
@@ -56,8 +59,10 @@ export {
   // btn
   BtnHeart,
   BtnJoinGitHub,
-  // icon
   BtnShare,
+  BtnStarGraySmall,
+  BtnStarPurpleSmall,
+
   // icon
   IcAdd,
   IcAddBlack,
@@ -68,6 +73,7 @@ export {
   IcArrowBottomGray,
   IcArrowLeftFill,
   IcArrowLeftSmallGray,
+  IcArrowRightBig,
   IcArrowRightBlack,
   IcArrowRightFill,
   IcArrowRightGray,
