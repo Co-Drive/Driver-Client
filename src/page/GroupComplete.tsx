@@ -1,20 +1,24 @@
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
+import Modal from '../common/Modal/Modal';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { handleCopyClipBoard } from '../utils/handleCopyClipBoard';
 
-// props 타입 정의해둔 것 지워주세용 !
 const GroupComplete = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { groupPassword, thumbnailUrl } = state;
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleClickCopyBtn = () => {
-    handleCopyClipBoard({ baseUrl: baseUrl, isUsedBaseUrl: true })
-      .then(() => alert('링크가 복사되었습니다.'))
-      .catch(() => navigate('/error'));
+    handleCopyClipBoard({ baseUrl: baseUrl, isUsedBaseUrl: true });
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
   };
 
   const handleGroupPageRedirect = () => {
@@ -38,6 +42,7 @@ const GroupComplete = () => {
           onClick={() => handleClickCopyBtn()}
           category="link_copy"
         />
+        {isCopied && <Modal />}
         <CommonButton
           onClick={handleGroupPageRedirect}
           category="group_direct"
