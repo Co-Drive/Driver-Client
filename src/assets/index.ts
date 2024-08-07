@@ -6,6 +6,7 @@ import IcAddFill from './icon/ic_add_fill.svg?react';
 import IcAddFillDisabled from './icon/ic_add_fill_disabled.svg?react';
 import IcAddGray from './icon/ic_add_gray.svg?react';
 import IcAddPhoto from './icon/ic_add_photo.svg?react';
+import IcArrowTopWhite from './icon/ic_arrow__top_white.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
 import IcArrowBottomWhite from './icon/ic_arrow_bottom_white.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
@@ -82,6 +83,7 @@ export {
   IcArrowRightGray,
   IcArrowRightSmallGray,
   IcArrowTopGray,
+  IcArrowTopWhite,
   IcArrowUpBig,
   IcBtnCopy,
   IcBtnInformation,
