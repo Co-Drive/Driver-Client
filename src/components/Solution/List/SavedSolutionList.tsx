@@ -104,7 +104,7 @@ const SavedSolutionList = () => {
 
 export default SavedSolutionList;
 
-const ListContainer = styled.article`
+const ListContainer = styled.section`
   display: flex;
   gap: 2.2rem;
   align-items: center;
