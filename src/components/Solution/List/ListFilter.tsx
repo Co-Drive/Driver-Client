@@ -67,7 +67,7 @@ const ListFilter = () => {
           <>
             <IcArrowTopWhite onClick={handleClickDateFilter} />
             <Calendar
-              date={{ year, month }}
+              date={{ clickedYear: year, clickedMonth: month }}
               handleClickPrevBtn={handleClickPrevBtn}
               handleClickMonth={handleClickMonth}
               handleClickNextBtn={handleClickNextBtn}
@@ -114,12 +114,12 @@ const DateFilterContainer = styled.div`
 
   padding: 1.3rem 1.4rem;
 
-  outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
-
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 
-  min-width: 17.9rem;
+  outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
+
+  min-width: 18.52rem;
 `;
 
 const DateContainer = styled.div`
@@ -127,8 +127,9 @@ const DateContainer = styled.div`
   gap: 0.4rem;
   align-items: center;
 
-  margin-right: 1rem;
-  margin-left: 1.4rem;
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1.4rem;
 `;
 
 const Year = styled.p`
