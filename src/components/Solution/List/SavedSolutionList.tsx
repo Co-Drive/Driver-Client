@@ -8,7 +8,7 @@ const SAVED_DUMMY = {
   totalPage: 2,
   records: [
     {
-      recordId: 0,
+      recordId: 1,
       title: '문제 풀이 제목',
       level: 1,
       tags: ['완전탐색'],
@@ -17,7 +17,7 @@ const SAVED_DUMMY = {
       createdAt: '02.05',
     },
     {
-      recordId: 1,
+      recordId: 2,
       title: '문제 풀이 제목',
       level: 1,
       tags: ['동적계획법 (Dynamic Programming)', '깊이 우선탐색 (DFS)'],
@@ -26,7 +26,7 @@ const SAVED_DUMMY = {
       createdAt: '02.05',
     },
     {
-      recordId: 2,
+      recordId: 3,
       title: '문제 풀이 제목',
       level: 1,
       tags: ['동적계획법 (Dynamic Programming)'],
@@ -35,7 +35,7 @@ const SAVED_DUMMY = {
       createdAt: '02.05',
     },
     {
-      recordId: 3,
+      recordId: 4,
       title: '문제 풀이 제목',
       level: 2,
       tags: ['정렬', '힙 (Heap)'],
@@ -44,7 +44,7 @@ const SAVED_DUMMY = {
       createdAt: '02.05',
     },
     {
-      recordId: 4,
+      recordId: 5,
       title: '문제 풀이 제목',
       level: 5,
       tags: ['깊이 우선탐색 (DFS)'],
@@ -53,7 +53,7 @@ const SAVED_DUMMY = {
       createdAt: '02.05',
     },
     {
-      recordId: 5,
+      recordId: 6,
       title: '문제 풀이 제목',
       level: 3,
       tags: ['구현', '탐욕법 (Greedy)'],
@@ -62,28 +62,10 @@ const SAVED_DUMMY = {
       createdAt: '02.05',
     },
     {
-      recordId: 6,
+      recordId: 7,
       title: '문제 풀이 제목',
       level: 2,
       tags: ['스택/큐', '해시'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-    {
-      recordId: 7,
-      title: '문제 풀이 제목',
-      level: 1,
-      tags: ['완전탐색', '너비 우선 탐색 (BFS)'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-    {
-      recordId: 8,
-      title: '문제 풀이 제목',
-      level: 3,
-      tags: ['완전탐색', '해시'],
       platform: 'BAEKJOON',
       problemUrl: 'PROBLEM_URL',
       createdAt: '02.05',
