@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { IcArrowBottomWhite, IcCalendar } from '../../../assets';
+import {
+  IcArrowBottomWhite,
+  IcArrowTopWhite,
+  IcCalendar,
+} from '../../../assets';
+import Calendar from './Calendar';
 
 const ListFilter = () => {
   const LIST_SORTING = ['최신순', '|', '즐겨찾기'];
   const YEAR = new Date().getFullYear();
   const MONTH = new Date().getMonth();
 
+  const [isCalendarClicked, setIsCalendarClicked] = useState(false);
   const [selectedDate, setSelectedDate] = useState({
     year: YEAR,
     month: MONTH,
@@ -14,6 +20,31 @@ const ListFilter = () => {
   const [sorting, setSorting] = useState('최신순');
 
   const { year, month } = selectedDate;
+
+  const handleClickDateFilter = () => {
+    setIsCalendarClicked(!isCalendarClicked);
+  };
+
+  const handleClickPrevBtn = () => {
+    setSelectedDate({
+      ...selectedDate,
+      year: year - 1,
+    });
+  };
+
+  const handleClickMonth = (month: number) => {
+    setSelectedDate({
+      ...selectedDate,
+      month: month,
+    });
+  };
+
+  const handleClickNextBtn = () => {
+    setSelectedDate({
+      ...selectedDate,
+      year: year + 1,
+    });
+  };
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
@@ -25,14 +56,28 @@ const ListFilter = () => {
 
   return (
     <FilteredContainer>
-      <MonthFilterContainer>
-        <IcCalendar />
-        <DateContainer>
+      <DateFilterContainer>
+        <IcCalendar onClick={handleClickDateFilter} />
+        <DateContainer onClick={handleClickDateFilter}>
           <Year>{year}년</Year>
           <Month>{month}월</Month>
         </DateContainer>
-        <IcArrowBottomWhite />
-      </MonthFilterContainer>
+
+        {isCalendarClicked ? (
+          <>
+            <IcArrowTopWhite onClick={handleClickDateFilter} />
+            <Calendar
+              date={{ year, month }}
+              handleClickPrevBtn={handleClickPrevBtn}
+              handleClickMonth={handleClickMonth}
+              handleClickNextBtn={handleClickNextBtn}
+            />
+          </>
+        ) : (
+          <IcArrowBottomWhite onClick={handleClickDateFilter} />
+        )}
+      </DateFilterContainer>
+
       <SortContainer>
         {LIST_SORTING.map((standard) => {
           return (
@@ -61,15 +106,20 @@ const FilteredContainer = styled.header`
   width: 100%;
 `;
 
-const MonthFilterContainer = styled.div`
+const DateFilterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   padding: 1.3rem 1.4rem;
 
+  outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
+
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};
+
+  min-width: 17.9rem;
 `;
 
 const DateContainer = styled.div`
