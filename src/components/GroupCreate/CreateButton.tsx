@@ -2,17 +2,13 @@ import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
 import { CreateButtonProps } from '../../types/GroupCreate/GroupCreateType';
 
-const CreateButton = ({ isActive }: CreateButtonProps) => {
-  const handleCreateButtonClick = () => {
-    console.log('navigator 로 이동 로직 구현');
-  };
-
+const CreateButton = ({ isActive, onClick }: CreateButtonProps) => {
   return (
     <CreateBtnContainer>
       <CommonButton
         isActive={isActive}
         category="group_create"
-        onClick={handleCreateButtonClick}
+        onClick={onClick}
       />
     </CreateBtnContainer>
   );
