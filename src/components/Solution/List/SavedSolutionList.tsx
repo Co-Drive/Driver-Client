@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import { useState } from 'react';
+import styled, { css } from 'styled-components';
+import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
@@ -90,7 +92,24 @@ const SAVED_DUMMY = {
 };
 
 const SavedSolutionList = () => {
+  const [clickedPage, setClickedPage] = useState(1);
+
   const { totalPage, records } = SAVED_DUMMY;
+  const pages = Array.from({ length: totalPage }, (_, idx) => idx + 1);
+
+  // 페이지 별 문제 리스트 요청 함수 추가할 예정 ! -> 페이지 이동 함수들에 들어갈 것임
+
+  const handleClickPrevBtn = () => {
+    setClickedPage((prev) => prev - 1);
+  };
+
+  const handleClickPageNumber = (page: number) => {
+    setClickedPage(page);
+  };
+
+  const handleClickNextBtn = () => {
+    setClickedPage((prev) => prev + 1);
+  };
 
   return (
     <ListContainer>
@@ -98,6 +117,26 @@ const SavedSolutionList = () => {
       {records.map((record) => {
         return <SavedSolution key={record.recordId} record={record} />;
       })}
+
+      <PageNationBar>
+        <IcArrowLeftSmallGray
+          onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
+        />
+        {pages.map((page) => {
+          return (
+            <PageNumber
+              key={page}
+              $isClicked={clickedPage === page}
+              onClick={() => handleClickPageNumber(page)}
+            >
+              {page}
+            </PageNumber>
+          );
+        })}
+        <IcArrowRightSmallGray
+          onClick={() => clickedPage !== totalPage && handleClickNextBtn()}
+        />
+      </PageNationBar>
     </ListContainer>
   );
 };
@@ -109,6 +148,33 @@ const ListContainer = styled.section`
   gap: 2.2rem;
   align-items: center;
   flex-direction: column;
-  
+
   margin-top: 4.3rem;
+`;
+
+const PageNationBar = styled.div`
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 4.8rem;
+`;
+
+const PageNumber = styled.p<{ $isClicked: boolean }>`
+  padding: 0.4rem 1rem;
+
+  border-radius: 0.4rem;
+  ${({ theme, $isClicked }) =>
+    $isClicked
+      ? css`
+          background-color: ${theme.colors.gray700};
+          color: ${theme.colors.white};
+        `
+      : css`
+          background-color: transparent;
+          color: ${theme.colors.gray200};
+        `};
+  ${({ theme }) => theme.fonts.body_medium_16};
 `;
