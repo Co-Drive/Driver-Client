@@ -17,7 +17,9 @@ const Calendar = ({
   handleClickMonth,
   handleClickNextBtn,
 }: CalendarProps) => {
+  // 선택된 년도 별로 서버에서 받아올 예정 !
   const dummy = [1, 3, 5, 10];
+
   const year = new Date().getFullYear();
   const { clickedYear, clickedMonth } = date;
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
