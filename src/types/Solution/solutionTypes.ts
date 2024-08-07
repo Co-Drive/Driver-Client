@@ -33,3 +33,17 @@ export interface SavedSolutionProps {
     createdAt: string;
   };
 }
+
+export interface LevelProps {
+  level: number;
+}
+
+export interface CalendarProps {
+  date: {
+    clickedYear: number;
+    clickedMonth: number;
+  };
+  handleClickPrevBtn: () => void;
+  handleClickMonth: (month: number) => void;
+  handleClickNextBtn: () => void;
+}

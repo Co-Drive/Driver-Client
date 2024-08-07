@@ -1,15 +1,6 @@
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
-
-interface CalendarProps {
-  date: {
-    clickedYear: number;
-    clickedMonth: number;
-  };
-  handleClickPrevBtn: () => void;
-  handleClickMonth: (month: number) => void;
-  handleClickNextBtn: () => void;
-}
+import { CalendarProps } from '../../../types/Solution/solutionTypes';
 
 const Calendar = ({
   date,

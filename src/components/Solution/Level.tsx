@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { BtnStarGraySmall, BtnStarPurpleSmall } from '../../assets';
-
-interface LevelProps {
-  level: number;
-}
+import { LevelProps } from '../../types/Solution/solutionTypes';
 
 const Level = ({ level }: LevelProps) => {
   const paintedStarArr = Array(level)
