@@ -2,29 +2,54 @@ import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowRightBig } from '../../../assets';
 import { getTempRecords } from '../../../libs/apis/Solution/getTempRecords';
+import {
+  UpdateRecordsProps,
+  UpdateTotalPageProps,
+} from '../../../types/Solution/solutionTypes';
 import Level from '../Level';
 
 const TempSave = () => {
-  const [isClickedNum, setIsClickedNum] = useState(1);
+  const [clickedNum, setClickedNum] = useState(2);
   const totalPageRef = useRef(0);
+  const tempRecordsRef = useRef({
+    tempRecordId: 0,
+    tempTitle: '',
+    tempLevel: 0,
+    tempCreatedAt: '',
+  });
   const tempArr = Array.from(
     { length: totalPageRef.current },
     (_, idx) => idx + 1
   );
 
   const handleClickSavedSolutionNum = (clickedNum: number) => {
-    setIsClickedNum(clickedNum);
+    setClickedNum(clickedNum);
   };
 
-  const updateTotalPage = async () => {
-    const { data } = await getTempRecords();
+  const getRecords = async () => {
+    const { data } = await getTempRecords(clickedNum);
+    updateTotalPage({ data });
+    updateRecords({ data });
+  };
+
+  const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
     const { totalPage } = data;
     totalPageRef.current = totalPage;
   };
 
+  const updateRecords = async ({ data }: UpdateRecordsProps) => {
+    const { records } = data;
+    const { recordId, title, level, createdAt } = records[0];
+
+    tempRecordsRef.current.tempRecordId = recordId;
+    tempRecordsRef.current.tempTitle = title;
+    tempRecordsRef.current.tempLevel = level;
+    tempRecordsRef.current.tempCreatedAt = createdAt;
+  };
+
   useEffect(() => {
-    updateTotalPage();
-  }, [totalPageRef]);
+    getRecords();
+  }, [totalPageRef, clickedNum]);
 
   return (
     <TempSaveContainer>
@@ -35,7 +60,7 @@ const TempSave = () => {
             return (
               <SavedSolutionNum
                 key={num}
-                $isActive={isClickedNum === num}
+                $isActive={clickedNum === num}
                 $isFirstNum={num === 1}
                 onClick={() => handleClickSavedSolutionNum(num)}
               >
