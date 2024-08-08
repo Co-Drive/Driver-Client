@@ -21,3 +21,29 @@ export interface SolutionHeaderTopProps {
   date: string;
   paintedStarArr: Array<number>;
 }
+
+export interface SavedSolutionProps {
+  record: {
+    recordId: number;
+    title: string;
+    level: number;
+    tags: Array<string>;
+    platform: string;
+    problemUrl: string;
+    createdAt: string;
+  };
+}
+
+export interface LevelProps {
+  level: number;
+}
+
+export interface CalendarProps {
+  date: {
+    clickedYear: number;
+    clickedMonth: number;
+  };
+  handleClickPrevBtn: () => void;
+  handleClickMonth: (month: number) => void;
+  handleClickNextBtn: () => void;
+}

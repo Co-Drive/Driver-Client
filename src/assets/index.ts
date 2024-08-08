@@ -6,7 +6,9 @@ import IcAddFill from './icon/ic_add_fill.svg?react';
 import IcAddFillDisabled from './icon/ic_add_fill_disabled.svg?react';
 import IcAddGray from './icon/ic_add_gray.svg?react';
 import IcAddPhoto from './icon/ic_add_photo.svg?react';
+import IcArrowTopWhite from './icon/ic_arrow__top_white.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
+import IcArrowBottomWhite from './icon/ic_arrow_bottom_white.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
 import IcArrowLeftSmallGray from './icon/ic_arrow_left_small_gray.svg?react';
 import IcArrowRightBig from './icon/ic_arrow_right_big.svg?react';
@@ -18,6 +20,7 @@ import IcArrowTopGray from './icon/ic_arrow_top_gray.svg?react';
 import IcArrowUpBig from './icon/ic_arrow_up_big.svg?react';
 import IcBtnCopy from './icon/ic_btn_copy.svg?react';
 import IcBtnInformation from './icon/ic_btn_information.svg?react';
+import IcCalendar from './icon/ic_calendar.svg?react';
 import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
@@ -71,6 +74,7 @@ export {
   IcAddGray,
   IcAddPhoto,
   IcArrowBottomGray,
+  IcArrowBottomWhite,
   IcArrowLeftFill,
   IcArrowLeftSmallGray,
   IcArrowRightBig,
@@ -79,9 +83,11 @@ export {
   IcArrowRightGray,
   IcArrowRightSmallGray,
   IcArrowTopGray,
+  IcArrowTopWhite,
   IcArrowUpBig,
   IcBtnCopy,
   IcBtnInformation,
+  IcCalendar,
   IcCancelFill,
   IcCancelSmall,
   IcCancelSmallWhite,
