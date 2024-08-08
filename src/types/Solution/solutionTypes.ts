@@ -47,3 +47,22 @@ export interface CalendarProps {
   handleClickMonth: (month: number) => void;
   handleClickNextBtn: () => void;
 }
+
+export interface UpdateTotalPageProps {
+  data: {
+    totalPage: number;
+  };
+}
+
+export interface UpdateRecordsProps {
+  data: {
+    records: [
+      {
+        recordId: number;
+        title: string;
+        level: number;
+        createdAt: string;
+      },
+    ];
+  };
+}
