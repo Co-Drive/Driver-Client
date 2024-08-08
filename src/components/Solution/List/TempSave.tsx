@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowRightBig } from '../../../assets';
-import { api } from '../../../libs/api';
+import { getTempRecords } from '../../../libs/apis/Solution/getTempRecords';
 import Level from '../Level';
 
 const TempSave = () => {
@@ -17,8 +17,8 @@ const TempSave = () => {
   };
 
   const updateTotalPage = async () => {
-    const { data } = await api.get('/records/records/temp');
-    const { totalPage } = data.data;
+    const { data } = await getTempRecords();
+    const { totalPage } = data;
     totalPageRef.current = totalPage;
   };
 
