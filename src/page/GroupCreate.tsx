@@ -68,7 +68,7 @@ const GroupCreate = () => {
     setIsActive(allFieldsFilled || (isPublicGroup && allFieldsFilled));
   }, [inputs, isPublicGroup]);
 
-  const handleSubmit = () => {
+  const handleGroupCreate = () => {
     navigate('/group-complete', {
       state: {
         groupPassword: inputs.secretKey,
@@ -109,7 +109,7 @@ const GroupCreate = () => {
           progressValue={inputs.group}
           handleChangeTextarea={handleChangeInputs}
         />
-        <CreateButton isActive={isActive} onClick={handleSubmit} />
+        <CreateButton isActive={isActive} onClick={handleGroupCreate} />
       </Form>
     </PageLayout>
   );
