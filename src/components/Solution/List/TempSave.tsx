@@ -1,25 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowRightBig } from '../../../assets';
+import { api } from '../../../libs/api';
 import Level from '../Level';
 
 const TempSave = () => {
-  // 임시저장된 리스트 개수 받아오기 -> 그 수로 map 돌려서 숫자 아이콘 만들기
-  const DUMMY = 3;
-  const DUMMY_ARR = Array.from({ length: DUMMY }, (_, idx) => idx + 1);
-
   const [isClickedNum, setIsClickedNum] = useState(1);
+  const totalPageRef = useRef(0);
+  const tempArr = Array.from(
+    { length: totalPageRef.current },
+    (_, idx) => idx + 1
+  );
 
   const handleClickSavedSolutionNum = (clickedNum: number) => {
     setIsClickedNum(clickedNum);
   };
+
+  const updateTotalPage = async () => {
+    const { data } = await api.get('/records/records/temp');
+    const { totalPage } = data.data;
+    totalPageRef.current = totalPage;
+  };
+
+  useEffect(() => {
+    updateTotalPage();
+  }, [totalPageRef]);
 
   return (
     <TempSaveContainer>
       <Header>
         <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
         <SavedSolutionList>
-          {DUMMY_ARR.map((num) => {
+          {tempArr.map((num) => {
             return (
               <SavedSolutionNum
                 key={num}
