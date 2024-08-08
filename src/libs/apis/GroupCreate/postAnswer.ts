@@ -1,7 +1,12 @@
 import { api } from '../../api';
 
-export const postAnswer = async (password: string) => {
-  const { data } = await api.post(`rooms/5/private`, {
+interface PostAnswerProps {
+  roomId: number;
+  password: string;
+}
+
+export const postAnswer = async ({ roomId, password }: PostAnswerProps) => {
+  const { data } = await api.post(`rooms/${roomId}/private`, {
     password: password,
   });
   console.log(data);

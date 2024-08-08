@@ -6,7 +6,11 @@ import CommonInput from '../common/CommonInput';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { postAnswer } from '../libs/apis/GroupCreate/postAnswer';
 
-const GroupJoin = () => {
+interface GroupJoinProps {
+  roomId: number;
+}
+
+const GroupJoin = ({ roomId }: GroupJoinProps) => {
   const [password, setPassword] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [isNotMatchedPW, setIsNotMatchedPW] = useState(false);
@@ -22,7 +26,7 @@ const GroupJoin = () => {
 
   const handleButtonClick = async () => {
     console.log('현재 패스워드 값 :', password); // 디버깅: 버튼 클릭 시의 비밀번호 값 확인
-    const data = await postAnswer(password);
+    const data = await postAnswer({ password, roomId });
     console.log(data);
   };
 
