@@ -66,7 +66,7 @@ const TempSave = () => {
 
   useEffect(() => {
     getRecords();
-  }, [totalPageRef, tempRecords, clickedPage]);
+  }, [totalPageRef, clickedPage]);
 
   return (
     <>
