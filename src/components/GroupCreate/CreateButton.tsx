@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
 import { CreateButtonProps } from '../../types/GroupCreate/GroupCreateType';
 
-const CreateButton = ({ isActive, onClick }: CreateButtonProps) => {
+const CreateButton = ({ isActive, handleGroupCreate }: CreateButtonProps) => {
   return (
     <CreateBtnContainer>
       <CommonButton
         isActive={isActive}
         category="group_create"
-        onClick={onClick}
+        onClick={handleGroupCreate}
       />
     </CreateBtnContainer>
   );

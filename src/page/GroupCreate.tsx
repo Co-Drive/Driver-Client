@@ -109,7 +109,10 @@ const GroupCreate = () => {
           progressValue={inputs.group}
           handleChangeTextarea={handleChangeInputs}
         />
-        <CreateButton isActive={isActive} onClick={handleGroupCreate} />
+        <CreateButton
+          isActive={isActive}
+          handleGroupCreate={handleGroupCreate}
+        />
       </Form>
     </PageLayout>
   );
