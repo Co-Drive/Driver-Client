@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowRightBig } from '../../../assets';
 import { getTempRecords } from '../../../libs/apis/Solution/getTempRecords';
@@ -19,6 +20,7 @@ const TempSave = () => {
     tempCreatedAt: '',
   });
 
+  const navigate = useNavigate();
   const { tempRecordId, tempTitle, tempLevel, tempCreatedAt } = tempRecords;
   const tempArr = Array.from(
     { length: totalPageRef.current },
@@ -58,6 +60,10 @@ const TempSave = () => {
     }
   };
 
+  const handleClickWriteBtn = () => {
+    navigate('/solve', { state: { recordId: tempRecordId } });
+  };
+
   useEffect(() => {
     getRecords();
   }, [totalPageRef, tempRecords, clickedPage]);
@@ -95,7 +101,7 @@ const TempSave = () => {
 
             <Level level={tempLevel} />
           </QuestionContainer>
-          <WriteBtn type="button">
+          <WriteBtn type="button" onClick={handleClickWriteBtn}>
             <BtnTxt>마저 작성하러 가기</BtnTxt>
             <IcArrowRightBig />
           </WriteBtn>
