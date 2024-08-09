@@ -9,14 +9,18 @@ import {
 import Level from '../Level';
 
 const TempSave = () => {
-  const [clickedNum, setClickedNum] = useState(2);
   const totalPageRef = useRef(0);
-  const tempRecordsRef = useRef({
+
+  const [clickedNum, setClickedNum] = useState(1);
+  const [tempRecords, setTempRecords] = useState({
     tempRecordId: 0,
     tempTitle: '',
     tempLevel: 0,
     tempCreatedAt: '',
   });
+
+  const { tempRecordId, tempTitle, tempLevel, tempCreatedAt } = tempRecords;
+
   const tempArr = Array.from(
     { length: totalPageRef.current },
     (_, idx) => idx + 1
@@ -34,22 +38,24 @@ const TempSave = () => {
 
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
     const { totalPage } = data;
-    totalPageRef.current = totalPage;
+    totalPageRef.current = totalPage - 1;
   };
 
   const updateRecords = async ({ data }: UpdateRecordsProps) => {
     const { records } = data;
     const { recordId, title, level, createdAt } = records[0];
 
-    tempRecordsRef.current.tempRecordId = recordId;
-    tempRecordsRef.current.tempTitle = title;
-    tempRecordsRef.current.tempLevel = level;
-    tempRecordsRef.current.tempCreatedAt = createdAt;
+    setTempRecords({
+      tempRecordId: recordId,
+      tempTitle: title,
+      tempLevel: level,
+      tempCreatedAt: createdAt,
+    });
   };
 
   useEffect(() => {
     getRecords();
-  }, [totalPageRef, clickedNum]);
+  }, [totalPageRef, tempRecords, clickedNum]);
 
   return (
     <TempSaveContainer>
@@ -72,16 +78,15 @@ const TempSave = () => {
       </Header>
       <QuestionContainer>
         <TopInfo>
-          <Title>전생했더니 슬라임 연구자가 아니었던 건에 대하여</Title>
+          <Title>{tempTitle}</Title>
           <DateContainer>
             <DateTxt>임시저장</DateTxt>
             <DateTxt>|</DateTxt>
-            <Date>2024.07.31</Date>
-            <Time>22시 14분</Time>
+            <Date>{tempCreatedAt}</Date>
           </DateContainer>
         </TopInfo>
-        {/* 추후 서버에서 받아온 값으로 변경 예정 */}
-        <Level level={3} />
+
+        <Level level={tempLevel} />
       </QuestionContainer>
       <WriteBtn type="button">
         <BtnTxt>마저 작성하러 가기</BtnTxt>
@@ -177,11 +182,6 @@ const DateTxt = styled.p`
 `;
 
 const Date = styled.p`
-  color: ${({ theme }) => theme.colors.gray200};
-  ${({ theme }) => theme.fonts.detail_regular_12};
-`;
-
-const Time = styled.p`
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.detail_regular_12};
 `;
