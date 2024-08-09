@@ -1,15 +1,19 @@
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcSecretBigWhite } from '../assets';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { postAnswer } from '../libs/apis/GroupJoin/postAnswer';
 
 const GroupJoin = () => {
   const [password, setPassword] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [isNotMatchedPW, setIsNotMatchedPW] = useState(false);
-  const correctPassword = false; // 백엔드 사용자PW 비밀번호
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const { roomdId } = state;
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -18,12 +22,14 @@ const GroupJoin = () => {
     setIsNotMatchedPW(false); // 비밀번호가 틀렸다고 표시된 상태 초기화
   };
 
-  const handleButtonClick = () => {
-    if (correctPassword) {
-      console.log('그룹에 성공적으로 참여하였습니다');
-    } else {
-      setIsNotMatchedPW(true);
-      console.log('비밀번호가 틀렸습니다');
+  const handleJoinButton = async () => {
+    try {
+      const { data } = await postAnswer({ roomdId, password });
+      if (data) {
+        navigate('/group-complete');
+      }
+    } catch (error) {
+      alert('비밀번호가 틀렸습니다');
     }
   };
 
@@ -45,7 +51,7 @@ const GroupJoin = () => {
       <CommonButton
         category="group_join"
         isActive={isActive}
-        onClick={handleButtonClick}
+        onClick={handleJoinButton}
       />
     </PageLayout>
   );
