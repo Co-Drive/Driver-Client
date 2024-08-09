@@ -11,7 +11,7 @@ import Level from '../Level';
 const TempSave = () => {
   const totalPageRef = useRef(0);
 
-  const [clickedNum, setClickedNum] = useState(1);
+  const [clickedPage, setClickedPage] = useState(1);
   const [tempRecords, setTempRecords] = useState({
     tempRecordId: 0,
     tempTitle: '',
@@ -27,11 +27,11 @@ const TempSave = () => {
   );
 
   const handleClickSavedSolutionNum = (clickedNum: number) => {
-    setClickedNum(clickedNum);
+    setClickedPage(clickedNum);
   };
 
   const getRecords = async () => {
-    const { data } = await getTempRecords(clickedNum);
+    const { data } = await getTempRecords(clickedPage);
     updateTotalPage({ data });
     updateRecords({ data });
   };
@@ -55,7 +55,7 @@ const TempSave = () => {
 
   useEffect(() => {
     getRecords();
-  }, [totalPageRef, tempRecords, clickedNum]);
+  }, [totalPageRef, tempRecords, clickedPage]);
 
   return (
     <TempSaveContainer>
@@ -66,7 +66,7 @@ const TempSave = () => {
             return (
               <SavedSolutionNum
                 key={num}
-                $isActive={clickedNum === num}
+                $isActive={clickedPage === num}
                 $isFirstNum={num === 1}
                 onClick={() => handleClickSavedSolutionNum(num)}
               >
