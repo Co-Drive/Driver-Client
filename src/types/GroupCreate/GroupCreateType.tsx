@@ -12,6 +12,7 @@ export interface ProgressSectionProps {
 
 export interface CreateButtonProps {
   isActive: boolean;
+  handleGroupCreate: () => void;
 }
 
 export interface ImageSectionProps {
