@@ -31,14 +31,14 @@ const TempSave = () => {
   };
 
   const getRecords = async () => {
-    const { data } = await getTempRecords(clickedPage);
+    const { data } = await getTempRecords(clickedPage - 1);
     updateTotalPage({ data });
     updateRecords({ data });
   };
 
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
     const { totalPage } = data;
-    totalPageRef.current = totalPage - 1;
+    totalPageRef.current = totalPage;
   };
 
   const updateRecords = async ({ data }: UpdateRecordsProps) => {
