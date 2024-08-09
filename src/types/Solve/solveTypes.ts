@@ -107,5 +107,14 @@ export interface ClickedListProps {
 }
 
 export interface ModalProps {
+  questionInfo?: {
+    title: string;
+    level: number;
+    tags: Array<string>;
+    platform: string;
+    problemUrl: string;
+  };
+
+  codeblocks?: Array<{ id: number; code: string; memo: string }>;
   onClose?: () => void;
 }

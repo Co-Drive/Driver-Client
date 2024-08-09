@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 import SaveModal from '../../../common/Modal/Modal';
 import { patchRecords } from '../../../libs/apis/Solve/patchRecords';
 import { postRecords } from '../../../libs/apis/Solve/postRecords';
-import { postTempRecords } from '../../../libs/apis/Solve/postTempRecords';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
@@ -18,16 +17,7 @@ const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
 
   const handleClickBtn = async (isSaveBtn: boolean) => {
     if (isSaveBtn) {
-      try {
-        const { data } = await postTempRecords({
-          questionInfo: questionInfo,
-          codeblocks: codeblocks,
-        });
-
-        if (data) setModalOpen(true);
-      } catch (err) {
-        console.log(err);
-      }
+      setModalOpen(true);
     } else {
       try {
         const { data } = id
@@ -83,7 +73,7 @@ const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
           );
         })}
       </BtnContainer>
-      {modalOpen && <SaveModal onClose={() => setModalOpen(false)} />}
+      {modalOpen && <SaveModal onClose={() => setModalOpen(false)} questionInfo={questionInfo} codeblocks={codeblocks}/>}
     </PageHeaderContainer>
   );
 };
