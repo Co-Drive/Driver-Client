@@ -5,7 +5,5 @@ export const postAnswer = async ({ roomdId, password }: PostAnswerProps) => {
   const { data } = await api.post(`rooms/${roomdId}/private`, {
     password: password,
   });
-  console.log(data);
-
   return data;
 };

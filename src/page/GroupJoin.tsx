@@ -22,7 +22,7 @@ const GroupJoin = () => {
     setIsNotMatchedPW(false); // 비밀번호가 틀렸다고 표시된 상태 초기화
   };
 
-  const handleButtonClick = async () => {
+  const handleJoinButton = async () => {
     try {
       const { data } = await postAnswer({ roomdId, password });
       if (data) {
@@ -51,7 +51,7 @@ const GroupJoin = () => {
       <CommonButton
         category="group_join"
         isActive={isActive}
-        onClick={handleButtonClick}
+        onClick={handleJoinButton}
       />
     </PageLayout>
   );
