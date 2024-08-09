@@ -10,7 +10,7 @@ import Calendar from './Calendar';
 const ListFilter = () => {
   const LIST_SORTING = ['최신순', '|', '즐겨찾기'];
   const YEAR = new Date().getFullYear();
-  const MONTH = new Date().getMonth();
+  const MONTH = new Date().getMonth() + 1;
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
   const [selectedDate, setSelectedDate] = useState({
