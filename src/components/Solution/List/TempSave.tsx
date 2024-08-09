@@ -20,10 +20,13 @@ const TempSave = () => {
   });
 
   const { tempRecordId, tempTitle, tempLevel, tempCreatedAt } = tempRecords;
-
   const tempArr = Array.from(
     { length: totalPageRef.current },
     (_, idx) => idx + 1
+  );
+  const isTempExit = !(
+    totalPageRef.current === 0 &&
+    (tempTitle.length === 0 || tempLevel === 0 || tempCreatedAt.length === 0)
   );
 
   const handleClickSavedSolutionNum = (clickedNum: number) => {
@@ -43,14 +46,16 @@ const TempSave = () => {
 
   const updateRecords = async ({ data }: UpdateRecordsProps) => {
     const { records } = data;
-    const { recordId, title, level, createdAt } = records[0];
+    if (records.length) {
+      const { recordId, title, level, createdAt } = records[0];
 
-    setTempRecords({
-      tempRecordId: recordId,
-      tempTitle: title,
-      tempLevel: level,
-      tempCreatedAt: createdAt,
-    });
+      setTempRecords({
+        tempRecordId: recordId,
+        tempTitle: title,
+        tempLevel: level,
+        tempCreatedAt: createdAt,
+      });
+    }
   };
 
   useEffect(() => {
@@ -58,41 +63,45 @@ const TempSave = () => {
   }, [totalPageRef, tempRecords, clickedPage]);
 
   return (
-    <TempSaveContainer>
-      <Header>
-        <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
-        <SavedSolutionList>
-          {tempArr.map((num) => {
-            return (
-              <SavedSolutionNum
-                key={num}
-                $isActive={clickedPage === num}
-                $isFirstNum={num === 1}
-                onClick={() => handleClickSavedSolutionNum(num)}
-              >
-                {num}
-              </SavedSolutionNum>
-            );
-          })}
-        </SavedSolutionList>
-      </Header>
-      <QuestionContainer>
-        <TopInfo>
-          <Title>{tempTitle}</Title>
-          <DateContainer>
-            <DateTxt>임시저장</DateTxt>
-            <DateTxt>|</DateTxt>
-            <Date>{tempCreatedAt}</Date>
-          </DateContainer>
-        </TopInfo>
+    <>
+      {isTempExit && (
+        <TempSaveContainer>
+          <Header>
+            <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
+            <SavedSolutionList>
+              {tempArr.map((num) => {
+                return (
+                  <SavedSolutionNum
+                    key={num}
+                    $isActive={clickedPage === num}
+                    $isFirstNum={num === 1}
+                    onClick={() => handleClickSavedSolutionNum(num)}
+                  >
+                    {num}
+                  </SavedSolutionNum>
+                );
+              })}
+            </SavedSolutionList>
+          </Header>
+          <QuestionContainer>
+            <TopInfo>
+              <Title>{tempTitle}</Title>
+              <DateContainer>
+                <DateTxt>임시저장</DateTxt>
+                <DateTxt>|</DateTxt>
+                <Date>{tempCreatedAt}</Date>
+              </DateContainer>
+            </TopInfo>
 
-        <Level level={tempLevel} />
-      </QuestionContainer>
-      <WriteBtn type="button">
-        <BtnTxt>마저 작성하러 가기</BtnTxt>
-        <IcArrowRightBig />
-      </WriteBtn>
-    </TempSaveContainer>
+            <Level level={tempLevel} />
+          </QuestionContainer>
+          <WriteBtn type="button">
+            <BtnTxt>마저 작성하러 가기</BtnTxt>
+            <IcArrowRightBig />
+          </WriteBtn>
+        </TempSaveContainer>
+      )}
+    </>
   );
 };
 
@@ -104,6 +113,7 @@ const TempSaveContainer = styled.article`
   flex-direction: column;
 
   width: 100%;
+  margin-top: 3.4rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
