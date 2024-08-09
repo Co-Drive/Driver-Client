@@ -35,17 +35,19 @@ const GroupComplete = () => {
             비밀번호 <Password>{groupPassword}</Password>
           </PasswordText>
         ) : (
-          <PasswordText>승인 후 알려드림</PasswordText>
+          <PasswordText>그룹장이 승인 후 알려드릴게요</PasswordText>
         )}
       </PasswordContainer>
       <ThumbnailContainer>
         <Img src={thumbnailUrl} alt="썸네일" />
       </ThumbnailContainer>
       <ButtonContainer>
-        <CommonButton
-          onClick={() => handleClickCopyBtn()}
-          category="link_copy"
-        />
+        {groupPassword && (
+          <CommonButton
+            onClick={() => handleClickCopyBtn()}
+            category="link_copy"
+          />
+        )}
         {isCopied && <Modal />}
         <CommonButton
           onClick={handleGroupPageRedirect}
