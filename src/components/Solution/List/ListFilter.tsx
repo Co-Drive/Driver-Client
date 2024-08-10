@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
   IcArrowBottomWhite,
   IcArrowTopWhite,
   IcCalendar,
 } from '../../../assets';
+import { getUnsolvedMonths } from '../../../libs/apis/Solution/getUnsolvedMonths';
 import Calendar from './Calendar';
 
 const ListFilter = () => {
@@ -18,6 +19,7 @@ const ListFilter = () => {
     month: MONTH,
   });
   const [sorting, setSorting] = useState('최신순');
+  const unsolvedMonths = useRef<Array<number>>([]);
 
   const { year, month } = selectedDate;
 
@@ -54,6 +56,21 @@ const ListFilter = () => {
     // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
+  const getUnsolvedMonthsArr = async () => {
+    try {
+      const { data } = await getUnsolvedMonths(year);
+      const { months } = data;
+
+      unsolvedMonths.current = months;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUnsolvedMonthsArr();
+  }, [year]);
+
   return (
     <FilteredContainer>
       <DateFilterContainer>
@@ -68,6 +85,7 @@ const ListFilter = () => {
             <IcArrowTopWhite onClick={handleClickDateFilter} />
             <Calendar
               date={{ clickedYear: year, clickedMonth: month }}
+              unsolvedMonths={unsolvedMonths.current}
               handleClickPrevBtn={handleClickPrevBtn}
               handleClickMonth={handleClickMonth}
               handleClickNextBtn={handleClickNextBtn}

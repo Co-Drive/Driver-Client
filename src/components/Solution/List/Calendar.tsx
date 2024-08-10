@@ -4,16 +4,15 @@ import { CalendarProps } from '../../../types/Solution/solutionTypes';
 
 const Calendar = ({
   date,
+  unsolvedMonths,
   handleClickPrevBtn,
   handleClickMonth,
   handleClickNextBtn,
 }: CalendarProps) => {
-  // 선택된 년도 별로 서버에서 받아올 예정 !
-  const dummy = [1, 3, 5, 10];
-
   const year = new Date().getFullYear();
   const { clickedYear, clickedMonth } = date;
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
+
   return (
     <CalendarContainer>
       <YearContainer>
@@ -24,7 +23,7 @@ const Calendar = ({
 
       <MonthBoard>
         {monthCalendar.map((month) => {
-          const disabled = dummy.includes(month) || clickedYear > year;
+          const disabled = unsolvedMonths.includes(month) || clickedYear > year;
           return (
             <Month
               key={month}

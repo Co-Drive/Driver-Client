@@ -43,6 +43,7 @@ export interface CalendarProps {
     clickedYear: number;
     clickedMonth: number;
   };
+  unsolvedMonths: Array<number>;
   handleClickPrevBtn: () => void;
   handleClickMonth: (month: number) => void;
   handleClickNextBtn: () => void;
