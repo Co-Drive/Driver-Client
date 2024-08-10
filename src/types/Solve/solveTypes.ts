@@ -85,6 +85,7 @@ export interface PatchRecordsProps extends PostRecordsProps {
 }
 
 export interface PageHeaderProps extends PostRecordsProps {
+  isTemp?: boolean;
   id?: number;
 }
 

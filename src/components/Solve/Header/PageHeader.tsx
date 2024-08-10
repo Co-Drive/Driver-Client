@@ -8,7 +8,12 @@ import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
-const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
+const PageHeader = ({
+  id,
+  isTemp,
+  codeblocks,
+  questionInfo,
+}: PageHeaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -20,16 +25,17 @@ const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
       setModalOpen(true);
     } else {
       try {
-        const { data } = id
-          ? await patchRecords({
-              id: id,
-              questionInfo: questionInfo,
-              codeblocks: codeblocks,
-            })
-          : await postRecords({
-              questionInfo: questionInfo,
-              codeblocks: codeblocks,
-            });
+        const { data } =
+          id && !isTemp
+            ? await patchRecords({
+                id: id,
+                questionInfo: questionInfo,
+                codeblocks: codeblocks,
+              })
+            : await postRecords({
+                questionInfo: questionInfo,
+                codeblocks: codeblocks,
+              });
 
         const { recordId } = data;
         recordId
@@ -73,7 +79,13 @@ const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
           );
         })}
       </BtnContainer>
-      {modalOpen && <SaveModal onClose={() => setModalOpen(false)} questionInfo={questionInfo} codeblocks={codeblocks}/>}
+      {modalOpen && (
+        <SaveModal
+          onClose={() => setModalOpen(false)}
+          questionInfo={questionInfo}
+          codeblocks={codeblocks}
+        />
+      )}
     </PageHeaderContainer>
   );
 };
