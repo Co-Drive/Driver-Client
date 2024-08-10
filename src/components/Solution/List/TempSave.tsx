@@ -61,7 +61,7 @@ const TempSave = () => {
   };
 
   const handleClickWriteBtn = () => {
-    navigate('/solve', { state: { recordId: tempRecordId } });
+    navigate('/solve', { state: { recordId: tempRecordId }, replace: true });
   };
 
   useEffect(() => {
