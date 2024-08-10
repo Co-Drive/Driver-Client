@@ -74,49 +74,78 @@ const SAVED_DUMMY = {
 };
 
 const SavedSolutionList = () => {
-  const [clickedPage, setClickedPage] = useState(1);
-
   const { totalPage, records } = SAVED_DUMMY;
   const pages = Array.from({ length: totalPage }, (_, idx) => idx + 1);
+  const YEAR = new Date().getFullYear();
+  const MONTH = new Date().getMonth() + 1;
+
+  const [clickedPage, setClickedPage] = useState(1);
+  const [selectedDate, setSelectedDate] = useState({
+    year: YEAR,
+    month: MONTH,
+  });
+
+  const { year, month } = selectedDate;
 
   // 페이지 별 문제 리스트 요청 함수 추가할 예정 ! -> 페이지 이동 함수들에 들어갈 것임
 
-  const handleClickPrevBtn = () => {
-    setClickedPage((prev) => prev - 1);
+  const handleClickPrevBtn = (isPage: boolean) => {
+    isPage
+      ? setClickedPage((prev) => prev - 1)
+      : setSelectedDate({
+          ...selectedDate,
+          year: year - 1,
+        });
   };
 
-  const handleClickPageNumber = (page: number) => {
-    setClickedPage(page);
+  const handleClickValue = (value: number, isPage: boolean) => {
+    isPage
+      ? setClickedPage(value)
+      : setSelectedDate({
+          ...selectedDate,
+          month: month,
+        });
   };
 
-  const handleClickNextBtn = () => {
-    setClickedPage((prev) => prev + 1);
+  const handleClickNextBtn = (isPage: boolean) => {
+    isPage
+      ? setClickedPage((prev) => prev + 1)
+      : setSelectedDate({
+          ...selectedDate,
+          year: year + 1,
+        });
   };
 
   return (
     <ListContainer>
-      <ListFilter />
+      <ListFilter
+        year={year}
+        month={month}
+        handleClickPrevBtn={handleClickPrevBtn}
+        handleClickMonth={handleClickValue}
+        handleClickNextBtn={handleClickNextBtn}
+      />
       {records.map((record) => {
         return <SavedSolution key={record.recordId} record={record} />;
       })}
 
       <PageNationBar>
         <IcArrowLeftSmallGray
-          onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
+          onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
         />
         {pages.map((page) => {
           return (
             <PageNumber
               key={page}
               $isClicked={clickedPage === page}
-              onClick={() => handleClickPageNumber(page)}
+              onClick={() => handleClickValue(page, true)}
             >
               {page}
             </PageNumber>
           );
         })}
         <IcArrowRightSmallGray
-          onClick={() => clickedPage !== totalPage && handleClickNextBtn()}
+          onClick={() => clickedPage !== totalPage && handleClickNextBtn(true)}
         />
       </PageNationBar>
     </ListContainer>

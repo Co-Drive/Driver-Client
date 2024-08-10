@@ -8,44 +8,29 @@ import {
 import { getUnsolvedMonths } from '../../../libs/apis/Solution/getUnsolvedMonths';
 import Calendar from './Calendar';
 
-const ListFilter = () => {
+interface ListFilterProps {
+  year: number;
+  month: number;
+  handleClickPrevBtn: (isPage: boolean) => void;
+  handleClickMonth: (value: number, isPage: boolean) => void;
+  handleClickNextBtn: (isPage: boolean) => void;
+}
+
+const ListFilter = ({
+  year,
+  month,
+  handleClickPrevBtn,
+  handleClickMonth,
+  handleClickNextBtn,
+}: ListFilterProps) => {
   const LIST_SORTING = ['최신순', '|', '즐겨찾기'];
-  const YEAR = new Date().getFullYear();
-  const MONTH = new Date().getMonth() + 1;
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  const [selectedDate, setSelectedDate] = useState({
-    year: YEAR,
-    month: MONTH,
-  });
   const [sorting, setSorting] = useState('최신순');
   const unsolvedMonths = useRef<Array<number>>([]);
 
-  const { year, month } = selectedDate;
-
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
-  };
-
-  const handleClickPrevBtn = () => {
-    setSelectedDate({
-      ...selectedDate,
-      year: year - 1,
-    });
-  };
-
-  const handleClickMonth = (month: number) => {
-    setSelectedDate({
-      ...selectedDate,
-      month: month,
-    });
-  };
-
-  const handleClickNextBtn = () => {
-    setSelectedDate({
-      ...selectedDate,
-      year: year + 1,
-    });
   };
 
   const handleClickSorting = (
@@ -86,9 +71,9 @@ const ListFilter = () => {
             <Calendar
               date={{ clickedYear: year, clickedMonth: month }}
               unsolvedMonths={unsolvedMonths.current}
-              handleClickPrevBtn={handleClickPrevBtn}
-              handleClickMonth={handleClickMonth}
-              handleClickNextBtn={handleClickNextBtn}
+              handleClickPrevBtn={() => handleClickPrevBtn(false)}
+              handleClickMonth={() => handleClickMonth(month, false)}
+              handleClickNextBtn={() => handleClickNextBtn(false)}
             />
           </>
         ) : (
