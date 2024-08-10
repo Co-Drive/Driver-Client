@@ -13,7 +13,7 @@ export const getMonthlySolution = async ({
 }: getMonthlySolutionProps) => {
   const userId = sessionStorage.getItem('user');
   const { data } = await api.get(
-    `/records/${userId}/months?pivotDate=${year}-${month}-01&page=${page}&size=7`
+    `/records/${userId}/month?pivotDate=${year}-0${month}-01&page=${page}&size=7`
   );
 
   return data;
