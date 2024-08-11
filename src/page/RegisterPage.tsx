@@ -6,7 +6,7 @@ import Github from '../components/Register/Gitbhub';
 import IntroInput from '../components/Register/IntroInput';
 import Language from '../components/Register/Language';
 import NickName from '../components/Register/NickName';
-Github;
+import { handleInput } from '../utils/handleInput';
 
 const RegisterPage = () => {
   const [inputs, setInputs] = useState({
@@ -35,7 +35,9 @@ const RegisterPage = () => {
   };
 
   // 소개글 변경 처리 함수
-  const handleChangeIntro = (value: string) => {
+  const handleChangeIntro = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target;
+    handleInput(e, 'intro');
     setInputs((prev) => ({ ...prev, intro: value }));
   };
 
