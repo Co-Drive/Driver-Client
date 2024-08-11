@@ -2,8 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IntroProps } from '../../types/Register/RegisterType';
 
-const IntroInput = ({ value, onChange, maxLength = 30 }: IntroProps) => {
+const IntroInput = ({ value, onChange }: IntroProps) => {
   const [hasError, setHasError] = useState(false);
+  const maxLength = 30;
 
   const regex =
     /^[ㄱ-ㅎ가-힣a-zA-Z0-9~!@#$%^&*()_+\-={}\[\]:;"'<>,.?|\/\\\s]*$/;
