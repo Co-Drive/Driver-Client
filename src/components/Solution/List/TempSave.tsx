@@ -1,56 +1,116 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowRightBig } from '../../../assets';
+import { getTempRecords } from '../../../libs/apis/Solution/getTempRecords';
+import {
+  UpdateRecordsProps,
+  UpdateTotalPageProps,
+} from '../../../types/Solution/solutionTypes';
 import Level from '../Level';
 
 const TempSave = () => {
-  // 임시저장된 리스트 개수 받아오기 -> 그 수로 map 돌려서 숫자 아이콘 만들기
-  const DUMMY = 3;
-  const DUMMY_ARR = Array.from({ length: DUMMY }, (_, idx) => idx + 1);
+  const totalPageRef = useRef(0);
 
-  const [isClickedNum, setIsClickedNum] = useState(1);
+  const [clickedPage, setClickedPage] = useState(1);
+  const [tempRecords, setTempRecords] = useState({
+    tempRecordId: 0,
+    tempTitle: '',
+    tempLevel: 0,
+    tempCreatedAt: '',
+  });
+
+  const navigate = useNavigate();
+  const { tempRecordId, tempTitle, tempLevel, tempCreatedAt } = tempRecords;
+  const tempArr = Array.from(
+    { length: totalPageRef.current },
+    (_, idx) => idx + 1
+  );
+  const isTempExit = !(
+    totalPageRef.current === 0 &&
+    (tempTitle.length === 0 || tempLevel === 0 || tempCreatedAt.length === 0)
+  );
 
   const handleClickSavedSolutionNum = (clickedNum: number) => {
-    setIsClickedNum(clickedNum);
+    setClickedPage(clickedNum);
   };
 
+  const getRecords = async () => {
+    const { data } = await getTempRecords(clickedPage - 1);
+    updateTotalPage({ data });
+    updateRecords({ data });
+  };
+
+  const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
+    const { totalPage } = data;
+    totalPageRef.current = totalPage;
+  };
+
+  const updateRecords = async ({ data }: UpdateRecordsProps) => {
+    const { records } = data;
+    if (records.length) {
+      const { recordId, title, level, createdAt } = records[0];
+
+      setTempRecords({
+        tempRecordId: recordId,
+        tempTitle: title,
+        tempLevel: level,
+        tempCreatedAt: createdAt,
+      });
+    }
+  };
+
+  const handleClickWriteBtn = () => {
+    navigate('/solve', {
+      state: { recordId: tempRecordId, isTemp: true },
+      replace: true,
+    });
+  };
+
+  useEffect(() => {
+    getRecords();
+  }, [totalPageRef, clickedPage]);
+
   return (
-    <TempSaveContainer>
-      <Header>
-        <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
-        <SavedSolutionList>
-          {DUMMY_ARR.map((num) => {
-            return (
-              <SavedSolutionNum
-                key={num}
-                $isActive={isClickedNum === num}
-                $isFirstNum={num === 1}
-                onClick={() => handleClickSavedSolutionNum(num)}
-              >
-                {num}
-              </SavedSolutionNum>
-            );
-          })}
-        </SavedSolutionList>
-      </Header>
-      <QuestionContainer>
-        <TopInfo>
-          <Title>전생했더니 슬라임 연구자가 아니었던 건에 대하여</Title>
-          <DateContainer>
-            <DateTxt>임시저장</DateTxt>
-            <DateTxt>|</DateTxt>
-            <Date>2024.07.31</Date>
-            <Time>22시 14분</Time>
-          </DateContainer>
-        </TopInfo>
-        {/* 추후 서버에서 받아온 값으로 변경 예정 */}
-        <Level level={3} />
-      </QuestionContainer>
-      <WriteBtn type="button">
-        <BtnTxt>마저 작성하러 가기</BtnTxt>
-        <IcArrowRightBig />
-      </WriteBtn>
-    </TempSaveContainer>
+    <>
+      {isTempExit && (
+        <TempSaveContainer>
+          <Header>
+            <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
+            <SavedSolutionList>
+              {tempArr.map((num) => {
+                return (
+                  <SavedSolutionNum
+                    key={num}
+                    $isActive={clickedPage === num}
+                    $isFirstNum={num === 1}
+                    onClick={() => handleClickSavedSolutionNum(num)}
+                  >
+                    {num}
+                  </SavedSolutionNum>
+                );
+              })}
+            </SavedSolutionList>
+          </Header>
+          <QuestionContainer>
+            <TopInfo>
+              <Title>{tempTitle}</Title>
+              <DateContainer>
+                <DateTxt>임시저장</DateTxt>
+                <DateTxt>|</DateTxt>
+                <Date>{tempCreatedAt}</Date>
+              </DateContainer>
+            </TopInfo>
+
+            <Level level={tempLevel} />
+          </QuestionContainer>
+          <WriteBtn type="button" onClick={handleClickWriteBtn}>
+            <BtnTxt>마저 작성하러 가기</BtnTxt>
+            <IcArrowRightBig />
+          </WriteBtn>
+        </TempSaveContainer>
+      )}
+    </>
   );
 };
 
@@ -62,6 +122,7 @@ const TempSaveContainer = styled.article`
   flex-direction: column;
 
   width: 100%;
+  margin-top: 3.4rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -140,11 +201,6 @@ const DateTxt = styled.p`
 `;
 
 const Date = styled.p`
-  color: ${({ theme }) => theme.colors.gray200};
-  ${({ theme }) => theme.fonts.detail_regular_12};
-`;
-
-const Time = styled.p`
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.detail_regular_12};
 `;

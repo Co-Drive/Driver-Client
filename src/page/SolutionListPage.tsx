@@ -35,8 +35,6 @@ const ListPageContainer = styled.section`
 const TitleContainer = styled.div`
   display: flex;
   gap: 0.4rem;
-
-  margin-bottom: 3.4rem;
 `;
 
 const Nickname = styled.span`

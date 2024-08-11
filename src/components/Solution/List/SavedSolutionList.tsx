@@ -1,122 +1,143 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
+import { getMonthlySolution } from '../../../libs/apis/Solution/getMonthlySolution';
+import {
+  UpdateSavedRecordsProps,
+  UpdateTotalPageProps,
+} from '../../../types/Solution/solutionTypes';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
-const SAVED_DUMMY = {
-  totalPage: 2,
-  records: [
-    {
-      recordId: 1,
-      title: '문제 풀이 제목',
-      level: 1,
-      tags: ['완전탐색'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-    {
-      recordId: 2,
-      title: '문제 풀이 제목',
-      level: 1,
-      tags: ['동적계획법 (Dynamic Programming)', '깊이 우선탐색 (DFS)'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-    {
-      recordId: 3,
-      title: '문제 풀이 제목',
-      level: 1,
-      tags: ['동적계획법 (Dynamic Programming)'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-    {
-      recordId: 4,
-      title: '문제 풀이 제목',
-      level: 2,
-      tags: ['정렬', '힙 (Heap)'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-    {
-      recordId: 5,
-      title: '문제 풀이 제목',
-      level: 5,
-      tags: ['깊이 우선탐색 (DFS)'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-    {
-      recordId: 6,
-      title: '문제 풀이 제목',
-      level: 3,
-      tags: ['구현', '탐욕법 (Greedy)'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-    {
-      recordId: 7,
-      title: '문제 풀이 제목',
-      level: 2,
-      tags: ['스택/큐', '해시'],
-      platform: 'BAEKJOON',
-      problemUrl: 'PROBLEM_URL',
-      createdAt: '02.05',
-    },
-  ],
-};
-
 const SavedSolutionList = () => {
+  const totalPageRef = useRef(0);
+  const pages = Array.from(
+    { length: totalPageRef.current },
+    (_, idx) => idx + 1
+  );
+  const YEAR = new Date().getFullYear();
+  const MONTH = new Date().getMonth() + 1;
+
+  const [savedRecords, setSavedRecords] = useState([
+    {
+      recordId: 0,
+      title: '',
+      level: 0,
+      tags: [''],
+      platform: '',
+      problemUrl: '',
+      createdAt: '',
+    },
+  ]);
+
   const [clickedPage, setClickedPage] = useState(1);
+  const [selectedDate, setSelectedDate] = useState({
+    year: YEAR,
+    month: MONTH,
+  });
 
-  const { totalPage, records } = SAVED_DUMMY;
-  const pages = Array.from({ length: totalPage }, (_, idx) => idx + 1);
+  const { year, month } = selectedDate;
 
-  // 페이지 별 문제 리스트 요청 함수 추가할 예정 ! -> 페이지 이동 함수들에 들어갈 것임
+  const getMonthlySolutionList = async () => {
+    const { data } = await getMonthlySolution({
+      year: year,
+      month: month,
+      page: clickedPage - 1,
+    });
 
-  const handleClickPrevBtn = () => {
-    setClickedPage((prev) => prev - 1);
+    updateTotalPage({ data });
+    updateRecords({ data });
   };
 
-  const handleClickPageNumber = (page: number) => {
-    setClickedPage(page);
+  const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
+    const { totalPage } = data;
+    totalPageRef.current = totalPage;
   };
 
-  const handleClickNextBtn = () => {
-    setClickedPage((prev) => prev + 1);
+  const updateRecords = async ({ data }: UpdateSavedRecordsProps) => {
+    const { records } = data;
+
+    if (records.length) {
+      const { recordId, title, level, tags, platform, problemUrl, createdAt } =
+        records[0];
+
+      setSavedRecords([
+        {
+          recordId: recordId,
+          title: title,
+          level: level,
+          tags: tags,
+          platform: platform,
+          problemUrl: problemUrl,
+          createdAt: createdAt,
+        },
+      ]);
+    }
   };
+
+  const handleClickPrevBtn = (isPage: boolean) => {
+    isPage
+      ? setClickedPage((prev) => prev - 1)
+      : setSelectedDate({
+          ...selectedDate,
+          year: year - 1,
+        });
+  };
+
+  const handleClickValue = (value: number, isPage: boolean) => {
+    isPage
+      ? setClickedPage(value)
+      : setSelectedDate({
+          ...selectedDate,
+          month: month,
+        });
+  };
+
+  const handleClickNextBtn = (isPage: boolean) => {
+    isPage
+      ? setClickedPage((prev) => prev + 1)
+      : setSelectedDate({
+          ...selectedDate,
+          year: year + 1,
+        });
+  };
+
+  useEffect(() => {
+    getMonthlySolutionList();
+  }, [totalPageRef.current, clickedPage]);
 
   return (
     <ListContainer>
-      <ListFilter />
-      {records.map((record) => {
-        return <SavedSolution key={record.recordId} record={record} />;
+      <ListFilter
+        year={year}
+        month={month}
+        handleClickPrevBtn={handleClickPrevBtn}
+        handleClickMonth={handleClickValue}
+        handleClickNextBtn={handleClickNextBtn}
+      />
+      {savedRecords.map((record) => {
+        return <SavedSolution key={record.recordId} record={savedRecords[0]} />;
       })}
 
       <PageNationBar>
         <IcArrowLeftSmallGray
-          onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
+          onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
         />
         {pages.map((page) => {
           return (
             <PageNumber
               key={page}
               $isClicked={clickedPage === page}
-              onClick={() => handleClickPageNumber(page)}
+              onClick={() => handleClickValue(page, true)}
             >
               {page}
             </PageNumber>
           );
         })}
         <IcArrowRightSmallGray
-          onClick={() => clickedPage !== totalPage && handleClickNextBtn()}
+          onClick={() =>
+            clickedPage !== totalPageRef.current && handleClickNextBtn(true)
+          }
         />
       </PageNationBar>
     </ListContainer>

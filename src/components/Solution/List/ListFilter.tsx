@@ -1,49 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
   IcArrowBottomWhite,
   IcArrowTopWhite,
   IcCalendar,
 } from '../../../assets';
+import { getUnsolvedMonths } from '../../../libs/apis/Solution/getUnsolvedMonths';
+import { ListFilterProps } from '../../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
 
-const ListFilter = () => {
+const ListFilter = ({
+  year,
+  month,
+  handleClickPrevBtn,
+  handleClickMonth,
+  handleClickNextBtn,
+}: ListFilterProps) => {
   const LIST_SORTING = ['최신순', '|', '즐겨찾기'];
-  const YEAR = new Date().getFullYear();
-  const MONTH = new Date().getMonth();
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  const [selectedDate, setSelectedDate] = useState({
-    year: YEAR,
-    month: MONTH,
-  });
   const [sorting, setSorting] = useState('최신순');
-
-  const { year, month } = selectedDate;
+  const unsolvedMonths = useRef<Array<number>>([]);
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
-  };
-
-  const handleClickPrevBtn = () => {
-    setSelectedDate({
-      ...selectedDate,
-      year: year - 1,
-    });
-  };
-
-  const handleClickMonth = (month: number) => {
-    setSelectedDate({
-      ...selectedDate,
-      month: month,
-    });
-  };
-
-  const handleClickNextBtn = () => {
-    setSelectedDate({
-      ...selectedDate,
-      year: year + 1,
-    });
   };
 
   const handleClickSorting = (
@@ -53,6 +33,21 @@ const ListFilter = () => {
     setSorting(innerHTML);
     // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
+
+  const getUnsolvedMonthsArr = async () => {
+    try {
+      const { data } = await getUnsolvedMonths(year);
+      const { months } = data;
+
+      unsolvedMonths.current = months;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUnsolvedMonthsArr();
+  }, [year]);
 
   return (
     <FilteredContainer>
@@ -68,9 +63,10 @@ const ListFilter = () => {
             <IcArrowTopWhite onClick={handleClickDateFilter} />
             <Calendar
               date={{ clickedYear: year, clickedMonth: month }}
-              handleClickPrevBtn={handleClickPrevBtn}
-              handleClickMonth={handleClickMonth}
-              handleClickNextBtn={handleClickNextBtn}
+              unsolvedMonths={unsolvedMonths.current}
+              handleClickPrevBtn={() => handleClickPrevBtn(false)}
+              handleClickMonth={() => handleClickMonth(month, false)}
+              handleClickNextBtn={() => handleClickNextBtn(false)}
             />
           </>
         ) : (
