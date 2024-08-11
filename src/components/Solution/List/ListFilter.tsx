@@ -6,15 +6,8 @@ import {
   IcCalendar,
 } from '../../../assets';
 import { getUnsolvedMonths } from '../../../libs/apis/Solution/getUnsolvedMonths';
+import { ListFilterProps } from '../../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
-
-interface ListFilterProps {
-  year: number;
-  month: number;
-  handleClickPrevBtn: (isPage: boolean) => void;
-  handleClickMonth: (value: number, isPage: boolean) => void;
-  handleClickNextBtn: (isPage: boolean) => void;
-}
 
 const ListFilter = ({
   year,

@@ -83,3 +83,11 @@ export interface UpdateSavedRecordsProps {
     ];
   };
 }
+
+export interface ListFilterProps {
+  year: number;
+  month: number;
+  handleClickPrevBtn: (isPage: boolean) => void;
+  handleClickMonth: (value: number, isPage: boolean) => void;
+  handleClickNextBtn: (isPage: boolean) => void;
+}
