@@ -1,23 +1,17 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IntroProps } from '../../types/Register/RegisterType';
+import { handleInput } from '../../utils/handleInput';
 
 const IntroInput = ({ value, onChange }: IntroProps) => {
   const [hasError, setHasError] = useState(false);
   const maxLength = 30;
 
-  const regex =
-    /^[ㄱ-ㅎ가-힣a-zA-Z0-9~!@#$%^&*()_+\-={}\[\]:;"'<>,.?|\/\\\s]*$/;
-
   const handleChangeIntro = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const inputValue = e.target.value;
-
-    if (!regex.test(inputValue) || inputValue.length > maxLength) {
-      setHasError(true);
-    } else {
-      setHasError(false);
-      onChange(inputValue);
-    }
+    handleInput(e, 'intro');
+    const { value } = e.target;
+    value.length > maxLength ? setHasError(true) : setHasError(false);
+    onChange(e);
   };
 
   return (
