@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -15,7 +15,6 @@ const RegisterPage = () => {
     intro: '',
   });
 
-  const [isActive, setIsActive] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('');
 
   const { nickname, github, intro } = inputs;
@@ -51,18 +50,13 @@ const RegisterPage = () => {
     // 닉네임 중복 체크 로직 추가
   };
 
-  // 폼 유효성 검사 및 버튼 활성화 상태 업데이트
-  useEffect(() => {
-    const isFormValid =
-      nickname.length > 0 &&
-      nickname.length <= 10 &&
-      intro.length > 0 &&
-      intro.length <= 30 &&
-      github.length > 0 &&
-      selectedLanguage.length > 0;
-
-    setIsActive(isFormValid);
-  }, [nickname, selectedLanguage, intro, github]);
+  const isActive =
+    nickname.length > 0 &&
+    nickname.length <= 10 &&
+    intro.length > 0 &&
+    intro.length <= 30 &&
+    github.length > 0 &&
+    selectedLanguage.length > 0;
 
   return (
     <PageLayout category={'login'}>
@@ -76,7 +70,7 @@ const RegisterPage = () => {
           selectedTag={selectedLanguage}
           handleChangeTag={handleChangeTag}
         />
-        <IntroInput value={intro} maxLength={30} onChange={handleChangeIntro} />
+        <IntroInput value={intro} onChange={handleChangeIntro} />
         <Github github={github} handleChangeInputs={handleChangeInputs} />
         <RegisterButton>
           <CommonButton
