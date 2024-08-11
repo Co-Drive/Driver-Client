@@ -29,7 +29,7 @@ export interface LanguageProps {
 
 export interface IntroProps {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength?: number;
 }
 
