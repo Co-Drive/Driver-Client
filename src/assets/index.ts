@@ -6,9 +6,12 @@ import IcAddFill from './icon/ic_add_fill.svg?react';
 import IcAddFillDisabled from './icon/ic_add_fill_disabled.svg?react';
 import IcAddGray from './icon/ic_add_gray.svg?react';
 import IcAddPhoto from './icon/ic_add_photo.svg?react';
+import IcArrowTopWhite from './icon/ic_arrow__top_white.svg?react';
 import IcArrowBottomGray from './icon/ic_arrow_bottom_gray.svg?react';
+import IcArrowBottomWhite from './icon/ic_arrow_bottom_white.svg?react';
 import IcArrowLeftFill from './icon/ic_arrow_left_fill.svg?react';
 import IcArrowLeftSmallGray from './icon/ic_arrow_left_small_gray.svg?react';
+import IcArrowRightBig from './icon/ic_arrow_right_big.svg?react';
 import IcArrowRightBlack from './icon/ic_arrow_right_black.svg?react';
 import IcArrowRightFill from './icon/ic_arrow_right_fill.svg?react';
 import IcArrowRightGray from './icon/ic_arrow_right_gray.svg?react';
@@ -17,6 +20,7 @@ import IcArrowTopGray from './icon/ic_arrow_top_gray.svg?react';
 import IcArrowUpBig from './icon/ic_arrow_up_big.svg?react';
 import IcBtnCopy from './icon/ic_btn_copy.svg?react';
 import IcBtnInformation from './icon/ic_btn_information.svg?react';
+import IcCalendar from './icon/ic_calendar.svg?react';
 import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
@@ -49,6 +53,8 @@ import Thumbnail from './icon/thumbnail.svg?react';
 import BtnHeart from './btn/btn_heart.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
+import BtnStarGraySmall from './btn/btn_star_gray_small.svg?react';
+import BtnStarPurpleSmall from './btn/btn_star_purple_small.svg?react';
 import TestWeekboardStatus from './test_weekboard_status.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
@@ -56,8 +62,10 @@ export {
   // btn
   BtnHeart,
   BtnJoinGitHub,
-  // icon
   BtnShare,
+  BtnStarGraySmall,
+  BtnStarPurpleSmall,
+
   // icon
   IcAdd,
   IcAddBlack,
@@ -66,16 +74,20 @@ export {
   IcAddGray,
   IcAddPhoto,
   IcArrowBottomGray,
+  IcArrowBottomWhite,
   IcArrowLeftFill,
   IcArrowLeftSmallGray,
+  IcArrowRightBig,
   IcArrowRightBlack,
   IcArrowRightFill,
   IcArrowRightGray,
   IcArrowRightSmallGray,
   IcArrowTopGray,
+  IcArrowTopWhite,
   IcArrowUpBig,
   IcBtnCopy,
   IcBtnInformation,
+  IcCalendar,
   IcCancelFill,
   IcCancelSmall,
   IcCancelSmallWhite,

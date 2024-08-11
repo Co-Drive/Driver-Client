@@ -15,7 +15,7 @@ import { fetchRecords } from '../utils/fetchRecords';
 
 const SolvePage = () => {
   const { state } = useLocation();
-  const { recordId } = state || {};
+  const { recordId, isTemp } = state || {};
   const [records, setRecords] = useState<RecordsTypes>();
 
   const {
@@ -144,6 +144,7 @@ const SolvePage = () => {
       <SolvePageContainer>
         <PageHeader
           id={recordId}
+          isTemp={isTemp}
           codeblocks={ideItems}
           questionInfo={questionInfo}
         />

@@ -1,12 +1,27 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcCancelSmallWhite, IcSuccess } from '../../assets';
+import { postTempRecords } from '../../libs/apis/Solve/postTempRecords';
 import { ModalProps } from '../../types/Solve/solveTypes';
 
-const SaveModalForm = ({ onClose }: ModalProps) => {
-  const handleClickExitBtn = () => {
-    // 풀었던 문제 리스트 중 임시작성 중인 문제가 있는 경우의 뷰로 navigate 할 예정
+const SaveModalForm = ({ onClose, questionInfo, codeblocks }: ModalProps) => {
+  const navigate = useNavigate();
 
-    onClose && onClose();
+  const handleClickExitBtn = async () => {
+    if (questionInfo && codeblocks) {
+      try {
+        const { data } = await postTempRecords({
+          questionInfo: questionInfo,
+          codeblocks: codeblocks,
+        });
+        if (data) {
+          navigate('/solution');
+          onClose && onClose();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
 
   return (
