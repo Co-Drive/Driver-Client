@@ -67,3 +67,19 @@ export interface UpdateRecordsProps {
     ];
   };
 }
+
+export interface UpdateSavedRecordsProps {
+  data: {
+    records: [
+      {
+        recordId: number;
+        title: string;
+        level: number;
+        tags: Array<string>;
+        platform: string;
+        problemUrl: string;
+        createdAt: string;
+      },
+    ];
+  };
+}
