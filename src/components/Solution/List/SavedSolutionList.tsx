@@ -75,10 +75,6 @@ const SavedSolutionList = () => {
     }
   };
 
-  useEffect(() => {
-    getMonthlySolutionList();
-  }, [totalPageRef, clickedPage]);
-
   const handleClickPrevBtn = (isPage: boolean) => {
     isPage
       ? setClickedPage((prev) => prev - 1)
@@ -108,7 +104,7 @@ const SavedSolutionList = () => {
 
   useEffect(() => {
     getMonthlySolutionList();
-  }, []);
+  }, [totalPageRef.current, clickedPage]);
 
   return (
     <ListContainer>
