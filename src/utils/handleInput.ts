@@ -1,5 +1,5 @@
 export const handleInput = (
-  e: React.FormEvent<HTMLInputElement>,
+  e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
   category: string
 ) => {
   switch (category) {
@@ -10,7 +10,9 @@ export const handleInput = (
 
     // 숫자만 가능
     case 'num':
-      e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, '').slice(0, 3);
+      e.currentTarget.value = e.currentTarget.value
+        .replace(/[^0-9]/g, '')
+        .slice(0, 3);
       break;
 
     // 한글, 영어, 일반적인 특수문자 가능, 공백 불가능, 11자 제한
@@ -50,6 +52,16 @@ export const handleInput = (
           ''
         )
         .slice(0, 21);
+      break;
+
+    // 한글, 영어, 일반적인 특수문자, 공백 가능, 31자 제한
+    case 'intro':
+      e.currentTarget.value = e.currentTarget.value
+        .replace(
+          /[^ㄱ-ㅎ가-힣a-zA-Z0-9~!@#$%^&*()_+\-={}\[\]:;"'<>,.?|\/\\\s]/g,
+          ''
+        )
+        .slice(0, 31);
       break;
 
     default:
