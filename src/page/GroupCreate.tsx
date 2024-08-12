@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
@@ -9,6 +8,7 @@ import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { api } from '../libs/api';
 
 const GroupCreate = () => {
   // 상태 객체 선언
@@ -22,9 +22,10 @@ const GroupCreate = () => {
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>('');
+  const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -49,6 +50,7 @@ const GroupCreate = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
+      setSelctedImageFIle(file);
       // 이미지 미리보기 설정 (선택 사항)
       const reader = new FileReader();
       reader.onload = () => {
@@ -68,14 +70,53 @@ const GroupCreate = () => {
     setIsActive(allFieldsFilled || (isPublicGroup && allFieldsFilled));
   }, [inputs, isPublicGroup]);
 
-  const handleGroupCreate = () => {
-    navigate('/group-complete', {
-      state: {
-        groupPassword: inputs.secretKey,
-        thumbnailUrl: previewImage as string,
-      },
-    });
+  const handleGroupCreate = async () => {
+    const postData = {
+      title: inputs.title,
+      password: inputs.secretKey,
+      capacity: inputs.num,
+      tags: selectedTags,
+      introduce: inputs.intro,
+      information: inputs.group,
+    };
+    const requestBody = new FormData();
+    const jsonChange = JSON.stringify(postData);
+
+    requestBody.append('request', jsonChange);
+    // requestBody.append('imageFile', previewImage);
+
+    // formData.append('request', JSON.stringify(postData));
+
+    for (let key of requestBody.keys()) {
+      console.log(key);
+    }
+    for (let value of requestBody.values()) {
+      console.log(value);
+    }
+    if (selectdImageFile) {
+      requestBody.append('imageFile', selectdImageFile);
+    } else {
+      console.log('파일선택안됌');
+    }
+
+    try {
+      const data = await api.post('/rooms', requestBody, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // navigate('/group-complete', {
+  //   state: {
+  //     groupPassword: inputs.secretKey,
+  //     thumbnailUrl: previewImage as string,
+  //   },
+  // });
 
   return (
     <PageLayout category="그룹">
