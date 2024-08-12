@@ -50,9 +50,7 @@ export interface CalendarProps {
 
 export interface UpdateTotalPageProps {
   data: {
-    data: {
-      totalPage: number;
-    };
+    totalPage: number;
   };
 }
 
