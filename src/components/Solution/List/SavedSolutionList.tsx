@@ -96,38 +96,42 @@ const SavedSolutionList = () => {
 
   return (
     <ListContainer>
-      <ListFilter
-        year={year}
-        month={month}
-        handleClickPrevBtn={handleClickPrevBtn}
-        handleClickMonth={handleClickValue}
-        handleClickNextBtn={handleClickNextBtn}
-      />
-      {savedRecords.map((record) => {
-        return <SavedSolution key={record.recordId} record={record} />;
-      })}
+      {data && (
+        <>
+          <ListFilter
+            year={year}
+            month={month}
+            handleClickPrevBtn={handleClickPrevBtn}
+            handleClickMonth={handleClickValue}
+            handleClickNextBtn={handleClickNextBtn}
+          />
+          {savedRecords.map((record) => {
+            return <SavedSolution key={record.recordId} record={record} />;
+          })}
 
-      <PageNationBar>
-        <IcArrowLeftSmallGray
-          onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
-        />
-        {pages.map((page) => {
-          return (
-            <PageNumber
-              key={page}
-              $isClicked={clickedPage === page}
-              onClick={() => handleClickValue(page, true)}
-            >
-              {page}
-            </PageNumber>
-          );
-        })}
-        <IcArrowRightSmallGray
-          onClick={() =>
-            clickedPage !== totalPageRef.current && handleClickNextBtn(true)
-          }
-        />
-      </PageNationBar>
+          <PageNationBar>
+            <IcArrowLeftSmallGray
+              onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
+            />
+            {pages.map((page) => {
+              return (
+                <PageNumber
+                  key={page}
+                  $isClicked={clickedPage === page}
+                  onClick={() => handleClickValue(page, true)}
+                >
+                  {page}
+                </PageNumber>
+              );
+            })}
+            <IcArrowRightSmallGray
+              onClick={() =>
+                clickedPage !== totalPageRef.current && handleClickNextBtn(true)
+              }
+            />
+          </PageNationBar>
+        </>
+      )}
     </ListContainer>
   );
 };
