@@ -44,7 +44,7 @@ const ListFilter = ({
 
   useEffect(() => {
     getUnsolvedMonthsArr();
-  }, [year]);
+  }, [unsolvedData]);
 
   return (
     <FilteredContainer>
