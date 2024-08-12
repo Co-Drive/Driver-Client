@@ -45,7 +45,7 @@ const SavedSolutionList = () => {
 
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
     if (data) {
-      const { totalPage } = data;
+      const { totalPage } = data.data;
       totalPageRef.current = totalPage;
     }
   };
