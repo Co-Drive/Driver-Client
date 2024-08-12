@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
-import { getMonthlySolution } from '../../../libs/apis/Solution/getMonthlySolution';
+import useGetMonthlySolution from '../../../libs/hooks/Solution/useGetMonthlySolution';
 import {
   UpdateSavedRecordsProps,
   UpdateTotalPageProps,
@@ -29,7 +29,6 @@ const SavedSolutionList = () => {
       createdAt: '',
     },
   ]);
-
   const [clickedPage, setClickedPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState({
     year: YEAR,
@@ -38,24 +37,26 @@ const SavedSolutionList = () => {
 
   const { year, month } = selectedDate;
 
-  const getMonthlySolutionList = async () => {
-    const { data } = await getMonthlySolution({
-      year: year,
-      month: month,
-      page: clickedPage - 1,
-    });
+  const { data } = useGetMonthlySolution({
+    year: year,
+    month: month,
+    page: clickedPage - 1,
+  });
 
+  const getMonthlySolutionList = () => {
     updateTotalPage({ data });
     updateRecords({ data });
   };
 
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
-    const { totalPage } = data;
-    totalPageRef.current = totalPage;
+    if (data) {
+      const { totalPage } = data.data;
+      totalPageRef.current = totalPage;
+    }
   };
 
   const updateRecords = async ({ data }: UpdateSavedRecordsProps) => {
-    const { records } = data;
+    const { records } = data.data;
 
     if (records.length) {
       const { recordId, title, level, tags, platform, problemUrl, createdAt } =
@@ -116,7 +117,7 @@ const SavedSolutionList = () => {
         handleClickNextBtn={handleClickNextBtn}
       />
       {savedRecords.map((record) => {
-        return <SavedSolution key={record.recordId} record={savedRecords[0]} />;
+        return <SavedSolution key={record.recordId} record={record} />;
       })}
 
       <PageNationBar>
