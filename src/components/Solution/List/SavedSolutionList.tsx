@@ -43,11 +43,6 @@ const SavedSolutionList = () => {
     page: clickedPage - 1,
   });
 
-  const getMonthlySolutionList = () => {
-    updateTotalPage({ data });
-    updateRecords({ data });
-  };
-
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
     if (data) {
       const { totalPage } = data.data;
@@ -56,23 +51,14 @@ const SavedSolutionList = () => {
   };
 
   const updateRecords = async ({ data }: UpdateSavedRecordsProps) => {
-    const { records } = data.data;
+    if (data) {
+      const { records } = data.data;
 
-    if (records.length) {
-      const { recordId, title, level, tags, platform, problemUrl, createdAt } =
-        records[0];
-
-      setSavedRecords([
-        {
-          recordId: recordId,
-          title: title,
-          level: level,
-          tags: tags,
-          platform: platform,
-          problemUrl: problemUrl,
-          createdAt: createdAt,
-        },
-      ]);
+      if (records.length) {
+        setSavedRecords(records);
+      } else {
+        setSavedRecords([]);
+      }
     }
   };
 
@@ -104,8 +90,9 @@ const SavedSolutionList = () => {
   };
 
   useEffect(() => {
-    getMonthlySolutionList();
-  }, [totalPageRef.current, clickedPage]);
+    updateTotalPage({ data });
+    updateRecords({ data });
+  }, [data]);
 
   return (
     <ListContainer>
