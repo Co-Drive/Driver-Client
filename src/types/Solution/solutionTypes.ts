@@ -50,20 +50,24 @@ export interface CalendarProps {
 
 export interface UpdateTotalPageProps {
   data: {
-    totalPage: number;
+    data: {
+      totalPage: number;
+    };
   };
 }
 
 export interface UpdateRecordsProps {
   data: {
-    records: [
-      {
-        recordId: number;
-        title: string;
-        level: number;
-        createdAt: string;
-      },
-    ];
+    data: {
+      records: [
+        {
+          recordId: number;
+          title: string;
+          level: number;
+          createdAt: string;
+        },
+      ];
+    };
   };
 }
 
