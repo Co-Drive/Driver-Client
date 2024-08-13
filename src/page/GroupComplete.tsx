@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import Modal from '../common/Modal/Modal';
@@ -12,6 +12,8 @@ const GroupComplete = () => {
   const { groupPassword, thumbnailUrl } = state || {};
   const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
   const [isCopied, setIsCopied] = useState(false);
+  const { id } = useParams();
+  console.log(id);
 
   const handleClickCopyBtn = () => {
     handleCopyClipBoard({ baseUrl: baseUrl, isUsedBaseUrl: true });

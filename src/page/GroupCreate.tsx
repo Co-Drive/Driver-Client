@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
@@ -25,7 +26,7 @@ const GroupCreate = () => {
   const [previewImage, setPreviewImage] = useState<string | null>('');
   const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -50,8 +51,8 @@ const GroupCreate = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
+      // 선택된 파일을 상태로 저장
       setSelctedImageFIle(file);
-      // 이미지 미리보기 설정 (선택 사항)
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result as string);
@@ -83,29 +84,43 @@ const GroupCreate = () => {
     const jsonChange = JSON.stringify(postData);
 
     requestBody.append('request', jsonChange);
-    // requestBody.append('imageFile', previewImage);
 
-    // formData.append('request', JSON.stringify(postData));
-
-    for (let key of requestBody.keys()) {
-      console.log(key);
-    }
-    for (let value of requestBody.values()) {
-      console.log(value);
-    }
     if (selectdImageFile) {
       requestBody.append('imageFile', selectdImageFile);
-    } else {
-      console.log('파일선택안됌');
     }
 
     try {
-      const data = await api.post('/rooms', requestBody, {
+      const { data } = await api.post('/rooms', requestBody, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+      const uuid = data.data.uuid;
       console.log(data);
+
+      if (uuid) {
+        navigate(`/group-complete/${uuid}`, {
+          state: {
+            groupPassword: inputs.secretKey,
+            thumbnailUrl: previewImage,
+          },
+        });
+      } else {
+        navigate('/group-complete', {
+          state: {
+            thumbnailUrl: previewImage,
+          },
+        });
+      }
+
+      // if (data) {
+      //   navigate('/group-complete', {
+      //     state: {
+      //       groupPassword: inputs.secretKey,
+      //       thumbnailUrl: previewImage,
+      //     },
+      //   });
+      // }
     } catch (error) {
       console.log(error);
     }
