@@ -96,8 +96,6 @@ const GroupCreate = () => {
         },
       });
       const uuid = data.data.uuid;
-      // console.log(uuid);
-
       if (uuid) {
         navigate(`/group-complete/${uuid}`);
       } else {
