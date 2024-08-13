@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { IcArrowRightGray, IcLinkWhite } from '../../../assets';
-import { SavedSolutionProps } from '../../../types/Solution/solutionTypes';
-import Level from '../Level';
+import { IcArrowRightGray, IcLinkWhite } from '../../assets';
+import Level from '../../components/Solution/Level';
+import { SavedSolutionProps } from '../../types/Solution/solutionTypes';
 
 const SavedSolution = ({ record }: SavedSolutionProps) => {
   const navigate = useNavigate();

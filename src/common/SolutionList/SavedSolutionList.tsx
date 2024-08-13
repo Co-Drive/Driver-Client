@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
-import useGetMonthlySolution from '../../../libs/hooks/Solution/useGetMonthlySolution';
+import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
+import useGetMonthlySolution from '../../libs/hooks/Solution/useGetMonthlySolution';
 import {
   UpdateSavedRecordsProps,
   UpdateTotalPageProps,
-} from '../../../types/Solution/solutionTypes';
+} from '../../types/Solution/solutionTypes';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
