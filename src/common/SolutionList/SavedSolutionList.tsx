@@ -9,7 +9,11 @@ import {
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
-const SavedSolutionList = () => {
+export interface SavedSolutionListProps {
+  isSmallList: boolean;
+}
+
+const SavedSolutionList = ({ isSmallList }: SavedSolutionListProps) => {
   const totalPageRef = useRef(0);
   const pages = Array.from(
     { length: totalPageRef.current },
@@ -41,6 +45,7 @@ const SavedSolutionList = () => {
     year: year,
     month: month,
     page: clickedPage - 1,
+    isSmallList: isSmallList,
   });
 
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
@@ -98,38 +103,44 @@ const SavedSolutionList = () => {
     <ListContainer>
       {data && (
         <>
-          <ListFilter
-            year={year}
-            month={month}
-            handleClickPrevBtn={handleClickPrevBtn}
-            handleClickMonth={handleClickValue}
-            handleClickNextBtn={handleClickNextBtn}
-          />
+          {!isSmallList && (
+            <ListFilter
+              year={year}
+              month={month}
+              handleClickPrevBtn={handleClickPrevBtn}
+              handleClickMonth={handleClickValue}
+              handleClickNextBtn={handleClickNextBtn}
+            />
+          )}
+
           {savedRecords.map((record) => {
             return <SavedSolution key={record.recordId} record={record} />;
           })}
 
-          <PageNationBar>
-            <IcArrowLeftSmallGray
-              onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
-            />
-            {pages.map((page) => {
-              return (
-                <PageNumber
-                  key={page}
-                  $isClicked={clickedPage === page}
-                  onClick={() => handleClickValue(page, true)}
-                >
-                  {page}
-                </PageNumber>
-              );
-            })}
-            <IcArrowRightSmallGray
-              onClick={() =>
-                clickedPage !== totalPageRef.current && handleClickNextBtn(true)
-              }
-            />
-          </PageNationBar>
+          {!isSmallList && (
+            <PageNationBar>
+              <IcArrowLeftSmallGray
+                onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
+              />
+              {pages.map((page) => {
+                return (
+                  <PageNumber
+                    key={page}
+                    $isClicked={clickedPage === page}
+                    onClick={() => handleClickValue(page, true)}
+                  >
+                    {page}
+                  </PageNumber>
+                );
+              })}
+              <IcArrowRightSmallGray
+                onClick={() =>
+                  clickedPage !== totalPageRef.current &&
+                  handleClickNextBtn(true)
+                }
+              />
+            </PageNationBar>
+          )}
         </>
       )}
     </ListContainer>
@@ -144,7 +155,9 @@ const ListContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  margin-top: 4.3rem;
+  width: 100%;
+
+  border-top: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const PageNationBar = styled.div`
