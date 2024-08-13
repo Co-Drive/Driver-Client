@@ -14,22 +14,30 @@ const FollowerPage = () => {
     introduce,
     language,
     github,
+    rate,
     group,
     recommend,
   } = FOLLOWER_DUMMY;
   return (
     <PageLayout category="홈">
       <FollowerPageContainer>
-        <FollowerInfo
-          info={{
-            profileImg,
-            nickname,
-            isFollowed,
-            introduce,
-            language,
-            github,
-          }}
-        />
+        <TopContainer>
+          <FollowerInfo
+            info={{
+              profileImg,
+              nickname,
+              isFollowed,
+              introduce,
+              language,
+              github,
+              rate,
+            }}
+          />
+
+          {/* 나중에 다른 컴포넌트로 대체 예정 */}
+          <Temp></Temp>
+        </TopContainer>
+
         <ParticipatingGroup group={group} />
 
         <FollowerRecommendCard recommend={recommend} />
@@ -46,5 +54,19 @@ const FollowerPageContainer = styled.section`
   flex-direction: column;
 
   width: 100%;
-  padding: 8.6rem 25.7rem 21rem;
+  padding: 6.4rem 25.7rem 23.2rem;
+`;
+
+const TopContainer = styled.div`
+  display: flex;
+  gap: 1.8rem;
+  align-items: center;
+
+  margin-bottom: 8.8rem;
+`;
+
+// 나중에 지울 예정
+const Temp = styled.div`
+  width: 60.9rem;
+  height: 41rem;
 `;

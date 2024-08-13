@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ParticipatingGroupProps } from '../../../types/Follower/Personal/personalType';
 
 const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
+  const nickname = sessionStorage.getItem('nickname');
   // 라우팅 정의 후, 콘솔은 지우고 navigate 코드로 변경할 예정입니다 !!
   //   const navigate = useNavigate();
   const handleClickCard = (id: number) => {
@@ -12,7 +13,10 @@ const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
 
   return (
     <ParticipatingCardContainer>
-      <Title>참여 그룹</Title>
+      <TitleContainer>
+        <Nickname>{nickname}</Nickname>
+        <Title>님의 참여 그룹</Title>
+      </TitleContainer>
 
       <GroupContainer>
         {group.map((card) => {
@@ -47,12 +51,24 @@ const ParticipatingCardContainer = styled.article`
   flex-direction: column;
 
   width: 100%;
-  margin-top: 6rem;
+  margin-top: 9.8rem;
+  margin-left: 0.2rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+
+  margin-left: 0.1rem;
+`;
+
+const Nickname = styled.p`
+  color: ${({ theme }) => theme.colors.codrive_green};
+  ${({ theme }) => theme.fonts.title_bold_24};
 `;
 
 const Title = styled.p`
-  margin-left: 0.3rem;
-
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
