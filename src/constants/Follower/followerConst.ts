@@ -1,11 +1,11 @@
 export const FOLLOWER_DUMMY = {
-  profileImg: '',
-  nickname: '코딩하는 갱얼쥐',
+  profileImg: 'https://avatars.githubusercontent.com/u/80264647?v=4',
+  nickname: '일이삼사오육칠팔구십',
   isFollowed: false,
   language: 'Javascript',
-  introduce:
-    '나를 소개하는 문구를 적어주세요.아아아 최대 두줄까지만 적을 수 있게 하는거어떠나를 소개하는 문구를 적어주세요.아아아 최대 두줄까지만 적을 수 있게 하는거어떠',
-  github: 'https://github.com/Arooming',
+  introduce: '안녕하세요 코딩하는 풀스택 개발자 어쩌구 입니다릴릴릴',
+  github: '',
+  rate: 75,
   group: [
     {
       id: 0,
