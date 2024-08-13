@@ -9,7 +9,7 @@ import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { GroupPost } from '../libs/apis/\bGroupCreate/GroupPost';
+import { GroupPost } from '../libs/apis/GroupCreate/GroupPost';
 
 const GroupCreate = () => {
   // 상태 객체 선언
