@@ -5,7 +5,7 @@ import {
   IcArrowTopWhite,
   IcCalendar,
 } from '../../../assets';
-import { getUnsolvedMonths } from '../../../libs/apis/Solution/getUnsolvedMonths';
+import useGetUnsolvedMonths from '../../../libs/hooks/Solution/useGetUnsolvedMonths';
 import { ListFilterProps } from '../../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
 
@@ -17,6 +17,7 @@ const ListFilter = ({
   handleClickNextBtn,
 }: ListFilterProps) => {
   const LIST_SORTING = ['최신순', '|', '즐겨찾기'];
+  const { unsolvedData } = useGetUnsolvedMonths(year);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
   const [sorting, setSorting] = useState('최신순');
@@ -34,20 +35,16 @@ const ListFilter = ({
     // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
-  const getUnsolvedMonthsArr = async () => {
-    try {
-      const { data } = await getUnsolvedMonths(year);
-      const { months } = data;
-
+  const getUnsolvedMonthsArr = () => {
+    if (unsolvedData) {
+      const { months } = unsolvedData.data;
       unsolvedMonths.current = months;
-    } catch (err) {
-      console.log(err);
     }
   };
 
   useEffect(() => {
     getUnsolvedMonthsArr();
-  }, [year]);
+  }, [unsolvedData]);
 
   return (
     <FilteredContainer>

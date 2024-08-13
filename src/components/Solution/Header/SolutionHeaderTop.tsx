@@ -10,7 +10,7 @@ import {
   IcStarGreen,
 } from '../../../assets';
 import Modal from '../../../common/Modal/Modal';
-import { deleteRecords } from '../../../libs/apis/Solution/deleteRecords';
+import useDeleteRecords from '../../../libs/hooks/Solution/useDeleteRecords';
 import { SolutionHeaderTopProps } from '../../../types/Solution/solutionTypes';
 import { handleCopyClipBoard } from '../../../utils/handleCopyClipBoard';
 
@@ -22,6 +22,7 @@ const SolutionHeaderTop = ({
   paintedStarArr,
 }: SolutionHeaderTopProps) => {
   const navigate = useNavigate();
+  const { mutation } = useDeleteRecords();
   const [isCopied, setIsCopied] = useState(false);
 
   const handleClickShareBtn = () => {
@@ -34,12 +35,7 @@ const SolutionHeaderTop = ({
   };
 
   const handleClickRemoveBtn = async () => {
-    try {
-      const { code } = await deleteRecords(recordId);
-      if (code === 200) navigate('/solution');
-    } catch (err) {
-      console.log(err);
-    }
+    mutation(recordId);
   };
 
   const handleClickModifyBtn = () => {

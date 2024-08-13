@@ -1,10 +1,5 @@
+import { getMonthlySolutionProps } from '../../../types/Solution/solutionTypes';
 import { api } from '../../api';
-
-interface getMonthlySolutionProps {
-  year: number;
-  month: number;
-  page: number;
-}
 
 export const getMonthlySolution = async ({
   year,
