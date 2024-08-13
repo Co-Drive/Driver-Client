@@ -15,7 +15,7 @@ const SolutionListPage = () => {
 
         <TempSave />
 
-        <SavedSolutionList />
+        <SavedSolutionList isSmallList={false} />
       </ListPageContainer>
     </PageLayout>
   );
