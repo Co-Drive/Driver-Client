@@ -48,6 +48,8 @@ const SavedSolutionContainer = styled.article`
 
   width: 100%;
   padding: 2.4rem 2.3rem 3rem 0.6rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const QuesitonContainer = styled.article`
