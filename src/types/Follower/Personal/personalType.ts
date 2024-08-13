@@ -5,7 +5,8 @@ export interface FollowerInfoProps {
     isFollowed: boolean;
     introduce: string;
     language: string;
-    github: string;
+    github?: string;
+    rate: number;
   };
 }
 
