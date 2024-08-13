@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import Modal from '../common/Modal/Modal';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { api } from '../libs/api';
+import { getGroupInfo } from '../libs/apis/GroupComplete/getGroupInfo';
 import { handleCopyClipBoard } from '../utils/handleCopyClipBoard';
 
 const GroupComplete = () => {
@@ -20,10 +20,7 @@ const GroupComplete = () => {
     if (token && nickname) {
       const fetchGroupInfo = async () => {
         try {
-          const response = await api.get(`rooms/uuid/${uuid}`);
-          const { data } = response.data;
-          // console.log(data.password);
-
+          const data = await getGroupInfo(uuid as string);
           setGroupPassword(data.password);
           setThumbnailUrl(data.imageSrc);
 
