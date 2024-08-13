@@ -10,22 +10,17 @@ const LoginLoadingPage = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const code = queryParams.get('code');
-    console.log(code);
 
     if (code) {
-      // 서버에 인가 코드 전송
       api
         .post('/auth/login', { code })
         .then((response) => {
-          // 로그인 성공 시, 필요한 작업을 수행합니다.
-          // 예를 들어, 사용자 정보를 저장하거나 토큰을 저장할 수 있습니다.
           console.log('로그인 성공:', response.data);
-          navigate('/register'); // 로그인 성공 후 대시보드로 이동
+          navigate('/register');
         })
         .catch((error) => {
-          // 로그인 실패 시 처리
           console.error('로그인 실패:', error);
-          navigate('/error'); // 로그인 실패 시 로그인 페이지로 이동
+          navigate('/error');
         });
     }
   }, [navigate]);
@@ -39,6 +34,7 @@ const LoginLoadingPage = () => {
 
 const Title = styled.p`
   color: wheat;
+  font-size: 100px;
 `;
 
 export default LoginLoadingPage;
