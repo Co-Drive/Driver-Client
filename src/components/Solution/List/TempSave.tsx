@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowRightBig } from '../../../assets';
-import { getTempRecords } from '../../../libs/apis/Solution/getTempRecords';
+import useGetTempRecords from '../../../libs/hooks/Solution/useGetTempRecords';
 import {
   UpdateRecordsProps,
   UpdateTotalPageProps,
@@ -21,6 +21,7 @@ const TempSave = () => {
   });
 
   const navigate = useNavigate();
+  const { data } = useGetTempRecords(clickedPage - 1);
   const { tempRecordId, tempTitle, tempLevel, tempCreatedAt } = tempRecords;
   const tempArr = Array.from(
     { length: totalPageRef.current },
@@ -35,28 +36,25 @@ const TempSave = () => {
     setClickedPage(clickedNum);
   };
 
-  const getRecords = async () => {
-    const { data } = await getTempRecords(clickedPage - 1);
-    updateTotalPage({ data });
-    updateRecords({ data });
-  };
-
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
-    const { totalPage } = data;
-    totalPageRef.current = totalPage;
+    if (data) {
+      const { totalPage } = data.data;
+      totalPageRef.current = totalPage;
+    }
   };
 
   const updateRecords = async ({ data }: UpdateRecordsProps) => {
-    const { records } = data;
-    if (records.length) {
-      const { recordId, title, level, createdAt } = records[0];
-
-      setTempRecords({
-        tempRecordId: recordId,
-        tempTitle: title,
-        tempLevel: level,
-        tempCreatedAt: createdAt,
-      });
+    if (data) {
+      const { records } = data.data;
+      if (records.length) {
+        const { recordId, title, level, createdAt } = records[0];
+        setTempRecords({
+          tempRecordId: recordId,
+          tempTitle: title,
+          tempLevel: level,
+          tempCreatedAt: createdAt,
+        });
+      }
     }
   };
 
@@ -68,8 +66,9 @@ const TempSave = () => {
   };
 
   useEffect(() => {
-    getRecords();
-  }, [totalPageRef, clickedPage]);
+    updateTotalPage({ data });
+    updateRecords({ data });
+  }, [data]);
 
   return (
     <>

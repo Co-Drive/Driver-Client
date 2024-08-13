@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
-import { getMonthlySolution } from '../../../libs/apis/Solution/getMonthlySolution';
+import useGetMonthlySolution from '../../../libs/hooks/Solution/useGetMonthlySolution';
 import {
   UpdateSavedRecordsProps,
   UpdateTotalPageProps,
@@ -29,7 +29,6 @@ const SavedSolutionList = () => {
       createdAt: '',
     },
   ]);
-
   const [clickedPage, setClickedPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState({
     year: YEAR,
@@ -38,40 +37,28 @@ const SavedSolutionList = () => {
 
   const { year, month } = selectedDate;
 
-  const getMonthlySolutionList = async () => {
-    const { data } = await getMonthlySolution({
-      year: year,
-      month: month,
-      page: clickedPage - 1,
-    });
-
-    updateTotalPage({ data });
-    updateRecords({ data });
-  };
+  const { data } = useGetMonthlySolution({
+    year: year,
+    month: month,
+    page: clickedPage - 1,
+  });
 
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
-    const { totalPage } = data;
-    totalPageRef.current = totalPage;
+    if (data) {
+      const { totalPage } = data.data;
+      totalPageRef.current = totalPage;
+    }
   };
 
   const updateRecords = async ({ data }: UpdateSavedRecordsProps) => {
-    const { records } = data;
+    if (data) {
+      const { records } = data.data;
 
-    if (records.length) {
-      const { recordId, title, level, tags, platform, problemUrl, createdAt } =
-        records[0];
-
-      setSavedRecords([
-        {
-          recordId: recordId,
-          title: title,
-          level: level,
-          tags: tags,
-          platform: platform,
-          problemUrl: problemUrl,
-          createdAt: createdAt,
-        },
-      ]);
+      if (records.length) {
+        setSavedRecords(records);
+      } else {
+        setSavedRecords([]);
+      }
     }
   };
 
@@ -103,43 +90,48 @@ const SavedSolutionList = () => {
   };
 
   useEffect(() => {
-    getMonthlySolutionList();
-  }, [totalPageRef.current, clickedPage]);
+    updateTotalPage({ data });
+    updateRecords({ data });
+  }, [data]);
 
   return (
     <ListContainer>
-      <ListFilter
-        year={year}
-        month={month}
-        handleClickPrevBtn={handleClickPrevBtn}
-        handleClickMonth={handleClickValue}
-        handleClickNextBtn={handleClickNextBtn}
-      />
-      {savedRecords.map((record) => {
-        return <SavedSolution key={record.recordId} record={savedRecords[0]} />;
-      })}
+      {data && (
+        <>
+          <ListFilter
+            year={year}
+            month={month}
+            handleClickPrevBtn={handleClickPrevBtn}
+            handleClickMonth={handleClickValue}
+            handleClickNextBtn={handleClickNextBtn}
+          />
+          {savedRecords.map((record) => {
+            return <SavedSolution key={record.recordId} record={record} />;
+          })}
 
-      <PageNationBar>
-        <IcArrowLeftSmallGray
-          onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
-        />
-        {pages.map((page) => {
-          return (
-            <PageNumber
-              key={page}
-              $isClicked={clickedPage === page}
-              onClick={() => handleClickValue(page, true)}
-            >
-              {page}
-            </PageNumber>
-          );
-        })}
-        <IcArrowRightSmallGray
-          onClick={() =>
-            clickedPage !== totalPageRef.current && handleClickNextBtn(true)
-          }
-        />
-      </PageNationBar>
+          <PageNationBar>
+            <IcArrowLeftSmallGray
+              onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
+            />
+            {pages.map((page) => {
+              return (
+                <PageNumber
+                  key={page}
+                  $isClicked={clickedPage === page}
+                  onClick={() => handleClickValue(page, true)}
+                >
+                  {page}
+                </PageNumber>
+              );
+            })}
+            <IcArrowRightSmallGray
+              onClick={() =>
+                clickedPage !== totalPageRef.current && handleClickNextBtn(true)
+              }
+            />
+          </PageNationBar>
+        </>
+      )}
     </ListContainer>
   );
 };

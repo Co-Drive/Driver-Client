@@ -1,6 +1,5 @@
 export interface RecordsTypes {
   title: string;
-  // date: string;
   level: number;
   tags: Array<string>;
   platform: string;
@@ -51,36 +50,42 @@ export interface CalendarProps {
 
 export interface UpdateTotalPageProps {
   data: {
-    totalPage: number;
+    data: {
+      totalPage: number;
+    };
   };
 }
 
 export interface UpdateRecordsProps {
   data: {
-    records: [
-      {
-        recordId: number;
-        title: string;
-        level: number;
-        createdAt: string;
-      },
-    ];
+    data: {
+      records: [
+        {
+          recordId: number;
+          title: string;
+          level: number;
+          createdAt: string;
+        },
+      ];
+    };
   };
 }
 
 export interface UpdateSavedRecordsProps {
   data: {
-    records: [
-      {
-        recordId: number;
-        title: string;
-        level: number;
-        tags: Array<string>;
-        platform: string;
-        problemUrl: string;
-        createdAt: string;
-      },
-    ];
+    data: {
+      records: [
+        {
+          recordId: number;
+          title: string;
+          level: number;
+          tags: Array<string>;
+          platform: string;
+          problemUrl: string;
+          createdAt: string;
+        },
+      ];
+    };
   };
 }
 
@@ -90,4 +95,10 @@ export interface ListFilterProps {
   handleClickPrevBtn: (isPage: boolean) => void;
   handleClickMonth: (value: number, isPage: boolean) => void;
   handleClickNextBtn: (isPage: boolean) => void;
+}
+
+export interface getMonthlySolutionProps {
+  year: number;
+  month: number;
+  page: number;
 }
