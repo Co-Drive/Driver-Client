@@ -5,18 +5,19 @@ import { IcAddFill, IcAddFillDisabled, IcArrowUpBig } from '../assets';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CodeSpace from '../components/Solve/CodeSpace';
 import PageHeader from '../components/Solve/Header/PageHeader';
+import useGetRecords from '../libs/hooks/Solution/useGetRecords';
 import { RecordsTypes } from '../types/Solution/solutionTypes';
 import {
   ClickQuestionInfoProps,
   CodeProps,
   QuestionInfoProps,
 } from '../types/Solve/solveTypes';
-import { fetchRecords } from '../utils/fetchRecords';
 
 const SolvePage = () => {
   const { state } = useLocation();
-  const { recordId } = state || {};
+  const { recordId, isTemp } = state || {};
   const [records, setRecords] = useState<RecordsTypes>();
+  const { data = [] } = recordId ? useGetRecords(recordId) : {};
 
   const {
     title = '',
@@ -108,14 +109,15 @@ const SolvePage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const changeRecords = (data: RecordsTypes) => {
-    setRecords(data);
+  const changeRecords = () => {
+    setRecords(data.data);
+    console.log(data.data);
   };
 
-  if (recordId) {
+  if (data) {
     useEffect(() => {
-      fetchRecords({ changeRecords: changeRecords, recordId: recordId });
-    }, [recordId]);
+      changeRecords();
+    }, [data]);
 
     useEffect(() => {
       if (records) {
@@ -144,6 +146,7 @@ const SolvePage = () => {
       <SolvePageContainer>
         <PageHeader
           id={recordId}
+          isTemp={isTemp}
           codeblocks={ideItems}
           questionInfo={questionInfo}
         />

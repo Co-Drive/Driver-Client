@@ -10,6 +10,7 @@ import {
   IcStarGreen,
 } from '../../../assets';
 import Modal from '../../../common/Modal/Modal';
+import useDeleteRecords from '../../../libs/hooks/Solution/useDeleteRecords';
 import { SolutionHeaderTopProps } from '../../../types/Solution/solutionTypes';
 import { handleCopyClipBoard } from '../../../utils/handleCopyClipBoard';
 
@@ -21,6 +22,7 @@ const SolutionHeaderTop = ({
   paintedStarArr,
 }: SolutionHeaderTopProps) => {
   const navigate = useNavigate();
+  const { mutation } = useDeleteRecords();
   const [isCopied, setIsCopied] = useState(false);
 
   const handleClickShareBtn = () => {
@@ -30,6 +32,10 @@ const SolutionHeaderTop = ({
     setTimeout(() => {
       setIsCopied(false);
     }, 1000);
+  };
+
+  const handleClickRemoveBtn = async () => {
+    mutation(recordId);
   };
 
   const handleClickModifyBtn = () => {
@@ -84,7 +90,9 @@ const SolutionHeaderTop = ({
 
         {!followerInfo && (
           <BtnContainer>
-            <RemoveBtn type="button">삭제하기</RemoveBtn>
+            <RemoveBtn type="button" onClick={handleClickRemoveBtn}>
+              삭제하기
+            </RemoveBtn>
             <ModifyBtn type="button" onClick={handleClickModifyBtn}>
               수정하기
             </ModifyBtn>
@@ -182,19 +190,18 @@ const LevelContainer = styled.div`
   align-items: center;
 `;
 
-const LevelDetailContainer = styled.div`
+export const LevelDetailContainer = styled.div`
   display: flex;
   gap: 1.2rem;
-  justify-content: center;
   align-items: center;
 `;
 
-const LvText = styled.p`
+export const LvText = styled.p`
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;
 
-const LvStarContainer = styled.ul`
+export const LvStarContainer = styled.ul`
   display: flex;
   gap: 0.4rem;
   justify-content: center;

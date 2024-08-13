@@ -4,11 +4,15 @@ import LinkCopyModalForm from './LinkCopyModalForm';
 import ModalPortal from './ModalPortal';
 import SaveModalForm from './SaveModalForm';
 
-const Modal = ({ onClose }: ModalProps) => {
+const Modal = ({ onClose, questionInfo, codeblocks }: ModalProps) => {
   return (
     <ModalPortal>
       <ModalFormConatiner>
-        {onClose ? <SaveModalForm onClose={onClose} /> : <LinkCopyModalForm />}
+        {onClose ? (
+          <SaveModalForm onClose={onClose} questionInfo={questionInfo} codeblocks={codeblocks}/>
+        ) : (
+          <LinkCopyModalForm />
+        )}
       </ModalFormConatiner>
     </ModalPortal>
   );

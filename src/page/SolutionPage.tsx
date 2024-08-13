@@ -7,13 +7,14 @@ import Memo from '../common/CodeSpace/Memo';
 import PageLayout from '../components/PageLayout/PageLayout';
 import SolutionHeaderBottom from '../components/Solution/Header/SolutionHeaderBottom';
 import SolutionHeaderTop from '../components/Solution/Header/SolutionHeaderTop';
+import useGetRecords from '../libs/hooks/Solution/useGetRecords';
 import { RecordsTypes } from '../types/Solution/solutionTypes';
-import { fetchRecords } from '../utils/fetchRecords';
 
 const SolutionPage = () => {
   const { state } = useLocation();
   const { id } = useParams();
   if (!id) return;
+  const { data } = useGetRecords(parseInt(id));
 
   const [records, setRecords] = useState<RecordsTypes>();
 
@@ -31,13 +32,15 @@ const SolutionPage = () => {
     ],
   } = records || {};
 
-  const changeRecords = (data: RecordsTypes) => {
-    setRecords(data);
+  const changeRecords = () => {
+    if (data) {
+      setRecords(data.data);
+    }
   };
 
   useEffect(() => {
-    fetchRecords({ changeRecords: changeRecords, recordId: parseInt(id) });
-  }, [id]);
+    changeRecords();
+  }, [data]);
 
   return (
     <PageLayout category="문제풀이">

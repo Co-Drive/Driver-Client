@@ -1,44 +1,39 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import SaveModal from '../../../common/Modal/Modal';
-import { patchRecords } from '../../../libs/apis/Solve/patchRecords';
-import { postRecords } from '../../../libs/apis/Solve/postRecords';
+import usePatchRecords from '../../../libs/hooks/Solve/usePatchRecords';
+import usePostRecords from '../../../libs/hooks/Solve/usePostRecords';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
-const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
+const PageHeader = ({
+  id,
+  isTemp,
+  codeblocks,
+  questionInfo,
+}: PageHeaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const navigate = useNavigate();
   const { title, level, tags, platform, problemUrl } = questionInfo;
   const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
+  const { patchMutation } = usePatchRecords(id);
+  const { postMutation } = usePostRecords();
 
-  const handleClickBtn = async (isSaveBtn: boolean) => {
+  const handleClickBtn = (isSaveBtn: boolean) => {
     if (isSaveBtn) {
       setModalOpen(true);
     } else {
-      try {
-        const { data } = id
-          ? await patchRecords({
-              id: id,
-              questionInfo: questionInfo,
-              codeblocks: codeblocks,
-            })
-          : await postRecords({
-              questionInfo: questionInfo,
-              codeblocks: codeblocks,
-            });
-
-        const { recordId } = data;
-        recordId
-          ? navigate(`/solution/${recordId}`)
-          : navigate(`/solution/${id}`);
-      } catch (err) {
-        // 추후 에러 페이지로 이동
-        console.log(err);
-      }
+      id && !isTemp
+        ? patchMutation({
+            id: id,
+            questionInfo: questionInfo,
+            codeblocks: codeblocks,
+          })
+        : postMutation({
+            questionInfo: questionInfo,
+            codeblocks: codeblocks,
+          });
     }
   };
 
@@ -73,7 +68,13 @@ const PageHeader = ({ id, codeblocks, questionInfo }: PageHeaderProps) => {
           );
         })}
       </BtnContainer>
-      {modalOpen && <SaveModal onClose={() => setModalOpen(false)} />}
+      {modalOpen && (
+        <SaveModal
+          onClose={() => setModalOpen(false)}
+          questionInfo={questionInfo}
+          codeblocks={codeblocks}
+        />
+      )}
     </PageHeaderContainer>
   );
 };

@@ -21,6 +21,6 @@ export const TAG_PLATFORM_LISTS = [
   {
     category: 'platform',
     placeholder: '플랫폼을 선택해주세요',
-    options: ['백준', '프로그래머스', 'SWEA', '리트코드', '해커링크', '기타'],
+    options: ['백준', '프로그래머스', 'SWEA', '리트코드', '해커랭크', '기타'],
   },
 ];
