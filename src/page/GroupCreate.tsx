@@ -96,15 +96,10 @@ const GroupCreate = () => {
         },
       });
       const uuid = data.data.uuid;
-      console.log(data);
+      // console.log(uuid);
 
       if (uuid) {
-        navigate(`/group-complete/${uuid}`, {
-          state: {
-            groupPassword: inputs.secretKey,
-            thumbnailUrl: previewImage,
-          },
-        });
+        navigate(`/group-complete/${uuid}`);
       } else {
         navigate('/group-complete', {
           state: {
@@ -112,26 +107,10 @@ const GroupCreate = () => {
           },
         });
       }
-
-      // if (data) {
-      //   navigate('/group-complete', {
-      //     state: {
-      //       groupPassword: inputs.secretKey,
-      //       thumbnailUrl: previewImage,
-      //     },
-      //   });
-      // }
     } catch (error) {
       console.log(error);
     }
   };
-
-  // navigate('/group-complete', {
-  //   state: {
-  //     groupPassword: inputs.secretKey,
-  //     thumbnailUrl: previewImage as string,
-  //   },
-  // });
 
   return (
     <PageLayout category="그룹">
