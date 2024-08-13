@@ -20,7 +20,7 @@ const GroupComplete = () => {
     if (token && nickname) {
       const fetchGroupInfo = async () => {
         try {
-          const data = await getGroupInfo(uuid as string);
+          const data = await getGroupInfo(uuid!);
           setGroupPassword(data.password);
           setThumbnailUrl(data.imageSrc);
         } catch (error) {
