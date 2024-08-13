@@ -9,7 +9,7 @@ import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { api } from '../libs/api';
+import { GroupPost } from '../libs/apis/\bGroupCreate/GroupPost';
 
 const GroupCreate = () => {
   // 상태 객체 선언
@@ -90,11 +90,7 @@ const GroupCreate = () => {
     }
 
     try {
-      const { data } = await api.post('/rooms', requestBody, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const data = await GroupPost(requestBody);
       const uuid = data.data.uuid;
       if (uuid) {
         navigate(`/group-complete/${uuid}`);
