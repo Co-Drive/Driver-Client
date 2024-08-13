@@ -23,9 +23,6 @@ const GroupComplete = () => {
           const data = await getGroupInfo(uuid as string);
           setGroupPassword(data.password);
           setThumbnailUrl(data.imageSrc);
-
-          console.log('비밀번호 :', data.password);
-          console.log('이미지 : ', data.imageSrc);
         } catch (error) {
           console.log('error');
         }
