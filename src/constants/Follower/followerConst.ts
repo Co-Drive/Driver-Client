@@ -1,4 +1,5 @@
 export const FOLLOWER_DUMMY = {
+  id: 3,
   profileImg: 'https://avatars.githubusercontent.com/u/80264647?v=4',
   nickname: '일이삼사오육칠팔구십',
   isFollowed: false,
