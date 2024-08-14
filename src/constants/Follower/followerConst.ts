@@ -56,13 +56,16 @@ export const FOLLOWER_DUMMY = {
   ],
   recommend: [
     {
+      id: 10,
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐1',
       language: 'javascript',
-      isFollowed: false,
+      github: 'https://github.com/Arooming',
+      isFollowed: true,
     },
     {
+      id: 11,
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐2',
@@ -70,31 +73,38 @@ export const FOLLOWER_DUMMY = {
       isFollowed: false,
     },
     {
+      id: 12,
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐3',
       language: 'javascript',
+      github: 'https://github.com/Arooming',
       isFollowed: false,
     },
     {
+      id: 13,
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐4',
       language: 'javascript',
-      isFollowed: false,
+      github: 'https://github.com/Arooming',
+      isFollowed: true,
     },
     {
+      id: 14,
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐5',
       language: 'javascript',
-      isFollowed: false,
+      isFollowed: true,
     },
     {
+      id: 15,
       profileImg:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQflIJYye-3WuwXfwuKLvVcajyyi8Rbu9Bx0g&s',
       nickname: '코딩하는 갱얼쥐6',
       language: 'javascript',
+      github: 'https://github.com/Arooming',
       isFollowed: false,
     },
   ],
