@@ -13,11 +13,11 @@ const LoginLoadingPage = () => {
 
     if (code) {
       postAuth(code)
-        .then((response) => {
+        .then(() => {
           navigate('/register');
         })
-        .catch((error) => {
-          /* navigate('/error'); */
+        .catch(() => {
+          navigate('/error');
         });
     }
   }, [window.location.search]);
