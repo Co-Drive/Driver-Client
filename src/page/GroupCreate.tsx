@@ -9,7 +9,7 @@ import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { GroupPost } from '../libs/apis/GroupCreate/GroupPost';
+import { postGroupInfo } from '../libs/apis/GroupCreate/postGroupInfo';
 
 const GroupCreate = () => {
   // 상태 객체 선언
@@ -91,8 +91,8 @@ const GroupCreate = () => {
     }
 
     try {
-      const data = await GroupPost(requestBody);
-      const uuid = data.data.uuid;
+      const data = await postGroupInfo(requestBody);
+      const { uuid } = data.data;
       if (uuid) {
         navigate(`/group-complete/${uuid}`);
       } else {

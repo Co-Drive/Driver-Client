@@ -1,6 +1,6 @@
 import { api } from '../../api';
 
-export const GroupPost = async (requestBody: FormData) => {
+export const postGroupInfo = async (requestBody: FormData) => {
   try {
     const { data } = await api.post('/rooms', requestBody, {
       headers: {
