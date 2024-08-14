@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
@@ -22,12 +22,13 @@ const GroupCreate = () => {
   });
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+  // const [isActive, setIsActive] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>('');
   const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigate = useNavigate();
   const { title, num, secretKey, intro, group } = inputs;
+  // const isActive = title && num && secretKey && intro && group;
 
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -65,12 +66,19 @@ const GroupCreate = () => {
   };
 
   // 모든 데이터가 채워지면 그룹버튼 생성 활성화
-  useEffect(() => {
-    const allFieldsFilled = (
-      Object.keys(inputs) as Array<keyof typeof inputs>
-    ).every((key) => key === 'secretKey' || inputs[key] !== '');
-    setIsActive(allFieldsFilled || (isPublicGroup && allFieldsFilled));
-  }, [inputs, isPublicGroup]);
+  // useEffect(() => {
+  //   const allFieldsFilled = (
+  //     Object.keys(inputs) as Array<keyof typeof inputs>
+  //   ).every((key) => key === 'secretKey' || inputs[key] !== '');
+  //   setIsActive(allFieldsFilled || (isPublicGroup && allFieldsFilled));
+  // }, [inputs, isPublicGroup]);
+
+  const isActive =
+    title !== '' &&
+    num !== '' &&
+    (isPublicGroup || secretKey !== '') &&
+    intro !== '' &&
+    group !== '';
 
   const handleGroupCreate = async () => {
     const postData = {
