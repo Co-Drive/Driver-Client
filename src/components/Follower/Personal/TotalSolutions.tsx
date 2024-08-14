@@ -1,19 +1,22 @@
 import styled from 'styled-components';
 import SavedSolutionList from '../../../common/SolutionList/SavedSolutionList';
+import PageLayout from '../../PageLayout/PageLayout';
 import { SolutionsProps } from './Solutions';
 
 const TotalSolutions = ({ nickname }: SolutionsProps) => {
   return (
-    <TotalSolutionsContainer>
-      <TopContainer>
-        <NicknameContainer>
-          <Nickname>{nickname}</Nickname>
-          <Text>님이 푼 문제</Text>
-        </NicknameContainer>
-      </TopContainer>
+    <PageLayout category="문제풀이">
+      <TotalSolutionsContainer>
+        <TopContainer>
+          <NicknameContainer>
+            <Nickname>{nickname}</Nickname>
+            <Text>님이 푼 문제</Text>
+          </NicknameContainer>
+        </TopContainer>
 
-      <SavedSolutionList isSmallList={false} />
-    </TotalSolutionsContainer>
+        <SavedSolutionList isSmallList={false} />
+      </TotalSolutionsContainer>
+    </PageLayout>
   );
 };
 
@@ -25,6 +28,9 @@ const TotalSolutionsContainer = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  width: 100%;
+  padding: 6.8rem 25.7rem 16.4rem;
 `;
 
 const TopContainer = styled.div`
