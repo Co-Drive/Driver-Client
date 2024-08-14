@@ -1,12 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightGray } from '../../../assets';
 import SavedSolutionList from '../../../common/SolutionList/SavedSolutionList';
 
 export interface SolutionsProps {
+  id: number;
   nickname: string;
 }
 
-const Solutions = ({ nickname }: SolutionsProps) => {
+const Solutions = ({ id, nickname }: SolutionsProps) => {
+  const navigate = useNavigate();
+
+  const handleClickMoreBtn = () => {
+    navigate(`/follower/${id}/total`, { state: { nickname: nickname } });
+  };
+
   return (
     <SolutionsContainer>
       <TopContainer>
@@ -15,7 +23,7 @@ const Solutions = ({ nickname }: SolutionsProps) => {
           <Text>님이 푼 문제</Text>
         </NicknameContainer>
 
-        <MoreBtn type="button">
+        <MoreBtn type="button" onClick={handleClickMoreBtn}>
           <MoreText>더보기</MoreText>
           <IcArrowRightGray />
         </MoreBtn>
