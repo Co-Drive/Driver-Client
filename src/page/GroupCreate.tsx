@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
@@ -23,6 +24,7 @@ const GroupCreate = () => {
   const [isActive, setIsActive] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -66,8 +68,17 @@ const GroupCreate = () => {
     setIsActive(allFieldsFilled || (isPublicGroup && allFieldsFilled));
   }, [inputs, isPublicGroup]);
 
+  const handleGroupCreate = () => {
+    navigate('/group-complete', {
+      state: {
+        groupPassword: inputs.secretKey,
+        thumbnailUrl: previewImage as string,
+      },
+    });
+  };
+
   return (
-    <PageLayout category="group">
+    <PageLayout category="그룹">
       <Form>
         <Header>그룹 생성하기</Header>
         <Borderline />
@@ -98,7 +109,10 @@ const GroupCreate = () => {
           progressValue={inputs.group}
           handleChangeTextarea={handleChangeInputs}
         />
-        <CreateButton isActive={isActive} />
+        <CreateButton
+          isActive={isActive}
+          handleGroupCreate={handleGroupCreate}
+        />
       </Form>
     </PageLayout>
   );
