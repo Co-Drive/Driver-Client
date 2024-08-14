@@ -27,6 +27,7 @@ import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
 import IcCode from './icon/ic_code.svg?react';
 import IcFollowingGray from './icon/ic_following_gray.svg?react';
 import IcGithub from './icon/ic_github.svg?react';
+import IcGithubLogoSmall from './icon/ic_github_logo_small.svg?react';
 import IcGithubSmall from './icon/ic_github_small.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
@@ -97,6 +98,7 @@ export {
   IcCode,
   IcFollowingGray,
   IcGithub,
+  IcGithubLogoSmall,
   IcGithubSmall,
   IcGroup,
   IcHome,
