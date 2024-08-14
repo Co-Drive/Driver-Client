@@ -2,12 +2,14 @@ import styled from 'styled-components';
 import FollowerInfo from '../components/Follower/FollowerInfo';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
 import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGroup';
+import Solutions from '../components/Follower/Personal/Solutions';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { FOLLOWER_DUMMY } from '../constants/Follower/followerConst';
 
 const FollowerPage = () => {
   // 팔로워 정보를 불러오는 서버 통신 코드 추가 예정
   const {
+    id,
     profileImg,
     nickname,
     isFollowed,
@@ -38,6 +40,8 @@ const FollowerPage = () => {
           <Temp></Temp>
         </TopContainer>
 
+        <Solutions id={id} nickname={nickname} />
+        
         <ParticipatingGroup group={group} />
 
         <FollowerRecommendCard recommend={recommend} />
