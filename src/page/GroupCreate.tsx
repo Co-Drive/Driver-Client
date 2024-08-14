@@ -27,6 +27,7 @@ const GroupCreate = () => {
   const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigate = useNavigate();
+  const { title, num, secretKey, intro, group } = inputs;
 
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -73,12 +74,12 @@ const GroupCreate = () => {
 
   const handleGroupCreate = async () => {
     const postData = {
-      title: inputs.title,
-      password: inputs.secretKey,
-      capacity: inputs.num,
+      title: title,
+      password: secretKey,
+      capacity: num,
       tags: selectedTags,
-      introduce: inputs.intro,
-      information: inputs.group,
+      introduce: intro,
+      information: group,
     };
     const requestBody = new FormData();
     const jsonChange = JSON.stringify(postData);
