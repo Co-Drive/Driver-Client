@@ -151,13 +151,10 @@ export default SavedSolutionList;
 
 const ListContainer = styled.section`
   display: flex;
-  gap: 2.2rem;
   align-items: center;
   flex-direction: column;
 
   width: 100%;
-
-  border-top: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const PageNationBar = styled.div`

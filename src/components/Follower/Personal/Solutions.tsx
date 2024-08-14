@@ -30,7 +30,6 @@ export default Solutions;
 
 const SolutionsContainer = styled.section`
   display: flex;
-  gap: 3.8rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -44,6 +43,9 @@ const TopContainer = styled.div`
   align-items: center;
 
   width: 100%;
+  padding-bottom: 3.8rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const NicknameContainer = styled.div`
