@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { api } from '../libs/api';
+import { postAuth } from '../libs/apis/Login/postAuth';
 
 const LoginLoadingPage = () => {
   const navigate = useNavigate();
@@ -12,18 +12,15 @@ const LoginLoadingPage = () => {
     const code = queryParams.get('code');
 
     if (code) {
-      api
-        .post('/auth/login', { code })
+      postAuth(code)
         .then((response) => {
-          console.log('로그인 성공:', response.data);
           navigate('/register');
         })
         .catch((error) => {
-          console.error('로그인 실패:', error);
-          navigate('/error');
+          /* navigate('/error'); */
         });
     }
-  }, [navigate]);
+  }, [window.location.search]);
 
   return (
     <PageLayout category="홈">
