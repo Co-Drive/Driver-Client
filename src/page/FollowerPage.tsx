@@ -41,7 +41,7 @@ const FollowerPage = () => {
           <Temp></Temp>
         </TopContainer>
 
-        <Solutions id={id} nickname={nickname} />
+        <Solutions id={id} nickname={nickname} isFollowed={isFollowed}/>
 
         <ParticipatingGroup group={group} />
 
