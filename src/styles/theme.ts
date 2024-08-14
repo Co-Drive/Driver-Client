@@ -43,6 +43,12 @@ const fonts = {
     ${commonFontStyle}
   `,
 
+  title_bold_26: css`
+    font-family: SuitBold;
+    font-size: 2.6rem;
+    ${commonFontStyle}
+  `,
+
   title_bold_24: css`
     font-family: SuitBold;
     font-size: 2.4rem;
@@ -113,7 +119,8 @@ const fonts = {
   body_medium_16: css`
     font-family: SuitMedium;
     font-size: 1.6rem;
-    ${commonFontStyle}
+    line-height: 150%;
+    letter-spacing: -1%;
   `,
 
   body_medium_14: css`
