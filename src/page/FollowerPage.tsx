@@ -20,6 +20,7 @@ const FollowerPage = () => {
     group,
     recommend,
   } = FOLLOWER_DUMMY;
+
   return (
     <PageLayout category="홈">
       <FollowerPageContainer>
@@ -41,7 +42,7 @@ const FollowerPage = () => {
         </TopContainer>
 
         <Solutions id={id} nickname={nickname} />
-        
+
         <ParticipatingGroup group={group} />
 
         <FollowerRecommendCard recommend={recommend} />
@@ -61,7 +62,7 @@ const FollowerPageContainer = styled.section`
   padding: 6.4rem 25.7rem 23.2rem;
 `;
 
-const TopContainer = styled.div`
+const TopContainer = styled.section`
   display: flex;
   gap: 1.8rem;
   align-items: center;
