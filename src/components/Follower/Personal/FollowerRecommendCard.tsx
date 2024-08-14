@@ -1,89 +1,54 @@
-// import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import styled from 'styled-components';
-import { IcArrowLeftFill, IcArrowRightFill } from '../../../assets';
+import {
+  IcFollowingGray,
+  IcGithubLogoSmall,
+  IcInformation,
+  IcUnfollowingWhite,
+} from '../../../assets';
 import { FollowerRecommendCardProps } from '../../../types/Follower/Personal/personalType';
 
 const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
   const myNickname = sessionStorage.getItem('nickname');
-  const [transparency, setTransparency] = useState({
-    left: true,
-    right: false,
-  });
-  //   const navigate = useNavigate();
-
-  const handleClickIcLeft = () => {
-    const cardsContainer = document.getElementById('cardsContainer');
-    if (cardsContainer)
-      cardsContainer.scrollTo({ left: 0, behavior: 'smooth' });
-    setTransparency({
-      left: true,
-      right: false,
-    });
-  };
-
-  const handleClickContents = (nickname: string) => {
-    // 라우팅 저장 후 콘솔 지우고 해당 코드로 변경 예정 !!
-    // navigate(`/follower/${nickname}`);
-
-    console.log(nickname);
-  };
-
-  const handleClickFollowBtn = () => {
-    // 서버와 통신하는 코드로 대체할 예정
-    console.log('click!');
-  };
-
-  const handleClickIcRight = () => {
-    const cardsContainer = document.getElementById('cardsContainer');
-    if (cardsContainer) {
-      // 최대 너비 구하기
-      const maxWidth = cardsContainer.scrollWidth - cardsContainer.clientWidth;
-      cardsContainer.scrollTo({ left: maxWidth, behavior: 'smooth' });
-      setTransparency({
-        left: false,
-        right: true,
-      });
-    }
-  };
 
   return (
     <RecommendCardContainer>
       <TitleContainer>
         <MyNickname>{myNickname}</MyNickname>
         <Title>님을 위한 추천</Title>
+        <IcInformation />
       </TitleContainer>
 
-      <IcLeftContainer
-        onClick={handleClickIcLeft}
-        $transparency={transparency.left}
-      >
-        <IcArrowLeftFill />
-      </IcLeftContainer>
-      <CardsContainer id="cardsContainer">
-        {recommend.map((info) => {
-          const { profileImg, nickname, language, isFollowed } = info;
+      <RecommendCard>
+        {recommend.map((randomFollower) => {
+          const { id, profileImg, nickname, language, github, isFollowed } =
+            randomFollower;
           return (
-            <CardContainer key={nickname}>
-              <Contents onClick={() => handleClickContents(nickname)}>
-                <ProfileImg src={profileImg} />
+            <PersonalCard key={id}>
+              <ProfileImg
+                src={profileImg}
+                $isGithubExit={github?.length !== 0}
+              />
+              {github && (
+                <IcContainer>
+                  <IcGithubLogoSmall />
+                </IcContainer>
+              )}
+
+              <ProfileInfo>
                 <Nickname>{nickname}</Nickname>
                 <Language>{`#${language}`}</Language>
-              </Contents>
-              <FollowBtn type="button" onClick={handleClickFollowBtn}>
-                {isFollowed ? '팔로잉' : '팔로우'}
-              </FollowBtn>
-            </CardContainer>
+              </ProfileInfo>
+
+              <FollowingBtn type="button" $isFollowed={isFollowed}>
+                {isFollowed ? <IcFollowingGray /> : <IcUnfollowingWhite />}
+                <FollowingText $isFollowed={isFollowed}>
+                  {isFollowed ? `팔로잉` : `팔로우`}
+                </FollowingText>
+              </FollowingBtn>
+            </PersonalCard>
           );
         })}
-      </CardsContainer>
-
-      <IcRightContainer
-        onClick={handleClickIcRight}
-        $transparency={transparency.right}
-      >
-        <IcArrowRightFill />
-      </IcRightContainer>
+      </RecommendCard>
     </RecommendCardContainer>
   );
 };
@@ -92,110 +57,109 @@ export default FollowerRecommendCard;
 
 const RecommendCardContainer = styled.article`
   display: flex;
-  gap: 3rem;
+  gap: 3.8rem;
   justify-content: center;
   flex-direction: column;
   position: relative;
 
   width: 100%;
-  margin-top: 9.6rem;
+  margin-top: 9.8rem;
 `;
 
 const TitleContainer = styled.div`
   display: flex;
-  gap: 0.4rem;
   align-items: center;
 
   margin-left: 0.3rem;
 `;
 
 const MyNickname = styled.p`
+  margin-right: 0.4rem;
+
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.codrive_green};
 `;
 
 const Title = styled.p`
+  margin-right: 2.4rem;
+
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
 `;
 
-const IcLeftContainer = styled.div<{ $transparency: boolean }>`
-  position: absolute;
-  top: 14.8rem;
-  left: -4.2rem;
-
-  opacity: ${({ $transparency }) => ($transparency ? 0 : 100)};
-`;
-
-const CardsContainer = styled.article`
-  display: flex;
-  gap: 2.2rem;
-  align-items: center;
-
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  min-width: 92.3rem;
+const RecommendCard = styled.article`
+  display: grid;
+  gap: 0.4rem 1.8rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 
   width: 100%;
-  overflow-x: auto;
-`;
+  padding: 2rem;
 
-const CardContainer = styled.article`
-  min-width: 18.9rem;
-
-  padding-top: 2.8rem;
-
-  border-radius: 0.8rem;
+  border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
-const Contents = styled.div`
+const PersonalCard = styled.article`
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  position: relative;
+
+  width: 100%;
+  padding: 1.4rem 1rem;
 `;
 
-const ProfileImg = styled.img`
-  width: 4.9rem;
-  height: 4.9rem;
-  margin-bottom: 1.6rem;
+const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
+  width: 6.8rem;
+  height: 6.8rem;
+  margin-right: ${({ $isGithubExit }) => ($isGithubExit ? `1.5rem` : `1.8rem`)};
 
   border-radius: 5rem;
+  object-fit: contain;
+`;
+
+const IcContainer = styled.span`
+  position: absolute;
+  top: 6.2rem;
+  left: 6.1rem;
+`;
+
+const ProfileInfo = styled.div`
+  display: flex;
+  gap: 1.4rem;
+  justify-content: center;
+  flex-direction: column;
+
+  margin-right: 6.2rem;
+
+  min-width: 15.6rem;
 `;
 
 const Nickname = styled.p`
-  margin-bottom: 0.8rem;
-
   color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.title_semiBold_14};
+  ${({ theme }) => theme.fonts.title_semiBold_18};
 `;
 
 const Language = styled.p`
-  margin-bottom: 2.8rem;
-
   color: ${({ theme }) => theme.colors.gray300};
-  ${({ theme }) => theme.fonts.body_eng_regular_14};
+  ${({ theme }) => theme.fonts.body_eng_medium_12};
 `;
 
-const FollowBtn = styled.button`
-  padding: 1.6rem 7.6rem;
+const FollowingBtn = styled.button<{ $isFollowed: boolean }>`
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
 
-  border-top: 0.1rem solid ${({ theme }) => theme.colors.gray700};
-  background-color: transparent;
-  color: ${({ theme }) => theme.colors.codrive_purple};
-  ${({ theme }) => theme.fonts.title_semiBold_14};
+  padding: 1rem 1.8rem;
+
+  border-radius: 9.9rem;
+  background-color: ${({ theme, $isFollowed }) =>
+    $isFollowed ? theme.colors.gray700 : theme.colors.codrive_purple};
 `;
 
-const IcRightContainer = styled.div<{ $transparency: boolean }>`
-  position: absolute;
-  top: 14.8rem;
-  right: -3.9rem;
-
-  opacity: ${({ $transparency }) => ($transparency ? 0 : 100)};
+const FollowingText = styled.p<{ $isFollowed: boolean }>`
+  color: ${({ theme, $isFollowed }) =>
+    $isFollowed ? theme.colors.gray100 : theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_16};
 `;
