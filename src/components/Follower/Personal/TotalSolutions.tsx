@@ -1,9 +1,16 @@
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import SavedSolutionList from '../../../common/SolutionList/SavedSolutionList';
 import PageLayout from '../../PageLayout/PageLayout';
-import { SolutionsProps } from './Solutions';
 
-const TotalSolutions = ({ nickname }: SolutionsProps) => {
+const TotalSolutions = () => {
+  const { state } = useLocation();
+  const { nickname } = state;
+  const { id } = useParams();
+
+  // 추후 문제풀이 조회에 쓰일 예정, 현재는 팔로워가 아닌 본인의 문제풀이 조회 결과를 반환하고 있음
+  console.log(id);
+
   return (
     <PageLayout category="문제풀이">
       <TotalSolutionsContainer>
