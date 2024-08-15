@@ -10,6 +10,7 @@ const ALL_TAG = 'All';
 const LanguageSection = ({
   selectedTags,
   setSelectedTags,
+  onChangeTags,
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -21,15 +22,20 @@ const LanguageSection = ({
     if (selectedTags.length >= 5 && tag !== ALL_TAG) {
       return;
     }
-    if (tag === ALL_TAG) {
+
+    if (tag === 'ALL') {
       selectAllTags();
+      onChangeTags(DUMMY);
     } else {
+      // !
       if (!selectedTags.includes(tag)) {
         const newTags = selectedTags.includes(ALL_TAG)
           ? [...selectedTags.filter((t) => t !== ALL_TAG), tag]
           : [...selectedTags, tag];
         setSelectedTags(newTags);
+        onChangeTags(newTags);
 
+        // !
         if (newTags.length >= 5) {
           toggleDropdown();
         }
@@ -40,6 +46,7 @@ const LanguageSection = ({
   const removeTag = (tag: string) => {
     if (tag === ALL_TAG) {
       setSelectedTags([]);
+      // console.log(selectedTags);
     } else {
       setSelectedTags(selectedTags.filter((t) => t !== tag));
     }
@@ -47,6 +54,7 @@ const LanguageSection = ({
 
   const selectAllTags = () => {
     const allTags = [...DUMMY, ALL_TAG];
+    // setSelectedTags([...DUMMY, ALL_TAG]);
     setSelectedTags(allTags);
     toggleDropdown(); // 드롭다운 닫기
   };
