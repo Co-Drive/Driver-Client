@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   IcArrowBottomWhite,
@@ -12,6 +13,7 @@ import FollowerFilter from './FollowerFilter';
 const FollowerList = () => {
   const { followers } = DUMMY;
 
+  const navigate = useNavigate();
   // 현재는 임시로 전체 페이지 수 넣어둠, 추후 서버에서 받아온 값으로 전체 페이지 수 업데이트하는 함수 추가 예정
   const totalPageRef = useRef(1);
   const pages = Array.from(
@@ -32,6 +34,10 @@ const FollowerList = () => {
       clickedId: id,
       isClicked: !isClicked,
     });
+  };
+
+  const handleClickUserInfo = (id: number) => {
+    navigate(`/follower/${id}`);
   };
 
   const handleClickPrevBtn = () => {
@@ -66,8 +72,11 @@ const FollowerList = () => {
                   onClick={() => handleClickContents(id)}
                   $isClicked={clickedId === id && isClicked}
                 >
-                  <ProfileImg src={imgSrc} />
-                  <UserContainer>
+                  <ProfileImg
+                    src={imgSrc}
+                    onClick={() => handleClickUserInfo(id)}
+                  />
+                  <UserContainer onClick={() => handleClickUserInfo(id)}>
                     <Nickname>{nickname}</Nickname>
                     <Language>{language}</Language>
                   </UserContainer>
@@ -191,7 +200,6 @@ const Contents = styled.div<{ $isClicked: boolean }>`
 const ProfileImg = styled.img`
   width: 4.4rem;
   height: 4.4rem;
-  margin-right: 0.8rem;
 
   border-radius: 0.8rem;
   object-fit: cover;
@@ -204,7 +212,8 @@ const UserContainer = styled.div`
   flex-direction: column;
   flex-grow: 1;
 
-  width: 15.2rem;
+  width: 16rem;
+  padding-left: 0.8rem;
   margin-right: 11.1rem;
 `;
 
