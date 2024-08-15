@@ -17,6 +17,7 @@ const RecommendCard = ({ group }: RecommendCardProps) => {
         return (
           <CardContainer key={num} onClick={() => handleClickCard(num)}>
             <Img src={imgSrc} />
+
             <Info>
               <CardHeader>
                 <UserImg src={profile} />
@@ -26,10 +27,12 @@ const RecommendCard = ({ group }: RecommendCardProps) => {
                   <p>{num} / 50명</p>
                 </TextId>
               </CardHeader>
+
               <CardBody>
                 <CardTitle>{title}</CardTitle>
                 <CardContent>{content}</CardContent>
               </CardBody>
+
               <CardTags>
                 {tags.map((tag) => (
                   <Tag key={tag}>{tag}</Tag>
@@ -58,9 +61,6 @@ const RecommendCardContainer = styled.article`
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  width: 29.6rem;
-  height: 31rem;
 `;
 
 const Img = styled.img`
