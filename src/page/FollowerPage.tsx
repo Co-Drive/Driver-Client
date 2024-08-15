@@ -41,7 +41,7 @@ const FollowerPage = () => {
           <Temp></Temp>
         </TopContainer>
 
-        <Solutions id={id} nickname={nickname} isFollowed={isFollowed}/>
+        <Solutions id={id} nickname={nickname} isFollowed={isFollowed} />
 
         <ParticipatingGroup group={group} />
 
@@ -67,11 +67,15 @@ const TopContainer = styled.section`
   gap: 1.8rem;
   align-items: center;
 
+  width: 100%;
   margin-bottom: 8.8rem;
 `;
 
 // 나중에 지울 예정
 const Temp = styled.div`
-  width: 60.9rem;
+  flex-grow: 2;
+
+  min-width: 60.9rem;
+
   height: 41rem;
 `;

@@ -73,6 +73,7 @@ export default FollowerInfo;
 const FollowerInfoContainer = styled.article`
   display: flex;
   flex-direction: column;
+  flex-grow: 0.4;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -83,6 +84,8 @@ const FollowerInfoContainer = styled.article`
 const Language = styled.p`
   padding: 0.6rem 1rem;
   margin: 1.6rem 19.9rem 0 1.6rem;
+
+  max-width: 10rem;
 
   border-radius: 0.4rem;
   background-color: ${({ theme }) => theme.colors.gray500};
@@ -116,6 +119,9 @@ const ProfileTextContainer = styled.div`
   align-items: center;
   flex-direction: column;
 
+  min-width: 23.3rem;
+
+  width: 100%;
   padding: 0 3.2rem;
 `;
 
@@ -139,8 +145,6 @@ const NicknameText = styled.p<{ $isGithubExit?: string }>`
 `;
 
 const Introduce = styled.p`
-  max-width: 23.3rem;
-
   width: 100%;
   word-wrap: break-word;
 
