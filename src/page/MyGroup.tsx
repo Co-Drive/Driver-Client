@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ActiveGroup from '../components/MyGroup/ActiveGroup';
+import ActiveGroups from '../components/MyGroup/ActiveGroups';
 import RecommendGroup from '../components/MyGroup/RecommendGroup';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { GROUP_ALL_DUMMY } from '../constants/MyGroup/myGroupConts';
@@ -10,7 +10,7 @@ const GroupAllPage = () => {
   return (
     <PageLayout category={'그룹'}>
       <GroupAllPageContainer>
-        <ActiveGroup totalActiveGroups={item} />
+        <ActiveGroups totalActiveGroups={item} />
 
         <RecommendGroup group={group} />
       </GroupAllPageContainer>

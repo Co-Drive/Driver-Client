@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { IcArrowLeftFill, IcArrowRightFill } from '../../assets';
 import { ActiveGroupProps } from '../../types/MyGroup/myGroupType';
 
-const ActiveGroup = ({ totalActiveGroups }: ActiveGroupProps) => {
+const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
   const currentPageRef = useRef(0);
   const isFirstPage = currentPageRef.current === 0;
   const isLastPage = currentPageRef.current === totalActiveGroups.length - 4;
@@ -67,7 +67,7 @@ const ActiveGroup = ({ totalActiveGroups }: ActiveGroupProps) => {
   );
 };
 
-export default ActiveGroup;
+export default ActiveGroups;
 
 const ActiveGroupContainer = styled.article`
   display: flex;
