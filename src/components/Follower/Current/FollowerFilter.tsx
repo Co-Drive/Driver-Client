@@ -125,6 +125,7 @@ const Options = styled.div`
   position: absolute;
   top: 5.4rem;
   left: 0;
+  z-index: 1;
 
   width: 100%;
   padding: 0.8rem;
