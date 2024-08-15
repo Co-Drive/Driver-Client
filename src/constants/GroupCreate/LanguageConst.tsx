@@ -11,3 +11,5 @@ export const DUMMY = [
   'Scala',
   'Go',
 ];
+
+export const ALL_TAG = 'ALL';
