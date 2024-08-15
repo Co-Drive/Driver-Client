@@ -1,13 +1,13 @@
 export const DUMMY = [
   'Python',
   'Java',
-  'C',
-  'C++',
-  'C#',
   'Javascript',
+  'C++',
+  'C',
+  'C#',
   'Kotlin',
-  'Ruby',
   'Swift',
+  'Ruby',
   'Scala',
   'Go',
 ];

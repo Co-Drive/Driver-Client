@@ -11,7 +11,6 @@ const LanguageSection = ({
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAllSelected, setIsAllSelected] = useState(false);
-
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
@@ -25,13 +24,8 @@ const LanguageSection = ({
       setSelectedTags(DUMMY);
     } else {
       if (!selectedTags.includes(tag)) {
-        // const newTags = selectedTags.includes(ALL_TAG)
-        //   ? [...selectedTags.filter((t) => t !== ALL_TAG), tag]
-        //   : [...selectedTags, tag];
         const newTags = [...selectedTags, tag];
         setSelectedTags(newTags);
-        // onChangeTags(newTags);
-        // !
         if (newTags.length >= 5) {
           toggleDropdown();
         }
@@ -52,7 +46,7 @@ const LanguageSection = ({
   const selectAllTags = () => {
     setIsAllSelected(true);
     setSelectedTags(DUMMY);
-    toggleDropdown(); // 드롭다운 닫기
+    toggleDropdown();
   };
 
   return (
