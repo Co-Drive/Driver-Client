@@ -5,14 +5,14 @@ import PageLayout from '../components/PageLayout/PageLayout';
 import { GROUP_ALL_DUMMY } from '../constants/MyGroup/myGroupConts';
 
 const GroupAllPage = () => {
-  const { item, user, group } = GROUP_ALL_DUMMY;
+  const { item, group } = GROUP_ALL_DUMMY;
 
   return (
     <PageLayout category={'그룹'}>
       <GroupAllPageContainer>
         <ActiveGroup totalActiveGroups={item} />
 
-        <RecommendGroup user={user} group={group} />
+        <RecommendGroup group={group} />
       </GroupAllPageContainer>
     </PageLayout>
   );

@@ -8,7 +8,6 @@ export interface ActiveGroupProps {
 }
 
 export interface RecommendGroupProps {
-  user: string;
   group: Array<{
     nickname: string;
     imgSrc: string;
