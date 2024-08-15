@@ -1,10 +1,18 @@
 import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
+import {
+  IcArrowBottomWhite,
+  IcArrowLeftSmallGray,
+  IcArrowRightSmallGray,
+} from '../../../assets';
+import { DUMMY } from '../../../constants/Follower/currentConst';
 import FollowerFilter from './FollowerFilter';
 
 const FollowerList = () => {
-  const totalPageRef = useRef(0);
+  const { followers } = DUMMY;
+
+  // 현재는 임시로 전체 페이지 수 넣어둠, 추후 서버에서 받아온 값으로 전체 페이지 수 업데이트하는 함수 추가 예정
+  const totalPageRef = useRef(3);
   const pages = Array.from(
     { length: totalPageRef.current },
     (_, idx) => idx + 1
@@ -27,6 +35,32 @@ const FollowerList = () => {
   return (
     <FollowerListContainer>
       <FollowerFilter />
+
+      <ListContainer>
+        <ListHeader>
+          <ProfileText>프로필</ProfileText>
+          <WeeklyText>주간 성과율</WeeklyText>
+          <RecentText>최근 푼 문제</RecentText>
+        </ListHeader>
+
+        <ListContentsContainer>
+          {followers.map((follower) => {
+            const { id, imgSrc, nickname, language, rate, problem } = follower;
+            return (
+              <Contents key={id}>
+                <ProfileImg src={imgSrc} />
+                <UserContainer>
+                  <Nickname>{nickname}</Nickname>
+                  <Language>{language}</Language>
+                </UserContainer>
+                <Rate>{`${rate}%`}</Rate>
+                <Problem>{problem}</Problem>
+                <IcArrowBottomWhite />
+              </Contents>
+            );
+          })}
+        </ListContentsContainer>
+      </ListContainer>
 
       <PageNationBar>
         <IcArrowLeftSmallGray
@@ -63,6 +97,117 @@ const FollowerListContainer = styled.section`
   flex-direction: column;
 
   width: 100%;
+`;
+
+const ListContainer = styled.article`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+`;
+
+const ListHeader = styled.header`
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding: 1.6rem 35.2rem 1.6rem 2.4rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
+`;
+
+const ProfileText = styled.p`
+  flex-grow: 1;
+
+  margin-right: 26.3rem;
+
+  color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.body_eng_medium_16};
+`;
+
+const WeeklyText = styled.p`
+  flex-grow: 1;
+
+  margin-right: 9.4rem;
+
+  color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.body_eng_medium_16};
+`;
+
+const RecentText = styled.p`
+  flex-grow: 2;
+
+  color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.body_eng_medium_16};
+`;
+
+const ListContentsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const Contents = styled.div`
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  padding: 2.4rem 3.4rem 2rem 2.4rem;
+`;
+
+const ProfileImg = styled.img`
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-right: 0.8rem;
+
+  border-radius: 0.8rem;
+  object-fit: cover;
+`;
+
+const UserContainer = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  flex-direction: column;
+  flex-grow: 1;
+
+  width: 15.2rem;
+  margin-right: 11.1rem;
+`;
+
+const Nickname = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_16};
+`;
+
+const Language = styled.p`
+  color: ${({ theme }) => theme.colors.gray400};
+  ${({ theme }) => theme.fonts.body_eng_regular_14};
+`;
+
+const Rate = styled.p`
+  flex-grow: 1;
+
+  padding: 1.8rem 1rem 1.8rem 1.1rem;
+  margin-right: 10.4rem;
+
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_14};
+`;
+
+const Problem = styled.p`
+  flex-grow: 2;
+
+  width: 29.7rem;
+  margin-right: 7.5rem;
+  overflow-x: hidden;
+
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_medium_16};
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 `;
 
 const PageNationBar = styled.div`
