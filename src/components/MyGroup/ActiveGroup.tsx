@@ -1,20 +1,34 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowLeftFill, IcArrowRightFill } from '../../assets';
 import { ActiveGroupProps } from '../../types/MyGroup/myGroupType';
 
-const ActiveGroup = ({ item }: ActiveGroupProps) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+const ActiveGroup = ({ totalActiveGroups }: ActiveGroupProps) => {
+  const currentPageRef = useRef(0);
+  const isFirstPage = currentPageRef.current === 0;
+  const isLastPage = currentPageRef.current === totalActiveGroups.length - 4;
 
-  const itemsPerPage = 4;
-  const totalPages = Math.ceil(item.length / itemsPerPage);
+  const [slicedGroups, setSlicedGroups] = useState(
+    totalActiveGroups.slice(0, 4)
+  );
+
+  const updateTotalActiveGroups = () => {
+    setSlicedGroups(
+      totalActiveGroups.slice(
+        currentPageRef.current,
+        currentPageRef.current + 4
+      )
+    );
+  };
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalPages);
+    currentPageRef.current += 4;
+    updateTotalActiveGroups();
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalPages) % totalPages);
+    currentPageRef.current -= 4;
+    updateTotalActiveGroups();
   };
 
   const handleClickItem = (id: number) => {
@@ -23,46 +37,31 @@ const ActiveGroup = ({ item }: ActiveGroupProps) => {
 
   return (
     <ActiveGroupContainer>
-      <MainTitle>최근 활동 중인 그룹</MainTitle>
+      <Header>
+        <MainTitle>최근 활동 중인 그룹</MainTitle>
+      </Header>
 
       <CarouselContainer>
-        <CarouselButton $isHidden={currentSlide === 0} onClick={prevSlide}>
-          <IcArrowLeftFill />
-        </CarouselButton>
-        <CarouselWrapper>
-          <CarouselContent $currentSlide={currentSlide}>
-            {Array.from({ length: totalPages }, (_, index) => (
-              <CarouselSlide key={index}>
-                {item
-                  .slice(
-                    index * itemsPerPage,
-                    index * itemsPerPage + itemsPerPage
-                  )
-                  .map((card) => {
-                    const { id, tags, title, contents } = card;
-                    return (
-                      <CarouselItem
-                        key={id}
-                        onClick={() => handleClickItem(id)}
-                      >
-                        <TagContainer>
-                          {tags.map((tag, tagIndex) => (
-                            <Tag key={tagIndex}>{tag}</Tag>
-                          ))}
-                        </TagContainer>
-                        <Title>{title}</Title>
-                        <Introduce>{contents}</Introduce>
-                      </CarouselItem>
-                    );
-                  })}
-              </CarouselSlide>
-            ))}
-          </CarouselContent>
-        </CarouselWrapper>
+        {!isFirstPage && <IcArrowLeftFill onClick={prevSlide} />}
 
-        <CarouselButton onClick={nextSlide}>
-          <IcArrowRightFill />
-        </CarouselButton>
+        <GroupContainer $isFirstPage={isFirstPage} $isLastPage={isLastPage}>
+          {slicedGroups.map((group) => {
+            const { id, tags, title, contents } = group;
+            return (
+              <Group key={id} onClick={() => handleClickItem(id)}>
+                <TagContainer>
+                  {tags.map((tag, tagIndex) => (
+                    <Tag key={tagIndex}>{tag}</Tag>
+                  ))}
+                </TagContainer>
+                <Title>{title}</Title>
+                <Introduce>{contents}</Introduce>
+              </Group>
+            );
+          })}
+        </GroupContainer>
+
+        {!isLastPage && <IcArrowRightFill onClick={nextSlide} />}
       </CarouselContainer>
     </ActiveGroupContainer>
   );
@@ -70,52 +69,48 @@ const ActiveGroup = ({ item }: ActiveGroupProps) => {
 
 export default ActiveGroup;
 
-const ActiveGroupContainer = styled.div`
-  width: 100%;
-  max-width: 99.8rem;
+const ActiveGroupContainer = styled.article`
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-direction: column;
 
-  margin: 0 auto;
+  width: 100%;
+  margin-bottom: 7rem;
 `;
 
-const CarouselContainer = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-
-  width: 99.8rem;
-  margin: 0 auto;
+const Header = styled.header`
+  width: 100%;
+  padding-left: 4.4rem;
+  margin-bottom: 3rem;
 `;
 
 const MainTitle = styled.p`
-  margin-bottom: 3rem;
-  margin-left: 0.2rem;
-
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
 
-const CarouselWrapper = styled.div`
-  overflow: hidden;
-
-  width: 100%;
-`;
-
-const CarouselContent = styled.div<{ $currentSlide: number }>`
+const CarouselContainer = styled.div`
   display: flex;
-  transition: transform 0.5s ease;
-  transform: ${({ $currentSlide }) => `translateX(-${$currentSlide * 100}%)`};
+  gap: 1.8rem;
+  justify-content: center;
+  align-items: center;
 `;
 
-const CarouselSlide = styled.div`
+const GroupContainer = styled.div<{
+  $isFirstPage: boolean;
+  $isLastPage: boolean;
+}>`
   display: flex;
-  justify-content: space-between;
-  flex-shrink: 0;
+  gap: 1.1rem;
+  justify-content: center;
+  align-items: center;
 
-  width: 100%;
+  padding-right: ${({ $isLastPage }) => $isLastPage && `4.2rem`};
+  padding-left: ${({ $isFirstPage }) => $isFirstPage && `4.2rem`};
 `;
 
-const CarouselItem = styled.div`
+const Group = styled.div`
   width: 22.3rem;
   height: 14.5rem;
   padding: 2.2rem 1.8rem;
@@ -150,8 +145,4 @@ const Title = styled.div`
 const Introduce = styled.div`
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_ligth_10};
-`;
-
-const CarouselButton = styled.button<{ $isHidden?: boolean }>`
-  visibility: ${({ $isHidden }) => ($isHidden ? 'hidden' : 'visible')};
 `;
