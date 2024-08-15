@@ -11,9 +11,10 @@ const NickName = ({
 }: NickNameProps) => {
   return (
     <NickNameContainer>
-      <Title>
-        닉네임 <span>*</span>
-      </Title>
+      <TitleContainer>
+        <Title>닉네임</Title>
+        <Essential>*</Essential>
+      </TitleContainer>
       <Info>최대 10자 이내로 입력해주세요</Info>
       <InputWrapper>
         <CommonInput
@@ -33,21 +34,25 @@ const NickNameContainer = styled.div`
   margin-bottom: 5rem;
 `;
 
-const Title = styled.h2`
+const TitleContainer = styled.div`
   display: flex;
+  align-items: center;
 
   margin-bottom: 0.6rem;
   margin-left: 0.2rem;
+`;
 
+const Title = styled.h2`
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.title_bold_20};
+`;
 
-  span {
-    margin-left: 0.6rem;
+const Essential = styled.span`
+  margin-left: 0.6rem;
 
-    color: ${({ theme }) => theme.colors.codrive_purple};
-  }
+  ${({ theme }) => theme.fonts.title_medium_20};
+  color: ${({ theme }) => theme.colors.codrive_purple};
 `;
 
 const Info = styled.span`
