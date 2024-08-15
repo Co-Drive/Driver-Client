@@ -80,9 +80,14 @@ const FollowerList = () => {
                 {clickedId === id && isClicked && (
                   <AdditionalProblems>
                     <Horizon />
-                    {records.map((record) => {
+                    {records.map((record, idx) => {
                       return (
-                        <SavedSolution key={record.recordId} record={record} />
+                        <SavedSolution
+                          key={record.recordId}
+                          record={record}
+                          isModal={true}
+                          removeBorder={idx === records.length - 1}
+                        />
                       );
                     })}
                   </AdditionalProblems>
