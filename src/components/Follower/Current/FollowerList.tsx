@@ -5,20 +5,35 @@ import {
   IcArrowLeftSmallGray,
   IcArrowRightSmallGray,
 } from '../../../assets';
-import { DUMMY } from '../../../constants/Follower/currentConst';
+import SavedSolution from '../../../common/SolutionList/SavedSolution';
+import { CLICKED_DUMMY, DUMMY } from '../../../constants/Follower/currentConst';
 import FollowerFilter from './FollowerFilter';
 
 const FollowerList = () => {
   const { followers } = DUMMY;
+  const { records } = CLICKED_DUMMY;
 
   // 현재는 임시로 전체 페이지 수 넣어둠, 추후 서버에서 받아온 값으로 전체 페이지 수 업데이트하는 함수 추가 예정
-  const totalPageRef = useRef(3);
+  const totalPageRef = useRef(1);
   const pages = Array.from(
     { length: totalPageRef.current },
     (_, idx) => idx + 1
   );
 
   const [clickedPage, setClickedPage] = useState(1);
+  const [clickedContents, setClickedContents] = useState({
+    clickedId: 0,
+    isClicked: false,
+  });
+
+  const { clickedId, isClicked } = clickedContents;
+
+  const handleClickContents = (id: number) => {
+    setClickedContents({
+      clickedId: id,
+      isClicked: !isClicked,
+    });
+  };
 
   const handleClickPrevBtn = () => {
     setClickedPage((prev) => prev - 1);
@@ -43,23 +58,39 @@ const FollowerList = () => {
           <RecentText>최근 푼 문제</RecentText>
         </ListHeader>
 
-        <ListContentsContainer>
+        <List>
           {followers.map((follower) => {
             const { id, imgSrc, nickname, language, rate, problem } = follower;
             return (
-              <Contents key={id}>
-                <ProfileImg src={imgSrc} />
-                <UserContainer>
-                  <Nickname>{nickname}</Nickname>
-                  <Language>{language}</Language>
-                </UserContainer>
-                <Rate>{`${rate}%`}</Rate>
-                <Problem>{problem}</Problem>
-                <IcArrowBottomWhite />
-              </Contents>
+              <ContentsContainer key={id}>
+                <Contents
+                  onClick={() => handleClickContents(id)}
+                  $isClicked={clickedId === id && isClicked}
+                >
+                  <ProfileImg src={imgSrc} />
+                  <UserContainer>
+                    <Nickname>{nickname}</Nickname>
+                    <Language>{language}</Language>
+                  </UserContainer>
+                  <Rate>{`${rate}%`}</Rate>
+                  <Problem>{problem}</Problem>
+                  <IcArrowBottomWhite />
+                </Contents>
+
+                {clickedId === id && isClicked && (
+                  <AdditionalProblems>
+                    <Horizon />
+                    {records.map((record) => {
+                      return (
+                        <SavedSolution key={record.recordId} record={record} />
+                      );
+                    })}
+                  </AdditionalProblems>
+                )}
+              </ContentsContainer>
             );
           })}
-        </ListContentsContainer>
+        </List>
       </ListContainer>
 
       <PageNationBar>
@@ -142,18 +173,55 @@ const RecentText = styled.p`
   ${({ theme }) => theme.fonts.body_eng_medium_16};
 `;
 
-const ListContentsContainer = styled.div`
+const List = styled.article`
   display: flex;
   justify-content: center;
   flex-direction: column;
 `;
 
-const Contents = styled.div`
+const ContentsContainer = styled.div`
+  position: relative;
+
+  width: 100%;
+`;
+
+const Contents = styled.div<{ $isClicked: boolean }>`
   display: flex;
   align-items: center;
 
-  width: 100%;
   padding: 2.4rem 3.4rem 2rem 2.4rem;
+
+  border-top-left-radius: 1.6rem;
+  border-top-right-radius: 1.6rem;
+
+  background-color: ${({ $isClicked, theme }) =>
+    $isClicked && theme.colors.gray800};
+`;
+
+const AdditionalProblems = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+
+  width: 100%;
+  padding: 0.4rem 2.4rem 2.4rem;
+
+  background-color: ${({ theme }) => theme.colors.gray800};
+
+  border-bottom-left-radius: 1.6rem;
+  border-bottom-right-radius: 1.6rem;
+
+  box-shadow: 0 4px 4px rgba(11 12 15 / 65%);
+`;
+
+const Horizon = styled.span`
+  width: 100%;
+  height: 0.1rem;
+
+  background-color: ${({ theme }) => theme.colors.gray600};
 `;
 
 const ProfileImg = styled.img`
