@@ -1,19 +1,18 @@
 import styled from 'styled-components';
-import RecommendCard from '../common/RecommendCard';
 import ActiveGroup from '../components/MyGroup/ActiveGroup';
+import RecommendGroup from '../components/MyGroup/RecommendGroup';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { GROUP_ALL_DUMMY } from '../constants/MyGroup/myGroupConts';
 
 const GroupAllPage = () => {
   const { item, user, group } = GROUP_ALL_DUMMY;
+
   return (
     <PageLayout category={'그룹'}>
       <GroupAllPageContainer>
         <ActiveGroup totalActiveGroups={item} />
 
-        <Recommendcontainer>
-          <RecommendCard user={user} group={group} />
-        </Recommendcontainer>
+        <RecommendGroup user={user} group={group} />
       </GroupAllPageContainer>
     </PageLayout>
   );
@@ -26,14 +25,4 @@ const GroupAllPageContainer = styled.section`
   flex-direction: column;
 
   padding: 6rem 21.5rem 17.8rem;
-`;
-
-const Recommendcontainer = styled.section`
-  display: flex;
-  gap: 3rem;
-  justify-content: center;
-  flex-direction: column;
-
-  width: 100%;
-  padding: 0 4.2rem;
 `;
