@@ -26,7 +26,7 @@ const GroupAllPageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  width: 100%;
+  padding: 6rem 21.5rem 17.8rem;
 `;
 
 const Recommendcontainer = styled.section`
@@ -36,5 +36,4 @@ const Recommendcontainer = styled.section`
   flex-direction: column;
 
   width: 100%;
-  padding: 7rem 25.7rem 21rem;
 `;
