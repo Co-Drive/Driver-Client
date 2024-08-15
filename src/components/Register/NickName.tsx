@@ -34,13 +34,18 @@ const NickNameContainer = styled.div`
 `;
 
 const Title = styled.h2`
+  display: flex;
+
   margin-bottom: 0.6rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.title_bold_20};
 
   span {
+    margin-left: 0.6rem;
+
     color: ${({ theme }) => theme.colors.codrive_purple};
   }
 `;
@@ -49,6 +54,7 @@ const Info = styled.span`
   display: block;
 
   margin-bottom: 1.6rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.detail_regular_12};
@@ -56,7 +62,6 @@ const Info = styled.span`
 
 const InputWrapper = styled.div`
   display: flex;
-  gap: 0.5rem;
   align-items: center;
 `;
 

@@ -18,12 +18,17 @@ const LanguageContainer = styled.div`
 `;
 
 const Title = styled.h2`
-  margin-bottom: 0.6rem;
+  display: flex;
+
+  margin-bottom: 1.7rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_20};
 
   span {
+    margin-left: 0.6rem;
+
     color: ${({ theme }) => theme.colors.codrive_purple};
   }
 `;
