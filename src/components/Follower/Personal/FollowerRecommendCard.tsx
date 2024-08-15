@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   IcFollowingGray,
   IcGithubLogoSmall,
@@ -19,11 +19,11 @@ const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
       </TitleContainer>
 
       <RecommendCard>
-        {recommend.map((randomFollower) => {
+        {recommend.map((randomFollower, idx) => {
           const { id, profileImg, nickname, language, github, isFollowed } =
             randomFollower;
           return (
-            <PersonalCard key={id}>
+            <PersonalCard key={id} $addHr={idx < 4}>
               <ProfileImg
                 src={profileImg}
                 $isGithubExit={github?.length !== 0}
@@ -100,13 +100,23 @@ const RecommendCard = styled.article`
   background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
-const PersonalCard = styled.article`
+const PersonalCard = styled.article<{ $addHr: boolean }>`
   display: flex;
   align-items: center;
   position: relative;
 
   width: 100%;
   padding: 1.4rem 1rem;
+
+  ${({ $addHr, theme }) =>
+    $addHr &&
+    css`
+      width: calc(100% - 2rem);
+      padding: 1.4rem 0 1.8rem;
+      margin: 0 1rem;
+
+      border-bottom: 0.1rem solid ${theme.colors.gray600};
+    `};
 `;
 
 const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
