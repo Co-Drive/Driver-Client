@@ -12,7 +12,6 @@ import PageLayout from '../components/PageLayout/PageLayout';
 import { postGroupInfo } from '../libs/apis/GroupCreate/postGroupInfo';
 
 const GroupCreate = () => {
-  // 상태 객체 선언
   const [inputs, setInputs] = useState({
     title: '',
     num: '',
@@ -71,7 +70,6 @@ const GroupCreate = () => {
     group !== '';
 
   const handleGroupCreate = async () => {
-    // const cleanedTags = selectedTags.includes(ALL_TAG) ? DUMMY : selectedTags;
     const postData = {
       title: title,
       password: secretKey,
