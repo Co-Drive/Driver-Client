@@ -59,6 +59,7 @@ const Header = styled.h2`
 
 const Essential = styled.span`
   color: ${({ theme }) => theme.colors.codrive_purple};
+  ${({ theme }) => theme.fonts.title_medium_20};
 `;
 
 const ButtonContainer = styled.div`
