@@ -28,6 +28,7 @@ export interface IntroSectionProps {
 export interface LanguageSectionProps {
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+  onChangeTags: (tags: string[]) => void;
 }
 
 export interface TitleSectionProps {
