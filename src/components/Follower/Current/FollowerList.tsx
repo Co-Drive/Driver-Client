@@ -5,6 +5,7 @@ import {
   IcArrowBottomWhite,
   IcArrowLeftSmallGray,
   IcArrowRightSmallGray,
+  IcArrowTopWhite,
 } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
 import AdditionalProblemsModal from './AdditionalProblemsModal';
@@ -82,7 +83,11 @@ const FollowerList = () => {
                   </UserContainer>
                   <Rate>{`${rate}%`}</Rate>
                   <Problem>{problem}</Problem>
-                  <IcArrowBottomWhite />
+                  {clickedId === id && isClicked ? (
+                    <IcArrowTopWhite />
+                  ) : (
+                    <IcArrowBottomWhite />
+                  )}
                 </Contents>
 
                 {clickedId === id && isClicked && <AdditionalProblemsModal />}
