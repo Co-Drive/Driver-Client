@@ -71,6 +71,7 @@ const GroupCreate = () => {
     group !== '';
 
   const handleGroupCreate = async () => {
+    // const cleanedTags = selectedTags.includes(ALL_TAG) ? DUMMY : selectedTags;
     const postData = {
       title: title,
       password: secretKey,
@@ -104,11 +105,7 @@ const GroupCreate = () => {
       console.log(error);
     }
   };
-
-  const handleOnChangeTags = (newTags: string[]) => {
-    setSelectedTags(newTags);
-    console.log(newTags);
-  };
+  console.log(selectedTags);
 
   return (
     <PageLayout category="그룹">
@@ -131,7 +128,6 @@ const GroupCreate = () => {
           handleMemberCountChange={handleChangeInputs}
         />
         <LanguageSection
-          onChangeTags={handleOnChangeTags}
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
