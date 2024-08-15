@@ -1,4 +1,10 @@
-export const GROUPS = ['1번 스터디', '2번 스터디', '3번 스터디', '4번 스터디'];
+export const GROUPS = [
+  { id: 0, name: '그룹 글자는 20자까지 입니다아아.' },
+  { id: 1, name: '2번 스터디' },
+  { id: 2, name: '3번 스터디' },
+  { id: 3, name: '4번 스터디' },
+  { id: 4, name: '5번 스터디' },
+];
 
 export const SORTING = ['최신순', '|', '가나다순'];
 

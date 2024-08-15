@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../../assets';
-import { SORTING } from '../../../constants/Follower/currentConst';
+import { GROUPS, SORTING } from '../../../constants/Follower/currentConst';
 
 const FollowerFilter = () => {
-  const [groupFilter, setGroupFilter] = useState({
-    isClicked: false,
-    selectedGroup: '',
-  });
+  const [isGroupClicked, setIsGroupClicked] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState('');
   const [sorting, setSorting] = useState('최신순');
 
-  const { isClicked, selectedGroup } = groupFilter;
+  const handleClickGroupOptions = (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) => {
+    const { innerHTML } = e.currentTarget;
+    setSelectedGroup(innerHTML);
+  };
 
   const handleClickGroupFilter = () => {
-    setGroupFilter({ ...groupFilter, isClicked: !isClicked });
+    setIsGroupClicked(!isGroupClicked);
   };
 
   const handleClickSorting = (
@@ -31,7 +34,23 @@ const FollowerFilter = () => {
           {selectedGroup ? selectedGroup : '그룹 별 보기'}
         </SelectedGroup>
 
-        {isClicked ? <IcArrowTopGray /> : <IcArrowBottomGray />}
+        {isGroupClicked ? (
+          <>
+            <IcArrowTopGray />
+            <Options>
+              {GROUPS.map((group) => {
+                const { id, name } = group;
+                return (
+                  <Option key={id} onClick={handleClickGroupOptions}>
+                    {name}
+                  </Option>
+                );
+              })}
+            </Options>
+          </>
+        ) : (
+          <IcArrowBottomGray />
+        )}
       </GroupFilterContainer>
 
       <SortContainer>
@@ -82,9 +101,45 @@ const GroupFilterContainer = styled.div`
 `;
 
 const SelectedGroup = styled.p<{ $isEmpty: boolean }>`
+  max-width: 16.4rem;
+  overflow-x: hidden;
+
   color: ${({ theme, $isEmpty }) =>
     $isEmpty ? theme.colors.gray300 : theme.colors.white};
+
   ${({ theme }) => theme.fonts.body_ligth_16};
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+const Options = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  flex-direction: column;
+  position: absolute;
+  top: 5.4rem;
+  left: 0;
+
+  width: 100%;
+  padding: 0.8rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
+`;
+
+const Option = styled.p`
+  width: 100%;
+  padding: 1.2rem;
+
+  overflow-x: hidden;
+
+  border-radius: 0.4rem;
+  background-color: ${({ theme }) => theme.colors.gray500};
+  color: ${({ theme }) => theme.colors.white};
+
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const SortContainer = styled.div`
