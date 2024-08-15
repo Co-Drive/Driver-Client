@@ -41,7 +41,11 @@ const FollowerFilter = () => {
               {GROUPS.map((group) => {
                 const { id, name } = group;
                 return (
-                  <Option key={id} onClick={handleClickGroupOptions}>
+                  <Option
+                    key={id}
+                    onClick={handleClickGroupOptions}
+                    $clickedOption={selectedGroup === name}
+                  >
                     {name}
                   </Option>
                 );
@@ -83,6 +87,8 @@ const FilteredContainer = styled.header`
   padding-right: 1rem;
   padding-bottom: 1.6rem;
   margin-top: 6.2rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray800};
 `;
 
 const GroupFilterContainer = styled.div`
@@ -127,19 +133,24 @@ const Options = styled.div`
   background-color: ${({ theme }) => theme.colors.gray700};
 `;
 
-const Option = styled.p`
+const Option = styled.p<{ $clickedOption: boolean }>`
   width: 100%;
   padding: 1.2rem;
 
   overflow-x: hidden;
 
   border-radius: 0.4rem;
-  background-color: ${({ theme }) => theme.colors.gray500};
+  background-color: ${({ theme, $clickedOption }) =>
+    $clickedOption && theme.colors.gray500};
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.body_ligth_16};
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
 `;
 
 const SortContainer = styled.div`

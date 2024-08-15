@@ -26,7 +26,7 @@ const FollowerCurrentPageContainer = styled.section`
   flex-direction: column;
 
   width: 100%;
-  padding: 6rem 25.7rem 29.4rem;
+  padding: 6rem 25.7rem 18rem;
 `;
 
 const Header = styled.header`
