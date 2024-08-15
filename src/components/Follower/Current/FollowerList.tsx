@@ -5,13 +5,12 @@ import {
   IcArrowLeftSmallGray,
   IcArrowRightSmallGray,
 } from '../../../assets';
-import SavedSolution from '../../../common/SolutionList/SavedSolution';
-import { CLICKED_DUMMY, DUMMY } from '../../../constants/Follower/currentConst';
+import { DUMMY } from '../../../constants/Follower/currentConst';
+import AdditionalProblemsModal from './AdditionalProblemsModal';
 import FollowerFilter from './FollowerFilter';
 
 const FollowerList = () => {
   const { followers } = DUMMY;
-  const { records } = CLICKED_DUMMY;
 
   // 현재는 임시로 전체 페이지 수 넣어둠, 추후 서버에서 받아온 값으로 전체 페이지 수 업데이트하는 함수 추가 예정
   const totalPageRef = useRef(1);
@@ -77,21 +76,7 @@ const FollowerList = () => {
                   <IcArrowBottomWhite />
                 </Contents>
 
-                {clickedId === id && isClicked && (
-                  <AdditionalProblems>
-                    <Horizon />
-                    {records.map((record, idx) => {
-                      return (
-                        <SavedSolution
-                          key={record.recordId}
-                          record={record}
-                          isModal={true}
-                          removeBorder={idx === records.length - 1}
-                        />
-                      );
-                    })}
-                  </AdditionalProblems>
-                )}
+                {clickedId === id && isClicked && <AdditionalProblemsModal />}
               </ContentsContainer>
             );
           })}
@@ -201,32 +186,6 @@ const Contents = styled.div<{ $isClicked: boolean }>`
 
   background-color: ${({ $isClicked, theme }) =>
     $isClicked && theme.colors.gray800};
-`;
-
-const AdditionalProblems = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: absolute;
-  z-index: 1;
-
-  width: 100%;
-  padding: 0.4rem 2.4rem 2.4rem;
-
-  background-color: ${({ theme }) => theme.colors.gray800};
-
-  border-bottom-left-radius: 1.6rem;
-  border-bottom-right-radius: 1.6rem;
-
-  box-shadow: 0 4px 4px rgba(11 12 15 / 65%);
-`;
-
-const Horizon = styled.span`
-  width: 100%;
-  height: 0.1rem;
-
-  background-color: ${({ theme }) => theme.colors.gray600};
 `;
 
 const ProfileImg = styled.img`
