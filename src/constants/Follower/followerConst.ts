@@ -5,7 +5,7 @@ export const FOLLOWER_DUMMY = {
   isFollowed: false,
   language: 'Javascript',
   introduce: '안녕하세요 코딩하는 풀스택 개발자 어쩌구 입니다릴릴릴',
-  github: '',
+  github: 'https://github.com/Arooming',
   rate: 75,
   group: [
     {
