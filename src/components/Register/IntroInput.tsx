@@ -35,7 +35,7 @@ const IntroContainer = styled.div`
 
 const Intro = styled.textarea<{ $hasError: boolean }>`
   width: 100%;
-  padding: 1.5rem 2rem 3rem;
+  padding: 1.4rem 2rem;
   resize: none;
 
   ${({ theme }) => theme.fonts.body_ligth_16};
@@ -55,9 +55,11 @@ const Intro = styled.textarea<{ $hasError: boolean }>`
 `;
 
 const Title = styled.h2`
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.white};
+
   ${({ theme }) => theme.fonts.title_bold_20};
 `;
 
@@ -65,6 +67,7 @@ const Info = styled.span`
   display: block;
 
   margin-bottom: 1.6rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.detail_regular_12};
