@@ -125,7 +125,7 @@ const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
   margin-right: ${({ $isGithubExit }) => ($isGithubExit ? `1.5rem` : `1.8rem`)};
 
   border-radius: 5rem;
-  object-fit: contain;
+  object-fit: cover;
 `;
 
 const IcContainer = styled.span`
