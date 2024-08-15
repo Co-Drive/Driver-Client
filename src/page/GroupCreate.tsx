@@ -77,6 +77,11 @@ const GroupCreate = () => {
     });
   };
 
+  const handleOnChangeTags = (newTags: string[]) => {
+    setSelectedTags(newTags);
+    console.log(newTags);
+  };
+
   return (
     <PageLayout category="그룹">
       <Form>
@@ -98,6 +103,7 @@ const GroupCreate = () => {
           handleMemberCountChange={handleChangeInputs}
         />
         <LanguageSection
+          onChangeTags={handleOnChangeTags}
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
         />
