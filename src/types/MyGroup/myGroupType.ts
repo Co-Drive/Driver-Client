@@ -1,5 +1,5 @@
 export interface ActiveGroupProps {
-  item: Array<{
+  totalActiveGroups: Array<{
     id: number;
     title: string;
     contents: string;

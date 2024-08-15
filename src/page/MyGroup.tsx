@@ -10,7 +10,8 @@ const GroupAllPage = () => {
   return (
     <PageLayout category={'그룹'}>
       <GroupAllPageContainer>
-        <ActiveGroup item={item} />
+        <ActiveGroup totalActiveGroups={item} />
+
         <Recommendcontainer>
           <RecommendTitle user={user} />
           <RecommendCard user={user} group={group} />
