@@ -35,20 +35,77 @@ const BasicInfo = () => {
   );
 };
 
-const BasicInfoContainer = styled.article``;
+const BasicInfoContainer = styled.article`
+  width: 61.1rem;
+  height: 26.8rem;
+  padding: 2.4rem 2rem;
 
-const BasicTitle = styled.h2``;
+  background-color: ${({ theme }) => theme.colors.gray800};
+`;
 
-const NameContainer = styled.div``;
+const BasicTitle = styled.h2`
+  margin-bottom: 4rem;
 
-const NameTitle = styled.article``;
+  color: ${({ theme }) => theme.colors.white};
 
-const Name = styled.article``;
+  ${({ theme }) => theme.fonts.title_bold_20};
+`;
 
-const GitHubContainer = styled.div``;
+const NameContainer = styled.section`
+  display: flex;
+  align-items: center;
 
-const GitHubTitle = styled.article``;
+  padding: 1.45rem 0 2.85rem 1.6rem;
+  margin-bottom: 3.2rem;
 
-const Github = styled.p``;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
+`;
 
+const NameTitle = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_16};
+`;
+
+const Name = styled.p`
+  margin-left: 8.6rem;
+
+  color: ${({ theme }) => theme.colors.gray100};
+
+  ${({ theme }) => theme.fonts.body_medium_16};
+`;
+
+const GitHubContainer = styled.section`
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  padding: 0 0 1.4rem 1.6rem;
+
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
+`;
+
+const GitHubTitle = styled.p`
+  margin-right: 3rem;
+
+  color: ${({ theme }) => theme.colors.white};
+
+  ${({ theme }) => theme.fonts.title_bold_16};
+`;
+
+const Github = styled.p`
+  overflow: hidden;
+
+  width: 31rem;
+  padding: 1.2rem 1.1rem;
+
+  color: ${({ theme }) => theme.colors.gray100};
+
+  word-break: break-all;
+
+  text-overflow: ellipsis;
+
+  ${({ theme }) => theme.fonts.body_medium_16};
+
+  white-space: nowrap;
+`;
 export default BasicInfo;
