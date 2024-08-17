@@ -25,6 +25,7 @@ import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
 import IcCode from './icon/ic_code.svg?react';
+import IcFilter from './icon/ic_filter.svg?react';
 import IcGithub from './icon/ic_github.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
@@ -91,6 +92,7 @@ export {
   IcCancelSmall,
   IcCancelSmallWhite,
   IcCode,
+  IcFilter,
   IcGithub,
   IcGroup,
   IcHome,
