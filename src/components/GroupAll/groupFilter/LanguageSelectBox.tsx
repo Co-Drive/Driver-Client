@@ -1,0 +1,198 @@
+import { useState } from 'react';
+import styled from 'styled-components';
+import { IcArrowBottomGray, IcArrowTopGray, IcFilter } from '../../../assets';
+import CommonHashTag from '../../../common/CommonHashTag';
+import { LanguageSectionProps } from '../../../types/GroupCreate/GroupCreateType';
+import { DUMMY } from './../../../constants/GroupCreate/LanguageConst';
+
+const ALL_TAG = 'All';
+
+const LanguageSection = ({
+  selectedTags,
+  setSelectedTags,
+}: LanguageSectionProps) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
+  };
+
+  const addTag = (tag: string) => {
+    if (selectedTags.length >= 5 && tag !== ALL_TAG) {
+      return;
+    }
+    if (tag === ALL_TAG) {
+      selectAllTags();
+    } else {
+      if (!selectedTags.includes(tag)) {
+        const newTags = selectedTags.includes(ALL_TAG)
+          ? [...selectedTags.filter((t) => t !== ALL_TAG), tag]
+          : [...selectedTags, tag];
+        setSelectedTags(newTags);
+
+        if (newTags.length >= 5) {
+          toggleDropdown();
+        }
+      }
+    }
+  };
+
+  const removeTag = (tag: string) => {
+    if (tag === ALL_TAG) {
+      setSelectedTags([]);
+    } else {
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
+    }
+  };
+
+  const selectAllTags = () => {
+    const allTags = [...DUMMY, ALL_TAG];
+    setSelectedTags(allTags);
+    toggleDropdown(); // 드롭다운 닫기
+  };
+
+  return (
+    <Section>
+      <DropdownContainer onClick={toggleDropdown}>
+        <SelectContainer>
+          <FilterIconContainer>
+            <IcFilter />
+          </FilterIconContainer>
+          {selectedTags.includes(ALL_TAG) ? (
+            <SelectedTagContainer key={ALL_TAG}>
+              <CommonHashTag
+                selectedTag={ALL_TAG}
+                removeTag={() => removeTag(ALL_TAG)}
+              />
+            </SelectedTagContainer>
+          ) : selectedTags.length === 0 ? (
+            <DropdownText>그룹 필터</DropdownText>
+          ) : (
+            selectedTags.map((tag, index) => (
+              <SelectedTagContainer key={index}>
+                <CommonHashTag
+                  selectedTag={tag}
+                  removeTag={(e) => {
+                    if (e) e.stopPropagation();
+                    removeTag(tag);
+                  }}
+                />
+              </SelectedTagContainer>
+            ))
+          )}
+        </SelectContainer>
+        <IconContainer>
+          {isDropdownOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
+        </IconContainer>
+      </DropdownContainer>
+      {isDropdownOpen && (
+        <DropdownItemContainer>
+          <DropdownItem
+            $isSelected={selectedTags.includes(ALL_TAG)}
+            onClick={selectAllTags}
+          >
+            {ALL_TAG}
+          </DropdownItem>
+          <Borderline />
+          {DUMMY.map((tag) => (
+            <PickTagContainer key={tag}>
+              <DropdownItem
+                $isSelected={selectedTags.includes(tag)}
+                onClick={() => addTag(tag)}
+              >
+                {tag}
+              </DropdownItem>
+            </PickTagContainer>
+          ))}
+        </DropdownItemContainer>
+      )}
+    </Section>
+  );
+};
+
+export default LanguageSection;
+
+const Section = styled.section`
+  position: relative;
+
+  margin-top: 4rem;
+`;
+
+const PickTagContainer = styled.div`
+  margin-bottom: 1rem;
+`;
+
+const SelectedTagContainer = styled.div`
+  display: inline-flex;
+`;
+
+const DropdownContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  height: 4.8rem;
+  padding: 1.5rem 2rem 1.4rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
+
+  cursor: pointer;
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const FilterIconContainer = styled.p`
+  margin-right: 1.2rem;
+`;
+
+const DropdownItemContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 61.1rem;
+  padding: 1.6rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
+  cursor: pointer;
+`;
+
+const Borderline = styled.div`
+  width: 100%;
+  height: 0.1rem;
+  margin: 1.2rem 0;
+
+  background-color: ${({ theme }) => theme.colors.gray500};
+`;
+
+const DropdownItem = styled.div<{ $isSelected: boolean }>`
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.6rem 1rem;
+  margin-right: 1rem;
+
+  border-radius: 0.4rem;
+  ${({ theme }) => theme.fonts.body_eng_medium_12};
+  background-color: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.codrive_green : theme.colors.gray500};
+  color: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.bg : theme.colors.gray200};
+`;
+
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  margin-right: 1.2rem;
+`;
+
+const DropdownText = styled.p`
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  color: ${({ theme }) => theme.colors.gray300};
+`;
