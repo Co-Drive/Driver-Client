@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray, IcFilter } from '../../../assets';
 import CommonHashTag from '../../../common/CommonHashTag';
 import { LanguageSectionProps } from '../../../types/GroupCreate/GroupCreateType';
-import { DUMMY } from './../../../constants/GroupCreate/LanguageConst';
 
-const ALL_TAG = 'All';
+const ALL_TAG = 'ALL';
 
 const LanguageSelectBox = ({
   selectedTags,
@@ -46,9 +45,9 @@ const LanguageSelectBox = ({
   };
 
   const selectAllTags = () => {
-    const allTags = [...DUMMY, ALL_TAG];
+    const allTags = [...firstRowTags, ...secondRowTags, ALL_TAG];
     setSelectedTags(allTags);
-    toggleDropdown(); // 드롭다운 닫기
+    toggleDropdown();
   };
 
   // 언어를 두 줄로 나누기 위한 설정
