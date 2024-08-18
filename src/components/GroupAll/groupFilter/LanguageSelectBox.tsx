@@ -7,7 +7,7 @@ import { DUMMY } from './../../../constants/GroupCreate/LanguageConst';
 
 const ALL_TAG = 'All';
 
-const LanguageSection = ({
+const LanguageSelectBox = ({
   selectedTags,
   setSelectedTags,
 }: LanguageSectionProps) => {
@@ -18,7 +18,7 @@ const LanguageSection = ({
   };
 
   const addTag = (tag: string) => {
-    if (selectedTags.length >= 5 && tag !== ALL_TAG) {
+    if (selectedTags.length >= 3 && tag !== ALL_TAG) {
       return;
     }
     if (tag === ALL_TAG) {
@@ -30,7 +30,7 @@ const LanguageSection = ({
           : [...selectedTags, tag];
         setSelectedTags(newTags);
 
-        if (newTags.length >= 5) {
+        if (newTags.length >= 3) {
           toggleDropdown();
         }
       }
@@ -50,6 +50,10 @@ const LanguageSection = ({
     setSelectedTags(allTags);
     toggleDropdown(); // 드롭다운 닫기
   };
+
+  // 언어를 두 줄로 나누기 위한 설정
+  const firstRowTags = ['Python', 'Java', 'JavaScript', 'C++', 'C', 'C#'];
+  const secondRowTags = ['Kotlin', 'Swift', 'Ruby', 'Scala', 'Go'];
 
   return (
     <Section>
@@ -87,43 +91,60 @@ const LanguageSection = ({
       </DropdownContainer>
       {isDropdownOpen && (
         <DropdownItemContainer>
-          <DropdownItem
-            $isSelected={selectedTags.includes(ALL_TAG)}
-            onClick={selectAllTags}
-          >
-            {ALL_TAG}
-          </DropdownItem>
-          <Borderline />
-          {DUMMY.map((tag) => (
-            <PickTagContainer key={tag}>
+          <DropdownTitle>
+            <Title>사용언어</Title>
+            <Info>최대 3개까지 선택 가능합니다</Info>
+          </DropdownTitle>
+          <TagContainer>
+            <LanguageItemsContainer>
+              <DropdownItems>
+                {firstRowTags.map((tag) => (
+                  <PickTagContainer key={tag}>
+                    <DropdownItem
+                      $isSelected={selectedTags.includes(tag)}
+                      onClick={() => addTag(tag)}
+                    >
+                      {tag}
+                    </DropdownItem>
+                  </PickTagContainer>
+                ))}
+              </DropdownItems>
+              <DropdownItems>
+                {secondRowTags.map((tag) => (
+                  <PickTagContainer key={tag}>
+                    <DropdownItem
+                      $isSelected={selectedTags.includes(tag)}
+                      onClick={() => addTag(tag)}
+                    >
+                      {tag}
+                    </DropdownItem>
+                  </PickTagContainer>
+                ))}
+              </DropdownItems>
+            </LanguageItemsContainer>
+            <Borderline />
+            <AllTagContainer>
               <DropdownItem
-                $isSelected={selectedTags.includes(tag)}
-                onClick={() => addTag(tag)}
+                $isSelected={selectedTags.includes(ALL_TAG)}
+                onClick={selectAllTags}
               >
-                {tag}
+                {ALL_TAG}
               </DropdownItem>
-            </PickTagContainer>
-          ))}
+            </AllTagContainer>
+          </TagContainer>
         </DropdownItemContainer>
       )}
     </Section>
   );
 };
 
-export default LanguageSection;
+export default LanguageSelectBox;
 
+// 스타일 컴포넌트는 기존 코드와 동일하게 유지
 const Section = styled.section`
   position: relative;
 
   margin-top: 4rem;
-`;
-
-const PickTagContainer = styled.div`
-  margin-bottom: 1rem;
-`;
-
-const SelectedTagContainer = styled.div`
-  display: inline-flex;
 `;
 
 const DropdownContainer = styled.div`
@@ -134,10 +155,10 @@ const DropdownContainer = styled.div`
   width: 100%;
   height: 4.8rem;
   padding: 1.5rem 2rem 1.4rem;
+  margin-bottom: 0.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
-
   cursor: pointer;
 `;
 
@@ -150,39 +171,13 @@ const FilterIconContainer = styled.p`
   margin-right: 1.2rem;
 `;
 
-const DropdownItemContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-
-  width: 61.1rem;
-  padding: 1.6rem;
-
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.gray700};
-  cursor: pointer;
-`;
-
-const Borderline = styled.div`
-  width: 100%;
-  height: 0.1rem;
-  margin: 1.2rem 0;
-
-  background-color: ${({ theme }) => theme.colors.gray500};
-`;
-
-const DropdownItem = styled.div<{ $isSelected: boolean }>`
+const SelectedTagContainer = styled.div`
   display: inline-flex;
-  align-items: center;
+`;
 
-  padding: 0.6rem 1rem;
-  margin-right: 1rem;
-
-  border-radius: 0.4rem;
-  ${({ theme }) => theme.fonts.body_eng_medium_12};
-  background-color: ${({ theme, $isSelected }) =>
-    $isSelected ? theme.colors.codrive_green : theme.colors.gray500};
-  color: ${({ theme, $isSelected }) =>
-    $isSelected ? theme.colors.bg : theme.colors.gray200};
+const DropdownText = styled.p`
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  color: ${({ theme }) => theme.colors.gray300};
 `;
 
 const IconContainer = styled.div`
@@ -192,7 +187,69 @@ const IconContainer = styled.div`
   margin-right: 1.2rem;
 `;
 
-const DropdownText = styled.p`
-  ${({ theme }) => theme.fonts.body_ligth_16};
-  color: ${({ theme }) => theme.colors.gray300};
+const DropdownItemContainer = styled.div`
+  width: 100%;
+  padding: 1.6rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
+  cursor: pointer;
+`;
+
+const DropdownTitle = styled.div`
+  margin-bottom: 1.8rem;
+`;
+
+const Title = styled.p`
+  margin-bottom: 0.4rem;
+
+  ${({ theme }) => theme.fonts.body_medium_16};
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+const Info = styled.p`
+  ${({ theme }) => theme.fonts.detail_regular_12};
+  color: ${({ theme }) => theme.colors.gray200};
+`;
+
+const TagContainer = styled.div`
+  display: flex;
+`;
+
+const LanguageItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const DropdownItems = styled.div`
+  display: flex;
+  gap: 0.8rem;
+`;
+
+const PickTagContainer = styled.div`
+  margin-bottom: 0.8rem;
+`;
+
+const DropdownItem = styled.div<{ $isSelected: boolean }>`
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0.6rem 1rem;
+
+  border-radius: 0.4rem;
+  ${({ theme }) => theme.fonts.body_eng_medium_12};
+  background-color: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.codrive_green : theme.colors.gray500};
+  color: ${({ theme, $isSelected }) =>
+    $isSelected ? theme.colors.bg : theme.colors.gray200};
+`;
+
+const Borderline = styled.div`
+  margin-left: 1.8rem;
+
+  border-right: 1px solid ${({ theme }) => theme.colors.gray600};
+`;
+
+const AllTagContainer = styled.div`
+  margin-left: 1.8rem;
 `;
