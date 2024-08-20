@@ -22,6 +22,7 @@ const Router = () => {
         <Route path="/my-group" />
         <Route path="/group-join" element={<GroupJoin />} />
         <Route path="/group-complete" element={<GroupComplete />} />
+        <Route path="/group-complete/:id" element={<GroupComplete />} />
         <Route path="/solve" element={<SolvePage />} />
         <Route path="/solution" element={<SolutionListPage />} />
         <Route path="/solution/:id" element={<SolutionPage />} />
