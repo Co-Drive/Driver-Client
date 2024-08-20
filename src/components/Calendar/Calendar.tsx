@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled from 'styled-components';
+// import Calendar * as Calendar from '../Solution/List/Calendar';
 
 type ValuePiece = Date | null;
 
@@ -24,8 +25,6 @@ const CommonCalendar = () => {
         prev2Label={null}
         view="month"
         showNeighboringMonth={true}
-        minDetail="month"
-        maxDetail="month"
         formatShortWeekday={(_, date) => customWeekdays[date.getDay()]}
       />
     </Wrapper>
@@ -35,15 +34,18 @@ const CommonCalendar = () => {
 export default CommonCalendar;
 
 const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+
   .react-calendar {
+    border: none;
     background-color: ${({ theme }) => theme.colors.gray800};
   }
 `;
 
 const StyledCalendar = styled(Calendar)`
-  .react-calendar {
-    background-color: pink;
-  }
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__navigation {
     display: none;
@@ -59,11 +61,15 @@ const StyledCalendar = styled(Calendar)`
 
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__month-view__weekdays__weekday {
-    /* background-color: red; */
-    color: white; /* 요일 텍스트 색상 */
-    font-weight: bold; /* 요일 텍스트 두께 */
-    font-size: 16px; /* 요일 텍스트 크기 */
+    color: ${({ theme }) => theme.colors.white};
 
-    text-align: center; /* 가운데 정렬 */
+    text-decoration: none;
+
+    ${({ theme }) => theme.fonts.body_eng_medium_16}
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  .react-calendar__month-view__weekdays__weekday abbr[title] {
+    text-decoration: none;
   }
 `;
