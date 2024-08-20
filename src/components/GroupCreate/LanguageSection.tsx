@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcArrowBottomGray } from '../../assets';
+import { IcArrowBottomGray, IcArrowTopGray } from '../../assets';
 import CommonHashTag from '../../common/CommonHashTag';
 import { ALL_TAG, DUMMY } from '../../constants/GroupCreate/LanguageConst';
 import { LanguageSectionProps } from '../../types/GroupCreate/GroupCreateType';
@@ -11,6 +11,7 @@ const LanguageSection = ({
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isAllSelected, setIsAllSelected] = useState(false);
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
@@ -80,7 +81,7 @@ const LanguageSection = ({
           )}
         </div>
         <IconContainer>
-          <IcArrowBottomGray />
+          {isDropdownOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
         </IconContainer>
       </DropdownContainer>
       {isDropdownOpen && (
@@ -143,7 +144,8 @@ const DropdownContainer = styled.div`
 
   width: 100%;
   height: 4.8rem;
-  padding: 1.5rem 2rem 1.4rem;
+  padding: 1.5rem 1.2rem 1.4rem 2rem;
+  margin-bottom: 0.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
@@ -189,8 +191,6 @@ const DropdownItem = styled.div<{ $isSelected: boolean }>`
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
-
-  margin-right: 1.2rem;
 `;
 
 const DropdownText = styled.p`
