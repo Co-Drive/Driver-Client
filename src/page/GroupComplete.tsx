@@ -1,19 +1,40 @@
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import Modal from '../common/Modal/Modal';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { getGroupInfo } from '../libs/apis/GroupComplete/getGroupInfo';
 import { handleCopyClipBoard } from '../utils/handleCopyClipBoard';
 
 const GroupComplete = () => {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const { groupPassword, thumbnailUrl } = state || {};
-  const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
+  const [groupPassword, setGroupPassword] = useState('');
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+  const { id: uuid } = useParams();
+  const token = sessionStorage.getItem('token');
+  const nickname = sessionStorage.getItem('nickname');
+
+  useEffect(() => {
+    if (token && nickname) {
+      const fetchGroupInfo = async () => {
+        try {
+          const data = await getGroupInfo(uuid!);
+          setGroupPassword(data.password);
+          setThumbnailUrl(data.imageSrc);
+        } catch (error) {
+          console.log('error');
+        }
+      };
+      fetchGroupInfo();
+    } else {
+      navigate('/login');
+    }
+  }, [uuid, token, nickname]);
 
   const handleClickCopyBtn = () => {
+    const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
     handleCopyClipBoard({ baseUrl: baseUrl, isUsedBaseUrl: true });
     setIsCopied(true);
     setTimeout(() => {
