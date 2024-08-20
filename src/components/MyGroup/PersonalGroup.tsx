@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import Groups from '../../common/Groups';
-import { RecommendGroupProps } from '../../types/MyGroup/myGroupType';
+import { PersonalGroupProps } from '../../types/MyGroup/myGroupType';
 
-const RecommendGroup = ({ group }: RecommendGroupProps) => {
+const PersonalGroup = ({ group }: PersonalGroupProps) => {
   const GROUP_CATEGORY = ['내가 참여한 그룹', '내가 생성한 그룹'];
   const [isClicked, setIsClicked] = useState(GROUP_CATEGORY[0]);
 
@@ -35,7 +35,7 @@ const RecommendGroup = ({ group }: RecommendGroupProps) => {
   );
 };
 
-export default RecommendGroup;
+export default PersonalGroup;
 
 const Recommendcontainer = styled.article`
   display: flex;

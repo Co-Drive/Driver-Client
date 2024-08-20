@@ -7,7 +7,7 @@ export interface ActiveGroupProps {
   }>;
 }
 
-export interface RecommendGroupProps {
+export interface PersonalGroupProps {
   group: Array<{
     nickname: string;
     imgSrc: string;
