@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
@@ -9,9 +9,9 @@ import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { postGroupInfo } from '../libs/apis/GroupCreate/postGroupInfo';
 
 const GroupCreate = () => {
-  // 상태 객체 선언
   const [inputs, setInputs] = useState({
     title: '',
     num: '',
@@ -21,10 +21,11 @@ const GroupCreate = () => {
   });
 
   const [isPublicGroup, setIspublicGroup] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>('');
+  const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const navigate = useNavigate();
+  const { title, num, secretKey, intro, group } = inputs;
 
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -49,7 +50,8 @@ const GroupCreate = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
-      // 이미지 미리보기 설정 (선택 사항)
+      // 선택된 파일을 상태로 저장
+      setSelctedImageFIle(file);
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result as string);
@@ -60,22 +62,48 @@ const GroupCreate = () => {
     }
   };
 
-  // 모든 데이터가 채워지면 그룹버튼 생성 활성화
-  useEffect(() => {
-    const allFieldsFilled = (
-      Object.keys(inputs) as Array<keyof typeof inputs>
-    ).every((key) => key === 'secretKey' || inputs[key] !== '');
-    setIsActive(allFieldsFilled || (isPublicGroup && allFieldsFilled));
-  }, [inputs, isPublicGroup]);
+  const isActive =
+    title !== '' &&
+    num !== '' &&
+    (isPublicGroup || secretKey !== '') &&
+    intro !== '' &&
+    group !== '';
 
-  const handleGroupCreate = () => {
-    navigate('/group-complete', {
-      state: {
-        groupPassword: inputs.secretKey,
-        thumbnailUrl: previewImage as string,
-      },
-    });
+  const handleGroupCreate = async () => {
+    const postData = {
+      title: title,
+      password: secretKey,
+      capacity: num,
+      tags: selectedTags,
+      introduce: intro,
+      information: group,
+    };
+    const requestBody = new FormData();
+    const jsonChange = JSON.stringify(postData);
+
+    requestBody.append('request', jsonChange);
+
+    if (selectdImageFile) {
+      requestBody.append('imageFile', selectdImageFile);
+    }
+
+    try {
+      const data = await postGroupInfo(requestBody);
+      const { uuid } = data.data;
+      if (uuid) {
+        navigate(`/group-complete/${uuid}`);
+      } else {
+        navigate('/group-complete', {
+          state: {
+            thumbnailUrl: previewImage,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+  console.log(selectedTags);
 
   return (
     <PageLayout category="그룹">

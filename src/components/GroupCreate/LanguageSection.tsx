@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcArrowBottomGray } from '../../assets';
+import { IcArrowBottomGray, IcArrowTopGray } from '../../assets';
 import CommonHashTag from '../../common/CommonHashTag';
-import { DUMMY } from '../../constants/GroupCreate/LanguageConst';
+import { ALL_TAG, DUMMY } from '../../constants/GroupCreate/LanguageConst';
 import { LanguageSectionProps } from '../../types/GroupCreate/GroupCreateType';
-
-const ALL_TAG = 'All';
 
 const LanguageSection = ({
   selectedTags,
   setSelectedTags,
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAllSelected, setIsAllSelected] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -22,14 +21,12 @@ const LanguageSection = ({
       return;
     }
     if (tag === ALL_TAG) {
-      selectAllTags();
+      setIsAllSelected(true);
+      setSelectedTags(DUMMY);
     } else {
       if (!selectedTags.includes(tag)) {
-        const newTags = selectedTags.includes(ALL_TAG)
-          ? [...selectedTags.filter((t) => t !== ALL_TAG), tag]
-          : [...selectedTags, tag];
+        const newTags = [...selectedTags, tag];
         setSelectedTags(newTags);
-
         if (newTags.length >= 5) {
           toggleDropdown();
         }
@@ -39,16 +36,18 @@ const LanguageSection = ({
 
   const removeTag = (tag: string) => {
     if (tag === ALL_TAG) {
+      setIsAllSelected(false);
       setSelectedTags([]);
+      console.log(selectedTags);
     } else {
       setSelectedTags(selectedTags.filter((t) => t !== tag));
     }
   };
 
   const selectAllTags = () => {
-    const allTags = [...DUMMY, ALL_TAG];
-    setSelectedTags(allTags);
-    toggleDropdown(); // 드롭다운 닫기
+    setIsAllSelected(true);
+    setSelectedTags(DUMMY);
+    toggleDropdown();
   };
 
   return (
@@ -58,7 +57,7 @@ const LanguageSection = ({
       </Label>
       <DropdownContainer onClick={toggleDropdown}>
         <div>
-          {selectedTags.includes(ALL_TAG) ? (
+          {isAllSelected ? (
             <SelectedTagContainer key={ALL_TAG}>
               <CommonHashTag
                 selectedTag={ALL_TAG}
@@ -82,15 +81,12 @@ const LanguageSection = ({
           )}
         </div>
         <IconContainer>
-          <IcArrowBottomGray />
+          {isDropdownOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
         </IconContainer>
       </DropdownContainer>
       {isDropdownOpen && (
         <DropdownItemContainer>
-          <DropdownItem
-            $isSelected={selectedTags.includes(ALL_TAG)}
-            onClick={selectAllTags}
-          >
+          <DropdownItem $isSelected={isAllSelected} onClick={selectAllTags}>
             {ALL_TAG}
           </DropdownItem>
           <Borderline />
@@ -148,7 +144,8 @@ const DropdownContainer = styled.div`
 
   width: 100%;
   height: 4.8rem;
-  padding: 1.5rem 2rem 1.4rem;
+  padding: 1.5rem 1.2rem 1.4rem 2rem;
+  margin-bottom: 0.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
@@ -194,8 +191,6 @@ const DropdownItem = styled.div<{ $isSelected: boolean }>`
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
-
-  margin-right: 1.2rem;
 `;
 
 const DropdownText = styled.p`
