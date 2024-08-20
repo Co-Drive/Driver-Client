@@ -7,13 +7,14 @@ import { GROUP_ALL_DUMMY } from '../constants/GroupAll/groupAllConst';
 
 const GroupAllPage = () => {
   const { item, user, group } = GROUP_ALL_DUMMY;
+  
   return (
     <PageLayout category={'그룹'}>
       <GroupAllPageContainer>
         <TotalCard item={item} />
         <Recommendcontainer>
           <RecommendTitle user={user} />
-          <RecommendCard user={user} group={group} />
+          <RecommendCard group={group} isLongPage={false} />
         </Recommendcontainer>
       </GroupAllPageContainer>
     </PageLayout>

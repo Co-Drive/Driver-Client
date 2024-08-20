@@ -1,5 +1,4 @@
 export interface RecommendCardProps {
-  user: string;
   group: Array<{
     nickname: string;
     imgSrc: string;
@@ -9,4 +8,5 @@ export interface RecommendCardProps {
     tags: Array<string>;
     content: string;
   }>;
+  isLongPage: boolean;
 }

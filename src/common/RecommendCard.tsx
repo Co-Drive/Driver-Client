@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 
-const RecommendCard = ({ group }: RecommendCardProps) => {
+const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
   const handleClickCard = (id: number) => {
     /* 페이지 이동 */
 
@@ -10,13 +10,14 @@ const RecommendCard = ({ group }: RecommendCardProps) => {
   };
 
   return (
-    <RecommendCardContainer>
+    <RecommendCardContainer $isLongPage={isLongPage} $numOfData={group.length}>
       {group.map((card) => {
         const { nickname, imgSrc, profile, num, title, content, tags } = card;
 
         return (
           <CardContainer key={num} onClick={() => handleClickCard(num)}>
             <Img src={imgSrc} />
+
             <Info>
               <CardHeader>
                 <UserImg src={profile} />
@@ -26,10 +27,12 @@ const RecommendCard = ({ group }: RecommendCardProps) => {
                   <p>{num} / 50명</p>
                 </TextId>
               </CardHeader>
+
               <CardBody>
                 <CardTitle>{title}</CardTitle>
                 <CardContent>{content}</CardContent>
               </CardBody>
+
               <CardTags>
                 {tags.map((tag) => (
                   <Tag key={tag}>{tag}</Tag>
@@ -43,10 +46,17 @@ const RecommendCard = ({ group }: RecommendCardProps) => {
   );
 };
 
-const RecommendCardContainer = styled.article`
+const RecommendCardContainer = styled.article<{
+  $isLongPage: boolean;
+  $numOfData: number;
+}>`
   display: grid;
   gap: 4rem 1.8rem;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: ${({ $isLongPage, $numOfData }) =>
+    $isLongPage && $numOfData >= 9
+      ? `repeat(3,1fr)`
+      : $numOfData >= 6 && `repeat(2, 1fr)`};
 
   width: 100%;
 
@@ -58,9 +68,6 @@ const RecommendCardContainer = styled.article`
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  width: 29.6rem;
-  height: 31rem;
 `;
 
 const Img = styled.img`
