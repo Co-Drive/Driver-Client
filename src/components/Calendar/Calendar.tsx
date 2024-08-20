@@ -72,4 +72,10 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__month-view__weekdays__weekday abbr[title] {
     text-decoration: none;
   }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  .react-calendar__month-view__days__day--neighboringMonth {
+    background-color: ${({ theme }) => theme.colors.gray700};
+    color: ${({ theme }) => theme.colors.gray700};
+  }
 `;
