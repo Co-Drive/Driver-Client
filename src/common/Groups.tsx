@@ -6,6 +6,7 @@ import {
   IcStatusBlack,
   IcStatusWhite,
   IcSuccess,
+  IcSuccessGray,
 } from '../assets';
 import { SORTING, STATUS } from '../constants/Follower/currentConst';
 import { PersonalGroupProps } from '../types/MyGroup/myGroupType';
@@ -19,14 +20,31 @@ const Groups = ({ group }: PersonalGroupProps) => {
     (_, idx) => idx + 1
   );
 
-  const [sorting, setSorting] = useState('최신순');
+  const [filter, setFilter] = useState({
+    clickedStatus: '모집 중',
+    sorting: '최신순',
+  });
   const [clickedPage, setClickedPage] = useState(1);
 
+  const { clickedStatus, sorting } = filter;
+
   const handleClickSorting = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+    e:
+      | React.MouseEvent<HTMLParagraphElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    isSorting: boolean
   ) => {
-    const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
+    const { innerText } = e.currentTarget;
+
+    isSorting
+      ? setFilter({
+          ...filter,
+          sorting: innerText,
+        })
+      : setFilter({
+          ...filter,
+          clickedStatus: innerText,
+        });
     // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
@@ -49,9 +67,13 @@ const Groups = ({ group }: PersonalGroupProps) => {
           {STATUS.map((status, idx) => {
             return (
               <StatusContainer key={status}>
-                <IcSuccess />
+                {clickedStatus === status ? <IcSuccess /> : <IcSuccessGray />}
 
-                <Status type="button" $idx={idx}>
+                <Status
+                  type="button"
+                  $idx={idx}
+                  onClick={(e) => handleClickSorting(e, false)}
+                >
                   {idx === 0 ? <IcStatusBlack /> : <IcStatusWhite />}
                   <Text $idx={idx}>{status}</Text>
                 </Status>
@@ -65,7 +87,7 @@ const Groups = ({ group }: PersonalGroupProps) => {
             return (
               <Sorting
                 key={standard}
-                onClick={(e) => standard !== '|' && handleClickSorting(e)}
+                onClick={(e) => standard !== '|' && handleClickSorting(e, true)}
                 $isClicked={sorting === standard}
               >
                 {standard}
