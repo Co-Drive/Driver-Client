@@ -41,7 +41,6 @@ const PersonalGroupContainer = styled.article`
   display: flex;
   gap: 1.6rem;
   justify-content: center;
-  align-items: end;
   flex-direction: column;
 
   width: 100%;
