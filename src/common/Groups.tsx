@@ -1,11 +1,17 @@
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../assets';
-import { SORTING } from '../constants/Follower/currentConst';
-import { RecommendGroupProps } from '../types/MyGroup/myGroupType';
+import {
+  IcArrowLeftSmallGray,
+  IcArrowRightSmallGray,
+  IcStatusBlack,
+  IcStatusWhite,
+  IcSuccess,
+} from '../assets';
+import { SORTING, STATUS } from '../constants/Follower/currentConst';
+import { PersonalGroupProps } from '../types/MyGroup/myGroupType';
 import RecommendCard from './RecommendCard';
 
-const Groups = ({  group }: RecommendGroupProps) => {
+const Groups = ({ group }: PersonalGroupProps) => {
   // 일단 더미 데이터로 넣어둠, 서버 연결 시 0으로 초기화하고 서버에서 가져온 전체 페이지 데이터로 업데이트 예정
   const totalPageRef = useRef(3);
   const pages = Array.from(
@@ -38,19 +44,36 @@ const Groups = ({  group }: RecommendGroupProps) => {
 
   return (
     <React.Fragment>
-      <SortContainer>
-        {SORTING.map((standard) => {
-          return (
-            <Sorting
-              key={standard}
-              onClick={(e) => standard !== '|' && handleClickSorting(e)}
-              $isClicked={sorting === standard}
-            >
-              {standard}
-            </Sorting>
-          );
-        })}
-      </SortContainer>
+      <TopContainer>
+        <TotalStatus>
+          {STATUS.map((status, idx) => {
+            return (
+              <StatusContainer key={status}>
+                <IcSuccess />
+
+                <Status type="button" $idx={idx}>
+                  {idx === 0 ? <IcStatusBlack /> : <IcStatusWhite />}
+                  <Text $idx={idx}>{status}</Text>
+                </Status>
+              </StatusContainer>
+            );
+          })}
+        </TotalStatus>
+
+        <SortContainer>
+          {SORTING.map((standard) => {
+            return (
+              <Sorting
+                key={standard}
+                onClick={(e) => standard !== '|' && handleClickSorting(e)}
+                $isClicked={sorting === standard}
+              >
+                {standard}
+              </Sorting>
+            );
+          })}
+        </SortContainer>
+      </TopContainer>
 
       <RecommendCard group={group} isLongPage={true} />
 
@@ -80,6 +103,56 @@ const Groups = ({  group }: RecommendGroupProps) => {
 };
 
 export default Groups;
+
+const TopContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  margin: 1.4rem 0.1rem 0 0.6rem;
+`;
+
+const TotalStatus = styled.div`
+  display: flex;
+  gap: 1.4rem;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StatusContainer = styled.div`
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Status = styled.button<{ $idx: number }>`
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.7rem 1.4rem 0.7rem 1.2rem;
+
+  border-radius: 0.6rem;
+  background-color: ${({ $idx, theme }) => {
+    switch ($idx) {
+      case 0:
+        return `${theme.colors.codrive_green}`;
+      case 1:
+        return `${theme.colors.codrive_purple}`;
+      case 2:
+        return `${theme.colors.gray600}`;
+    }
+  }};
+`;
+
+const Text = styled.p<{ $idx: number }>`
+  color: ${({ $idx, theme }) =>
+    $idx === 0 ? theme.colors.gray900 : theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_14};
+`;
 
 const SortContainer = styled.div`
   display: flex;
