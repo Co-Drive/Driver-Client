@@ -5,7 +5,8 @@ export interface FollowerInfoProps {
     isFollowed: boolean;
     introduce: string;
     language: string;
-    github: string;
+    github?: string;
+    rate: number;
   };
 }
 
@@ -21,9 +22,11 @@ export interface ParticipatingGroupProps {
 
 export interface FollowerRecommendCardProps {
   recommend: Array<{
+    id: number;
     profileImg: string;
     nickname: string;
     language: string;
+    github?: string;
     isFollowed: boolean;
   }>;
 }

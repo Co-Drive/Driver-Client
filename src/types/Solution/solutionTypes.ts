@@ -31,6 +31,8 @@ export interface SavedSolutionProps {
     problemUrl: string;
     createdAt: string;
   };
+  isModal?: boolean;
+  removeBorder?: boolean;
 }
 
 export interface LevelProps {
@@ -101,4 +103,5 @@ export interface getMonthlySolutionProps {
   year: number;
   month: number;
   page: number;
+  isSmallList: boolean;
 }

@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import {
-  IcArrowBottomWhite,
-  IcArrowTopWhite,
-  IcCalendar,
-} from '../../../assets';
-import useGetUnsolvedMonths from '../../../libs/hooks/Solution/useGetUnsolvedMonths';
-import { ListFilterProps } from '../../../types/Solution/solutionTypes';
+
+import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
+import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
+import { ListFilterProps } from '../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
 
 const ListFilter = ({
@@ -97,6 +94,9 @@ const FilteredContainer = styled.header`
   justify-content: space-between;
 
   width: 100%;
+  padding-bottom: 2.2rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const DateFilterContainer = styled.div`
@@ -107,7 +107,7 @@ const DateFilterContainer = styled.div`
 
   max-width: 17.9rem;
 
-  width: 17.9rem;
+  width: 100%;
   padding: 1.3rem 1.4rem;
 
   border-radius: 1.2rem;

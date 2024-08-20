@@ -25,7 +25,10 @@ import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
 import IcCode from './icon/ic_code.svg?react';
+import IcFollowingGray from './icon/ic_following_gray.svg?react';
 import IcGithub from './icon/ic_github.svg?react';
+import IcGithubLogoSmall from './icon/ic_github_logo_small.svg?react';
+import IcGithubSmall from './icon/ic_github_small.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
@@ -45,6 +48,7 @@ import IcStarGreen from './icon/ic_star_green.svg?react';
 import IcStarMiniGray from './icon/ic_star_mini_gray.svg?react';
 import IcStarMiniYellow from './icon/ic_star_mini_yellow.svg?react';
 import IcSuccess from './icon/ic_success.svg?react';
+import IcUnfollowingWhite from './icon/ic_unfollowing_white.svg?react';
 import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
@@ -92,7 +96,10 @@ export {
   IcCancelSmall,
   IcCancelSmallWhite,
   IcCode,
+  IcFollowingGray,
   IcGithub,
+  IcGithubLogoSmall,
+  IcGithubSmall,
   IcGroup,
   IcHome,
   IcInformation,
@@ -112,6 +119,7 @@ export {
   IcStarMiniGray,
   IcStarMiniYellow,
   IcSuccess,
+  IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
   IcWorkbook,
