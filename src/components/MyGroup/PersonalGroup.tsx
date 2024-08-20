@@ -15,8 +15,8 @@ const PersonalGroup = ({ group }: PersonalGroupProps) => {
   };
 
   return (
-    <Recommendcontainer>
-      <RecommendHeader>
+    <PersonalGroupContainer>
+      <Header>
         {GROUP_CATEGORY.map((category, idx) => {
           return (
             <Category
@@ -28,16 +28,16 @@ const PersonalGroup = ({ group }: PersonalGroupProps) => {
             </Category>
           );
         })}
-      </RecommendHeader>
+      </Header>
 
       <Groups group={group} />
-    </Recommendcontainer>
+    </PersonalGroupContainer>
   );
 };
 
 export default PersonalGroup;
 
-const Recommendcontainer = styled.article`
+const PersonalGroupContainer = styled.article`
   display: flex;
   gap: 1.6rem;
   justify-content: center;
@@ -48,7 +48,7 @@ const Recommendcontainer = styled.article`
   padding: 0 4.2rem;
 `;
 
-const RecommendHeader = styled.header`
+const Header = styled.header`
   display: flex;
   gap: 3.8rem;
   align-items: center;
