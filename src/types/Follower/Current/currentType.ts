@@ -20,6 +20,6 @@ export interface ClickDailyBoardProps {
   date: string;
 }
 
-export interface CurrentGraphProps {
+export interface WeeklyCurrentGraphProps {
   percentage: number;
 }

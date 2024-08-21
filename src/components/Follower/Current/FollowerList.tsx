@@ -10,8 +10,8 @@ import {
 import { DUMMY } from '../../../constants/Follower/currentConst';
 import FollowerRecommendCard from '../Personal/FollowerRecommendCard';
 import AdditionalProblemsModal from './AdditionalProblemsModal';
-import CurrentGraph from './CurrentGraph';
 import FollowerFilter from './FollowerFilter';
+import WeeklyCurrentGraph from './WeeklyCurrentGraph';
 
 const FollowerList = () => {
   const { followers } = DUMMY;
@@ -85,7 +85,7 @@ const FollowerList = () => {
                     <Nickname>{nickname}</Nickname>
                     <Language>{language}</Language>
                   </UserContainer>
-                  <CurrentGraph percentage={rate} />
+                  <WeeklyCurrentGraph percentage={rate} />
 
                   <Problem>{problem}</Problem>
                   {isExitAndClicked ? (

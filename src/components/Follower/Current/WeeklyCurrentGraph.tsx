@@ -1,9 +1,9 @@
 import { Cell, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import { GRAPH_COLORS } from '../../../constants/Follower/currentConst';
-import { CurrentGraphProps } from '../../../types/Follower/Current/currentType';
+import { WeeklyCurrentGraphProps } from '../../../types/Follower/Current/currentType';
 
-const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
+const WeeklyCurrentGraph = ({ percentage }: WeeklyCurrentGraphProps) => {
   const process = [{ name: 'Progress', value: percentage }];
 
   const remaining = [{ name: 'Remaining', value: 100 - percentage }];
@@ -47,7 +47,7 @@ const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
   );
 };
 
-export default CurrentGraph;
+export default WeeklyCurrentGraph;
 
 const GraphContainer = styled.div`
   flex-grow: 1;
