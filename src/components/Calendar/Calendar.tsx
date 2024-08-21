@@ -37,6 +37,7 @@ const CommonCalendar = () => {
     const newDate = new Date(clickedYear, month - 1, today.getDate());
     setClickedMonth(month);
     setSelectedDate(newDate);
+    setIsCalendarClicked(false);
   };
 
   useEffect(() => {
@@ -85,11 +86,6 @@ const CommonCalendar = () => {
 export default CommonCalendar;
 
 const CalendarContainer = styled.div`
-  /* width: 100%; */
-
-  /* position: relative; */
-  background-color: red;
-
   .react-calendar {
     width: 28.6rem;
 
@@ -102,8 +98,6 @@ const NavContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* position: absolute; */
 
   width: 17.9rem;
   padding: 1.3rem 1.4rem;
@@ -138,10 +132,6 @@ const Month = styled.p`
 `;
 
 const CustomCalendarContainer = styled.div`
-  /* position: absolute; */
-
-  /* top: 100%; */
-
   left: 0;
 `;
 const StyledCalendar = styled(Calendar)`
@@ -153,15 +143,22 @@ const StyledCalendar = styled(Calendar)`
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray500};
     color: ${({ theme }) => theme.colors.gray500};
+
     ${({ theme }) => theme.fonts.body_medium_16};
+    abbr {
+      position: absolute;
+      overflow: hidden;
+
+      width: 1px;
+      height: 1px;
+
+      border: 0;
+      clip: rect(1px, 1px, 1px, 1px);
+    }
   }
 
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__month-view__weekdays__weekday {
-    /* display: flex; */
-
-    /* gap: 2.8rem; */
-
     color: ${({ theme }) => theme.colors.white};
 
     ${({ theme }) => theme.fonts.body_eng_medium_16}
@@ -169,10 +166,6 @@ const StyledCalendar = styled(Calendar)`
 
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__month-view__weekdays__weekday abbr[title] {
-    /* display: flex; */
-
-    /* gap: 2.8rem; */
-
     text-decoration: none;
   }
 
@@ -191,4 +184,5 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile:enabled:focus {
     background-color: ${({ theme }) => theme.colors.gray500};
   }
+  /* stylelint-disable-next-line selector-class-pattern */
 `;
