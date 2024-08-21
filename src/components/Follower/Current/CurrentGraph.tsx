@@ -65,7 +65,7 @@ const Rate = styled.p`
   width: 5.5rem;
   padding: 1.8rem 1rem 1.8rem 1.1rem;
 
-  color: ${({ theme }) => theme.GRAPH_COLORS.white};
+  color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.title_bold_14};
   text-align: center;
