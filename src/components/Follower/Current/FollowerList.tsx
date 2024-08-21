@@ -9,6 +9,7 @@ import {
 } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
 import AdditionalProblemsModal from './AdditionalProblemsModal';
+import CurrentGraph from './CurrentGraph';
 import FollowerFilter from './FollowerFilter';
 
 const FollowerList = () => {
@@ -81,7 +82,8 @@ const FollowerList = () => {
                     <Nickname>{nickname}</Nickname>
                     <Language>{language}</Language>
                   </UserContainer>
-                  <Rate>{`${rate}%`}</Rate>
+                  <CurrentGraph percentage={rate}/>
+                  
                   <Problem>{problem}</Problem>
                   {clickedId === id && isClicked ? (
                     <IcArrowTopWhite />
@@ -232,15 +234,7 @@ const Language = styled.p`
   ${({ theme }) => theme.fonts.body_eng_regular_14};
 `;
 
-const Rate = styled.p`
-  flex-grow: 1;
 
-  padding: 1.8rem 1rem 1.8rem 1.1rem;
-  margin-right: 10.4rem;
-
-  color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.title_bold_14};
-`;
 
 const Problem = styled.p`
   flex-grow: 2;
