@@ -1,7 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcWorkbookBlack } from '../../../assets';
 
 const EmptySolver = () => {
+  const navigate = useNavigate();
+
+  const handleClickSolveBtn = () => {
+    navigate('/solve');
+  };
+
   return (
     <EmptySolverContainer>
       <TextContainer>
@@ -9,7 +16,7 @@ const EmptySolver = () => {
         <Text>가장 먼저 문제를 풀어보세요!</Text>
       </TextContainer>
 
-      <SolveBtn>
+      <SolveBtn type="button" onClick={handleClickSolveBtn}>
         <IcWorkbookBlack />
         <BtnText>문제풀이 인증하러 가기</BtnText>
       </SolveBtn>
