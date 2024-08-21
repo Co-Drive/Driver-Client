@@ -8,6 +8,7 @@ import {
   IcArrowTopWhite,
 } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
+import FollowerRecommendCard from '../Personal/FollowerRecommendCard';
 import AdditionalProblemsModal from './AdditionalProblemsModal';
 import CurrentGraph from './CurrentGraph';
 import FollowerFilter from './FollowerFilter';
@@ -82,8 +83,8 @@ const FollowerList = () => {
                     <Nickname>{nickname}</Nickname>
                     <Language>{language}</Language>
                   </UserContainer>
-                  <CurrentGraph percentage={rate}/>
-                  
+                  <CurrentGraph percentage={rate} />
+
                   <Problem>{problem}</Problem>
                   {clickedId === id && isClicked ? (
                     <IcArrowTopWhite />
@@ -121,6 +122,8 @@ const FollowerList = () => {
           }
         />
       </PageNationBar>
+
+      {followers.length === 0 && <FollowerRecommendCard />}
     </FollowerListContainer>
   );
 };
@@ -233,8 +236,6 @@ const Language = styled.p`
   color: ${({ theme }) => theme.colors.gray400};
   ${({ theme }) => theme.fonts.body_eng_regular_14};
 `;
-
-
 
 const Problem = styled.p`
   flex-grow: 2;
