@@ -69,11 +69,13 @@ const FollowerList = () => {
         <List>
           {followers.map((follower) => {
             const { id, imgSrc, nickname, language, rate, problem } = follower;
+            const isExitAndClicked =
+              clickedId === id && isClicked && rate !== 0;
             return (
               <ContentsContainer key={id}>
                 <Contents
                   onClick={() => handleClickContents(id)}
-                  $isClicked={clickedId === id && isClicked}
+                  $isClicked={isExitAndClicked}
                 >
                   <ProfileImg
                     src={imgSrc}
@@ -86,14 +88,14 @@ const FollowerList = () => {
                   <CurrentGraph percentage={rate} />
 
                   <Problem>{problem}</Problem>
-                  {clickedId === id && isClicked ? (
+                  {isExitAndClicked ? (
                     <IcArrowTopWhite />
                   ) : (
                     <IcArrowBottomWhite />
                   )}
                 </Contents>
 
-                {clickedId === id && isClicked && <AdditionalProblemsModal />}
+                {isExitAndClicked && <AdditionalProblemsModal />}
               </ContentsContainer>
             );
           })}
