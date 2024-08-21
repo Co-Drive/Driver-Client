@@ -5,7 +5,7 @@ interface CurrentGraphProps {
   percentage: number;
 }
 
-const COLORS = ['#BF57FF', '#494B53'];
+const GRAPH_COLORS = ['#BF57FF', '#494B53'];
 
 const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
   const process = [{ name: 'Progress', value: percentage }];
@@ -14,7 +14,7 @@ const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
 
   return (
     <GraphContainer>
-      <PieChart width={53} height={53}>
+      <PieChart width={55} height={55}>
         <Pie
           data={remaining}
           cx="50%"
@@ -28,7 +28,7 @@ const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
           dataKey="value"
           stroke="none"
         >
-          <Cell fill={COLORS[1]} />
+          <Cell fill={GRAPH_COLORS[1]} />
         </Pie>
         <Pie
           data={process}
@@ -43,11 +43,10 @@ const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
           dataKey="value"
           stroke="none"
         >
-          <Cell fill={COLORS[0]} />
+          <Cell fill={GRAPH_COLORS[0]} />
         </Pie>
-
-        <Rate>{`${percentage}%`}</Rate>
       </PieChart>
+      <Rate>{`${percentage}%`}</Rate>
     </GraphContainer>
   );
 };
@@ -56,13 +55,22 @@ export default CurrentGraph;
 
 const GraphContainer = styled.div`
   flex-grow: 1;
+  position: relative;
 
+  width: 5.5rem;
+  height: 5.5rem;
   margin-right: 10.4rem;
 `;
 
 const Rate = styled.p`
+  position: absolute;
+  top: 0;
+
+  width: 5.5rem;
   padding: 1.8rem 1rem 1.8rem 1.1rem;
 
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.GRAPH_COLORS.white};
+
   ${({ theme }) => theme.fonts.title_bold_14};
+  text-align: center;
 `;
