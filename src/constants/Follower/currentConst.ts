@@ -1,3 +1,5 @@
+export const GRAPH_COLORS = ['#BF57FF', '#494B53'];
+
 export const GROUPS = [
   { id: 0, name: '그룹 글자는 20자까지 입니다아아.' },
   { id: 1, name: '2번 스터디' },
@@ -15,7 +17,7 @@ export const DUMMY = {
       imgSrc: 'https://avatars.githubusercontent.com/u/80264647?v=4',
       nickname: '닉네임은총열글자입니',
       language: 'Javascript',
-      rate: 15,
+      rate: 30,
       problem: '[PCCP 기출문제] 2번 / 석유 시추',
     },
     {
@@ -42,7 +44,7 @@ export const DUMMY = {
         'https://i.pinimg.com/236x/df/13/e6/df13e6bfcd025ef8bc865b14b530f300.jpg',
       nickname: '4번사용자어쩌구저쩌',
       language: 'Javascript',
-      rate: 15,
+      rate: 60,
       problem: '[PCCP 기출문제] 2번 / 석유 시추',
     },
     {
@@ -60,7 +62,7 @@ export const DUMMY = {
         'https://i.pinimg.com/564x/35/ea/46/35ea46d7ff554bdd4f47f52b7f535f5e.jpg',
       nickname: '6번사용자어쩌구저쩌',
       language: 'Javascript',
-      rate: 15,
+      rate: 75,
       problem: '[PCCP 기출문제] 2번 / 석유 시추',
     },
     {
@@ -78,7 +80,7 @@ export const DUMMY = {
         'https://i.pinimg.com/564x/35/ea/46/35ea46d7ff554bdd4f47f52b7f535f5e.jpg',
       nickname: '8번사용자어쩌구저쩌',
       language: 'Javascript',
-      rate: 15,
+      rate: 100,
       problem: '[PCCP 기출문제] 2번 / 석유 시추',
     },
     {
