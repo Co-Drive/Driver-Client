@@ -55,6 +55,7 @@ import BtnShare from './btn/btn_share.svg?react';
 import BtnStarGraySmall from './btn/btn_star_gray_small.svg?react';
 import BtnStarPurpleSmall from './btn/btn_star_purple_small.svg?react';
 import HomeHeaderImg from './home_Header.svg?react';
+import IcWorkBookBlack from './icon/ic_workbook_black.svg?react';
 import TestWeekboardStatus from './test_weekboard_status.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
@@ -114,6 +115,7 @@ export {
   IcSuccess,
   IcUnlockGray,
   IcUnlockWhite,
+  IcWorkBookBlack,
   IcWorkbook,
   TestWeekboardStatus,
 };
