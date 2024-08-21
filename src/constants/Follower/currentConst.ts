@@ -35,8 +35,8 @@ export const DUMMY = {
         'https://i.pinimg.com/236x/b8/03/af/b803afd5c604e555159e683072e4ca31.jpg',
       nickname: '3번매링매링',
       language: 'Javascript',
-      rate: 15,
-      problem: '[PCCP 기출문제] 2번 / 석유 시추',
+      rate: 0,
+      problem: '-',
     },
     {
       id: 4,
