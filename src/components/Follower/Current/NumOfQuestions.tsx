@@ -43,12 +43,15 @@ const Title = styled.p`
 `;
 
 const GraphContainer = styled.article`
-  width: 100%;
-  min-height: 23rem;
-  min-width: 61.1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  width: 100%;
+  height: 23rem;
   padding: 1rem 2.1rem 1.4rem 2rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
+  min-width: 61.1rem;
 `;
