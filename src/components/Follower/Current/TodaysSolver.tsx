@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { IcInformation } from '../../../assets';
-import EmptySolver from './EmptySolver';
+import Solver from './Solver';
 
 const TodaysSolver = () => {
   return (
@@ -11,7 +11,7 @@ const TodaysSolver = () => {
       </Header>
 
       <SolverContainer>
-        <EmptySolver />
+        <Solver />
       </SolverContainer>
     </TodaysSolverContainer>
   );
@@ -42,8 +42,8 @@ const Title = styled.p`
 
 const SolverContainer = styled.article`
   width: 100%;
+  height: 23rem;
   min-width: 29.5rem;
-  min-height: 23rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
