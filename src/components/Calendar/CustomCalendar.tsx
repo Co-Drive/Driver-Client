@@ -15,27 +15,30 @@ const CustomCalendar = ({
 
   return (
     <CalendarContainer>
-      <YearContainer>
-        <IcArrowLeftSmallGray onClick={handleClickPrevBtn} />
-        <Year>{clickedYear}</Year>
-        <IcArrowRightSmallGray onClick={handleClickNextBtn} />
-      </YearContainer>
+      <TestContainer>
+        <YearContainer>
+          <IcArrowLeftSmallGray onClick={handleClickPrevBtn} />
+          <Year>{clickedYear}</Year>
+          <IcArrowRightSmallGray onClick={handleClickNextBtn} />
+        </YearContainer>
 
-      <MonthBoard>
-        {monthCalendar.map((month) => {
-          const disabled = unsolvedMonths.includes(month) || clickedYear > year;
-          return (
-            <Month
-              key={month}
-              $disabled={disabled}
-              $isClicked={clickedMonth === month}
-              onClick={() => !disabled && handleClickMonth(month)}
-            >
-              {month}
-            </Month>
-          );
-        })}
-      </MonthBoard>
+        <MonthBoard>
+          {monthCalendar.map((month) => {
+            const disabled =
+              unsolvedMonths.includes(month) || clickedYear > year;
+            return (
+              <Month
+                key={month}
+                $disabled={disabled}
+                $isClicked={clickedMonth === month}
+                onClick={() => !disabled && handleClickMonth(month)}
+              >
+                {month}
+              </Month>
+            );
+          })}
+        </MonthBoard>
+      </TestContainer>
     </CalendarContainer>
   );
 };
@@ -45,7 +48,15 @@ export default CustomCalendar;
 const CalendarContainer = styled.article`
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  /* margin-top: 0.6rem; */
+`;
+
+const TestContainer = styled.div`
   position: absolute;
+  top: 100%;
+  left: 0;
 `;
 
 const YearContainer = styled.div`

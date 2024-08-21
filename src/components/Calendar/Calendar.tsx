@@ -3,26 +3,26 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled from 'styled-components';
-import { IcArrowBottomWhite } from '../../assets';
+import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
 import CustomCalendar from './CustomCalendar';
 
 type ValuePiece = Date | null;
 
 type SelectedDate = ValuePiece | [ValuePiece, ValuePiece];
 
-const CommonCalendar = ({}) => {
+const CommonCalendar = () => {
   const today = new Date();
   const year = today.getFullYear();
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(today);
   const [clickedYear, setClickedYear] = useState(year);
   const [clickedMonth, setClickedMonth] = useState(today.getMonth() + 1);
 
-  const [isDropdown, setIsDropdown] = useState(false);
+  const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
   const customWeekdays = ['S', 'S', 'M', 'T', 'W', 'T', 'F'];
 
-  const handleClickDropdown = () => {
-    setIsDropdown((prev) => !prev);
+  const handleClickCalendar = () => {
+    setIsCalendarClicked((prev) => !prev);
   };
 
   const handleClickPrevBtn = () => {
@@ -45,17 +45,27 @@ const CommonCalendar = ({}) => {
 
   return (
     <CalendarContainer>
-      {isDropdown ? (
-        <CustomCalendar
-          date={{ clickedYear, clickedMonth }}
-          unsolvedMonths={[]} // 이 배열에 비활성화하고 싶은 월을 추가합니다.
-          handleClickPrevBtn={handleClickPrevBtn}
-          handleClickMonth={handleClickMonth}
-          handleClickNextBtn={handleClickNextBtn}
-        />
-      ) : (
-        <IcArrowBottomWhite onClick={handleClickDropdown} />
-      )}
+      <NavContainer>
+        <IcCalendar onClick={handleClickCalendar} />
+        <DateContainer>
+          <Year>{clickedYear}년</Year>
+          <Month>{clickedMonth}월</Month>
+        </DateContainer>
+        {isCalendarClicked ? (
+          <CustomCalendarContainer>
+            <IcArrowTopWhite onClick={handleClickCalendar} />
+            <CustomCalendar
+              date={{ clickedYear, clickedMonth }}
+              unsolvedMonths={[]} // 이 배열에 비활성화하고 싶은 월을 추가합니다.
+              handleClickPrevBtn={handleClickPrevBtn}
+              handleClickMonth={handleClickMonth}
+              handleClickNextBtn={handleClickNextBtn}
+            />
+          </CustomCalendarContainer>
+        ) : (
+          <IcArrowBottomWhite onClick={handleClickCalendar} />
+        )}
+      </NavContainer>
       <StyledCalendar
         onChange={setSelectedDate}
         locale="ko-KR"
@@ -75,11 +85,7 @@ const CommonCalendar = ({}) => {
 export default CommonCalendar;
 
 const CalendarContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  position: relative;
-
-  width: 100%;
+  /* position: relative; */
 
   .react-calendar {
     border: none;
@@ -89,30 +95,50 @@ const CalendarContainer = styled.div`
 
 const NavContainer = styled.div`
   display: flex;
-  position: absolute;
+  justify-content: center;
+  align-items: center;
+
+  /* position: relative; */
+
+  max-width: 17.9rem;
+
+  width: 17.9rem;
+  padding: 1.3rem 1.4rem;
+
+  border-radius: 1.2rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
+
+  outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
 `;
 
+const DateContainer = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+
+  /* width: 100%; */
+  padding-right: 0.4rem;
+  padding-left: 1.4rem;
+`;
+
+const Year = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_medium_16};
+`;
+
+const Month = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_medium_16};
+`;
+
+const CustomCalendarContainer = styled.div`
+  /* position: absolute; */
+
+  /* top: 100%; */
+
+  left: 0;
+`;
 const StyledCalendar = styled(Calendar)`
-  /* stylelint-disable-next-line selector-class-pattern */
-  .react-calendar__navigation {
-    width: 17.9rem;
-    padding: 1.3rem 1.4rem;
-    margin-bottom: 3.4rem;
-    margin-left: auto;
-
-    border-radius: 1.2rem;
-    background-color: ${({ theme }) => theme.colors.gray700};
-  }
-  /* stylelint-disable-next-line selector-class-pattern */
-  .react-calendar__navigation button {
-    color: ${({ theme }) => theme.colors.white};
-    ${({ theme }) => theme.fonts.body_medium_16};
-  }
-  /* stylelint-disable-next-line selector-class-pattern */
-  .react-calendar__navigation__label > span {
-    color: red;
-  }
-
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__tile {
     border-radius: 50%;
