@@ -5,7 +5,6 @@ import { WeeklyCurrentGraphProps } from '../../../types/Follower/Current/current
 
 const WeeklyCurrentGraph = ({ percentage }: WeeklyCurrentGraphProps) => {
   const process = [{ name: 'Progress', value: percentage }];
-
   const remaining = [{ name: 'Remaining', value: 100 - percentage }];
 
   return (
@@ -59,14 +58,15 @@ const GraphContainer = styled.div`
 `;
 
 const Rate = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
 
-  width: 5.5rem;
+  width: 100%;
   padding: 1.8rem 1rem 1.8rem 1.1rem;
 
   color: ${({ theme }) => theme.colors.white};
-
   ${({ theme }) => theme.fonts.title_bold_14};
-  text-align: center;
 `;
