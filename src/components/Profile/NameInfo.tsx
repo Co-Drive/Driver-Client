@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { NameInfoProps } from '../../types/Profile/ProfileType';
 
-const NameInfo = ({ user }) => {
+const NameInfo = ({ user }: NameInfoProps) => {
   return (
     <NameInfoContainer>
       <NameTitle>이름</NameTitle>
@@ -9,7 +10,7 @@ const NameInfo = ({ user }) => {
   );
 };
 
-const NameInfoContainer = styled.article`
+const NameInfoContainer = styled.section`
   display: flex;
   align-items: center;
 
@@ -19,12 +20,12 @@ const NameInfoContainer = styled.article`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
 `;
 
-const NameTitle = styled.article`
+const NameTitle = styled.h2`
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
-const Name = styled.article`
+const Name = styled.p`
   margin-left: 10.6rem;
 
   color: ${({ theme }) => theme.colors.gray100};

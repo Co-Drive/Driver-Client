@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { IntroInfoProps } from '../../types/Profile/ProfileType';
 import { handleInput } from '../../utils/handleInput';
 
-const IntroInfo = ({ value, onChange }) => {
+const IntroInfo = ({ value, onChange }: IntroInfoProps) => {
   const [hasError, setHasError] = useState(false);
   const maxLength = 30;
 
@@ -26,17 +27,18 @@ const IntroInfo = ({ value, onChange }) => {
   );
 };
 
-const IntroInfoContainer = styled.div`
+const IntroInfoContainer = styled.section`
   display: flex;
   align-items: center;
 
   padding-bottom: 1.4rem;
+  margin-bottom: 3.2rem;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const IntroTitle = styled.h2`
-  margin-right: 4.8rem;
+  margin-right: 5.9rem;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -44,8 +46,8 @@ const IntroTitle = styled.h2`
 `;
 
 const Intro = styled.textarea<{ $hasError: boolean }>`
-  width: 100%;
-  padding: 1.4rem 2rem;
+  width: 29.6rem;
+  padding: 1.5rem 2rem;
   resize: none;
 
   ${({ theme }) => theme.fonts.body_ligth_16};

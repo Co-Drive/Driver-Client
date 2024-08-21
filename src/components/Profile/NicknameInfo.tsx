@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NickNameInfoProps } from '../../types/Profile/ProfileType';
 import CommonInput from './../../common/CommonInput';
 
 const NicknameInfo = ({
@@ -6,7 +7,7 @@ const NicknameInfo = ({
 
   handleChangeInputs,
   handleNicknameCheck,
-}) => {
+}: NickNameInfoProps) => {
   return (
     <NicknameInfoContainer>
       <NicknameTitle>닉네임</NicknameTitle>
@@ -29,12 +30,13 @@ const NicknameInfoContainer = styled.section`
   align-items: center;
 
   padding-bottom: 1.4rem;
+  margin-bottom: 3.2rem;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
 `;
 
-const NicknameTitle = styled.p`
-  margin-right: 4.8rem;
+const NicknameTitle = styled.h2`
+  margin-right: 8rem;
 
   color: ${({ theme }) => theme.colors.white};
 

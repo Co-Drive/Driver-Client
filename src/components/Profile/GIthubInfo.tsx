@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { GithubInfoProps } from '../../types/Profile/ProfileType';
 import CommonInput from './../../common/CommonInput';
 
-const GithubInfo = ({ github, handleChangeInputs }) => {
+const GithubInfo = ({ github, handleChangeInputs }: GithubInfoProps) => {
   return (
     <GithubInfoContainer>
       <GitHubTitle>깃허브 주소</GitHubTitle>
@@ -23,7 +24,7 @@ const GithubInfoContainer = styled.section`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
 `;
 
-const GitHubTitle = styled.p`
+const GitHubTitle = styled.h2`
   margin-right: 4.8rem;
 
   color: ${({ theme }) => theme.colors.white};

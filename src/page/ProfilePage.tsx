@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import styled from 'styled-components';
-
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
+import PageLayout from '../components/PageLayout/PageLayout';
 import GithubInfo from '../components/Profile/GIthubInfo';
 import IntroInfo from '../components/Profile/IntroInfo';
 import LanguageInfo from '../components/Profile/LanguageInfo';
@@ -16,6 +16,8 @@ const ProfilePage = () => {
     github: '',
     intro: '',
   });
+
+  const user = '김문주';
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const navigate = useNavigate();
@@ -46,6 +48,7 @@ const ProfilePage = () => {
   // 가입 버튼 클릭 처리 함수
   const handleSaveBtnClick = () => {
     if (!isActive) return;
+    navigate('/register');
   };
 
   // 닉네임 중복 체크 함수 (구현 필요)
@@ -62,37 +65,104 @@ const ProfilePage = () => {
     selectedLanguage.length > 0;
 
   return (
-    <ProfileContainer onSubmit={handleSaveBtnClick}>
-      <NameInfo />
-      <GithubInfo github={github} handleChangeInputs={handleChangeInputs} />
-      <IntroInfo value={intro} onChange={handleChangeIntro} />
-      <NicknameInfo
-        nickname={nickname}
-        handleChangeInputs={handleChangeInputs}
-        handleNicknameCheck={handleNicknameCheck}
-      />
-      <LanguageInfo
-        selectedTag={selectedLanguage}
-        handleChangeTag={handleChangeTag}
-      />
-      <ProfileButton>
-        <CommonButton
-          isActive={isActive}
-          category="Profile_save"
-          onClick={() => handleSaveBtnClick()}
-        />
-        <CancelButton onClick={() => navigator(-1)}>취소하기</CancelButton>
-      </ProfileButton>
-    </ProfileContainer>
+    <PageLayout category="홈">
+      <ModalBackground>
+        <ProfileContainer onSubmit={handleSaveBtnClick}>
+          <BasicInfoContainer>
+            <BasicTitle>기본정보</BasicTitle>
+            <NameInfo user={user} />
+            <GithubInfo
+              github={github}
+              handleChangeInputs={handleChangeInputs}
+            />
+          </BasicInfoContainer>
+          <CodriveContainer>
+            <CodriveTitle>코드라이브 정보</CodriveTitle>
+            <IntroInfo value={intro} onChange={handleChangeIntro} />
+            <NicknameInfo
+              nickname={nickname}
+              handleChangeInputs={handleChangeInputs}
+              handleNicknameCheck={handleNicknameCheck}
+            />
+            <LanguageInfo
+              selectedTag={selectedLanguage}
+              handleChangeTag={handleChangeTag}
+            />
+          </CodriveContainer>
+          <ProfileButton>
+            <CancelButton onClick={() => navigate(-1)}>취소하기</CancelButton>
+            <CommonButton
+              isActive={isActive}
+              category="Profile_save"
+              onClick={handleSaveBtnClick}
+            />
+          </ProfileButton>
+        </ProfileContainer>
+      </ModalBackground>
+    </PageLayout>
   );
 };
 
-const ProfileContainer = styled.div``;
+const ModalBackground = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
 
-const ProfileButton = styled.button``;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgb(0 0 0 / 50%);
+`;
+
+const ProfileContainer = styled.form`
+  display: flex;
+  flex-direction: column;
+
+  height: 554px;
+  padding: 6.4rem 9.6rem;
+
+  border-radius: 1rem;
+  background-color: ${({ theme }) => theme.colors.gray900};
+  overflow-y: auto;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+`;
+
+const BasicInfoContainer = styled.div`
+  margin-bottom: 8rem;
+`;
+
+const CodriveContainer = styled.div`
+  margin-bottom: 5.6rem;
+`;
+
+const BasicTitle = styled.h1`
+  margin-bottom: 5.2rem;
+
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_20};
+`;
+
+const CodriveTitle = styled.h1`
+  margin-bottom: 4rem;
+
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_20};
+`;
+
+const ProfileButton = styled.div`
+  display: flex;
+
+  margin: 0 auto;
+`;
 
 const CancelButton = styled.button`
   padding: 1rem 2rem;
+  margin-right: 1.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
