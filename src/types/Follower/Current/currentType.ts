@@ -19,3 +19,7 @@ export interface ClickDailyBoardProps {
   nickname: string;
   date: string;
 }
+
+export interface CurrentGraphProps {
+  percentage: number;
+}

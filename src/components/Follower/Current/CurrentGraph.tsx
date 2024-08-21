@@ -1,10 +1,7 @@
 import { Cell, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import { GRAPH_COLORS } from '../../../constants/Follower/currentConst';
-
-interface CurrentGraphProps {
-  percentage: number;
-}
+import { CurrentGraphProps } from '../../../types/Follower/Current/currentType';
 
 const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
   const process = [{ name: 'Progress', value: percentage }];
