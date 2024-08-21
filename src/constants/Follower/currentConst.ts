@@ -200,6 +200,7 @@ export const TOTAL_FOLLOWERS_DUMMY = {
 };
 
 export const TODAYS_SOLVER_DUMMY = {
+  totalPages: 3,
   users: [
     {
       userId: 1,
