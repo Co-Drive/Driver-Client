@@ -7,17 +7,18 @@ const AdditionalProblemsModal = () => {
 
   return (
     <AdditionalProblems>
-      <Horizon />
-      {records.map((record, idx) => {
-        return (
-          <SavedSolution
-            key={record.recordId}
-            record={record}
-            isModal={true}
-            removeBorder={idx === records.length - 1}
-          />
-        );
-      })}
+      <SolutionContainer>
+        {records.map((record, idx) => {
+          return (
+            <SavedSolution
+              key={record.recordId}
+              record={record}
+              isModal={true}
+              removeBorder={idx === records.length - 1}
+            />
+          );
+        })}
+      </SolutionContainer>
     </AdditionalProblems>
   );
 };
@@ -43,9 +44,8 @@ const AdditionalProblems = styled.div`
   box-shadow: 0 4px 4px rgba(11 12 15 / 65%);
 `;
 
-const Horizon = styled.span`
+const SolutionContainer = styled.div`
   width: 100%;
-  height: 0.1rem;
 
-  background-color: ${({ theme }) => theme.colors.gray600};
+  border-top: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
