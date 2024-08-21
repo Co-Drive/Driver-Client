@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcWorkBookBlack } from '../../assets';
 import home_Header from '../../assets/home_Header.svg';
@@ -5,6 +6,11 @@ import home_Header from '../../assets/home_Header.svg';
 const HomeHeader = () => {
   const todayDate = '7월1일 월요일';
   const nickname = '메링구';
+  const navigate = useNavigate();
+
+  const handleRegister = () => {
+    navigate('/solve');
+  };
 
   return (
     <Article>
@@ -16,7 +22,7 @@ const HomeHeader = () => {
         <PharseContainer>
           <Pharse>오늘도 문제 풀어 볼까요?</Pharse>
 
-          <Button>
+          <Button onClick={handleRegister}>
             <IcContainer>
               <IcWorkBookBlack />
             </IcContainer>
