@@ -71,10 +71,6 @@ const CommonCalendar = () => {
         onChange={setSelectedDate}
         locale="ko-KR"
         value={selectedDate}
-        nextLabel={<IcArrowBottomWhite />}
-        next2Label={null}
-        prev2Label={null}
-        view="month"
         showNeighboringMonth={true}
         formatShortWeekday={(_, date) => customWeekdays[date.getDay()]}
         showNavigation={false}
