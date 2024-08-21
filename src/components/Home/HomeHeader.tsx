@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import home_Header from '../../assets/home_Header.svg';
 
 const HomeHeader = () => {
   const todayDate = '7월1일 월요일';
@@ -6,6 +7,8 @@ const HomeHeader = () => {
 
   return (
     <Article>
+      {/* <HomeHeaderImg /> */}
+
       <Header>
         <Date>{todayDate}</Date>
         <NickNameContainer>
@@ -27,13 +30,15 @@ const Article = styled.article`
   height: 18.8rem;
 
   border-radius: 1.2rem;
-  background-color: purple;
+
+  /* background-color: purple; */
 
   max-width: 92.6rem;
+  background-image: url(${home_Header});
 `;
 
 const Header = styled.header`
-  background-color: red;
+  /* background-color: red; */
 `;
 
 const Date = styled.p`
@@ -46,7 +51,7 @@ const NickNameContainer = styled.div`
 
   /* margin-right: 0.6rem; */
 
-  background-color: coral;
+  /* background-color: coral; */
   color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -65,5 +70,5 @@ const Pharse = styled.p`
 const PharseContainer = styled.div`
   display: flex;
 
-  background-color: brown;
+  /* background-color: brown; */
 `;
