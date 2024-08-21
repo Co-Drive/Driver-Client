@@ -5,9 +5,10 @@ import {
   IcInformation,
   IcUnfollowingWhite,
 } from '../../../assets';
-import { FollowerRecommendCardProps } from '../../../types/Follower/Personal/personalType';
+import { FOLLOWER_DUMMY } from '../../../constants/Follower/followerConst';
 
-const FollowerRecommendCard = ({ recommend }: FollowerRecommendCardProps) => {
+const FollowerRecommendCard = () => {
+  const { recommend } = FOLLOWER_DUMMY;
   const myNickname = sessionStorage.getItem('nickname');
 
   return (

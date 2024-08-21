@@ -17,8 +17,6 @@ const FollowerPage = () => {
     language,
     github,
     rate,
-    group,
-    recommend,
   } = FOLLOWER_DUMMY;
 
   return (
@@ -43,9 +41,9 @@ const FollowerPage = () => {
 
         <Solutions id={id} nickname={nickname} isFollowed={isFollowed} />
 
-        <ParticipatingGroup group={group} />
+        <ParticipatingGroup />
 
-        <FollowerRecommendCard recommend={recommend} />
+        <FollowerRecommendCard />
       </FollowerPageContainer>
     </PageLayout>
   );
