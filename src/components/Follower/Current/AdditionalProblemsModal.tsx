@@ -27,13 +27,16 @@ export default AdditionalProblemsModal;
 
 const AdditionalProblems = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   position: absolute;
   z-index: 1;
 
+  max-height: 50.4rem;
+  overflow-y: auto;
+
   width: 100%;
+  height: auto;
   padding: 0.4rem 2.4rem 2.4rem;
 
   background-color: ${({ theme }) => theme.colors.gray800};
