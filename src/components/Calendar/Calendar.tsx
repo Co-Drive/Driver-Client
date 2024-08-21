@@ -98,8 +98,6 @@ const NavContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  /* position: relative; */
-
   max-width: 17.9rem;
 
   width: 17.9rem;
@@ -116,8 +114,7 @@ const DateContainer = styled.div`
   gap: 0.4rem;
   align-items: center;
 
-  /* width: 100%; */
-  padding-right: 0.4rem;
+  padding-right: 0.2rem;
   padding-left: 1.4rem;
 `;
 
