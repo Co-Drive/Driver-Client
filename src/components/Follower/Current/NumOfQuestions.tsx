@@ -33,6 +33,7 @@ const NumOfQuestionsContainer = styled.article`
   flex-direction: column;
   flex-grow: 2.1;
 
+  width: 61.1rem;
   margin-left: 0.2rem;
 `;
 
