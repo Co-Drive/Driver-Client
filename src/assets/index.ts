@@ -50,6 +50,7 @@ import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 
 import BtnHeart from './btn/btn_heart.svg?react';
+import BtnInformation from './btn/btn_information.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
 import BtnStarGraySmall from './btn/btn_star_gray_small.svg?react';
@@ -62,6 +63,7 @@ import TestWeekboardStatus from './test_weekboard_status.svg?react';
 export {
   // btn
   BtnHeart,
+  BtnInformation,
   BtnJoinGitHub,
   BtnShare,
   BtnStarGraySmall,
