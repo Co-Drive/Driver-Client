@@ -17,7 +17,10 @@ const TodaySolve = () => {
         <Title>오늘 문제풀이</Title>
         <BtnInformation />
       </TitleContainer>
-      <Subtitle>달성 가능한 목표를 세우고, 매일 설천해보세요</Subtitle>
+      <Subtitle>
+        달성 가능한 목표를 세우고, <br />
+        매일 설천해보세요
+      </Subtitle>
     </Container>
   );
 };
@@ -30,12 +33,15 @@ const Container = styled.div`
 
   padding: 3.4rem 3.4rem 7.2rem;
 
-  background-color: rebeccapurple;
+  background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
 const TitleContainer = styled.div`
   display: flex;
+  gap: 10.1rem;
   align-items: center;
+
+  margin-bottom: 2.2rem;
 
   background-color: bisque;
 `;
@@ -48,4 +54,6 @@ const Title = styled.h2`
 
 const Subtitle = styled.p`
   background-color: cornflowerblue;
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  color: ${({ theme }) => theme.colors.gray300};
 `;
