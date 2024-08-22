@@ -207,6 +207,8 @@ const Contents = styled.div<{ $isClicked: boolean }>`
 
   background-color: ${({ $isClicked, theme }) =>
     $isClicked && theme.colors.gray800};
+
+  cursor: pointer;
 `;
 
 const ProfileImg = styled.img`
@@ -215,6 +217,8 @@ const ProfileImg = styled.img`
 
   border-radius: 0.8rem;
   object-fit: cover;
+
+  cursor: pointer;
 `;
 
 const UserContainer = styled.div`
@@ -227,6 +231,8 @@ const UserContainer = styled.div`
   width: 16rem;
   padding-left: 0.8rem;
   margin-right: 11.1rem;
+
+  cursor: pointer;
 `;
 
 const Nickname = styled.p`
