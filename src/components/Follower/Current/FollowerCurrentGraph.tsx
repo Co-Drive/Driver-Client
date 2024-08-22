@@ -1,12 +1,5 @@
 import { Bar, BarChart, Cell, ResponsiveContainer } from 'recharts';
-
-interface FollowerCurrentGraphProps {
-  users: Array<{
-    userId: number;
-    nickname: string;
-    problemNum: number;
-  }>;
-}
+import { FollowerCurrentGraphProps } from '../../../types/Follower/Current/currentType';
 
 const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const data = users.map((user) => {
