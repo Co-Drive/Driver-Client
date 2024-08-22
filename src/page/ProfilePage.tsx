@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
@@ -11,18 +11,30 @@ import { handleInput } from '../utils/handleInput';
 import NicknameInfo from './../components/Profile/NicknameInfo';
 
 const ProfilePage = () => {
-  const [inputs, setInputs] = useState({
-    nickname: '',
-    github: '',
-    intro: '',
-  });
+  /* 기존 값들을 더미로 넣어둠 api 연결하면서 삭제 할 예정 */
+  const initialData = {
+    nickname: 'moonju',
+    github: 'example',
+    intro: '코테에 목숨을 걸었습니다!',
+    language: 'JavaScript',
+  };
 
   const user = '김문주';
 
-  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [inputs, setInputs] = useState(initialData);
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    initialData.language
+  );
+  const [initialInputs] = useState(initialData);
   const navigate = useNavigate();
 
   const { nickname, github, intro } = inputs;
+
+  useEffect(() => {
+    // 컴포넌트가 마운트되면 초기 상태를 설정합니다.
+    setInputs(initialData);
+    setSelectedLanguage(initialData.language);
+  }, []);
 
   // 입력 값 변경 처리 함수
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,6 +61,16 @@ const ProfilePage = () => {
   const handleSaveBtnClick = () => {
     if (!isActive) return;
     navigate('/register');
+  };
+
+  // 취소 버튼 클릭 처리 함수
+  const handleCancelBtnClick = () => {
+    // 입력 값들을 초기 상태로 되돌림
+    setInputs(initialInputs);
+    setSelectedLanguage(initialData.language);
+
+    /* 마이페이지 뷰로 완성되면 연결! */
+    navigate('/login');
   };
 
   // 닉네임 중복 체크 함수 (구현 필요)
@@ -90,7 +112,9 @@ const ProfilePage = () => {
             />
           </CodriveContainer>
           <ProfileButton>
-            <CancelButton onClick={() => navigate(-1)}>취소하기</CancelButton>
+            <CancelButton type="button" onClick={handleCancelBtnClick}>
+              취소하기
+            </CancelButton>
             <CommonButton
               isActive={isActive}
               category="Profile_save"
