@@ -14,7 +14,6 @@ const LanguageInfo = ({ selectedTag, handleChangeTag }: LanguageInfoProps) => {
           handleChangeTag={handleChangeTag}
         />
       </SelectContainer>
-      <BorderBottom />
     </LanguageInfoContainer>
   );
 };
@@ -26,7 +25,7 @@ const LanguageInfoContainer = styled.section`
 
   padding-bottom: 1.4rem;
 
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const TitleContainer = styled.div`
@@ -47,10 +46,6 @@ const SelectContainer = styled.div`
   right: 0;
 
   padding-bottom: 1.4rem;
-`;
-
-const BorderBottom = styled.span`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
 `;
 
 export default LanguageInfo;

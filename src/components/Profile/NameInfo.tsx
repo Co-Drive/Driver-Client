@@ -17,7 +17,7 @@ const NameInfoContainer = styled.section`
   padding: 0 24.3rem 2.6rem 0;
   margin-bottom: 3.2rem;
 
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray600};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const NameTitle = styled.h2`
