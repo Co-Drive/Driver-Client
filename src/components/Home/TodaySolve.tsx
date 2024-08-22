@@ -1,8 +1,20 @@
-import { Cell, Pie, PieChart } from 'recharts';
+import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import { BtnInformation } from '../../assets';
 
-const COLORS = ['#BCFFCB', '#08FF3F'];
+const CustomLabel = ({ viewBox, value1, value2 }: any) => {
+  const { cx, cy } = viewBox; // 중심 좌표
+  return (
+    <g>
+      <StyledText x={cx} y={cy} textAnchor="middle">
+        {value1}
+      </StyledText>
+      <StyledSubText x={cx} y={cy + 25} textAnchor="middle">
+        {value2}
+      </StyledSubText>
+    </g>
+  );
+};
 
 const TodaySolve = () => {
   const data = [{ value: 1 }];
@@ -17,10 +29,11 @@ const TodaySolve = () => {
     7: 100,
   };
 
-  const maxProblems = 7;
-  const solvedProblems = 4;
+  const maxProblems = 7; // 나중에 props로 받을 것
+  const solvedProblems = 7; // 나중에 props로 받을 것
+  const percentage = (solvedProblems / maxProblems) * 100;
 
-  const chartData = [{ name: 'Solved', value: percentageMap[solvedProblems] }];
+  const chartData = [{ name: 'Solved', value: percentage }];
 
   console.log(chartData[0]);
 
@@ -52,12 +65,17 @@ const TodaySolve = () => {
             cy="50%"
             innerRadius={60}
             outerRadius={80}
-            startAngle={90}
-            endAngle={450}
-            paddingAngle={5}
+            startAngle={90} // 12시 방향
+            endAngle={90 - (360 * percentage) / 100} // 퍼센트에 맞춰 끝 각도를 설정
+            paddingAngle={0} // 빈틈 없애기
+            fill="url(#colorGradient)"
           >
             <Cell key={`cell-0`} fill="url(#colorGradient)" />
-            <Cell key={`cell-1`} fill="#444" />
+            {/* <Cell key={`cell-1`} fill="#444" /> */}
+            <Label
+              content={<CustomLabel value1={solvedProblems} value2="문제" />}
+              position="center"
+            />
           </Pie>
         </PieChart>
       </PieContainer>
@@ -104,5 +122,16 @@ const PieContainer = styled.div`
 
   width: 100%;
 
-  background-color: purple;
+  /* background-color: purple; */
+`;
+
+const StyledText = styled.text`
+  font-weight: bold;
+  font-size: 32px;
+  fill: #fff;
+`;
+
+const StyledSubText = styled.text`
+  font-size: 16px;
+  fill: #fff;
 `;
