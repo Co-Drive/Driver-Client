@@ -64,7 +64,7 @@ const Rate = styled.p`
   position: absolute;
   top: 0;
 
-  width: 100%;
+  width: 5.5rem;
   padding: 1.8rem 1rem 1.8rem 1.1rem;
 
   color: ${({ theme }) => theme.colors.white};
