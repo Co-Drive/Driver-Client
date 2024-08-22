@@ -18,13 +18,24 @@ const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
     };
   });
 
+  const filledData = Array(15)
+    .fill(0)
+    .map((_, index) => {
+      return data[index] || { name: '', problemNum: 0 };
+    });
+
   return (
     <ResponsiveContainer
       width="100%"
       height="100%"
       style={{ padding: '0 24px' }}
     >
-      <BarChart data={data} barSize={18} barCategoryGap={30} barGap={18}>
+      <BarChart
+        data={data.length >= 15 ? data : filledData}
+        barSize={18}
+        barCategoryGap={30}
+        barGap={18}
+      >
         <Bar
           dataKey="problemNum"
           radius={[30, 30, 0, 0]}
