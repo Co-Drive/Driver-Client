@@ -19,6 +19,8 @@ const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
       return data[index] || { name: '', problemNum: 0, height: 50 };
     });
 
+  const barArr = data.length >= 15 ? data : filledData;
+
   const getColor = (problemNum: number) => {
     switch (problemNum) {
       case 0:
@@ -52,14 +54,9 @@ const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
       height="100%"
       style={{ padding: '0 24px' }}
     >
-      <BarChart
-        data={data.length >= 15 ? data : filledData}
-        barSize={18}
-        barCategoryGap={30}
-        barGap={18}
-      >
+      <BarChart data={barArr} barSize={18} barCategoryGap={30} barGap={18}>
         <Bar dataKey="height" radius={[30, 30, 0, 0]} isAnimationActive={false}>
-          {filledData.map((entry, index) => (
+          {barArr.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={getColor(entry.problemNum)} />
           ))}
         </Bar>
