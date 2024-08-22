@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import { IcInformation } from '../../../assets';
+import { TOTAL_FOLLOWERS_DUMMY } from '../../../constants/Follower/currentConst';
 import EmptyFollower from './EmptyFollower';
+import FollowerCurrentGraph from './FollowerCurrentGraph';
 
 const NumOfQuestions = () => {
+  const { users } = TOTAL_FOLLOWERS_DUMMY;
   return (
     <NumOfQuestionsContainer>
       <Header>
@@ -11,7 +14,11 @@ const NumOfQuestions = () => {
       </Header>
 
       <GraphContainer>
-        <EmptyFollower />
+        {users.length ? (
+          <FollowerCurrentGraph users={users} />
+        ) : (
+          <EmptyFollower />
+        )}
       </GraphContainer>
     </NumOfQuestionsContainer>
   );
@@ -45,11 +52,11 @@ const Title = styled.p`
 const GraphContainer = styled.article`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
 
   width: 100%;
   height: 23rem;
-  padding: 1rem 2.1rem 1.4rem 2rem;
+  padding: 7.6rem 2.1rem 1.4rem 2rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
