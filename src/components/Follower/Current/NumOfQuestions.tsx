@@ -54,10 +54,11 @@ const GraphContainer = styled.article`
   display: flex;
   justify-content: center;
   align-items: end;
+  position: relative;
 
   width: 100%;
   height: 23rem;
-  padding: 7.6rem 2.1rem 1.4rem 2rem;
+  padding: 0 2.1rem 1.4rem 2rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
