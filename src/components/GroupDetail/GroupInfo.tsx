@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray } from '../../assets';
+import ApplicationModal from './ApplicationModal';
 
 const GroupInfo = () => {
   const GROUP_DUMMY = {
@@ -17,6 +19,8 @@ const GroupInfo = () => {
   const { profileImg, nickname, currentNum, totalNum, intro, rules } =
     GROUP_DUMMY;
 
+  const [modalOn, setModalOn] = useState(false);
+
   return (
     <GroupInfoContainer>
       <TopInfo>
@@ -26,7 +30,7 @@ const GroupInfo = () => {
           <IcArrowRightSmallGray />
         </Host>
 
-        <ApplicationStatus>
+        <ApplicationStatus onClick={() => setModalOn(true)}>
           <Category>신청 현황</Category>
           <Status>
             <CurrentNum>{currentNum}</CurrentNum>
@@ -47,6 +51,8 @@ const GroupInfo = () => {
           <Description>{rules}</Description>
         </Rule>
       </Rules>
+
+      {modalOn && <ApplicationModal />}
     </GroupInfoContainer>
   );
 };
