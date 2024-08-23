@@ -145,7 +145,7 @@ const ProfileContainer = styled.form`
   display: flex;
   flex-direction: column;
 
-  height: 554px;
+  height: 55.4rem;
   padding: 6.4rem 9.6rem;
 
   border-radius: 1rem;
@@ -180,13 +180,12 @@ const CodriveTitle = styled.h1`
 
 const ProfileButton = styled.div`
   display: flex;
-
-  margin: 0 auto;
+  gap: 1.6rem;
+  justify-content: center;
 `;
 
 const CancelButton = styled.button`
   padding: 1rem 2rem;
-  margin-right: 1.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
