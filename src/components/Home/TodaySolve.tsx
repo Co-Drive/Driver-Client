@@ -30,10 +30,11 @@ const TodaySolve = () => {
   };
 
   const maxProblems = 7; // 나중에 props로 받을 것
-  const solvedProblems = 7; // 나중에 props로 받을 것
+  const solvedProblems = 1; // 나중에 props로 받을 것
   const percentage = (solvedProblems / maxProblems) * 100;
 
   const chartData = [{ name: 'Solved', value: percentage }];
+  const fullCircle = [{ name: 'Full', valule: 100 }];
 
   console.log(chartData[0]);
 
@@ -63,15 +64,30 @@ const TodaySolve = () => {
             dataKey="value"
             cx="50%"
             cy="50%"
-            innerRadius={60}
+            innerRadius={65}
+            outerRadius={80}
+            startAngle={90} // 12시 방향
+            endAngle={-270} // 퍼센트에 맞춰 끝 각도를 설정
+            paddingAngle={0} // 빈틈 없애기
+            fill="#292A2F"
+            stroke="none"
+            cornerRadius={15}
+          />
+          <Pie
+            data={chartData}
+            dataKey="value"
+            cx="50%"
+            cy="50%"
+            innerRadius={65}
             outerRadius={80}
             startAngle={90} // 12시 방향
             endAngle={90 - (360 * percentage) / 100} // 퍼센트에 맞춰 끝 각도를 설정
             paddingAngle={0} // 빈틈 없애기
             fill="url(#colorGradient)"
+            stroke="none"
+            cornerRadius={15}
           >
             <Cell key={`cell-0`} fill="url(#colorGradient)" />
-            {/* <Cell key={`cell-1`} fill="#444" /> */}
             <Label
               content={<CustomLabel value1={solvedProblems} value2="문제" />}
               position="center"
@@ -91,6 +107,7 @@ const Container = styled.div`
 
   padding: 3.4rem 3.4rem 7.2rem;
 
+  border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
@@ -100,19 +117,16 @@ const TitleContainer = styled.div`
   align-items: center;
 
   margin-bottom: 2.2rem;
-
-  background-color: bisque;
 `;
 
 const Title = styled.h2`
-  background-color: coral;
-  ${({ theme }) => theme.fonts.title_bold_20};
+  ${({ theme }) => theme.fonts.title_bold_20}
   color: ${({ theme }) => theme.colors.white};
 `;
 
 const Subtitle = styled.p`
-  background-color: cornflowerblue;
   ${({ theme }) => theme.fonts.body_ligth_16};
+  /* background-color: cornflowerblue; */
   color: ${({ theme }) => theme.colors.gray300};
 `;
 
@@ -122,16 +136,19 @@ const PieContainer = styled.div`
 
   width: 100%;
 
+  /* max-width: 16.9rem; */
+
+  margin-top: 3.1rem;
+
   /* background-color: purple; */
 `;
 
 const StyledText = styled.text`
-  font-weight: bold;
-  font-size: 32px;
   fill: #fff;
+  ${({ theme }) => theme.fonts.title_bold_32};
 `;
 
 const StyledSubText = styled.text`
-  font-size: 16px;
+  ${({ theme }) => theme.fonts.body_ligth_16};
   fill: #fff;
 `;
