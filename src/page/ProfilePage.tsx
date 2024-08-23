@@ -30,6 +30,15 @@ const ProfilePage = () => {
 
   const { nickname, github, intro } = inputs;
 
+  // 입력 값의 유효성을 검사하는 변수
+  const isActive =
+    nickname.length > 0 &&
+    nickname.length <= 10 &&
+    intro.length > 0 &&
+    intro.length <= 30 &&
+    github.length > 0 &&
+    selectedLanguage.length > 0;
+
   useEffect(() => {
     // 컴포넌트가 마운트되면 초기 상태를 설정합니다.
     setInputs(initialData);
@@ -77,14 +86,6 @@ const ProfilePage = () => {
   const handleNicknameCheck = async () => {
     // 닉네임 중복 체크 로직 추가
   };
-
-  const isActive =
-    nickname.length > 0 &&
-    nickname.length <= 10 &&
-    intro.length > 0 &&
-    intro.length <= 30 &&
-    github.length > 0 &&
-    selectedLanguage.length > 0;
 
   return (
     <PageLayout category="홈">
