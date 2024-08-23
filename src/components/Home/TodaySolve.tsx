@@ -7,38 +7,47 @@ interface CustomLabelProps {
     cx: number;
     cy: number;
   };
-  value1: string | number;
-  value2: string | number;
+  upValue: string | number;
+  downValue: string | number;
   isDefault: boolean;
 }
 
 const CustomLabel = ({
   viewBox,
-  value1,
-  value2,
+  upValue,
+  downValue,
   isDefault,
 }: CustomLabelProps) => {
   const { cx, cy } = viewBox; // 중심 좌표
+  const upValuePadding = isDefault ? 12 : 5;
+  const downValuePadding = isDefault ? 12 : 30;
   return (
     <>
-      <StyledText x={cx} y={cy - 5} textAnchor="middle" $isDefault={isDefault}>
-        {value1}
-      </StyledText>
-      <StyledSubText
+      <StyledText
         x={cx}
-        y={cy + 20}
+        y={cy - upValuePadding}
+        dominantBaseline="middle"
         textAnchor="middle"
         $isDefault={isDefault}
       >
-        {value2}
+        {upValue}
+      </StyledText>
+      <StyledSubText
+        x={cx}
+        y={cy + downValuePadding}
+        dominantBaseline="middle"
+        textAnchor="middle"
+        $isDefault={isDefault}
+      >
+        {downValue}
       </StyledSubText>
     </>
   );
 };
 
 const TodaySolve = () => {
-  const maxProblems = 0; // 나중에 props로 받을 것
-  const solvedProblems = 0; // 나중에 props로 받을 것
+  const maxProblems = 7; // 나중에 props로 받을 것
+  const solvedProblems = 2; // 나중에 props로 받을 것
 
   const percentage =
     maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 10;
@@ -59,7 +68,7 @@ const TodaySolve = () => {
       </Subtitle>
 
       <PieContainer>
-        <PieChart width={200} height={200}>
+        <PieChart width={168} height={168}>
           <defs>
             <linearGradient id="colorGradient" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stopColor="#BCFFCB" />
@@ -104,10 +113,10 @@ const TodaySolve = () => {
             <Label
               content={
                 <CustomLabel
-                  value1={
+                  upValue={
                     maxProblems && solvedProblems ? solvedProblems : '목표를'
                   }
-                  value2={
+                  downValue={
                     maxProblems && solvedProblems ? '문제' : '설정해주세요'
                   }
                   isDefault={maxProblems && solvedProblems ? false : true}
@@ -164,7 +173,7 @@ const PieContainer = styled.div`
 const StyledText = styled.text<{ $isDefault?: boolean }>`
   fill: #fff;
   ${({ $isDefault, theme }) =>
-    $isDefault ? theme.fonts.body_medium_16 : theme.fonts.title_bold_32};
+    $isDefault ? theme.fonts.body_medium_16 : theme.fonts.title_bold_46};
 `;
 
 const StyledSubText = styled.text<{ $isDefault?: boolean }>`
