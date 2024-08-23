@@ -60,7 +60,13 @@ const TodaySolve = () => {
     <Container>
       <TitleContainer>
         <Title>오늘 문제풀이</Title>
-        <BtnInformation />
+        <Notic>
+          <BtnInformation />
+          <Tooltip>
+            목표설정은 우측 상단 <br />
+            닉네임 {'>'} 내 프로필 설정 가능합니다.
+          </Tooltip>
+        </Notic>
       </TitleContainer>
       <Subtitle>
         달성 가능한 목표를 세우고, <br />
@@ -180,4 +186,52 @@ const StyledSubText = styled.text<{ $isDefault?: boolean }>`
   ${({ $isDefault, theme }) =>
     $isDefault ? theme.fonts.body_medium_16 : theme.fonts.body_ligth_16};
   fill: #fff;
+`;
+
+const Notic = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  margin-left: 2.5rem;
+
+  &:hover > div {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+const Tooltip = styled.div`
+  display: block;
+  position: absolute;
+  top: 170%;
+  visibility: hidden;
+
+  width: 22.8rem;
+  height: auto;
+  padding: 1.2rem 1.1rem;
+
+  border-radius: 0.8rem;
+  background: ${({ theme }) => theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+
+  white-space: nowrap;
+
+  opacity: 0;
+  transform: translate(-2.5%);
+  transition: opacity 0.3s ease-in-out;
+
+  &::after {
+    position: absolute;
+    bottom: 100%;
+    left: 5%;
+
+    margin-left: -0.1rem;
+
+    border-color: transparent transparent ${({ theme }) => theme.colors.gray600};
+    border-width: 5px;
+    border-style: solid;
+    content: '';
+  }
 `;
