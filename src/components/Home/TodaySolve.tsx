@@ -2,43 +2,50 @@ import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import { BtnInformation } from '../../assets';
 
-const CustomLabel = ({ viewBox, value1, value2 }: any) => {
+interface CustomLabelProps {
+  viewBox: {
+    cx: number;
+    cy: number;
+  };
+  value1: string | number;
+  value2: string | number;
+  isDefault: boolean;
+}
+
+const CustomLabel = ({
+  viewBox,
+  value1,
+  value2,
+  isDefault,
+}: CustomLabelProps) => {
   const { cx, cy } = viewBox; // 중심 좌표
   return (
-    <g>
-      <StyledText x={cx} y={cy} textAnchor="middle">
+    <>
+      <StyledText x={cx} y={cy - 5} textAnchor="middle" $isDefault={isDefault}>
         {value1}
       </StyledText>
-      <StyledSubText x={cx} y={cy + 25} textAnchor="middle">
+      <StyledSubText
+        x={cx}
+        y={cy + 20}
+        textAnchor="middle"
+        $isDefault={isDefault}
+      >
         {value2}
       </StyledSubText>
-    </g>
+    </>
   );
 };
 
 const TodaySolve = () => {
-  const data = [{ value: 1 }];
+  const maxProblems = 0; // 나중에 props로 받을 것
+  const solvedProblems = 0; // 나중에 props로 받을 것
 
-  const percentageMap = {
-    1: 15,
-    2: 30,
-    3: 45,
-    4: 60,
-    5: 75,
-    6: 90,
-    7: 100,
-  };
-
-  const maxProblems = 7; // 나중에 props로 받을 것
-  const solvedProblems = 1; // 나중에 props로 받을 것
-  const percentage = (solvedProblems / maxProblems) * 100;
+  const percentage =
+    maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 10;
 
   const chartData = [{ name: 'Solved', value: percentage }];
-  const fullCircle = [{ name: 'Full', valule: 100 }];
 
   console.log(chartData[0]);
-
-  // console.log(progress);
 
   return (
     <Container>
@@ -83,13 +90,30 @@ const TodaySolve = () => {
             startAngle={90} // 12시 방향
             endAngle={90 - (360 * percentage) / 100} // 퍼센트에 맞춰 끝 각도를 설정
             paddingAngle={0} // 빈틈 없애기
-            fill="url(#colorGradient)"
             stroke="none"
             cornerRadius={15}
           >
-            <Cell key={`cell-0`} fill="url(#colorGradient)" />
+            <Cell
+              key={`cell-1`}
+              fill={
+                maxProblems && solvedProblems
+                  ? 'url(#colorGradient)'
+                  : '#B2B4BA'
+              }
+            />
             <Label
-              content={<CustomLabel value1={solvedProblems} value2="문제" />}
+              content={
+                <CustomLabel
+                  value1={
+                    maxProblems && solvedProblems ? solvedProblems : '목표를'
+                  }
+                  value2={
+                    maxProblems && solvedProblems ? '문제' : '설정해주세요'
+                  }
+                  isDefault={maxProblems && solvedProblems ? false : true}
+                  viewBox={{ cx: 0, cy: 0 }}
+                />
+              }
               position="center"
             />
           </Pie>
@@ -126,7 +150,6 @@ const Title = styled.h2`
 
 const Subtitle = styled.p`
   ${({ theme }) => theme.fonts.body_ligth_16};
-  /* background-color: cornflowerblue; */
   color: ${({ theme }) => theme.colors.gray300};
 `;
 
@@ -135,20 +158,17 @@ const PieContainer = styled.div`
   justify-content: center;
 
   width: 100%;
-
-  /* max-width: 16.9rem; */
-
   margin-top: 3.1rem;
-
-  /* background-color: purple; */
 `;
 
-const StyledText = styled.text`
+const StyledText = styled.text<{ $isDefault?: boolean }>`
   fill: #fff;
-  ${({ theme }) => theme.fonts.title_bold_32};
+  ${({ $isDefault, theme }) =>
+    $isDefault ? theme.fonts.body_medium_16 : theme.fonts.title_bold_32};
 `;
 
-const StyledSubText = styled.text`
-  ${({ theme }) => theme.fonts.body_ligth_16};
+const StyledSubText = styled.text<{ $isDefault?: boolean }>`
+  ${({ $isDefault, theme }) =>
+    $isDefault ? theme.fonts.body_medium_16 : theme.fonts.body_ligth_16};
   fill: #fff;
 `;
