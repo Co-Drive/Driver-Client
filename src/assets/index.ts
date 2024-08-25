@@ -54,7 +54,6 @@ import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
-import Thumbnail from './icon/thumbnail.svg?react';
 
 import BtnHeart from './btn/btn_heart.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
@@ -128,5 +127,4 @@ export {
   IcWorkbook,
   IcWorkbookBlack,
   TestWeekboardStatus,
-  Thumbnail,
 };
