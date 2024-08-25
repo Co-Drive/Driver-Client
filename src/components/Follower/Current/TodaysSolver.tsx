@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
-import { FollowerQuestionsProps } from '../../../types/Follower/Current/currentType';
+import useGetTodaysSolver from '../../../libs/hooks/Follower/useGetTodaysSolver';
 import Solver from './Solver';
 
-const TodaysSolver = ({ users, isLoading }: FollowerQuestionsProps) => {
-  const totalPages = users ? Math.ceil(users.length / 3) : 0;
+const TodaysSolver = () => {
+  const { data, isLoading } = useGetTodaysSolver();
+  const { followings } = !isLoading && data.data;
+  const totalPages = followings ? Math.ceil(followings.length / 3) : 0;
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -28,7 +30,7 @@ const TodaysSolver = ({ users, isLoading }: FollowerQuestionsProps) => {
           <Header>
             <Title>오늘 문제 푼 팔로워</Title>
 
-            {users.length && (
+            {followings.length && (
               <ArrowContainer>
                 <IcArrowLeftSmallGray onClick={handleClickArrowLeft} />
                 <IcArrowRightSmallGray onClick={handleClickArrowRight} />
@@ -37,7 +39,7 @@ const TodaysSolver = ({ users, isLoading }: FollowerQuestionsProps) => {
           </Header>
 
           <SolverContainer>
-            <Solver currentPage={currentPage} users={users} />
+            <Solver currentPage={currentPage} users={followings} />
           </SolverContainer>
         </TodaysSolverContainer>
       )}
