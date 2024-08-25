@@ -2,11 +2,9 @@ import styled from 'styled-components';
 import ActiveGroups from '../components/MyGroup/ActiveGroups';
 import PersonalGroup from '../components/MyGroup/PersonalGroup';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { GROUP_ALL_DUMMY } from '../constants/MyGroup/myGroupConts';
 import useGetRecentRooms from '../libs/hooks/MyGroup/useGetRecentRooms';
 
 const GroupAllPage = () => {
-  const { group } = GROUP_ALL_DUMMY;
   const { data } = useGetRecentRooms();
 
   const totalActiveGroups = data ? data.data.rooms : [];
@@ -18,7 +16,7 @@ const GroupAllPage = () => {
           <ActiveGroups totalActiveGroups={totalActiveGroups} />
         )}
 
-        <PersonalGroup group={group} />
+        <PersonalGroup />
       </GroupAllPageContainer>
     </PageLayout>
   );
@@ -30,5 +28,6 @@ const GroupAllPageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
+  width: 100%;
   padding: 6rem 21.5rem 17.8rem;
 `;
