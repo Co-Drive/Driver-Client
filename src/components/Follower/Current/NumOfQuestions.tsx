@@ -1,26 +1,32 @@
 import styled from 'styled-components';
 import { IcInformation } from '../../../assets';
-import { TOTAL_FOLLOWERS_DUMMY } from '../../../constants/Follower/currentConst';
+import useGetFollowerWeeklyCount from '../../../libs/hooks/Follower/useGetFollowerWeeklyCount';
 import EmptyFollower from './EmptyFollower';
 import FollowerCurrentGraph from './FollowerCurrentGraph';
 
 const NumOfQuestions = () => {
-  const { users } = TOTAL_FOLLOWERS_DUMMY;
-  return (
-    <NumOfQuestionsContainer>
-      <Header>
-        <Title>문제 개수 그래프</Title>
-        <IcInformation />
-      </Header>
+  const { data, isLoading } = useGetFollowerWeeklyCount();
+  const { followings } = !isLoading && data.data;
 
-      <GraphContainer>
-        {users.length ? (
-          <FollowerCurrentGraph users={users} />
-        ) : (
-          <EmptyFollower />
-        )}
-      </GraphContainer>
-    </NumOfQuestionsContainer>
+  return (
+    <>
+      {!isLoading && (
+        <NumOfQuestionsContainer>
+          <Header>
+            <Title>문제 개수 그래프</Title>
+            <IcInformation />
+          </Header>
+
+          <GraphContainer>
+            {followings.length ? (
+              <FollowerCurrentGraph users={followings} />
+            ) : (
+              <EmptyFollower />
+            )}
+          </GraphContainer>
+        </NumOfQuestionsContainer>
+      )}
+    </>
   );
 };
 
