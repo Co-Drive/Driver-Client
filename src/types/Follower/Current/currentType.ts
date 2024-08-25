@@ -52,3 +52,17 @@ export interface FollowerFilterProps {
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => void;
 }
+
+export interface AdditionalProblemsModalProps {
+  userId: number;
+}
+
+export interface FollowerRecordsType {
+    recordId: number;
+    title: string;
+    level: number;
+    tags: Array<string>;
+    platform: string;
+    problemUrl: string;
+    createdAt: string;
+}

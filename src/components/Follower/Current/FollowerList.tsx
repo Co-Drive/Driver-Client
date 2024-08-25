@@ -134,7 +134,9 @@ const FollowerList = () => {
                       )}
                     </Contents>
 
-                    {isExitAndClicked && <AdditionalProblemsModal />}
+                    {isExitAndClicked && (
+                      <AdditionalProblemsModal userId={userId} />
+                    )}
                   </ContentsContainer>
                 );
               }
