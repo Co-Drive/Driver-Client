@@ -24,6 +24,8 @@ const FollowerList = () => {
     (_, idx) => idx + 1
   );
 
+  const [selectedGroupId, setSelectedGroupId] = useState(0);
+  const [sorting, setSorting] = useState('최신순');
   const [clickedPage, setClickedPage] = useState(1);
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
@@ -31,6 +33,17 @@ const FollowerList = () => {
   });
 
   const { clickedId, isClicked } = clickedContents;
+
+  const updateSelectedGroupId = (id: number) => {
+    setSelectedGroupId(id);
+  };
+
+  const handleClickSorting = (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) => {
+    const { innerHTML } = e.currentTarget;
+    setSorting(innerHTML);
+  };
 
   const handleClickContents = (id: number) => {
     setClickedContents({
@@ -57,7 +70,11 @@ const FollowerList = () => {
 
   return (
     <FollowerListContainer>
-      <FollowerFilter />
+      <FollowerFilter
+        sorting={sorting}
+        updateSelectedGroupId={updateSelectedGroupId}
+        handleClickSorting={handleClickSorting}
+      />
 
       <ListContainer>
         <ListHeader>

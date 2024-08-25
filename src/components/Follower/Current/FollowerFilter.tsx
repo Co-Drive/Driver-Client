@@ -2,29 +2,27 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../../assets';
 import { GROUPS, SORTING } from '../../../constants/Follower/currentConst';
+import { FollowerFilterProps } from '../../../types/Follower/Current/currentType';
 
-const FollowerFilter = () => {
+const FollowerFilter = ({
+  sorting,
+  updateSelectedGroupId,
+  handleClickSorting,
+}: FollowerFilterProps) => {
   const [isGroupClicked, setIsGroupClicked] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState('');
-  const [sorting, setSorting] = useState('최신순');
 
   const handleClickGroupOptions = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
+    id: number
   ) => {
     const { innerHTML } = e.currentTarget;
     setSelectedGroup(innerHTML);
+    updateSelectedGroupId(id);
   };
 
   const handleClickGroupFilter = () => {
     setIsGroupClicked(!isGroupClicked);
-  };
-
-  const handleClickSorting = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-  ) => {
-    const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
-    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
   return (
@@ -43,7 +41,7 @@ const FollowerFilter = () => {
                 return (
                   <Option
                     key={id}
-                    onClick={handleClickGroupOptions}
+                    onClick={(e) => handleClickGroupOptions(e, id)}
                     $clickedOption={selectedGroup === name}
                   >
                     {name}
