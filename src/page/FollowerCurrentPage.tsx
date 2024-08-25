@@ -34,7 +34,7 @@ const FollowerCurrentPageContainer = styled.section`
 
 const Header = styled.header`
   display: flex;
-  gap: 1.3rem;
+  gap: 1.4rem;
   align-items: end;
 
   width: 100%;
@@ -53,5 +53,5 @@ const Date = styled.p`
 `;
 
 const Text = styled(Date)`
-  margin-left: 0.4rem;
+  margin-left: -1rem;
 `;
