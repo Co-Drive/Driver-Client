@@ -1,19 +1,17 @@
 import styled from 'styled-components';
 
-const Header = () => {
-  const HEDEAR_DUMMY = {
-    title: '이제는 더이상 물러날 곳이 없는 스터디',
-    tags: ['Java', 'JavaScript', 'Python'],
-  };
+interface HeaderProps {
+  title: string;
+  tags: Array<string>;
+}
 
-  const { title, tags } = HEDEAR_DUMMY;
-
+const Header = ({ title, tags }: HeaderProps) => {
   return (
     <TitleContainer>
       <Title>{title}</Title>
       <Tags>
         {tags.map((tag) => {
-          return <Tag key={tag}>{tag}</Tag>;
+          return <Tag key={tag}>#{tag}</Tag>;
         })}
       </Tags>
     </TitleContainer>
