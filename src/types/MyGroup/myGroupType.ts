@@ -1,8 +1,8 @@
 export interface ActiveGroupProps {
   totalActiveGroups: Array<{
-    id: number;
+    roomId: number;
     title: string;
-    contents: string;
+    introduce: string;
     tags: Array<string>;
   }>;
 }

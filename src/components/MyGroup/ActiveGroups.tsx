@@ -46,16 +46,16 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
 
         <GroupContainer $isFirstPage={isFirstPage} $isLastPage={isLastPage}>
           {slicedGroups.map((group) => {
-            const { id, tags, title, contents } = group;
+            const { roomId, tags, title, introduce } = group;
             return (
-              <Group key={id} onClick={() => handleClickItem(id)}>
+              <Group key={roomId} onClick={() => handleClickItem(roomId)}>
                 <TagContainer>
                   {tags.map((tag, tagIndex) => (
                     <Tag key={tagIndex}>{tag}</Tag>
                   ))}
                 </TagContainer>
                 <Title>{title}</Title>
-                <Introduce>{contents}</Introduce>
+                <Introduce>{introduce}</Introduce>
               </Group>
             );
           })}
