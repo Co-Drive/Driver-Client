@@ -21,6 +21,46 @@ const ApplicationModal = () => {
         nickname: '일이삼사오육칠팔구십',
         status: 'JOINED',
       },
+      {
+        language: 'JavaScript',
+        nickname: '일이삼사오육칠팔구십',
+        status: 'JOINED',
+      },
+      {
+        language: 'JavaScript',
+        nickname: '일이삼사오육칠팔구십',
+        status: 'REQUESTED',
+      },
+      {
+        language: 'JavaScript',
+        nickname: '일이삼사오육칠팔구십',
+        status: 'WAITING',
+      },
+      {
+        language: 'JavaScript',
+        nickname: '일이삼사오육칠팔구십',
+        status: 'JOINED',
+      },
+      {
+        language: 'JavaScript',
+        nickname: '일이삼사오육칠팔구십',
+        status: 'JOINED',
+      },
+      {
+        language: 'JavaScript',
+        nickname: '일이삼사오육칠팔구십',
+        status: 'WAITING',
+      },
+      {
+        language: 'JavaScript',
+        nickname: '일이삼사오육칠팔구십',
+        status: 'JOINED',
+      },
+      {
+        language: 'JavaScript',
+        nickname: '일이삼사오육칠팔구십',
+        status: 'JOINED',
+      },
     ],
   };
 
