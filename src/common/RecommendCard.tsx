@@ -1,41 +1,53 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 
 const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
-  const handleClickCard = (id: number) => {
-    /* 페이지 이동 */
+  const navigate = useNavigate();
 
-    // 추후 수정해주세요 !!
-    console.log(id);
+  const handleClickCard = (id: number) => {
+    navigate(`/group/${id}`);
   };
 
   return (
     <RecommendCardContainer $isLongPage={isLongPage} $numOfData={group.length}>
       {group.map((card) => {
-        const { nickname, imgSrc, profile, num, title, content, tags } = card;
+        const {
+          roomId,
+          title,
+          owner,
+          imageSrc,
+          memberCount,
+          capacity,
+          tags,
+          introduce,
+        } = card;
+        const { nickname, profileImg } = owner;
 
         return (
-          <CardContainer key={num} onClick={() => handleClickCard(num)}>
-            <Img src={imgSrc} />
+          <CardContainer key={roomId} onClick={() => handleClickCard(roomId)}>
+            <Img src={imageSrc} />
 
             <Info>
               <CardHeader>
-                <UserImg src={profile} />
+                <UserImg src={profileImg} />
                 <TextId>
                   <Text>{nickname} 님</Text>
                   <Text>|</Text>
-                  <p>{num} / 50명</p>
+                  <p>
+                    {memberCount} / {capacity}명
+                  </p>
                 </TextId>
               </CardHeader>
 
               <CardBody>
                 <CardTitle>{title}</CardTitle>
-                <CardContent>{content}</CardContent>
+                <CardContent>{introduce}</CardContent>
               </CardBody>
 
               <CardTags>
                 {tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
+                  <Tag key={tag}>#{tag}</Tag>
                 ))}
               </CardTags>
             </Info>

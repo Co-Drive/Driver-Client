@@ -8,13 +8,32 @@ export interface ActiveGroupProps {
 }
 
 export interface PersonalGroupProps {
+  totalPage: number;
   group: Array<{
-    nickname: string;
-    imgSrc: string;
-    profile: string;
-    num: number;
+    roomId: number;
     title: string;
+    owner: {
+      userId: number;
+      nickname: string;
+      profileImg: string;
+    };
+    imageSrc: string;
+    memberCount: number;
+    capacity: number;
     tags: Array<string>;
-    content: string;
+    introduce: string;
   }>;
+  clickedPage: number;
+  handleClickPages: {
+    handleClickPrevBtn: () => void;
+    handleClickPage: (page: number) => void;
+    handleClickNextBtn: () => void;
+  };
+}
+
+export interface GetRoomsProps {
+  sortType: string;
+  page: number;
+  status: string;
+  isJoinedRooms: boolean;
 }
