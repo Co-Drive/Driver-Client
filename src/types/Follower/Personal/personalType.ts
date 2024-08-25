@@ -1,11 +1,11 @@
 export interface FollowerInfoProps {
   info: {
-    profileImg: string;
-    nickname: string;
-    isFollowed: boolean;
-    introduce: string;
+    comment: string;
+    githubUrl: string;
+    isFollowing: boolean;
     language: string;
-    github?: string;
-    rate: number;
+    nickname: string;
+    profileImg: string;
+    successRate: number;
   };
 }

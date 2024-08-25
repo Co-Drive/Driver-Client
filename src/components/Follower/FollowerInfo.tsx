@@ -14,16 +14,16 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
   const {
     profileImg,
     nickname,
-    isFollowed,
-    introduce,
+    isFollowing,
+    comment,
     language,
-    github,
-    // rate,
+    githubUrl,
+    // successRate,
   } = info;
 
   const handleClickFollowBtn = async () => {
     try {
-      isFollowed ? await deleteFollower('문주') : await postFollower('문주');
+      isFollowing ? await deleteFollower('문주') : await postFollower('문주');
 
       // 추후 아래 코드로 변경할 예정
       // isFollowed ? await deleteFollower(nickname) : await postFollower(nickname);
@@ -45,23 +45,23 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
         <ProfileTextContainer>
           <NicknameContainer>
             <Nickname>{nickname}</Nickname>
-            <NicknameText $isGithubExit={github}>님</NicknameText>
-            {github && (
-              <IcGithubSmall onClick={() => handleClickLink(github)} />
+            <NicknameText $isGithubExit={githubUrl}>님</NicknameText>
+            {githubUrl && (
+              <IcGithubSmall onClick={() => handleClickLink(githubUrl)} />
             )}
           </NicknameContainer>
-          <Introduce>{introduce}</Introduce>
+          <Introduce>{comment}</Introduce>
         </ProfileTextContainer>
       </ProfileContainer>
 
       <FollowingBtn
         type="button"
         onClick={handleClickFollowBtn}
-        $isFollowed={isFollowed}
+        $isFollowed={isFollowing}
       >
-        {isFollowed ? <IcFollowingGray /> : <IcUnfollowingWhite />}
-        <Text $isFollowed={isFollowed}>
-          {isFollowed ? `팔로잉` : `팔로우 추가`}
+        {isFollowing ? <IcFollowingGray /> : <IcUnfollowingWhite />}
+        <Text $isFollowed={isFollowing}>
+          {isFollowing ? `팔로잉` : `팔로우 추가`}
         </Text>
       </FollowingBtn>
     </FollowerInfoContainer>
