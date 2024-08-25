@@ -94,6 +94,10 @@ const ApplicationModal = () => {
               })}
             </Applicants>
           </ApplicantsContainer>
+          <JoinedNumContainer>
+            <JoinedNum>{joinNum}</JoinedNum>
+            <JoinedText>명 승인</JoinedText>
+          </JoinedNumContainer>
         </Modal>
       </ModalForm>
     </ModalPortal>
@@ -198,4 +202,23 @@ const Nickname = styled.p`
 const NicknameText = styled.p`
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.title_semiBold_14};
+`;
+
+const JoinedNumContainer = styled.div`
+  display: flex;
+  gap: 0.1rem;
+  justify-content: end;
+  align-items: center;
+
+  margin-right: 2rem;
+`;
+
+const JoinedNum = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_ligth_10};
+`;
+
+const JoinedText = styled.p`
+  color: ${({ theme }) => theme.colors.gray200};
+  ${({ theme }) => theme.fonts.body_ligth_10};
 `;
