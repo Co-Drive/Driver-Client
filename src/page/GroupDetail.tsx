@@ -4,12 +4,14 @@ import GroupInfo from '../components/GroupDetail/GroupInfo';
 import Header from '../components/GroupDetail/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
+import usePostPublicRequest from '../libs/hooks/GroupDetail/usePostPublicRequest';
 
 const GroupDetail = () => {
   const { id } = useParams();
   if (!id) return;
 
   const { data, isLoading } = useGetDetail(parseInt(id));
+  const { mutation, isSuccess } = usePostPublicRequest();
   const {
     title,
     owner,
@@ -20,6 +22,10 @@ const GroupDetail = () => {
     introduce,
     information,
   } = !isLoading && data.data;
+
+  const handleClickApplyBtn = () => {
+    mutation(parseInt(id));
+  };
 
   return (
     <PageLayout category="그룹">
@@ -36,7 +42,11 @@ const GroupDetail = () => {
             information={information}
           />
 
-          <ApplyBtn type="button">신청하기</ApplyBtn>
+          {!isSuccess && (
+            <ApplyBtn type="button" onClick={handleClickApplyBtn}>
+              신청하기
+            </ApplyBtn>
+          )}
         </GroupDetailContainer>
       )}
     </PageLayout>
