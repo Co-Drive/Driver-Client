@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowLeftFill, IcArrowRightFill } from '../../assets';
 import { ActiveGroupProps } from '../../types/MyGroup/myGroupType';
 
 const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
+  const navigate = useNavigate();
   const currentPageRef = useRef(0);
   const isFirstPage = currentPageRef.current === 0;
   const isLastPage = currentPageRef.current === totalActiveGroups.length - 4;
@@ -32,7 +34,7 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
   };
 
   const handleClickItem = (id: number) => {
-    console.log('click!', id);
+    navigate(`/group/${id}`);
   };
 
   return (
