@@ -1,9 +1,14 @@
 import styled from 'styled-components';
 import FollowerList from '../components/Follower/Current/FollowerList';
 import FollowerQuestions from '../components/Follower/Current/FollowerQuestions';
+import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
 import PageLayout from '../components/PageLayout/PageLayout';
+import useGetTodaysSolver from '../libs/hooks/Follower/useGetTodaysSolver';
 
 const FollowerCurrentPage = () => {
+  const { data, isLoading } = useGetTodaysSolver();
+  const { followings } = !isLoading && data.data;
+
   return (
     <PageLayout category="홈">
       <FollowerCurrentPageContainer>
@@ -13,9 +18,11 @@ const FollowerCurrentPage = () => {
           <Text>주간보드</Text>
         </Header>
 
-        <FollowerQuestions />
+        <FollowerQuestions users={followings} isLoading={isLoading} />
 
         <FollowerList />
+
+        {!isLoading && followings.length === 0 && <FollowerRecommendCard />}
       </FollowerCurrentPageContainer>
     </PageLayout>
   );

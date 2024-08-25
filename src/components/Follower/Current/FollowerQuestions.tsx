@@ -1,12 +1,13 @@
 import styled from 'styled-components';
+import { FollowerQuestionsProps } from '../../../types/Follower/Current/currentType';
 import NumOfQuestions from './NumOfQuestions';
 import TodaysSolver from './TodaysSolver';
 
-const FollowerQuestions = () => {
+const FollowerQuestions = ({ users, isLoading }: FollowerQuestionsProps) => {
   return (
     <FollowerQuestionsContainer>
       <NumOfQuestions />
-      <TodaysSolver />
+      <TodaysSolver users={users} isLoading={isLoading} />
     </FollowerQuestionsContainer>
   );
 };

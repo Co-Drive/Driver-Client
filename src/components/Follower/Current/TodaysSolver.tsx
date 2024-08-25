@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
-import { TODAYS_SOLVER_DUMMY } from '../../../constants/Follower/currentConst';
+import { FollowerQuestionsProps } from '../../../types/Follower/Current/currentType';
 import Solver from './Solver';
 
-const TodaysSolver = () => {
-  const { totalPages, users } = TODAYS_SOLVER_DUMMY;
+const TodaysSolver = ({ users, isLoading }: FollowerQuestionsProps) => {
+  const totalPages = users ? Math.ceil(users.length / 3) : 0;
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleClickArrowLeft = () => {
@@ -21,22 +22,26 @@ const TodaysSolver = () => {
   };
 
   return (
-    <TodaysSolverContainer>
-      <Header>
-        <Title>오늘 문제 푼 팔로워</Title>
+    <>
+      {!isLoading && (
+        <TodaysSolverContainer>
+          <Header>
+            <Title>오늘 문제 푼 팔로워</Title>
 
-        {users.length && (
-          <ArrowContainer>
-            <IcArrowLeftSmallGray onClick={handleClickArrowLeft} />
-            <IcArrowRightSmallGray onClick={handleClickArrowRight} />
-          </ArrowContainer>
-        )}
-      </Header>
+            {users.length && (
+              <ArrowContainer>
+                <IcArrowLeftSmallGray onClick={handleClickArrowLeft} />
+                <IcArrowRightSmallGray onClick={handleClickArrowRight} />
+              </ArrowContainer>
+            )}
+          </Header>
 
-      <SolverContainer>
-        <Solver currentPage={currentPage} users={users} />
-      </SolverContainer>
-    </TodaysSolverContainer>
+          <SolverContainer>
+            <Solver currentPage={currentPage} users={users} />
+          </SolverContainer>
+        </TodaysSolverContainer>
+      )}
+    </>
   );
 };
 
