@@ -6,10 +6,14 @@ const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
     const { name, problemNum } = payload[0].payload;
 
     return (
-      <ToolTipContainer>
-        <Name>{name}</Name>
-        <ProblemNum>{`${problemNum} 문제`}</ProblemNum>
-      </ToolTipContainer>
+      <>
+        {problemNum !== 0 && (
+          <ToolTipContainer>
+            <Name>{name}</Name>
+            <ProblemNum>{`${problemNum} 문제`}</ProblemNum>
+          </ToolTipContainer>
+        )}
+      </>
     );
   }
 };
@@ -38,7 +42,7 @@ const Name = styled.p`
 
   &::after {
     position: absolute;
-    top: 3.7rem;
+    top: 3.6rem;
     left: calc(100% / 2.2);
 
     width: 0;
