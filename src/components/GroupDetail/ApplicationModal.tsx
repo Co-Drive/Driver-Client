@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IcSuccess } from '../../assets';
 import ModalPortal from '../../common/Modal/ModalPortal';
 
 const ApplicationModal = () => {
@@ -8,7 +9,7 @@ const ApplicationModal = () => {
       {
         language: 'JavaScript',
         nickname: '일이삼사오육칠팔구십',
-        status: 'WAITING',
+        status: 'REQUESTED',
       },
       {
         language: 'JavaScript',
@@ -18,7 +19,7 @@ const ApplicationModal = () => {
       {
         language: 'JavaScript',
         nickname: '일이삼사오육칠팔구십',
-        status: 'WAITING',
+        status: 'JOINED',
       },
     ],
   };
@@ -34,7 +35,22 @@ const ApplicationModal = () => {
             <Applicants>
               {applicants.map((applicant, idx) => {
                 const { language, nickname, status } = applicant;
-                return <Applicant key={idx}></Applicant>;
+                return (
+                  <Applicant key={idx}>
+                    <TopContainer $isJoined={status === 'JOINED'}>
+                      <Language>#{language}</Language>
+                      {status === 'JOINED' ? (
+                        <IcSuccess />
+                      ) : (
+                        <Status>대기</Status>
+                      )}
+                    </TopContainer>
+                    <NicknameContainer>
+                      <Nickname>{nickname}</Nickname>
+                      <NicknameText>님</NicknameText>
+                    </NicknameContainer>
+                  </Applicant>
+                );
               })}
             </Applicants>
           </ApplicantsContainer>
@@ -58,10 +74,10 @@ const ModalForm = styled.div`
 
 const Modal = styled.article`
   display: flex;
-  align-items: center;
+  align-items: end;
   flex-direction: column;
 
-  padding: 2.4rem 0 1.8rem;
+  padding: 2.4rem 0.8rem 1.8rem;
   margin: 11.8rem 46.6rem 102rem 46.8rem;
 
   border-radius: 1.6rem;
@@ -80,18 +96,18 @@ const Header = styled.header`
 `;
 
 const ApplicantsContainer = styled.div`
-  max-height: 22.7rem;
-
   overflow: hidden auto;
 
   width: 100%;
-  padding: 1.8rem 0.8rem 1.4rem 1.8rem;
+  padding-left: 1rem;
+  margin: 1.8rem 0 1.4rem;
+  max-height: 22.7rem;
 `;
 
 const Applicants = styled.div`
   display: grid;
   gap: 1rem;
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 `;
 
 const Applicant = styled.div`
@@ -99,8 +115,47 @@ const Applicant = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  padding: 1.4rem 1.2rem 1.4rem 1.4rem;
+  padding: 1.1rem 1.2rem 1.4rem 1.4rem;
+  margin-right: 1rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
+`;
+
+const TopContainer = styled.div<{ $isJoined: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: ${({ $isJoined }) => ($isJoined ? `0.3rem` : `1rem`)};
+`;
+
+const Language = styled.p`
+  margin-top: 0.3rem;
+
+  color: ${({ theme }) => theme.colors.codrive_purple};
+  ${({ theme }) => theme.fonts.body_eng_medium_12};
+`;
+
+const Status = styled.p`
+  margin-top: 0.3rem;
+
+  color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.detail_regular_12};
+`;
+
+const NicknameContainer = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+`;
+
+const Nickname = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_semiBold_14};
+`;
+
+const NicknameText = styled.p`
+  color: ${({ theme }) => theme.colors.gray200};
+  ${({ theme }) => theme.fonts.title_semiBold_14};
 `;
