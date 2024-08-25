@@ -254,7 +254,7 @@ const DropdownItem = styled.div<{ $isSelected: boolean }>`
 const Borderline = styled.div`
   margin-left: 1.8rem;
 
-  border-right: 1px solid ${({ theme }) => theme.colors.gray600};
+  border-right: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const AllTagContainer = styled.div`
