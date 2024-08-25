@@ -84,15 +84,6 @@ const GroupContainer = styled.article`
   grid-template-columns: repeat(3, 1fr);
 
   width: 100%;
-  height: 58.2rem;
-  overflow-y: auto;
-
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const CardContainer = styled.div`
