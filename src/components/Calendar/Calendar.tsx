@@ -1,5 +1,5 @@
 /* stylelint-disable selector-class-pattern */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled from 'styled-components';
@@ -40,10 +40,6 @@ const CommonCalendar = () => {
     setIsCalendarClicked(false);
   };
 
-  useEffect(() => {
-    console.log(selectedDate);
-  });
-
   return (
     <CalendarContainer>
       <NavContainer>
@@ -68,7 +64,7 @@ const CommonCalendar = () => {
         )}
       </NavContainer>
       <StyledCalendar
-        onChange={setSelectedDate}
+        onChange={(value) => setSelectedDate(value)}
         locale="ko-KR"
         value={selectedDate}
         showNeighboringMonth={true}
@@ -145,8 +141,8 @@ const StyledCalendar = styled(Calendar)`
       position: absolute;
       overflow: hidden;
 
-      width: 1px;
-      height: 1px;
+      width: 0.1rem;
+      height: 0.1rem;
 
       border: 0;
       clip: rect(1px, 1px, 1px, 1px);
@@ -180,5 +176,4 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile:enabled:focus {
     background-color: ${({ theme }) => theme.colors.gray500};
   }
-  /* stylelint-disable-next-line selector-class-pattern */
 `;
