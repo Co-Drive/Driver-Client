@@ -39,6 +39,16 @@ export interface SolverProps extends FollowingsType {
   currentPage: number;
 }
 
-export interface FollowerQuestionsProps extends FollowingsType {
-  isLoading: boolean;
+export interface GetFollowerSummaryProps {
+  sortType: string;
+  page: number;
+  groupId?: number;
+}
+
+export interface FollowerFilterProps {
+  sorting: string;
+  updateSelectedGroupId: (id: number) => void;
+  handleClickSorting: (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) => void;
 }
