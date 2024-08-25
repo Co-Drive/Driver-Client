@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { IcSuccess } from '../../assets';
 import ModalPortal from '../../common/Modal/ModalPortal';
-import { ApplicationModalProps } from '../../types/\bGroupDetail/groupDetailType';
+import { ApplicationModalProps } from '../../types/GroupDetail/groupDetailType';
 
 const ApplicationModal = ({ onClose }: ApplicationModalProps) => {
   const APPLICANTS_DUMMY = {
