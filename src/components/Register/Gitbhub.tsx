@@ -19,11 +19,12 @@ const Github = ({ github, handleChangeInputs }: GithubProps) => {
 export default Github;
 
 const GithubContainer = styled.div`
-  margin-bottom: 5rem;
+  margin-bottom: 5.4rem;
 `;
 
 const Title = styled.h2`
   margin-bottom: 0.6rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_20};
@@ -33,6 +34,7 @@ const Info = styled.span`
   display: block;
 
   margin-bottom: 1.6rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.detail_regular_12};

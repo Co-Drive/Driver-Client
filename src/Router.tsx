@@ -6,6 +6,7 @@ import GroupCreate from './page/GroupCreate';
 import GroupJoin from './page/GroupJoin';
 import Home from './page/Home';
 import LoginPage from './page/LoginPage';
+import RegisterPage from './page/RegisterPage';
 import SolutionListPage from './page/SolutionListPage';
 import SolutionPage from './page/SolutionPage';
 import SolvePage from './page/SolvePage';
@@ -22,12 +23,14 @@ const Router = () => {
         <Route path="/my-group" element={<MyGroup />}/>
         <Route path="/group-join" element={<GroupJoin />} />
         <Route path="/group-complete" element={<GroupComplete />} />
+        <Route path="/group-complete/:id" element={<GroupComplete />} />
         <Route path="/solve" element={<SolvePage />} />
         <Route path="/solution" element={<SolutionListPage />} />
         <Route path="/solution/:id" element={<SolutionPage />} />
         <Route path="/follower" element={<FollowerCurrentPage />} />
         <Route path="/follower/:id" element={<FollowerPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
   );
