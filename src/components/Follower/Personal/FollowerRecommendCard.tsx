@@ -5,11 +5,13 @@ import {
   IcInformation,
   IcUnfollowingWhite,
 } from '../../../assets';
-import { FOLLOWER_DUMMY } from '../../../constants/Follower/followerConst';
+import useGetFollowerRecommend from '../../../libs/hooks/Follower/useGetFollowerRecommend';
 
 const FollowerRecommendCard = () => {
-  const { recommend } = FOLLOWER_DUMMY;
   const myNickname = sessionStorage.getItem('nickname');
+
+  const { data, isLoading } = useGetFollowerRecommend();
+  const { users } = !isLoading && data.data;
 
   return (
     <RecommendCardContainer>
@@ -19,37 +21,57 @@ const FollowerRecommendCard = () => {
         <IcInformation />
       </TitleContainer>
 
-      <RecommendCard>
-        {recommend.map((randomFollower, idx) => {
-          const { id, profileImg, nickname, language, github, isFollowed } =
-            randomFollower;
-          return (
-            <PersonalCard key={id} $addHr={idx < 4}>
-              <ProfileImg
-                src={profileImg}
-                $isGithubExit={github?.length !== 0}
-              />
-              {github && (
-                <IcContainer>
-                  <IcGithubLogoSmall />
-                </IcContainer>
-              )}
+      {!isLoading && (
+        <RecommendCard>
+          {users.map(
+            (
+              user: {
+                userId: number;
+                profileImg: string;
+                nickname: string;
+                language: string;
+                githubUrl: string;
+                isFollowing: boolean;
+              },
+              idx: number
+            ) => {
+              const {
+                userId,
+                profileImg,
+                nickname,
+                language,
+                githubUrl,
+                isFollowing,
+              } = user;
+              return (
+                <PersonalCard key={userId} $addHr={idx < 4}>
+                  <ProfileImg
+                    src={profileImg}
+                    $isGithubExit={githubUrl?.length !== 0}
+                  />
+                  {githubUrl && (
+                    <IcContainer>
+                      <IcGithubLogoSmall />
+                    </IcContainer>
+                  )}
 
-              <ProfileInfo>
-                <Nickname>{nickname}</Nickname>
-                <Language>{`#${language}`}</Language>
-              </ProfileInfo>
+                  <ProfileInfo>
+                    <Nickname>{nickname}</Nickname>
+                    <Language>{`#${language}`}</Language>
+                  </ProfileInfo>
 
-              <FollowingBtn type="button" $isFollowed={isFollowed}>
-                {isFollowed ? <IcFollowingGray /> : <IcUnfollowingWhite />}
-                <FollowingText $isFollowed={isFollowed}>
-                  {isFollowed ? `팔로잉` : `팔로우`}
-                </FollowingText>
-              </FollowingBtn>
-            </PersonalCard>
-          );
-        })}
-      </RecommendCard>
+                  <FollowingBtn type="button" $isFollowed={isFollowing}>
+                    {isFollowing ? <IcFollowingGray /> : <IcUnfollowingWhite />}
+                    <FollowingText $isFollowed={isFollowing}>
+                      {isFollowing ? `팔로잉` : `팔로우`}
+                    </FollowingText>
+                  </FollowingBtn>
+                </PersonalCard>
+              );
+            }
+          )}
+        </RecommendCard>
+      )}
     </RecommendCardContainer>
   );
 };
