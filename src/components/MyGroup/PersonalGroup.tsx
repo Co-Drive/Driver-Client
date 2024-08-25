@@ -24,7 +24,12 @@ const PersonalGroup = () => {
   const { data } = useGetRooms({
     sortType: sorting,
     page: clickedPage - 1,
-    status: clickedStatus,
+    status:
+      clickedStatus === '모집 중'
+        ? 'ACTIVE'
+        : clickedStatus === '모집 마감'
+          ? 'INACTIVE'
+          : 'CLOSE',
     isJoinedRooms: isJoinedRooms,
   });
 
