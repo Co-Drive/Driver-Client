@@ -1,11 +1,10 @@
 import { Cell, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import { GRAPH_COLORS } from '../../../constants/Follower/currentConst';
-import { CurrentGraphProps } from '../../../types/Follower/Current/currentType';
+import { WeeklyCurrentGraphProps } from '../../../types/Follower/Current/currentType';
 
-const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
+const WeeklyCurrentGraph = ({ percentage }: WeeklyCurrentGraphProps) => {
   const process = [{ name: 'Progress', value: percentage }];
-
   const remaining = [{ name: 'Remaining', value: 100 - percentage }];
 
   return (
@@ -47,7 +46,7 @@ const CurrentGraph = ({ percentage }: CurrentGraphProps) => {
   );
 };
 
-export default CurrentGraph;
+export default WeeklyCurrentGraph;
 
 const GraphContainer = styled.div`
   flex-grow: 1;
@@ -59,6 +58,9 @@ const GraphContainer = styled.div`
 `;
 
 const Rate = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
 
@@ -66,7 +68,5 @@ const Rate = styled.p`
   padding: 1.8rem 1rem 1.8rem 1.1rem;
 
   color: ${({ theme }) => theme.colors.white};
-
   ${({ theme }) => theme.fonts.title_bold_14};
-  text-align: center;
 `;

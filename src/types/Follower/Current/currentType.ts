@@ -20,6 +20,14 @@ export interface ClickDailyBoardProps {
   date: string;
 }
 
-export interface CurrentGraphProps {
+export interface WeeklyCurrentGraphProps {
   percentage: number;
+}
+
+export interface FollowerCurrentGraphProps {
+  users: Array<{
+    userId: number;
+    nickname: string;
+    problemNum: number;
+  }>;
 }

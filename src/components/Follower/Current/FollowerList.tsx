@@ -10,8 +10,8 @@ import {
 import { DUMMY } from '../../../constants/Follower/currentConst';
 import FollowerRecommendCard from '../Personal/FollowerRecommendCard';
 import AdditionalProblemsModal from './AdditionalProblemsModal';
-import CurrentGraph from './CurrentGraph';
 import FollowerFilter from './FollowerFilter';
+import WeeklyCurrentGraph from './WeeklyCurrentGraph';
 
 const FollowerList = () => {
   const { followers } = DUMMY;
@@ -85,7 +85,7 @@ const FollowerList = () => {
                     <Nickname>{nickname}</Nickname>
                     <Language>{language}</Language>
                   </UserContainer>
-                  <CurrentGraph percentage={rate} />
+                  <WeeklyCurrentGraph percentage={rate} />
 
                   <Problem>{problem}</Problem>
                   {isExitAndClicked ? (
@@ -207,6 +207,8 @@ const Contents = styled.div<{ $isClicked: boolean }>`
 
   background-color: ${({ $isClicked, theme }) =>
     $isClicked && theme.colors.gray800};
+
+  cursor: pointer;
 `;
 
 const ProfileImg = styled.img`
@@ -215,6 +217,8 @@ const ProfileImg = styled.img`
 
   border-radius: 0.8rem;
   object-fit: cover;
+
+  cursor: pointer;
 `;
 
 const UserContainer = styled.div`
@@ -227,6 +231,8 @@ const UserContainer = styled.div`
   width: 16rem;
   padding-left: 0.8rem;
   margin-right: 11.1rem;
+
+  cursor: pointer;
 `;
 
 const Nickname = styled.p`
