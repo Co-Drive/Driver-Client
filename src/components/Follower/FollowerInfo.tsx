@@ -72,6 +72,7 @@ export default FollowerInfo;
 
 const FollowerInfoContainer = styled.article`
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   flex-grow: 0.4;
 
@@ -79,6 +80,7 @@ const FollowerInfoContainer = styled.article`
   background-color: ${({ theme }) => theme.colors.gray800};
 
   min-width: 29.7rem;
+  min-height: 41rem;
 `;
 
 const Language = styled.p`
