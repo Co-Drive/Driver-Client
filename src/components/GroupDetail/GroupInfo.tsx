@@ -6,6 +6,7 @@ import { GroupInfoProps } from '../../types/GroupDetail/groupDetailType';
 import ApplicationModal from './ApplicationModal';
 
 const GroupInfo = ({
+  id,
   owner,
   requestedCount,
   capacity,
@@ -51,7 +52,9 @@ const GroupInfo = ({
         </Rule>
       </Rules>
 
-      {modalOn && <ApplicationModal onClose={() => setModalOn(false)} />}
+      {modalOn && (
+        <ApplicationModal id={id} onClose={() => setModalOn(false)} />
+      )}
     </GroupInfoContainer>
   );
 };

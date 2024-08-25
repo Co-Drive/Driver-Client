@@ -28,6 +28,7 @@ const GroupDetail = () => {
           <Header title={title} tags={tags} />
           <GroupImg src={imageSrc} />
           <GroupInfo
+            id={parseInt(id)}
             owner={owner}
             requestedCount={requestedCount}
             capacity={capacity}

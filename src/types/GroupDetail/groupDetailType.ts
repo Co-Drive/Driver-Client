@@ -1,4 +1,5 @@
 export interface ApplicationModalProps {
+  id: number;
   onClose: () => void;
 }
 
@@ -8,6 +9,7 @@ export interface GroupDetailHeaderProps {
 }
 
 export interface GroupInfoProps {
+  id: number;
   owner: {
     userId: number;
     nickname: string;
