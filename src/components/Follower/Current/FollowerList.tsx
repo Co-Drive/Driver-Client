@@ -8,8 +8,10 @@ import {
   IcArrowTopWhite,
 } from '../../../assets';
 import { DUMMY } from '../../../constants/Follower/currentConst';
+import FollowerRecommendCard from '../Personal/FollowerRecommendCard';
 import AdditionalProblemsModal from './AdditionalProblemsModal';
 import FollowerFilter from './FollowerFilter';
+import WeeklyCurrentGraph from './WeeklyCurrentGraph';
 
 const FollowerList = () => {
   const { followers } = DUMMY;
@@ -67,11 +69,13 @@ const FollowerList = () => {
         <List>
           {followers.map((follower) => {
             const { id, imgSrc, nickname, language, rate, problem } = follower;
+            const isExitAndClicked =
+              clickedId === id && isClicked && rate !== 0;
             return (
               <ContentsContainer key={id}>
                 <Contents
                   onClick={() => handleClickContents(id)}
-                  $isClicked={clickedId === id && isClicked}
+                  $isClicked={isExitAndClicked}
                 >
                   <ProfileImg
                     src={imgSrc}
@@ -81,16 +85,17 @@ const FollowerList = () => {
                     <Nickname>{nickname}</Nickname>
                     <Language>{language}</Language>
                   </UserContainer>
-                  <Rate>{`${rate}%`}</Rate>
+                  <WeeklyCurrentGraph percentage={rate} />
+
                   <Problem>{problem}</Problem>
-                  {clickedId === id && isClicked ? (
+                  {isExitAndClicked ? (
                     <IcArrowTopWhite />
                   ) : (
                     <IcArrowBottomWhite />
                   )}
                 </Contents>
 
-                {clickedId === id && isClicked && <AdditionalProblemsModal />}
+                {isExitAndClicked && <AdditionalProblemsModal />}
               </ContentsContainer>
             );
           })}
@@ -119,6 +124,8 @@ const FollowerList = () => {
           }
         />
       </PageNationBar>
+
+      {followers.length === 0 && <FollowerRecommendCard />}
     </FollowerListContainer>
   );
 };
@@ -200,6 +207,8 @@ const Contents = styled.div<{ $isClicked: boolean }>`
 
   background-color: ${({ $isClicked, theme }) =>
     $isClicked && theme.colors.gray800};
+
+  cursor: pointer;
 `;
 
 const ProfileImg = styled.img`
@@ -208,6 +217,8 @@ const ProfileImg = styled.img`
 
   border-radius: 0.8rem;
   object-fit: cover;
+
+  cursor: pointer;
 `;
 
 const UserContainer = styled.div`
@@ -220,6 +231,8 @@ const UserContainer = styled.div`
   width: 16rem;
   padding-left: 0.8rem;
   margin-right: 11.1rem;
+
+  cursor: pointer;
 `;
 
 const Nickname = styled.p`
@@ -230,16 +243,6 @@ const Nickname = styled.p`
 const Language = styled.p`
   color: ${({ theme }) => theme.colors.gray400};
   ${({ theme }) => theme.fonts.body_eng_regular_14};
-`;
-
-const Rate = styled.p`
-  flex-grow: 1;
-
-  padding: 1.8rem 1rem 1.8rem 1.1rem;
-  margin-right: 10.4rem;
-
-  color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.title_bold_14};
 `;
 
 const Problem = styled.p`

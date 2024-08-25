@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import FollowerList from '../components/Follower/Current/FollowerList';
+import FollowerQuestions from '../components/Follower/Current/FollowerQuestions';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const FollowerCurrentPage = () => {
@@ -11,6 +12,8 @@ const FollowerCurrentPage = () => {
           <Date>7월 15일 - 21일</Date>
           <Text>주간보드</Text>
         </Header>
+
+        <FollowerQuestions />
 
         <FollowerList />
       </FollowerCurrentPageContainer>

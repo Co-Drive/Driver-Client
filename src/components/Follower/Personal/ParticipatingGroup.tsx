@@ -1,8 +1,10 @@
 // import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ParticipatingGroupProps } from '../../../types/Follower/Personal/personalType';
+import { FOLLOWER_DUMMY } from '../../../constants/Follower/followerConst';
 
-const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
+const ParticipatingGroup = () => {
+  const { group } = FOLLOWER_DUMMY;
+
   const nickname = sessionStorage.getItem('nickname');
   // 라우팅 정의 후, 콘솔은 지우고 navigate 코드로 변경할 예정입니다 !!
   //   const navigate = useNavigate();
