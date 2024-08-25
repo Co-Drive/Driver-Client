@@ -1,50 +1,40 @@
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import FollowerInfo from '../components/Follower/FollowerInfo';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
 import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGroup';
 import Solutions from '../components/Follower/Personal/Solutions';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { FOLLOWER_DUMMY } from '../constants/Follower/followerConst';
+import useGetUserProfile from '../libs/hooks/Follower/useGetUserProfile';
 
 const FollowerPage = () => {
-  // 팔로워 정보를 불러오는 서버 통신 코드 추가 예정
-  const {
-    id,
-    profileImg,
-    nickname,
-    isFollowed,
-    introduce,
-    language,
-    github,
-    rate,
-  } = FOLLOWER_DUMMY;
+  const { id } = useParams();
+  if (!id) return;
+  const { data, isLoading } = useGetUserProfile(parseInt(id));
+  const { nickname, isFollowing } = !isLoading && data.data;
 
   return (
     <PageLayout category="홈">
-      <FollowerPageContainer>
-        <TopContainer>
-          <FollowerInfo
-            info={{
-              profileImg,
-              nickname,
-              isFollowed,
-              introduce,
-              language,
-              github,
-              rate,
-            }}
+      {!isLoading && (
+        <FollowerPageContainer>
+          <TopContainer>
+            <FollowerInfo info={data.data} />
+
+            {/* 나중에 다른 컴포넌트로 대체 예정 */}
+            <Temp></Temp>
+          </TopContainer>
+
+          <Solutions
+            id={parseInt(id)}
+            nickname={nickname}
+            isFollowed={isFollowing}
           />
 
-          {/* 나중에 다른 컴포넌트로 대체 예정 */}
-          <Temp></Temp>
-        </TopContainer>
+          <ParticipatingGroup />
 
-        <Solutions id={id} nickname={nickname} isFollowed={isFollowed} />
-
-        <ParticipatingGroup />
-
-        <FollowerRecommendCard />
-      </FollowerPageContainer>
+          <FollowerRecommendCard />
+        </FollowerPageContainer>
+      )}
     </PageLayout>
   );
 };
