@@ -61,7 +61,9 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
           })}
         </GroupContainer>
 
-        {!isLastPage && <IcArrowRightFill onClick={nextSlide} />}
+        {!isLastPage && totalActiveGroups.length > 4 && (
+          <IcArrowRightFill onClick={nextSlide} />
+        )}
       </CarouselContainer>
     </ActiveGroupContainer>
   );
