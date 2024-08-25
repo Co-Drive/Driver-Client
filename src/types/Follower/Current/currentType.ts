@@ -30,3 +30,15 @@ export interface FollowerCurrentGraphProps {
     count: number;
   }>;
 }
+
+interface FollowingsType {
+  users: Array<{ nickname: string; profileImg: string }>;
+}
+
+export interface SolverProps extends FollowingsType {
+  currentPage: number;
+}
+
+export interface FollowerQuestionsProps extends FollowingsType {
+  isLoading: boolean;
+}
