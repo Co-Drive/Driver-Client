@@ -5,12 +5,12 @@ import CustomTooltip from './CustomTooltip';
 
 const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const data = users.map((user) => {
-    const { nickname, problemNum } = user;
-    const height = problemNum * 10 + 10;
+    const { nickname, count } = user;
+    const height = count * 10 + 10;
 
     return {
       name: nickname,
-      problemNum: problemNum,
+      count: count,
       height: height,
     };
   });
@@ -18,13 +18,13 @@ const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const filledData = Array(15)
     .fill(0)
     .map((_, index) => {
-      return data[index] || { name: '', problemNum: 0, height: 50 };
+      return data[index] || { name: '', count: 0, height: 50 };
     });
 
   const barArr = data.length >= 15 ? data : filledData;
 
-  const getColor = (problemNum: number) => {
-    switch (problemNum) {
+  const getColor = (count: number) => {
+    switch (count) {
       case 0:
         return '#292A2F';
       case 1:
@@ -69,7 +69,7 @@ const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
             isAnimationActive={false}
           >
             {barArr.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={getColor(entry.problemNum)} />
+              <Cell key={`cell-${index}`} fill={getColor(entry.count)} />
             ))}
           </Bar>
         </BarChart>

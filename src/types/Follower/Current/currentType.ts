@@ -26,8 +26,7 @@ export interface WeeklyCurrentGraphProps {
 
 export interface FollowerCurrentGraphProps {
   users: Array<{
-    userId: number;
     nickname: string;
-    problemNum: number;
+    count: number;
   }>;
 }
