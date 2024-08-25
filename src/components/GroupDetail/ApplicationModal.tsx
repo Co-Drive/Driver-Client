@@ -1,71 +1,13 @@
 import styled from 'styled-components';
 import { IcSuccess } from '../../assets';
 import ModalPortal from '../../common/Modal/ModalPortal';
+import useGetRequests from '../../libs/hooks/GroupDetail/useGetRequests';
 import { ApplicationModalProps } from '../../types/GroupDetail/groupDetailType';
 
-const ApplicationModal = ({ onClose }: ApplicationModalProps) => {
-  const APPLICANTS_DUMMY = {
-    joinNum: 3,
-    applicants: [
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'REQUESTED',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'WAITING',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'JOINED',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'JOINED',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'REQUESTED',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'WAITING',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'JOINED',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'JOINED',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'WAITING',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'JOINED',
-      },
-      {
-        language: 'JavaScript',
-        nickname: '일이삼사오육칠팔구십',
-        status: 'JOINED',
-      },
-    ],
-  };
-
-  const { joinNum, applicants } = APPLICANTS_DUMMY;
+const ApplicationModal = ({ id, onClose }: ApplicationModalProps) => {
+  const { data, isLoading } = useGetRequests(id);
+  const { approvedCount, requests } = !isLoading && data.data;
+  const isRequestsExit = !isLoading && approvedCount - 1 !== 0;
 
   const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.currentTarget === e.target) {
@@ -74,40 +16,58 @@ const ApplicationModal = ({ onClose }: ApplicationModalProps) => {
   };
 
   return (
-    <ModalPortal>
-      <ModalForm onClick={handleClickBg}>
-        <Modal>
-          <Header>신청 현황</Header>
-          <ApplicantsContainer>
-            <Applicants>
-              {applicants.map((applicant, idx) => {
-                const { language, nickname, status } = applicant;
-                return (
-                  <Applicant key={idx}>
-                    <TopContainer $isJoined={status === 'JOINED'}>
-                      <Language>#{language}</Language>
-                      {status === 'JOINED' ? (
-                        <IcSuccess />
-                      ) : (
-                        <Status>대기</Status>
-                      )}
-                    </TopContainer>
-                    <NicknameContainer>
-                      <Nickname>{nickname}</Nickname>
-                      <NicknameText>님</NicknameText>
-                    </NicknameContainer>
-                  </Applicant>
-                );
-              })}
-            </Applicants>
-          </ApplicantsContainer>
-          <JoinedNumContainer>
-            <JoinedNum>{joinNum}</JoinedNum>
-            <JoinedText>명 승인</JoinedText>
-          </JoinedNumContainer>
-        </Modal>
-      </ModalForm>
-    </ModalPortal>
+    <>
+      {isRequestsExit && (
+        <ModalPortal>
+          <ModalForm onClick={handleClickBg}>
+            <Modal>
+              <Header>신청 현황</Header>
+              <ApplicantsContainer>
+                <Applicants>
+                  {requests.map(
+                    (request: {
+                      roomRequestId: number;
+                      language: string;
+                      nickname: string;
+                      roomRequestStatus: string;
+                    }) => {
+                      const {
+                        roomRequestId,
+                        language,
+                        nickname,
+                        roomRequestStatus,
+                      } = request;
+                      return (
+                        <Applicant key={roomRequestId}>
+                          <TopContainer
+                            $isJoined={roomRequestStatus === 'JOINED'}
+                          >
+                            <Language>#{language}</Language>
+                            {roomRequestStatus === 'JOINED' ? (
+                              <IcSuccess />
+                            ) : (
+                              <Status>대기</Status>
+                            )}
+                          </TopContainer>
+                          <NicknameContainer>
+                            <Nickname>{nickname}</Nickname>
+                            <NicknameText>님</NicknameText>
+                          </NicknameContainer>
+                        </Applicant>
+                      );
+                    }
+                  )}
+                </Applicants>
+              </ApplicantsContainer>
+              <JoinedNumContainer>
+                <JoinedNum>{approvedCount - 1}</JoinedNum>
+                <JoinedText>명 승인</JoinedText>
+              </JoinedNumContainer>
+            </Modal>
+          </ModalForm>
+        </ModalPortal>
+      )}
+    </>
   );
 };
 
