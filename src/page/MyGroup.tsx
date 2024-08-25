@@ -3,14 +3,20 @@ import ActiveGroups from '../components/MyGroup/ActiveGroups';
 import PersonalGroup from '../components/MyGroup/PersonalGroup';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { GROUP_ALL_DUMMY } from '../constants/MyGroup/myGroupConts';
+import useGetRecentRooms from '../libs/hooks/MyGroup/useGetRecentRooms';
 
 const GroupAllPage = () => {
-  const { item, group } = GROUP_ALL_DUMMY;
+  const { group } = GROUP_ALL_DUMMY;
+  const { data } = useGetRecentRooms();
+
+  const totalActiveGroups = data ? data.data.rooms : [];
 
   return (
     <PageLayout category={'그룹'}>
       <GroupAllPageContainer>
-        <ActiveGroups totalActiveGroups={item} />
+        {totalActiveGroups.length !== 0 && (
+          <ActiveGroups totalActiveGroups={totalActiveGroups} />
+        )}
 
         <PersonalGroup group={group} />
       </GroupAllPageContainer>
