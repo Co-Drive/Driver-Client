@@ -28,12 +28,10 @@ const PersonalGroup = () => {
     isJoinedRooms: isJoinedRooms,
   });
 
-  const group = data
-    ? isJoinedRooms
-      ? data.data.joinedRooms
-      : data.data.createdRooms
-    : [];
-  const totalPageRef = useRef(data ? data.data.totalPages : 1);
+  const { totalPage, joinedRooms, createdRooms } = data?.data || {};
+
+  const group = data ? (isJoinedRooms ? joinedRooms : createdRooms) : [];
+  const totalPageRef = useRef(data ? totalPage : 1);
 
   const handleClickSorting = (
     e:
