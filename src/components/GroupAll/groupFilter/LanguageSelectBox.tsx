@@ -20,6 +20,7 @@ const LanguageSelectBox = ({
     if (selectedTags.length >= 3 && tag !== ALL_TAG) {
       return;
     }
+
     if (tag === ALL_TAG) {
       selectAllTags();
     } else {
@@ -27,6 +28,7 @@ const LanguageSelectBox = ({
         const newTags = selectedTags.includes(ALL_TAG)
           ? [...selectedTags.filter((t) => t !== ALL_TAG), tag]
           : [...selectedTags, tag];
+
         setSelectedTags(newTags);
 
         if (newTags.length >= 3) {
@@ -40,13 +42,15 @@ const LanguageSelectBox = ({
     if (tag === ALL_TAG) {
       setSelectedTags([]);
     } else {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
+      const newTags = selectedTags.filter((t) => t !== tag);
+      setSelectedTags(newTags);
     }
   };
 
   const selectAllTags = () => {
-    const allTags = [...firstRowTags, ...secondRowTags, ALL_TAG];
+    const allTags = [...firstRowTags, ...secondRowTags];
     setSelectedTags(allTags);
+
     toggleDropdown();
   };
 
@@ -61,7 +65,8 @@ const LanguageSelectBox = ({
           <FilterIconContainer>
             <IcFilter />
           </FilterIconContainer>
-          {selectedTags.includes(ALL_TAG) ? (
+          {selectedTags.length ===
+          firstRowTags.length + secondRowTags.length ? (
             <SelectedTagContainer key={ALL_TAG}>
               <CommonHashTag
                 selectedTag={ALL_TAG}
@@ -124,7 +129,10 @@ const LanguageSelectBox = ({
             <Borderline />
             <AllTagContainer>
               <DropdownItem
-                $isSelected={selectedTags.includes(ALL_TAG)}
+                $isSelected={
+                  selectedTags.length ===
+                  firstRowTags.length + secondRowTags.length
+                }
                 onClick={selectAllTags}
               >
                 {ALL_TAG}
