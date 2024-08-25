@@ -30,7 +30,7 @@ const FollowerPage = () => {
             isFollowed={isFollowing}
           />
 
-          <ParticipatingGroup />
+          <ParticipatingGroup nickname={nickname}/>
 
           <FollowerRecommendCard />
         </FollowerPageContainer>

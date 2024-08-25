@@ -2,10 +2,13 @@
 import styled from 'styled-components';
 import { FOLLOWER_DUMMY } from '../../../constants/Follower/followerConst';
 
-const ParticipatingGroup = () => {
+interface ParticipatingGroupProps {
+  nickname: string;
+}
+
+const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
   const { group } = FOLLOWER_DUMMY;
 
-  const nickname = sessionStorage.getItem('nickname');
   // 라우팅 정의 후, 콘솔은 지우고 navigate 코드로 변경할 예정입니다 !!
   //   const navigate = useNavigate();
   const handleClickCard = (id: number) => {
