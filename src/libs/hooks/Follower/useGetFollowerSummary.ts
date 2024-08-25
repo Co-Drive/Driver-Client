@@ -4,14 +4,15 @@ import getFollowerSummary from '../../apis/Follower/getFollowerSummary';
 
 const useGetFollowerSummary = ({
   sortType,
+  page,
   groupId,
 }: GetFollowerSummaryProps) => {
-  const { data } = useQuery({
-    queryKey: ['get-follower-summary'],
-    queryFn: async () => await getFollowerSummary({ sortType, groupId }),
+  const { data, isLoading } = useQuery({
+    queryKey: ['get-follower-summary', sortType, groupId],
+    queryFn: async () => await getFollowerSummary({ sortType, groupId, page }),
   });
 
-  return { data };
+  return { data, isLoading };
 };
 
 export default useGetFollowerSummary;
