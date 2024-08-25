@@ -152,6 +152,8 @@ const Applicants = styled.div`
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(2, 1fr);
+
+  margin-right: 1rem;
 `;
 
 const Applicant = styled.div`
@@ -160,7 +162,6 @@ const Applicant = styled.div`
   flex-direction: column;
 
   padding: 1.1rem 1.2rem 1.4rem 1.4rem;
-  margin-right: 1rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
