@@ -9,7 +9,7 @@ const useGetRooms = ({
   isJoinedRooms,
 }: GetRoomsProps) => {
   const { data } = useQuery({
-    queryKey: ['get-participated-rooms'],
+    queryKey: ['get-participated-rooms', isJoinedRooms, sortType, page, status],
     queryFn: async () =>
       await getRooms({ sortType, page, status, isJoinedRooms }),
   });
