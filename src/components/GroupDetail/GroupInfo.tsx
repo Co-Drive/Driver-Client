@@ -2,19 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray } from '../../assets';
+import { GroupInfoProps } from '../../types/GroupDetail/groupDetailType';
 import ApplicationModal from './ApplicationModal';
-
-interface GroupInfoProps {
-  owner: {
-    userId: number;
-    nickname: string;
-    profileImg: string;
-  };
-  requestedCount: number;
-  capacity: number;
-  introduce: string;
-  information: string;
-}
 
 const GroupInfo = ({
   owner,

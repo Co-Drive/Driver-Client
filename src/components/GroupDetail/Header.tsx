@@ -1,11 +1,7 @@
 import styled from 'styled-components';
+import { GroupDetailHeaderProps } from '../../types/GroupDetail/groupDetailType';
 
-interface HeaderProps {
-  title: string;
-  tags: Array<string>;
-}
-
-const Header = ({ title, tags }: HeaderProps) => {
+const Header = ({ title, tags }: GroupDetailHeaderProps) => {
   return (
     <TitleContainer>
       <Title>{title}</Title>
