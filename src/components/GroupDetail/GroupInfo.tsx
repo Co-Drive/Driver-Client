@@ -52,7 +52,7 @@ const GroupInfo = () => {
         </Rule>
       </Rules>
 
-      {modalOn && <ApplicationModal />}
+      {modalOn && <ApplicationModal onClose={() => setModalOn(false)} />}
     </GroupInfoContainer>
   );
 };

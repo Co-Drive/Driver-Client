@@ -2,7 +2,11 @@ import styled from 'styled-components';
 import { IcSuccess } from '../../assets';
 import ModalPortal from '../../common/Modal/ModalPortal';
 
-const ApplicationModal = () => {
+interface ApplicationModalProps {
+  onClose: () => void;
+}
+
+const ApplicationModal = ({ onClose }: ApplicationModalProps) => {
   const APPLICANTS_DUMMY = {
     joinNum: 3,
     applicants: [
@@ -66,9 +70,15 @@ const ApplicationModal = () => {
 
   const { joinNum, applicants } = APPLICANTS_DUMMY;
 
+  const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (e.currentTarget === e.target) {
+      onClose();
+    }
+  };
+
   return (
     <ModalPortal>
-      <ModalForm>
+      <ModalForm onClick={handleClickBg}>
         <Modal>
           <Header>신청 현황</Header>
           <ApplicantsContainer>
