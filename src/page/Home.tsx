@@ -1,5 +1,11 @@
+import CommonCalendar from '../components/Calendar/Calendar';
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <>
+      <CommonCalendar />
+    </>
+  );
 };
 
 export default Home;
