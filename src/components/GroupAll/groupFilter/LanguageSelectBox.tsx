@@ -5,6 +5,8 @@ import CommonHashTag from '../../../common/CommonHashTag';
 import { LanguageSectionProps } from '../../../types/GroupCreate/GroupCreateType';
 
 const ALL_TAG = 'ALL';
+const firstRowTags = ['Python', 'Java', 'JavaScript', 'C++', 'C', 'C#'];
+const secondRowTags = ['Kotlin', 'Swift', 'Ruby', 'Scala', 'Go'];
 
 const LanguageSelectBox = ({
   selectedTags,
@@ -53,10 +55,6 @@ const LanguageSelectBox = ({
 
     toggleDropdown();
   };
-
-  // 언어를 두 줄로 나누기 위한 설정
-  const firstRowTags = ['Python', 'Java', 'JavaScript', 'C++', 'C', 'C#'];
-  const secondRowTags = ['Kotlin', 'Swift', 'Ruby', 'Scala', 'Go'];
 
   return (
     <Section>
@@ -147,7 +145,6 @@ const LanguageSelectBox = ({
 
 export default LanguageSelectBox;
 
-// 스타일 컴포넌트는 기존 코드와 동일하게 유지
 const Section = styled.section`
   position: relative;
 
