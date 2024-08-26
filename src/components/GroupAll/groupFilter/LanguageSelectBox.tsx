@@ -237,8 +237,6 @@ const DropdownText = styled.p`
 const IconContainer = styled.div`
   display: flex;
   align-items: center;
-
-  margin-right: 1.2rem;
 `;
 
 const DropdownItemContainer = styled.div`
