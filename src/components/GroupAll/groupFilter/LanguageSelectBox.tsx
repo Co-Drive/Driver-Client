@@ -60,11 +60,11 @@ const LanguageSelectBox = ({
     setSelectedTags(allTags);
   };
 
-  const handleMinChange = (value: number) => {
+  const onChangeMin = (value: number) => {
     setTempMinValue(value);
   };
 
-  const handleMaxChange = (value: number) => {
+  const onChangeMax = (value: number) => {
     setTempMaxValue(value);
   };
 
@@ -171,8 +171,8 @@ const LanguageSelectBox = ({
                 rangeMin={5}
                 minValue={tempMinValue}
                 maxValue={tempMaxValue}
-                onChangeMin={handleMinChange}
-                onChangeMax={handleMaxChange}
+                onChangeMin={onChangeMin}
+                onChangeMax={onChangeMax}
               />
             </RangeSliderContainer>
           </DropdownItemContainer>
