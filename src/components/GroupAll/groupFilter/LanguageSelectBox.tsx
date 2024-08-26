@@ -15,20 +15,23 @@ const LanguageSelectBox = ({
   setSelectedTags,
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [minValue, setMinValue] = useState<number>(1);
-  const [maxValue, setMaxValue] = useState<number>(50);
+  const [minValue, setMinValue] = useState<number | null>(null);
+  const [maxValue, setMaxValue] = useState<number | null>(null);
 
   const [tempMinValue, setTempMinValue] = useState<number>(1);
   const [tempMaxValue, setTempMaxValue] = useState<number>(50);
 
   // 변경: 값이 설정된 후에만 슬라이더 값을 표시
   const hasSelectedTagsOrRange =
-    selectedTags.length > 0 || minValue !== 1 || maxValue !== 50;
+    selectedTags.length > 0 || (minValue !== null && maxValue !== null);
 
   const toggleDropdown = () => {
     if (isDropdownOpen) {
-      setMinValue(tempMinValue);
-      setMaxValue(tempMaxValue);
+      // 사용자가 슬라이더를 조정한 경우에만 값을 설정
+      if (tempMinValue !== 1 || tempMaxValue !== 50) {
+        setMinValue(tempMinValue);
+        setMaxValue(tempMaxValue);
+      }
     }
     setIsDropdownOpen((prev) => !prev);
   };
@@ -98,18 +101,12 @@ const LanguageSelectBox = ({
                 ))
               )}
             </SelectedTagsContainer>
-            <Borderline />
+            <Border />
             {/* 변경: 슬라이더 값이 설정된 경우에만 표시 */}
-            {isDropdownOpen ? (
+            {hasSelectedTagsOrRange && (
               <RangeValue>
-                {tempMinValue}명 - {tempMaxValue}명
+                {minValue ?? tempMinValue}명 - {maxValue ?? tempMaxValue}명
               </RangeValue>
-            ) : (
-              hasSelectedTagsOrRange && (
-                <RangeValue>
-                  {minValue}명 - {maxValue}명
-                </RangeValue>
-              )
             )}
           </SelectContainer>
           <IconContainer>
@@ -215,13 +212,19 @@ const FilterIconContainer = styled.p`
 `;
 
 const SelectedTagsContainer = styled.div`
-  width: 28.6rem;
-
-  border-right: 0.1rem solid ${({ theme }) => theme.colors.gray400};
+  width: 29.6rem;
 `;
 
 const SelectedTagContainer = styled.div`
   display: inline-flex;
+`;
+
+const Border = styled.div`
+  width: 0.1rem;
+  height: 2.2rem;
+  margin-right: 1.4rem;
+
+  border-right: 0.1rem solid ${({ theme }) => theme.colors.gray400};
 `;
 
 const RangeValue = styled.p`
