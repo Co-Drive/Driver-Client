@@ -1,15 +1,8 @@
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
+import { WeekRateProps } from '../../types/Week/weekRateTypes';
 
-interface CustomLabelProps {
-  viewBox: {
-    cx: number;
-    cy: number;
-  };
-  value: string | number;
-}
-
-const CustomLabel = ({ viewBox, value }: CustomLabelProps) => {
+const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
   const { cx, cy } = viewBox;
 
   return (
@@ -53,7 +46,7 @@ const WeekRate = () => {
             outerRadius={85}
             stroke="none"
             cornerRadius={10}
-            paddingAngle={0} // 빈틈 없애기
+            paddingAngle={0}
             cy={96}
             cx="50%"
             fill="#34363C"
