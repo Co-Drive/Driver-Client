@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray, IcFilter } from '../../../assets';
 import CommonHashTag from '../../../common/CommonHashTag';
 import { LanguageSectionProps } from '../../../types/GroupCreate/GroupCreateType';
+import PageLayout from '../../PageLayout/PageLayout';
 import RangeSliderFilter from './RangeSlidrFilter';
 
 const ALL_TAG = 'ALL';
@@ -65,111 +66,119 @@ const LanguageSelectBox = ({
   };
 
   return (
-    <Section>
-      <DropdownContainer onClick={toggleDropdown}>
-        <SelectContainer>
-          <FilterIconContainer>
-            <IcFilter />
-          </FilterIconContainer>
-          <SelectedTagsContainer>
-            {selectedTags.length ===
-            firstRowTags.length + secondRowTags.length ? (
-              <SelectedTagContainer key={ALL_TAG}>
-                <CommonHashTag
-                  selectedTag={ALL_TAG}
-                  removeTag={() => removeTag(ALL_TAG)}
-                />
-              </SelectedTagContainer>
-            ) : selectedTags.length === 0 ? (
-              <DropdownText>그룹 필터</DropdownText>
-            ) : (
-              selectedTags.map((tag, index) => (
-                <SelectedTagContainer key={index}>
+    <PageLayout category="로그인">
+      <Section>
+        <DropdownContainer onClick={toggleDropdown}>
+          <SelectContainer>
+            <FilterIconContainer>
+              <IcFilter />
+            </FilterIconContainer>
+            <SelectedTagsContainer>
+              {selectedTags.length ===
+              firstRowTags.length + secondRowTags.length ? (
+                <SelectedTagContainer key={ALL_TAG}>
                   <CommonHashTag
-                    selectedTag={tag}
-                    removeTag={(e) => {
-                      if (e) e.stopPropagation();
-                      removeTag(tag);
-                    }}
+                    selectedTag={ALL_TAG}
+                    removeTag={() => removeTag(ALL_TAG)}
                   />
                 </SelectedTagContainer>
-              ))
-            )}
-          </SelectedTagsContainer>
-          <Borderline />
-          {/* 변경: 슬라이더 값이 설정된 경우에만 표시 */}
-          {hasSelectedTagsOrRange && (
-            <RangeValue>
-              {minValue}명 - {maxValue}명
-            </RangeValue>
-          )}
-        </SelectContainer>
-        <IconContainer>
-          {isDropdownOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
-        </IconContainer>
-      </DropdownContainer>
-      {isDropdownOpen && (
-        <DropdownItemContainer>
-          <DropdownTitle>
-            <Title>사용언어</Title>
-            <Info>최대 3개까지 선택 가능합니다</Info>
-          </DropdownTitle>
-          <TagContainer>
-            <LanguageItemsContainer>
-              <DropdownItems>
-                {firstRowTags.map((tag) => (
-                  <PickTagContainer key={tag}>
-                    <DropdownItem
-                      $isSelected={selectedTags.includes(tag)}
-                      onClick={() => addTag(tag)}
-                    >
-                      {tag}
-                    </DropdownItem>
-                  </PickTagContainer>
-                ))}
-              </DropdownItems>
-              <DropdownItems>
-                {secondRowTags.map((tag) => (
-                  <PickTagContainer key={tag}>
-                    <DropdownItem
-                      $isSelected={selectedTags.includes(tag)}
-                      onClick={() => addTag(tag)}
-                    >
-                      {tag}
-                    </DropdownItem>
-                  </PickTagContainer>
-                ))}
-              </DropdownItems>
-            </LanguageItemsContainer>
+              ) : selectedTags.length === 0 ? (
+                <DropdownText>그룹 필터</DropdownText>
+              ) : (
+                selectedTags.map((tag, index) => (
+                  <SelectedTagContainer key={index}>
+                    <CommonHashTag
+                      selectedTag={tag}
+                      removeTag={(e) => {
+                        if (e) e.stopPropagation();
+                        removeTag(tag);
+                      }}
+                    />
+                  </SelectedTagContainer>
+                ))
+              )}
+            </SelectedTagsContainer>
             <Borderline />
-            <AllTagContainer>
-              <DropdownItem
-                $isSelected={
-                  selectedTags.length ===
-                  firstRowTags.length + secondRowTags.length
-                }
-                onClick={selectAllTags}
-              >
-                {ALL_TAG}
-              </DropdownItem>
-            </AllTagContainer>
-          </TagContainer>
-          <RangeSliderContainer>
-            <RangeTitle>수용인원</RangeTitle>
-            <RangeSliderFilter
-              min={0}
-              max={50}
-              step={5}
-              rangeMin={5}
-              minValue={tempMinValue}
-              maxValue={tempMaxValue}
-              setMinValue={setTempMinValue}
-              setMaxValue={setTempMaxValue}
-            />
-          </RangeSliderContainer>
-        </DropdownItemContainer>
-      )}
-    </Section>
+            {/* 변경: 슬라이더 값이 설정된 경우에만 표시 */}
+            {isDropdownOpen ? (
+              <RangeValue>
+                {tempMinValue}명 - {tempMaxValue}명
+              </RangeValue>
+            ) : (
+              hasSelectedTagsOrRange && (
+                <RangeValue>
+                  {minValue}명 - {maxValue}명
+                </RangeValue>
+              )
+            )}
+          </SelectContainer>
+          <IconContainer>
+            {isDropdownOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
+          </IconContainer>
+        </DropdownContainer>
+        {isDropdownOpen && (
+          <DropdownItemContainer>
+            <DropdownTitle>
+              <Title>사용언어</Title>
+              <Info>최대 3개까지 선택 가능합니다</Info>
+            </DropdownTitle>
+            <TagContainer>
+              <LanguageItemsContainer>
+                <DropdownItems>
+                  {firstRowTags.map((tag) => (
+                    <PickTagContainer key={tag}>
+                      <DropdownItem
+                        $isSelected={selectedTags.includes(tag)}
+                        onClick={() => addTag(tag)}
+                      >
+                        {tag}
+                      </DropdownItem>
+                    </PickTagContainer>
+                  ))}
+                </DropdownItems>
+                <DropdownItems>
+                  {secondRowTags.map((tag) => (
+                    <PickTagContainer key={tag}>
+                      <DropdownItem
+                        $isSelected={selectedTags.includes(tag)}
+                        onClick={() => addTag(tag)}
+                      >
+                        {tag}
+                      </DropdownItem>
+                    </PickTagContainer>
+                  ))}
+                </DropdownItems>
+              </LanguageItemsContainer>
+              <Borderline />
+              <AllTagContainer>
+                <DropdownItem
+                  $isSelected={
+                    selectedTags.length ===
+                    firstRowTags.length + secondRowTags.length
+                  }
+                  onClick={selectAllTags}
+                >
+                  {ALL_TAG}
+                </DropdownItem>
+              </AllTagContainer>
+            </TagContainer>
+            <RangeSliderContainer>
+              <RangeTitle>수용인원</RangeTitle>
+              <RangeSliderFilter
+                min={0}
+                max={50}
+                step={5}
+                rangeMin={5}
+                minValue={tempMinValue}
+                maxValue={tempMaxValue}
+                setMinValue={setTempMinValue}
+                setMaxValue={setTempMaxValue}
+              />
+            </RangeSliderContainer>
+          </DropdownItemContainer>
+        )}
+      </Section>
+    </PageLayout>
   );
 };
 
@@ -186,7 +195,7 @@ const DropdownContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
+  width: 61.1rem;
   height: 4.8rem;
   padding: 1.5rem 2rem 1.4rem;
   margin-bottom: 0.6rem;
