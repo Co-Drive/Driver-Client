@@ -60,6 +60,14 @@ const LanguageSelectBox = ({
     setSelectedTags(allTags);
   };
 
+  const handleMinChange = (value: number) => {
+    setTempMinValue(value);
+  };
+
+  const handleMaxChange = (value: number) => {
+    setTempMaxValue(value);
+  };
+
   return (
     <PageLayout category="로그인">
       <Section>
@@ -163,8 +171,8 @@ const LanguageSelectBox = ({
                 rangeMin={5}
                 minValue={tempMinValue}
                 maxValue={tempMaxValue}
-                setMinValue={setTempMinValue}
-                setMaxValue={setTempMaxValue}
+                onChangeMin={handleMinChange}
+                onChangeMax={handleMaxChange}
               />
             </RangeSliderContainer>
           </DropdownItemContainer>

@@ -8,8 +8,8 @@ interface RangeSliderProps {
   rangeMin: number;
   minValue: number;
   maxValue: number;
-  setMinValue: React.Dispatch<React.SetStateAction<number>>;
-  setMaxValue: React.Dispatch<React.SetStateAction<number>>;
+  onChangeMin: (value: number) => void;
+  onChangeMax: (value: number) => void;
 }
 
 const RangeSliderFilter = ({
@@ -19,8 +19,8 @@ const RangeSliderFilter = ({
   rangeMin,
   minValue,
   maxValue,
-  setMinValue,
-  setMaxValue,
+  onChangeMin,
+  onChangeMax,
 }: RangeSliderProps) => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -30,15 +30,15 @@ const RangeSliderFilter = ({
 
     if (type === 'min') {
       if (value >= min && value <= maxValue - rangeMin) {
-        setMinValue(value);
+        onChangeMin(value);
       } else if (value > maxValue - rangeMin) {
-        setMinValue(maxValue - rangeMin);
+        onChangeMin(maxValue - rangeMin);
       }
     } else if (type === 'max') {
       if (value <= max && value >= minValue + rangeMin) {
-        setMaxValue(value);
+        onChangeMax(value);
       } else if (value < minValue + rangeMin) {
-        setMaxValue(minValue + rangeMin);
+        onChangeMax(minValue + rangeMin);
       }
     }
   };
