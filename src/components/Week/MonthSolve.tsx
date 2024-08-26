@@ -2,21 +2,27 @@ import styled from 'styled-components';
 import CommonCalendar from '../Calendar/Calendar';
 
 const MonthSolve = () => {
+  const currentMonth = new Date().getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
+  const monthText = `${currentMonth}월 문제풀이 현황`;
+  const TotalSolve = 13;
+  const LongestSolveDay = 3;
+  const LongestSolvedCount = 2;
+
   return (
     <WeekRateContainer>
       <div>
-        <Month>7월 문제풀이 현황</Month>
+        <Month>{monthText}</Month>
         <SolveContainer>
           <SolveCount>
-            13
+            {TotalSolve}
             <SolveCountText>문제</SolveCountText>
           </SolveCount>
         </SolveContainer>
         <LongestSolve>
-          최장 문제 풀이 기간 <Text>3</Text>일
+          최장 문제 풀이 기간 <Text>{LongestSolveDay}</Text>일
         </LongestSolve>
         <LongestSolve>
-          최장 문제 풀이 기간 <Text>2</Text>개
+          최장 문제 풀이 개수 <Text>{LongestSolvedCount}</Text>개
         </LongestSolve>
       </div>
 

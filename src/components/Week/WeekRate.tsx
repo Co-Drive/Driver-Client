@@ -19,8 +19,8 @@ const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
   );
 };
 const WeekRate = () => {
-  const maxProblems = 5;
-  const solvedProblems = 3;
+  const maxProblems = 0;
+  const solvedProblems = 0;
 
   const percentage =
     maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 10;
