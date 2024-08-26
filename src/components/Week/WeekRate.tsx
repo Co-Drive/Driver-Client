@@ -1,9 +1,33 @@
-import { Cell, Pie, PieChart } from 'recharts';
+import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 
+interface CustomLabelProps {
+  viewBox: {
+    cx: number;
+    cy: number;
+  };
+  value: string | number;
+}
+
+const CustomLabel = ({ viewBox, value }: CustomLabelProps) => {
+  const { cx, cy } = viewBox;
+
+  return (
+    <>
+      <StyledText
+        x={cx}
+        y={cy - 10}
+        dominantBaseline="middle"
+        textAnchor="middle"
+      >
+        {value}
+      </StyledText>
+    </>
+  );
+};
 const WeekRate = () => {
-  const maxProblems = 7;
-  const solvedProblems = 6;
+  const maxProblems = 5;
+  const solvedProblems = 3;
 
   const percentage =
     maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 10;
@@ -33,10 +57,24 @@ const WeekRate = () => {
             cy={96}
             cx="50%"
             fill="#34363C"
-          />
+          >
+            <Label
+              position="center"
+              content={
+                <CustomLabel
+                  value={
+                    maxProblems && solvedProblems
+                      ? `${percentage.toFixed(0)}%`
+                      : `${0}%`
+                  }
+                  viewBox={{ cx: 0, cy: 100 }}
+                />
+              }
+            />
+          </Pie>
           <Pie
-            dataKey="value"
             data={chartData}
+            dataKey="value"
             startAngle={180}
             endAngle={endAngle}
             innerRadius={65}
@@ -44,11 +82,11 @@ const WeekRate = () => {
             stroke="none"
             cornerRadius={10}
             paddingAngle={0}
-            cx="50%"
             cy={96}
+            cx="50%"
           >
             <Cell
-              key={`cell-1`}
+              key="cell-1"
               fill={
                 maxProblems && solvedProblems
                   ? 'url(#colorGradient)'
@@ -90,5 +128,12 @@ const ChartContainer = styled.div`
   align-items: center;
   position: relative;
 
-  background-color: beige;
+  /* background-color: beige; */
+`;
+
+const StyledText = styled.text`
+  fill: #fff;
+
+  ${({ theme }) => theme.fonts.title_bold_32};
+  background-color: pink;
 `;
