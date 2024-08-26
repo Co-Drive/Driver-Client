@@ -95,9 +95,11 @@ const WeekRate = () => {
             />
           </Pie>
         </PieChart>
-
-        {/* <p>축하해요! 지난 주보다 1문제 더 풀었어요!</p> */}
       </ChartContainer>
+      <MessageContainer>
+        <Message>축하해요!</Message>
+        <Message>지난 주보다 {solvedProblems}문제 더 풀었어요!</Message>
+      </MessageContainer>
     </Container>
   );
 };
@@ -105,16 +107,12 @@ const WeekRate = () => {
 export default WeekRate;
 
 const Container = styled.div`
-  /* display: flex; */
-
-  /* flex-direction: column; */
-
   width: 45.4rem;
-  max-width: 45.4rem;
-
   padding: 3.6rem 3.4rem;
 
-  background-color: pink;
+  border-radius: 1.2rem;
+  background-color: ${({ theme }) => theme.colors.gray800};
+  max-width: 45.4rem;
 `;
 
 const Header = styled.header`
@@ -136,4 +134,16 @@ const StyledText = styled.text`
 
   ${({ theme }) => theme.fonts.title_bold_32};
   background-color: pink;
+`;
+
+const Message = styled.p`
+  display: flex;
+  justify-content: center;
+
+  ${({ theme }) => theme.fonts.title_semiBold_18};
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+const MessageContainer = styled.div`
+  margin-top: 1.6rem;
 `;
