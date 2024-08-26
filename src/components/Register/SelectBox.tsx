@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SelectBoxProps } from './../../types/Register/RegisterType';
 import Options from './Options';
@@ -10,6 +10,11 @@ const SelectBox = ({
 }: SelectBoxProps) => {
   const [selectedTag, setSelectedTag] = useState(initialSelectedTag);
   const [isOpen, setIsOpen] = useState(false);
+
+  // 전달받은 값 올바르게 반영
+  useEffect(() => {
+    setSelectedTag(initialSelectedTag);
+  }, [initialSelectedTag]);
 
   const handleToggleDropdown = (shouldClose: boolean) => {
     setIsOpen((prev) => (shouldClose ? false : !prev));
