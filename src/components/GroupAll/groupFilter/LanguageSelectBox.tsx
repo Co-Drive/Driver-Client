@@ -15,25 +15,17 @@ const LanguageSelectBox = ({
   setSelectedTags,
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [minValue, setMinValue] = useState<number | null>(null);
-  const [maxValue, setMaxValue] = useState<number | null>(null);
 
+  // 태그와 슬라이더의 상태를 별도로 관리
   const [tempMinValue, setTempMinValue] = useState<number>(1);
   const [tempMaxValue, setTempMaxValue] = useState<number>(50);
-
-  // 변경: 값이 설정된 후에만 슬라이더 값을 표시
-  const hasSelectedTagsOrRange =
-    selectedTags.length > 0 || (minValue !== null && maxValue !== null);
+  const [isSliderValueVisible, setIsSliderValueVisible] = useState(false); // 슬라이더 값 표시 여부
 
   const toggleDropdown = () => {
-    if (isDropdownOpen) {
-      // 사용자가 슬라이더를 조정한 경우에만 값을 설정
-      if (tempMinValue !== 1 || tempMaxValue !== 50) {
-        setMinValue(tempMinValue);
-        setMaxValue(tempMaxValue);
-      }
-    }
     setIsDropdownOpen((prev) => !prev);
+    if (!isSliderValueVisible) {
+      setIsSliderValueVisible(true); // 드롭다운이 처음 열릴 때 슬라이더 값을 표시
+    }
   };
 
   const addTag = (tag: string) => {
@@ -101,11 +93,14 @@ const LanguageSelectBox = ({
                 ))
               )}
             </SelectedTagsContainer>
-            <Border />
-            {/* 변경: 슬라이더 값이 설정된 경우에만 표시 */}
-            {hasSelectedTagsOrRange && (
+
+            {/* Border를 선택된 태그가 있거나 슬라이더 값이 설정된 경우에만 표시 */}
+            {(selectedTags.length > 0 || isSliderValueVisible) && <Border />}
+
+            {/* 슬라이더 값을 슬라이더가 한 번 열렸으면 항상 표시 */}
+            {isSliderValueVisible && (
               <RangeValue>
-                {minValue ?? tempMinValue}명 - {maxValue ?? tempMaxValue}명
+                {tempMinValue}명 - {tempMaxValue}명
               </RangeValue>
             )}
           </SelectContainer>
