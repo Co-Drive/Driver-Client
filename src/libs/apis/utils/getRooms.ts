@@ -2,6 +2,7 @@ import { GetRoomsProps } from '../../../types/MyGroup/myGroupType';
 import { api } from '../../api';
 
 const getRooms = async ({
+  followerId,
   sortType,
   page,
   status,
@@ -9,7 +10,7 @@ const getRooms = async ({
 }: GetRoomsProps) => {
   const user = sessionStorage.getItem('user');
   const { data } = await api.get(
-    `/rooms/${user}/${isJoinedRooms ? `member` : `owner`}/${sortType === '최신순' ? `NEW` : `DICT`}?page=${page}&status=${status}`
+    `/rooms/${followerId ? followerId : user}/${isJoinedRooms ? 'member' : 'owner'}/${sortType === '최신순' ? 'NEW' : 'DICT'}${page !== undefined ? `?page=${page}` : ''}${status ? `&status=${status}` : ''}`
   );
 
   return data;

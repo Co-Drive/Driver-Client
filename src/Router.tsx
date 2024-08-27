@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import TotalSolutions from './components/Follower/Personal/TotalSolutions';
 import FollowerCurrentPage from './page/FollowerCurrentPage';
 import FollowerPage from './page/FollowerPage';
 import GroupComplete from './page/GroupComplete';
@@ -30,6 +31,7 @@ const Router = () => {
         <Route path="/solution/:id" element={<SolutionPage />} />
         <Route path="/follower" element={<FollowerCurrentPage />} />
         <Route path="/follower/:id" element={<FollowerPage />} />
+        <Route path="/follower/:id/total" element={<TotalSolutions />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>

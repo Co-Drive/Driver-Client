@@ -1,15 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
-import useGetMonthlySolution from '../../../libs/hooks/Solution/useGetMonthlySolution';
+import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
+import useGetMonthlySolution from '../../libs/hooks/Solution/useGetMonthlySolution';
 import {
   UpdateSavedRecordsProps,
   UpdateTotalPageProps,
-} from '../../../types/Solution/solutionTypes';
+} from '../../types/Solution/solutionTypes';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
-const SavedSolutionList = () => {
+export interface SavedSolutionListProps {
+  isSmallList: boolean;
+  handleDisabledMoreBtn?: (value: boolean) => void;
+}
+
+const SavedSolutionList = ({
+  isSmallList,
+  handleDisabledMoreBtn,
+}: SavedSolutionListProps) => {
   const totalPageRef = useRef(0);
   const pages = Array.from(
     { length: totalPageRef.current },
@@ -41,6 +49,7 @@ const SavedSolutionList = () => {
     year: year,
     month: month,
     page: clickedPage - 1,
+    isSmallList: isSmallList,
   });
 
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
@@ -56,8 +65,10 @@ const SavedSolutionList = () => {
 
       if (records.length) {
         setSavedRecords(records);
+        handleDisabledMoreBtn && handleDisabledMoreBtn(false);
       } else {
         setSavedRecords([]);
+        handleDisabledMoreBtn && handleDisabledMoreBtn(true);
       }
     }
   };
@@ -98,38 +109,44 @@ const SavedSolutionList = () => {
     <ListContainer>
       {data && (
         <>
-          <ListFilter
-            year={year}
-            month={month}
-            handleClickPrevBtn={handleClickPrevBtn}
-            handleClickMonth={handleClickValue}
-            handleClickNextBtn={handleClickNextBtn}
-          />
+          {!isSmallList && (
+            <ListFilter
+              year={year}
+              month={month}
+              handleClickPrevBtn={handleClickPrevBtn}
+              handleClickMonth={handleClickValue}
+              handleClickNextBtn={handleClickNextBtn}
+            />
+          )}
+
           {savedRecords.map((record) => {
             return <SavedSolution key={record.recordId} record={record} />;
           })}
 
-          <PageNationBar>
-            <IcArrowLeftSmallGray
-              onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
-            />
-            {pages.map((page) => {
-              return (
-                <PageNumber
-                  key={page}
-                  $isClicked={clickedPage === page}
-                  onClick={() => handleClickValue(page, true)}
-                >
-                  {page}
-                </PageNumber>
-              );
-            })}
-            <IcArrowRightSmallGray
-              onClick={() =>
-                clickedPage !== totalPageRef.current && handleClickNextBtn(true)
-              }
-            />
-          </PageNationBar>
+          {!isSmallList && (
+            <PageNationBar>
+              <IcArrowLeftSmallGray
+                onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
+              />
+              {pages.map((page) => {
+                return (
+                  <PageNumber
+                    key={page}
+                    $isClicked={clickedPage === page}
+                    onClick={() => handleClickValue(page, true)}
+                  >
+                    {page}
+                  </PageNumber>
+                );
+              })}
+              <IcArrowRightSmallGray
+                onClick={() =>
+                  clickedPage !== totalPageRef.current &&
+                  handleClickNextBtn(true)
+                }
+              />
+            </PageNationBar>
+          )}
         </>
       )}
     </ListContainer>
@@ -140,11 +157,10 @@ export default SavedSolutionList;
 
 const ListContainer = styled.section`
   display: flex;
-  gap: 2.2rem;
   align-items: center;
   flex-direction: column;
 
-  margin-top: 4.3rem;
+  width: 100%;
 `;
 
 const PageNationBar = styled.div`
