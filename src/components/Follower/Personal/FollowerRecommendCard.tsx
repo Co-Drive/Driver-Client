@@ -153,8 +153,8 @@ const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
 
 const IcContainer = styled.span`
   position: absolute;
-  top: 6.2rem;
-  left: 6.1rem;
+  top: 5.8rem;
+  left: 5.1rem;
 `;
 
 const ProfileInfo = styled.div`
