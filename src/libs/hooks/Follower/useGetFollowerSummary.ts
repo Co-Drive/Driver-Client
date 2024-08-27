@@ -8,7 +8,7 @@ const useGetFollowerSummary = ({
   groupId,
 }: GetFollowerSummaryProps) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['get-follower-summary', sortType, groupId],
+    queryKey: ['get-follower-summary', sortType, groupId, page],
     queryFn: async () => await getFollowerSummary({ sortType, groupId, page }),
   });
 

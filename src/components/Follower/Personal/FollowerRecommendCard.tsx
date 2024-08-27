@@ -6,12 +6,22 @@ import {
   IcUnfollowingWhite,
 } from '../../../assets';
 import useGetFollowerRecommend from '../../../libs/hooks/Follower/useGetFollowerRecommend';
+import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
+import { UpdateFollowerProps } from '../../../types/Follower/Personal/personalType';
 
 const FollowerRecommendCard = () => {
   const myNickname = sessionStorage.getItem('nickname');
 
   const { data, isLoading } = useGetFollowerRecommend();
+  const { mutation } = useUpdateFollower();
   const { users } = !isLoading && data.data;
+
+  const handleClickFollowerBtn = ({
+    nickname,
+    isDelete,
+  }: UpdateFollowerProps) => {
+    mutation({ nickname, isDelete });
+  };
 
   return (
     <RecommendCardContainer>
@@ -60,7 +70,16 @@ const FollowerRecommendCard = () => {
                     <Language>{`#${language}`}</Language>
                   </ProfileInfo>
 
-                  <FollowingBtn type="button" $isFollowed={isFollowing}>
+                  <FollowingBtn
+                    type="button"
+                    $isFollowed={isFollowing}
+                    onClick={() =>
+                      handleClickFollowerBtn({
+                        nickname,
+                        isDelete: isFollowing,
+                      })
+                    }
+                  >
                     {isFollowing ? <IcFollowingGray /> : <IcUnfollowingWhite />}
                     <FollowingText $isFollowed={isFollowing}>
                       {isFollowing ? `팔로잉` : `팔로우`}

@@ -1,12 +1,10 @@
-// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   IcFollowingGray,
   IcGithubSmall,
   IcUnfollowingWhite,
 } from '../../assets';
-import { deleteFollower } from '../../libs/apis/Follower/deleteFollower';
-import { postFollower } from '../../libs/apis/Follower/postFollower';
+import useUpdateFollower from '../../libs/hooks/Follower/useUpdateFollower';
 import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
 import { handleClickLink } from '../../utils/handleClickLink';
 
@@ -21,18 +19,10 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
     // successRate,
   } = info;
 
-  const handleClickFollowBtn = async () => {
-    try {
-      isFollowing ? await deleteFollower('문주') : await postFollower('문주');
+  const { mutation } = useUpdateFollower();
 
-      // 추후 아래 코드로 변경할 예정
-      // isFollowed ? await deleteFollower(nickname) : await postFollower(nickname);
-    } catch (error) {
-      console.log(error);
-
-      // 추후 아래 코드로 변경할 예정
-      // navigate('/error');
-    }
+  const handleClickFollowBtn = () => {
+    mutation({ isDelete: isFollowing, nickname: nickname });
   };
 
   return (
@@ -168,11 +158,12 @@ const FollowingBtn = styled.button<{ $isFollowed: boolean }>`
   border-bottom-right-radius: 1.6rem;
 
   background-color: ${({ theme, $isFollowed }) =>
-    $isFollowed ? theme.color.gray700 : theme.colors.codrive_purple};
+    $isFollowed ? theme.colors.gray700 : theme.colors.codrive_purple};
 `;
 
 const Text = styled.p<{ $isFollowed: boolean }>`
   color: ${({ theme, $isFollowed }) =>
-    $isFollowed ? theme.color.gray100 : theme.colors.white};
+    $isFollowed ? theme.colors.gray100 : theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
+
