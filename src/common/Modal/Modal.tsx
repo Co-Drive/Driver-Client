@@ -5,11 +5,21 @@ import ModalPortal from './ModalPortal';
 import SaveModalForm from './SaveModalForm';
 
 const Modal = ({ onClose, questionInfo, codeblocks }: ModalProps) => {
+  const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (e.currentTarget === e.target && onClose) {
+      onClose();
+    }
+  };
+
   return (
     <ModalPortal>
-      <ModalFormConatiner>
+      <ModalFormConatiner onClick={handleClickBg}>
         {onClose ? (
-          <SaveModalForm onClose={onClose} questionInfo={questionInfo} codeblocks={codeblocks}/>
+          <SaveModalForm
+            onClose={onClose}
+            questionInfo={questionInfo}
+            codeblocks={codeblocks}
+          />
         ) : (
           <LinkCopyModalForm />
         )}
