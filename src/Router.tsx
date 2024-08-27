@@ -3,6 +3,7 @@ import FollowerCurrentPage from './page/FollowerCurrentPage';
 import FollowerPage from './page/FollowerPage';
 import GroupComplete from './page/GroupComplete';
 import GroupCreate from './page/GroupCreate';
+import GroupDetail from './page/GroupDetail';
 import GroupJoin from './page/GroupJoin';
 import Home from './page/Home';
 import LoginPage from './page/LoginPage';
@@ -17,7 +18,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/group" />
-        <Route path="/group/:id" />
+        <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group-new" element={<GroupCreate />} />
         <Route path="/my-group" />
         <Route path="/group-join" element={<GroupJoin />} />
