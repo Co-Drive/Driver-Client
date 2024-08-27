@@ -1,12 +1,9 @@
-// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   IcFollowingGray,
   IcGithubSmall,
   IcUnfollowingWhite,
 } from '../../assets';
-import { deleteFollower } from '../../libs/apis/Follower/deleteFollower';
-import { postFollower } from '../../libs/apis/Follower/postFollower';
 import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
 import { handleClickLink } from '../../utils/handleClickLink';
 
@@ -21,19 +18,7 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
     // successRate,
   } = info;
 
-  const handleClickFollowBtn = async () => {
-    try {
-      isFollowing ? await deleteFollower('문주') : await postFollower('문주');
-
-      // 추후 아래 코드로 변경할 예정
-      // isFollowed ? await deleteFollower(nickname) : await postFollower(nickname);
-    } catch (error) {
-      console.log(error);
-
-      // 추후 아래 코드로 변경할 예정
-      // navigate('/error');
-    }
-  };
+  const handleClickFollowBtn = () => {};
 
   return (
     <FollowerInfoContainer>
