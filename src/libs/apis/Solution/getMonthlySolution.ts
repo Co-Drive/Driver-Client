@@ -5,11 +5,12 @@ export const getMonthlySolution = async ({
   year,
   month,
   page,
+  sortType,
   isSmallList,
 }: getMonthlySolutionProps) => {
   const userId = sessionStorage.getItem('user');
   const { data } = await api.get(
-    `/records/${userId}/month?pivotDate=${year}-0${month}-01&page=${page}&size=${isSmallList ? 5 : 7}`
+    `/records/${userId}/month/${sortType === '오래된순' ? 'OLD' : 'NEW'}?pivotDate=${year}-0${month}-01&page=${page}&size=${isSmallList ? 5 : 7}`
   );
 
   return data;

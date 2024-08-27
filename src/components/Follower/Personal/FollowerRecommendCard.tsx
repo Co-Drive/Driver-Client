@@ -6,12 +6,22 @@ import {
   IcUnfollowingWhite,
 } from '../../../assets';
 import useGetFollowerRecommend from '../../../libs/hooks/Follower/useGetFollowerRecommend';
+import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
+import { UpdateFollowerProps } from '../../../types/Follower/Personal/personalType';
 
 const FollowerRecommendCard = () => {
   const myNickname = sessionStorage.getItem('nickname');
 
   const { data, isLoading } = useGetFollowerRecommend();
+  const { mutation } = useUpdateFollower();
   const { users } = !isLoading && data.data;
+
+  const handleClickFollowerBtn = ({
+    nickname,
+    isDelete,
+  }: UpdateFollowerProps) => {
+    mutation({ nickname, isDelete });
+  };
 
   return (
     <RecommendCardContainer>
@@ -60,7 +70,16 @@ const FollowerRecommendCard = () => {
                     <Language>{`#${language}`}</Language>
                   </ProfileInfo>
 
-                  <FollowingBtn type="button" $isFollowed={isFollowing}>
+                  <FollowingBtn
+                    type="button"
+                    $isFollowed={isFollowing}
+                    onClick={() =>
+                      handleClickFollowerBtn({
+                        nickname,
+                        isDelete: isFollowing,
+                      })
+                    }
+                  >
                     {isFollowing ? <IcFollowingGray /> : <IcUnfollowingWhite />}
                     <FollowingText $isFollowed={isFollowing}>
                       {isFollowing ? `팔로잉` : `팔로우`}
@@ -153,8 +172,8 @@ const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
 
 const IcContainer = styled.span`
   position: absolute;
-  top: 6.2rem;
-  left: 6.1rem;
+  top: 5.8rem;
+  left: 5.1rem;
 `;
 
 const ProfileInfo = styled.div`

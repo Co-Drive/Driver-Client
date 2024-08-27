@@ -6,7 +6,7 @@ import CustomTooltip from './CustomTooltip';
 const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const data = users.map((user) => {
     const { nickname, count } = user;
-    const height = count * 10 + 10;
+    const height = count === 0 ? 50 : count * 10 + 10;
 
     return {
       name: nickname,

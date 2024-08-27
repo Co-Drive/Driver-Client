@@ -1,24 +1,31 @@
 import styled from 'styled-components';
 import SavedSolution from '../../../common/SolutionList/SavedSolution';
-import { CLICKED_DUMMY } from '../../../constants/Follower/currentConst';
+import useGetRecentFollowerRecords from '../../../libs/hooks/Follower/useGetRecentFollowerRecords';
+import {
+  AdditionalProblemsModalProps,
+  FollowerRecordsType,
+} from '../../../types/Follower/Current/currentType';
 
-const AdditionalProblemsModal = () => {
-  const { records } = CLICKED_DUMMY;
+const AdditionalProblemsModal = ({ userId }: AdditionalProblemsModalProps) => {
+  const { data, isLoading } = useGetRecentFollowerRecords({ userId });
+  const { records } = !isLoading && data.data;
 
   return (
     <AdditionalProblems>
-      <SolutionContainer>
-        {records.map((record, idx) => {
-          return (
-            <SavedSolution
-              key={record.recordId}
-              record={record}
-              isModal={true}
-              removeBorder={idx === records.length - 1}
-            />
-          );
-        })}
-      </SolutionContainer>
+      {!isLoading && (
+        <SolutionContainer>
+          {records.map((record: FollowerRecordsType, idx: number) => {
+            return (
+              <SavedSolution
+                key={record.recordId}
+                record={record}
+                isModal={true}
+                removeBorder={idx === records.length - 1}
+              />
+            );
+          })}
+        </SolutionContainer>
+      )}
     </AdditionalProblems>
   );
 };

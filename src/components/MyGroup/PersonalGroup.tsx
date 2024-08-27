@@ -8,7 +8,7 @@ import {
 } from '../../assets';
 import Groups from '../../common/Groups';
 import { SORTING, STATUS } from '../../constants/Follower/currentConst';
-import useGetRooms from '../../libs/hooks/MyGroup/useGetRooms';
+import useGetRooms from '../../libs/hooks/utils/useGetRooms';
 
 const PersonalGroup = () => {
   const GROUP_CATEGORY = ['내가 참여한 그룹', '내가 생성한 그룹'];

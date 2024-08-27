@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightGray } from '../../../assets';
@@ -11,6 +12,8 @@ export interface SolutionsProps {
 
 const Solutions = ({ id, nickname, isFollowed }: SolutionsProps) => {
   const navigate = useNavigate();
+
+  const [disabledMoreBtn, setDisabledMoreBtn] = useState(false);
 
   const handleClickMoreBtn = () => {
     navigate(`/follower/${id}/total`, {
@@ -26,13 +29,18 @@ const Solutions = ({ id, nickname, isFollowed }: SolutionsProps) => {
           <Text>님이 푼 문제</Text>
         </NicknameContainer>
 
-        <MoreBtn type="button" onClick={handleClickMoreBtn}>
-          <MoreText>더보기</MoreText>
-          <IcArrowRightGray />
-        </MoreBtn>
+        {!disabledMoreBtn && (
+          <MoreBtn type="button" onClick={handleClickMoreBtn}>
+            <MoreText>더보기</MoreText>
+            <IcArrowRightGray />
+          </MoreBtn>
+        )}
       </TopContainer>
 
-      <SavedSolutionList isSmallList={true} />
+      <SavedSolutionList
+        isSmallList={true}
+        handleDisabledMoreBtn={(value: boolean) => setDisabledMoreBtn(value)}
+      />
     </SolutionsContainer>
   );
 };
