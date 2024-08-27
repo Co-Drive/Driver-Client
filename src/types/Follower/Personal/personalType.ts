@@ -9,3 +9,8 @@ export interface FollowerInfoProps {
     successRate: number;
   };
 }
+
+export interface UpdateFollowerProps {
+  isDelete: boolean;
+  nickname: string;
+}
