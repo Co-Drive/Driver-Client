@@ -15,11 +15,11 @@ const WeeklyFollower = () => {
           </AllButton>
         </div>
       </HeaderContainer>
-      <div>
-        {Home_FOLLOWER_DUMMY.followings.map((user) => (
+      <ProfileContainer>
+        {Home_FOLLOWER_DUMMY.followings.slice(0, 3).map((user) => (
           <HomeProfileCard key={user.userId} user={user} />
         ))}
-      </div>
+      </ProfileContainer>
     </Container>
   );
 };
@@ -28,7 +28,7 @@ export default WeeklyFollower;
 
 const Container = styled.div`
   width: 45.4rem;
-  padding: 3.6rem 3.4rem;
+  padding: 3.6rem 3.4rem 4.1rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -39,9 +39,16 @@ const HeaderContainer = styled.div`
   display: flex;
   gap: 17.6rem;
 
-  /* background-color: pink; */
-
   white-space: nowrap;
+`;
+
+const ProfileContainer = styled.div`
+  display: flex;
+  gap: 2.4rem;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 4rem;
 `;
 
 const WeeklyText = styled.p`
