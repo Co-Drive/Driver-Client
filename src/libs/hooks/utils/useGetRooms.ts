@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { GetRoomsProps } from '../../../types/MyGroup/myGroupType';
-import getRooms from '../../apis/MyGroup/getRooms';
+import getRooms from '../../apis/utils/getRooms';
 
 const useGetRooms = ({
   sortType,
