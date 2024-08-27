@@ -1,19 +1,27 @@
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { FOLLOWER_DUMMY } from '../../../constants/Follower/followerConst';
+import useGetRooms from '../../../libs/hooks/utils/useGetRooms';
+import { GroupType } from '../../../types/MyGroup/myGroupType';
 
 interface ParticipatingGroupProps {
   nickname: string;
 }
 
 const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
-  const { group } = FOLLOWER_DUMMY;
+  const navigate = useNavigate();
+  const { id } = useParams();
+  if (!id) return;
 
-  // 라우팅 정의 후, 콘솔은 지우고 navigate 코드로 변경할 예정입니다 !!
-  //   const navigate = useNavigate();
-  const handleClickCard = (id: number) => {
-    console.log(id);
-    // navigate(`/group/${id}`);
+  const followerId = parseInt(id);
+  const { data, isLoading } = useGetRooms({
+    followerId: followerId,
+    isJoinedRooms: true,
+    sortType: '최신순',
+  });
+  const { joinedRooms } = !isLoading && data?.data;
+
+  const handleClickCard = (groupId: number) => {
+    navigate(`/group/${groupId}`);
   };
 
   return (
@@ -24,24 +32,28 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
       </TitleContainer>
 
       <GroupContainer>
-        {group.map((card) => {
-          const { id, imgSrc, title, tags, introduce } = card;
+        {!isLoading &&
+          joinedRooms.map((room: GroupType) => {
+            const { roomId, imageSrc, title, tags, introduce } = room;
 
-          return (
-            <CardContainer key={id} onClick={() => handleClickCard(id)}>
-              <Img src={imgSrc} />
-              <Contents>
-                <Name>{title}</Name>
-                <TagContainer>
-                  {tags.map((tag) => {
-                    return <Tag key={tag}>{tag}</Tag>;
-                  })}
-                </TagContainer>
-                <Introduce>{introduce}</Introduce>
-              </Contents>
-            </CardContainer>
-          );
-        })}
+            return (
+              <CardContainer
+                key={roomId}
+                onClick={() => handleClickCard(roomId)}
+              >
+                <Img src={imageSrc} />
+                <Contents>
+                  <Name>{title}</Name>
+                  <TagContainer>
+                    {tags.map((tag) => {
+                      return <Tag key={tag}>{tag}</Tag>;
+                    })}
+                  </TagContainer>
+                  <Introduce>{introduce}</Introduce>
+                </Contents>
+              </CardContainer>
+            );
+          })}
       </GroupContainer>
     </ParticipatingCardContainer>
   );
