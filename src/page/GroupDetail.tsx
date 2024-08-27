@@ -1,18 +1,54 @@
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupInfo from '../components/GroupDetail/GroupInfo';
 import Header from '../components/GroupDetail/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
+import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
+import usePostPublicRequest from '../libs/hooks/GroupDetail/usePostPublicRequest';
 
 const GroupDetail = () => {
+  const { id } = useParams();
+  if (!id) return;
+
+  const { data, isLoading } = useGetDetail(parseInt(id));
+  const { mutation, isSuccess } = usePostPublicRequest();
+  const {
+    title,
+    owner,
+    imageSrc,
+    requestedCount,
+    capacity,
+    tags,
+    introduce,
+    information,
+  } = !isLoading && data.data;
+
+  const handleClickApplyBtn = () => {
+    mutation(parseInt(id));
+  };
+
   return (
     <PageLayout category="그룹">
-      <GroupDetailContainer>
-        <Header />
-        <GroupImg src="https://blog.kakaocdn.net/dn/cYnypO/btrzcSaVpNa/VwDfLj2yOWZDKpAhZIlYJ1/img.jpg" />
-        <GroupInfo />
+      {!isLoading && (
+        <GroupDetailContainer>
+          <Header title={title} tags={tags} />
+          <GroupImg src={imageSrc} />
+          <GroupInfo
+            id={parseInt(id)}
+            owner={owner}
+            requestedCount={requestedCount}
+            capacity={capacity}
+            introduce={introduce}
+            information={information}
+          />
 
-        <ApplyBtn type="button">신청하기</ApplyBtn>
-      </GroupDetailContainer>
+          {!isSuccess && (
+            <ApplyBtn type="button" onClick={handleClickApplyBtn}>
+              신청하기
+            </ApplyBtn>
+          )}
+        </GroupDetailContainer>
+      )}
     </PageLayout>
   );
 };

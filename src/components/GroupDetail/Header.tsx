@@ -1,19 +1,13 @@
 import styled from 'styled-components';
+import { GroupDetailHeaderProps } from '../../types/GroupDetail/groupDetailType';
 
-const Header = () => {
-  const HEDEAR_DUMMY = {
-    title: '이제는 더이상 물러날 곳이 없는 스터디',
-    tags: ['Java', 'JavaScript', 'Python'],
-  };
-
-  const { title, tags } = HEDEAR_DUMMY;
-
+const Header = ({ title, tags }: GroupDetailHeaderProps) => {
   return (
     <TitleContainer>
       <Title>{title}</Title>
       <Tags>
         {tags.map((tag) => {
-          return <Tag key={tag}>{tag}</Tag>;
+          return <Tag key={tag}>#{tag}</Tag>;
         })}
       </Tags>
     </TitleContainer>
