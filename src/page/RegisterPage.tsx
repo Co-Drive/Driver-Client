@@ -6,7 +6,7 @@ import Github from '../components/Register/Gitbhub';
 import IntroInput from '../components/Register/IntroInput';
 import Language from '../components/Register/Language';
 import NickName from '../components/Register/NickName';
-import { handleInput } from '../utils/handleInput';
+import { postNickname } from '../libs/apis/Register/postNickname';
 
 const RegisterPage = () => {
   const [inputs, setInputs] = useState({
@@ -36,18 +36,50 @@ const RegisterPage = () => {
   // 소개글 변경 처리 함수
   const handleChangeIntro = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
-    handleInput(e, 'intro');
     setInputs((prev) => ({ ...prev, intro: value }));
   };
 
   // 가입 버튼 클릭 처리 함수
   const handleJoinBtnClick = () => {
     if (!isActive) return;
+    // 가입 로직 추가
   };
 
-  // 닉네임 중복 체크 함수 (구현 필요)
+  // 닉네임 중복 체크 함수
   const handleNicknameCheck = async () => {
-    // 닉네임 중복 체크 로직 추가
+    try {
+      // `postNickname` 함수 호출
+      const data = await postNickname(nickname);
+
+      // 응답 데이터 출력
+      console.log('서버 응답 데이터:', data);
+
+      // 응답 데이터에서 code 확인
+      if (data.code === 200) {
+        // 닉네임 사용 가능
+        alert('사용 가능한 닉네임입니다.');
+      }
+    } catch (error: any) {
+      // 오류 응답 전체 출력
+      console.log('서버 응답 오류:', error);
+
+      // 오류 응답에서 데이터 부분 확인
+      const errorData = error.response?.data || error; // `error.response?.data`가 undefined일 경우 직접 `error` 사용
+      console.log('오류 응답 데이터:', errorData);
+
+      const errorCode = errorData?.code;
+
+      if (errorCode === 409) {
+        // 닉네임 사용 불가
+        alert('닉네임이 이미 존재합니다.');
+      } else if (errorCode === 400) {
+        // 잘못된 요청
+        alert('잘못된 요청입니다. 닉네임 형식을 확인해주세요.');
+      } else {
+        // 그 외의 오류
+        alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+      }
+    }
   };
 
   const isActive =
