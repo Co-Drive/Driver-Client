@@ -153,11 +153,11 @@ const FollowingBtn = styled.button<{ $isFollowed: boolean }>`
   border-bottom-right-radius: 1.6rem;
 
   background-color: ${({ theme, $isFollowed }) =>
-    $isFollowed ? theme.color.gray700 : theme.colors.codrive_purple};
+    $isFollowed ? theme.colors.gray700 : theme.colors.codrive_purple};
 `;
 
 const Text = styled.p<{ $isFollowed: boolean }>`
   color: ${({ theme, $isFollowed }) =>
-    $isFollowed ? theme.color.gray100 : theme.colors.white};
+    $isFollowed ? theme.colors.gray100 : theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
