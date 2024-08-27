@@ -4,6 +4,7 @@ import {
   IcGithubSmall,
   IcUnfollowingWhite,
 } from '../../assets';
+import useUpdateFollower from '../../libs/hooks/Follower/useUpdateFollower';
 import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
 import { handleClickLink } from '../../utils/handleClickLink';
 
@@ -18,7 +19,11 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
     // successRate,
   } = info;
 
-  const handleClickFollowBtn = () => {};
+  const { mutation } = useUpdateFollower();
+
+  const handleClickFollowBtn = () => {
+    mutation({ isDelete: isFollowing, nickname: nickname });
+  };
 
   return (
     <FollowerInfoContainer>
@@ -161,3 +166,4 @@ const Text = styled.p<{ $isFollowed: boolean }>`
     $isFollowed ? theme.colors.gray100 : theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
+
