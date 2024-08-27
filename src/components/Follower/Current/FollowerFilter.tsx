@@ -14,7 +14,7 @@ const FollowerFilter = ({
   const [selectedGroup, setSelectedGroup] = useState('');
 
   const { data, isLoading } = useGetJoinedGroupList();
-  const { joinedRooms } = !isLoading && data.data;
+  const { joinedRooms } = !isLoading && data?.data;
 
   const handleClickGroupOptions = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,

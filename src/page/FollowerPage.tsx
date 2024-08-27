@@ -11,7 +11,7 @@ const FollowerPage = () => {
   const { id } = useParams();
   if (!id) return;
   const { data, isLoading } = useGetUserProfile(parseInt(id));
-  const { nickname, isFollowing } = !isLoading && data.data;
+  const { nickname, isFollowing } = !isLoading && data?.data;
 
   return (
     <PageLayout category="홈">
@@ -30,7 +30,7 @@ const FollowerPage = () => {
             isFollowed={isFollowing}
           />
 
-          <ParticipatingGroup nickname={nickname}/>
+          <ParticipatingGroup nickname={nickname} />
 
           <FollowerRecommendCard />
         </FollowerPageContainer>
