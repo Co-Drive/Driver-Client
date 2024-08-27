@@ -3,18 +3,19 @@ import { GetRoomsProps } from '../../../types/MyGroup/myGroupType';
 import getRooms from '../../apis/utils/getRooms';
 
 const useGetRooms = ({
+  followerId,
   sortType,
   page,
   status,
   isJoinedRooms,
 }: GetRoomsProps) => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['get-participated-rooms', isJoinedRooms, sortType, page, status],
     queryFn: async () =>
-      await getRooms({ sortType, page, status, isJoinedRooms }),
+      await getRooms({ followerId, sortType, page, status, isJoinedRooms }),
   });
 
-  return { data };
+  return { data, isLoading };
 };
 
 export default useGetRooms;
