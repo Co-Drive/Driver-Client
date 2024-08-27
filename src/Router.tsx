@@ -11,6 +11,7 @@ import RegisterPage from './page/RegisterPage';
 import SolutionListPage from './page/SolutionListPage';
 import SolutionPage from './page/SolutionPage';
 import SolvePage from './page/SolvePage';
+import MyGroup from './page/MyGroup';
 
 const Router = () => {
   return (
@@ -20,7 +21,7 @@ const Router = () => {
         <Route path="/group" />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group-new" element={<GroupCreate />} />
-        <Route path="/my-group" />
+        <Route path="/my-group" element={<MyGroup />}/>
         <Route path="/group-join" element={<GroupJoin />} />
         <Route path="/group-complete" element={<GroupComplete />} />
         <Route path="/group-complete/:id" element={<GroupComplete />} />
