@@ -7,23 +7,17 @@ import {
   IcArrowRightSmallGray,
   IcArrowTopWhite,
 } from '../../../assets';
-import { DUMMY } from '../../../constants/Follower/currentConst';
+import useGetFollowerSummary from '../../../libs/hooks/Follower/useGetFollowerSummary';
 import FollowerRecommendCard from '../Personal/FollowerRecommendCard';
 import AdditionalProblemsModal from './AdditionalProblemsModal';
 import FollowerFilter from './FollowerFilter';
 import WeeklyCurrentGraph from './WeeklyCurrentGraph';
 
 const FollowerList = () => {
-  const { followers } = DUMMY;
-
   const navigate = useNavigate();
-  // 현재는 임시로 전체 페이지 수 넣어둠, 추후 서버에서 받아온 값으로 전체 페이지 수 업데이트하는 함수 추가 예정
-  const totalPageRef = useRef(1);
-  const pages = Array.from(
-    { length: totalPageRef.current },
-    (_, idx) => idx + 1
-  );
 
+  const [selectedGroupId, setSelectedGroupId] = useState(0);
+  const [sorting, setSorting] = useState('최신순');
   const [clickedPage, setClickedPage] = useState(1);
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
@@ -31,6 +25,29 @@ const FollowerList = () => {
   });
 
   const { clickedId, isClicked } = clickedContents;
+  const { data, isLoading } = useGetFollowerSummary({
+    page: clickedPage - 1,
+    sortType: sorting,
+    groupId: selectedGroupId,
+  });
+  const { totalPage, followings } = !isLoading && data.data;
+
+  const totalPageRef = useRef(totalPage > 0 ? totalPage : 1);
+  const pages = Array.from(
+    { length: totalPageRef.current },
+    (_, idx) => idx + 1
+  );
+
+  const updateSelectedGroupId = (id: number) => {
+    setSelectedGroupId(id);
+  };
+
+  const handleClickSorting = (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) => {
+    const { innerHTML } = e.currentTarget;
+    setSorting(innerHTML);
+  };
 
   const handleClickContents = (id: number) => {
     setClickedContents({
@@ -57,7 +74,11 @@ const FollowerList = () => {
 
   return (
     <FollowerListContainer>
-      <FollowerFilter />
+      <FollowerFilter
+        sorting={sorting}
+        updateSelectedGroupId={updateSelectedGroupId}
+        handleClickSorting={handleClickSorting}
+      />
 
       <ListContainer>
         <ListHeader>
@@ -66,43 +87,65 @@ const FollowerList = () => {
           <RecentText>최근 푼 문제</RecentText>
         </ListHeader>
 
-        <List>
-          {followers.map((follower) => {
-            const { id, imgSrc, nickname, language, rate, problem } = follower;
-            const isExitAndClicked =
-              clickedId === id && isClicked && rate !== 0;
-            return (
-              <ContentsContainer key={id}>
-                <Contents
-                  onClick={() => handleClickContents(id)}
-                  $isClicked={isExitAndClicked}
-                >
-                  <ProfileImg
-                    src={imgSrc}
-                    onClick={() => handleClickUserInfo(id)}
-                  />
-                  <UserContainer onClick={() => handleClickUserInfo(id)}>
-                    <Nickname>{nickname}</Nickname>
-                    <Language>{language}</Language>
-                  </UserContainer>
-                  <WeeklyCurrentGraph percentage={rate} />
+        {!isLoading && followings.length !== 0 && (
+          <List>
+            {followings.map(
+              (following: {
+                userId: number;
+                nickname: string;
+                profileImg: string;
+                language: string;
+                successRate: number;
+                recentProblemTitle: string;
+              }) => {
+                const {
+                  userId,
+                  nickname,
+                  profileImg,
+                  language,
+                  successRate,
+                  recentProblemTitle,
+                } = following;
+                const isExitAndClicked =
+                  clickedId === userId && isClicked && successRate !== 0;
+                return (
+                  <ContentsContainer key={userId}>
+                    <Contents
+                      onClick={() => handleClickContents(userId)}
+                      $isClicked={isExitAndClicked}
+                    >
+                      <ProfileImg
+                        src={profileImg}
+                        onClick={() => handleClickUserInfo(userId)}
+                      />
+                      <UserContainer
+                        onClick={() => handleClickUserInfo(userId)}
+                      >
+                        <Nickname>{nickname}</Nickname>
+                        <Language>{language}</Language>
+                      </UserContainer>
+                      <WeeklyCurrentGraph percentage={successRate} />
 
-                  <Problem>{problem}</Problem>
-                  {isExitAndClicked ? (
-                    <IcArrowTopWhite />
-                  ) : (
-                    <IcArrowBottomWhite />
-                  )}
-                </Contents>
+                      <Problem>{recentProblemTitle}</Problem>
+                      {isExitAndClicked ? (
+                        <IcArrowTopWhite />
+                      ) : (
+                        <IcArrowBottomWhite />
+                      )}
+                    </Contents>
 
-                {isExitAndClicked && <AdditionalProblemsModal />}
-              </ContentsContainer>
-            );
-          })}
-        </List>
+                    {isExitAndClicked && (
+                      <AdditionalProblemsModal userId={userId} />
+                    )}
+                  </ContentsContainer>
+                );
+              }
+            )}
+          </List>
+        )}
       </ListContainer>
 
-      <PageNationBar>
+      <PageNationBar $isEmpty={totalPage === 0}>
         <IcArrowLeftSmallGray
           onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
         />
@@ -111,7 +154,7 @@ const FollowerList = () => {
           return (
             <PageNumber
               key={page}
-              $isClicked={clickedPage === page}
+              $isClicked={totalPage > 0 && clickedPage === page}
               onClick={() => handleClickPageNumber(page)}
             >
               {page}
@@ -125,7 +168,7 @@ const FollowerList = () => {
         />
       </PageNationBar>
 
-      {followers.length === 0 && <FollowerRecommendCard />}
+      {!isLoading && followings.length === 0 && <FollowerRecommendCard />}
     </FollowerListContainer>
   );
 };
@@ -259,14 +302,14 @@ const Problem = styled.p`
   white-space: nowrap;
 `;
 
-const PageNationBar = styled.div`
+const PageNationBar = styled.div<{ $isEmpty: boolean }>`
   display: flex;
   gap: 1.2rem;
   justify-content: center;
   align-items: center;
 
   width: 100%;
-  margin-top: 4.8rem;
+  margin-top: ${({ $isEmpty }) => ($isEmpty ? `8.8rem` : `4.8rem`)};
 `;
 
 const PageNumber = styled.p<{ $isClicked: boolean }>`

@@ -1,27 +1,27 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { SolverProps } from '../../../types/Follower/Current/currentType';
 import EmptySolver from './EmptySolver';
 
-interface SolverProps {
-  currentPage: number;
-  users: Array<{ userId: number; nickname: string; profileImg: string }>;
-}
-
 const Solver = ({ currentPage, users }: SolverProps) => {
-  const [slicedUsers, setSlicedUsers] = useState(users.slice(0, 3));
+  const [slicedUsers, setSlicedUsers] = useState(
+    users.length > 3 ? users.slice(0, 3) : users
+  );
 
-  useEffect(() => {
-    setSlicedUsers(users.slice(currentPage * 3 - 3, currentPage * 3));
-  }, [currentPage]);
+  if (users.length > 3) {
+    useEffect(() => {
+      setSlicedUsers(users.slice(currentPage * 3 - 3, currentPage * 3));
+    }, [currentPage]);
+  }
 
   return (
     <>
       {users.length ? (
         <SolverContainer>
           {slicedUsers.map((solver) => {
-            const { userId, profileImg, nickname } = solver;
+            const { profileImg, nickname } = solver;
             return (
-              <SolverInfo key={userId}>
+              <SolverInfo key={nickname}>
                 <ProfileImg src={profileImg} />
                 <Nickname>{nickname}</Nickname>
               </SolverInfo>

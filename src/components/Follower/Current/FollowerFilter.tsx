@@ -1,35 +1,37 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../../assets';
-import { GROUPS, SORTING } from '../../../constants/Follower/currentConst';
+import { SORTING } from '../../../constants/Follower/currentConst';
+import useGetJoinedGroupList from '../../../libs/hooks/Follower/useGetJoinedGroupList';
+import { FollowerFilterProps } from '../../../types/Follower/Current/currentType';
 
-const FollowerFilter = () => {
+const FollowerFilter = ({
+  sorting,
+  updateSelectedGroupId,
+  handleClickSorting,
+}: FollowerFilterProps) => {
   const [isGroupClicked, setIsGroupClicked] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState('');
-  const [sorting, setSorting] = useState('최신순');
+
+  const { data, isLoading } = useGetJoinedGroupList();
+  const { joinedRooms } = !isLoading && data?.data;
 
   const handleClickGroupOptions = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>,
+    id: number
   ) => {
     const { innerHTML } = e.currentTarget;
     setSelectedGroup(innerHTML);
+    updateSelectedGroupId(id);
   };
 
   const handleClickGroupFilter = () => {
     setIsGroupClicked(!isGroupClicked);
   };
 
-  const handleClickSorting = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-  ) => {
-    const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
-    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
-  };
-
   return (
     <FilteredContainer>
-      <GroupFilterContainer onClick={handleClickGroupFilter}>
+      <GroupFilterContainer onClick={joinedRooms && handleClickGroupFilter}>
         <SelectedGroup $isEmpty={!selectedGroup.length}>
           {selectedGroup ? selectedGroup : '그룹 별 보기'}
         </SelectedGroup>
@@ -38,15 +40,15 @@ const FollowerFilter = () => {
           <>
             <IcArrowTopGray />
             <Options>
-              {GROUPS.map((group) => {
-                const { id, name } = group;
+              {joinedRooms.map((room: { roomId: number; title: string }) => {
+                const { roomId, title } = room;
                 return (
                   <Option
-                    key={id}
-                    onClick={handleClickGroupOptions}
-                    $clickedOption={selectedGroup === name}
+                    key={roomId}
+                    onClick={(e) => handleClickGroupOptions(e, roomId)}
+                    $clickedOption={selectedGroup === title}
                   >
-                    {name}
+                    {title}
                   </Option>
                 );
               })}

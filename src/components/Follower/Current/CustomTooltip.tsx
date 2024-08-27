@@ -3,13 +3,17 @@ import styled from 'styled-components';
 
 const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
   if (payload && payload.length && active) {
-    const { name, problemNum } = payload[0].payload;
+    const { name, count } = payload[0].payload;
 
     return (
-      <ToolTipContainer>
-        <Name>{name}</Name>
-        <ProblemNum>{`${problemNum} 문제`}</ProblemNum>
-      </ToolTipContainer>
+      <>
+        {name && (
+          <ToolTipContainer>
+            <Name>{name}</Name>
+            <ProblemNum>{`${count} 문제`}</ProblemNum>
+          </ToolTipContainer>
+        )}
+      </>
     );
   }
 };
@@ -23,7 +27,7 @@ const ToolTipContainer = styled.div`
   align-items: center;
   flex-direction: column;
 
-  transform: translate(-7rem, -8.5rem);
+  transform: translate(-4rem, -8.5rem);
 `;
 
 const Name = styled.p`
@@ -38,8 +42,8 @@ const Name = styled.p`
 
   &::after {
     position: absolute;
-    top: 3.7rem;
-    left: calc(100% / 2.2);
+    top: 3.6rem;
+    left: calc(100% / 3);
 
     width: 0;
 

@@ -104,4 +104,5 @@ export interface getMonthlySolutionProps {
   month: number;
   page: number;
   isSmallList: boolean;
+  sortType?:string;
 }

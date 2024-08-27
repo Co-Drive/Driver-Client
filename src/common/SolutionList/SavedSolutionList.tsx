@@ -11,9 +11,13 @@ import SavedSolution from './SavedSolution';
 
 export interface SavedSolutionListProps {
   isSmallList: boolean;
+  handleDisabledMoreBtn?: (value: boolean) => void;
 }
 
-const SavedSolutionList = ({ isSmallList }: SavedSolutionListProps) => {
+const SavedSolutionList = ({
+  isSmallList,
+  handleDisabledMoreBtn,
+}: SavedSolutionListProps) => {
   const totalPageRef = useRef(0);
   const pages = Array.from(
     { length: totalPageRef.current },
@@ -61,8 +65,10 @@ const SavedSolutionList = ({ isSmallList }: SavedSolutionListProps) => {
 
       if (records.length) {
         setSavedRecords(records);
+        handleDisabledMoreBtn && handleDisabledMoreBtn(false);
       } else {
         setSavedRecords([]);
+        handleDisabledMoreBtn && handleDisabledMoreBtn(true);
       }
     }
   };
