@@ -1,19 +1,9 @@
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
-
-interface HomeProfileCardProps {
-  user: {
-    userId: number;
-    successRate: number;
-    profileImg: string;
-    nickname: string;
-    language: string;
-  };
-}
-
-interface CustomLabelProps {
-  profileImg: string;
-}
+import {
+  CustomLabelProps,
+  HomeProfileCardProps,
+} from '../../types/Week/HomeFollowerTypes';
 
 const CustomLabel = ({ profileImg }: CustomLabelProps) => {
   return (
@@ -23,7 +13,7 @@ const CustomLabel = ({ profileImg }: CustomLabelProps) => {
       y={8}
       width={60}
       height={60}
-      clipPath="circle(50%)" // 원형으로 자르기
+      clipPath="circle(50%)"
     />
   );
 };
@@ -36,10 +26,7 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
     NickName = nickname.slice(0, 7) + '...';
   }
 
-  const chartData = [
-    { name: 'Success', value: successRate },
-    // { name: 'Failure', value: 100 - successRate },
-  ];
+  const chartData = [{ name: 'Success', value: successRate }];
 
   return (
     <>
@@ -88,8 +75,6 @@ const FollowerContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-
-  /* background-color: cadetblue; */
 `;
 
 const Text = styled.div`
