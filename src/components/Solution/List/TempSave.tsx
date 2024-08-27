@@ -122,6 +122,7 @@ const TempSaveContainer = styled.article`
 
   width: 100%;
   margin-top: 3.4rem;
+  margin-bottom: 4.3rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};

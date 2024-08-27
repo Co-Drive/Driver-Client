@@ -1,29 +1,16 @@
 export interface FollowerInfoProps {
   info: {
-    profileImg: string;
-    nickname: string;
-    isFollowed: boolean;
-    introduce: string;
+    comment: string;
+    githubUrl: string;
+    isFollowing: boolean;
     language: string;
-    github: string;
+    nickname: string;
+    profileImg: string;
+    successRate: number;
   };
 }
 
-export interface ParticipatingGroupProps {
-  group: Array<{
-    id: number;
-    imgSrc: string;
-    title: string;
-    tags: Array<string>;
-    introduce: string;
-  }>;
-}
-
-export interface FollowerRecommendCardProps {
-  recommend: Array<{
-    profileImg: string;
-    nickname: string;
-    language: string;
-    isFollowed: boolean;
-  }>;
+export interface UpdateFollowerProps {
+  isDelete: boolean;
+  nickname: string;
 }

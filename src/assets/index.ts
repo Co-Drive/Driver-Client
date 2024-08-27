@@ -25,7 +25,10 @@ import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
 import IcCode from './icon/ic_code.svg?react';
+import IcFollowingGray from './icon/ic_following_gray.svg?react';
 import IcGithub from './icon/ic_github.svg?react';
+import IcGithubLogoSmall from './icon/ic_github_logo_small.svg?react';
+import IcGithubSmall from './icon/ic_github_small.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
@@ -37,6 +40,7 @@ import IcLoginIcon from './icon/ic_login_Icon.svg?react';
 import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
+import IcNothing from './icon/ic_nothing.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
 import IcSecretGray from './icon/ic_secret_gray.svg?react';
 import IcSecretWhite from './icon/ic_secret_white.svg?react';
@@ -44,10 +48,15 @@ import IcStarGray from './icon/ic_star_gray.svg?react';
 import IcStarGreen from './icon/ic_star_green.svg?react';
 import IcStarMiniGray from './icon/ic_star_mini_gray.svg?react';
 import IcStarMiniYellow from './icon/ic_star_mini_yellow.svg?react';
+import IcStatusBlack from './icon/ic_status_black.svg?react';
+import IcStatusWhite from './icon/ic_status_white.svg?react';
 import IcSuccess from './icon/ic_success.svg?react';
+import IcSuccessGray from './icon/ic_success_gray.svg?react';
+import IcUnfollowingWhite from './icon/ic_unfollowing_white.svg?react';
 import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
+import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 
 import BtnHeart from './btn/btn_heart.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
@@ -91,7 +100,10 @@ export {
   IcCancelSmall,
   IcCancelSmallWhite,
   IcCode,
+  IcFollowingGray,
   IcGithub,
+  IcGithubLogoSmall,
+  IcGithubSmall,
   IcGroup,
   IcHome,
   IcInformation,
@@ -103,6 +115,7 @@ export {
   IcLogo,
   IcMemoGray,
   IcMemoWhite,
+  IcNothing,
   IcSecretBigWhite,
   IcSecretGray,
   IcSecretWhite,
@@ -110,9 +123,14 @@ export {
   IcStarGreen,
   IcStarMiniGray,
   IcStarMiniYellow,
+  IcStatusBlack,
+  IcStatusWhite,
   IcSuccess,
+  IcSuccessGray,
+  IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
   IcWorkbook,
+  IcWorkbookBlack,
   TestWeekboardStatus,
 };

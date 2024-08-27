@@ -1,10 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { IcArrowRightGray, IcLinkWhite } from '../../../assets';
-import { SavedSolutionProps } from '../../../types/Solution/solutionTypes';
-import Level from '../Level';
+import styled, { css } from 'styled-components';
+import { IcArrowRightGray, IcLinkWhite } from '../../assets';
+import Level from '../../components/Solution/Level';
+import { SavedSolutionProps } from '../../types/Solution/solutionTypes';
 
-const SavedSolution = ({ record }: SavedSolutionProps) => {
+const SavedSolution = ({
+  record,
+  isModal,
+  removeBorder,
+}: SavedSolutionProps) => {
   const navigate = useNavigate();
   const { recordId, title, level, tags, platform, problemUrl, createdAt } =
     record;
@@ -15,7 +19,7 @@ const SavedSolution = ({ record }: SavedSolutionProps) => {
   };
 
   return (
-    <SavedSolutionContainer>
+    <SavedSolutionContainer $removeBorder={removeBorder} $isModal={isModal}>
       <QuesitonContainer>
         <Date>
           {month}월 {date}일
@@ -42,12 +46,29 @@ const SavedSolution = ({ record }: SavedSolutionProps) => {
 
 export default SavedSolution;
 
-const SavedSolutionContainer = styled.article`
+const SavedSolutionContainer = styled.article<{
+  $removeBorder?: boolean;
+  $isModal?: boolean;
+}>`
   display: flex;
   justify-content: space-between;
 
   width: 100%;
-  padding: 2.4rem 2.3rem 3rem 0.6rem;
+
+  ${({ $isModal }) =>
+    $isModal
+      ? css`
+          padding: 2.4rem 1rem 3rem 1.6rem;
+        `
+      : css`
+          padding: 2.4rem 2.3rem 3rem 0.6rem;
+        `};
+
+  ${({ $removeBorder, theme }) =>
+    !$removeBorder &&
+    css`
+      border-bottom: 0.1rem solid ${theme.colors.gray600};
+    `};
 `;
 
 const QuesitonContainer = styled.article`
