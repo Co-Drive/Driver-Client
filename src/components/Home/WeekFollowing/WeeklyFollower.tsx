@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { IcArrowRightGray } from '../../assets';
-import { Home_FOLLOWER_DUMMY } from '../../constants/Home/follwerConst';
+import { IcArrowRightGray } from '../../../assets';
+import { Home_FOLLOWER_DUMMY } from '../../../constants/Home/follwerConst';
 import HomeProfileCard from './ProfileCard';
 
 const WeeklyFollower = () => {
