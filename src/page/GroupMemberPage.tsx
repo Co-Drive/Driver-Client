@@ -1,11 +1,8 @@
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupInfo from '../components/GroupMember/GroupInfo';
 import PageLayout from '../components/PageLayout/PageLayout';
-import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
 
 const GroupMemberPage = () => {
-
   return (
     <PageLayout category="그룹">
       <GroupMemberContainer>
@@ -21,4 +18,7 @@ const GroupMemberContainer = styled.section`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
+  width: 100%;
+  padding: 6.4rem 25.7rem 14.4rem;
 `;
