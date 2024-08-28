@@ -12,6 +12,10 @@ const GroupInfo = () => {
   const { imageSrc, title, tags, owner } = !isLoading && data?.data;
   const { userId, nickname, profileImg } = !isLoading && owner;
 
+  const handleClickHost = () => {
+    navigate(`/follower/${userId}`);
+  };
+
   return (
     <>
       {!isLoading && (
@@ -32,7 +36,7 @@ const GroupInfo = () => {
               </MoreInfoBtn>
             </Group>
 
-            <Host>
+            <Host typeof="button" onClick={handleClickHost}>
               <ProfileImg src={profileImg} />
               <NicknameContainer>
                 <Nickname>{nickname}</Nickname>
@@ -118,7 +122,7 @@ const MoreInfoText = styled.p`
   ${({ theme }) => theme.fonts.title_semiBold_14};
 `;
 
-const Host = styled.div`
+const Host = styled.button`
   display: flex;
   gap: 1rem;
   align-items: center;
