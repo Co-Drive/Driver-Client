@@ -1,13 +1,10 @@
-import HomeHeader from '../components/Home/HomeHeader';
-import TodaySolve from '../components/Home/TodaySolve';
-import PageLayout from '../components/PageLayout/PageLayout';
+import CommonCalendar from '../components/Calendar/Calendar';
 
 const Home = () => {
   return (
-    <PageLayout category={'홈'}>
-      <HomeHeader />
-      <TodaySolve />
-    </PageLayout>
+    <>
+      <CommonCalendar />
+    </>
   );
 };
 
