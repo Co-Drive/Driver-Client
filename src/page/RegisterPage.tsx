@@ -94,7 +94,8 @@ const RegisterPage = () => {
     intro.length > 0 &&
     intro.length <= 30 &&
     github.length > 0 &&
-    selectedLanguage.length > 0;
+    selectedLanguage.length > 0 &&
+    !isExitedNickname; // 닉네임 중복 상태 추가
 
   return (
     <PageLayout category={'login'}>
