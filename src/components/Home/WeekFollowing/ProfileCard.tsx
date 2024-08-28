@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {
   CustomLabelProps,
   HomeProfileCardProps,
-} from '../../types/Week/HomeFollowerTypes';
+} from '../../../types/Week/HomeFollowerTypes';
 
 const CustomLabel = ({ profileImg }: CustomLabelProps) => {
   return (
