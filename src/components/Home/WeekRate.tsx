@@ -9,7 +9,7 @@ const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
     <>
       <StyledText
         x={cx}
-        y={cy - 10}
+        y={cy - 20}
         dominantBaseline="middle"
         textAnchor="middle"
       >
@@ -19,20 +19,20 @@ const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
   );
 };
 const WeekRate = () => {
-  const maxProblems = 0;
-  const solvedProblems = 0;
+  const maxProblems = 7;
+  const solvedProblems = 2;
 
   const percentage =
-    maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 10;
+    maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 15;
   const chartData = [{ name: 'Solved', value: percentage }];
   const endAngle = 180 - (percentage / 100) * 180;
   return (
     <Container>
       <Header>주간 성과율</Header>
       <ChartContainer>
-        <PieChart width={227} height={113}>
+        <PieChart width={300} height={140}>
           <defs>
-            <linearGradient id="colorGradient" x1="0" y1="0" x2="1" y2="1">
+            <linearGradient id="linear" x1="0" y1="0" x2="1" y2="1">
               <stop offset="100%" stopColor="#CA73FF" />
               <stop offset="100%" stopColor="#000000" />
             </linearGradient>
@@ -42,12 +42,12 @@ const WeekRate = () => {
             dataKey="value"
             startAngle={180}
             endAngle={0}
-            innerRadius={65}
-            outerRadius={85}
+            innerRadius={95}
+            outerRadius={115}
             stroke="none"
             cornerRadius={10}
             paddingAngle={0}
-            cy={96}
+            cy={126}
             cx="50%"
             fill="#34363C"
           >
@@ -70,21 +70,17 @@ const WeekRate = () => {
             dataKey="value"
             startAngle={180}
             endAngle={endAngle}
-            innerRadius={65}
-            outerRadius={85}
+            innerRadius={95}
+            outerRadius={115}
             stroke="none"
             cornerRadius={10}
             paddingAngle={0}
-            cy={96}
+            cy={126}
             cx="50%"
           >
             <Cell
               key="cell-1"
-              fill={
-                maxProblems && solvedProblems
-                  ? 'url(#colorGradient)'
-                  : '#B2B4BA'
-              }
+              fill={maxProblems && solvedProblems ? 'url(#linear)' : '#B2B4BA'}
             />
           </Pie>
         </PieChart>
@@ -138,5 +134,5 @@ const Message = styled.p`
 `;
 
 const MessageContainer = styled.div`
-  margin-top: 1.6rem;
+  margin-top: 0.3rem;
 `;
