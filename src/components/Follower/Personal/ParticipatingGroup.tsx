@@ -1,38 +1,59 @@
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { ParticipatingGroupProps } from '../../../types/Follower/Personal/personalType';
+import useGetRooms from '../../../libs/hooks/utils/useGetRooms';
+import { GroupType } from '../../../types/MyGroup/myGroupType';
 
-const ParticipatingGroup = ({ group }: ParticipatingGroupProps) => {
-  // 라우팅 정의 후, 콘솔은 지우고 navigate 코드로 변경할 예정입니다 !!
-  //   const navigate = useNavigate();
-  const handleClickCard = (id: number) => {
-    console.log(id);
-    // navigate(`/group/${id}`);
+interface ParticipatingGroupProps {
+  nickname: string;
+}
+
+const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  if (!id) return;
+
+  const followerId = parseInt(id);
+  const { data, isLoading } = useGetRooms({
+    followerId: followerId,
+    isJoinedRooms: true,
+    sortType: '최신순',
+  });
+  const { joinedRooms } = !isLoading && data?.data;
+
+  const handleClickCard = (groupId: number) => {
+    navigate(`/group/${groupId}`);
   };
 
   return (
     <ParticipatingCardContainer>
-      <Title>참여 그룹</Title>
+      <TitleContainer>
+        <Nickname>{nickname}</Nickname>
+        <Title>님의 참여 그룹</Title>
+      </TitleContainer>
 
       <GroupContainer>
-        {group.map((card) => {
-          const { id, imgSrc, title, tags, introduce } = card;
+        {!isLoading &&
+          joinedRooms.map((room: GroupType) => {
+            const { roomId, imageSrc, title, tags, introduce } = room;
 
-          return (
-            <CardContainer key={id} onClick={() => handleClickCard(id)}>
-              <Img src={imgSrc} />
-              <Contents>
-                <Name>{title}</Name>
-                <TagContainer>
-                  {tags.map((tag) => {
-                    return <Tag key={tag}>{tag}</Tag>;
-                  })}
-                </TagContainer>
-                <Introduce>{introduce}</Introduce>
-              </Contents>
-            </CardContainer>
-          );
-        })}
+            return (
+              <CardContainer
+                key={roomId}
+                onClick={() => handleClickCard(roomId)}
+              >
+                <Img src={imageSrc} />
+                <Contents>
+                  <Name>{title}</Name>
+                  <TagContainer>
+                    {tags.map((tag) => {
+                      return <Tag key={tag}>{tag}</Tag>;
+                    })}
+                  </TagContainer>
+                  <Introduce>{introduce}</Introduce>
+                </Contents>
+              </CardContainer>
+            );
+          })}
       </GroupContainer>
     </ParticipatingCardContainer>
   );
@@ -47,12 +68,24 @@ const ParticipatingCardContainer = styled.article`
   flex-direction: column;
 
   width: 100%;
-  margin-top: 6rem;
+  margin-top: 9.8rem;
+  margin-left: 0.2rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+
+  margin-left: 0.1rem;
+`;
+
+const Nickname = styled.p`
+  color: ${({ theme }) => theme.colors.codrive_green};
+  ${({ theme }) => theme.fonts.title_bold_24};
 `;
 
 const Title = styled.p`
-  margin-left: 0.3rem;
-
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
@@ -63,15 +96,6 @@ const GroupContainer = styled.article`
   grid-template-columns: repeat(3, 1fr);
 
   width: 100%;
-  height: 58.2rem;
-  overflow-y: auto;
-
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const CardContainer = styled.div`

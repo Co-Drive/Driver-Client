@@ -1,12 +1,17 @@
 export interface RecommendCardProps {
-  user: string;
   group: Array<{
-    nickname: string;
-    imgSrc: string;
-    profile: string;
-    num: number;
+    roomId: number;
     title: string;
+    owner: {
+      userId: number;
+      nickname: string;
+      profileImg: string;
+    };
+    imageSrc: string;
+    memberCount: number;
+    capacity: number;
     tags: Array<string>;
-    content: string;
+    introduce: string;
   }>;
+  isLongPage: boolean;
 }
