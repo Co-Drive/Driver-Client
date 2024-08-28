@@ -1,43 +1,49 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray } from '../../assets';
 import useGetDetail from '../../libs/hooks/GroupDetail/useGetDetail';
 
 const GroupInfo = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   if (!id) return;
   const groupId = parseInt(id);
   const { data, isLoading } = useGetDetail(groupId);
   const { imageSrc, title, tags, owner } = !isLoading && data?.data;
-  const { userId, nickname, profileImg } = owner;
+  const { userId, nickname, profileImg } = !isLoading && owner;
+
   return (
-    <GroupInfoContainer>
-      <GroupImg src={imageSrc} />
+    <>
+      {!isLoading && (
+        <GroupInfoContainer>
+          <GroupImg src={imageSrc} />
 
-      <TotalGroupInfo>
-        <Group>
-          <Tags>
-            {tags.map((tag: string) => {
-              return <Tag key={tag}>#{tag}</Tag>;
-            })}
-          </Tags>
-          <Title>{title}</Title>
-          <MoreInfoBtn type="button">
-            <MoreInfoText>그룹 정보 보기</MoreInfoText>
-            <IcArrowRightSmallGray />
-          </MoreInfoBtn>
-        </Group>
+          <TotalGroupInfo>
+            <Group>
+              <Tags>
+                {tags.map((tag: string) => {
+                  return <Tag key={tag}>#{tag}</Tag>;
+                })}
+              </Tags>
+              <Title>{title}</Title>
+              <MoreInfoBtn type="button">
+                <MoreInfoText>그룹 정보 보기</MoreInfoText>
+                <IcArrowRightSmallGray />
+              </MoreInfoBtn>
+            </Group>
 
-        <Host>
-          <ProfileImg src={profileImg} />
-          <NicknameContainer>
-            <Nickname>{nickname}</Nickname>
-            <Nickname>님</Nickname>
-          </NicknameContainer>
-          <IcArrowRightSmallGray />
-        </Host>
-      </TotalGroupInfo>
-    </GroupInfoContainer>
+            <Host>
+              <ProfileImg src={profileImg} />
+              <NicknameContainer>
+                <Nickname>{nickname}</Nickname>
+                <Nickname>님</Nickname>
+              </NicknameContainer>
+              <IcArrowRightSmallGray />
+            </Host>
+          </TotalGroupInfo>
+        </GroupInfoContainer>
+      )}
+    </>
   );
 };
 
@@ -46,14 +52,16 @@ export default GroupInfo;
 const GroupInfoContainer = styled.article`
   display: flex;
   gap: 3.6rem;
-  justify-content: space-between;
   align-items: center;
 
   width: 100%;
 `;
 
 const GroupImg = styled.img`
-  width: 36.4rem;
+  min-width: 36.4rem;
+
+  flex-grow: 0.5;
+
   height: 21.8rem;
 
   border-radius: 1.2rem;
@@ -64,8 +72,8 @@ const TotalGroupInfo = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  flex-grow: 1.3;
 
-  width: 100%;
   margin: 1.2rem 0 1.6rem;
 `;
 
@@ -114,6 +122,8 @@ const Host = styled.div`
   display: flex;
   gap: 1rem;
   align-items: center;
+
+  margin-top: 2.4rem;
 `;
 
 const ProfileImg = styled.img`
