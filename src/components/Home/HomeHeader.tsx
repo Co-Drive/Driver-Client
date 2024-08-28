@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcWorkBookBlack } from '../../assets';
-import home_Header from '../../assets/home_Header.svg';
+import ic_home_Header from '../../assets/icon/ic_home_Header.svg';
 
 const HomeHeader = () => {
   const nickname = '메링구';
@@ -56,7 +56,7 @@ const Article = styled.article`
   border-radius: 1.2rem;
 
   max-width: 92.6rem;
-  background-image: url(${home_Header});
+  background-image: url(${ic_home_Header});
 `;
 
 const Header = styled.header`
