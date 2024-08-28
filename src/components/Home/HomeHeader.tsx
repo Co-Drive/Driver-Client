@@ -4,10 +4,23 @@ import { IcWorkBookBlack } from '../../assets';
 import home_Header from '../../assets/home_Header.svg';
 
 const HomeHeader = () => {
-  const todayDate = '7월1일 월요일';
   const nickname = '메링구';
   const navigate = useNavigate();
 
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+  const dayOfWeek = today.getDay();
+  const days = [
+    '일요일',
+    '월요일',
+    '화요일',
+    '수요일',
+    '목요일',
+    '금요일',
+    '토요일',
+  ];
+  const currentDay = days[dayOfWeek];
   const handleRegister = () => {
     navigate('/solve');
   };
@@ -15,7 +28,9 @@ const HomeHeader = () => {
   return (
     <Article>
       <Header>
-        <Date>{todayDate}</Date>
+        <DateText>
+          {month}월 {day}일 {currentDay}
+        </DateText>
         <NickNameContainer>
           안녕하세요,<NickName>{nickname} 님</NickName>
         </NickNameContainer>
@@ -48,7 +63,7 @@ const Header = styled.header`
   padding: 3.2rem 3.4rem 4.4rem 3.6rem;
 `;
 
-const Date = styled.p`
+const DateText = styled.p`
   margin-bottom: 2.9rem;
 
   ${({ theme }) => theme.fonts.body_ligth_12}
@@ -61,12 +76,14 @@ const NickNameContainer = styled.div`
   margin-bottom: 1.6rem;
 
   color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_medium_20};
 `;
 
 const NickName = styled.p`
   margin-left: 0.6rem;
 
   color: ${({ theme }) => theme.colors.codrive_green};
+  ${({ theme }) => theme.fonts.title_medium_20};
 `;
 
 const Pharse = styled.p`
