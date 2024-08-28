@@ -16,6 +16,7 @@ const RegisterPage = () => {
   });
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [isExitedNickname, setIsExitedNickname] = useState(false); // 닉네임 중복 상태 추가
 
   const { nickname, github, intro } = inputs;
 
@@ -26,6 +27,11 @@ const RegisterPage = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === 'nickname') {
+      // 닉네임 변경 시 중복 상태 초기화
+      setIsExitedNickname(false);
+    }
   };
 
   // 언어 태그 변경 처리 함수
@@ -70,8 +76,8 @@ const RegisterPage = () => {
       const errorCode = errorData?.code;
 
       if (errorCode === 409) {
+        setIsExitedNickname(true);
         // 닉네임 사용 불가
-        alert('닉네임이 이미 존재합니다.');
       } else if (errorCode === 400) {
         // 잘못된 요청
         alert('잘못된 요청입니다. 닉네임 형식을 확인해주세요.');
@@ -95,6 +101,7 @@ const RegisterPage = () => {
       <RegisterContainer onSubmit={handleJoinBtnClick}>
         <NickName
           nickname={nickname}
+          isExitedNickname={isExitedNickname} // 닉네임 중복 상태 전달
           handleChangeInputs={handleChangeInputs}
           handleNicknameCheck={handleNicknameCheck}
         />
