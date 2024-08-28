@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -20,7 +20,9 @@ const RegisterPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [isExitedNickname, setIsExitedNickname] = useState(false); // 닉네임 중복 상태 추가
 
-  const navigate = useNavigate(); // 페이지 이동을 위해 useNavigate 훅 사용
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { userId } = location.state || {};
 
   const { nickname, github, intro } = inputs;
 
@@ -53,7 +55,6 @@ const RegisterPage = () => {
   const handleJoinBtnClick = async () => {
     if (!isActive) return;
 
-    // 서버에 보낼 프로필 정보 준비
     const profileInfo = {
       nickname: nickname,
       language: selectedLanguage,
@@ -62,34 +63,13 @@ const RegisterPage = () => {
     };
 
     try {
-      // 예시 userId (이 부분은 실제 데이터에 맞게 수정되어야 함)
-      const userId = 5; // TODO: 실제 userId를 설정해야 합니다.
+      const data = await patchProfile({ userId, profileInfo });
 
-      // PATCH 요청을 보냄
-      const response = await patchProfile({ userId, profileInfo });
-
-      // 요청 후 응답 데이터 로그 출력
-      console.log('Server response:', response);
-
-      // 응답이 성공적일 경우
-      if (response) {
+      if (data.code === 200) {
         navigate('/');
       }
-    } catch (error: any) {
-      // 에러 발생 시 로그 출력
-      console.error('Error while updating profile:', error);
-
-      // 에러 처리
-      const errorData = error.response?.data || error;
-      const errorCode = errorData?.code;
-
-      if (errorCode === 400) {
-        alert('잘못된 요청입니다. 입력한 정보를 다시 확인해주세요.');
-      } else if (errorCode === 404) {
-        alert('사용자를 찾을 수 없습니다. 다시 시도해주세요.');
-      } else {
-        alert('알 수 없는 오류가 발생했습니다. 나중에 다시 시도해주세요.');
-      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -106,7 +86,6 @@ const RegisterPage = () => {
 
       if (errorCode === 409) {
         setIsExitedNickname(true);
-        setIsExitedNickname(false);
       }
     }
   };
