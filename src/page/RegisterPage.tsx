@@ -18,7 +18,7 @@ const RegisterPage = () => {
   });
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
-  const [isExitedNickname, setIsExitedNickname] = useState(false); // 닉네임 중복 상태 추가
+  const [isExitedNickname, setIsExitedNickname] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,7 +35,6 @@ const RegisterPage = () => {
     }));
 
     if (name === 'nickname') {
-      // 닉네임 변경 시 중복 상태 초기화
       setIsExitedNickname(false);
     }
   };
@@ -97,14 +96,14 @@ const RegisterPage = () => {
     intro.length <= 30 &&
     github.length > 0 &&
     selectedLanguage.length > 0 &&
-    !isExitedNickname; // 닉네임 중복 상태 추가
+    !isExitedNickname;
 
   return (
     <PageLayout category={'login'}>
       <RegisterContainer onSubmit={handleJoinBtnClick}>
         <NickName
           nickname={nickname}
-          isExitedNickname={isExitedNickname} // 닉네임 중복 상태 전달
+          isExitedNickname={isExitedNickname}
           handleChangeInputs={handleChangeInputs}
           handleNicknameCheck={handleNicknameCheck}
         />
