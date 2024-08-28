@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import SavedSolutionList from '../common/SolutionList/SavedSolutionList';
 import PageLayout from '../components/PageLayout/PageLayout';
 import TempSave from '../components/Solution/List/TempSave';
-import SavedSolutionList from '../components/Solution/List/SavedSolutionList';
 
 const SolutionListPage = () => {
   const nickname = sessionStorage.getItem('nickname');
@@ -15,7 +15,7 @@ const SolutionListPage = () => {
 
         <TempSave />
 
-        <SavedSolutionList />
+        <SavedSolutionList isSmallList={false} />
       </ListPageContainer>
     </PageLayout>
   );
