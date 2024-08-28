@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -6,6 +7,7 @@ import Github from '../components/Register/Gitbhub';
 import IntroInput from '../components/Register/IntroInput';
 import Language from '../components/Register/Language';
 import NickName from '../components/Register/NickName';
+import { patchProfile } from '../libs/apis/Register/patchProfile';
 import { postNickname } from '../libs/apis/Register/postNickname';
 
 const RegisterPage = () => {
@@ -17,6 +19,8 @@ const RegisterPage = () => {
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [isExitedNickname, setIsExitedNickname] = useState(false); // 닉네임 중복 상태 추가
+
+  const navigate = useNavigate(); // 페이지 이동을 위해 useNavigate 훅 사용
 
   const { nickname, github, intro } = inputs;
 
@@ -46,9 +50,50 @@ const RegisterPage = () => {
   };
 
   // 가입 버튼 클릭 처리 함수
-  const handleJoinBtnClick = () => {
+  const handleJoinBtnClick = async () => {
     if (!isActive) return;
-    // 가입 로직 추가
+
+    // 서버에 보낼 프로필 정보 준비
+    const profileInfo = {
+      nickname: nickname,
+      language: selectedLanguage,
+      comment: intro,
+      githubUrl: github,
+    };
+
+    // PATCH 요청 전 데이터 확인을 위한 로그 출력
+    console.log('Sending profile update request with data:', profileInfo);
+
+    try {
+      // 예시 userId (이 부분은 실제 데이터에 맞게 수정되어야 함)
+      const userId = 5; // TODO: 실제 userId를 설정해야 합니다.
+
+      // PATCH 요청을 보냄
+      const response = await patchProfile({ userId, profileInfo });
+
+      // 요청 후 응답 데이터 로그 출력
+      console.log('Server response:', response);
+
+      // 응답이 성공적일 경우
+      if (response) {
+        navigate('/');
+      }
+    } catch (error: any) {
+      // 에러 발생 시 로그 출력
+      console.error('Error while updating profile:', error);
+
+      // 에러 처리
+      const errorData = error.response?.data || error;
+      const errorCode = errorData?.code;
+
+      if (errorCode === 400) {
+        alert('잘못된 요청입니다. 입력한 정보를 다시 확인해주세요.');
+      } else if (errorCode === 404) {
+        alert('사용자를 찾을 수 없습니다. 다시 시도해주세요.');
+      } else {
+        alert('알 수 없는 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+      }
+    }
   };
 
   // 닉네임 중복 체크 함수
