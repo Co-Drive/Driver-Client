@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightGray } from '../../../assets';
 import { Home_FOLLOWER_DUMMY } from '../../../constants/Home/follwerConst';
@@ -5,13 +6,18 @@ import HomeProfileCard from './ProfileCard';
 
 const WeeklyFollower = () => {
   const hasFollowers = Home_FOLLOWER_DUMMY.followings.length > 0;
+  const navigate = useNavigate();
+
+  const handleClickAllButton = () => {
+    navigate('/follower');
+  };
 
   return (
     <Container>
       <HeaderContainer>
         <WeeklyText>주간 팔로워 현황</WeeklyText>
         <div>
-          <AllButton type="button">
+          <AllButton type="button" onClick={handleClickAllButton}>
             전체보기
             <IcArrowRightGray />
           </AllButton>
