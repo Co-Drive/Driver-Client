@@ -57,22 +57,13 @@ const RegisterPage = () => {
       // `postNickname` 함수 호출
       const data = await postNickname(nickname);
 
-      // 응답 데이터 출력
-      console.log('서버 응답 데이터:', data);
-
       // 응답 데이터에서 code 확인
       if (data.code === 200) {
         // 닉네임 사용 가능
-        alert('사용 가능한 닉네임입니다.');
+        alert('사용 가능한 닉네임입니다');
       }
     } catch (error: any) {
-      // 오류 응답 전체 출력
-      console.log('서버 응답 오류:', error);
-
-      // 오류 응답에서 데이터 부분 확인
       const errorData = error.response?.data || error; // `error.response?.data`가 undefined일 경우 직접 `error` 사용
-      console.log('오류 응답 데이터:', errorData);
-
       const errorCode = errorData?.code;
 
       if (errorCode === 409) {
@@ -80,10 +71,10 @@ const RegisterPage = () => {
         // 닉네임 사용 불가
       } else if (errorCode === 400) {
         // 잘못된 요청
-        alert('잘못된 요청입니다. 닉네임 형식을 확인해주세요.');
+        setIsExitedNickname(false); // 잘못된 요청일 경우 닉네임 중복 상태 초기화
       } else {
         // 그 외의 오류
-        alert('서버 오류가 발생했습니다. 다시 시도해주세요.');
+        setIsExitedNickname(false); // 서버 오류일 경우에도 닉네임 중복 상태 초기화
       }
     }
   };
