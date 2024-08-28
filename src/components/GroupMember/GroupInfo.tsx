@@ -12,6 +12,10 @@ const GroupInfo = () => {
   const { imageSrc, title, tags, owner } = !isLoading && data?.data;
   const { userId, nickname, profileImg } = !isLoading && owner;
 
+  const handleClickMoreInfoBtn = () => {
+    navigate(`/group/${id}`, { state: { disabledApply: true } });
+  };
+
   const handleClickHost = () => {
     navigate(`/follower/${userId}`);
   };
@@ -30,7 +34,7 @@ const GroupInfo = () => {
                 })}
               </Tags>
               <Title>{title}</Title>
-              <MoreInfoBtn type="button">
+              <MoreInfoBtn type="button" onClick={handleClickMoreInfoBtn}>
                 <MoreInfoText>그룹 정보 보기</MoreInfoText>
                 <IcArrowRightSmallGray />
               </MoreInfoBtn>
