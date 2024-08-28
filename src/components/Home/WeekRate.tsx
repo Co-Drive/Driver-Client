@@ -19,11 +19,11 @@ const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
   );
 };
 const WeekRate = () => {
-  const maxProblems = 7;
-  const solvedProblems = 2;
+  const maxProblems = 0;
+  const solvedProblems = 0;
 
   const percentage =
-    maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 15;
+    maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 10;
   const chartData = [{ name: 'Solved', value: percentage }];
   const endAngle = 180 - (percentage / 100) * 180;
   return (
@@ -78,16 +78,22 @@ const WeekRate = () => {
             cy={126}
             cx="50%"
           >
-            <Cell
-              key="cell-1"
-              fill={maxProblems && solvedProblems ? 'url(#linear)' : '#B2B4BA'}
-            />
+            <Cell key="cell-1" fill={'url(#linear)'} />
           </Pie>
         </PieChart>
       </ChartContainer>
       <MessageContainer>
-        <Message>축하해요!</Message>
-        <Message>지난 주보다 {solvedProblems}문제 더 풀었어요!</Message>
+        {maxProblems && solvedProblems ? (
+          <>
+            <Message>축하해요!</Message>
+            <Message>지난 주보다 {solvedProblems}문제 더 풀었어요!</Message>
+          </>
+        ) : (
+          <>
+            <Message>이번 주에 푼 문제가 없어요</Message>
+            <Message>문제 풀이 인증하고 그래프를 채워보세요</Message>
+          </>
+        )}
       </MessageContainer>
     </Container>
   );
