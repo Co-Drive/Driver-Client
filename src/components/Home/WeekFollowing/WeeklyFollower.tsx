@@ -76,16 +76,6 @@ const NoFollowersText = styled.p`
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-const TestText = styled.p`
-  /* padding: 3.6rem 3.4rem 4.1rem; */
-
-  color: ${({ theme }) => theme.colors.gray400};
-
-  text-align: center;
-
-  ${({ theme }) => theme.fonts.body_medium_16};
-`;
-
 const WeeklyText = styled.p`
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
