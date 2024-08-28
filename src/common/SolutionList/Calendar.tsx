@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../../assets';
-import { CalendarProps } from '../../../types/Solution/solutionTypes';
+import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
+import { CalendarProps } from '../../types/Solution/solutionTypes';
 
 const Calendar = ({
   date,

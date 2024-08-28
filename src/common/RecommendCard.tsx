@@ -1,38 +1,53 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 
-const RecommendCard = ({ group }: RecommendCardProps) => {
-  const handleClickCard = (id: number) => {
-    /* 페이지 이동 */
+const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
+  const navigate = useNavigate();
 
-    // 추후 수정해주세요 !!
-    console.log(id);
+  const handleClickCard = (id: number) => {
+    navigate(`/group/${id}`);
   };
 
   return (
-    <RecommendCardContainer>
+    <RecommendCardContainer $isLongPage={isLongPage} $numOfData={group.length}>
       {group.map((card) => {
-        const { nickname, imgSrc, profile, num, title, content, tags } = card;
+        const {
+          roomId,
+          title,
+          owner,
+          imageSrc,
+          memberCount,
+          capacity,
+          tags,
+          introduce,
+        } = card;
+        const { nickname, profileImg } = owner;
 
         return (
-          <CardContainer key={num} onClick={() => handleClickCard(num)}>
-            <Img src={imgSrc} />
+          <CardContainer key={roomId} onClick={() => handleClickCard(roomId)}>
+            <Img src={imageSrc} />
+
             <Info>
               <CardHeader>
-                <UserImg src={profile} />
+                <UserImg src={profileImg} />
                 <TextId>
                   <Text>{nickname} 님</Text>
                   <Text>|</Text>
-                  <p>{num} / 50명</p>
+                  <p>
+                    {memberCount} / {capacity}명
+                  </p>
                 </TextId>
               </CardHeader>
+
               <CardBody>
                 <CardTitle>{title}</CardTitle>
-                <CardContent>{content}</CardContent>
+                <CardContent>{introduce}</CardContent>
               </CardBody>
+
               <CardTags>
                 {tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
+                  <Tag key={tag}>#{tag}</Tag>
                 ))}
               </CardTags>
             </Info>
@@ -43,10 +58,17 @@ const RecommendCard = ({ group }: RecommendCardProps) => {
   );
 };
 
-const RecommendCardContainer = styled.article`
+const RecommendCardContainer = styled.article<{
+  $isLongPage: boolean;
+  $numOfData: number;
+}>`
   display: grid;
   gap: 4rem 1.8rem;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: ${({ $isLongPage, $numOfData }) =>
+    $isLongPage && $numOfData >= 9
+      ? `repeat(3,1fr)`
+      : $numOfData >= 6 && `repeat(2, 1fr)`};
 
   width: 100%;
 
@@ -58,9 +80,6 @@ const RecommendCardContainer = styled.article`
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
-
-  width: 29.6rem;
-  height: 31rem;
 `;
 
 const Img = styled.img`
