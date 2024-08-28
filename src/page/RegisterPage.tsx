@@ -61,9 +61,6 @@ const RegisterPage = () => {
       githubUrl: github,
     };
 
-    // PATCH 요청 전 데이터 확인을 위한 로그 출력
-    console.log('Sending profile update request with data:', profileInfo);
-
     try {
       // 예시 userId (이 부분은 실제 데이터에 맞게 수정되어야 함)
       const userId = 5; // TODO: 실제 userId를 설정해야 합니다.
@@ -99,27 +96,17 @@ const RegisterPage = () => {
   // 닉네임 중복 체크 함수
   const handleNicknameCheck = async () => {
     try {
-      // `postNickname` 함수 호출
       const data = await postNickname(nickname);
-
-      // 응답 데이터에서 code 확인
       if (data.code === 200) {
-        // 닉네임 사용 가능
-        alert('사용 가능한 닉네임입니다');
+        setIsExitedNickname(false);
       }
     } catch (error: any) {
-      const errorData = error.response?.data || error; // `error.response?.data`가 undefined일 경우 직접 `error` 사용
+      const errorData = error.response?.data || error;
       const errorCode = errorData?.code;
 
       if (errorCode === 409) {
         setIsExitedNickname(true);
-        // 닉네임 사용 불가
-      } else if (errorCode === 400) {
-        // 잘못된 요청
-        setIsExitedNickname(false); // 잘못된 요청일 경우 닉네임 중복 상태 초기화
-      } else {
-        // 그 외의 오류
-        setIsExitedNickname(false); // 서버 오류일 경우에도 닉네임 중복 상태 초기화
+        setIsExitedNickname(false);
       }
     }
   };
