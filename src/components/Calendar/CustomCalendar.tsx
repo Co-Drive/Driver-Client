@@ -46,6 +46,7 @@ const CalendarContainer = styled.article`
   display: flex;
   flex-direction: column;
   position: absolute;
+  right: 0;
 
   margin-top: 2rem;
 `;

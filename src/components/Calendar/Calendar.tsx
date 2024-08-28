@@ -53,7 +53,7 @@ const CommonCalendar = () => {
             <IcArrowTopWhite onClick={handleClickCalendar} />
             <CustomCalendar
               date={{ clickedYear, clickedMonth }}
-              unsolvedMonths={[]} // 이 배열에 비활성화하고 싶은 월을 추가합니다.
+              unsolvedMonths={[]}
               handleClickPrevBtn={handleClickPrevBtn}
               handleClickMonth={handleClickMonth}
               handleClickNextBtn={handleClickNextBtn}
@@ -90,6 +90,7 @@ const NavContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   width: 17.9rem;
   padding: 1.3rem 1.4rem;
