@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcArrowBottomGray, IcArrowTopGray, IcFilter } from '../../../assets';
+import {
+  IcArrowBottomGray,
+  IcArrowTopGray,
+  IcGroupFilter,
+} from '../../../assets';
 import CommonHashTag from '../../../common/CommonHashTag';
 import { LanguageSectionProps } from '../../../types/GroupCreate/GroupCreateType';
 import PageLayout from '../../PageLayout/PageLayout';
@@ -74,7 +78,7 @@ const LanguageSelectBox = ({
         <DropdownContainer onClick={toggleDropdown}>
           <SelectContainer>
             <FilterIconContainer>
-              <IcFilter />
+              <IcGroupFilter />
             </FilterIconContainer>
             <SelectedTagsContainer>
               {selectedTags.length ===
