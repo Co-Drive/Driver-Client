@@ -7,13 +7,21 @@ const SearchBar = () => {
   const [searchData, setSearchData] = useState('');
   const GROUPS = GROUP_ALL_DUMMY.group;
 
+  const searchKeywords = searchData
+    .split(',')
+    .map((keyword) => keyword.trim().toLowerCase());
+
   const filteredGroups = GROUPS.filter((group) => {
-    const searchLower = searchData.toLowerCase();
+    const searchLower = searchKeywords;
+    const groupTagsLower = group.tags.map((tag) => tag.toLowerCase());
+
     return (
-      group.title.toLowerCase().includes(searchLower) ||
-      group.introduce.toLowerCase().includes(searchLower) ||
-      group.owner.nickname.toLowerCase().includes(searchLower) ||
-      group.tags.some((tag) => tag.toLowerCase().includes(searchLower)) ||
+      group.title.toLowerCase().includes(searchLower.join(' ')) ||
+      group.introduce.toLowerCase().includes(searchLower.join(' ')) ||
+      group.owner.nickname.toLowerCase().includes(searchLower.join(' ')) ||
+      searchLower.some((keyword) =>
+        groupTagsLower.some((tag) => tag.includes(keyword))
+      ) ||
       group.roomId.toString().includes(searchData) || // roomId 검색
       group.memberCount.toString().includes(searchData) || // memberCount 검색
       group.capacity.toString().includes(searchData) // capacity 검색
