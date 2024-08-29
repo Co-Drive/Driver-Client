@@ -11,11 +11,7 @@ import AdditionalProblemsModal from '../components/Follower/Current/AdditionalPr
 import WeeklyCurrentGraph from '../components/Follower/Current/WeeklyCurrentGraph';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
 import useGetFollowerSummary from '../libs/hooks/Follower/useGetFollowerSummary';
-
-interface CommonUserListProps {
-  sorting: string;
-  selectedGroupId: number;
-}
+import { CommonUserListProps } from '../types/CommonUserList/userListType';
 
 const CommonUserList = ({ sorting, selectedGroupId }: CommonUserListProps) => {
   const navigate = useNavigate();

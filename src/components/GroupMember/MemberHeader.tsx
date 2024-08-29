@@ -1,13 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { SORTING } from '../../constants/Follower/currentConst';
-
-interface MemberHeaderProps {
-  sorting: string;
-  handleClickSorting: (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-  ) => void;
-}
+import { MemberHeaderProps } from '../../types/GroupMember/memberType';
 
 const MemberHeader = ({ sorting, handleClickSorting }: MemberHeaderProps) => {
   return (
