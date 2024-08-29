@@ -5,25 +5,41 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled from 'styled-components';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
-import useGetMonthSolve from '../../libs/hooks/Home/useGetMonthSolve';
 import CustomCalendar from './CustomCalendar';
 
 interface BoardProps {
   date: string;
   isSolved: boolean;
 }
+interface CommonCalendarProps {
+  clickedYear: number;
+  clickedMonth: number;
+  data: {
+    data: {
+      board: BoardProps[];
+    };
+  };
+  setClickedYear: React.Dispatch<React.SetStateAction<number>>;
+  setClickedMonth: React.Dispatch<React.SetStateAction<number>>;
+}
 
 type ValuePiece = Date | null;
 
 type SelectedDate = ValuePiece | [ValuePiece, ValuePiece];
 
-const CommonCalendar = () => {
+const CommonCalendar = ({
+  clickedYear,
+  clickedMonth,
+  data,
+  setClickedYear,
+  setClickedMonth,
+}: CommonCalendarProps) => {
   const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth() + 1;
+  // const year = today.getFullYear();
+  // const month = today.getMonth() + 1;
   // const day = today.getDate();
-  const [clickedYear, setClickedYear] = useState(year);
-  const [clickedMonth, setClickedMonth] = useState(month);
+  // const [clickedYear, setClickedYear] = useState(year);
+  // const [clickedMonth, setClickedMonth] = useState(month);
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(today);
   const [board, setBoard] = useState<BoardProps[]>([]);
   // const [value, onChange] = useState(new Date());
@@ -50,11 +66,6 @@ const CommonCalendar = () => {
     setSelectedDate(newDate);
     setIsCalendarClicked(false);
   };
-
-  const { data } = useGetMonthSolve({
-    year: clickedYear,
-    month: clickedMonth,
-  });
 
   const upDatedCalendar = () => {
     if (data) {
@@ -155,7 +166,7 @@ const DateContainer = styled.div`
   align-items: center;
 
   padding-right: 0.2rem;
-  padding-left: 1.4rem;
+  padding-left: 1.1rem;
 `;
 
 const Year = styled.p`
