@@ -1,8 +1,16 @@
 import { GetMemberListProps } from '../../../types/GroupMember/memberType';
 import { api } from '../../api';
 
-const getMeberList = async ({ roomId, sortType }: GetMemberListProps) => {
-  const { data } = await api.get(`/rooms/${roomId}/members/${sortType}`);
+const getMeberList = async ({
+  groupId,
+  sortType,
+  page,
+}: GetMemberListProps) => {
+  const { data } = await api.get(
+    `/rooms/${groupId}/members/${sortType === '최신순' ? 'NEW' : 'DICT'}?page=${page}`
+  );
+
+  console.log(`/rooms/${groupId}/members/${sortType === '최신순' ? 'NEW' : 'DICT'}?page=${page}`)
 
   return data;
 };
