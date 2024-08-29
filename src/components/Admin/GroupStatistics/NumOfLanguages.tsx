@@ -73,7 +73,6 @@ const Graph = styled.div`
   flex-grow: 1;
   position: relative;
 
-  width: 100%;
   height: 1.4rem;
 
   border-radius: 9.9rem;
