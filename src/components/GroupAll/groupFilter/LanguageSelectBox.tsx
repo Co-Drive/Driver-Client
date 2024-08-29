@@ -21,8 +21,10 @@ const LanguageSelectBox = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // 태그와 슬라이더의 상태를 별도로 관리
-  const [tempMinValue, setTempMinValue] = useState<number>(1);
-  const [tempMaxValue, setTempMaxValue] = useState<number>(50);
+  const [tempValue, setTempValue] = useState({
+    min: 0,
+    max: 50,
+  });
   const [isSliderValueVisible, setIsSliderValueVisible] = useState(false); // 슬라이더 값 표시 여부
 
   const toggleDropdown = () => {
@@ -64,12 +66,11 @@ const LanguageSelectBox = ({
     setSelectedTags(allTags);
   };
 
-  const onChangeMin = (value: number) => {
-    setTempMinValue(value);
-  };
-
-  const onChangeMax = (value: number) => {
-    setTempMaxValue(value);
+  const onChangeTempValue = (value: number, isMinValue: boolean) => {
+    setTempValue((prev) => ({
+      ...prev,
+      [isMinValue ? 'min' : 'max']: value,
+    }));
   };
 
   return (
@@ -112,7 +113,7 @@ const LanguageSelectBox = ({
             {/* 슬라이더 값을 슬라이더가 한 번 열렸으면 항상 표시 */}
             {isSliderValueVisible && (
               <RangeValue>
-                {tempMinValue}명 - {tempMaxValue}명
+                {tempValue.min}명 - {tempValue.max}명
               </RangeValue>
             )}
           </SelectContainer>
@@ -173,10 +174,10 @@ const LanguageSelectBox = ({
                 max={50}
                 step={5}
                 rangeMin={5}
-                minValue={tempMinValue}
-                maxValue={tempMaxValue}
-                onChangeMin={onChangeMin}
-                onChangeMax={onChangeMax}
+                minValue={tempValue.min}
+                maxValue={tempValue.max}
+                onChangeMin={(value) => onChangeTempValue(value, true)}
+                onChangeMax={(value) => onChangeTempValue(value, false)}
               />
             </RangeSliderContainer>
           </DropdownItemContainer>
