@@ -21,7 +21,11 @@ const MemberList = () => {
   return (
     <MemberListContainer>
       <MemberHeader sorting={sorting} handleClickSorting={handleClickSorting} />
-      <CommonUserList sorting={sorting} selectedGroupId={groupId} />
+      <CommonUserList
+        sorting={sorting}
+        selectedGroupId={groupId}
+        isFollowerList={false}
+      />
     </MemberListContainer>
   );
 };

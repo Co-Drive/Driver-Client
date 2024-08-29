@@ -26,7 +26,7 @@ const FollowerList = () => {
         handleClickSorting={handleClickSorting}
       />
 
-      <CommonUserList sorting={sorting} selectedGroupId={selectedGroupId} />
+      <CommonUserList sorting={sorting} selectedGroupId={selectedGroupId} isFollowerList={true} />
     </FollowerListContainer>
   );
 };

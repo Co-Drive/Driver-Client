@@ -11,9 +11,17 @@ import AdditionalProblemsModal from '../components/Follower/Current/AdditionalPr
 import WeeklyCurrentGraph from '../components/Follower/Current/WeeklyCurrentGraph';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
 import useGetFollowerSummary from '../libs/hooks/Follower/useGetFollowerSummary';
-import { CommonUserListProps } from '../types/CommonUserList/userListType';
+import useGetMemberList from '../libs/hooks/GroupMember/useGetMemberList';
+import {
+  CommonUserListProps,
+  UserType,
+} from '../types/CommonUserList/userListType';
 
-const CommonUserList = ({ sorting, selectedGroupId }: CommonUserListProps) => {
+const CommonUserList = ({
+  sorting,
+  selectedGroupId,
+  isFollowerList,
+}: CommonUserListProps) => {
   const navigate = useNavigate();
 
   const [clickedPage, setClickedPage] = useState(1);
@@ -23,13 +31,25 @@ const CommonUserList = ({ sorting, selectedGroupId }: CommonUserListProps) => {
   });
 
   const { clickedId, isClicked } = clickedContents;
+  //   const props = {
+  //     page: clickedPage - 1,
+  //     sortType: sorting,
+  //     groupId: selectedGroupId,
+  //   }
 
-  const { data, isLoading } = useGetFollowerSummary({
-    page: clickedPage - 1,
-    sortType: sorting,
-    groupId: selectedGroupId,
-  });
-  const { totalPage, followings } = !isLoading && data.data;
+  const { data, isLoading } = isFollowerList
+    ? useGetFollowerSummary({
+        page: clickedPage - 1,
+        sortType: sorting,
+        groupId: selectedGroupId,
+      })
+    : useGetMemberList({
+        page: clickedPage - 1,
+        sortType: sorting,
+        groupId: selectedGroupId,
+      });
+  const { totalPage, followings, members } = !isLoading && data.data;
+  const users = isFollowerList ? followings : members;
 
   const totalPageRef = useRef(totalPage > 0 ? totalPage : 1);
   const pages = Array.from(
@@ -69,60 +89,49 @@ const CommonUserList = ({ sorting, selectedGroupId }: CommonUserListProps) => {
           <RecentText>최근 푼 문제</RecentText>
         </ListHeader>
 
-        {!isLoading && followings.length !== 0 && (
+        {!isLoading && users.length !== 0 && (
           <List>
-            {followings.map(
-              (following: {
-                userId: number;
-                nickname: string;
-                profileImg: string;
-                language: string;
-                successRate: number;
-                recentProblemTitle: string;
-              }) => {
-                const {
-                  userId,
-                  nickname,
-                  profileImg,
-                  language,
-                  successRate,
-                  recentProblemTitle,
-                } = following;
-                const isExitAndClicked =
-                  clickedId === userId && isClicked && successRate !== 0;
-                return (
-                  <ContentsContainer key={userId}>
-                    <Contents
-                      onClick={() => handleClickContents(userId)}
-                      $isClicked={isExitAndClicked}
-                    >
-                      <ProfileImg
-                        src={profileImg}
-                        onClick={() => handleClickUserInfo(userId)}
-                      />
-                      <UserContainer
-                        onClick={() => handleClickUserInfo(userId)}
-                      >
-                        <Nickname>{nickname}</Nickname>
-                        <Language>{language}</Language>
-                      </UserContainer>
-                      <WeeklyCurrentGraph percentage={successRate} />
+            {users.map((user: UserType) => {
+              const {
+                userId,
+                nickname,
+                profileImg,
+                language,
+                successRate,
+                recentProblemTitle,
+              } = user;
+              const isExitAndClicked =
+                clickedId === userId && isClicked && successRate !== 0;
+              return (
+                <ContentsContainer key={userId}>
+                  <Contents
+                    onClick={() => handleClickContents(userId)}
+                    $isClicked={isExitAndClicked}
+                  >
+                    <ProfileImg
+                      src={profileImg}
+                      onClick={() => handleClickUserInfo(userId)}
+                    />
+                    <UserContainer onClick={() => handleClickUserInfo(userId)}>
+                      <Nickname>{nickname}</Nickname>
+                      <Language>{language}</Language>
+                    </UserContainer>
+                    <WeeklyCurrentGraph percentage={successRate} />
 
-                      <Problem>{recentProblemTitle}</Problem>
-                      {isExitAndClicked ? (
-                        <IcArrowTopWhite />
-                      ) : (
-                        <IcArrowBottomWhite />
-                      )}
-                    </Contents>
-
-                    {isExitAndClicked && (
-                      <AdditionalProblemsModal userId={userId} />
+                    <Problem>{recentProblemTitle}</Problem>
+                    {isExitAndClicked ? (
+                      <IcArrowTopWhite />
+                    ) : (
+                      <IcArrowBottomWhite />
                     )}
-                  </ContentsContainer>
-                );
-              }
-            )}
+                  </Contents>
+
+                  {isExitAndClicked && (
+                    <AdditionalProblemsModal userId={userId} />
+                  )}
+                </ContentsContainer>
+              );
+            })}
           </List>
         )}
       </ListContainer>
@@ -150,7 +159,7 @@ const CommonUserList = ({ sorting, selectedGroupId }: CommonUserListProps) => {
         />
       </PageNationBar>
 
-      {!isLoading && followings.length === 0 && <FollowerRecommendCard />}
+      {!isLoading && users.length === 0 && <FollowerRecommendCard />}
     </>
   );
 };
