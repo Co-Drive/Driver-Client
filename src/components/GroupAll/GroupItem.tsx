@@ -45,6 +45,7 @@ const GroupItem = () => {
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
           />
+          {/* search bar */}
         </TopContainer>
         <SortContainer>
           {SORTING.map((standard) => (
@@ -75,11 +76,16 @@ const GroupItem = () => {
 };
 
 const GroupContainer = styled.article`
-  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+  padding: 0 4.2rem;
 `;
 
 const GroupTitle = styled.h1`
-  margin-left: 0.2rem;
+  margin: 0 0 3rem 0.2rem;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -87,6 +93,8 @@ const GroupTitle = styled.h1`
 `;
 
 const TopContainer = styled.div`
+  margin-bottom: 3.4rem;
+
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_24};
 `;
@@ -99,9 +107,10 @@ const GroupsItemContainer = styled.div`
 const SortContainer = styled.div`
   display: flex;
   gap: 0.8rem;
+  justify-content: end;
   align-items: center;
 
-  background-color: antiquewhite;
+  margin-bottom: 2.8rem;
 `;
 
 const Sorting = styled.p<{ $isClicked: boolean }>`

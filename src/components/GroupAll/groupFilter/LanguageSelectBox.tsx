@@ -207,6 +207,9 @@ const SelectContainer = styled.div`
 `;
 
 const FilterIconContainer = styled.p`
+  display: flex;
+  justify-content: center;
+
   margin-right: 1.2rem;
 `;
 
