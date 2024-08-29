@@ -5,6 +5,7 @@ export interface GroupInfoProps {
 }
 
 export interface MemberHeaderProps {
+  isAdmin?: boolean;
   sorting: string;
   handleClickSorting: (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
