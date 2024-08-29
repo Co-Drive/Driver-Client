@@ -5,16 +5,16 @@ import { SORTING } from '../../constants/Follower/currentConst';
 import { GROUP_ALL_DUMMY } from '../../constants/GroupAll/groupAllConst';
 import PageLayout from '../PageLayout/PageLayout';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
+import SearchBar from './groupFilter/SearchBar';
 
 const GroupItem = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [clickedPage, setClickedPage] = useState(1);
   const [sorting, setSorting] = useState('최신순');
-
-  const group = GROUP_ALL_DUMMY.group;
+  const [searchResults, setSearchResults] = useState(GROUP_ALL_DUMMY.group); // 필터링된 그룹 데이터를 위한 상태
+  const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태
 
   const totalPage = 5; // 총 페이지 수
-
   const totalPageRef = useRef(totalPage);
 
   const handleClickSorting = (
@@ -25,15 +25,19 @@ const GroupItem = () => {
   };
 
   const handleClickPrevBtn = () => {
-    setClickedPage((prev) => prev - 1);
+    setClickedPage((prev) => Math.max(prev - 1, 1)); // 첫 페이지 이하로 내려가지 않도록 처리
   };
-
   const handleClickPage = (page: number) => {
     setClickedPage(page);
   };
 
   const handleClickNextBtn = () => {
-    setClickedPage((prev) => prev + 1);
+    setClickedPage((prev) => Math.min(prev + 1, totalPageRef.current)); // 마지막 페이지 이상으로 올라가지 않도록 처리
+  };
+
+  // 검색어가 변경될 때마다 호출될 함수
+  const handleSearch = (filteredGroups: any[]) => {
+    setSearchResults(filteredGroups); // 필터링된 그룹 데이터를 상태로 설정
   };
 
   return (
@@ -45,7 +49,7 @@ const GroupItem = () => {
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
           />
-          {/* search bar */}
+          <SearchBar onSearch={handleSearch} />
         </TopContainer>
         <SortContainer>
           {SORTING.map((standard) => (
@@ -60,7 +64,7 @@ const GroupItem = () => {
         </SortContainer>
         <GroupsItemContainer>
           <Groups
-            group={group}
+            group={searchResults}
             totalPage={totalPageRef.current}
             clickedPage={clickedPage}
             handleClickPages={{
@@ -93,6 +97,9 @@ const GroupTitle = styled.h1`
 `;
 
 const TopContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
   margin-bottom: 3.4rem;
 
   color: ${({ theme }) => theme.colors.white};

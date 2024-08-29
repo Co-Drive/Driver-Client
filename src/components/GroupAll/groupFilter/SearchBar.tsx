@@ -3,30 +3,49 @@ import styled from 'styled-components';
 import { IcSearch } from '../../../assets';
 import { GROUP_ALL_DUMMY } from '../../../constants/GroupAll/groupAllConst';
 
-const SearchBar = () => {
+const SearchBar = ({
+  onSearch,
+}: {
+  onSearch: (filteredGroups: any[]) => void;
+}) => {
   const [searchData, setSearchData] = useState('');
   const GROUPS = GROUP_ALL_DUMMY.group;
 
-  const searchKeywords = searchData
-    .split(',')
-    .map((keyword) => keyword.trim().toLowerCase());
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setSearchData(newValue);
 
-  const filteredGroups = GROUPS.filter((group) => {
-    const searchLower = searchKeywords;
-    const groupTagsLower = group.tags.map((tag) => tag.toLowerCase());
+    if (newValue.trim() === '') {
+      // 입력창이 비워지면 모든 그룹 데이터를 반환
+      onSearch(GROUPS);
+      return;
+    }
 
-    return (
-      group.title.toLowerCase().includes(searchLower.join(' ')) ||
-      group.introduce.toLowerCase().includes(searchLower.join(' ')) ||
-      group.owner.nickname.toLowerCase().includes(searchLower.join(' ')) ||
-      searchLower.some((keyword) =>
-        groupTagsLower.some((tag) => tag.includes(keyword))
-      ) ||
-      group.roomId.toString().includes(searchData) || // roomId 검색
-      group.memberCount.toString().includes(searchData) || // memberCount 검색
-      group.capacity.toString().includes(searchData) // capacity 검색
-    );
-  });
+    // 입력된 검색어에 따라 필터링
+    const searchKeywords = newValue
+      .split(',')
+      .map((keyword) => keyword.trim().toLowerCase());
+
+    const filteredGroups = GROUPS.filter((group) => {
+      const groupTitle = group.title.toLowerCase();
+      const groupIntroduce = group.introduce.toLowerCase();
+      const groupOwnerNickname = group.owner.nickname.toLowerCase();
+      const groupTagsLower = group.tags.map((tag) => tag.toLowerCase());
+
+      return (
+        searchKeywords.some((keyword) => groupTitle.includes(keyword)) ||
+        searchKeywords.some((keyword) => groupIntroduce.includes(keyword)) ||
+        searchKeywords.some((keyword) =>
+          groupOwnerNickname.includes(keyword)
+        ) ||
+        searchKeywords.some((keyword) =>
+          groupTagsLower.some((tag) => tag.includes(keyword))
+        )
+      );
+    });
+
+    onSearch(filteredGroups); // 필터링된 그룹 데이터를 전달
+  };
 
   return (
     <div>
@@ -37,29 +56,10 @@ const SearchBar = () => {
         <Input
           type="text"
           placeholder="검색어를 입력하세요"
-          onChange={(e) => {
-            setSearchData(e.target.value);
-          }}
+          value={searchData}
+          onChange={handleSearchChange}
         />
       </SearchBarContainer>
-
-      {/* 검색 결과를 렌더링 */}
-      {filteredGroups.length > 0 ? (
-        filteredGroups.map((group) => (
-          <GroupItem key={group.roomId}>
-            <h2>{group.title}</h2>
-            <p>{group.introduce}</p>
-            <p>방장: {group.owner.nickname}</p>
-            <p>태그: {group.tags.join(', ')}</p>
-            <p>
-              멤버 수: {group.memberCount} / {group.capacity}
-            </p>
-            <img src={group.imageSrc} alt={group.title} />
-          </GroupItem>
-        ))
-      ) : (
-        <p>검색 결과가 없습니다.</p>
-      )}
     </div>
   );
 };
@@ -91,15 +91,6 @@ const Icon = styled.p`
   display: flex;
 
   margin: 0 1.2rem 0 1.8rem;
-`;
-
-const GroupItem = styled.div`
-  padding: 1rem;
-  margin-top: 1rem;
-
-  border: 1px solid ${({ theme }) => theme.colors.gray700};
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
 export default SearchBar;
