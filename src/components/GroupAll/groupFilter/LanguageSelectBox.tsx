@@ -7,7 +7,6 @@ import {
 } from '../../../assets';
 import CommonHashTag from '../../../common/CommonHashTag';
 import { LanguageSectionProps } from '../../../types/GroupCreate/GroupCreateType';
-import PageLayout from '../../PageLayout/PageLayout';
 import RangeSliderFilter from './RangeSlidrFilter';
 
 const ALL_TAG = 'ALL';
@@ -73,113 +72,111 @@ const LanguageSelectBox = ({
   };
 
   return (
-    <PageLayout category="로그인">
-      <Section>
-        <DropdownContainer onClick={toggleDropdown}>
-          <SelectContainer>
-            <FilterIconContainer>
-              <IcGroupFilter />
-            </FilterIconContainer>
-            <SelectedTagsContainer>
-              {selectedTags.length ===
-              firstRowTags.length + secondRowTags.length ? (
-                <SelectedTagContainer key={ALL_TAG}>
+    <Section>
+      <DropdownContainer onClick={toggleDropdown}>
+        <SelectContainer>
+          <FilterIconContainer>
+            <IcGroupFilter />
+          </FilterIconContainer>
+          <SelectedTagsContainer>
+            {selectedTags.length ===
+            firstRowTags.length + secondRowTags.length ? (
+              <SelectedTagContainer key={ALL_TAG}>
+                <CommonHashTag
+                  selectedTag={ALL_TAG}
+                  removeTag={() => removeTag(ALL_TAG)}
+                />
+              </SelectedTagContainer>
+            ) : selectedTags.length === 0 ? (
+              <DropdownText>그룹 필터</DropdownText>
+            ) : (
+              selectedTags.map((tag, index) => (
+                <SelectedTagContainer key={index}>
                   <CommonHashTag
-                    selectedTag={ALL_TAG}
-                    removeTag={() => removeTag(ALL_TAG)}
+                    selectedTag={tag}
+                    removeTag={(e) => {
+                      if (e) e.stopPropagation();
+                      removeTag(tag);
+                    }}
                   />
                 </SelectedTagContainer>
-              ) : selectedTags.length === 0 ? (
-                <DropdownText>그룹 필터</DropdownText>
-              ) : (
-                selectedTags.map((tag, index) => (
-                  <SelectedTagContainer key={index}>
-                    <CommonHashTag
-                      selectedTag={tag}
-                      removeTag={(e) => {
-                        if (e) e.stopPropagation();
-                        removeTag(tag);
-                      }}
-                    />
-                  </SelectedTagContainer>
-                ))
-              )}
-            </SelectedTagsContainer>
-            {(selectedTags.length > 0 || isSliderValueVisible) && <Border />}
-
-            {isSliderValueVisible && (
-              <RangeValue>
-                {tempValue.min}명 - {tempValue.max}명
-              </RangeValue>
+              ))
             )}
-          </SelectContainer>
-          <IconContainer>
-            {isDropdownOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
-          </IconContainer>
-        </DropdownContainer>
-        {isDropdownOpen && (
-          <DropdownItemContainer>
-            <DropdownTitle>
-              <Title>사용언어</Title>
-              <Info>최대 3개까지 선택 가능합니다</Info>
-            </DropdownTitle>
-            <TagContainer>
-              <LanguageItemsContainer>
-                <DropdownItems>
-                  {firstRowTags.map((tag) => (
-                    <PickTagContainer key={tag}>
-                      <DropdownItem
-                        $isSelected={selectedTags.includes(tag)}
-                        onClick={() => addTag(tag)}
-                      >
-                        {tag}
-                      </DropdownItem>
-                    </PickTagContainer>
-                  ))}
-                </DropdownItems>
-                <DropdownItems>
-                  {secondRowTags.map((tag) => (
-                    <PickTagContainer key={tag}>
-                      <DropdownItem
-                        $isSelected={selectedTags.includes(tag)}
-                        onClick={() => addTag(tag)}
-                      >
-                        {tag}
-                      </DropdownItem>
-                    </PickTagContainer>
-                  ))}
-                </DropdownItems>
-              </LanguageItemsContainer>
-              <Borderline />
-              <AllTagContainer>
-                <DropdownItem
-                  $isSelected={
-                    selectedTags.length ===
-                    firstRowTags.length + secondRowTags.length
-                  }
-                  onClick={selectAllTags}
-                >
-                  {ALL_TAG}
-                </DropdownItem>
-              </AllTagContainer>
-            </TagContainer>
-            <RangeSliderContainer>
-              <RangeTitle>수용인원</RangeTitle>
-              <RangeSliderFilter
-                min={0}
-                max={50}
-                step={5}
-                rangeMin={5}
-                minValue={tempValue.min}
-                maxValue={tempValue.max}
-                onChangeMin={(value) => onChangeTempValue(value, true)}
-                onChangeMax={(value) => onChangeTempValue(value, false)}
-              />
-            </RangeSliderContainer>
-          </DropdownItemContainer>
-        )}
-      </Section>
-    </PageLayout>
+          </SelectedTagsContainer>
+          {(selectedTags.length > 0 || isSliderValueVisible) && <Border />}
+
+          {isSliderValueVisible && (
+            <RangeValue>
+              {tempValue.min}명 - {tempValue.max}명
+            </RangeValue>
+          )}
+        </SelectContainer>
+        <IconContainer>
+          {isDropdownOpen ? <IcArrowTopGray /> : <IcArrowBottomGray />}
+        </IconContainer>
+      </DropdownContainer>
+      {isDropdownOpen && (
+        <DropdownItemContainer>
+          <DropdownTitle>
+            <Title>사용언어</Title>
+            <Info>최대 3개까지 선택 가능합니다</Info>
+          </DropdownTitle>
+          <TagContainer>
+            <LanguageItemsContainer>
+              <DropdownItems>
+                {firstRowTags.map((tag) => (
+                  <PickTagContainer key={tag}>
+                    <DropdownItem
+                      $isSelected={selectedTags.includes(tag)}
+                      onClick={() => addTag(tag)}
+                    >
+                      {tag}
+                    </DropdownItem>
+                  </PickTagContainer>
+                ))}
+              </DropdownItems>
+              <DropdownItems>
+                {secondRowTags.map((tag) => (
+                  <PickTagContainer key={tag}>
+                    <DropdownItem
+                      $isSelected={selectedTags.includes(tag)}
+                      onClick={() => addTag(tag)}
+                    >
+                      {tag}
+                    </DropdownItem>
+                  </PickTagContainer>
+                ))}
+              </DropdownItems>
+            </LanguageItemsContainer>
+            <Borderline />
+            <AllTagContainer>
+              <DropdownItem
+                $isSelected={
+                  selectedTags.length ===
+                  firstRowTags.length + secondRowTags.length
+                }
+                onClick={selectAllTags}
+              >
+                {ALL_TAG}
+              </DropdownItem>
+            </AllTagContainer>
+          </TagContainer>
+          <RangeSliderContainer>
+            <RangeTitle>수용인원</RangeTitle>
+            <RangeSliderFilter
+              min={0}
+              max={50}
+              step={5}
+              rangeMin={5}
+              minValue={tempValue.min}
+              maxValue={tempValue.max}
+              onChangeMin={(value) => onChangeTempValue(value, true)}
+              onChangeMax={(value) => onChangeTempValue(value, false)}
+            />
+          </RangeSliderContainer>
+        </DropdownItemContainer>
+      )}
+    </Section>
   );
 };
 
