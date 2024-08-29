@@ -10,10 +10,12 @@ import {
 import AdditionalProblemsModal from '../components/Follower/Current/AdditionalProblemsModal';
 import WeeklyCurrentGraph from '../components/Follower/Current/WeeklyCurrentGraph';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
+import useGetParticipantsList from '../libs/hooks/Admin/useGetParticipantsList';
 import useGetFollowerSummary from '../libs/hooks/Follower/useGetFollowerSummary';
 import useGetMemberList from '../libs/hooks/GroupMember/useGetMemberList';
 import {
   CommonUserListProps,
+  ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
 
@@ -21,6 +23,7 @@ const CommonUserList = ({
   sorting,
   selectedGroupId,
   isFollowerList,
+  isAdmin,
 }: CommonUserListProps) => {
   const navigate = useNavigate();
 
@@ -36,12 +39,16 @@ const CommonUserList = ({
     sortType: sorting,
     groupId: selectedGroupId,
   };
+  const getData = isAdmin
+    ? useGetParticipantsList(props)
+    : isFollowerList
+      ? useGetFollowerSummary(props)
+      : useGetMemberList(props);
 
-  const { data, isLoading } = isFollowerList
-    ? useGetFollowerSummary(props)
-    : useGetMemberList(props);
-  const { totalPage, followings, members } = !isLoading && data.data;
-  const users = isFollowerList ? followings : members;
+  const { data, isLoading } = getData;
+  const { totalPage, followings, members, participants } =
+    !isLoading && data.data;
+  const users = isAdmin ? participants : isFollowerList ? followings : members;
 
   const totalPageRef = useRef(totalPage > 0 ? totalPage : 1);
   const pages = Array.from(
@@ -75,15 +82,16 @@ const CommonUserList = ({
   return (
     <>
       <ListContainer>
-        <ListHeader>
-          <ProfileText>프로필</ProfileText>
-          <WeeklyText>주간 성과율</WeeklyText>
+        <ListHeader $isAdmin={isAdmin}>
+          <ProfileText $isAdmin={isAdmin}>프로필</ProfileText>
+          <WeeklyText $isAdmin={isAdmin}>주간 성과율</WeeklyText>
           <RecentText>최근 푼 문제</RecentText>
+          {isAdmin && <Management>관리</Management>}
         </ListHeader>
 
         {!isLoading && users.length !== 0 && (
           <List>
-            {users.map((user: UserType) => {
+            {users.map((info: UserType | ParticipantType, idx: number) => {
               const {
                 userId,
                 nickname,
@@ -91,7 +99,16 @@ const CommonUserList = ({
                 language,
                 successRate,
                 recentProblemTitle,
-              } = user;
+              } = 'user' in info ? info.user : info;
+
+              const statusToKR =
+                'status' in info &&
+                (info.status === 'WAITING'
+                  ? '대기 중'
+                  : info.status === 'REQUESTED'
+                    ? '승인하기'
+                    : '내보내기');
+
               const isExitAndClicked =
                 clickedId === userId && isClicked && successRate !== 0;
               return (
@@ -99,22 +116,35 @@ const CommonUserList = ({
                   <Contents
                     onClick={() => handleClickContents(userId)}
                     $isClicked={isExitAndClicked}
+                    $isAdmin={isAdmin}
                   >
+                    {isAdmin && <UserIdx>{idx + 1}</UserIdx>}
                     <ProfileImg
                       src={profileImg}
                       onClick={() => handleClickUserInfo(userId)}
                     />
-                    <UserContainer onClick={() => handleClickUserInfo(userId)}>
+                    <UserContainer
+                      $isAdmin={isAdmin}
+                      onClick={() => handleClickUserInfo(userId)}
+                    >
                       <Nickname>{nickname}</Nickname>
                       <Language>{language}</Language>
                     </UserContainer>
                     <WeeklyCurrentGraph percentage={successRate} />
 
-                    <Problem>{recentProblemTitle}</Problem>
+                    <Problem $isAdmin={isAdmin}>{recentProblemTitle}</Problem>
                     {isExitAndClicked ? (
                       <IcArrowTopWhite />
                     ) : (
                       <IcArrowBottomWhite />
+                    )}
+
+                    {isAdmin && (
+                      <StatusBtnContainer>
+                        <StatusBtn type="button" $status={statusToKR}>
+                          {statusToKR}
+                        </StatusBtn>
+                      </StatusBtnContainer>
                     )}
                   </Contents>
 
@@ -166,29 +196,30 @@ const ListContainer = styled.article`
   width: 100%;
 `;
 
-const ListHeader = styled.header`
+const ListHeader = styled.header<{ $isAdmin?: boolean }>`
   display: flex;
   align-items: center;
 
   width: 100%;
-  padding: 1.6rem 35.2rem 1.6rem 2.4rem;
+  padding: ${({ $isAdmin }) =>
+    $isAdmin ? `1.6rem 5.8rem 1.6rem 6.4rem` : `1.6rem 35.2rem 1.6rem 2.4rem`};
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
 `;
 
-const ProfileText = styled.p`
+const ProfileText = styled.p<{ $isAdmin?: boolean }>`
   flex-grow: 1;
 
-  margin-right: 26.3rem;
+  margin-right: ${({ $isAdmin }) => ($isAdmin ? `19.6rem` : `26.3rem`)};
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_16};
 `;
 
-const WeeklyText = styled.p`
+const WeeklyText = styled.p<{ $isAdmin?: boolean }>`
   flex-grow: 1;
 
-  margin-right: 9.4rem;
+  margin-right: ${({ $isAdmin }) => ($isAdmin ? `5.8rem` : `9.4rem`)};
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_16};
@@ -199,6 +230,17 @@ const RecentText = styled.p`
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_16};
+`;
+
+const Management = styled.p`
+  flex-grow: 1;
+
+  margin-left: 32.9rem;
+
+  color: ${({ theme }) => theme.colors.gray300};
+
+  ${({ theme }) => theme.fonts.body_eng_medium_16};
+  text-align: right;
 `;
 
 const List = styled.article`
@@ -213,11 +255,12 @@ const ContentsContainer = styled.div`
   width: 100%;
 `;
 
-const Contents = styled.div<{ $isClicked: boolean }>`
+const Contents = styled.div<{ $isClicked: boolean; $isAdmin?: boolean }>`
   display: flex;
   align-items: center;
 
-  padding: 2.4rem 3.4rem 2rem 2.4rem;
+  padding: ${({ $isAdmin }) =>
+    $isAdmin ? `2.4rem 2.4rem 2rem 2.4rem` : `2.4rem 3.4rem 2rem 2.4rem`};
 
   border-top-left-radius: 1.6rem;
   border-top-right-radius: 1.6rem;
@@ -226,6 +269,13 @@ const Contents = styled.div<{ $isClicked: boolean }>`
     $isClicked && theme.colors.gray800};
 
   cursor: pointer;
+`;
+
+const UserIdx = styled.p`
+  margin-right: 1.8rem;
+
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
 const ProfileImg = styled.img`
@@ -238,7 +288,7 @@ const ProfileImg = styled.img`
   cursor: pointer;
 `;
 
-const UserContainer = styled.div`
+const UserContainer = styled.div<{ $isAdmin?: boolean }>`
   display: flex;
   gap: 0.4rem;
   justify-content: center;
@@ -247,7 +297,7 @@ const UserContainer = styled.div`
 
   width: 16rem;
   padding-left: 0.8rem;
-  margin-right: 11.1rem;
+  margin-right: ${({ $isAdmin }) => ($isAdmin ? `5.4rem` : `11.1rem`)};
 
   cursor: pointer;
 `;
@@ -262,11 +312,22 @@ const Language = styled.p`
   ${({ theme }) => theme.fonts.body_eng_regular_14};
 `;
 
-const Problem = styled.p`
+const Problem = styled.p<{ $isAdmin?: boolean }>`
   flex-grow: 2;
 
   width: 29.7rem;
-  margin-right: 7.5rem;
+
+  ${({ $isAdmin }) =>
+    $isAdmin
+      ? css`
+          margin-right: 1rem;
+          margin-left: 6.8rem;
+        `
+      : css`
+          margin-right: 7.5rem;
+          margin-left: 11.1rem;
+        `};
+
   overflow-x: hidden;
 
   color: ${({ theme }) => theme.colors.white};
@@ -274,6 +335,41 @@ const Problem = styled.p`
   text-overflow: ellipsis;
 
   white-space: nowrap;
+`;
+
+const StatusBtnContainer = styled.div`
+  flex-grow: 1;
+
+  margin-left: 4.2rem;
+
+  text-align: end;
+`;
+
+const StatusBtn = styled.button<{ $status: string | boolean }>`
+  border-radius: 0.8rem;
+
+  ${({ $status, theme }) => {
+    switch ($status) {
+      case '대기 중':
+        return `
+          padding: 1rem 2.5rem;
+          background-color:${theme.colors.gray600};
+          color: ${theme.colors.gray100};
+        `;
+      case '승인하기':
+        return `
+          padding: 1rem 2rem;
+          background-color:${theme.colors.codrive_green};
+          color: ${theme.colors.gray900};
+        `;
+      case '내보내기':
+        return `
+          padding: 1rem 2rem;
+          background-color:${theme.colors.alert};
+          color: ${theme.colors.white};
+        `;
+    }
+  }};
 `;
 
 const PageNationBar = styled.div<{ $isEmpty: boolean }>`

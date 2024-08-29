@@ -1,14 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SORTING } from '../../constants/Follower/currentConst';
+import { OLD_AND_NEW, SORTING } from '../../constants/Follower/currentConst';
 import { MemberHeaderProps } from '../../types/GroupMember/memberType';
 
-const MemberHeader = ({ sorting, handleClickSorting }: MemberHeaderProps) => {
+const MemberHeader = ({
+  sorting,
+  handleClickSorting,
+  isAdmin,
+}: MemberHeaderProps) => {
+  const sortingFilter = isAdmin ? OLD_AND_NEW : SORTING;
+  const title = isAdmin ? '그룹 멤버 관리하기' : '그룹 멤버';
   return (
     <Header>
-      <Title>그룹 멤버</Title>
+      <Title>{title}</Title>
       <SortContainer>
-        {SORTING.map((standard) => {
+        {sortingFilter.map((standard) => {
           return (
             <Sorting
               key={standard}
