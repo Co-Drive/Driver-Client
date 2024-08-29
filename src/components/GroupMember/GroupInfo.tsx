@@ -94,6 +94,9 @@ const GroupInfoContainer = styled.article`
   align-items: center;
 
   width: 100%;
+  padding-bottom: 1.8rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray800};
 `;
 
 const GroupImg = styled.img`
@@ -113,7 +116,7 @@ const AdminModeContaienr = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  margin-bottom: 4rem;
+  margin-bottom: 1.8rem;
 `;
 
 const AdminTextContainer = styled.div`
