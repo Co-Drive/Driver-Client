@@ -184,8 +184,6 @@ export default LanguageSelectBox;
 
 const Section = styled.section`
   position: relative;
-
-  margin-top: 4rem;
 `;
 
 const DropdownContainer = styled.div`
