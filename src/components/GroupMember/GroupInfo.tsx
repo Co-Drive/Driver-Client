@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { IcArrowRightSmallGray } from '../../assets';
+import { IcArrowRightSmallGray, IcRevise } from '../../assets';
 import useGetDetail from '../../libs/hooks/GroupDetail/useGetDetail';
 import { GroupInfoProps } from '../../types/GroupMember/memberType';
 
@@ -41,13 +41,18 @@ const GroupInfo = ({
                   </AdminMode>
                 </AdminTextContainer>
 
-                <AdminToggle
-                  type="button"
-                  $on={adminMode}
-                  onClick={handleClickAdminToggle}
-                >
-                  <ToggleCircle $on={adminMode} />
-                </AdminToggle>
+                <AdminControlContainer>
+                  <AdminToggle
+                    type="button"
+                    $on={adminMode}
+                    onClick={handleClickAdminToggle}
+                  >
+                    <ToggleCircle $on={adminMode} />
+                  </AdminToggle>
+                  <IcContainer $on={adminMode}>
+                    <IcRevise />
+                  </IcContainer>
+                </AdminControlContainer>
               </AdminModeContaienr>
             )}
 
@@ -126,6 +131,28 @@ const AdminMode = styled.p<{ $on?: boolean }>`
   color: ${({ theme, $on }) =>
     $on ? theme.colors.codrive_green : theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_ligth_10};
+`;
+
+const AdminControlContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+`;
+
+const IcContainer = styled.div<{ $on?: boolean }>`
+  ${({ $on }) =>
+    $on
+      ? css`
+          padding: 0.6rem;
+
+          border-radius: 5rem;
+          background-color: ${({ theme }) => theme.colors.gray500};
+        `
+      : css`
+          margin: 0.6rem 0.6rem 0.6rem 0;
+        `};
 `;
 
 const AdminToggle = styled.button<{ $on?: boolean }>`
