@@ -1,10 +1,16 @@
 /* stylelint-disable selector-class-pattern */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled from 'styled-components';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
+import useGetMonthSolve from '../../libs/hooks/Home/useGetMonthSolve';
 import CustomCalendar from './CustomCalendar';
+
+interface CalendarProps {
+  date: string;
+  isSolved: boolean;
+}
 
 type ValuePiece = Date | null;
 
@@ -16,6 +22,7 @@ const CommonCalendar = () => {
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(today);
   const [clickedYear, setClickedYear] = useState(year);
   const [clickedMonth, setClickedMonth] = useState(today.getMonth() + 1);
+  const [board, setBoard] = useState([]);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
@@ -40,6 +47,20 @@ const CommonCalendar = () => {
     setIsCalendarClicked(false);
   };
 
+  const { data } = useGetMonthSolve({
+    year: clickedYear,
+    month: clickedMonth,
+  });
+
+  const upDatedCalendar = () => {
+    if (data) {
+      const { board } = data.data;
+    }
+  };
+
+  useEffect(() => {
+    upDatedCalendar();
+  });
   return (
     <CalendarContainer>
       <NavContainer>
