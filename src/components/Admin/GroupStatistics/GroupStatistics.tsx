@@ -6,6 +6,32 @@ import NumOfMembers from './NumOfMembers';
 
 const GroupStatistics = () => {
   const roomStatus = 'ACTIVE';
+  const memberCount = 15;
+  const capacity = 20;
+  const approvedCount = 10;
+  const requestedCount = 30;
+  const languageMemberCount = [
+    {
+      language: 'Java',
+      count: 5,
+    },
+    {
+      language: 'Javascript',
+      count: 16,
+    },
+    {
+      language: 'Python',
+      count: 3,
+    },
+    {
+      language: 'Ruby',
+      count: 20,
+    },
+    {
+      language: 'C++',
+      count: 17,
+    },
+  ];
 
   const [clickedStatus, setClickedStatus] = useState(
     roomStatus === 'ACTIVE'
@@ -30,8 +56,18 @@ const GroupStatistics = () => {
         clickedStatus={clickedStatus}
         handleClickStatus={handleClickStatus}
       />
-      <NumOfMembers />
-      <NumOfLanguages />
+      <NumOfMembers
+        numOfMembers={{
+          memberCount: memberCount,
+          capacity: capacity,
+          approvedCount: approvedCount,
+          requestedCount: requestedCount,
+        }}
+      />
+      <NumOfLanguages
+        languageMemberCount={languageMemberCount}
+        capacity={capacity}
+      />
     </GroupStatisticsContainer>
   );
 };
@@ -40,7 +76,8 @@ export default GroupStatistics;
 
 const GroupStatisticsContainer = styled.article`
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
 
   padding: 2.4rem 2.7rem 2.8rem 2.8rem;
 

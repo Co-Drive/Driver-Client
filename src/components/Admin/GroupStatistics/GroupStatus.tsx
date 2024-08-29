@@ -79,10 +79,9 @@ export default GroupStatus;
 
 const GroupStatusContainer = styled.article`
   display: flex;
-  justify-content: center;
   flex-direction: column;
 
-  margin-right: 7.8rem;
+  margin-right: 7.6rem;
 `;
 
 const CurrentStatusContainer = styled.div`
