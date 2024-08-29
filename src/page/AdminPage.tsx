@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { IcTop3Member } from '../assets';
 import GroupInfo from '../components/GroupMember/GroupInfo';
 import PageLayout from '../components/PageLayout/PageLayout';
 
@@ -18,6 +19,7 @@ const AdminPage = () => {
           adminMode={adminMode}
           handleClickAdminToggle={handleClickAdminToggle}
         />
+        <IcTop3Member />
       </AdminPageContainer>
     </PageLayout>
   );

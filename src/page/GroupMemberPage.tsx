@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IcTop3Member } from '../assets';
 import GroupInfo from '../components/GroupMember/GroupInfo';
 import MemberList from '../components/GroupMember/MemberList';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -8,6 +9,7 @@ const GroupMemberPage = () => {
     <PageLayout category="그룹">
       <GroupMemberContainer>
         <GroupInfo isAdmin={false} />
+        <IcTop3Member />
         <MemberList />
       </GroupMemberContainer>
     </PageLayout>
