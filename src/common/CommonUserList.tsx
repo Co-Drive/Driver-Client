@@ -9,46 +9,37 @@ import {
 } from '../assets';
 import AdditionalProblemsModal from '../components/Follower/Current/AdditionalProblemsModal';
 import WeeklyCurrentGraph from '../components/Follower/Current/WeeklyCurrentGraph';
+import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
+import useGetFollowerSummary from '../libs/hooks/Follower/useGetFollowerSummary';
 
 interface CommonUserListProps {
-  clickedPage: number;
-  totalPage: number;
-  isLoading: boolean;
-  followings: Array<{
-    userId: number;
-    nickname: string;
-    profileImg: string;
-    language: string;
-    successRate: number;
-    recentProblemTitle: string;
-  }>;
-  handleClickPrevBtn: () => void;
-  handleClickPageNumber: (page: number) => void;
-  handleClickNextBtn: () => void;
+  sorting: string;
+  selectedGroupId: number;
 }
 
-const CommonUserList = ({
-  clickedPage,
-  totalPage,
-  isLoading,
-  followings,
-  handleClickPrevBtn,
-  handleClickPageNumber,
-  handleClickNextBtn,
-}: CommonUserListProps) => {
+const CommonUserList = ({ sorting, selectedGroupId }: CommonUserListProps) => {
   const navigate = useNavigate();
-  const totalPageRef = useRef(totalPage > 0 ? totalPage : 1);
-  const pages = Array.from(
-    { length: totalPageRef.current },
-    (_, idx) => idx + 1
-  );
 
+  const [clickedPage, setClickedPage] = useState(1);
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
     isClicked: false,
   });
 
   const { clickedId, isClicked } = clickedContents;
+
+  const { data, isLoading } = useGetFollowerSummary({
+    page: clickedPage - 1,
+    sortType: sorting,
+    groupId: selectedGroupId,
+  });
+  const { totalPage, followings } = !isLoading && data.data;
+
+  const totalPageRef = useRef(totalPage > 0 ? totalPage : 1);
+  const pages = Array.from(
+    { length: totalPageRef.current },
+    (_, idx) => idx + 1
+  );
 
   const handleClickContents = (id: number) => {
     setClickedContents({
@@ -59,6 +50,18 @@ const CommonUserList = ({
 
   const handleClickUserInfo = (id: number) => {
     navigate(`/follower/${id}`);
+  };
+
+  const handleClickPrevBtn = () => {
+    setClickedPage((prev) => prev - 1);
+  };
+
+  const handleClickPageNumber = (page: number) => {
+    setClickedPage(page);
+  };
+
+  const handleClickNextBtn = () => {
+    setClickedPage((prev) => prev + 1);
   };
 
   return (
@@ -150,6 +153,8 @@ const CommonUserList = ({
           }
         />
       </PageNationBar>
+
+      {!isLoading && followings.length === 0 && <FollowerRecommendCard />}
     </>
   );
 };
