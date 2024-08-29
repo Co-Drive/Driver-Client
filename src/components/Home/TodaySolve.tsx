@@ -54,8 +54,6 @@ const TodaySolve = () => {
 
   const chartData = [{ name: 'Solved', value: percentage }];
 
-  console.log(chartData[0]);
-
   return (
     <Container>
       <TitleContainer>
