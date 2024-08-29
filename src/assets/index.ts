@@ -30,6 +30,7 @@ import IcGithub from './icon/ic_github.svg?react';
 import IcGithubLogoSmall from './icon/ic_github_logo_small.svg?react';
 import IcGithubSmall from './icon/ic_github_small.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
+import IcGroupFilter from './icon/ic_group_filter.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
 import IcLinkGray from './icon/ic_link_gray.svg?react';
@@ -105,6 +106,7 @@ export {
   IcGithubLogoSmall,
   IcGithubSmall,
   IcGroup,
+  IcGroupFilter,
   IcHome,
   IcInformation,
   IcLinkGray,
