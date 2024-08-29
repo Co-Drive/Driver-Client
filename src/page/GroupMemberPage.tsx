@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import GroupInfo from '../components/GroupMember/GroupInfo';
-import PageLayout from '../components/PageLayout/PageLayout';
 import MemberList from '../components/GroupMember/MemberList';
+import PageLayout from '../components/PageLayout/PageLayout';
 
 const GroupMemberPage = () => {
   return (
     <PageLayout category="그룹">
       <GroupMemberContainer>
-        <GroupInfo />
+        <GroupInfo isAdmin={false} />
         <MemberList />
       </GroupMemberContainer>
     </PageLayout>

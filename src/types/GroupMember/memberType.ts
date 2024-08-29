@@ -1,3 +1,7 @@
+export interface GroupInfoProps {
+  isAdmin: boolean;
+}
+
 export interface MemberHeaderProps {
   sorting: string;
   handleClickSorting: (

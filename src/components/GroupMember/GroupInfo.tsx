@@ -1,9 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { IcArrowRightSmallGray } from '../../assets';
 import useGetDetail from '../../libs/hooks/GroupDetail/useGetDetail';
+import { GroupInfoProps } from '../../types/GroupMember/memberType';
 
-const GroupInfo = () => {
+const GroupInfo = ({ isAdmin }: GroupInfoProps) => {
   const navigate = useNavigate();
   const { id } = useParams();
   if (!id) return;
@@ -26,8 +27,8 @@ const GroupInfo = () => {
         <GroupInfoContainer>
           <GroupImg src={imageSrc} />
 
-          <TotalGroupInfo>
-            <Group>
+          <TotalGroupInfo $isAdmin={isAdmin}>
+            <Group $isAdmin={isAdmin}>
               <Tags>
                 {tags.map((tag: string) => {
                   return <Tag key={tag}>#{tag}</Tag>;
@@ -40,14 +41,16 @@ const GroupInfo = () => {
               </MoreInfoBtn>
             </Group>
 
-            <Host typeof="button" onClick={handleClickHost}>
-              <ProfileImg src={profileImg} />
-              <NicknameContainer>
-                <Nickname>{nickname}</Nickname>
-                <Nickname>님</Nickname>
-              </NicknameContainer>
-              <IcArrowRightSmallGray />
-            </Host>
+            {!isAdmin && (
+              <Host typeof="button" onClick={handleClickHost}>
+                <ProfileImg src={profileImg} />
+                <NicknameContainer>
+                  <Nickname>{nickname}</Nickname>
+                  <Nickname>님</Nickname>
+                </NicknameContainer>
+                <IcArrowRightSmallGray />
+              </Host>
+            )}
           </TotalGroupInfo>
         </GroupInfoContainer>
       )}
@@ -76,23 +79,27 @@ const GroupImg = styled.img`
   object-fit: cover;
 `;
 
-const TotalGroupInfo = styled.div`
+const TotalGroupInfo = styled.div<{ $isAdmin: boolean }>`
   display: flex;
   justify-content: center;
   flex-direction: column;
   flex-grow: 1.3;
 
-  margin: 1.2rem 0 1.6rem;
+  margin: ${({ $isAdmin }) => ($isAdmin ? ` 0 0 1.8rem` : ` 1.2rem 0 1.6rem`)};
 `;
 
-const Group = styled.div`
+const Group = styled.div<{ $isAdmin: boolean }>`
   display: flex;
   justify-content: center;
   flex-direction: column;
 
-  padding-bottom: 2.8rem;
+  ${({ $isAdmin, theme }) =>
+    !$isAdmin &&
+    css`
+      padding-bottom: 2.8rem;
 
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
+      border-bottom: 0.1rem solid ${theme.colors.gray700};
+    `};
 `;
 
 const Tags = styled.div`
