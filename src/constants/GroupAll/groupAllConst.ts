@@ -100,80 +100,105 @@ export const GROUP_ALL_DUMMY = {
   user: '뭉주',
   group: [
     {
-      id: 0,
-      nickname: '김문주',
-      imgSrc:
-        'https://i.pinimg.com/originals/d5/c6/a8/d5c6a857172405b86184399a880f3886.jpg',
-      profile:
-        'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
-      num: 12,
+      roomId: 0,
       title: '누워있을 시간이 없습니다. 들어오세요',
+      owner: {
+        userId: 1, // 예시 ID, 실제로는 유저 ID를 적절히 설정
+        nickname: '김문주',
+        profileImg:
+          'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
+      },
+      imageSrc:
+        'https://i.pinimg.com/originals/d5/c6/a8/d5c6a857172405b86184399a880f3886.jpg',
+      memberCount: 12,
+      capacity: 20, // 예시 값, 실제로는 적절한 용량 값을 설정
       tags: ['#JavaScript', '#React', '#CSS'],
-      content:
+      introduce:
         '누워있을 시간이 없습니다. 들어오세요누워있을 시간이 없습니다. 들어오세요누워있을 시간이 없습니다. 들어오세요',
     },
     {
-      id: 1,
-      nickname: '서아름',
-      imgSrc:
-        'https://i.pinimg.com/564x/3f/e8/de/3fe8de19af99d28edcec4358e3f8561c.jpg',
-      profile:
-        'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
-      num: 8,
+      roomId: 1,
       title: '강남 그만 가자 모임 스터디',
+      owner: {
+        userId: 2, // 예시 ID
+        nickname: '서아름',
+        profileImg:
+          'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
+      },
+      imageSrc:
+        'https://i.pinimg.com/564x/3f/e8/de/3fe8de19af99d28edcec4358e3f8561c.jpg',
+      memberCount: 8,
+      capacity: 15, // 예시 값
       tags: ['#Node.js', '#Express', '#MongoDB'],
-      content: '백엔드 개발을 같이 공부하는 모임입니다.',
+      introduce: '백엔드 개발을 같이 공부하는 모임입니다.',
     },
     {
-      id: 2,
-      nickname: '오승택',
-      imgSrc:
-        'https://i.pinimg.com/564x/54/3e/06/543e063d80e1d601886d60af8a09b968.jpg',
-      profile:
-        'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
-      num: 11,
+      roomId: 2,
       title: '어머어머 그래서 모임',
+      owner: {
+        userId: 3, // 예시 ID
+        nickname: '오승택',
+        profileImg:
+          'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
+      },
+      imageSrc:
+        'https://i.pinimg.com/564x/54/3e/06/543e063d80e1d601886d60af8a09b968.jpg',
+      memberCount: 11,
+      capacity: 20, // 예시 값
       tags: ['#JavaScript', '#React', '#CSS'],
-      content: '함께 프론트엔드 개발을 공부하는 모임입니다.',
+      introduce: '함께 프론트엔드 개발을 공부하는 모임입니다.',
     },
     {
-      id: 3,
-      nickname: '김문주',
-      imgSrc:
-        'https://i.pinimg.com/originals/d5/c6/a8/d5c6a857172405b86184399a880f3886.jpg',
-      profile:
-        'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
-      num: 1,
+      roomId: 3,
       title: '누워있을 시간이 없습니다. 들어오세요',
+      owner: {
+        userId: 1, // 예시 ID
+        nickname: '김문주',
+        profileImg:
+          'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
+      },
+      imageSrc:
+        'https://i.pinimg.com/originals/d5/c6/a8/d5c6a857172405b86184399a880f3886.jpg',
+      memberCount: 1,
+      capacity: 10, // 예시 값
       tags: ['#JavaScript', '#React', '#CSS'],
-      content:
+      introduce:
         '누워있을 시간이 없습니다. 들어오세요누워있을 시간이 없습니다. 들어오세요누워있을 시간이 없습니다. 들어오세요',
     },
     {
-      id: 4,
-      nickname: '김문주',
-      imgSrc:
-        'https://i.pinimg.com/originals/d5/c6/a8/d5c6a857172405b86184399a880f3886.jpg',
-      profile:
-        'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
-      num: 2,
+      roomId: 4,
       title: '누워있을 시간이 없습니다. 들어오세요',
+      owner: {
+        userId: 1, // 예시 ID
+        nickname: '김문주',
+        profileImg:
+          'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
+      },
+      imageSrc:
+        'https://i.pinimg.com/originals/d5/c6/a8/d5c6a857172405b86184399a880f3886.jpg',
+      memberCount: 2,
+      capacity: 12, // 예시 값
       tags: ['#JavaScript', '#React', '#CSS'],
-      content:
+      introduce:
         '누워있을 시간이 없습니다. 들어오세요누워있을 시간이 없습니다. 들어오세요누워있을 시간이 없습니다. 들어오세요',
     },
     {
-      id: 5,
-      nickname: '김문주',
-      imgSrc:
-        'https://i.pinimg.com/originals/d5/c6/a8/d5c6a857172405b86184399a880f3886.jpg',
-      profile:
-        'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
-      num: 3,
+      roomId: 5,
       title: '누워있을 시간이 없습니다. 들어오세요',
+      owner: {
+        userId: 1, // 예시 ID
+        nickname: '김문주',
+        profileImg:
+          'https://i.pinimg.com/originals/f1/31/a9/f131a9d8f6d1851b3376ccca24230824.jpg',
+      },
+      imageSrc:
+        'https://i.pinimg.com/originals/d5/c6/a8/d5c6a857172405b86184399a880f3886.jpg',
+      memberCount: 3,
+      capacity: 10, // 예시 값
       tags: ['#JavaScript', '#React', '#CSS'],
-      content:
+      introduce:
         '누워있을 시간이 없습니다. 들어오세요누워있을 시간이 없습니다. 들어오세요누워있을 시간이 없습니다. 들어오세요',
     },
   ],
+  isLongPage: false, // or true, based on your condition
 };
