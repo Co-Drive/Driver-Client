@@ -1,5 +1,7 @@
 export interface GroupInfoProps {
   isAdmin: boolean;
+  adminMode?: boolean;
+  handleClickAdminToggle?: () => void;
 }
 
 export interface MemberHeaderProps {
