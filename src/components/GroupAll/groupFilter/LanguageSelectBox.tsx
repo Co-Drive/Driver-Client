@@ -20,17 +20,16 @@ const LanguageSelectBox = ({
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // 태그와 슬라이더의 상태를 별도로 관리
   const [tempValue, setTempValue] = useState({
     min: 0,
     max: 50,
   });
-  const [isSliderValueVisible, setIsSliderValueVisible] = useState(false); // 슬라이더 값 표시 여부
+  const [isSliderValueVisible, setIsSliderValueVisible] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
     if (!isSliderValueVisible) {
-      setIsSliderValueVisible(true); // 드롭다운이 처음 열릴 때 슬라이더 값을 표시
+      setIsSliderValueVisible(true);
     }
   };
 
@@ -106,11 +105,8 @@ const LanguageSelectBox = ({
                 ))
               )}
             </SelectedTagsContainer>
-
-            {/* Border를 선택된 태그가 있거나 슬라이더 값이 설정된 경우에만 표시 */}
             {(selectedTags.length > 0 || isSliderValueVisible) && <Border />}
 
-            {/* 슬라이더 값을 슬라이더가 한 번 열렸으면 항상 표시 */}
             {isSliderValueVisible && (
               <RangeValue>
                 {tempValue.min}명 - {tempValue.max}명
