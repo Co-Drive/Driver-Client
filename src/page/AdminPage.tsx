@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { IcTop3Member } from '../assets';
+import AdminMemberList from '../components/Admin/AdminMemberList';
+import GroupStatistics from '../components/Admin/GroupStatistics/GroupStatistics';
 import GroupInfo from '../components/GroupMember/GroupInfo';
+import MemberList from '../components/GroupMember/MemberList';
+import Top3Members from '../components/GroupMember/Top3Members';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const AdminPage = () => {
@@ -19,7 +22,8 @@ const AdminPage = () => {
           adminMode={adminMode}
           handleClickAdminToggle={handleClickAdminToggle}
         />
-        <IcTop3Member />
+        {adminMode ? <GroupStatistics /> : <Top3Members />}
+        {adminMode ? <AdminMemberList /> : <MemberList />}
       </AdminPageContainer>
     </PageLayout>
   );
