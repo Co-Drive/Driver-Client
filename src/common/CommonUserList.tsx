@@ -31,23 +31,15 @@ const CommonUserList = ({
   });
 
   const { clickedId, isClicked } = clickedContents;
-  //   const props = {
-  //     page: clickedPage - 1,
-  //     sortType: sorting,
-  //     groupId: selectedGroupId,
-  //   }
+  const props = {
+    page: clickedPage - 1,
+    sortType: sorting,
+    groupId: selectedGroupId,
+  };
 
   const { data, isLoading } = isFollowerList
-    ? useGetFollowerSummary({
-        page: clickedPage - 1,
-        sortType: sorting,
-        groupId: selectedGroupId,
-      })
-    : useGetMemberList({
-        page: clickedPage - 1,
-        sortType: sorting,
-        groupId: selectedGroupId,
-      });
+    ? useGetFollowerSummary(props)
+    : useGetMemberList(props);
   const { totalPage, followings, members } = !isLoading && data.data;
   const users = isFollowerList ? followings : members;
 
