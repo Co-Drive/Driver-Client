@@ -6,6 +6,7 @@ export interface MemberHeaderProps {
 }
 
 export interface GetMemberListProps {
-  roomId: number;
+  groupId: number;
   sortType: string;
+  page: number;
 }
