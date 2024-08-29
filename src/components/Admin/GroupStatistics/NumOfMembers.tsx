@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 import { IcInformation } from '../../../assets';
-
-interface NumOfMembersProps {
-  numOfMembers: {
-    memberCount: number;
-    capacity: number;
-    approvedCount: number;
-    requestedCount: number;
-  };
-}
+import { NumOfMembersProps } from '../../../types/\bAdmin/adminType';
 
 const NumOfMembers = ({ numOfMembers }: NumOfMembersProps) => {
   const { memberCount, capacity, approvedCount, requestedCount } = numOfMembers;

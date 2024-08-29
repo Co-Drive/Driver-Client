@@ -1,12 +1,5 @@
 import styled from 'styled-components';
-
-interface NumOfLanguagesProps {
-  languageMemberCount: Array<{
-    language: string;
-    count: number;
-  }>;
-  capacity: number;
-}
+import { NumOfLanguagesProps } from '../../../types/\bAdmin/adminType';
 
 const NumOfLanguages = ({
   capacity,
