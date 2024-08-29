@@ -4,7 +4,11 @@ import { IcArrowRightSmallGray } from '../../assets';
 import useGetDetail from '../../libs/hooks/GroupDetail/useGetDetail';
 import { GroupInfoProps } from '../../types/GroupMember/memberType';
 
-const GroupInfo = ({ isAdmin }: GroupInfoProps) => {
+const GroupInfo = ({
+  isAdmin,
+  adminMode,
+  handleClickAdminToggle,
+}: GroupInfoProps) => {
   const navigate = useNavigate();
   const { id } = useParams();
   if (!id) return;
@@ -28,6 +32,25 @@ const GroupInfo = ({ isAdmin }: GroupInfoProps) => {
           <GroupImg src={imageSrc} />
 
           <TotalGroupInfo $isAdmin={isAdmin}>
+            {isAdmin && (
+              <AdminModeContaienr>
+                <AdminTextContainer>
+                  <AdminText>관리자 모드</AdminText>
+                  <AdminMode $on={adminMode}>
+                    {adminMode ? 'ON' : 'OFF'}
+                  </AdminMode>
+                </AdminTextContainer>
+
+                <AdminToggle
+                  type="button"
+                  $on={adminMode}
+                  onClick={handleClickAdminToggle}
+                >
+                  <ToggleCircle $on={adminMode} />
+                </AdminToggle>
+              </AdminModeContaienr>
+            )}
+
             <Group $isAdmin={isAdmin}>
               <Tags>
                 {tags.map((tag: string) => {
@@ -77,6 +100,73 @@ const GroupImg = styled.img`
 
   border-radius: 1.2rem;
   object-fit: cover;
+`;
+
+const AdminModeContaienr = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  flex-direction: column;
+
+  margin-bottom: 4rem;
+`;
+
+const AdminTextContainer = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+`;
+
+const AdminText = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_ligth_10};
+`;
+
+const AdminMode = styled.p<{ $on?: boolean }>`
+  color: ${({ theme, $on }) =>
+    $on ? theme.colors.codrive_green : theme.colors.gray300};
+  ${({ theme }) => theme.fonts.body_ligth_10};
+`;
+
+const AdminToggle = styled.button<{ $on?: boolean }>`
+  position: relative;
+
+  width: 6.2rem;
+  height: 2.8rem;
+
+  border-radius: 9.9rem;
+  background-color: ${({ $on, theme }) =>
+    $on ? theme.colors.codrive_green : theme.colors.gray700};
+  cursor: pointer;
+
+  transition: 0.5s;
+`;
+
+const ToggleCircle = styled.span<{ $on?: boolean }>`
+  position: absolute;
+  top: 0.3rem;
+
+  width: 2.2rem;
+  height: 2.2rem;
+
+  border-radius: 50%;
+
+  ${({ $on, theme }) =>
+    $on
+      ? css`
+          right: 0.3rem;
+
+          background-color: ${theme.colors.white};
+          box-shadow: -0.1rem 0 0.3rem rgb(11 12 15 / 35%);
+        `
+      : css`
+          left: 0.3rem;
+
+          background-color: ${theme.colors.gray300};
+          box-shadow: 0.2rem 0 0.4rem rgb(11 12 15 / 35%);
+        `};
+
+  transition: 0.5s;
 `;
 
 const TotalGroupInfo = styled.div<{ $isAdmin: boolean }>`
