@@ -10,8 +10,6 @@ const getMeberList = async ({
     `/rooms/${groupId}/members/${sortType === '최신순' ? 'NEW' : 'DICT'}?page=${page}`
   );
 
-  console.log(`/rooms/${groupId}/members/${sortType === '최신순' ? 'NEW' : 'DICT'}?page=${page}`)
-
   return data;
 };
 
