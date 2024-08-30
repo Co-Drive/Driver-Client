@@ -25,6 +25,7 @@ const AdminMemberList = () => {
         handleClickSorting={handleClickSorting}
       />
       <CommonUserList
+        roomId={groupId}
         isAdmin={true}
         sorting={sorting}
         selectedGroupId={groupId}

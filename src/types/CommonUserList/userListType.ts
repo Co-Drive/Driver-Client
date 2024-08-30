@@ -1,4 +1,5 @@
 export interface CommonUserListProps {
+  roomId?: number;
   isAdmin?: boolean;
   sorting: string;
   selectedGroupId: number;
@@ -16,5 +17,12 @@ export interface UserType {
 
 export interface ParticipantType {
   user: UserType;
+  status: string;
+  requestId: number;
+}
+
+export interface MutationType {
+  userId: number;
+  requestId: number;
   status: string;
 }

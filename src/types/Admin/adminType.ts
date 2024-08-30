@@ -23,7 +23,7 @@ export interface PatchRoomStatusProps extends GetRoomInfoProps {
   status: string;
 }
 
-export interface DeleteRoomStatusProps extends GetRoomInfoProps {
+export interface DeleteMemberProps extends GetRoomInfoProps {
   userId: number;
 }
 
