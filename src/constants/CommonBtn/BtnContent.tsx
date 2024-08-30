@@ -20,4 +20,5 @@ export const CONTENTS = [
   { category: 'account_create', text: '가입하기' },
   { category: 'link_copy', text: '링크 복사하기', icon: <IcBtnCopy /> },
   { category: 'group_join', text: '참여하기' },
+  { category: 'Profile_save', text: '저장하기' },
 ];
