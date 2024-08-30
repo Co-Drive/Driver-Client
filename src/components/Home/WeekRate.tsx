@@ -39,8 +39,10 @@ const WeekRate = () => {
     }
   }, [data]);
 
-  const chartData = [{ name: 'Solved', value: percentage }];
-  const endAngle = 180 - (percentage / 100) * 180;
+  const chartData = [
+    { name: 'Solved', value: percentage === 0 ? 10 : percentage },
+  ];
+  const endAngle = 180 - (chartData[0].value / 100) * 180;
   return (
     <Container>
       <Header>주간 성과율</Header>
