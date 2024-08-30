@@ -32,16 +32,27 @@ const SearchBar = ({
       const groupOwnerNickname = group.owner.nickname.toLowerCase();
       const groupTagsLower = group.tags.map((tag) => tag.toLowerCase());
 
-      return (
-        searchKeywords.some((keyword) => groupTitle.includes(keyword)) ||
-        searchKeywords.some((keyword) => groupIntroduce.includes(keyword)) ||
-        searchKeywords.some((keyword) =>
-          groupOwnerNickname.includes(keyword)
-        ) ||
-        searchKeywords.some((keyword) =>
+      // 숫자 검색어를 찾기 위해 모든 검색어를 숫자로 변환 시도
+      const numericKeywords = searchKeywords
+        .map((keyword) => parseFloat(keyword))
+        .filter((num) => !isNaN(num));
+
+      // 검색어가 그룹 제목, 소개, 소유자 닉네임, 태그에 포함되는지 확인
+      const matchesText = searchKeywords.some(
+        (keyword) =>
+          groupTitle.includes(keyword) ||
+          groupIntroduce.includes(keyword) ||
+          groupOwnerNickname.includes(keyword) ||
           groupTagsLower.some((tag) => tag.includes(keyword))
-        )
       );
+
+      // 검색어가 memberCount 또는 capacity와 일치하는지 확인
+      const matchesNumber = numericKeywords.some(
+        (num) => group.memberCount === num || group.capacity === num
+      );
+
+      // 텍스트 매칭과 숫자 매칭 중 하나라도 true면 포함
+      return matchesText || matchesNumber;
     });
 
     onSearch(filteredGroups); // 필터링된 그룹 데이터를 전달
