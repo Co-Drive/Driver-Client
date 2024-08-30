@@ -4,3 +4,8 @@ export interface WarningModalProps {
   isGroupStatusModal: boolean;
   data: string;
 }
+
+export interface ErrorModalProps {
+  errMsg: string;
+  onClose: () => void;
+}
