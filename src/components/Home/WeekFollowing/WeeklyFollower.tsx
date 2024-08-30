@@ -67,11 +67,9 @@ const HeaderContainer = styled.div`
 const ProfileContainer = styled.div`
   display: flex;
   gap: 2.4rem;
-  justify-content: center;
   align-items: center;
 
   margin: 4rem 0 4.1rem;
-  margin-top: 4rem;
 `;
 
 const NoFollowersText = styled.p`

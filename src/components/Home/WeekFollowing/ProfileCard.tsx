@@ -102,8 +102,6 @@ const LanguageText = styled.div`
 
   margin-top: 0.8rem;
 
-  /* margin-bottom: 4.1rem; */
-
   color: ${({ theme }) => theme.colors.gray400};
   ${({ theme }) => theme.fonts.body_eng_regular_14};
 `;
