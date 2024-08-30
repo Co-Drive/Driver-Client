@@ -35,14 +35,8 @@ const CommonCalendar = ({
   setClickedMonth,
 }: CommonCalendarProps) => {
   const today = new Date();
-  // const year = today.getFullYear();
-  // const month = today.getMonth() + 1;
-  // const day = today.getDate();
-  // const [clickedYear, setClickedYear] = useState(year);
-  // const [clickedMonth, setClickedMonth] = useState(month);
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(today);
   const [board, setBoard] = useState<BoardProps[]>([]);
-  // const [value, onChange] = useState(new Date());
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
