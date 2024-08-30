@@ -219,7 +219,9 @@ const CommonUserList = ({
         />
       </PageNationBar>
 
-      {!isLoading && users.length === 0 && <FollowerRecommendCard />}
+      {!isLoading && !isAdmin && users.length === 0 && (
+        <FollowerRecommendCard />
+      )}
     </>
   );
 };
