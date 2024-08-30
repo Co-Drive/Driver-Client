@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import CommonButton from '../common/CommonButton';
-import PageLayout from '../components/PageLayout/PageLayout';
-import GithubInfo from '../components/Profile/GIthubInfo';
-import IntroInfo from '../components/Profile/IntroInfo';
-import LanguageInfo from '../components/Profile/LanguageInfo';
-import NameInfo from '../components/Profile/NameInfo';
-import { handleInput } from '../utils/handleInput';
-import NicknameInfo from './../components/Profile/NicknameInfo';
+import CommonButton from '../../common/CommonButton';
+import { handleInput } from '../../utils/handleInput';
+import PageLayout from '../PageLayout/PageLayout';
+import GithubInfo from '../Profile/GIthubInfo';
+import IntroInfo from '../Profile/IntroInfo';
+import LanguageInfo from '../Profile/LanguageInfo';
+import NameInfo from '../Profile/NameInfo';
+import NicknameInfo from '../Profile/NicknameInfo';
 
-const ProfilePage = () => {
+const ProfileEdilt = () => {
   /* 기존 값들을 더미로 넣어둠 api 연결하면서 삭제 할 예정 */
   const initialData = {
     nickname: 'moonju',
@@ -194,4 +194,4 @@ const CancelButton = styled.button`
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
-export default ProfilePage;
+export default ProfileEdilt;
