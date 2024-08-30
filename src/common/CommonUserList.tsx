@@ -10,16 +10,20 @@ import {
 import AdditionalProblemsModal from '../components/Follower/Current/AdditionalProblemsModal';
 import WeeklyCurrentGraph from '../components/Follower/Current/WeeklyCurrentGraph';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
+import useDeleteMember from '../libs/hooks/Admin/useDeleteMember';
 import useGetParticipantsList from '../libs/hooks/Admin/useGetParticipantsList';
+import usePatchApprove from '../libs/hooks/Admin/usePatchApprove';
 import useGetFollowerSummary from '../libs/hooks/Follower/useGetFollowerSummary';
 import useGetMemberList from '../libs/hooks/GroupMember/useGetMemberList';
 import {
   CommonUserListProps,
+  MutationType,
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
 
 const CommonUserList = ({
+  roomId,
   sorting,
   selectedGroupId,
   isFollowerList,
@@ -56,6 +60,9 @@ const CommonUserList = ({
     (_, idx) => idx + 1
   );
 
+  const { patchMutation } = usePatchApprove();
+  const { deleteMutation } = useDeleteMember();
+
   const handleClickContents = (id: number) => {
     setClickedContents({
       clickedId: id,
@@ -65,6 +72,25 @@ const CommonUserList = ({
 
   const handleClickUserInfo = (id: number) => {
     navigate(`/follower/${id}`);
+  };
+
+  const handleClickStatusBtn = ({
+    status,
+    userId,
+    requestId,
+  }: MutationType) => {
+    if (roomId) {
+      switch (status) {
+        case 'REQUESTED':
+          return patchMutation({ roomId, requestId });
+
+        case 'JOINED':
+          return deleteMutation({ roomId, userId });
+
+        case 'WAITING':
+          return;
+      }
+    }
   };
 
   const handleClickPrevBtn = () => {
@@ -92,6 +118,8 @@ const CommonUserList = ({
         {!isLoading && users.length !== 0 && (
           <List>
             {users.map((info: UserType | ParticipantType, idx: number) => {
+              const isAdminInfo = 'user' in info;
+              const adminMode = 'status' in info;
               const {
                 userId,
                 nickname,
@@ -99,10 +127,10 @@ const CommonUserList = ({
                 language,
                 successRate,
                 recentProblemTitle,
-              } = 'user' in info ? info.user : info;
+              } = isAdminInfo ? info.user : info;
 
               const statusToKR =
-                'status' in info &&
+                adminMode &&
                 (info.status === 'WAITING'
                   ? '대기 중'
                   : info.status === 'REQUESTED'
@@ -139,9 +167,19 @@ const CommonUserList = ({
                       <IcArrowBottomWhite />
                     )}
 
-                    {isAdmin && (
+                    {isAdmin && adminMode && (
                       <StatusBtnContainer>
-                        <StatusBtn type="button" $status={statusToKR}>
+                        <StatusBtn
+                          type="button"
+                          $status={statusToKR}
+                          onClick={() =>
+                            handleClickStatusBtn({
+                              status: info.status,
+                              requestId: info.requestId,
+                              userId,
+                            })
+                          }
+                        >
                           {statusToKR}
                         </StatusBtn>
                       </StatusBtnContainer>
