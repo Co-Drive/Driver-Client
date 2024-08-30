@@ -12,7 +12,7 @@ export interface NumOfLanguagesProps {
     language: string;
     count: number;
   }>;
-  capacity: number;
+  approvedCount: number;
 }
 
 export interface GetRoomInfoProps {

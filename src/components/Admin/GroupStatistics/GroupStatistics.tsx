@@ -73,7 +73,7 @@ const GroupStatistics = () => {
           />
           <NumOfLanguages
             languageMemberCount={languageMemberCount}
-            capacity={capacity}
+            approvedCount={approvedCount}
           />
         </GroupStatisticsContainer>
       )}

@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { NumOfLanguagesProps } from '../../../types/Admin/adminType';
 
 const NumOfLanguages = ({
-  capacity,
   languageMemberCount,
+  approvedCount,
 }: NumOfLanguagesProps) => {
   return (
     <NumOfLanguagesContainer>
@@ -11,7 +11,7 @@ const NumOfLanguages = ({
       <TotalMembers>
         {languageMemberCount.map((member) => {
           const { language, count } = member;
-          const languageRatio = (count / capacity) * 100;
+          const languageRatio = (count / approvedCount) * 100;
 
           return (
             <LanguageOfMemberContainer key={language}>
