@@ -245,6 +245,8 @@ const IconContainer = styled.div`
 `;
 
 const DropdownItemContainer = styled.div`
+  position: absolute;
+
   width: 100%;
   height: 27.6rem;
   padding: 1.6rem;
