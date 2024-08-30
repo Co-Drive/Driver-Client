@@ -3,11 +3,10 @@ import { IcBtnInformation } from '../../assets';
 import RecommendCard from '../../common/RecommendCard';
 import { GROUP_ALL_DUMMY } from '../../constants/GroupAll/groupAllConst';
 
-interface TitleProps {
-  user: string;
-}
+const GroupRecommend = () => {
+  // 더미 데이터에서 처음 6개만 잘라냅니다.
+  const slicedGroupData = GROUP_ALL_DUMMY.group.slice(0, 6);
 
-const GroupRecommend = ({ user }: TitleProps) => {
   return (
     <GroupRecommendContainer>
       <TitleContainer>
@@ -20,14 +19,14 @@ const GroupRecommend = ({ user }: TitleProps) => {
           </Tooltip>
         </Notic>
       </TitleContainer>
-      <RecommendContainer>
-        <RecommendCard group={GROUP_ALL_DUMMY.group} isLongPage={true} />
-      </RecommendContainer>
+      <RecommendCard group={slicedGroupData} isLongPage={true} />
     </GroupRecommendContainer>
   );
 };
 
-const GroupRecommendContainer = styled.article``;
+const GroupRecommendContainer = styled.article`
+  margin-bottom: 10.2rem;
+`;
 
 const TitleContainer = styled.header`
   display: flex;
@@ -99,13 +98,6 @@ const TooUser = styled.p`
 
   color: ${({ theme }) => theme.colors.codrive_green};
   ${({ theme }) => theme.fonts.detail_regular_12};
-`;
-
-const RecommendContainer = styled.div`
-  display: grid;
-  gap: 4rem 1.8rem;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
 `;
 
 export default GroupRecommend;
