@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
+import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
 import { WeekRateProps } from '../../types/Week/weekRateTypes';
 
 const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
@@ -19,20 +21,23 @@ const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
   );
 };
 const WeekRate = () => {
-  const maxProblems = 7;
-  const solvedProblems = 7;
-
-  const percentagePerProblem = Array.from({ length: maxProblems }, (_, i) => {
-    if (i === maxProblems - 1) {
-      return 100;
-    } else {
-      return ((i + 1) * 100) / maxProblems;
-    }
+  const [stats, setStats] = useState({
+    successRate: 0,
+    weeklyCountDifference: 0,
   });
 
-  const percentage = percentagePerProblem[solvedProblems - 1] || 0;
+  const percentage = stats.successRate || 0;
 
-  console.log(percentage);
+  const data = useGetUserAchieve();
+  useEffect(() => {
+    if (data) {
+      const { successRate, weeklyCountDifference } = data.data;
+      setStats({
+        successRate: successRate,
+        weeklyCountDifference: weeklyCountDifference,
+      });
+    }
+  }, [data]);
 
   const chartData = [{ name: 'Solved', value: percentage }];
   const endAngle = 180 - (percentage / 100) * 180;
@@ -66,9 +71,7 @@ const WeekRate = () => {
               content={
                 <CustomLabel
                   value={
-                    maxProblems && solvedProblems
-                      ? `${percentage.toFixed(0)}%`
-                      : `${0}%`
+                    stats.successRate ? `${percentage.toFixed(0)}%` : `${0}%`
                   }
                   viewBox={{ cx: 0, cy: 100 }}
                 />
@@ -93,10 +96,12 @@ const WeekRate = () => {
         </PieChart>
       </ChartContainer>
       <MessageContainer>
-        {maxProblems && solvedProblems ? (
+        {stats.successRate ? (
           <>
             <Message>축하해요!</Message>
-            <Message>지난 주보다 {solvedProblems}문제 더 풀었어요!</Message>
+            <Message>
+              지난 주보다 {stats.weeklyCountDifference}문제 더 풀었어요!
+            </Message>
           </>
         ) : (
           <>
@@ -130,12 +135,10 @@ const ChartContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-
-  /* background-color: beige; */
 `;
 
 const StyledText = styled.text`
-  fill: #fff;
+  fill: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.title_bold_32};
   background-color: pink;
