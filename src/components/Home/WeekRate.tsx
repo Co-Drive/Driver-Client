@@ -19,11 +19,21 @@ const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
   );
 };
 const WeekRate = () => {
-  const maxProblems = 0;
-  const solvedProblems = 0;
+  const maxProblems = 7;
+  const solvedProblems = 7;
 
-  const percentage =
-    maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 10;
+  const percentagePerProblem = Array.from({ length: maxProblems }, (_, i) => {
+    if (i === maxProblems - 1) {
+      return 100;
+    } else {
+      return ((i + 1) * 100) / maxProblems;
+    }
+  });
+
+  const percentage = percentagePerProblem[solvedProblems - 1] || 0;
+
+  console.log(percentage);
+
   const chartData = [{ name: 'Solved', value: percentage }];
   const endAngle = 180 - (percentage / 100) * 180;
   return (
