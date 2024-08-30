@@ -1,0 +1,32 @@
+export interface NumOfMembersProps {
+  numOfMembers: {
+    memberCount: number;
+    capacity: number;
+    approvedCount: number;
+    requestedCount: number;
+  };
+}
+
+export interface NumOfLanguagesProps {
+  languageMemberCount: Array<{
+    language: string;
+    count: number;
+  }>;
+  capacity: number;
+}
+
+export interface GetRoomInfoProps {
+  roomId: number;
+}
+
+export interface PatchRoomStatusProps extends GetRoomInfoProps {
+  status: string;
+}
+
+export interface DeleteRoomStatusProps extends GetRoomInfoProps {
+  userId: number;
+}
+
+export interface PatchApproveProps extends GetRoomInfoProps {
+  requestId: number;
+}

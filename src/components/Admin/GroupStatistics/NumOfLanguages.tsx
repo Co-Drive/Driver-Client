@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { NumOfLanguagesProps } from '../../../types/\bAdmin/adminType';
+import { NumOfLanguagesProps } from '../../../types/Admin/adminType';
 
 const NumOfLanguages = ({
   capacity,
