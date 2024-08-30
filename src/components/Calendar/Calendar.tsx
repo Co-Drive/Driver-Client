@@ -78,7 +78,7 @@ const CommonCalendar = ({
     upDatedCalendar();
   }, [data]);
 
-  console.log(selectedDate);
+  // console.log(selectedDate);
 
   return (
     <CalendarContainer>
