@@ -20,13 +20,18 @@ const CustomLabel = ({ profileImg }: CustomLabelProps) => {
 
 const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
   const { userId, successRate, profileImg, nickname, language } = user;
+  console.log('성공률 :', successRate, '이미지 :', profileImg);
 
   let NickName = nickname;
   if (nickname.length > 7) {
     NickName = nickname.slice(0, 7) + '...';
   }
 
-  const chartData = [{ name: 'Success', value: successRate }];
+  const chartData = [
+    { name: 'Success', value: successRate === 0 ? 10 : successRate },
+  ];
+
+  const endAngle = 90 - (360 * chartData[0].value) / 100;
 
   return (
     <>
@@ -47,7 +52,7 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
           <Pie
             data={chartData}
             dataKey="value"
-            endAngle={90 - (360 * successRate) / 100}
+            endAngle={endAngle}
             startAngle={90}
             outerRadius={38}
             innerRadius={33}
