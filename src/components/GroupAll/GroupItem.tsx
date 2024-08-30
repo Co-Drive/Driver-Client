@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
 import { GROUP_ALL_DUMMY } from '../../constants/GroupAll/groupAllConst';
-import PageLayout from '../PageLayout/PageLayout';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
 
@@ -12,9 +11,9 @@ const GroupItem = () => {
   const [clickedPage, setClickedPage] = useState(1);
   const [sorting, setSorting] = useState('최신순');
   const [searchResults, setSearchResults] = useState(GROUP_ALL_DUMMY.group); // 필터링된 그룹 데이터를 위한 상태
-  const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태
 
-  const totalPage = 5; // 총 페이지 수
+  const groupsPerPage = 9; // 한 페이지에 표시할 그룹 수
+  const totalPage = Math.ceil(searchResults.length / groupsPerPage); // 총 페이지 수 계산
   const totalPageRef = useRef(totalPage);
 
   const handleClickSorting = (
@@ -38,44 +37,48 @@ const GroupItem = () => {
   // 검색어가 변경될 때마다 호출될 함수
   const handleSearch = (filteredGroups: any[]) => {
     setSearchResults(filteredGroups); // 필터링된 그룹 데이터를 상태로 설정
+    setClickedPage(1); // 검색 시 첫 페이지로 이동
   };
 
+  // 현재 페이지에 해당하는 그룹 데이터를 계산하는 로직 추가
+  const startIdx = (clickedPage - 1) * groupsPerPage;
+  const endIdx = startIdx + groupsPerPage;
+  const currentGroups = searchResults.slice(startIdx, endIdx);
+
   return (
-    <PageLayout category="{그룹}">
-      <GroupContainer>
-        <GroupTitle>그룹 전체 보기</GroupTitle>
-        <TopContainer>
-          <LanguageSelectBox
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-          />
-          <SearchBar onSearch={handleSearch} />
-        </TopContainer>
-        <SortContainer>
-          {SORTING.map((standard) => (
-            <Sorting
-              key={standard}
-              onClick={handleClickSorting}
-              $isClicked={sorting === standard}
-            >
-              {standard}
-            </Sorting>
-          ))}
-        </SortContainer>
-        <GroupsItemContainer>
-          <Groups
-            group={searchResults}
-            totalPage={totalPageRef.current}
-            clickedPage={clickedPage}
-            handleClickPages={{
-              handleClickPrevBtn: handleClickPrevBtn,
-              handleClickPage: handleClickPage,
-              handleClickNextBtn: handleClickNextBtn,
-            }}
-          />
-        </GroupsItemContainer>
-      </GroupContainer>
-    </PageLayout>
+    <GroupContainer>
+      <GroupTitle>그룹 전체 보기</GroupTitle>
+      <TopContainer>
+        <LanguageSelectBox
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+        />
+        <SearchBar onSearch={handleSearch} />
+      </TopContainer>
+      <SortContainer>
+        {SORTING.map((standard) => (
+          <Sorting
+            key={standard}
+            onClick={handleClickSorting}
+            $isClicked={sorting === standard}
+          >
+            {standard}
+          </Sorting>
+        ))}
+      </SortContainer>
+      <GroupsItemContainer>
+        <Groups
+          group={currentGroups}
+          totalPage={totalPageRef.current}
+          clickedPage={clickedPage}
+          handleClickPages={{
+            handleClickPrevBtn: handleClickPrevBtn,
+            handleClickPage: handleClickPage,
+            handleClickNextBtn: handleClickNextBtn,
+          }}
+        />
+      </GroupsItemContainer>
+    </GroupContainer>
   );
 };
 
@@ -85,7 +88,6 @@ const GroupContainer = styled.article`
   flex-direction: column;
 
   width: 100%;
-  padding: 0 4.2rem;
 `;
 
 const GroupTitle = styled.h1`
