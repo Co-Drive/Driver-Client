@@ -4,7 +4,6 @@ import RecommendCard from '../../common/RecommendCard';
 import { GROUP_ALL_DUMMY } from '../../constants/GroupAll/groupAllConst';
 
 const GroupRecommend = () => {
-  // 더미 데이터에서 처음 6개만 잘라냅니다.
   const slicedGroupData = GROUP_ALL_DUMMY.group.slice(0, 6);
 
   return (

@@ -10,10 +10,10 @@ const GroupItem = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [clickedPage, setClickedPage] = useState(1);
   const [sorting, setSorting] = useState('최신순');
-  const [searchResults, setSearchResults] = useState(GROUP_ALL_DUMMY.group); // 필터링된 그룹 데이터를 위한 상태
+  const [searchResults, setSearchResults] = useState(GROUP_ALL_DUMMY.group);
 
-  const groupsPerPage = 9; // 한 페이지에 표시할 그룹 수
-  const totalPage = Math.ceil(searchResults.length / groupsPerPage); // 총 페이지 수 계산
+  const groupsPerPage = 9;
+  const totalPage = Math.ceil(searchResults.length / groupsPerPage);
   const totalPageRef = useRef(totalPage);
 
   const handleClickSorting = (
@@ -24,14 +24,14 @@ const GroupItem = () => {
   };
 
   const handleClickPrevBtn = () => {
-    setClickedPage((prev) => Math.max(prev - 1, 1)); // 첫 페이지 이하로 내려가지 않도록 처리
+    setClickedPage((prev) => Math.max(prev - 1, 1));
   };
   const handleClickPage = (page: number) => {
     setClickedPage(page);
   };
 
   const handleClickNextBtn = () => {
-    setClickedPage((prev) => Math.min(prev + 1, totalPageRef.current)); // 마지막 페이지 이상으로 올라가지 않도록 처리
+    setClickedPage((prev) => Math.min(prev + 1, totalPageRef.current));
   };
 
   // 검색어가 변경될 때마다 호출될 함수
