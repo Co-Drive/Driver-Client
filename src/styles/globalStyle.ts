@@ -149,6 +149,9 @@ export const reset = css`
   }
 
   button {
+    padding: 0;
+    margin: 0;
+
     border: none;
     background: transparent;
     cursor: pointer;
@@ -232,6 +235,9 @@ ${reset}
 
 /* 사파리 웹 뷰 브라우저 상속 스타일 제거 */
 input, textarea,button {
+    padding: 0;
+    margin: 0;
+
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
@@ -242,6 +248,9 @@ input, textarea,button {
 
 input:disabled, textarea:disabled, input:disabled::placeholder, textarea:disabled::placeholder {
     opacity: 1; 
+
+    padding: 0;
+    margin: 0;
 }
 
 
