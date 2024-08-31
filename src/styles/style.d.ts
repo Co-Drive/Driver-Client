@@ -40,6 +40,7 @@ declare module 'styled-components' {
       title_medium_20: SerializedStyles;
       title_regular_20: SerializedStyles;
       title_regular_14: SerializedStyles;
+      title_bold_46: SerializedStyles;
 
       // body
       body_medium_20: SerializedStyles;
