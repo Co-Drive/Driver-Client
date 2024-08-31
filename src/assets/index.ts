@@ -40,7 +40,9 @@ import IcLoginIcon from './icon/ic_login_Icon.svg?react';
 import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
+import IcMinusWhite from './icon/ic_minus_white.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
+import IcRevise from './icon/ic_revise.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
 import IcSecretGray from './icon/ic_secret_gray.svg?react';
 import IcSecretWhite from './icon/ic_secret_white.svg?react';
@@ -115,7 +117,9 @@ export {
   IcLogo,
   IcMemoGray,
   IcMemoWhite,
+  IcMinusWhite,
   IcNothing,
+  IcRevise,
   IcSecretBigWhite,
   IcSecretGray,
   IcSecretWhite,
