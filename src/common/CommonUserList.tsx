@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -21,6 +21,7 @@ import {
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
+import WarningModal from './Modal/WarningModal/WarningModal';
 
 const CommonUserList = ({
   roomId,
@@ -31,6 +32,7 @@ const CommonUserList = ({
 }: CommonUserListProps) => {
   const navigate = useNavigate();
 
+  const [modalOn, setModalOn] = useState(false);
   const [clickedPage, setClickedPage] = useState(1);
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
@@ -74,22 +76,25 @@ const CommonUserList = ({
     navigate(`/follower/${id}`);
   };
 
-  const handleClickStatusBtn = ({
-    status,
-    userId,
-    requestId,
-  }: MutationType) => {
+  const handleClickStatusBtn = ({ status, requestId }: MutationType) => {
     if (roomId) {
       switch (status) {
         case 'REQUESTED':
           return patchMutation({ roomId, requestId });
 
         case 'JOINED':
-          return deleteMutation({ roomId, userId });
+          return setModalOn(true);
 
         case 'WAITING':
           return;
       }
+    }
+  };
+
+  const handleClickModalBtn = (userId: number) => {
+    if (roomId) {
+      deleteMutation({ roomId, userId });
+      setModalOn(false);
     }
   };
 
@@ -140,56 +145,67 @@ const CommonUserList = ({
               const isExitAndClicked =
                 clickedId === userId && isClicked && successRate !== 0;
               return (
-                <ContentsContainer key={userId}>
-                  <Contents
-                    onClick={() => handleClickContents(userId)}
-                    $isClicked={isExitAndClicked}
-                    $isAdmin={isAdmin}
-                  >
-                    {isAdmin && <UserIdx>{idx + 1}</UserIdx>}
-                    <ProfileImg
-                      src={profileImg}
-                      onClick={() => handleClickUserInfo(userId)}
-                    />
-                    <UserContainer
+                <React.Fragment key={userId}>
+                  <ContentsContainer>
+                    <Contents
+                      onClick={() => handleClickContents(userId)}
+                      $isClicked={isExitAndClicked}
                       $isAdmin={isAdmin}
-                      onClick={() => handleClickUserInfo(userId)}
                     >
-                      <Nickname>{nickname}</Nickname>
-                      <Language>{language}</Language>
-                    </UserContainer>
-                    <WeeklyCurrentGraph percentage={successRate} />
+                      {isAdmin && <UserIdx>{idx + 1}</UserIdx>}
+                      <ProfileImg
+                        src={profileImg}
+                        onClick={() => handleClickUserInfo(userId)}
+                      />
+                      <UserContainer
+                        $isAdmin={isAdmin}
+                        onClick={() => handleClickUserInfo(userId)}
+                      >
+                        <Nickname>{nickname}</Nickname>
+                        <Language>{language}</Language>
+                      </UserContainer>
+                      <WeeklyCurrentGraph percentage={successRate} />
 
-                    <Problem $isAdmin={isAdmin}>{recentProblemTitle}</Problem>
-                    {isExitAndClicked ? (
-                      <IcArrowTopWhite />
-                    ) : (
-                      <IcArrowBottomWhite />
+                      <Problem $isAdmin={isAdmin}>{recentProblemTitle}</Problem>
+                      {isExitAndClicked ? (
+                        <IcArrowTopWhite />
+                      ) : (
+                        <IcArrowBottomWhite />
+                      )}
+
+                      {isAdmin && adminMode && (
+                        <StatusBtnContainer>
+                          <StatusBtn
+                            type="button"
+                            $status={statusToKR}
+                            onClick={() =>
+                              handleClickStatusBtn({
+                                status: info.status,
+                                requestId: info.requestId,
+                                userId,
+                              })
+                            }
+                          >
+                            {statusToKR}
+                          </StatusBtn>
+                        </StatusBtnContainer>
+                      )}
+                    </Contents>
+
+                    {isExitAndClicked && (
+                      <AdditionalProblemsModal userId={userId} />
                     )}
+                  </ContentsContainer>
 
-                    {isAdmin && adminMode && (
-                      <StatusBtnContainer>
-                        <StatusBtn
-                          type="button"
-                          $status={statusToKR}
-                          onClick={() =>
-                            handleClickStatusBtn({
-                              status: info.status,
-                              requestId: info.requestId,
-                              userId,
-                            })
-                          }
-                        >
-                          {statusToKR}
-                        </StatusBtn>
-                      </StatusBtnContainer>
-                    )}
-                  </Contents>
-
-                  {isExitAndClicked && (
-                    <AdditionalProblemsModal userId={userId} />
+                  {isAdmin && modalOn && (
+                    <WarningModal
+                      data={nickname}
+                      isGroupStatusModal={false}
+                      onClose={() => setModalOn(false)}
+                      handleClickContinueBtn={() => handleClickModalBtn(userId)}
+                    />
                   )}
-                </ContentsContainer>
+                </React.Fragment>
               );
             })}
           </List>
