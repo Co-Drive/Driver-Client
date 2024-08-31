@@ -70,7 +70,7 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
               >
                 <TagContainer>
                   {tags.map((tag, tagIndex) => (
-                    <Tag key={tagIndex}>{tag}</Tag>
+                    <Tag key={tagIndex}>#{tag}</Tag>
                   ))}
                 </TagContainer>
                 <Title>{title}</Title>
