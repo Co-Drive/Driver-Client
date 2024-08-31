@@ -55,6 +55,7 @@ import IcSuccessGray from './icon/ic_success_gray.svg?react';
 import IcUnfollowingWhite from './icon/ic_unfollowing_white.svg?react';
 import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
+import IcWarning from './icon/ic_warning.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 
@@ -130,6 +131,7 @@ export {
   IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
+  IcWarning,
   IcWorkbook,
   IcWorkbookBlack,
   TestWeekboardStatus,
