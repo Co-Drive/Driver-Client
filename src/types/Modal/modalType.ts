@@ -1,6 +1,6 @@
 export interface WarningModalProps {
   onClose: () => void;
-  handleClickContinueBtn: (userId: number) => void | (() => void);
+  handleClickContinueBtn: () => void;
   isGroupStatusModal: boolean;
   data: string;
 }
