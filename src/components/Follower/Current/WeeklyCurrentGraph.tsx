@@ -54,7 +54,6 @@ const GraphContainer = styled.div`
 
   width: 5.5rem;
   height: 5.5rem;
-  margin-right: 10.4rem;
 `;
 
 const Rate = styled.p`

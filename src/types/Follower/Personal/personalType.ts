@@ -14,3 +14,13 @@ export interface UpdateFollowerProps {
   isDelete: boolean;
   nickname: string;
 }
+
+export interface ParticipatingGroupProps {
+  nickname: string;
+}
+
+export interface ClickCardProps {
+  userId: number;
+  groupId: number;
+  isMember: boolean;
+}

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupInfo from '../components/GroupDetail/GroupInfo';
 import Header from '../components/GroupDetail/Header';
@@ -7,6 +7,8 @@ import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
 import usePostPublicRequest from '../libs/hooks/GroupDetail/usePostPublicRequest';
 
 const GroupDetail = () => {
+  const { state } = useLocation();
+  const { disabledApply } = state ? state : { disabledApply: false };
   const { id } = useParams();
   if (!id) return;
 
@@ -42,7 +44,7 @@ const GroupDetail = () => {
             information={information}
           />
 
-          {!isSuccess && (
+          {!isSuccess && !disabledApply && (
             <ApplyBtn type="button" onClick={handleClickApplyBtn}>
               신청하기
             </ApplyBtn>
