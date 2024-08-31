@@ -8,23 +8,38 @@ import {
   IcSuccess,
   IcSuccessGray,
 } from '../../../assets';
+import WarningModal from '../../../common/Modal/WarningModal/WarningModal';
 import { STATUS } from '../../../constants/Follower/currentConst';
+import usePatchRoomStatus from '../../../libs/hooks/Admin/usePatchRoomStatus';
 
 interface GroupStatusProps {
+  roomId: number;
+  modalOn: boolean;
   clickedStatus: string;
+  onClose: () => void;
   handleClickStatus: (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
 }
 
 const GroupStatus = ({
+  roomId,
+  modalOn,
   clickedStatus,
+  onClose,
   handleClickStatus,
 }: GroupStatusProps) => {
+  const { mutation } = usePatchRoomStatus();
+
   const [openStatusOption, setOpenStatusOption] = useState(false);
 
   const handleClickSelector = () => {
     setOpenStatusOption(!openStatusOption);
+  };
+
+  const handleClickModalBtn = () => {
+    mutation({ roomId, status: clickedStatus });
+    onClose();
   };
 
   return (
@@ -71,6 +86,15 @@ const GroupStatus = ({
           </StatusOption>
         )}
       </ChangeStatusSelector>
+
+      {modalOn && (
+        <WarningModal
+          onClose={onClose}
+          handleClickContinueBtn={handleClickModalBtn}
+          data={clickedStatus}
+          isGroupStatusModal={true}
+        />
+      )}
     </GroupStatusContainer>
   );
 };

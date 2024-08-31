@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useGetRoomInfo from '../../../libs/hooks/Admin/useGetRoomInfo';
-import usePatchRoomStatus from '../../../libs/hooks/Admin/usePatchRoomStatus';
 import GroupStatus from './GroupStatus';
 import NumOfLanguages from './NumOfLanguages';
 import NumOfMembers from './NumOfMembers';
@@ -23,25 +22,14 @@ const GroupStatistics = () => {
   } = !isLoading && data?.data;
 
   const [clickedStatus, setClickedStatus] = useState('');
-
-  const { mutation } = usePatchRoomStatus();
+  const [modalOn, setModalOn] = useState(false);
 
   const handleClickStatus = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const { innerText } = e.currentTarget;
     setClickedStatus(innerText);
-
-    const clickedStatusEN =
-      innerText === '모집 중'
-        ? 'ACTIVE'
-        : innerText === '모집 마감'
-          ? 'INACTIVE'
-          : 'CLOSED';
-
-    if (clickedStatusEN !== roomStatus) {
-      mutation({ roomId, status: clickedStatusEN });
-    }
+    setModalOn(true);
   };
 
   useEffect(() => {
@@ -60,7 +48,10 @@ const GroupStatistics = () => {
       {!isLoading && (
         <GroupStatisticsContainer>
           <GroupStatus
+            roomId={roomId}
+            modalOn={modalOn}
             clickedStatus={clickedStatus}
+            onClose={() => setModalOn(false)}
             handleClickStatus={handleClickStatus}
           />
           <NumOfMembers
