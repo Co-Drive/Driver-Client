@@ -10,6 +10,7 @@ const useDeleteMember = () => {
       await deleteMember({ roomId, userId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-participants-list'] });
+      queryClient.invalidateQueries({ queryKey: ['get-room-info'] });
     },
     onError: (err) => console.log(err),
   });

@@ -10,6 +10,7 @@ const usePatchApprove = () => {
       await patchApprove({ roomId, requestId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-participants-list'] });
+      queryClient.invalidateQueries({ queryKey: ['get-room-info'] });
     },
     onError: (err) => console.log(err),
   });
