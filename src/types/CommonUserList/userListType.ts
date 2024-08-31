@@ -22,7 +22,7 @@ export interface ParticipantType {
 }
 
 export interface MutationType {
-  userId: number;
+  userId?: number;
   requestId: number;
   status: string;
 }
