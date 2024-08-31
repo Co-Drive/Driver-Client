@@ -1,18 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import TotalSolutions from './components/Follower/Personal/TotalSolutions';
+import AdminPage from './page/AdminPage';
 import FollowerCurrentPage from './page/FollowerCurrentPage';
 import FollowerPage from './page/FollowerPage';
 import GroupComplete from './page/GroupComplete';
 import GroupCreate from './page/GroupCreate';
 import GroupDetail from './page/GroupDetail';
 import GroupJoin from './page/GroupJoin';
+import GroupMemberPage from './page/GroupMemberPage';
 import Home from './page/Home';
 import LoginPage from './page/LoginPage';
+import MyGroup from './page/MyGroup';
 import RegisterPage from './page/RegisterPage';
 import SolutionListPage from './page/SolutionListPage';
 import SolutionPage from './page/SolutionPage';
 import SolvePage from './page/SolvePage';
-import MyGroup from './page/MyGroup';
 
 const Router = () => {
   return (
@@ -21,8 +23,10 @@ const Router = () => {
         <Route path="/" element={<Home />} />
         <Route path="/group" />
         <Route path="/group/:id" element={<GroupDetail />} />
+        <Route path="/group/:id/admin" element={<AdminPage />} />
+        <Route path="/group/:id/member" element={<GroupMemberPage />} />
         <Route path="/group-new" element={<GroupCreate />} />
-        <Route path="/my-group" element={<MyGroup />}/>
+        <Route path="/my-group" element={<MyGroup />} />
         <Route path="/group-join" element={<GroupJoin />} />
         <Route path="/group-complete" element={<GroupComplete />} />
         <Route path="/group-complete/:id" element={<GroupComplete />} />

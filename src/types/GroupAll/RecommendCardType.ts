@@ -12,6 +12,7 @@ export interface RecommendCardProps {
     capacity: number;
     tags: Array<string>;
     introduce: string;
+    isMember: boolean;
   }>;
   isLongPage: boolean;
 }
