@@ -108,7 +108,7 @@ const ApplicationStatus = styled.div`
 
   padding: 1.2rem 2rem;
 
-  border-radius: 1.6rem;
+  border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 `;
 
