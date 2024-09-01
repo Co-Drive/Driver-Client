@@ -77,8 +77,6 @@ const QuesitonContainer = styled.article`
 `;
 
 const Date = styled.p`
-  margin-left: 0.2rem;
-
   color: ${({ theme }) => theme.colors.gray100};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
@@ -90,11 +88,10 @@ const Question = styled.article`
 `;
 
 const Title = styled.p`
-  margin-bottom: 2.6rem;
-  margin-left: 0.2rem;
+  margin-bottom: 1.8rem;
 
   color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.title_bold_32};
+  ${({ theme }) => theme.fonts.title_bold_20};
 `;
 
 const TagContainer = styled.div`
