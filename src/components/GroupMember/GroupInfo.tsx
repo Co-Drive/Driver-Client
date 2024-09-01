@@ -153,17 +153,16 @@ const AdminControlContainer = styled.div`
 `;
 
 const IcContainer = styled.div<{ $on?: boolean }>`
-  ${({ $on }) =>
-    $on
-      ? css`
-          padding: 0.6rem;
+  padding: 0.6rem;
 
-          border-radius: 5rem;
-          background-color: ${({ theme }) => theme.colors.gray500};
-        `
-      : css`
-          margin: 0.6rem 0.6rem 0.6rem 0;
-        `};
+  ${({ $on }) =>
+    $on &&
+    css`
+      &:hover {
+        border-radius: 5rem;
+        background-color: ${({ theme }) => theme.colors.gray500};
+      }
+    `};
 `;
 
 const AdminToggle = styled.button<{ $on?: boolean }>`
