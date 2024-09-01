@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
+import { OLD_AND_NEW } from '../../constants/Follower/currentConst';
 import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import { ListFilterProps } from '../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
@@ -13,7 +14,6 @@ const ListFilter = ({
   handleClickMonth,
   handleClickNextBtn,
 }: ListFilterProps) => {
-  const LIST_SORTING = ['최신순', '|', '즐겨찾기'];
   const { unsolvedData } = useGetUnsolvedMonths(year);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
@@ -69,7 +69,7 @@ const ListFilter = ({
       </DateFilterContainer>
 
       <SortContainer>
-        {LIST_SORTING.map((standard) => {
+        {OLD_AND_NEW.map((standard) => {
           return (
             <Sorting
               key={standard}
