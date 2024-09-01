@@ -30,6 +30,7 @@ const SolutionPage = () => {
         memo: '',
       },
     ],
+    createdAt = '',
   } = records || {};
 
   const changeRecords = () => {
@@ -51,7 +52,7 @@ const SolutionPage = () => {
               recordId={parseInt(id)}
               followerInfo={state}
               title={title}
-              date={'2024.07.23'}
+              date={createdAt.split(' ')[0]}
               paintedStarArr={Array(level)
                 .fill(1)
                 .concat(Array(5 - level).fill(0))}

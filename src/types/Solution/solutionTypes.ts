@@ -8,6 +8,7 @@ export interface RecordsTypes {
     code: string;
     memo: string;
   }>;
+  createdAt: string;
 }
 
 export interface SolutionHeaderTopProps {
