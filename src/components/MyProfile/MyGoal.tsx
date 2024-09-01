@@ -68,6 +68,7 @@ const MyGoalContainer = styled.article``;
 
 const Title = styled.h1`
   margin-bottom: 2.8rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -78,7 +79,6 @@ const MyGoalBox = styled.div`
   display: flex;
 
   width: 92.6rem;
-  margin-left: 0.2rem;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -90,7 +90,10 @@ const MyInfoContainer = styled.div`
 `;
 
 const Info = styled.div``;
+
 const Text = styled.p`
+  margin-bottom: 0.6rem;
+
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.title_semiBold_18};
