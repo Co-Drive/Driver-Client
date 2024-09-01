@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   IcFollowingGray,
@@ -11,10 +12,16 @@ import { UpdateFollowerProps } from '../../../types/Follower/Personal/personalTy
 
 const FollowerRecommendCard = () => {
   const myNickname = sessionStorage.getItem('nickname');
+  const navigate = useNavigate();
 
   const { data, isLoading } = useGetFollowerRecommend();
   const { mutation } = useUpdateFollower();
   const { users } = !isLoading && data.data;
+
+  const handleClickProfile = (userId: number) => {
+    navigate(`/follower/${userId}`);
+    window.location.reload();
+  };
 
   const handleClickFollowerBtn = ({
     nickname,
@@ -58,6 +65,7 @@ const FollowerRecommendCard = () => {
                   <ProfileImg
                     src={profileImg}
                     $isGithubExit={githubUrl?.length !== 0}
+                    onClick={() => handleClickProfile(userId)}
                   />
                   {githubUrl && (
                     <IcContainer>
@@ -65,7 +73,7 @@ const FollowerRecommendCard = () => {
                     </IcContainer>
                   )}
 
-                  <ProfileInfo>
+                  <ProfileInfo onClick={() => handleClickProfile(userId)}>
                     <Nickname>{nickname}</Nickname>
                     <Language>{`#${language}`}</Language>
                   </ProfileInfo>
