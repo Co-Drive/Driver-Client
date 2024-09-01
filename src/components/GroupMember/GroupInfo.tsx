@@ -91,7 +91,6 @@ export default GroupInfo;
 const GroupInfoContainer = styled.article`
   display: flex;
   gap: 3.6rem;
-  align-items: center;
 
   width: 100%;
   padding-bottom: 1.8rem;
@@ -110,13 +109,22 @@ const GroupImg = styled.img`
   object-fit: cover;
 `;
 
+const TotalGroupInfo = styled.div<{ $isAdmin: boolean }>`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-grow: 1.3;
+
+  margin: ${({ $isAdmin }) => ($isAdmin ? ` 0 0 1.8rem` : ` 1.2rem 0 1.6rem`)};
+`;
+
 const AdminModeContaienr = styled.div`
   display: flex;
   gap: 0.8rem;
   justify-content: center;
   flex-direction: column;
 
-  margin-bottom: 1.8rem;
+  margin-bottom: 4rem;
 `;
 
 const AdminTextContainer = styled.div`
@@ -197,15 +205,6 @@ const ToggleCircle = styled.span<{ $on?: boolean }>`
         `};
 
   transition: 0.5s;
-`;
-
-const TotalGroupInfo = styled.div<{ $isAdmin: boolean }>`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  flex-grow: 1.3;
-
-  margin: ${({ $isAdmin }) => ($isAdmin ? ` 0 0 1.8rem` : ` 1.2rem 0 1.6rem`)};
 `;
 
 const Group = styled.div<{ $isAdmin: boolean }>`
