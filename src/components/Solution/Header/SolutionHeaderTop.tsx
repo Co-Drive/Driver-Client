@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  BtnHeart,
   BtnShare,
   IcArrowRightSmallGray,
   IcInformation,
@@ -63,9 +62,8 @@ const SolutionHeaderTop = ({
       <TopContainer>
         <Title>{title}</Title>
 
-        <BtnIcContainer>
-          <BtnHeart />
-          <BtnShare onClick={handleClickShareBtn} />
+        <BtnIcContainer onClick={handleClickShareBtn}>
+          <BtnShare />
         </BtnIcContainer>
       </TopContainer>
 
