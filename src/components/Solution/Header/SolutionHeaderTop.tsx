@@ -71,7 +71,6 @@ const SolutionHeaderTop = ({
         <LevelContainer>
           <LevelDetailContainer>
             <LvText>난이도</LvText>
-            <LvText>|</LvText>
             <LvStarContainer>
               {paintedStarArr.map((painted, idx) => {
                 return (
@@ -197,6 +196,9 @@ export const LevelDetailContainer = styled.div`
 `;
 
 export const LvText = styled.p`
+  padding-right: 1.2rem;
+
+  border-right: 0.1rem solid ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;
