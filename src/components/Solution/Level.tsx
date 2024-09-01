@@ -30,6 +30,8 @@ const LevelContainer = styled.div`
   display: flex;
   gap: 1.2rem;
   align-items: center;
+
+  margin-left: 0.6rem;
 `;
 
 const LvText = styled.p`
