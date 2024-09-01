@@ -196,7 +196,7 @@ const OptionContainer = styled.ul<{
   z-index: 1;
 
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.8rem 0.8rem 0.2rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -208,6 +208,7 @@ const OptionContainer = styled.ul<{
 const Option = styled.li<{ $isClickedList: boolean }>`
   width: 100%;
   padding: 1.2rem 0 0.7rem;
+  margin-bottom: 0.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme, $isClickedList }) =>
