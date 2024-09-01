@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
 import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
@@ -45,7 +45,7 @@ const ListFilter = ({
 
   return (
     <FilteredContainer>
-      <DateFilterContainer>
+      <DateFilterContainer $isCalendarClicked={isCalendarClicked}>
         <IcCalendar onClick={handleClickDateFilter} />
         <DateContainer onClick={handleClickDateFilter}>
           <Year>{year}년</Year>
@@ -99,7 +99,7 @@ const FilteredContainer = styled.header`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
-const DateFilterContainer = styled.div`
+const DateFilterContainer = styled.div<{ $isCalendarClicked: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,7 +113,11 @@ const DateFilterContainer = styled.div`
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 
-  outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
+  ${({ $isCalendarClicked, theme }) =>
+    $isCalendarClicked &&
+    css`
+      outline: 0.1rem solid ${theme.colors.gray500};
+    `};
 `;
 
 const DateContainer = styled.div`
