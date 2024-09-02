@@ -11,6 +11,7 @@ const GroupItem = () => {
   const [clickedPage, setClickedPage] = useState(1);
   const [sorting, setSorting] = useState('최신순');
   const [searchResults, setSearchResults] = useState(GROUP_ALL_DUMMY.group);
+  const [sliderValues, setSliderValues] = useState({ min: 0, max: 50 }); // 슬라이드 값 상태 추가
 
   const groupsPerPage = 9;
   const totalPage = Math.ceil(searchResults.length / groupsPerPage);
@@ -18,11 +19,20 @@ const GroupItem = () => {
 
   // 필터링된 그룹 데이터를 반환하는 함수
   const filterGroups = () => {
-    if (selectedTags.length === 0) return GROUP_ALL_DUMMY.group; // 태그가 선택되지 않은 경우 전체 그룹 반환
+    return GROUP_ALL_DUMMY.group.filter((group) => {
+      // 태그 필터링
+      const tagMatch =
+        selectedTags.length === 0 ||
+        selectedTags.every((tag) => group.tags.includes(tag));
 
-    return GROUP_ALL_DUMMY.group.filter((group) =>
-      selectedTags.every((tag) => group.tags.includes(tag))
-    );
+      // 슬라이드 필터링
+      const sliderMatch =
+        group.memberCount >= sliderValues.min &&
+        group.capacity <= sliderValues.max;
+
+      // 태그와 슬라이드 조건 모두 만족하는 그룹만 반환
+      return tagMatch && sliderMatch;
+    });
   };
 
   useEffect(() => {
@@ -68,6 +78,8 @@ const GroupItem = () => {
         <LanguageSelectBox
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}
+          sliderValues={sliderValues}
+          setSliderValues={setSliderValues}
         />
         <SearchBar onSearch={handleSearch} />
       </TopContainer>

@@ -16,6 +16,8 @@ const secondRowTags = ['Kotlin', 'Swift', 'Ruby', 'Scala', 'Go'];
 const LanguageSelectBox = ({
   selectedTags,
   setSelectedTags,
+
+  setSliderValues,
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -65,10 +67,16 @@ const LanguageSelectBox = ({
   };
 
   const onChangeTempValue = (value: number, isMinValue: boolean) => {
-    setTempValue((prev) => ({
-      ...prev,
+    const updatedTempValue = {
+      ...tempValue,
       [isMinValue ? 'min' : 'max']: value,
-    }));
+    };
+
+    // tempValue 상태 업데이트
+    setTempValue(updatedTempValue);
+
+    // GroupItem의 슬라이드 상태 업데이트
+    setSliderValues(updatedTempValue);
   };
 
   return (
