@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IcLogo } from '../assets';
+import { IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
 
@@ -33,7 +33,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
           </NavBarUl>
         </NavBarContainer>
         <LoginBtnContainer $isLogin={isLogin ? true : false}>
-         {profileImg && <ProfileImg src={profileImg} />}
+          {profileImg ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
           <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
         </LoginBtnContainer>
       </HeaderContainer>
