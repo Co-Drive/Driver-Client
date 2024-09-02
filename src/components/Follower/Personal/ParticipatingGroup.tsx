@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useGetRooms from '../../../libs/hooks/utils/useGetRooms';
+import {
+  ClickCardProps,
+  ParticipatingGroupProps,
+} from '../../../types/Follower/Personal/personalType';
 import { GroupType } from '../../../types/MyGroup/myGroupType';
-
-interface ParticipatingGroupProps {
-  nickname: string;
-}
 
 const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
   const navigate = useNavigate();
@@ -20,8 +20,15 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
   });
   const { joinedRooms } = !isLoading && data?.data;
 
-  const handleClickCard = (groupId: number) => {
-    navigate(`/group/${groupId}`);
+  const handleClickCard = ({ groupId, userId, isMember }: ClickCardProps) => {
+    const myId = sessionStorage.getItem('user');
+    if (myId && parseInt(myId) === userId) {
+      navigate(`/group/${groupId}/admin`);
+    } else {
+      isMember
+        ? navigate(`/group/${groupId}/member`)
+        : navigate(`/group/${groupId}`);
+    }
   };
 
   return (
@@ -34,12 +41,23 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
       <GroupContainer>
         {!isLoading &&
           joinedRooms.map((room: GroupType) => {
-            const { roomId, imageSrc, title, tags, introduce } = room;
+            const {
+              roomId,
+              imageSrc,
+              title,
+              tags,
+              introduce,
+              owner,
+              isMember,
+            } = room;
+            const { userId } = owner;
 
             return (
               <CardContainer
                 key={roomId}
-                onClick={() => handleClickCard(roomId)}
+                onClick={() =>
+                  handleClickCard({ groupId: roomId, userId, isMember })
+                }
               >
                 <Img src={imageSrc} />
                 <Contents>

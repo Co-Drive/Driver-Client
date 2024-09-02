@@ -4,6 +4,8 @@ export interface ActiveGroupProps {
     title: string;
     introduce: string;
     tags: Array<string>;
+    ownerId: number;
+    isMember: boolean;
   }>;
 }
 
@@ -20,6 +22,7 @@ export interface GroupType {
   capacity: number;
   tags: Array<string>;
   introduce: string;
+  isMember: boolean;
 }
 
 export interface PersonalGroupProps {

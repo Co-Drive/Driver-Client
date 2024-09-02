@@ -31,6 +31,12 @@ const colors = {
 
 const fonts = {
   // title
+  title_bold_46: css`
+    font-family: SuitBold;
+    font-size: 4.6rem;
+    ${commonFontStyle}
+  `,
+
   title_bold_32: css`
     font-family: SuitBold;
     font-size: 3.2rem;

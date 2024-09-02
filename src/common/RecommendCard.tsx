@@ -1,12 +1,20 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { ClickCardProps } from '../types/Follower/Personal/personalType';
 import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 
 const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
   const navigate = useNavigate();
 
-  const handleClickCard = (id: number) => {
-    navigate(`/group/${id}`);
+  const handleClickCard = ({ groupId, userId, isMember }: ClickCardProps) => {
+    const myId = sessionStorage.getItem('user');
+    if (myId && parseInt(myId) === userId) {
+      navigate(`/group/${groupId}/admin`);
+    } else {
+      isMember
+        ? navigate(`/group/${groupId}/member`)
+        : navigate(`/group/${groupId}`);
+    }
   };
 
   return (
@@ -21,11 +29,17 @@ const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
           capacity,
           tags,
           introduce,
+          isMember,
         } = card;
-        const { nickname, profileImg } = owner;
+        const { userId, nickname, profileImg } = owner;
 
         return (
-          <CardContainer key={roomId} onClick={() => handleClickCard(roomId)}>
+          <CardContainer
+            key={roomId}
+            onClick={() =>
+              handleClickCard({ groupId: roomId, isMember, userId })
+            }
+          >
             <Img src={imageSrc} />
 
             <Info>
