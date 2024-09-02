@@ -114,12 +114,6 @@ const fonts = {
     ${commonFontStyle}
   `,
 
-  title_bold_46: css`
-    font-family: SuitBold;
-    font-size: 4.6rem;
-    ${commonFontStyle}
-  `,
-
   // body
   body_medium_20: css`
     font-family: SuitMedium;

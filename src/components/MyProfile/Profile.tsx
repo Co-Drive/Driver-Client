@@ -72,7 +72,7 @@ const ProfileContainer = styled.article`
   background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
-const ProfileImg = styled.div`
+const ProfileImg = styled.img`
   width: 13.9rem;
   height: 13.9rem;
 
