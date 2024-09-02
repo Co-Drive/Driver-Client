@@ -10,14 +10,14 @@ import { UpdateFollowerProps } from '../../types/Follower/Personal/personalType'
 
 const FollowingList = () => {
   // 더미 데이터 생성
-  const dummyData = [
+  const followerData = [
     {
       userId: 1,
-      profileImg: '', // 실제 이미지 경로로 대체
+      profileImg: '',
       nickname: '일이삼사오육칠팔구십',
       language: 'JavaScript',
       githubUrl: '',
-      isFollowing: true, // 팔로잉 여부
+      isFollowing: true,
     },
     {
       userId: 2,
@@ -25,7 +25,7 @@ const FollowingList = () => {
       nickname: '팔로워유저1',
       language: 'Python',
       githubUrl: '',
-      isFollowing: false,
+      isFollowing: true,
     },
     {
       userId: 3,
@@ -33,8 +33,11 @@ const FollowingList = () => {
       nickname: '팔로워유저2',
       language: 'Java',
       githubUrl: '',
-      isFollowing: false,
+      isFollowing: true,
     },
+  ];
+
+  const followingData = [
     {
       userId: 4,
       profileImg: '',
@@ -51,59 +54,7 @@ const FollowingList = () => {
       githubUrl: '',
       isFollowing: true,
     },
-    {
-      userId: 6,
-      profileImg: '',
-      nickname: '팔로잉유저2',
-      language: 'TypeScript',
-      githubUrl: '',
-      isFollowing: true,
-    },
-    {
-      userId: 7,
-      profileImg: '',
-      nickname: '팔로잉유저2',
-      language: 'TypeScript',
-      githubUrl: '',
-      isFollowing: true,
-    },
-    {
-      userId: 8,
-      profileImg: '',
-      nickname: '팔로잉유저2',
-      language: 'TypeScript',
-      githubUrl: '',
-      isFollowing: true,
-    },
-    {
-      userId: 9,
-      profileImg: '',
-      nickname: '팔로잉유저2',
-      language: 'TypeScript',
-      githubUrl: '',
-      isFollowing: true,
-    },
-    {
-      userId: 10,
-      profileImg: '',
-      nickname: '팔로잉유저2',
-      language: 'TypeScript',
-      githubUrl: '',
-      isFollowing: true,
-    },
-    {
-      userId: 11,
-      profileImg: '',
-      nickname: '팔로잉유저2',
-      language: 'TypeScript',
-      githubUrl: '',
-      isFollowing: true,
-    },
   ];
-
-  // 팔로워와 팔로잉 분리
-  const followers = dummyData.filter((user) => !user.isFollowing);
-  const followings = dummyData.filter((user) => user.isFollowing);
 
   const [isFollowerSelected, setIsFollowerSelected] = useState(true);
 
@@ -113,9 +64,12 @@ const FollowingList = () => {
     nickname,
     isDelete,
   }: UpdateFollowerProps) => {
-    // 더미 데이터에서의 팔로우 상태 변경 로직 추가
     console.log(`팔로우 상태 변경: ${nickname}, isDelete: ${isDelete}`);
     mutation({ nickname, isDelete });
+  };
+
+  const handleDeleteAccount = () => {
+    /* 회원탈퇴 */
   };
 
   return (
@@ -124,7 +78,7 @@ const FollowingList = () => {
         <TitleContainer>
           <Title>친구 목록</Title>
           <FriendCount>
-            {isFollowerSelected ? followers.length : followings.length}명
+            {isFollowerSelected ? followerData.length : followingData.length}명
           </FriendCount>
         </TitleContainer>
         <TabContainer>
@@ -144,7 +98,7 @@ const FollowingList = () => {
         </TabContainer>
       </HeaderContainer>
       <RecommendCard>
-        {(isFollowerSelected ? followers : followings).map(
+        {(isFollowerSelected ? followerData : followingData).map(
           (
             user: {
               userId: number;
@@ -203,7 +157,7 @@ const FollowingList = () => {
       </RecommendCard>
       <DeleteIdContainer>
         <DeleteText>코드라이브를 더이상 이용하지 않는다면</DeleteText>
-        <DeleteBtn>회원탈퇴</DeleteBtn>
+        <DeleteBtn onClick={handleDeleteAccount}>회원탈퇴</DeleteBtn>
       </DeleteIdContainer>
     </FollowContainer>
   );
