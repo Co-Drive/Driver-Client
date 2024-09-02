@@ -10,6 +10,8 @@ const Profile = () => {
     profileImg: '',
     language: 'Javascript',
     githubUrl: '',
+    nickname: '매링구',
+    comment: '안녕하세요 풀스택 개발자 코딩하는 갱얼쥐입니다',
   };
 
   // 모달 열기 함수
@@ -45,8 +47,8 @@ const Profile = () => {
             <IcRevise onClick={handleOpenModal} />
           </RegisterModalContainer>
         </InfoContainer>
-        <NickName>문주</NickName>
-        <Intro>안녕</Intro>
+        <NickName>{info.nickname}</NickName>
+        <Intro>{info.comment}</Intro>
       </ProfileInfo>
       {modalOn && ( // 모달이 열려 있을 때만 ProfileEdilt 렌더링
         <ModalBackground onClick={handleCloseModal}>
