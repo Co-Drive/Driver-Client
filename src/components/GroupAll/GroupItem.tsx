@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
@@ -15,6 +15,22 @@ const GroupItem = () => {
   const groupsPerPage = 9;
   const totalPage = Math.ceil(searchResults.length / groupsPerPage);
   const totalPageRef = useRef(totalPage);
+
+  // 필터링된 그룹 데이터를 반환하는 함수
+  const filterGroups = () => {
+    if (selectedTags.length === 0) return GROUP_ALL_DUMMY.group; // 태그가 선택되지 않은 경우 전체 그룹 반환
+
+    return GROUP_ALL_DUMMY.group.filter((group) =>
+      selectedTags.every((tag) => group.tags.includes(tag))
+    );
+  };
+
+  useEffect(() => {
+    // 선택된 태그가 변경될 때마다 필터링 적용
+    const filteredGroups = filterGroups();
+    setSearchResults(filteredGroups);
+    setClickedPage(1); // 태그 필터링 시 첫 페이지로 이동
+  }, [selectedTags]);
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
