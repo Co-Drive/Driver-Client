@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -21,8 +21,9 @@ const RegisterPage = () => {
   const [isExitedNickname, setIsExitedNickname] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const { userId } = location.state || {};
+  const id = sessionStorage.getItem('user');
+  if (!id) return;
+  const userId = parseInt(id);
 
   const { nickname, github, intro } = inputs;
 
