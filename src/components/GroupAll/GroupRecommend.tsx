@@ -13,8 +13,10 @@ const GroupRecommend = () => {
         <Notic>
           <IcBtnInformation />
           <Tooltip>
-            <TooUser>{GROUP_ALL_DUMMY.user}</TooUser>님 만을 위해 <br /> 하루에
-            6개씩 랜덤으로 그룹을 추천해드려요
+            <Text>
+              <TooUser>{GROUP_ALL_DUMMY.user}</TooUser>님 만을 위해
+            </Text>
+            <Text>하루에 6개씩 랜덤으로 그룹을 추천해드려요</Text>
           </Tooltip>
         </Notic>
       </TitleContainer>
@@ -60,7 +62,7 @@ const Notic = styled.div`
 const Tooltip = styled.div`
   display: block;
   position: absolute;
-  top: 157%;
+  top: 3rem;
   visibility: hidden;
 
   width: 22.8rem;
@@ -75,13 +77,13 @@ const Tooltip = styled.div`
   white-space: nowrap;
 
   opacity: 0;
-  transform: translate(-3%);
+  transform: translateX(-5%); /* 수정된 부분: translate 사용 */
   transition: opacity 0.3s ease-in-out;
 
   &::after {
     position: absolute;
     bottom: 100%;
-    left: 5%;
+    left: 1.7rem;
 
     margin-left: -0.1rem;
 
@@ -97,6 +99,13 @@ const TooUser = styled.p`
 
   color: ${({ theme }) => theme.colors.codrive_green};
   ${({ theme }) => theme.fonts.detail_regular_12};
+`;
+
+const Text = styled.p`
+  margin-top: 0.4rem;
+
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_ligth_12};
 `;
 
 export default GroupRecommend;
