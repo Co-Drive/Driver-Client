@@ -7,7 +7,7 @@ import { ApplicationModalProps } from '../../types/GroupDetail/groupDetailType';
 const ApplicationModal = ({ id, onClose }: ApplicationModalProps) => {
   const { data, isLoading } = useGetRequests(id);
   const { approvedCount, requests } = !isLoading && data.data;
-  const isRequestsExit = !isLoading && approvedCount - 1 !== 0;
+  const isRequestsExit = !isLoading && requests.length !== 0;
 
   const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.currentTarget === e.target) {

@@ -97,14 +97,14 @@ const PersonalGroup = () => {
         <TotalStatus>
           {STATUS.map((status, idx) => {
             return (
-              <StatusContainer key={status}>
+              <StatusContainer
+                key={status}
+                type="button"
+                onClick={(e) => handleClickSorting(e, false)}
+              >
                 {clickedStatus === status ? <IcSuccess /> : <IcSuccessGray />}
 
-                <Status
-                  type="button"
-                  $idx={idx}
-                  onClick={(e) => handleClickSorting(e, false)}
-                >
+                <Status $idx={idx}>
                   {idx === 0 ? <IcStatusBlack /> : <IcStatusWhite />}
                   <Text $idx={idx}>{status}</Text>
                 </Status>
@@ -196,14 +196,14 @@ const TotalStatus = styled.div`
   align-items: center;
 `;
 
-const StatusContainer = styled.div`
+const StatusContainer = styled.button`
   display: flex;
   gap: 0.6rem;
   justify-content: center;
   align-items: center;
 `;
 
-const Status = styled.button<{ $idx: number }>`
+const Status = styled.div<{ $idx: number }>`
   display: flex;
   gap: 0.8rem;
   justify-content: center;

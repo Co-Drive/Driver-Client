@@ -27,6 +27,7 @@ declare module 'styled-components' {
 
     fonts: {
       // title
+      title_bold_46: SerializedStyles;
       title_bold_32: SerializedStyles;
       title_bold_28: SerializedStyles;
       title_bold_26: SerializedStyles;
