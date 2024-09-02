@@ -36,11 +36,11 @@ const GroupItem = () => {
   };
 
   useEffect(() => {
-    // 선택된 태그가 변경될 때마다 필터링 적용
+    // 선택된 태그 또는 슬라이더 값이 변경될 때마다 필터링 적용
     const filteredGroups = filterGroups();
     setSearchResults(filteredGroups);
-    setClickedPage(1); // 태그 필터링 시 첫 페이지로 이동
-  }, [selectedTags]);
+    setClickedPage(1); // 필터링 시 첫 페이지로 이동
+  }, [selectedTags, sliderValues]); // 의존성 배열에 sliderValues 추가
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
