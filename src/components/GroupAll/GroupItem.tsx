@@ -61,7 +61,7 @@ const GroupItem = () => {
   };
 
   // 검색어가 변경될 때마다 호출될 함수
-  const handleSearch = (filteredGroups: any[]) => {
+  const handleChangeSearchBar = (filteredGroups: any[]) => {
     setSearchResults(filteredGroups); // 필터링된 그룹 데이터를 상태로 설정
     setClickedPage(1); // 검색 시 첫 페이지로 이동
   };
@@ -81,7 +81,7 @@ const GroupItem = () => {
           sliderValues={sliderValues}
           setSliderValues={setSliderValues}
         />
-        <SearchBar onSearch={handleSearch} />
+        <SearchBar handleChangeSearchBar={handleChangeSearchBar} />
       </TopContainer>
       <SortContainer>
         {SORTING.map((standard) => (

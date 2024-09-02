@@ -4,9 +4,9 @@ import { IcSearch } from '../../../assets';
 import { GROUP_ALL_DUMMY } from '../../../constants/GroupAll/groupAllConst';
 
 const SearchBar = ({
-  onSearch,
+  handleChangeSearchBar,
 }: {
-  onSearch: (filteredGroups: any[]) => void;
+  handleChangeSearchBar: (filteredGroups: any[]) => void;
 }) => {
   const [searchData, setSearchData] = useState('');
   const GROUPS = GROUP_ALL_DUMMY.group;
@@ -17,7 +17,7 @@ const SearchBar = ({
 
     if (newValue.trim() === '') {
       // 입력창이 비워지면 모든 그룹 데이터를 반환
-      onSearch(GROUPS);
+      handleChangeSearchBar(GROUPS);
       return;
     }
 
@@ -55,7 +55,7 @@ const SearchBar = ({
       return matchesText || matchesNumber;
     });
 
-    onSearch(filteredGroups); // 필터링된 그룹 데이터를 전달
+    handleChangeSearchBar(filteredGroups); // 필터링된 그룹 데이터를 전달
   };
 
   return (
