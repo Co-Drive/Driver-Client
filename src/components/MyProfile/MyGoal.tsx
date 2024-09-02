@@ -64,7 +64,9 @@ const MyGoal = () => {
   );
 };
 
-const MyGoalContainer = styled.article``;
+const MyGoalContainer = styled.article`
+  margin-bottom: 10.9rem;
+`;
 
 const Title = styled.h1`
   margin-bottom: 2.8rem;
