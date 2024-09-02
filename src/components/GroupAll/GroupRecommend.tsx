@@ -94,7 +94,7 @@ const Tooltip = styled.div`
   }
 `;
 
-const TooUser = styled.p`
+const TooUser = styled.span`
   display: inline-flex;
 
   color: ${({ theme }) => theme.colors.codrive_green};
