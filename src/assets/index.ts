@@ -36,6 +36,7 @@ import IcLinkGray from './icon/ic_link_gray.svg?react';
 import IcLinkPurple from './icon/ic_link_purple.svg?react';
 import IcLinkWhite from './icon/ic_link_white.svg?react';
 import IcLoginBig from './icon/ic_login_big.svg?react';
+import IcLoginIcon from './icon/ic_login_Icon.svg?react';
 import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
@@ -113,6 +114,7 @@ export {
   IcLinkPurple,
   IcLinkWhite,
   IcLoginBig,
+  IcLoginIcon,
   IcLogo,
   IcMemoGray,
   IcMemoWhite,
