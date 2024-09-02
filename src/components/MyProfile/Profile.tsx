@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IcGithub, IcRevise } from '../../assets';
-/* import { handleClickLink } from '../../utils/handleClickLink'; */
+import { handleClickLink } from '../../utils/handleClickLink';
 import ProfileEdilt from './ProfileEdit';
 
 const Profile = () => {
@@ -38,11 +38,11 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      <ProfileImg /* src={info.profileImg}  */ />
+      <ProfileImg src={info.profileImg}></ProfileImg>
       <ProfileInfo>
         <InfoContainer>
           <Language>{info.language}</Language>
-          <IcGithub /* onClick={() => handleClickLink(githubUrl)}  */ />
+          <IcGithub onClick={() => handleClickLink(info.githubUrl)} />
           <RegisterModalContainer>
             <IcRevise onClick={handleOpenModal} />
           </RegisterModalContainer>
