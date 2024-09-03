@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
+import { ProfileEdiltProps } from '../../types/MyProfile/MyProfileType';
 import { handleInput } from '../../utils/handleInput';
 import GithubInfo from '../Profile/GIthubInfo';
 import IntroInfo from '../Profile/IntroInfo';
@@ -8,11 +9,7 @@ import LanguageInfo from '../Profile/LanguageInfo';
 import NameInfo from '../Profile/NameInfo';
 import NicknameInfo from '../Profile/NicknameInfo';
 
-interface ProfileEdiltPros {
-  handleCloseModal: () => void;
-}
-
-const ProfileEdilt = ({ handleCloseModal }: ProfileEdiltPros) => {
+const ProfileEdilt = ({ handleCloseModal }: ProfileEdiltProps) => {
   /* 기존 값들을 더미로 넣어둠 api 연결하면서 삭제 할 예정 */
   const initialData = {
     nickname: 'moonju',
