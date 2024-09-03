@@ -165,6 +165,8 @@ const TitleContainer = styled.div`
 const Title = styled.h2`
   ${({ theme }) => theme.fonts.title_bold_20}
   color: ${({ theme }) => theme.colors.white};
+
+  white-space: nowrap;
 `;
 
 const Subtitle = styled.p`
