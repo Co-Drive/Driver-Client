@@ -39,11 +39,11 @@ const LanguageSelectBox = ({
     }
 
     if (tag === ALL_TAG) {
-      selectAllTags();
+      setSelectedTags([ALL_TAG]); // ALL_TAG만 selectedTags에 추가
     } else {
       if (!selectedTags.includes(tag)) {
         const newTags = selectedTags.includes(ALL_TAG)
-          ? [...selectedTags.filter((t) => t !== ALL_TAG), tag]
+          ? [tag] // ALL_TAG가 이미 선택되어 있으면 새로운 태그로 대체
           : [...selectedTags, tag];
 
         setSelectedTags(newTags);
@@ -58,11 +58,6 @@ const LanguageSelectBox = ({
       const newTags = selectedTags.filter((t) => t !== tag);
       setSelectedTags(newTags);
     }
-  };
-
-  const selectAllTags = () => {
-    const allTags = [...firstRowTags, ...secondRowTags];
-    setSelectedTags(allTags);
   };
 
   const onChangeTempValue = (value: number, isMinValue: boolean) => {
@@ -86,8 +81,7 @@ const LanguageSelectBox = ({
             <IcGroupFilter />
           </FilterIconContainer>
           <SelectedTagsContainer>
-            {selectedTags.length ===
-            firstRowTags.length + secondRowTags.length ? (
+            {selectedTags.length === 1 && selectedTags[0] === ALL_TAG ? (
               <SelectedTagContainer key={ALL_TAG}>
                 <CommonHashTag
                   selectedTag={ALL_TAG}
@@ -158,11 +152,8 @@ const LanguageSelectBox = ({
             <Borderline />
             <AllTagContainer>
               <DropdownItem
-                $isSelected={
-                  selectedTags.length ===
-                  firstRowTags.length + secondRowTags.length
-                }
-                onClick={selectAllTags}
+                $isSelected={selectedTags.includes(ALL_TAG)}
+                onClick={() => addTag(ALL_TAG)}
               >
                 {ALL_TAG}
               </DropdownItem>

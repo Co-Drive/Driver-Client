@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
 import { GROUP_ALL_DUMMY } from '../../constants/GroupAll/groupAllConst';
+import { ALL_TAG } from '../../constants/GroupCreate/LanguageConst';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
 
@@ -20,9 +21,14 @@ const GroupItem = () => {
   // 필터링된 그룹 데이터를 반환하는 함수
   const filterGroups = () => {
     return GROUP_ALL_DUMMY.group.filter((group) => {
+      // ALL_TAG가 선택된 경우, 그룹의 태그에 ALL_TAG가 포함되어 있으면 무조건 매칭
+      const isAllTagSelected = selectedTags.includes(ALL_TAG);
+      const groupHasAllTag = group.tags.includes(ALL_TAG);
+
       // 태그 필터링
       const tagMatch =
         selectedTags.length === 0 ||
+        (isAllTagSelected && groupHasAllTag) || // ALL_TAG가 선택되고 그룹에 포함된 경우
         selectedTags.every((tag) => group.tags.includes(tag));
 
       // 슬라이드 필터링
