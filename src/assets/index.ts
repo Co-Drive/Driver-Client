@@ -30,6 +30,7 @@ import IcGithub from './icon/ic_github.svg?react';
 import IcGithubLogoSmall from './icon/ic_github_logo_small.svg?react';
 import IcGithubSmall from './icon/ic_github_small.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
+import IcGroupFilter from './icon/ic_group_filter.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
 import IcLinkGray from './icon/ic_link_gray.svg?react';
@@ -41,6 +42,7 @@ import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
+import IcSearch from './icon/ic_search.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
 import IcSecretGray from './icon/ic_secret_gray.svg?react';
 import IcSecretWhite from './icon/ic_secret_white.svg?react';
@@ -105,6 +107,7 @@ export {
   IcGithubLogoSmall,
   IcGithubSmall,
   IcGroup,
+  IcGroupFilter,
   IcHome,
   IcInformation,
   IcLinkGray,
@@ -116,6 +119,7 @@ export {
   IcMemoGray,
   IcMemoWhite,
   IcNothing,
+  IcSearch,
   IcSecretBigWhite,
   IcSecretGray,
   IcSecretWhite,
