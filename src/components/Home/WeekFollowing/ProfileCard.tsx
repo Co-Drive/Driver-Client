@@ -20,7 +20,6 @@ const CustomLabel = ({ profileImg }: CustomLabelProps) => {
 
 const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
   const { userId, successRate, profileImg, nickname, language } = user;
-  console.log(user);
 
   // nickname과 language의 존재 여부에 따라 기본값 설정
   let NickName = nickname;

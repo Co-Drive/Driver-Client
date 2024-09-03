@@ -12,7 +12,6 @@ const WeeklyFollower = () => {
   const { data, isLoading } = useGetFollowingsCheck();
   const { followings } = !isLoading && data.data;
   const isFollowing = false;
-  console.log(followings);
 
   const hasFollowers = !isLoading && followings.length > 0;
 
