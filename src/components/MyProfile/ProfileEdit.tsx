@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import CommonButton from '../common/CommonButton';
-import PageLayout from '../components/PageLayout/PageLayout';
-import GithubInfo from '../components/Profile/GIthubInfo';
-import IntroInfo from '../components/Profile/IntroInfo';
-import LanguageInfo from '../components/Profile/LanguageInfo';
-import NameInfo from '../components/Profile/NameInfo';
-import { handleInput } from '../utils/handleInput';
-import NicknameInfo from './../components/Profile/NicknameInfo';
+import CommonButton from '../../common/CommonButton';
+import { ProfileEdiltProps } from '../../types/MyProfile/MyProfileType';
+import { handleInput } from '../../utils/handleInput';
+import GithubInfo from '../Profile/GIthubInfo';
+import IntroInfo from '../Profile/IntroInfo';
+import LanguageInfo from '../Profile/LanguageInfo';
+import NameInfo from '../Profile/NameInfo';
+import NicknameInfo from '../Profile/NicknameInfo';
 
-const ProfilePage = () => {
+const ProfileEdilt = ({ handleCloseModal }: ProfileEdiltProps) => {
   /* 기존 값들을 더미로 넣어둠 api 연결하면서 삭제 할 예정 */
   const initialData = {
     nickname: 'moonju',
@@ -26,7 +25,6 @@ const ProfilePage = () => {
     initialData.language
   );
   const [initialInputs] = useState(initialData);
-  const navigate = useNavigate();
 
   const { nickname, github, intro } = inputs;
 
@@ -69,7 +67,7 @@ const ProfilePage = () => {
   // 가입 버튼 클릭 처리 함수
   const handleSaveBtnClick = () => {
     if (!isActive) return;
-    navigate('/register');
+    handleCloseModal(); // 모달 닫기
   };
 
   // 취소 버튼 클릭 처리 함수
@@ -77,9 +75,7 @@ const ProfilePage = () => {
     // 입력 값들을 초기 상태로 되돌림
     setInputs(initialInputs);
     setSelectedLanguage(initialData.language);
-
-    /* 마이페이지 뷰로 완성되면 연결! */
-    navigate('/login');
+    handleCloseModal(); // 모달 닫기
   };
 
   // 닉네임 중복 체크 함수 (구현 필요)
@@ -88,43 +84,38 @@ const ProfilePage = () => {
   };
 
   return (
-    <PageLayout category="홈">
-      <ModalBackground>
-        <ProfileContainer onSubmit={handleSaveBtnClick}>
-          <BasicInfoContainer>
-            <BasicTitle>기본정보</BasicTitle>
-            <NameInfo user={user} />
-            <GithubInfo
-              github={github}
-              handleChangeInputs={handleChangeInputs}
-            />
-          </BasicInfoContainer>
-          <CodriveContainer>
-            <CodriveTitle>코드라이브 정보</CodriveTitle>
-            <IntroInfo value={intro} onChange={handleChangeIntro} />
-            <NicknameInfo
-              nickname={nickname}
-              handleChangeInputs={handleChangeInputs}
-              handleNicknameCheck={handleNicknameCheck}
-            />
-            <LanguageInfo
-              selectedTag={selectedLanguage}
-              handleChangeTag={handleChangeTag}
-            />
-          </CodriveContainer>
-          <ProfileButton>
-            <CancelButton type="button" onClick={handleCancelBtnClick}>
-              취소하기
-            </CancelButton>
-            <CommonButton
-              isActive={isActive}
-              category="Profile_save"
-              onClick={handleSaveBtnClick}
-            />
-          </ProfileButton>
-        </ProfileContainer>
-      </ModalBackground>
-    </PageLayout>
+    <ModalBackground>
+      <ProfileContainer onSubmit={handleSaveBtnClick}>
+        <BasicInfoContainer>
+          <BasicTitle>기본정보</BasicTitle>
+          <NameInfo user={user} />
+          <GithubInfo github={github} handleChangeInputs={handleChangeInputs} />
+        </BasicInfoContainer>
+        <CodriveContainer>
+          <CodriveTitle>코드라이브 정보</CodriveTitle>
+          <IntroInfo value={intro} onChange={handleChangeIntro} />
+          <NicknameInfo
+            nickname={nickname}
+            handleChangeInputs={handleChangeInputs}
+            handleNicknameCheck={handleNicknameCheck}
+          />
+          <LanguageInfo
+            selectedTag={selectedLanguage}
+            handleChangeTag={handleChangeTag}
+          />
+        </CodriveContainer>
+        <ProfileButton>
+          <CancelButton type="button" onClick={handleCancelBtnClick}>
+            취소하기
+          </CancelButton>
+          <CommonButton
+            isActive={isActive}
+            category="Profile_save"
+            onClick={handleSaveBtnClick}
+          />
+        </ProfileButton>
+      </ProfileContainer>
+    </ModalBackground>
   );
 };
 
@@ -138,8 +129,6 @@ const ModalBackground = styled.div`
 
   width: 100%;
   height: 100%;
-
-  background-color: rgb(0 0 0 / 50%);
 `;
 
 const ProfileContainer = styled.form`
@@ -194,4 +183,4 @@ const CancelButton = styled.button`
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
-export default ProfilePage;
+export default ProfileEdilt;
