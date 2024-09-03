@@ -102,7 +102,9 @@ const WeekRate = () => {
           <>
             <Message>축하해요!</Message>
             <Message>
-              지난 주보다 {stats.weeklyCountDifference}문제 더 풀었어요!
+              {stats.weeklyCountDifference < 0
+                ? `지난 주보다 0문제 더 풀었어요!`
+                : `지난 주보다 ${stats.weeklyCountDifference}문제 더 풀었어요!`}
             </Message>
           </>
         ) : (
