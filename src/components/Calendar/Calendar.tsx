@@ -102,7 +102,6 @@ const CommonCalendar = ({
               return solvedDay ? 'solved' : null;
             }
           }
-          return null;
         }}
       />
     </CalendarContainer>
