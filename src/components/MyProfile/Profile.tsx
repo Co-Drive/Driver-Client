@@ -13,6 +13,7 @@ const Profile = () => {
     nickname: '매링구',
     comment: '안녕하세요 풀스택 개발자 코딩하는 갱얼쥐입니다',
   };
+  const { profileImg, language, githubUrl, nickname, comment } = info;
 
   // 모달 열기 함수
   const handleOpenModal = () => {
@@ -38,17 +39,17 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      <ProfileImg src={info.profileImg}></ProfileImg>
+      <ProfileImg src={profileImg}></ProfileImg>
       <ProfileInfo>
         <InfoContainer>
-          <Language>{info.language}</Language>
-          <IcGithub onClick={() => handleClickLink(info.githubUrl)} />
+          <Language>{language}</Language>
+          <IcGithub onClick={() => handleClickLink(githubUrl)} />
           <RegisterModalContainer>
             <IcRevise onClick={handleOpenModal} />
           </RegisterModalContainer>
         </InfoContainer>
-        <NickName>{info.nickname}</NickName>
-        <Intro>{info.comment}</Intro>
+        <NickName>{nickname}</NickName>
+        <Intro>{comment}</Intro>
       </ProfileInfo>
       {modalOn && ( // 모달이 열려 있을 때만 ProfileEdilt 렌더링
         <ModalBackground onClick={handleCloseModal}>
