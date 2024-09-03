@@ -12,9 +12,9 @@ const WeeklyFollower = () => {
   const { data, isLoading } = useGetFollowingsCheck();
   const { followings } = !isLoading && data.data;
   const isFollowing = false;
-
-  // const hasFollowers = followings.length > 0; // ! hasFollowers 를 사용했을 떄 렌더링이 되질 않음(length undefiend)
   console.log(followings);
+
+  const hasFollowers = !isLoading && followings.length > 0;
 
   const handleClickAllButton = () => {
     navigate('/follower');
@@ -32,7 +32,7 @@ const WeeklyFollower = () => {
         </div>
       </HeaderContainer>
       <ProfileContainer $isFollowing={isFollowing}>
-        {!isLoading && followings.length > 0 ? (
+        {!isLoading && hasFollowers ? (
           followings
             .slice(0, 3)
             .map((user: UserProps) => (
@@ -70,8 +70,6 @@ const ProfileContainer = styled.div<{ $isFollowing: boolean }>`
   display: flex;
   gap: 2.4rem;
   justify-content: ${({ $isFollowing }) => ($isFollowing ? 'start' : 'center')};
-
-  /* justify-content: center; */
   align-items: center;
 
   margin: 4rem 0 4.1rem;
