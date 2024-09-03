@@ -14,18 +14,18 @@ const MyGoal = () => {
     setIsSaved(false);
   };
 
-  const isActionAllowed = () => !isSaved;
+  const isActionAllowed = !isSaved;
 
   // 증가 함수: isActionAllowed가 true일 경우에만 작동
   const increaseNumber = () => {
-    if (isActionAllowed() && number < 7) {
+    if (isActionAllowed && number < 7) {
       setNumber((prev) => prev + 1);
     }
   };
 
   // 감소 함수: isActionAllowed가 true일 경우에만 작동
   const decreaseNumber = () => {
-    if (isActionAllowed() && number > 0) {
+    if (isActionAllowed && number > 0) {
       setNumber((prev) => prev - 1);
     }
   };
@@ -35,12 +35,10 @@ const MyGoal = () => {
       <Title>나의 목표</Title>
       <MyGoalBox>
         <MyInfoContainer>
-          <Info>
-            <Text>
-              평소의 문제풀이 개수 또는 원하는 문제 풀이 개수를 기준으로
-            </Text>
-            <Text>일일 목표를 설정해주세요</Text>
-          </Info>
+          <Text>
+            평소의 문제풀이 개수 또는 원하는 문제 풀이 개수를 기준으로
+          </Text>
+          <Text>일일 목표를 설정해주세요</Text>
           <Goal>일일 목표는 최대 7개까지 가능합니다</Goal>
         </MyInfoContainer>
         <GoalButton $isSaved={isSaved}>
@@ -90,8 +88,6 @@ const MyInfoContainer = styled.div`
   padding: 3.2rem 0 3.2rem 3.2rem;
   margin-right: 8.4rem;
 `;
-
-const Info = styled.div``;
 
 const Text = styled.p`
   margin-bottom: 0.6rem;
