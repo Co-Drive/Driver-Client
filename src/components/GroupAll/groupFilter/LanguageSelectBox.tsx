@@ -6,7 +6,7 @@ import {
   IcGroupFilter,
 } from '../../../assets';
 import CommonHashTag from '../../../common/CommonHashTag';
-import { LanguageSectionProps } from '../../../types/GroupCreate/GroupCreateType';
+import { LanguageSelectBoxProps } from '../../../types/GroupAll/GroupAllType';
 import RangeSliderFilter from './RangeSlidrFilter';
 
 const ALL_TAG = 'ALL';
@@ -16,9 +16,8 @@ const secondRowTags = ['Kotlin', 'Swift', 'Ruby', 'Scala', 'Go'];
 const LanguageSelectBox = ({
   selectedTags,
   setSelectedTags,
-
   setSliderValues,
-}: LanguageSectionProps) => {
+}: LanguageSelectBoxProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [tempValue, setTempValue] = useState({
