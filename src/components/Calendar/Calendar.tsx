@@ -1,21 +1,27 @@
 /* stylelint-disable selector-class-pattern */
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled from 'styled-components';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
+import { BoardProps, CommonCalendarProps } from '../../types/Home/calendarType';
 import CustomCalendar from './CustomCalendar';
 
 type ValuePiece = Date | null;
 
 type SelectedDate = ValuePiece | [ValuePiece, ValuePiece];
 
-const CommonCalendar = () => {
+const CommonCalendar = ({
+  clickedYear,
+  clickedMonth,
+  data,
+  setClickedYear,
+  setClickedMonth,
+}: CommonCalendarProps) => {
   const today = new Date();
-  const year = today.getFullYear();
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(today);
-  const [clickedYear, setClickedYear] = useState(year);
-  const [clickedMonth, setClickedMonth] = useState(today.getMonth() + 1);
+  const [board, setBoard] = useState<BoardProps[]>([]);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
@@ -34,11 +40,24 @@ const CommonCalendar = () => {
   };
 
   const handleClickMonth = (month: number) => {
-    const newDate = new Date(clickedYear, month - 1, today.getDate());
+    const newDate = new Date(clickedYear, month - 1);
     setClickedMonth(month);
     setSelectedDate(newDate);
     setIsCalendarClicked(false);
   };
+
+  const upDatedCalendar = () => {
+    if (data) {
+      const { board } = data.data;
+      setBoard(board);
+    }
+  };
+
+  useEffect(() => {
+    upDatedCalendar();
+  }, [data]);
+
+  // console.log(selectedDate);
 
   return (
     <CalendarContainer>
@@ -62,14 +81,28 @@ const CommonCalendar = () => {
         ) : (
           <IcArrowBottomWhite onClick={handleClickCalendar} />
         )}
+        \
       </NavContainer>
       <StyledCalendar
-        onChange={(value) => setSelectedDate(value)}
-        locale="ko-KR"
+        onChange={setSelectedDate}
+        locale="ko"
         value={selectedDate}
         showNeighboringMonth={true}
         formatShortWeekday={(_, date) => customWeekdays[date.getDay()]}
         showNavigation={false}
+        tileClassName={({ date, view }) => {
+          if (view === 'month') {
+            const day = date.getDate().toString();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+
+            // 현재 달의 날짜인지 확인
+            if (month === clickedMonth && year === clickedYear) {
+              const solvedDay = board.find((d) => d.date === day && d.isSolved);
+              return solvedDay ? 'solved' : null;
+            }
+          }
+        }}
       />
     </CalendarContainer>
   );
@@ -111,7 +144,7 @@ const DateContainer = styled.div`
   align-items: center;
 
   padding-right: 0.2rem;
-  padding-left: 1.4rem;
+  padding-left: 1.1rem;
 `;
 
 const Year = styled.p`
@@ -127,6 +160,7 @@ const Month = styled.p`
 const CustomCalendarContainer = styled.div`
   left: 0;
 `;
+
 const StyledCalendar = styled(Calendar)`
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__tile {
@@ -138,6 +172,10 @@ const StyledCalendar = styled(Calendar)`
     color: ${({ theme }) => theme.colors.gray500};
 
     ${({ theme }) => theme.fonts.body_medium_16};
+    &.solved {
+      background-color: ${({ theme }) => theme.colors.codrive_green};
+    }
+
     abbr {
       position: absolute;
       overflow: hidden;
@@ -170,11 +208,24 @@ const StyledCalendar = styled(Calendar)`
   }
 
   /* stylelint-disable-next-line selector-class-pattern */
-  .react-calendar__tile:enabled:hover {
-    background-color: ${({ theme }) => theme.colors.gray500};
-  }
-  /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__tile:enabled:focus {
+    background-color: ${({ theme }) => theme.colors.gray500};
+
+    &.solved {
+      background-color: ${({ theme }) => theme.colors.codrive_green};
+    }
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  .react-calendar__tile:enabled:hover {
+    &:enabled:hover {
+      background-color: ${({ theme }) => theme.colors.gray500};
+    }
+
+    &.solved:enabled:hover {
+      background-color: ${({ theme }) => theme.colors.codrive_green};
+    }
+
     background-color: ${({ theme }) => theme.colors.gray500};
   }
 `;

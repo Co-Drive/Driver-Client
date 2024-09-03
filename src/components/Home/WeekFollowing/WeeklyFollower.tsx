@@ -1,12 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightGray } from '../../../assets';
-import { Home_FOLLOWER_DUMMY } from '../../../constants/Home/follwerConst';
+import useGetFollowingsCheck from '../../../libs/hooks/Home/useGetFollowingsCheck';
 import HomeProfileCard from './ProfileCard';
 
+import { UserProps } from '../../../types/Week/HomeFollowerTypes';
+
 const WeeklyFollower = () => {
-  const hasFollowers = Home_FOLLOWER_DUMMY.followings.length > 0;
   const navigate = useNavigate();
+
+  const { data, isLoading } = useGetFollowingsCheck();
+  const { followings } = !isLoading && data.data;
+  const isFollowing = false;
+
+  const hasFollowers = !isLoading && followings.length > 0;
 
   const handleClickAllButton = () => {
     navigate('/follower');
@@ -23,11 +30,13 @@ const WeeklyFollower = () => {
           </AllButton>
         </div>
       </HeaderContainer>
-      <ProfileContainer>
-        {hasFollowers ? (
-          Home_FOLLOWER_DUMMY.followings
+      <ProfileContainer $isFollowing={isFollowing}>
+        {!isLoading && hasFollowers ? (
+          followings
             .slice(0, 3)
-            .map((user) => <HomeProfileCard key={user.userId} user={user} />)
+            .map((user: UserProps) => (
+              <HomeProfileCard key={user.userId} user={user} />
+            ))
         ) : (
           <NoFollowersText>
             팔로워를 추가하여 <br /> 문제풀이 현황을 비교해보세요
@@ -56,14 +65,13 @@ const HeaderContainer = styled.div`
   white-space: nowrap;
 `;
 
-const ProfileContainer = styled.div`
+const ProfileContainer = styled.div<{ $isFollowing: boolean }>`
   display: flex;
   gap: 2.4rem;
-  justify-content: center;
+  justify-content: ${({ $isFollowing }) => ($isFollowing ? 'start' : 'center')};
   align-items: center;
 
   margin: 4rem 0 4.1rem;
-  margin-top: 4rem;
 `;
 
 const NoFollowersText = styled.p`

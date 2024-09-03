@@ -1,12 +1,22 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import CommonCalendar from '../components/Calendar/Calendar';
+import useGetMonthSolve from '../libs/hooks/Home/useGetMonthSolve';
 
 const CommonMonthSolve = () => {
   const currentMonth = new Date().getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
   const monthText = `${currentMonth}월 문제풀이 현황`;
-  const TotalSolve = 13;
-  const LongestSolveDay = 3;
-  const LongestSolvedCount = 2;
+
+  const year = new Date().getFullYear();
+  const [clickedYear, setClickedYear] = useState(year);
+  const [clickedMonth, setClickedMonth] = useState(currentMonth);
+
+  const { data, isLoading } = useGetMonthSolve({
+    year: clickedYear,
+    month: clickedMonth,
+  });
+
+  const { totalCount, longestPeriod, maxCount } = !isLoading && data?.data;
 
   return (
     <WeekRateContainer>
@@ -14,19 +24,25 @@ const CommonMonthSolve = () => {
         <Month>{monthText}</Month>
         <SolveContainer>
           <SolveCount>
-            {TotalSolve}
+            {totalCount}
             <SolveCountText>문제</SolveCountText>
           </SolveCount>
         </SolveContainer>
         <LongestSolve>
-          최장 문제 풀이 기간 <Text>{LongestSolveDay}</Text>일
+          최장 문제 풀이 기간 <Text>{longestPeriod}</Text>일
         </LongestSolve>
         <LongestSolve>
-          최장 문제 풀이 개수 <Text>{LongestSolvedCount}</Text>개
+          최대 문제 풀이 개수 <Text>{maxCount}</Text>개
         </LongestSolve>
       </div>
 
-      <CommonCalendar />
+      <CommonCalendar
+        clickedYear={clickedYear}
+        clickedMonth={clickedMonth}
+        data={data}
+        setClickedYear={setClickedYear}
+        setClickedMonth={setClickedMonth}
+      />
     </WeekRateContainer>
   );
 };

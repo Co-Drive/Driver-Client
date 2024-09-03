@@ -1,23 +1,16 @@
+import { useEffect, useState } from 'react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import { BtnInformation } from '../../assets';
-
-interface CustomLabelProps {
-  viewBox: {
-    cx: number;
-    cy: number;
-  };
-  upValue: string | number;
-  downValue: string | number;
-  isDefault: boolean;
-}
+import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
+import { TodaySolveProps } from '../../types/Home/todaySolveType';
 
 const CustomLabel = ({
   viewBox,
   upValue,
   downValue,
   isDefault,
-}: CustomLabelProps) => {
+}: TodaySolveProps) => {
   const { cx, cy } = viewBox; // 중심 좌표
   const upValuePadding = isDefault ? 12 : 5;
   const downValuePadding = isDefault ? 12 : 30;
@@ -46,15 +39,26 @@ const CustomLabel = ({
 };
 
 const TodaySolve = () => {
-  const maxProblems = 7; // 나중에 props로 받을 것
-  const solvedProblems = 2; // 나중에 props로 받을 것
+  const [stats, setStats] = useState({
+    goal: 0,
+    todayCount: 0,
+  });
+
+  const data = useGetUserAchieve();
+  useEffect(() => {
+    if (data) {
+      const { goal, todayCount } = data.data;
+      setStats({
+        goal: goal,
+        todayCount: todayCount,
+      });
+    }
+  }, [data]);
 
   const percentage =
-    maxProblems && solvedProblems ? (solvedProblems / maxProblems) * 100 : 10;
+    stats.goal && stats.todayCount ? (stats.todayCount / stats.goal) * 100 : 10;
 
   const chartData = [{ name: 'Solved', value: percentage }];
-
-  console.log(chartData[0]);
 
   return (
     <Container>
@@ -111,7 +115,7 @@ const TodaySolve = () => {
             <Cell
               key={`cell-1`}
               fill={
-                maxProblems && solvedProblems
+                stats.goal && stats.todayCount
                   ? 'url(#colorGradient)'
                   : '#B2B4BA'
               }
@@ -120,12 +124,12 @@ const TodaySolve = () => {
               content={
                 <CustomLabel
                   upValue={
-                    maxProblems && solvedProblems ? solvedProblems : '목표를'
+                    stats.goal && stats.todayCount ? stats.todayCount : '목표를'
                   }
                   downValue={
-                    maxProblems && solvedProblems ? '문제' : '설정해주세요'
+                    stats.goal && stats.todayCount ? '문제' : '설정해주세요'
                   }
-                  isDefault={maxProblems && solvedProblems ? false : true}
+                  isDefault={stats.goal && stats.todayCount ? false : true}
                   viewBox={{ cx: 0, cy: 0 }}
                 />
               }
@@ -161,6 +165,8 @@ const TitleContainer = styled.div`
 const Title = styled.h2`
   ${({ theme }) => theme.fonts.title_bold_20}
   color: ${({ theme }) => theme.colors.white};
+
+  white-space: nowrap;
 `;
 
 const Subtitle = styled.p`
