@@ -5,23 +5,8 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled from 'styled-components';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
+import { BoardProps, CommonCalendarProps } from '../../types/Home/calendarType';
 import CustomCalendar from './CustomCalendar';
-
-interface BoardProps {
-  date: string;
-  isSolved: boolean;
-}
-interface CommonCalendarProps {
-  clickedYear: number;
-  clickedMonth: number;
-  data: {
-    data: {
-      board: BoardProps[];
-    };
-  };
-  setClickedYear: React.Dispatch<React.SetStateAction<number>>;
-  setClickedMonth: React.Dispatch<React.SetStateAction<number>>;
-}
 
 type ValuePiece = Date | null;
 
