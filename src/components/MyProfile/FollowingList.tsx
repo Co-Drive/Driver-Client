@@ -64,7 +64,6 @@ const FollowingList = () => {
     nickname,
     isDelete,
   }: UpdateFollowerProps) => {
-    console.log(`팔로우 상태 변경: ${nickname}, isDelete: ${isDelete}`);
     mutation({ nickname, isDelete });
   };
 
@@ -73,7 +72,7 @@ const FollowingList = () => {
   };
 
   return (
-    <FollowContainer>
+    <div>
       <HeaderContainer>
         <TitleContainer>
           <Title>친구 목록</Title>
@@ -159,11 +158,9 @@ const FollowingList = () => {
         <DeleteText>코드라이브를 더이상 이용하지 않는다면</DeleteText>
         <DeleteBtn onClick={handleDeleteAccount}>회원탈퇴</DeleteBtn>
       </DeleteIdContainer>
-    </FollowContainer>
+    </div>
   );
 };
-
-const FollowContainer = styled.article``;
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -195,12 +192,11 @@ const FriendCount = styled.span`
 
 const TabContainer = styled.div`
   display: flex;
+  gap: 0.8rem;
   align-items: center;
 `;
 
-const Tab = styled.div<{ $selected: boolean }>`
-  display: inline-block;
-
+const Tab = styled.p<{ $selected: boolean }>`
   color: ${({ theme, $selected }) =>
     $selected ? theme.colors.white : theme.colors.gray500};
   ${({ theme }) => theme.fonts.body_medium_14};
@@ -208,10 +204,8 @@ const Tab = styled.div<{ $selected: boolean }>`
   cursor: pointer;
 `;
 
-const Divider = styled.div`
-  margin: 0 8px;
-
-  color: #666;
+const Divider = styled.p`
+  color: ${({ theme }) => theme.colors.gray500};
 `;
 
 const RecommendCard = styled.article`
