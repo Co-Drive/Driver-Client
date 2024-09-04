@@ -49,7 +49,7 @@ const WeeklyFollower = () => {
             ))
         ) : (
           <NoFollowersText>
-            팔로워를 추가하여 <br /> 문제풀이 현황을 비교해보세요
+            팔로워를 추가하여 <LineText>문제풀이 현황을 비교해보세요</LineText>
           </NoFollowersText>
         )}
       </ProfileContainer>
@@ -95,9 +95,12 @@ const NoFollowersText = styled.p`
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-// const LineText = styled.p`
+const LineText = styled.p`
+  display: flex;
 
-// `
+  color: ${({ theme }) => theme.colors.gray400};
+  ${({ theme }) => theme.fonts.body_medium_16};
+`;
 
 const WeeklyText = styled.p`
   ${({ theme }) => theme.fonts.title_bold_20};
