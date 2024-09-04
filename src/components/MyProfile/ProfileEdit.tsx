@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
+import usePostCheckExitNickname from '../../libs/hooks/MyProfile/usePostCheckExitNickname';
 import { ProfileEdiltProps } from '../../types/MyProfile/MyProfileType';
 import { handleInput } from '../../utils/handleInput';
 import GithubInfo from '../Profile/GIthubInfo';
@@ -14,7 +15,13 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const [selectedLanguage, setSelectedLanguage] = useState(
     initialData.language
   );
-  const [isExitNickname, setIsExitNickname] = useState(false);
+  const [changeNickname, setChangeNickname] = useState({
+    isExitNickname: false,
+    isClickedCheckBtn: false,
+  });
+  const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
+    setChangeNickname({ isExitNickname: isExit, isClickedCheckBtn: true })
+  );
   const { comment, githubUrl, language, nickname } = inputs;
 
   // 입력 값의 유효성을 검사하는 변수
@@ -32,6 +39,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
       ...prev,
       [name]: value,
     }));
+    setChangeNickname({ ...changeNickname, isClickedCheckBtn: false });
   };
 
   // 언어 태그 변경 처리 함수
@@ -62,7 +70,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
 
   // 닉네임 중복 체크 함수
   const handleNicknameCheck = () => {
-    // 닉네임 중복 체크 로직 추가
+    mutation(nickname);
   };
 
   return (
@@ -83,6 +91,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
             onChange={handleChangeComment}
           />
           <NicknameInfo
+            changeNickname={changeNickname}
             nickname={nickname}
             handleChangeInputs={handleChangeInputs}
             handleNicknameCheck={handleNicknameCheck}
