@@ -194,7 +194,7 @@ const AddBtnContainer = styled.div`
 `;
 
 const GoTopBtn = styled.button`
-  position: absolute;
-  bottom: 25rem;
-  left: 121.7rem;
+  position: fixed;
+  top: 93rem;
+  right: 17.1rem;
 `;
