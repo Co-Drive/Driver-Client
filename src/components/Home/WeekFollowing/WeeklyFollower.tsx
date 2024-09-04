@@ -80,12 +80,10 @@ const ProfileContainer = styled.div<{ $isFollowing: boolean }>`
   gap: 6.6rem;
   justify-content: ${({ $isFollowing }) => ($isFollowing ? 'start' : 'center')};
 
-  /* align-items: center; */
-
   margin: 4rem 0 4.1rem;
 `;
 
-const NoFollowersText = styled.p`
+const NoFollowersText = styled.div`
   margin: 2.9rem 3.65rem 6.5rem;
 
   color: ${({ theme }) => theme.colors.gray400};
