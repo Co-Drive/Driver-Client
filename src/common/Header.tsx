@@ -1,11 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
 
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
+  const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
+  const user = sessionStorage.getItem('user');
+  const userId = user && parseInt(user);
+  const profileImg = sessionStorage.getItem('profileImg');
   const isLogin = nickname && nickname.length > 0;
+
+  const handleClickProfile = () => {
+    navigate(`/${userId}`);
+  };
+
   return (
     <HeaderWrapper>
       <HeaderContainer>
@@ -31,8 +41,11 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
             })}
           </NavBarUl>
         </NavBarContainer>
-        <LoginBtnContainer $isLogin={isLogin ? true : false}>
-          <IcLoginIcon />
+        <LoginBtnContainer
+          $isLogin={isLogin ? true : false}
+          onClick={handleClickProfile}
+        >
+          {profileImg ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
           <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
         </LoginBtnContainer>
       </HeaderContainer>
@@ -101,6 +114,14 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
 
   width: 23.2rem;
   margin-left: ${({ $isLogin }) => ($isLogin ? '29.7rem' : '34.1rem')};
+`;
+
+const ProfileImg = styled.img`
+  width: 3.4rem;
+  height: 3.4rem;
+
+  border-radius: 5rem;
+  object-fit: cover;
 `;
 
 const LoginBtn = styled.button`

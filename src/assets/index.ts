@@ -40,6 +40,7 @@ import IcLoginIcon from './icon/ic_login_Icon.svg?react';
 import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
+import IcMinusWhite from './icon/ic_minus_white.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
 import IcRevise from './icon/ic_revise.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
@@ -61,20 +62,24 @@ import IcWarning from './icon/ic_warning.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 
+import BtnInformation from './btn/btn_information.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
 import BtnStarGraySmall from './btn/btn_star_gray_small.svg?react';
 import BtnStarPurpleSmall from './btn/btn_star_purple_small.svg?react';
+import HomeHeaderImg from './icon/ic_home_Header.svg';
+import IcWorkBookBlack from './icon/ic_workbook_black.svg?react';
 import TestWeekboardStatus from './test_weekboard_status.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
 export {
   // btn
+  BtnInformation,
   BtnJoinGitHub,
   BtnShare,
   BtnStarGraySmall,
   BtnStarPurpleSmall,
-
+  HomeHeaderImg,
   // icon
   IcAdd,
   IcAddBlack,
@@ -116,6 +121,7 @@ export {
   IcLogo,
   IcMemoGray,
   IcMemoWhite,
+  IcMinusWhite,
   IcNothing,
   IcRevise,
   IcSecretBigWhite,
@@ -133,6 +139,7 @@ export {
   IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
+  IcWorkBookBlack,
   IcWarning,
   IcWorkbook,
   IcWorkbookBlack,

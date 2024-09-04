@@ -13,11 +13,26 @@ const LoginLoadingPage = () => {
 
     if (code) {
       postAuth(code)
-        .then(() => {
-          navigate('/register');
+        .then(({ data }) => {
+          const {
+            userId,
+            nickname,
+            accessToken,
+            refreshToken,
+            profileImg,
+            isExistUser,
+          } = data.data;
+          sessionStorage.setItem('user', userId);
+          sessionStorage.setItem('nickname', nickname);
+          sessionStorage.setItem('token', accessToken);
+          sessionStorage.setItem('refresh', refreshToken);
+          sessionStorage.setItem('profileImg', profileImg);
+
+          isExistUser ? navigate('/') : navigate('/register');
         })
-        .catch(() => {
-          navigate('/error');
+        .catch((err) => {
+          // 이거 지우고 에러 모달 띄우기
+          console.log(err);
         });
     }
   }, [window.location.search]);
