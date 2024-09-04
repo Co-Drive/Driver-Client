@@ -12,6 +12,7 @@ import Home from './page/Home';
 import LoginLoadingPage from './page/LoginLoadingPage';
 import LoginPage from './page/LoginPage';
 import MyGroup from './page/MyGroup';
+import MyProfilePage from './page/MyProfilePage';
 import RegisterPage from './page/RegisterPage';
 import SolutionListPage from './page/SolutionListPage';
 import SolutionPage from './page/SolutionPage';
@@ -22,6 +23,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/:id" element={<MyProfilePage />} />
         <Route path="/group" />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group/:id/admin" element={<AdminPage />} />
