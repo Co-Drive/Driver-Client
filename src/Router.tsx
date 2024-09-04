@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import TotalSolutions from './components/Follower/Personal/TotalSolutions';
+import AdminPage from './page/AdminPage';
 import FollowerCurrentPage from './page/FollowerCurrentPage';
 import FollowerPage from './page/FollowerPage';
 import GroupAllPage from './page/GroupAllPage';
@@ -7,7 +8,9 @@ import GroupComplete from './page/GroupComplete';
 import GroupCreate from './page/GroupCreate';
 import GroupDetail from './page/GroupDetail';
 import GroupJoin from './page/GroupJoin';
+import GroupMemberPage from './page/GroupMemberPage';
 import Home from './page/Home';
+import LoginLoadingPage from './page/LoginLoadingPage';
 import LoginPage from './page/LoginPage';
 import MyGroup from './page/MyGroup';
 import RegisterPage from './page/RegisterPage';
@@ -22,6 +25,8 @@ const Router = () => {
         <Route path="/" element={<Home />} />
         <Route path="/group" />
         <Route path="/group/:id" element={<GroupDetail />} />
+        <Route path="/group/:id/admin" element={<AdminPage />} />
+        <Route path="/group/:id/member" element={<GroupMemberPage />} />
         <Route path="/group-new" element={<GroupCreate />} />
         <Route path="/my-group" element={<MyGroup />} />
         <Route path="/group-join" element={<GroupJoin />} />
@@ -34,6 +39,7 @@ const Router = () => {
         <Route path="/follower/:id" element={<FollowerPage />} />
         <Route path="/follower/:id/total" element={<TotalSolutions />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/oauth/github/callback" element={<LoginLoadingPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/group-all" element={<GroupAllPage />} />
       </Routes>

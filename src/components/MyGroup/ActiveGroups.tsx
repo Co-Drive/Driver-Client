@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowLeftFill, IcArrowRightFill } from '../../assets';
+import { ClickCardProps } from '../../types/Follower/Personal/personalType';
 import { ActiveGroupProps } from '../../types/MyGroup/myGroupType';
 
 const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
@@ -33,8 +34,15 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
     updateTotalActiveGroups();
   };
 
-  const handleClickItem = (id: number) => {
-    navigate(`/group/${id}`);
+  const handleClickCard = ({ groupId, userId, isMember }: ClickCardProps) => {
+    const myId = sessionStorage.getItem('user');
+    if (myId && parseInt(myId) === userId) {
+      navigate(`/group/${groupId}/admin`);
+    } else {
+      isMember
+        ? navigate(`/group/${groupId}/member`)
+        : navigate(`/group/${groupId}`);
+    }
   };
 
   return (
@@ -48,12 +56,21 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
 
         <GroupContainer $isFirstPage={isFirstPage} $isLastPage={isLastPage}>
           {slicedGroups.map((group) => {
-            const { roomId, tags, title, introduce } = group;
+            const { roomId, tags, title, introduce, ownerId, isMember } = group;
             return (
-              <Group key={roomId} onClick={() => handleClickItem(roomId)}>
+              <Group
+                key={roomId}
+                onClick={() =>
+                  handleClickCard({
+                    groupId: roomId,
+                    userId: ownerId,
+                    isMember,
+                  })
+                }
+              >
                 <TagContainer>
                   {tags.map((tag, tagIndex) => (
-                    <Tag key={tagIndex}>{tag}</Tag>
+                    <Tag key={tagIndex}>#{tag}</Tag>
                   ))}
                 </TagContainer>
                 <Title>{title}</Title>
@@ -63,7 +80,7 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
           })}
         </GroupContainer>
 
-        {!isLastPage && totalActiveGroups.length > 4 && (
+        {!isLastPage && slicedGroups.length === 4 && (
           <IcArrowRightFill onClick={nextSlide} />
         )}
       </CarouselContainer>
