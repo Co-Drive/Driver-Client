@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
+import usePatchUser from '../../libs/hooks/MyProfile/usePatchUser';
 import usePostCheckExitNickname from '../../libs/hooks/MyProfile/usePostCheckExitNickname';
 import { ProfileEdiltProps } from '../../types/MyProfile/MyProfileType';
 import { handleInput } from '../../utils/handleInput';
@@ -19,6 +20,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
     isExitNickname: false,
     isClickedCheckBtn: false,
   });
+  const { patchMutation } = usePatchUser();
   const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
     setChangeNickname({ isExitNickname: isExit, isClickedCheckBtn: true })
   );
@@ -28,7 +30,6 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const isActive =
     nickname.length > 0 &&
     nickname.length <= 10 &&
-    comment?.length <= 30 &&
     githubUrl.length > 0 &&
     selectedLanguage.length > 0;
 
@@ -57,6 +58,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   // 가입 버튼 클릭 처리 함수
   const handleSaveBtnClick = () => {
     if (!isActive) return;
+    patchMutation({comment, githubUrl, language, nickname})
     handleCloseModal(); // 모달 닫기
   };
 
