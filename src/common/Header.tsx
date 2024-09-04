@@ -1,11 +1,18 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
 
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
+  const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
   const isLogin = nickname && nickname.length > 0;
+
+  const handleClickProfile = () => {
+    navigate(`/${nickname}`);
+  };
+
   return (
     <HeaderWrapper>
       <HeaderContainer>
@@ -31,7 +38,10 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
             })}
           </NavBarUl>
         </NavBarContainer>
-        <LoginBtnContainer $isLogin={isLogin ? true : false}>
+        <LoginBtnContainer
+          $isLogin={isLogin ? true : false}
+          onClick={handleClickProfile}
+        >
           <IcLoginIcon />
           <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
         </LoginBtnContainer>
