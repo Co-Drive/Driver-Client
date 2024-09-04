@@ -5,7 +5,18 @@ import TodaySolve from '../components/Home/TodaySolve';
 import WeeklyFollower from '../components/Home/WeekFollowing/WeeklyFollower';
 import WeekRate from '../components/Home/WeekRate';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
+  const token = sessionStorage.getItem('token');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, [token]);
+  
   return (
     <>
       <PageLayout category="홈">
