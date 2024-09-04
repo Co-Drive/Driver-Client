@@ -8,9 +8,9 @@ const ImageSection = ({
 }: ImageSectionProps) => {
   return (
     <Section>
-      <Label>
-        대표 이미지 <Essential>*</Essential>
-      </Label>
+      <LabelContainer>
+        <Label>대표 이미지</Label>
+      </LabelContainer>
       <ImageContainer
         onClick={() => document.getElementById('fileInput')?.click()}
       >
@@ -26,26 +26,30 @@ const ImageSection = ({
           onChange={handleImageChange}
         />
       </ImageContainer>
-      <EssentialText>612px * 368px 사이즈를 권장드려요</EssentialText>
+      <EssentialText>
+        612px * 368px 사이즈를 권장드려요 / 이미지를 선택하지 않을 시,
+        코드라이브 제공 이미지로 대체되어요
+      </EssentialText>
     </Section>
   );
 };
 
 export default ImageSection;
 
-const Essential = styled.span`
-  color: ${({ theme }) => theme.colors.codrive_purple};
-`;
-
 const Label = styled.label`
   display: flex;
   gap: 0.6rem;
   align-items: center;
 
-  margin-bottom: 2rem;
+  margin: 0 0 2rem 0.2rem;
 
   ${({ theme }) => theme.fonts.title_bold_20};
+
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const LabelContainer = styled.div`
+  display: flex;
 `;
 
 const Section = styled.section`
