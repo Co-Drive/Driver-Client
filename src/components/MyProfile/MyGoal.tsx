@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IcAdd, IcMinusWhite } from '../../assets';
+import usePatchGoal from '../../libs/hooks/MyProfile/usePatchGoal';
 
 const MyGoal = () => {
   const [number, setNumber] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
 
+  const { mutation } = usePatchGoal(() => setIsSaved(true));
+
   const handleSaveBtnClick = () => {
-    setIsSaved(true);
+    mutation(number);
   };
 
   const handleCancelBtnClick = () => {
