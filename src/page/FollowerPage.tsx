@@ -11,7 +11,8 @@ import useGetUserProfile from '../libs/hooks/Follower/useGetUserProfile';
 const FollowerPage = () => {
   const { id } = useParams();
   if (!id) return;
-  const { data, isLoading } = useGetUserProfile(parseInt(id));
+  const userId = parseInt(id);
+  const { data, isLoading } = useGetUserProfile(userId);
   const { nickname, isFollowing } = !isLoading && data?.data;
 
   return (
@@ -21,7 +22,7 @@ const FollowerPage = () => {
           <TopContainer>
             <FollowerInfo info={data.data} />
 
-            <CommonMonthSolve />
+            <CommonMonthSolve userId={userId} />
           </TopContainer>
 
           <Solutions

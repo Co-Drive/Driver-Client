@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonMonthSolve from '../common/CommonMonthSolve';
 import HomeHeader from '../components/Home/HomeHeader';
@@ -5,24 +7,25 @@ import TodaySolve from '../components/Home/TodaySolve';
 import WeeklyFollower from '../components/Home/WeekFollowing/WeeklyFollower';
 import WeekRate from '../components/Home/WeekRate';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 const Home = () => {
-  const token = sessionStorage.getItem('token');
   const navigate = useNavigate();
+  const token = sessionStorage.getItem('token');
+  const user = sessionStorage.getItem('user');
+  if (!user) return;
+  const userId = parseInt(user);
 
   useEffect(() => {
     if (!token) {
       navigate('/login');
     }
   }, [token]);
-  
+
   return (
     <>
       <PageLayout category="홈">
         <HomeHeader />
         <MainContainer>
-          <CommonMonthSolve />
+          <CommonMonthSolve userId={userId} />
           <TodaySolve />
         </MainContainer>
         <FooterContainer>
