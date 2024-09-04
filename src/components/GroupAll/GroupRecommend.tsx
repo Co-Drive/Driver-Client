@@ -8,29 +8,17 @@ const GroupRecommend = () => {
   const nickname = sessionStorage.getItem('nickname');
   const [groupData, setGroupData] = useState([]);
 
-  const userId = 5;
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await getRoomRecommend(userId);
+      const response = await getRoomRecommend();
 
-        // 200 코드 확인 및 데이터 출력
-        if (response.code === 200) {
-          console.log('API 호출 성공:', response);
-          const data = response.data;
+      if (response.code === 200) {
+        const data = response.data;
 
-          if (data && data.rooms) {
-            const limitedRooms = data.rooms.slice(0, 6);
-            console.log('가져온 그룹 데이터:', limitedRooms); // 데이터 확인
-            setGroupData(limitedRooms);
-          } else {
-            console.error('추천 그룹 데이터를 불러오지 못했습니다.');
-          }
-        } else {
-          console.error('API 호출이 성공하지 못했습니다:', response);
+        if (data && data.rooms) {
+          const limitedRooms = data.rooms.slice(0, 6);
+          setGroupData(limitedRooms);
         }
-      } catch (error) {
-        console.error('추천 그룹을 가져오는 중 오류 발생:', error);
       }
     };
 
@@ -108,7 +96,7 @@ const Tooltip = styled.div`
   white-space: nowrap;
 
   opacity: 0;
-  transform: translateX(-5%); /* 수정된 부분: translate 사용 */
+  transform: translateX(-5%);
   transition: opacity 0.3s ease-in-out;
 
   &::after {
