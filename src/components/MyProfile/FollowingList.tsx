@@ -6,59 +6,18 @@ import {
   IcUnfollowingWhite,
 } from '../../assets';
 import useUpdateFollower from '../../libs/hooks/Follower/useUpdateFollower';
+import useDeleteUser from '../../libs/hooks/MyProfile/useDeleteUser';
+import useGetFollowList from '../../libs/hooks/MyProfile/useGetFollowList';
 import { UpdateFollowerProps } from '../../types/Follower/Personal/personalType';
+import { UserType } from '../../types/MyProfile/MyProfileType';
 
 const FollowingList = () => {
-  // 더미 데이터 생성
-  const followerData = [
-    {
-      userId: 1,
-      profileImg: '',
-      nickname: '일이삼사오육칠팔구십',
-      language: 'JavaScript',
-      githubUrl: '',
-      isFollowing: true,
-    },
-    {
-      userId: 2,
-      profileImg: '',
-      nickname: '팔로워유저1',
-      language: 'Python',
-      githubUrl: '',
-      isFollowing: true,
-    },
-    {
-      userId: 3,
-      profileImg: '',
-      nickname: '팔로워유저2',
-      language: 'Java',
-      githubUrl: '',
-      isFollowing: true,
-    },
-  ];
-
-  const followingData = [
-    {
-      userId: 4,
-      profileImg: '',
-      nickname: '팔로잉유저1',
-      language: 'C++',
-      githubUrl: '',
-      isFollowing: true,
-    },
-    {
-      userId: 5,
-      profileImg: '',
-      nickname: '팔로잉유저2',
-      language: 'TypeScript',
-      githubUrl: '',
-      isFollowing: true,
-    },
-  ];
-
   const [isFollowerSelected, setIsFollowerSelected] = useState(true);
 
   const { mutation } = useUpdateFollower();
+  const { deleteMutation } = useDeleteUser();
+  const { followData, isLoading } = useGetFollowList(isFollowerSelected);
+  const { users, count } = !isLoading && followData.data;
 
   const handleClickFollowerBtn = ({
     nickname,
@@ -68,7 +27,12 @@ const FollowingList = () => {
   };
 
   const handleDeleteAccount = () => {
-    /* 회원탈퇴 */
+    if (
+      window.confirm(
+        '지금 탈퇴하시면 더 이상 서비스를 이용할 수 없습니다. 탈퇴하시겠습니까?'
+      )
+    )
+      deleteMutation();
   };
 
   return (
@@ -76,9 +40,7 @@ const FollowingList = () => {
       <HeaderContainer>
         <TitleContainer>
           <Title>친구 목록</Title>
-          <FriendCount>
-            {isFollowerSelected ? followerData.length : followingData.length}명
-          </FriendCount>
+          <FriendCount>{count}명</FriendCount>
         </TitleContainer>
         <TabContainer>
           <Tab
@@ -97,18 +59,8 @@ const FollowingList = () => {
         </TabContainer>
       </HeaderContainer>
       <RecommendCard>
-        {(isFollowerSelected ? followerData : followingData).map(
-          (
-            user: {
-              userId: number;
-              profileImg: string;
-              nickname: string;
-              language: string;
-              githubUrl: string;
-              isFollowing: boolean;
-            },
-            idx: number
-          ) => {
+        {!isLoading &&
+          users.map((user: UserType, idx: number) => {
             const {
               userId,
               profileImg,
@@ -151,8 +103,7 @@ const FollowingList = () => {
                 </FollowingBtn>
               </PersonalCard>
             );
-          }
-        )}
+          })}
       </RecommendCard>
       <DeleteIdContainer>
         <DeleteText>코드라이브를 더이상 이용하지 않는다면</DeleteText>
@@ -212,7 +163,6 @@ const RecommendCard = styled.article`
   display: grid;
   gap: 0.4rem 1.8rem;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(4, 1fr);
 
   width: 100%;
   padding: 2rem;

@@ -16,7 +16,7 @@ export interface LanguageInfoProps {
 
 export interface NickNameInfoProps {
   nickname: string;
-
+  changeNickname: {isExitNickname: boolean, isClickedCheckBtn: boolean};
   handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNicknameCheck: () => void;
 }
