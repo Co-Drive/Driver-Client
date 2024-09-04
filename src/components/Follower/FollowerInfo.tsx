@@ -97,7 +97,7 @@ const ProfileContainer = styled.div`
 
 const ProfileTextContainer = styled.div`
   display: flex;
-  gap: 1.8rem;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
