@@ -24,6 +24,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
 
   const { originNickname, isExitNickname, isClickedCheckBtn } = changeNickname;
   const { comment, githubUrl, language, nickname, name } = inputs;
+  const githubNickname = githubUrl.split('/')[githubUrl.split('/').length - 1];
 
   const { patchMutation } = usePatchUser(nickname);
   const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
@@ -96,7 +97,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
           <BasicTitle>기본정보</BasicTitle>
           <NameInfo user={name} />
           <GithubInfo
-            github={githubUrl}
+            github={githubNickname}
             handleChangeInputs={handleChangeInputs}
           />
         </BasicInfoContainer>
