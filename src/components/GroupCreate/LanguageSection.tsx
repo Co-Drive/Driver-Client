@@ -171,7 +171,7 @@ const DropdownItemContainer = styled.div`
   box-shadow: 0 1rem 2rem #0b0c0f99;
 
   width: 61.1rem;
-  padding: 1.6rem;
+  padding: 1.6rem 1.6rem 0.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
