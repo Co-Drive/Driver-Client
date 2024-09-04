@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
-import { GROUP_ALL_DUMMY } from '../../constants/GroupAll/groupAllConst';
 import { ALL_TAG } from '../../constants/GroupCreate/LanguageConst';
+import { getRoomSort } from '../../libs/apis/GroupAll/getRoomSort';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
 
@@ -11,42 +11,54 @@ const GroupItem = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [clickedPage, setClickedPage] = useState(1);
   const [sorting, setSorting] = useState('최신순');
-  const [searchResults, setSearchResults] = useState(GROUP_ALL_DUMMY.group);
-  const [sliderValues, setSliderValues] = useState({ min: 0, max: 50 }); // 슬라이드 값 상태 추가
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [sliderValues, setSliderValues] = useState({ min: 0, max: 50 });
 
   const groupsPerPage = 9;
-  const totalPage = Math.ceil(searchResults.length / groupsPerPage);
-  const totalPageRef = useRef(totalPage);
+  const totalPageRef = useRef(0);
 
   // 필터링된 그룹 데이터를 반환하는 함수
-  const filterGroups = () => {
-    return GROUP_ALL_DUMMY.group.filter((group) => {
-      // ALL_TAG가 선택된 경우, 그룹의 태그에 ALL_TAG가 포함되어 있으면 무조건 매칭
+  const filterGroups = (groups: any[]) => {
+    return groups.filter((group) => {
       const isAllTagSelected = selectedTags.includes(ALL_TAG);
       const groupHasAllTag = group.tags.includes(ALL_TAG);
 
-      // 태그 필터링
       const tagMatch =
         selectedTags.length === 0 ||
-        (isAllTagSelected && groupHasAllTag) || // ALL_TAG가 선택되고 그룹에 포함된 경우
+        (isAllTagSelected && groupHasAllTag) ||
         selectedTags.every((tag) => group.tags.includes(tag));
 
-      // 슬라이드 필터링
       const sliderMatch =
         group.memberCount >= sliderValues.min &&
         group.capacity <= sliderValues.max;
 
-      // 태그와 슬라이드 조건 모두 만족하는 그룹만 반환
       return tagMatch && sliderMatch;
     });
   };
 
   useEffect(() => {
-    // 선택된 태그 또는 슬라이더 값이 변경될 때마다 필터링 적용
-    const filteredGroups = filterGroups();
-    setSearchResults(filteredGroups);
-    setClickedPage(1); // 필터링 시 첫 페이지로 이동
-  }, [selectedTags, sliderValues]); // 의존성 배열에 sliderValues 추가
+    const fetchGroups = async () => {
+      try {
+        const sortType = sorting === '최신순' ? 'NEW' : 'DICT';
+        const response = await getRoomSort(sortType, clickedPage - 1);
+
+        if (response && response.data && response.data.rooms) {
+          // 중첩된 data 확인
+          const filteredGroups = filterGroups(response.data.rooms);
+          setSearchResults(filteredGroups);
+
+          totalPageRef.current = response.data.totalPage;
+          setClickedPage(Math.min(clickedPage, totalPageRef.current));
+        } else {
+          console.error('올바르지 않은 데이터 형식입니다.', response);
+        }
+      } catch (error) {
+        console.error('그룹 데이터를 불러오는 중 오류가 발생했습니다.', error);
+      }
+    };
+
+    fetchGroups();
+  }, [sorting, clickedPage, selectedTags, sliderValues]);
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
@@ -66,13 +78,11 @@ const GroupItem = () => {
     setClickedPage((prev) => Math.min(prev + 1, totalPageRef.current));
   };
 
-  // 검색어가 변경될 때마다 호출될 함수
   const handleChangeSearchBar = (filteredGroups: any[]) => {
-    setSearchResults(filteredGroups); // 필터링된 그룹 데이터를 상태로 설정
-    setClickedPage(1); // 검색 시 첫 페이지로 이동
+    setSearchResults(filteredGroups);
+    setClickedPage(1);
   };
 
-  // 현재 페이지에 해당하는 그룹 데이터를 계산하는 로직 추가
   const startIdx = (clickedPage - 1) * groupsPerPage;
   const endIdx = startIdx + groupsPerPage;
   const currentGroups = searchResults.slice(startIdx, endIdx);
