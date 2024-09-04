@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
+import { BtnInformation } from '../../assets';
 import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
 import WeekRateCustomLabel from './WeekRateCustomLabel';
-
 const WeekRate = () => {
   const [stats, setStats] = useState({
     successRate: 0,
@@ -11,6 +11,8 @@ const WeekRate = () => {
   });
 
   const percentage = stats.successRate || 0;
+  const isSolvedExist = stats.weeklyCountDifference <= 0;
+  const solvedExistPercent = isSolvedExist ? 0 : percentage;
 
   const data = useGetUserAchieve();
   useEffect(() => {
@@ -23,13 +25,27 @@ const WeekRate = () => {
     }
   }, [data]);
 
+  // console.log(stats.weeklyCountDifference);
+
   const chartData = [
-    { name: 'Solved', value: percentage === 0 ? 10 : percentage },
+    {
+      name: 'Solved',
+      value: solvedExistPercent === 0 ? 10 : solvedExistPercent,
+    },
   ];
   const endAngle = 180 - (chartData[0].value / 100) * 180;
   return (
     <Container>
-      <Header>주간 성과율</Header>
+      <Header>
+        {isSolvedExist ? '주간 성과율 & 문제 개수 비교' : '주간 성과율'}
+        <Notic>
+          <BtnInformation />
+          <Tooltip>
+            <LineText>주간 성과율은 문제 개수와 상관없이</LineText>
+            문제풀이 여부를 측정하는 지표입니다.
+          </Tooltip>
+        </Notic>
+      </Header>
       <ChartContainer>
         <PieChart width={300} height={140}>
           <defs>
@@ -57,7 +73,7 @@ const WeekRate = () => {
               content={
                 <WeekRateCustomLabel
                   value={
-                    stats.successRate ? `${percentage.toFixed(0)}%` : `${0}%`
+                    solvedExistPercent ? `${percentage.toFixed(0)}%` : `${0}%`
                   }
                   viewBox={{ cx: 0, cy: 100 }}
                 />
@@ -82,7 +98,7 @@ const WeekRate = () => {
         </PieChart>
       </ChartContainer>
       <MessageContainer>
-        {stats.successRate ? (
+        {!isSolvedExist ? (
           <>
             <Message>축하해요!</Message>
             <Message>
@@ -112,8 +128,14 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-  ${({ theme }) => theme.fonts.title_bold_20};
+  display: flex;
+
   color: ${({ theme }) => theme.colors.white};
+
+  ${({ theme }) => theme.fonts.title_bold_20};
+  white-space: nowrap;
+
+  /* margin-right: 13.8rem; */
 `;
 
 const ChartContainer = styled.div`
@@ -133,4 +155,60 @@ const Message = styled.p`
 
 const MessageContainer = styled.div`
   margin-top: 0.3rem;
+`;
+
+const LineText = styled.div`
+  display: flex;
+
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+`;
+
+const Notic = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  margin-left: 13.8rem;
+
+  &:hover > div {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+const Tooltip = styled.div`
+  display: block;
+  position: absolute;
+  top: 3.3rem;
+  visibility: hidden;
+  z-index: 10;
+
+  width: 22.8rem;
+  height: auto;
+  padding: 1.2rem 1.1rem;
+
+  border-radius: 0.8rem;
+  background: ${({ theme }) => theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+
+  white-space: nowrap;
+
+  opacity: 0;
+  transform: translate(-2.5%);
+  transition: opacity 0.3s ease-in-out;
+
+  &::after {
+    position: absolute;
+    bottom: 100%;
+    left: 5%;
+
+    margin-left: -0.1rem;
+
+    border-color: transparent transparent ${({ theme }) => theme.colors.gray600};
+    border-width: 5px;
+    border-style: solid;
+    content: '';
+  }
 `;
