@@ -15,3 +15,12 @@ export interface ProfileEdiltProps {
     name: string;
   };
 }
+
+export interface UserType {
+  userId: number;
+  profileImg: string;
+  nickname: string;
+  language: string;
+  githubUrl: string;
+  isFollowing: boolean;
+}
