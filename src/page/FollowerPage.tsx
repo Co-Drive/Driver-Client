@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import CommonMonthSolve from '../common/CommonMonthSolve';
 import FollowerInfo from '../components/Follower/FollowerInfo';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
 import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGroup';
@@ -20,8 +21,7 @@ const FollowerPage = () => {
           <TopContainer>
             <FollowerInfo info={data.data} />
 
-            {/* 나중에 다른 컴포넌트로 대체 예정 */}
-            <Temp></Temp>
+            <CommonMonthSolve />
           </TopContainer>
 
           <Solutions
