@@ -5,6 +5,7 @@ import { HeaderProps } from '../types/Header/HeaderType';
 
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const nickname = sessionStorage.getItem('nickname');
+  const profileImg = sessionStorage.getItem('profileImg');
   const isLogin = nickname && nickname.length > 0;
   return (
     <HeaderWrapper>
@@ -32,7 +33,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
           </NavBarUl>
         </NavBarContainer>
         <LoginBtnContainer $isLogin={isLogin ? true : false}>
-          <IcLoginIcon />
+          {profileImg ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
           <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
         </LoginBtnContainer>
       </HeaderContainer>
@@ -101,6 +102,14 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
 
   width: 23.2rem;
   margin-left: ${({ $isLogin }) => ($isLogin ? '29.7rem' : '34.1rem')};
+`;
+
+const ProfileImg = styled.img`
+  width: 3.4rem;
+  height: 3.4rem;
+
+  border-radius: 5rem;
+  object-fit: cover;
 `;
 
 const LoginBtn = styled.button`
