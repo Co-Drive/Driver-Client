@@ -22,7 +22,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/:nickname" element={<MyProfilePage />} />
+        <Route path="/:id" element={<MyProfilePage />} />
         <Route path="/group" />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group/:id/admin" element={<AdminPage />} />

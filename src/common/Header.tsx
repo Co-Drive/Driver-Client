@@ -7,10 +7,12 @@ import { HeaderProps } from '../types/Header/HeaderType';
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
+  const user = sessionStorage.getItem('user');
+  const userId = user && parseInt(user);
   const isLogin = nickname && nickname.length > 0;
 
   const handleClickProfile = () => {
-    navigate(`/${nickname}`);
+    navigate(`/${userId}`);
   };
 
   return (
