@@ -12,6 +12,7 @@ import {
   CodeProps,
   QuestionInfoProps,
 } from '../types/Solve/solveTypes';
+import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const SolvePage = () => {
   const { state } = useLocation();
@@ -103,10 +104,6 @@ const SolvePage = () => {
       ideItems: ideItems.filter((item) => item.id !== id),
       ideId: ideId - 1,
     });
-  };
-
-  const handleClickGoTopBtn = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const changeRecords = () => {
