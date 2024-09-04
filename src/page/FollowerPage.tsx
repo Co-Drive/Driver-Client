@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { IcArrowUpBig } from '../assets';
 import CommonMonthSolve from '../common/CommonMonthSolve';
 import FollowerInfo from '../components/Follower/FollowerInfo';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
@@ -7,6 +8,7 @@ import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGro
 import Solutions from '../components/Follower/Personal/Solutions';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useGetUserProfile from '../libs/hooks/Follower/useGetUserProfile';
+import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const FollowerPage = () => {
   const { id } = useParams();
@@ -34,6 +36,9 @@ const FollowerPage = () => {
           <ParticipatingGroup nickname={nickname} />
 
           <FollowerRecommendCard />
+          <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
+            <IcArrowUpBig />
+          </GoTopBtn>
         </FollowerPageContainer>
       )}
     </PageLayout>
@@ -46,6 +51,7 @@ const FollowerPageContainer = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
 
   width: 100%;
   padding: 6.4rem 25.7rem 23.2rem;
@@ -60,11 +66,8 @@ const TopContainer = styled.section`
   margin-bottom: 8.8rem;
 `;
 
-// 나중에 지울 예정
-const Temp = styled.div`
-  flex-grow: 2;
-
-  min-width: 60.9rem;
-
-  height: 41rem;
+const GoTopBtn = styled.button`
+  position: fixed;
+  top: 93rem;
+  right: 17.1rem;
 `;
