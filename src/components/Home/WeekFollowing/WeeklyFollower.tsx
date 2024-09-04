@@ -19,6 +19,16 @@ const WeeklyFollower = () => {
     navigate('/follower');
   };
 
+  while (!isLoading && followings.length < 3) {
+    followings.push({
+      userId: `default-${followings.length + 1}`,
+      successRate: 0,
+      profileImg: '',
+      nickname: '기본사용자',
+      language: '사용언어',
+    });
+  }
+
   return (
     <Container>
       <HeaderContainer>
@@ -34,8 +44,8 @@ const WeeklyFollower = () => {
         {!isLoading && hasFollowers ? (
           followings
             .slice(0, 3)
-            .map((user: UserProps) => (
-              <HomeProfileCard key={user.userId} user={user} />
+            .map((user: UserProps, index: number) => (
+              <HomeProfileCard key={user ? user.userId : index} user={user} />
             ))
         ) : (
           <NoFollowersText>
@@ -67,9 +77,10 @@ const HeaderContainer = styled.div`
 
 const ProfileContainer = styled.div<{ $isFollowing: boolean }>`
   display: flex;
-  gap: 2.4rem;
+  gap: 6.6rem;
   justify-content: ${({ $isFollowing }) => ($isFollowing ? 'start' : 'center')};
-  align-items: center;
+
+  /* align-items: center; */
 
   margin: 4rem 0 4.1rem;
 `;
@@ -83,6 +94,10 @@ const NoFollowersText = styled.p`
 
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
+
+// const LineText = styled.p`
+
+// `
 
 const WeeklyText = styled.p`
   ${({ theme }) => theme.fonts.title_bold_20};
