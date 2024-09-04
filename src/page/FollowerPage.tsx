@@ -68,6 +68,6 @@ const TopContainer = styled.section`
 
 const GoTopBtn = styled.button`
   position: fixed;
-  top: 93rem;
-  right: 17.1rem;
+  top: calc(100vh - 15rem);
+  left: calc(100vw - 22.3rem);
 `;

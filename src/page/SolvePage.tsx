@@ -108,7 +108,6 @@ const SolvePage = () => {
 
   const changeRecords = () => {
     setRecords(data.data);
-    console.log(data.data);
   };
 
   if (data) {
@@ -140,47 +139,53 @@ const SolvePage = () => {
 
   return (
     <PageLayout category="문제풀이">
-      <SolvePageContainer>
-        <PageHeader
-          id={recordId}
-          isTemp={isTemp}
-          codeblocks={ideItems}
-          questionInfo={questionInfo}
-        />
-
-        <CodeSpace
-          ideItems={ideItems}
-          questionInfo={questionInfo}
-          handleClickQuestionInfo={handleClickQuestionInfo}
-          handleClickDeleteBtn={handleClickDeleteBtn}
-          handleChangeCode={handleChangeCode}
-          handleChangeMemo={handleChangeMemo}
-        />
-
-        <AddBtnContainer>
-          {ideItems[ideItems.length - 1].code.length ? (
-            <IcAddFill onClick={handleClickAddBtn} />
-          ) : (
-            <IcAddFillDisabled />
-          )}
-        </AddBtnContainer>
+      <ScrollContainer>
         {ideId > 0 && (
           <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
             <IcArrowUpBig />
           </GoTopBtn>
         )}
-      </SolvePageContainer>
+        <SolvePageContainer>
+          <PageHeader
+            id={recordId}
+            isTemp={isTemp}
+            codeblocks={ideItems}
+            questionInfo={questionInfo}
+          />
+
+          <CodeSpace
+            ideItems={ideItems}
+            questionInfo={questionInfo}
+            handleClickQuestionInfo={handleClickQuestionInfo}
+            handleClickDeleteBtn={handleClickDeleteBtn}
+            handleChangeCode={handleChangeCode}
+            handleChangeMemo={handleChangeMemo}
+          />
+
+          <AddBtnContainer>
+            {ideItems[ideItems.length - 1].code.length ? (
+              <IcAddFill onClick={handleClickAddBtn} />
+            ) : (
+              <IcAddFillDisabled />
+            )}
+          </AddBtnContainer>
+        </SolvePageContainer>
+      </ScrollContainer>
     </PageLayout>
   );
 };
 
 export default SolvePage;
 
+const ScrollContainer = styled.div`
+  width: 100vw;
+  height: auto;
+`;
+
 const SolvePageContainer = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
-  position: relative;
 
   padding: 6rem 25.7rem 20rem;
 `;
@@ -195,6 +200,6 @@ const AddBtnContainer = styled.div`
 
 const GoTopBtn = styled.button`
   position: fixed;
-  top: 93rem;
-  right: 17.1rem;
+  top: calc(100vh - 15rem);
+  left: calc(100vw - 22.3rem);
 `;
