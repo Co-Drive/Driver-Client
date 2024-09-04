@@ -17,7 +17,6 @@ export default GroupAllPage;
 
 const GroupAllPageContainer = styled.section`
   display: flex;
-  align-items: center;
   flex-direction: column;
 
   width: 100%;
