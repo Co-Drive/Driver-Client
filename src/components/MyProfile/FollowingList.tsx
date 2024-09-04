@@ -6,6 +6,7 @@ import {
   IcUnfollowingWhite,
 } from '../../assets';
 import useUpdateFollower from '../../libs/hooks/Follower/useUpdateFollower';
+import useDeleteUser from '../../libs/hooks/MyProfile/useDeleteUser';
 import useGetFollowList from '../../libs/hooks/MyProfile/useGetFollowList';
 import { UpdateFollowerProps } from '../../types/Follower/Personal/personalType';
 import { UserType } from '../../types/MyProfile/MyProfileType';
@@ -14,6 +15,7 @@ const FollowingList = () => {
   const [isFollowerSelected, setIsFollowerSelected] = useState(true);
 
   const { mutation } = useUpdateFollower();
+  const { deleteMutation } = useDeleteUser();
   const { followData, isLoading } = useGetFollowList(isFollowerSelected);
   const { users, count } = !isLoading && followData.data;
 
@@ -25,7 +27,12 @@ const FollowingList = () => {
   };
 
   const handleDeleteAccount = () => {
-    /* 회원탈퇴 */
+    if (
+      window.confirm(
+        '지금 탈퇴하시면 더 이상 서비스를 이용할 수 없습니다. 탈퇴하시겠습니까?'
+      )
+    )
+      deleteMutation();
   };
 
   return (
