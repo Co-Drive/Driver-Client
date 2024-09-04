@@ -41,6 +41,7 @@ import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
+import IcRevise from './icon/ic_revise.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
 import IcSecretGray from './icon/ic_secret_gray.svg?react';
 import IcSecretWhite from './icon/ic_secret_white.svg?react';
@@ -52,9 +53,11 @@ import IcStatusBlack from './icon/ic_status_black.svg?react';
 import IcStatusWhite from './icon/ic_status_white.svg?react';
 import IcSuccess from './icon/ic_success.svg?react';
 import IcSuccessGray from './icon/ic_success_gray.svg?react';
+import IcTop3Member from './icon/ic_top3_members.svg?react';
 import IcUnfollowingWhite from './icon/ic_unfollowing_white.svg?react';
 import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
+import IcWarning from './icon/ic_warning.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 
@@ -120,6 +123,7 @@ export {
   IcMemoGray,
   IcMemoWhite,
   IcNothing,
+  IcRevise,
   IcSecretBigWhite,
   IcSecretGray,
   IcSecretWhite,
@@ -131,10 +135,12 @@ export {
   IcStatusWhite,
   IcSuccess,
   IcSuccessGray,
+  IcTop3Member,
   IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
   IcWorkBookBlack,
+  IcWarning,
   IcWorkbook,
   IcWorkbookBlack,
   TestWeekboardStatus,
