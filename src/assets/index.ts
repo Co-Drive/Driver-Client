@@ -63,21 +63,25 @@ import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 
 import BtnHeart from './btn/btn_heart.svg?react';
+import BtnInformation from './btn/btn_information.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
 import BtnStarGraySmall from './btn/btn_star_gray_small.svg?react';
 import BtnStarPurpleSmall from './btn/btn_star_purple_small.svg?react';
+import HomeHeaderImg from './icon/ic_home_Header.svg';
+import IcWorkBookBlack from './icon/ic_workbook_black.svg?react';
 import TestWeekboardStatus from './test_weekboard_status.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
 export {
   // btn
   BtnHeart,
+  BtnInformation,
   BtnJoinGitHub,
   BtnShare,
   BtnStarGraySmall,
   BtnStarPurpleSmall,
-
+  HomeHeaderImg,
   // icon
   IcAdd,
   IcAddBlack,
@@ -137,6 +141,7 @@ export {
   IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
+  IcWorkBookBlack,
   IcWarning,
   IcWorkbook,
   IcWorkbookBlack,

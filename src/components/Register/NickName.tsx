@@ -5,7 +5,7 @@ import CommonInput from './../../common/CommonInput';
 
 const NickName = ({
   nickname,
-
+  isExitedNickname, // 닉네임 중복 상태 추가
   handleChangeInputs,
   handleNicknameCheck,
 }: NickNameProps) => {
@@ -20,6 +20,7 @@ const NickName = ({
         <CommonInput
           category="nickname"
           value={nickname}
+          isExitedNickname={isExitedNickname} // 상태 전달
           handleChangeInputs={handleChangeInputs}
         />
         <Button type="button" onClick={handleNicknameCheck}>
@@ -67,11 +68,11 @@ const Info = styled.span`
 
 const InputWrapper = styled.div`
   display: flex;
-  align-items: center;
 `;
 
 const Button = styled.button`
-  padding: 1.5rem 1.8rem 1.4rem;
+  width: 6.4rem;
+  height: 5.3rem;
   margin-left: 1rem;
 
   border: none;
