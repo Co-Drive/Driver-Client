@@ -38,7 +38,35 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
   return (
     <>
       <FollowerContainer key={userId}>
-        {user ? (
+        {nickname === '기본사용자' && language === '사용언어' ? (
+          <PieContainer>
+            <PieChart width={76} height={76}>
+              <Pie
+                data={[{ name: 'Gray Circle', value: 100 }]}
+                dataKey="value"
+                startAngle={0}
+                endAngle={360}
+                outerRadius={30}
+                fill="#292A2F"
+                stroke="none"
+              />
+              <Pie
+                dataKey="value"
+                data={[{ name: 'Empty', value: 100 }]}
+                startAngle={90}
+                endAngle={-270}
+                innerRadius={33}
+                outerRadius={38}
+                paddingAngle={0}
+                cornerRadius={15}
+                fill="#494B53"
+                stroke="none"
+              />
+            </PieChart>
+            <Text>기본사용자</Text>
+            <LanguageText>#사용언어</LanguageText>
+          </PieContainer>
+        ) : (
           <PieContainer>
             <PieChart width={76} height={76}>
               <Pie
@@ -79,34 +107,6 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
             <Text>{NickName}</Text>
             <LanguageText>#{Language}</LanguageText>
           </PieContainer>
-        ) : (
-          <PieContainer>
-            <PieChart width={76} height={76}>
-              <Pie
-                data={[{ name: 'Gray Circle', value: 100 }]}
-                dataKey="value"
-                startAngle={0}
-                endAngle={360}
-                outerRadius={30}
-                fill="#292A2F"
-                stroke="none"
-              />
-              <Pie
-                dataKey="value"
-                data={[{ name: 'Empty', value: 100 }]} // 빈 차트를 위한 데이터
-                startAngle={90}
-                endAngle={-270}
-                innerRadius={33}
-                outerRadius={38}
-                paddingAngle={0}
-                cornerRadius={15}
-                fill="#494B53"
-                stroke="none"
-              />
-            </PieChart>
-            <Text>기본사용자</Text>
-            <LanguageText>#사용언어</LanguageText>
-          </PieContainer>
         )}
       </FollowerContainer>
     </>
@@ -117,7 +117,6 @@ export default HomeProfileCard;
 
 const FollowerContainer = styled.div`
   display: flex;
-  gap: 2rem;
   align-items: center;
   flex-direction: row;
 `;
@@ -125,7 +124,7 @@ const FollowerContainer = styled.div`
 const PieContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column; /* Pie와 텍스트를 세로로 배치 */
+  flex-direction: column;
 `;
 
 const Text = styled.div`
