@@ -17,21 +17,35 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
     initialData.language
   );
   const [changeNickname, setChangeNickname] = useState({
+    originNickname: initialData.nickname,
     isExitNickname: false,
     isClickedCheckBtn: false,
   });
-  const { patchMutation } = usePatchUser();
+
+  const { originNickname, isExitNickname, isClickedCheckBtn } = changeNickname;
+  const { comment, githubUrl, language, nickname, name } = inputs;
+
+  const { patchMutation } = usePatchUser(nickname);
   const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
-    setChangeNickname({ isExitNickname: isExit, isClickedCheckBtn: true })
+    setChangeNickname({
+      ...changeNickname,
+      isExitNickname: isExit,
+      isClickedCheckBtn: true,
+    })
   );
-  const { comment, githubUrl, language, nickname } = inputs;
 
   // 입력 값의 유효성을 검사하는 변수
   const isActive =
-    nickname.length > 0 &&
-    nickname.length <= 10 &&
-    githubUrl.length > 0 &&
-    selectedLanguage.length > 0;
+    ((originNickname !== nickname &&
+      isClickedCheckBtn &&
+      !isExitNickname &&
+      nickname.length > 0 &&
+      nickname.length <= 10) ||
+      originNickname === nickname) &&
+    ((language !== selectedLanguage && selectedLanguage.length > 0) ||
+      language === selectedLanguage) &&
+    (!comment || (comment.length > 0 && comment.length <= 30)) &&
+    (!githubUrl || githubUrl.length > 0);
 
   // 입력 값 변경 처리 함수
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +72,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   // 가입 버튼 클릭 처리 함수
   const handleSaveBtnClick = () => {
     if (!isActive) return;
-    patchMutation({comment, githubUrl, language, nickname})
+    patchMutation({ comment, githubUrl, language: selectedLanguage, nickname });
     handleCloseModal(); // 모달 닫기
   };
 
@@ -80,7 +94,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
       <ProfileContainer onSubmit={handleSaveBtnClick}>
         <BasicInfoContainer>
           <BasicTitle>기본정보</BasicTitle>
-          <NameInfo user={nickname} />
+          <NameInfo user={name} />
           <GithubInfo
             github={githubUrl}
             handleChangeInputs={handleChangeInputs}
