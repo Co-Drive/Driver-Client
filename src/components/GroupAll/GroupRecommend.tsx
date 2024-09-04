@@ -1,26 +1,57 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IcBtnInformation } from '../../assets';
 import RecommendCard from '../../common/RecommendCard';
-import { GROUP_ALL_DUMMY } from '../../constants/GroupAll/groupAllConst';
+import { getRoomRecommend } from '../../libs/apis/GroupAll/getRoomRecommend';
 
 const GroupRecommend = () => {
-  const slicedGroupData = GROUP_ALL_DUMMY.group.slice(0, 6);
+  const nickname = sessionStorage.getItem('nickname');
+  const [groupData, setGroupData] = useState([]);
+
+  const userId = 5;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getRoomRecommend(userId);
+
+        // 200 코드 확인 및 데이터 출력
+        if (response.code === 200) {
+          console.log('API 호출 성공:', response);
+          const data = response.data;
+
+          if (data && data.rooms) {
+            const limitedRooms = data.rooms.slice(0, 6);
+            console.log('가져온 그룹 데이터:', limitedRooms); // 데이터 확인
+            setGroupData(limitedRooms);
+          } else {
+            console.error('추천 그룹 데이터를 불러오지 못했습니다.');
+          }
+        } else {
+          console.error('API 호출이 성공하지 못했습니다:', response);
+        }
+      } catch (error) {
+        console.error('추천 그룹을 가져오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <GroupRecommendContainer>
       <TitleContainer>
-        <Nickname>{GROUP_ALL_DUMMY.user}</Nickname>님을 위한 오늘의 추천 그룹
+        <Nickname>{nickname}</Nickname>님을 위한 오늘의 추천 그룹
         <Notic>
           <IcBtnInformation />
           <Tooltip>
             <Text>
-              <TooUser>{GROUP_ALL_DUMMY.user}</TooUser>님 만을 위해
+              <TooUser>{nickname}</TooUser>님 만을 위해
             </Text>
             <Text>하루에 6개씩 랜덤으로 그룹을 추천해드려요</Text>
           </Tooltip>
         </Notic>
       </TitleContainer>
-      <RecommendCard group={slicedGroupData} isLongPage={true} />
+      <RecommendCard group={groupData} isLongPage={true} />
     </GroupRecommendContainer>
   );
 };
