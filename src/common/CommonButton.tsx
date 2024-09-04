@@ -50,6 +50,8 @@ const Button = styled.button<{ $category: string; $isActive?: boolean }>`
         return '1.4rem 1.8rem 1.4rem 2.1rem';
       case 'link_copy':
         return '1rem 2rem';
+      case 'Profile_save':
+        return '1rem 2rem';
       default:
         return '1.2rem 5.4rem';
     }

@@ -27,6 +27,7 @@ declare module 'styled-components' {
 
     fonts: {
       // title
+      title_bold_46: SerializedStyles;
       title_bold_32: SerializedStyles;
       title_bold_28: SerializedStyles;
       title_bold_26: SerializedStyles;
@@ -40,6 +41,7 @@ declare module 'styled-components' {
       title_medium_20: SerializedStyles;
       title_regular_20: SerializedStyles;
       title_regular_14: SerializedStyles;
+      title_bold_46: SerializedStyles;
 
       // body
       body_medium_20: SerializedStyles;
