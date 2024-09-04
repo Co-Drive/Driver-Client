@@ -12,7 +12,6 @@ const WeekRate = () => {
 
   const percentage = stats.successRate || 0;
   const isSolvedExist = stats.weeklyCountDifference <= 0;
-  const solvedExistPercent = isSolvedExist ? 0 : percentage;
 
   const data = useGetUserAchieve();
   useEffect(() => {
@@ -30,7 +29,7 @@ const WeekRate = () => {
   const chartData = [
     {
       name: 'Solved',
-      value: solvedExistPercent === 0 ? 10 : solvedExistPercent,
+      value: percentage === 0 ? 10 : percentage,
     },
   ];
   const endAngle = 180 - (chartData[0].value / 100) * 180;
@@ -72,9 +71,7 @@ const WeekRate = () => {
               position="center"
               content={
                 <WeekRateCustomLabel
-                  value={
-                    solvedExistPercent ? `${percentage.toFixed(0)}%` : `${0}%`
-                  }
+                  value={percentage ? `${percentage.toFixed(0)}%` : `${0}%`}
                   viewBox={{ cx: 0, cy: 100 }}
                 />
               }
