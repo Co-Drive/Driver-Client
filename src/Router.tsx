@@ -9,6 +9,7 @@ import GroupDetail from './page/GroupDetail';
 import GroupJoin from './page/GroupJoin';
 import GroupMemberPage from './page/GroupMemberPage';
 import Home from './page/Home';
+import LoginLoadingPage from './page/LoginLoadingPage';
 import LoginPage from './page/LoginPage';
 import MyGroup from './page/MyGroup';
 import RegisterPage from './page/RegisterPage';
@@ -37,6 +38,7 @@ const Router = () => {
         <Route path="/follower/:id" element={<FollowerPage />} />
         <Route path="/follower/:id/total" element={<TotalSolutions />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/oauth/github/callback" element={<LoginLoadingPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
