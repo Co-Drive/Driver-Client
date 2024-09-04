@@ -21,20 +21,15 @@ const SearchBar = ({
       return;
     }
 
-    try {
-      const response = await getRoomSearch(newValue, 0);
+    const response = await getRoomSearch(newValue, 0);
 
-      if (response && response.data && Array.isArray(response.data.rooms)) {
-        const filteredGroups = response.data.rooms;
-        handleChangeSearchBar(filteredGroups);
+    if (response && response.data && Array.isArray(response.data.rooms)) {
+      const filteredGroups = response.data.rooms;
+      handleChangeSearchBar(filteredGroups);
 
-        if (filteredGroups.length === 0) {
-        }
-      } else {
-        console.error('올바르지 않은 데이터 형식입니다.', response);
+      if (filteredGroups.length === 0) {
+        // 검색 결과가 없는 경우에 대한 추가 처리 로직이 필요하다면 여기에 작성하세요.
       }
-    } catch (error) {
-      console.error('검색 중 오류가 발생했습니다.', error);
     }
   };
 
