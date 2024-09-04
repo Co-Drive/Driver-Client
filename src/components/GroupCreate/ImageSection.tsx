@@ -15,7 +15,7 @@ const ImageSection = ({
         onClick={() => document.getElementById('fileInput')?.click()}
       >
         {previewImage ? (
-          <img src={previewImage} alt="대표 이미지" />
+          <Image src={previewImage} alt="대표 이미지" />
         ) : (
           <IcAddPhoto />
         )}
@@ -54,6 +54,13 @@ const LabelContainer = styled.div`
 
 const Section = styled.section`
   margin: 4.3rem 0 5rem;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
 `;
 
 const ImageContainer = styled.div`
