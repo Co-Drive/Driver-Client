@@ -43,7 +43,6 @@ const HeaderTop = ({
       <LevelContainer>
         <LevelDetailContainer>
           <LvText>난이도</LvText>
-          <LvText>|</LvText>
           <LvStarContainer>
             {selectedStar.map((selected, idx) => {
               return (
@@ -122,6 +121,9 @@ const LevelDetailContainer = styled.div`
 `;
 
 const LvText = styled.p`
+  padding-right: 1.2rem;
+
+  border-right: 0.1rem solid ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;

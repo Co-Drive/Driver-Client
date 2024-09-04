@@ -106,7 +106,7 @@ const SavedSolutionList = ({
   }, [data]);
 
   return (
-    <ListContainer>
+    <ListContainer $isSmallList={isSmallList}>
       {data && (
         <>
           {!isSmallList && (
@@ -123,7 +123,7 @@ const SavedSolutionList = ({
             return <SavedSolution key={record.recordId} record={record} />;
           })}
 
-          {!isSmallList && (
+          {!isSmallList && data.length > 0 && (
             <PageNationBar>
               <IcArrowLeftSmallGray
                 onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
@@ -155,12 +155,17 @@ const SavedSolutionList = ({
 
 export default SavedSolutionList;
 
-const ListContainer = styled.section`
+const ListContainer = styled.section<{ $isSmallList: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: column;
 
   width: 100%;
+  ${({ $isSmallList }) =>
+    !$isSmallList &&
+    css`
+      margin-top: 4.3rem;
+    `};
 `;
 
 const PageNationBar = styled.div`

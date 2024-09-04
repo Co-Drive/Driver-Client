@@ -65,7 +65,7 @@ const CodeSpaceContainer = styled.section`
   flex-direction: column;
 
   width: 100%;
-  margin-top: 3.2rem;
+  margin-top: 2.2rem;
 `;
 
 const ContentsContainer = styled.div`
@@ -80,9 +80,10 @@ const ContentsContainer = styled.div`
 const TopBar = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   width: 100%;
-  margin-bottom: 0.8rem;
+  margin: 1.4rem 0;
 `;
 
 const TextContainer = styled.div`
@@ -91,7 +92,6 @@ const TextContainer = styled.div`
   align-items: center;
 
   width: fit-content;
-  margin-top: 1rem;
   margin-left: 0.8rem;
 `;
 

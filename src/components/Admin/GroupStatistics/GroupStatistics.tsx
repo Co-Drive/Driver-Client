@@ -80,6 +80,7 @@ const GroupStatisticsContainer = styled.article`
   align-items: flex-start;
 
   padding: 2.4rem 2.7rem 2.8rem 2.8rem;
+  margin-top: 1.8rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};

@@ -145,7 +145,6 @@ export default PersonalGroup;
 
 const PersonalGroupContainer = styled.article`
   display: flex;
-  gap: 1.6rem;
   justify-content: center;
   flex-direction: column;
 
@@ -159,7 +158,7 @@ const Header = styled.header`
   align-items: center;
 
   width: 100%;
-  margin-bottom: 0.2rem;
+  margin-left: 0.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
 `;
@@ -183,10 +182,9 @@ const Category = styled.p<{ $isClickedCategory: boolean }>`
 const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
   width: 100%;
-  margin: 1.4rem 0.1rem 0 0.6rem;
+  margin: 3rem 0 2rem 0.8rem;
 `;
 
 const TotalStatus = styled.div`

@@ -64,7 +64,7 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
                   <Name>{title}</Name>
                   <TagContainer>
                     {tags.map((tag) => {
-                      return <Tag key={tag}>{tag}</Tag>;
+                      return <Tag key={tag}>#{tag}</Tag>;
                     })}
                   </TagContainer>
                   <Introduce>{introduce}</Introduce>

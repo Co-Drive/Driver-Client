@@ -328,10 +328,13 @@ const Contents = styled.div<{ $isClicked: boolean; $isAdmin?: boolean }>`
 `;
 
 const UserIdx = styled.p`
+  width: 2.2rem;
   margin-right: 1.8rem;
 
   color: ${({ theme }) => theme.colors.white};
+
   ${({ theme }) => theme.fonts.body_medium_16};
+  text-align: left;
 `;
 
 const ProfileImg = styled.img`
@@ -353,7 +356,7 @@ const UserContainer = styled.div<{ $isAdmin?: boolean }>`
 
   width: 16rem;
   padding-left: 0.8rem;
-  margin-right: ${({ $isAdmin }) => ($isAdmin ? `5.4rem` : `11.1rem`)};
+  margin-right: ${({ $isAdmin }) => ($isAdmin ? `4.4rem` : `11.1rem`)};
 
   cursor: pointer;
 `;
