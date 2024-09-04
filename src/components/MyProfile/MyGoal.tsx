@@ -4,6 +4,7 @@ import { IcAdd, IcMinusWhite } from '../../assets';
 import usePatchGoal from '../../libs/hooks/MyProfile/usePatchGoal';
 
 const MyGoal = () => {
+  // 추후 서버에서 받아온 목표 값으로 초기화해주세요
   const [number, setNumber] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
 
