@@ -2,24 +2,8 @@ import { useEffect, useState } from 'react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
-import { WeekRateProps } from '../../types/Week/weekRateTypes';
+import WeekRateCustomLabel from './WeekRateCustomLabel';
 
-const CustomLabel = ({ viewBox, value }: WeekRateProps) => {
-  const { cx, cy } = viewBox;
-
-  return (
-    <>
-      <StyledText
-        x={cx}
-        y={cy - 20}
-        dominantBaseline="middle"
-        textAnchor="middle"
-      >
-        {value}
-      </StyledText>
-    </>
-  );
-};
 const WeekRate = () => {
   const [stats, setStats] = useState({
     successRate: 0,
@@ -71,7 +55,7 @@ const WeekRate = () => {
             <Label
               position="center"
               content={
-                <CustomLabel
+                <WeekRateCustomLabel
                   value={
                     stats.successRate ? `${percentage.toFixed(0)}%` : `${0}%`
                   }
@@ -102,9 +86,10 @@ const WeekRate = () => {
           <>
             <Message>축하해요!</Message>
             <Message>
-              {stats.weeklyCountDifference < 0
+              지난 주보다 {stats.weeklyCountDifference}문제 더 풀었어요!
+              {/* {stats.weeklyCountDifference < 0
                 ? `지난 주보다 0문제 더 풀었어요!`
-                : `지난 주보다 ${stats.weeklyCountDifference}문제 더 풀었어요!`}
+                : `지난 주보다 ${stats.weeklyCountDifference}문제 더 풀었어요!`} */}
             </Message>
           </>
         ) : (
@@ -139,13 +124,6 @@ const ChartContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-`;
-
-const StyledText = styled.text`
-  fill: ${({ theme }) => theme.colors.white};
-
-  ${({ theme }) => theme.fonts.title_bold_32};
-  background-color: pink;
 `;
 
 const Message = styled.p`
