@@ -50,7 +50,10 @@ const Profile = () => {
       {modalOn && ( // 모달이 열려 있을 때만 ProfileEdilt 렌더링
         <ModalBackground onClick={handleCloseModal}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <ProfileEdilt handleCloseModal={handleCloseModal} />
+            <ProfileEdilt
+              handleCloseModal={handleCloseModal}
+              initialData={!isLoading && data?.data}
+            />
           </ModalContent>
         </ModalBackground>
       )}
