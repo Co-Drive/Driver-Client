@@ -52,6 +52,7 @@ export default HomeHeader;
 
 const Article = styled.article`
   width: 100%;
+  margin-top: 6.4rem;
 
   border-radius: 1.2rem;
 
