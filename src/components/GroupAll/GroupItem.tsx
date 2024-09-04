@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
-import { ALL_TAG } from '../../constants/GroupCreate/LanguageConst';
 import { getRoomSort } from '../../libs/apis/GroupAll/getRoomSort';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
@@ -20,8 +19,8 @@ const GroupItem = () => {
   // 필터링된 그룹 데이터를 반환하는 함수
   const filterGroups = (groups: any[]) => {
     return groups.filter((group) => {
-      const isAllTagSelected = selectedTags.includes(ALL_TAG);
-      const groupHasAllTag = group.tags.includes(ALL_TAG);
+      const isAllTagSelected = selectedTags.includes('ALL_TAG');
+      const groupHasAllTag = group.tags.includes('ALL_TAG');
 
       const tagMatch =
         selectedTags.length === 0 ||
@@ -43,7 +42,6 @@ const GroupItem = () => {
         const response = await getRoomSort(sortType, clickedPage - 1);
 
         if (response && response.data && response.data.rooms) {
-          // 중첩된 data 확인
           const filteredGroups = filterGroups(response.data.rooms);
           setSearchResults(filteredGroups);
 
@@ -70,6 +68,7 @@ const GroupItem = () => {
   const handleClickPrevBtn = () => {
     setClickedPage((prev) => Math.max(prev - 1, 1));
   };
+
   const handleClickPage = (page: number) => {
     setClickedPage(page);
   };
@@ -79,7 +78,8 @@ const GroupItem = () => {
   };
 
   const handleChangeSearchBar = (filteredGroups: any[]) => {
-    setSearchResults(filteredGroups);
+    const updatedGroups = filterGroups(filteredGroups);
+    setSearchResults(updatedGroups);
     setClickedPage(1);
   };
 
