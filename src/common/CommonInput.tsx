@@ -6,6 +6,7 @@ import { CommonInputProps } from '../types/CommonInput/inputType';
 import { handleInput } from '../utils/handleInput';
 
 const CommonInput = ({
+  isClickedCheckBtn,
   category,
   value,
   isExitedNickname,
@@ -18,11 +19,15 @@ const CommonInput = ({
       category === 'secretKey') &&
       value.length > 20) ||
     (category === 'num' && parseInt(value) > 50) ||
-    (category === 'nickname' && (value.length > 10 || isExitedNickname)) ||
+    (category === 'nickname' &&
+      (value.length > 10 || (isExitedNickname && isClickedCheckBtn))) ||
     (category === 'password' && isNotMatchedPW);
 
   const isNicknameSuccess =
-    category === 'nickname' && !isExitedNickname && value.length !== 0;
+    category === 'nickname' &&
+    isClickedCheckBtn &&
+    !isExitedNickname &&
+    value.length !== 0;
 
   const [placeholder, setPlaceholder] = useState('');
 
@@ -95,7 +100,7 @@ const CommonInput = ({
         </Notice>
       )}
 
-      {(isNotMatchedPW || isExitedNickname) && (
+      {(isNotMatchedPW || (isExitedNickname && isClickedCheckBtn)) && (
         <ErrorMessage $isPW={category === 'password'}>
           {ERROR_MSG[category as keyof typeof ERROR_MSG]}
         </ErrorMessage>
