@@ -16,7 +16,6 @@ const SearchBar = ({
     setSearchData(newValue);
 
     if (newValue.trim() === '') {
-      // 검색어가 비어 있으면 모든 그룹 데이터를 반환
       const allGroupsResponse = await getRoomSort('NEW', 0);
       handleChangeSearchBar(allGroupsResponse.data.rooms || []);
       return;
@@ -30,8 +29,6 @@ const SearchBar = ({
         handleChangeSearchBar(filteredGroups);
 
         if (filteredGroups.length === 0) {
-          console.log('검색 결과가 없습니다.');
-          // 여기서 추가적인 처리 (예: "검색 결과가 없습니다." 메시지 표시) 가능
         }
       } else {
         console.error('올바르지 않은 데이터 형식입니다.', response);

@@ -37,21 +37,15 @@ const GroupItem = () => {
 
   useEffect(() => {
     const fetchGroups = async () => {
-      try {
-        const sortType = sorting === '최신순' ? 'NEW' : 'DICT';
-        const response = await getRoomSort(sortType, clickedPage - 1);
+      const sortType = sorting === '최신순' ? 'NEW' : 'DICT';
+      const response = await getRoomSort(sortType, clickedPage - 1);
 
-        if (response && response.data && response.data.rooms) {
-          const filteredGroups = filterGroups(response.data.rooms);
-          setSearchResults(filteredGroups);
+      if (response && response.data && response.data.rooms) {
+        const filteredGroups = filterGroups(response.data.rooms);
+        setSearchResults(filteredGroups);
 
-          totalPageRef.current = response.data.totalPage;
-          setClickedPage(Math.min(clickedPage, totalPageRef.current));
-        } else {
-          console.error('올바르지 않은 데이터 형식입니다.', response);
-        }
-      } catch (error) {
-        console.error('그룹 데이터를 불러오는 중 오류가 발생했습니다.', error);
+        totalPageRef.current = response.data.totalPage;
+        setClickedPage(Math.min(clickedPage, totalPageRef.current));
       }
     };
 
