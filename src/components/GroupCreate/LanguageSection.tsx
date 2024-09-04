@@ -53,7 +53,9 @@ const LanguageSection = ({
   return (
     <Section>
       <Label>
-        사용 언어 <Essential>*</Essential>
+        <TitleContainer>
+          사용 언어 <Essential>*</Essential>
+        </TitleContainer>
       </Label>
       <DropdownContainer onClick={toggleDropdown}>
         <div>
@@ -120,6 +122,12 @@ const Label = styled.label`
   align-items: center;
 
   margin-bottom: 1.8rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+
+  margin-left: 0.2rem;
 
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
@@ -134,6 +142,9 @@ const SelectedTagContainer = styled.div`
 `;
 
 const Essential = styled.span`
+  margin-left: 0.6rem;
+  ${({ theme }) => theme.fonts.title_medium_20};
+
   color: ${({ theme }) => theme.colors.codrive_purple};
 `;
 

@@ -17,7 +17,9 @@ const ProgressSection = ({
   return (
     <Section>
       <Label>
-        진행 방식 <Essential>*</Essential>
+        <TitleContainer>
+          진행 방식 <Essential>*</Essential>
+        </TitleContainer>
       </Label>
       <CommonTextarea
         category="group"
@@ -43,13 +45,22 @@ const Label = styled.label`
   align-items: center;
 
   margin-bottom: 1.8rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+
+  margin-left: 0.2rem;
 
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
 `;
 
 const Essential = styled.span`
+  margin-left: 0.6rem;
+
   color: ${({ theme }) => theme.colors.codrive_purple};
+  ${({ theme }) => theme.fonts.body_medium_20};
 `;
 
 const CharCount = styled.span`
