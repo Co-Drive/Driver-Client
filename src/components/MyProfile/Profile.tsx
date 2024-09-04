@@ -1,19 +1,15 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IcGithub, IcRevise } from '../../assets';
+import useGetUser from '../../libs/hooks/MyProfile/useGetUser';
 import { handleClickLink } from '../../utils/handleClickLink';
 import ProfileEdilt from './ProfileEdit';
 
 const Profile = () => {
   const [modalOn, setModalOn] = useState(false);
-  const info = {
-    profileImg: '',
-    language: 'Javascript',
-    githubUrl: '',
-    nickname: '매링구',
-    comment: '안녕하세요 풀스택 개발자 코딩하는 갱얼쥐입니다',
-  };
-  const { profileImg, language, githubUrl, nickname, comment } = info;
+  const { data, isLoading } = useGetUser();
+  const { comment, githubUrl, language, nickname, profileImg } =
+    !isLoading && data?.data;
 
   // 모달 열기 함수
   const handleOpenModal = () => {
@@ -54,7 +50,10 @@ const Profile = () => {
       {modalOn && ( // 모달이 열려 있을 때만 ProfileEdilt 렌더링
         <ModalBackground onClick={handleCloseModal}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <ProfileEdilt handleCloseModal={handleCloseModal} />
+            <ProfileEdilt
+              handleCloseModal={handleCloseModal}
+              initialData={!isLoading && data?.data}
+            />
           </ModalContent>
         </ModalBackground>
       )}

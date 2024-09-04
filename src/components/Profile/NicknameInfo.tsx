@@ -4,10 +4,11 @@ import CommonInput from './../../common/CommonInput';
 
 const NicknameInfo = ({
   nickname,
-
+  changeNickname,
   handleChangeInputs,
   handleNicknameCheck,
 }: NickNameInfoProps) => {
+  const {isExitNickname, isClickedCheckBtn} = changeNickname;
   return (
     <NicknameInfoContainer>
       <NicknameTitle>닉네임</NicknameTitle>
@@ -15,6 +16,8 @@ const NicknameInfo = ({
         <CommonInput
           category="nickname"
           value={nickname}
+          isClickedCheckBtn={isClickedCheckBtn}
+          isExitedNickname={isExitNickname}
           handleChangeInputs={handleChangeInputs}
         />
         <Button type="button" onClick={handleNicknameCheck}>

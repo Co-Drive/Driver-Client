@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
+import usePatchUser from '../../libs/hooks/MyProfile/usePatchUser';
+import usePostCheckExitNickname from '../../libs/hooks/MyProfile/usePostCheckExitNickname';
 import { ProfileEdiltProps } from '../../types/MyProfile/MyProfileType';
 import { handleInput } from '../../utils/handleInput';
 import GithubInfo from '../Profile/GIthubInfo';
@@ -9,39 +11,42 @@ import LanguageInfo from '../Profile/LanguageInfo';
 import NameInfo from '../Profile/NameInfo';
 import NicknameInfo from '../Profile/NicknameInfo';
 
-const ProfileEdilt = ({ handleCloseModal }: ProfileEdiltProps) => {
-  /* 기존 값들을 더미로 넣어둠 api 연결하면서 삭제 할 예정 */
-  const initialData = {
-    nickname: 'moonju',
-    github: 'example',
-    intro: '코테에 목숨을 걸었습니다!',
-    language: 'JavaScript',
-  };
-
-  const user = '김문주';
-
+const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const [inputs, setInputs] = useState(initialData);
   const [selectedLanguage, setSelectedLanguage] = useState(
     initialData.language
   );
-  const [initialInputs] = useState(initialData);
+  const [changeNickname, setChangeNickname] = useState({
+    originNickname: initialData.nickname,
+    isExitNickname: false,
+    isClickedCheckBtn: false,
+  });
 
-  const { nickname, github, intro } = inputs;
+  const { originNickname, isExitNickname, isClickedCheckBtn } = changeNickname;
+  const { comment, githubUrl, language, nickname, name } = inputs;
+  const githubNickname = githubUrl.split('/')[githubUrl.split('/').length - 1];
+
+  const { patchMutation } = usePatchUser(nickname);
+  const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
+    setChangeNickname({
+      ...changeNickname,
+      isExitNickname: isExit,
+      isClickedCheckBtn: true,
+    })
+  );
 
   // 입력 값의 유효성을 검사하는 변수
   const isActive =
-    nickname.length > 0 &&
-    nickname.length <= 10 &&
-    intro.length > 0 &&
-    intro.length <= 30 &&
-    github.length > 0 &&
-    selectedLanguage.length > 0;
-
-  useEffect(() => {
-    // 컴포넌트가 마운트되면 초기 상태를 설정합니다.
-    setInputs(initialData);
-    setSelectedLanguage(initialData.language);
-  }, []);
+    ((originNickname !== nickname &&
+      isClickedCheckBtn &&
+      !isExitNickname &&
+      nickname.length > 0 &&
+      nickname.length <= 10) ||
+      originNickname === nickname) &&
+    ((language !== selectedLanguage && selectedLanguage.length > 0) ||
+      language === selectedLanguage) &&
+    (!comment || (comment.length > 0 && comment.length <= 30)) &&
+    (!githubUrl || githubUrl.length > 0);
 
   // 입력 값 변경 처리 함수
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,6 +55,7 @@ const ProfileEdilt = ({ handleCloseModal }: ProfileEdiltProps) => {
       ...prev,
       [name]: value,
     }));
+    setChangeNickname({ ...changeNickname, isClickedCheckBtn: false });
   };
 
   // 언어 태그 변경 처리 함수
@@ -58,29 +64,30 @@ const ProfileEdilt = ({ handleCloseModal }: ProfileEdiltProps) => {
   };
 
   // 소개글 변경 처리 함수
-  const handleChangeIntro = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
-    handleInput(e, 'intro');
-    setInputs((prev) => ({ ...prev, intro: value }));
+    handleInput(e, 'comment');
+    setInputs((prev) => ({ ...prev, comment: value }));
   };
 
   // 가입 버튼 클릭 처리 함수
   const handleSaveBtnClick = () => {
     if (!isActive) return;
+    patchMutation({ comment, githubUrl, language: selectedLanguage, nickname });
     handleCloseModal(); // 모달 닫기
   };
 
   // 취소 버튼 클릭 처리 함수
   const handleCancelBtnClick = () => {
     // 입력 값들을 초기 상태로 되돌림
-    setInputs(initialInputs);
-    setSelectedLanguage(initialData.language);
+    setInputs(initialData);
+    setSelectedLanguage(language);
     handleCloseModal(); // 모달 닫기
   };
 
-  // 닉네임 중복 체크 함수 (구현 필요)
-  const handleNicknameCheck = async () => {
-    // 닉네임 중복 체크 로직 추가
+  // 닉네임 중복 체크 함수
+  const handleNicknameCheck = () => {
+    mutation(nickname);
   };
 
   return (
@@ -88,13 +95,20 @@ const ProfileEdilt = ({ handleCloseModal }: ProfileEdiltProps) => {
       <ProfileContainer onSubmit={handleSaveBtnClick}>
         <BasicInfoContainer>
           <BasicTitle>기본정보</BasicTitle>
-          <NameInfo user={user} />
-          <GithubInfo github={github} handleChangeInputs={handleChangeInputs} />
+          <NameInfo user={name} />
+          <GithubInfo
+            github={githubNickname}
+            handleChangeInputs={handleChangeInputs}
+          />
         </BasicInfoContainer>
         <CodriveContainer>
           <CodriveTitle>코드라이브 정보</CodriveTitle>
-          <IntroInfo value={intro} onChange={handleChangeIntro} />
+          <IntroInfo
+            value={comment ? comment : ''}
+            onChange={handleChangeComment}
+          />
           <NicknameInfo
+            changeNickname={changeNickname}
             nickname={nickname}
             handleChangeInputs={handleChangeInputs}
             handleNicknameCheck={handleNicknameCheck}
