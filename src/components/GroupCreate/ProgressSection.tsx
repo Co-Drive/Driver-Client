@@ -8,7 +8,7 @@ const ProgressSection = ({
   handleChangeTextarea,
 }: ProgressSectionProps) => {
   const [charCount, setCharCount] = useState(0);
-  const maxChar = 1000;
+  const maxChar = `1,000`;
 
   useEffect(() => {
     setCharCount(progressValue.length);
@@ -26,9 +26,11 @@ const ProgressSection = ({
         value={progressValue}
         handleChangeTextarea={handleChangeTextarea}
       />
-      <CharCount>
-        {charCount}/{maxChar}
-      </CharCount>
+      <ChartContainer>
+        <CharCount>
+          {charCount}/{maxChar}
+        </CharCount>
+      </ChartContainer>
     </Section>
   );
 };
@@ -63,11 +65,13 @@ const Essential = styled.span`
   ${({ theme }) => theme.fonts.body_medium_20};
 `;
 
-const CharCount = styled.span`
+const ChartContainer = styled.div`
   display: flex;
   justify-content: end;
+`;
 
-  margin-top: 0.8rem;
+const CharCount = styled.span`
+  margin: 0.8rem 0.2rem 0 0;
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.detail_regular_12};

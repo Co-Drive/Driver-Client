@@ -27,9 +27,11 @@ const IntroSection = ({
         value={introValue}
         handleChangeTextarea={handleChangeTextarea}
       />
-      <CharCount>
-        {charCount}/{maxChar}
-      </CharCount>
+      <ChartCountContainer>
+        <CharCount>
+          {charCount}/{maxChar}
+        </CharCount>
+      </ChartCountContainer>
     </Section>
   );
 };
@@ -65,11 +67,15 @@ const Essential = styled.span`
   ${({ theme }) => theme.fonts.title_medium_20};
 `;
 
-const CharCount = styled.span`
+const ChartCountContainer = styled.div`
   display: flex;
   justify-content: end;
+`;
 
-  margin-top: 0.8rem;
+const CharCount = styled.span`
+  display: flex;
+
+  margin: 0.8rem 0.2rem 0 0;
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.detail_regular_12};
