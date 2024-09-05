@@ -448,7 +448,7 @@ const PageNationBar = styled.div<{ $isEmpty: boolean }>`
   align-items: center;
 
   width: 100%;
-  margin-top: ${({ $isEmpty }) => ($isEmpty ? `8.8rem` : `4.8rem`)};
+  margin-top: ${({ $isEmpty }) => ($isEmpty ? `4.8rem` : `8.8rem`)};
 `;
 
 const PageNumber = styled.p<{ $isClicked: boolean }>`

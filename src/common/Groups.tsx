@@ -54,7 +54,7 @@ const PageNationBar = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-top: 4.8rem;
+  margin-top: 8.8rem;
 `;
 
 const PageNumber = styled.p<{ $isClicked: boolean }>`
