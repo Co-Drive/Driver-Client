@@ -50,6 +50,7 @@ export interface CodeSpaceHeaderProps extends ClickQuestionInfoFnProps {
     platform: string;
     problemUrl: string;
   };
+  isOpenOptions: boolean;
 }
 
 export interface CodeSpaceProps
@@ -58,6 +59,7 @@ export interface CodeSpaceProps
     ChangeMemoFnProps {
   ideItems: Array<{ id: number; code: string; memo: string }>;
   handleClickDeleteBtn: (id: number) => void;
+  isOpenOptions: boolean;
 }
 
 export interface QuestionInfoProps {
@@ -87,9 +89,11 @@ export interface PatchRecordsProps extends PostRecordsProps {
 export interface PageHeaderProps extends PostRecordsProps {
   isTemp?: boolean;
   id?: number;
+  handleOpenOptions: (isOpen: boolean) => void;
 }
 
 export interface HeaderBottomProps extends ClickQuestionInfoFnProps {
+  isOpenOptions: boolean;
   questionInfo: {
     tags: Array<string>;
     platform: string;

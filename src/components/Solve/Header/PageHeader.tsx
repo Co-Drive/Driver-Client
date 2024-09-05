@@ -13,6 +13,7 @@ const PageHeader = ({
   isTemp,
   codeblocks,
   questionInfo,
+  handleOpenOptions,
 }: PageHeaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -24,6 +25,7 @@ const PageHeader = ({
   const handleClickBtn = (isSaveBtn: boolean) => {
     if (isSaveBtn) {
       movePagePosition();
+      handleOpenOptions(false);
       setModalOpen(true);
     } else {
       id && !isTemp
@@ -37,6 +39,11 @@ const PageHeader = ({
             codeblocks: codeblocks,
           });
     }
+  };
+
+  const handleModalClose = () => {
+    handleOpenOptions(true);
+    setModalOpen(false);
   };
 
   return (
@@ -72,7 +79,7 @@ const PageHeader = ({
       </BtnContainer>
       {modalOpen && (
         <SaveModal
-          onClose={() => setModalOpen(false)}
+          onClose={handleModalClose}
           questionInfo={questionInfo}
           codeblocks={codeblocks}
         />
