@@ -13,7 +13,7 @@ const GroupJoin = () => {
   const [isNotMatchedPW, setIsNotMatchedPW] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { roomdId } = state;
+  const { roomdId } = state || {};
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
