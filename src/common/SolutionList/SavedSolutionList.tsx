@@ -123,7 +123,7 @@ const SavedSolutionList = ({
             return <SavedSolution key={record.recordId} record={record} />;
           })}
 
-          {!isSmallList && data.length > 0 && (
+          {!isSmallList && (
             <PageNationBar>
               <IcArrowLeftSmallGray
                 onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
