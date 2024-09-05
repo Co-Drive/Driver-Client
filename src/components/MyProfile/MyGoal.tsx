@@ -46,9 +46,25 @@ const MyGoal = () => {
           <Goal>일일 목표는 최대 7개까지 가능합니다</Goal>
         </MyInfoContainer>
         <GoalButton $isSaved={isSaved}>
-          <IcMinusWhite onClick={decreaseNumber} />
-          <Counter>{number}</Counter>
-          <IcAdd onClick={increaseNumber} />
+          {!isSaved && (
+            <>
+              <IcMinusWhite onClick={decreaseNumber} />
+              <Counter $isSaved={isSaved}>
+                <Num>{number}</Num>
+              </Counter>
+              <IcAdd onClick={increaseNumber} />
+            </>
+          )}
+          {isSaved && (
+            <DeactivateContainer>
+              <Counter $isSaved={isSaved}>
+                <div>
+                  <Num>{number}</Num>
+                  <NumberText>문제</NumberText>
+                </div>
+              </Counter>
+            </DeactivateContainer>
+          )}
         </GoalButton>
         <ProfileButton>
           {isSaved ? (
@@ -119,7 +135,7 @@ const GoalButton = styled.div<{ $isSaved?: boolean }>`
   pointer-events: ${(props) => (props.$isSaved ? 'none' : 'auto')};
 `;
 
-const Counter = styled.p`
+const Counter = styled.div<{ $isSaved?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,8 +146,24 @@ const Counter = styled.p`
 
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.gray700};
-  ${({ theme }) => theme.fonts.title_bold_46};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme, $isSaved }) =>
+    $isSaved ? theme.colors.white : theme.colors.codrive_green};
+`;
+
+const DeactivateContainer = styled.div`
+  margin: 0 3.8rem;
+
+  text-align: center;
+`;
+
+const Num = styled.span<{ $isSaved?: boolean }>`
+  ${({ theme, $isSaved }) =>
+    $isSaved ? theme.fonts.title_bold_32 : theme.fonts.title_bold_32};
+`;
+
+const NumberText = styled.div`
+  ${({ theme }) => theme.fonts.body_ligth_10};
+  color: ${({ theme }) => theme.colors.gray200};
 `;
 
 const ProfileButton = styled.div`
