@@ -137,8 +137,7 @@ const Group = styled.div`
   padding: 2.2rem 1.8rem;
 
   border-radius: 1.2rem;
-  background-color: #333;
-  color: #fff;
+  background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
 const TagContainer = styled.div`

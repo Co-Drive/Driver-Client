@@ -55,14 +55,15 @@ export interface FollowerFilterProps {
 
 export interface AdditionalProblemsModalProps {
   userId: number;
+  clickedPage?: number;
 }
 
 export interface FollowerRecordsType {
-    recordId: number;
-    title: string;
-    level: number;
-    tags: Array<string>;
-    platform: string;
-    problemUrl: string;
-    createdAt: string;
+  recordId: number;
+  title: string;
+  level: number;
+  tags: Array<string>;
+  platform: string;
+  problemUrl: string;
+  createdAt: string;
 }

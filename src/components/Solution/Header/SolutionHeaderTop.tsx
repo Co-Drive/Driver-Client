@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  BtnHeart,
   BtnShare,
   IcArrowRightSmallGray,
   IcInformation,
@@ -63,9 +62,8 @@ const SolutionHeaderTop = ({
       <TopContainer>
         <Title>{title}</Title>
 
-        <BtnIcContainer>
-          <BtnHeart />
-          <BtnShare onClick={handleClickShareBtn} />
+        <BtnIcContainer onClick={handleClickShareBtn}>
+          <BtnShare />
         </BtnIcContainer>
       </TopContainer>
 
@@ -73,7 +71,6 @@ const SolutionHeaderTop = ({
         <LevelContainer>
           <LevelDetailContainer>
             <LvText>난이도</LvText>
-            <LvText>|</LvText>
             <LvStarContainer>
               {paintedStarArr.map((painted, idx) => {
                 return (
@@ -111,7 +108,7 @@ const SolutionHeaderTopContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
-  margin-bottom: 2.4rem;
+  margin-bottom: 2.6rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
@@ -147,6 +144,7 @@ const Nickname = styled.p`
 
 const Date = styled.p`
   margin-bottom: 3.4rem;
+  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.body_medium_14};
@@ -164,7 +162,7 @@ const Title = styled.p`
   margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.title_bold_24};
+  ${({ theme }) => theme.fonts.title_bold_32};
 `;
 
 const BtnIcContainer = styled.div`
@@ -179,8 +177,7 @@ const BottomContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
-  margin: 2.6rem 0 3.4rem 0.6rem;
+  margin: 2.6rem 0 2.6rem 0.6rem;
 `;
 
 const LevelContainer = styled.div`
@@ -188,6 +185,8 @@ const LevelContainer = styled.div`
   gap: 1.8rem;
   justify-content: center;
   align-items: center;
+
+  margin-left: 0.6rem;
 `;
 
 export const LevelDetailContainer = styled.div`
@@ -197,6 +196,9 @@ export const LevelDetailContainer = styled.div`
 `;
 
 export const LvText = styled.p`
+  padding-right: 1.2rem;
+
+  border-right: 0.1rem solid ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;
@@ -210,7 +212,7 @@ export const LvStarContainer = styled.ul`
 
 const BtnContainer = styled.div`
   display: flex;
-  gap: 1.8rem;
+  gap: 1.2rem;
 `;
 
 const commonBtnStyle = styled.button`

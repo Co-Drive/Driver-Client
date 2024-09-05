@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { ClickCardProps } from '../types/Follower/Personal/personalType';
 import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 
-const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
+const RecommendCard = ({
+  group,
+  isLongPage,
+  clickedPage,
+}: RecommendCardProps) => {
   const navigate = useNavigate();
 
   const handleClickCard = ({ groupId, userId, isMember }: ClickCardProps) => {
@@ -15,6 +19,9 @@ const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
         ? navigate(`/group/${groupId}/member`)
         : navigate(`/group/${groupId}`);
     }
+
+    if (clickedPage)
+      sessionStorage.setItem('savedPage', clickedPage.toString());
   };
 
   return (

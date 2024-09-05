@@ -33,15 +33,10 @@ const FollowerPage = () => {
         <FollowerPageContainer>
           <TopContainer>
             <FollowerInfo info={data.data} />
-
             <CommonMonthSolve userId={userId} />
           </TopContainer>
 
-          <Solutions
-            id={parseInt(id)}
-            nickname={nickname}
-            isFollowed={isFollowing}
-          />
+          <Solutions id={userId} nickname={nickname} isFollowed={isFollowing} />
 
           <ParticipatingGroup nickname={nickname} />
 

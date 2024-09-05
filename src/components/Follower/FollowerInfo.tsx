@@ -74,10 +74,9 @@ const FollowerInfoContainer = styled.article`
 `;
 
 const Language = styled.p`
+  width: fit-content;
   padding: 0.6rem 1rem;
-  margin: 1.6rem 19.9rem 0 1.6rem;
-
-  max-width: 10rem;
+  margin: 1.6rem 0 0 1.6rem;
 
   border-radius: 0.4rem;
   background-color: ${({ theme }) => theme.colors.gray500};

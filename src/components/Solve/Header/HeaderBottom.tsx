@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   IcArrowBottomGray,
@@ -14,6 +14,7 @@ import {
 } from '../../../types/Solve/solveTypes';
 
 const HeaderBottom = ({
+  isOpenOptions,
   questionInfo,
   handleClickQuestionInfo,
 }: HeaderBottomProps) => {
@@ -71,6 +72,12 @@ const HeaderBottom = ({
     }
   };
 
+  useEffect(() => {
+    if (isOpenOptions === false) {
+      setIsOptionOpen({ tags: false, platform: false });
+    }
+  }, [isOpenOptions]);
+
   return (
     <HeaderBottomContainer>
       {TAG_PLATFORM_LISTS.map((list) => {
@@ -80,6 +87,7 @@ const HeaderBottom = ({
         const isOptionHidden =
           (isTagCategory && !isOptionOpen.tags) ||
           (!isTagCategory && !isOptionOpen.platform);
+        const platformValue = platform ? platform : '';
 
         return (
           <SelectContainer key={category} $isTagCategory={isTagCategory}>
@@ -90,7 +98,7 @@ const HeaderBottom = ({
               <Input
                 readOnly={true}
                 placeholder={placeholder}
-                value={isTagCategory ? tags.join(', ') : platform}
+                value={isTagCategory ? tags.join(', ') : platformValue}
                 $isTagCategory={isTagCategory}
               />
               {isOptionHidden ? <IcArrowBottomGray /> : <IcArrowTopGray />}
@@ -196,7 +204,7 @@ const OptionContainer = styled.ul<{
   z-index: 1;
 
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.8rem 0.8rem 0.2rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -208,6 +216,7 @@ const OptionContainer = styled.ul<{
 const Option = styled.li<{ $isClickedList: boolean }>`
   width: 100%;
   padding: 1.2rem 0 0.7rem;
+  margin-bottom: 0.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme, $isClickedList }) =>

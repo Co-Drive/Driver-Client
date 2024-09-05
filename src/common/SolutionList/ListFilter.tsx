@@ -1,35 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
+import { OLD_AND_NEW } from '../../constants/Follower/currentConst';
 import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import { ListFilterProps } from '../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
 
 const ListFilter = ({
+  sorting,
   year,
   month,
+  handleClickSorting,
   handleClickPrevBtn,
   handleClickMonth,
   handleClickNextBtn,
 }: ListFilterProps) => {
-  const LIST_SORTING = ['최신순', '|', '즐겨찾기'];
   const { unsolvedData } = useGetUnsolvedMonths(year);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  const [sorting, setSorting] = useState('최신순');
   const unsolvedMonths = useRef<Array<number>>([]);
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
-  };
-
-  const handleClickSorting = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-  ) => {
-    const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
-    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
   const getUnsolvedMonthsArr = () => {
@@ -45,7 +38,7 @@ const ListFilter = ({
 
   return (
     <FilteredContainer>
-      <DateFilterContainer>
+      <DateFilterContainer $isCalendarClicked={isCalendarClicked}>
         <IcCalendar onClick={handleClickDateFilter} />
         <DateContainer onClick={handleClickDateFilter}>
           <Year>{year}년</Year>
@@ -69,7 +62,7 @@ const ListFilter = ({
       </DateFilterContainer>
 
       <SortContainer>
-        {LIST_SORTING.map((standard) => {
+        {OLD_AND_NEW.map((standard) => {
           return (
             <Sorting
               key={standard}
@@ -99,7 +92,7 @@ const FilteredContainer = styled.header`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
-const DateFilterContainer = styled.div`
+const DateFilterContainer = styled.div<{ $isCalendarClicked: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,7 +106,11 @@ const DateFilterContainer = styled.div`
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 
-  outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
+  ${({ $isCalendarClicked, theme }) =>
+    $isCalendarClicked &&
+    css`
+      outline: 0.1rem solid ${theme.colors.gray500};
+    `};
 `;
 
 const DateContainer = styled.div`

@@ -8,6 +8,7 @@ export interface RecordsTypes {
     code: string;
     memo: string;
   }>;
+  createdAt: string;
 }
 
 export interface SolutionHeaderTopProps {
@@ -31,6 +32,7 @@ export interface SavedSolutionProps {
     problemUrl: string;
     createdAt: string;
   };
+  clickedPage?: number;
   isModal?: boolean;
   removeBorder?: boolean;
 }
@@ -92,17 +94,22 @@ export interface UpdateSavedRecordsProps {
 }
 
 export interface ListFilterProps {
+  sorting: string;
   year: number;
   month: number;
+  handleClickSorting: (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) => void;
   handleClickPrevBtn: (isPage: boolean) => void;
   handleClickMonth: (value: number, isPage: boolean) => void;
   handleClickNextBtn: (isPage: boolean) => void;
 }
 
 export interface getMonthlySolutionProps {
+  userId: number;
   year: number;
   month: number;
   page: number;
   isSmallList: boolean;
-  sortType?:string;
+  sortType?: string;
 }

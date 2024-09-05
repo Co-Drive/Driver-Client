@@ -60,7 +60,7 @@ const TopBar = styled.div`
   align-items: center;
 
   width: 100%;
-  padding: 0 0.4rem 2rem;
+  padding: 0 0.4rem 2.4rem;
 `;
 
 const TitleContainer = styled.div`

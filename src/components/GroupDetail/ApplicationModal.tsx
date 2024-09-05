@@ -187,6 +187,8 @@ const JoinedNum = styled.p`
 `;
 
 const JoinedText = styled.p`
+  margin-left: 0.1rem;
+
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.body_ligth_10};
 `;

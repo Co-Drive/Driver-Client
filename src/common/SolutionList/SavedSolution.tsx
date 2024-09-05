@@ -5,6 +5,7 @@ import Level from '../../components/Solution/Level';
 import { SavedSolutionProps } from '../../types/Solution/solutionTypes';
 
 const SavedSolution = ({
+  clickedPage,
   record,
   isModal,
   removeBorder,
@@ -16,6 +17,8 @@ const SavedSolution = ({
 
   const handleClickArrow = () => {
     navigate(`/solution/${recordId}`);
+    if (clickedPage)
+      sessionStorage.setItem('savedPage', clickedPage.toString());
   };
 
   return (
