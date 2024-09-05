@@ -11,11 +11,13 @@ import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
 export interface SavedSolutionListProps {
+  userId: number;
   isSmallList: boolean;
   handleDisabledMoreBtn?: (value: boolean) => void;
 }
 
 const SavedSolutionList = ({
+  userId,
   isSmallList,
   handleDisabledMoreBtn,
 }: SavedSolutionListProps) => {
@@ -28,6 +30,7 @@ const SavedSolutionList = ({
   const YEAR = new Date().getFullYear();
   const MONTH = new Date().getMonth() + 1;
 
+  const [sorting, setSorting] = useState('최신순');
   const [savedRecords, setSavedRecords] = useState([
     {
       recordId: 0,
@@ -50,6 +53,8 @@ const SavedSolutionList = ({
   const { year, month } = selectedDate;
 
   const { data } = useGetMonthlySolution({
+    userId: userId,
+    sortType: sorting,
     year: year,
     month: month,
     page: clickedPage - 1,
@@ -75,6 +80,14 @@ const SavedSolutionList = ({
         handleDisabledMoreBtn && handleDisabledMoreBtn(true);
       }
     }
+  };
+
+  const handleClickSorting = (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) => {
+    const { innerHTML } = e.currentTarget;
+    setSorting(innerHTML);
+    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
   const handleClickPrevBtn = (isPage: boolean) => {
@@ -118,8 +131,10 @@ const SavedSolutionList = ({
         <>
           {!isSmallList && (
             <ListFilter
+              sorting={sorting}
               year={year}
               month={month}
+              handleClickSorting={handleClickSorting}
               handleClickPrevBtn={handleClickPrevBtn}
               handleClickMonth={handleClickValue}
               handleClickNextBtn={handleClickNextBtn}
