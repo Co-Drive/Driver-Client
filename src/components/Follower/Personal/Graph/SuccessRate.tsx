@@ -17,6 +17,7 @@ const SuccessRate = ({ profileImg, successRate }: SuccessRateProps) => {
   return (
     <PieChart width={154} height={154}>
       <Pie
+        isAnimationActive={false}
         data={chartData}
         dataKey="value"
         stroke="none"
@@ -33,6 +34,7 @@ const SuccessRate = ({ profileImg, successRate }: SuccessRateProps) => {
         />
       </Pie>
       <Pie
+        isAnimationActive={false}
         data={chartData}
         dataKey="value"
         stroke="none"
