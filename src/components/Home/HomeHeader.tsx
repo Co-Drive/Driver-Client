@@ -4,7 +4,7 @@ import { IcWorkBookBlack } from '../../assets';
 import ic_home_Header from '../../assets/icon/ic_home_Header.svg';
 
 const HomeHeader = () => {
-  const nickname = '메링구';
+  const nickname = sessionStorage.getItem('nickname');
   const navigate = useNavigate();
 
   const today = new Date();
@@ -51,6 +51,12 @@ const HomeHeader = () => {
 export default HomeHeader;
 
 const Article = styled.article`
+  /* position: sticky; */
+
+  /* top: 11.5rem; */
+
+  /* z-index: 100; */
+
   width: 100%;
   margin-top: 6.4rem;
 
