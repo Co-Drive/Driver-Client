@@ -1,26 +1,45 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IcBtnInformation } from '../../assets';
 import RecommendCard from '../../common/RecommendCard';
-import { GROUP_ALL_DUMMY } from '../../constants/GroupAll/groupAllConst';
+import { getRoomRecommend } from '../../libs/apis/GroupAll/getRoomRecommend';
 
 const GroupRecommend = () => {
-  const slicedGroupData = GROUP_ALL_DUMMY.group.slice(0, 6);
+  const nickname = sessionStorage.getItem('nickname');
+  const [groupData, setGroupData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getRoomRecommend();
+
+      if (response.code === 200) {
+        const data = response.data;
+
+        if (data && data.rooms) {
+          const limitedRooms = data.rooms.slice(0, 6);
+          setGroupData(limitedRooms);
+        }
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <GroupRecommendContainer>
       <TitleContainer>
-        <Nickname>{GROUP_ALL_DUMMY.user}</Nickname>님을 위한 오늘의 추천 그룹
+        <Nickname>{nickname}</Nickname>님을 위한 오늘의 추천 그룹
         <Notic>
           <IcBtnInformation />
           <Tooltip>
             <Text>
-              <TooUser>{GROUP_ALL_DUMMY.user}</TooUser>님 만을 위해
+              <TooUser>{nickname}</TooUser>님 만을 위해
             </Text>
             <Text>하루에 6개씩 랜덤으로 그룹을 추천해드려요</Text>
           </Tooltip>
         </Notic>
       </TitleContainer>
-      <RecommendCard group={slicedGroupData} isLongPage={true} />
+      <RecommendCard group={groupData} isLongPage={true} />
     </GroupRecommendContainer>
   );
 };
@@ -77,7 +96,7 @@ const Tooltip = styled.div`
   white-space: nowrap;
 
   opacity: 0;
-  transform: translateX(-5%); /* 수정된 부분: translate 사용 */
+  transform: translateX(-5%);
   transition: opacity 0.3s ease-in-out;
 
   &::after {

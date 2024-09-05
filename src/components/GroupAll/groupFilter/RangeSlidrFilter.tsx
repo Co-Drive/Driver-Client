@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 interface RangeSliderProps {
@@ -43,24 +43,19 @@ const RangeSliderFilter = ({
     }
   };
 
-  // minValue와 maxValue가 업데이트될 때마다 로그를 출력
-  useEffect(() => {
-    console.log('Slider Values:', { minValue, maxValue });
-  }, [minValue, maxValue]);
-
   return (
     <RangeContainer>
       <RangeSlider>
         <RangeSelected
-          left={`${((minValue - min) / (max - min)) * 100}%`}
-          right={`${100 - ((maxValue - min) / (max - min)) * 100}%`}
+          $left={`${((minValue - min) / (max - min)) * 100}%`}
+          $right={`${100 - ((maxValue - min) / (max - min)) * 100}%`}
         />
         <ThumbValueContainer>
-          <ThumbValueLeft left={`${((minValue - min) / (max - min)) * 100}%`}>
+          <ThumbValueLeft $left={`${((minValue - min) / (max - min)) * 100}%`}>
             {minValue}명
           </ThumbValueLeft>
           <ThumbValueRigth
-            right={`${100 - ((maxValue - min) / (max - min)) * 100}%`}
+            $right={`${100 - ((maxValue - min) / (max - min)) * 100}%`}
           >
             {maxValue}명
           </ThumbValueRigth>
@@ -108,10 +103,10 @@ const RangeSlider = styled.div`
   background-color: ${({ theme }) => theme.colors.gray400};
 `;
 
-const RangeSelected = styled.span<{ left: string; right: string }>`
+const RangeSelected = styled.span<{ $left: string; $right: string }>`
   position: absolute;
-  right: ${({ right }) => right};
-  left: ${({ left }) => left};
+  right: ${({ $right }) => $right};
+  left: ${({ $left }) => $left};
 
   height: 100%;
 
@@ -166,24 +161,22 @@ const ThumbValueContainer = styled.div`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-const ThumbValueLeft = styled.div<{ left?: string; right?: string }>`
+const ThumbValueLeft = styled.div<{ $left?: string }>`
   position: absolute;
   top: 2.5rem;
 
   width: 2.5rem;
 
-  ${({ left }) => left && `left: ${left};`}
-  ${({ right }) => right && `right: ${right};`}
+  ${({ $left }) => $left && `left: ${$left};`}
   ${({ theme }) => theme.fonts.detail_regular_12};
   white-space: nowrap;
 `;
 
-const ThumbValueRigth = styled.div<{ left?: string; right?: string }>`
+const ThumbValueRigth = styled.div<{ $right?: string }>`
   position: absolute;
   top: 2.5rem;
 
-  ${({ left }) => left && `left: ${left};`}
-  ${({ right }) => right && `right: ${right};`}
+  ${({ $right }) => $right && `right: ${$right};`}
   ${({ theme }) => theme.fonts.detail_regular_12};
   white-space: nowrap;
 `;

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IcSearch } from '../../../assets';
-import { GROUP_ALL_DUMMY } from '../../../constants/GroupAll/groupAllConst';
+import { getRoomSearch } from '../../../libs/apis/GroupAll/getRoomSearch';
+import { getRoomSort } from '../../../libs/apis/GroupAll/getRoomSort';
 
 const SearchBar = ({
   handleChangeSearchBar,
@@ -9,53 +10,27 @@ const SearchBar = ({
   handleChangeSearchBar: (filteredGroups: any[]) => void;
 }) => {
   const [searchData, setSearchData] = useState('');
-  const GROUPS = GROUP_ALL_DUMMY.group;
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setSearchData(newValue);
 
     if (newValue.trim() === '') {
-      // 입력창이 비워지면 모든 그룹 데이터를 반환
-      handleChangeSearchBar(GROUPS);
+      const allGroupsResponse = await getRoomSort('NEW', 0);
+      handleChangeSearchBar(allGroupsResponse.data.rooms || []);
       return;
     }
 
-    // 입력된 검색어에 따라 필터링
-    const searchKeywords = newValue
-      .split(',')
-      .map((keyword) => keyword.trim().toLowerCase());
+    const response = await getRoomSearch(newValue, 0);
 
-    const filteredGroups = GROUPS.filter((group) => {
-      const groupTitle = group.title.toLowerCase();
-      const groupIntroduce = group.introduce.toLowerCase();
-      const groupOwnerNickname = group.owner.nickname.toLowerCase();
-      const groupTagsLower = group.tags.map((tag) => tag.toLowerCase());
+    if (response && response.data && Array.isArray(response.data.rooms)) {
+      const filteredGroups = response.data.rooms;
+      handleChangeSearchBar(filteredGroups);
 
-      // 숫자 검색어를 찾기 위해 모든 검색어를 숫자로 변환 시도
-      const numericKeywords = searchKeywords
-        .map((keyword) => parseFloat(keyword))
-        .filter((num) => !isNaN(num));
-
-      // 검색어가 그룹 제목, 소개, 소유자 닉네임, 태그에 포함되는지 확인
-      const matchesText = searchKeywords.some(
-        (keyword) =>
-          groupTitle.includes(keyword) ||
-          groupIntroduce.includes(keyword) ||
-          groupOwnerNickname.includes(keyword) ||
-          groupTagsLower.some((tag) => tag.includes(keyword))
-      );
-
-      // 검색어가 memberCount 또는 capacity와 일치하는지 확인
-      const matchesNumber = numericKeywords.some(
-        (num) => group.memberCount === num || group.capacity === num
-      );
-
-      // 텍스트 매칭과 숫자 매칭 중 하나라도 true면 포함
-      return matchesText || matchesNumber;
-    });
-
-    handleChangeSearchBar(filteredGroups); // 필터링된 그룹 데이터를 전달
+      if (filteredGroups.length === 0) {
+        // 검색 결과가 없는 경우에 대한 추가 처리 로직이 필요하다면 여기에 작성하세요.
+      }
+    }
   };
 
   return (

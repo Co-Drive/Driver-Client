@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import {
-  IcArrowBottomGray,
-  IcArrowTopGray,
-  IcGroupFilter,
-} from '../../../assets';
+import { IcArrowBottomGray, IcArrowTopGray, IcFilter } from '../../../assets';
 import CommonHashTag from '../../../common/CommonHashTag';
 import { LanguageSelectBoxProps } from '../../../types/GroupAll/GroupAllType';
 import RangeSliderFilter from './RangeSlidrFilter';
@@ -78,7 +74,7 @@ const LanguageSelectBox = ({
       <DropdownContainer onClick={toggleDropdown}>
         <SelectContainer>
           <FilterIconContainer>
-            <IcGroupFilter />
+            <IcFilter />
           </FilterIconContainer>
           <SelectedTagsContainer>
             {selectedTags.length === 1 && selectedTags[0] === ALL_TAG ? (
