@@ -6,7 +6,10 @@ import {
   FollowerRecordsType,
 } from '../../../types/Follower/Current/currentType';
 
-const AdditionalProblemsModal = ({ userId }: AdditionalProblemsModalProps) => {
+const AdditionalProblemsModal = ({
+  userId,
+  clickedPage,
+}: AdditionalProblemsModalProps) => {
   const { data, isLoading } = useGetRecentFollowerRecords({ userId });
   const { records } = !isLoading && data.data;
 
@@ -21,6 +24,7 @@ const AdditionalProblemsModal = ({ userId }: AdditionalProblemsModalProps) => {
                 record={record}
                 isModal={true}
                 removeBorder={idx === records.length - 1}
+                clickedPage={clickedPage}
               />
             );
           })}

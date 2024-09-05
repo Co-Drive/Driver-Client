@@ -15,4 +15,5 @@ export interface RecommendCardProps {
     isMember: boolean;
   }>;
   isLongPage: boolean;
+  clickedPage?: number;
 }

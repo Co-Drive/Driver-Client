@@ -27,13 +27,20 @@ const GroupCreate = () => {
   const navigate = useNavigate();
   const { title, num, secretKey, intro, group } = inputs;
 
+  const maxCharLimits: { [key: string]: number } = {
+    intro: 60,
+    group: 1000,
+  };
+
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
   ) => {
     const { name, value } = e.target;
+    const maxLength = maxCharLimits[name];
+    const limitedValue = maxLength ? value.slice(0, maxLength) : value;
     setInputs({
       ...inputs,
-      [name]: value,
+      [name]: limitedValue,
     });
   };
 
@@ -103,7 +110,6 @@ const GroupCreate = () => {
       console.log(error);
     }
   };
-  console.log(selectedTags);
 
   return (
     <PageLayout category="그룹">

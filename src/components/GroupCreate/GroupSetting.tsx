@@ -15,9 +15,11 @@ const GroupSetting = ({
 
   return (
     <Section>
-      <Header>
-        그룹 설정 <Essential>*</Essential>
-      </Header>
+      <HeaderContainer>
+        <Header>
+          그룹 설정 <Essential>*</Essential>
+        </Header>
+      </HeaderContainer>
       <ButtonContainer>
         <GroupVisibilityBtn
           onClick={handleClickButton}
@@ -53,8 +55,14 @@ const Header = styled.h2`
   gap: 0.6rem;
   align-items: center;
 
+  margin-left: 0.2rem;
+
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
 `;
 
 const Essential = styled.span`

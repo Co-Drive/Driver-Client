@@ -52,6 +52,7 @@ export default WarningMoalForm;
 const ModalFormConatiner = styled.section`
   position: fixed;
   top: 11.6rem;
+  z-index: 10;
 
   width: 100%;
   height: calc(100vh - 11.6rem);

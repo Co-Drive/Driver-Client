@@ -9,10 +9,14 @@ import {
 import Groups from '../../common/Groups';
 import { SORTING, STATUS } from '../../constants/Follower/currentConst';
 import useGetRooms from '../../libs/hooks/utils/useGetRooms';
+import { removeSavedPage } from '../../utils/removeSavedPage';
 
 const PersonalGroup = () => {
   const GROUP_CATEGORY = ['내가 참여한 그룹', '내가 생성한 그룹'];
-  const [clickedPage, setClickedPage] = useState(1);
+  const savedPage = sessionStorage.getItem('savedPage');
+  const [clickedPage, setClickedPage] = useState(
+    savedPage ? parseInt(savedPage) : 1
+  );
   const [clickedCategry, setClickedCategory] = useState(GROUP_CATEGORY[0]);
   const [filter, setFilter] = useState({
     clickedStatus: '모집 중',
@@ -67,14 +71,17 @@ const PersonalGroup = () => {
 
   const handleClickPrevBtn = () => {
     setClickedPage((prev) => prev - 1);
+    removeSavedPage();
   };
 
   const handleClickPage = (page: number) => {
     setClickedPage(page);
+    removeSavedPage();
   };
 
   const handleClickNextBtn = () => {
     setClickedPage((prev) => prev + 1);
+    removeSavedPage();
   };
 
   return (
@@ -145,7 +152,6 @@ export default PersonalGroup;
 
 const PersonalGroupContainer = styled.article`
   display: flex;
-  gap: 1.6rem;
   justify-content: center;
   flex-direction: column;
 
@@ -159,7 +165,7 @@ const Header = styled.header`
   align-items: center;
 
   width: 100%;
-  margin-bottom: 0.2rem;
+  margin-left: 0.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
 `;
@@ -183,10 +189,9 @@ const Category = styled.p<{ $isClickedCategory: boolean }>`
 const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
   width: 100%;
-  margin: 1.4rem 0.1rem 0 0.6rem;
+  margin: 3rem 0 2rem 0.8rem;
 `;
 
 const TotalStatus = styled.div`

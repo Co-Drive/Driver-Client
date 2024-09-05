@@ -5,6 +5,10 @@ import TempSave from '../components/Solution/List/TempSave';
 
 const SolutionListPage = () => {
   const nickname = sessionStorage.getItem('nickname');
+  const id = sessionStorage.getItem('users');
+  if (!id) return;
+  const userId = parseInt(id);
+
   return (
     <PageLayout category="문제풀이">
       <ListPageContainer>
@@ -15,7 +19,7 @@ const SolutionListPage = () => {
 
         <TempSave />
 
-        <SavedSolutionList isSmallList={false} />
+        <SavedSolutionList userId={userId} isSmallList={false} />
       </ListPageContainer>
     </PageLayout>
   );

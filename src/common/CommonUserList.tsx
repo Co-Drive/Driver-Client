@@ -21,6 +21,8 @@ import {
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
+import { movePagePosition } from '../utils/movePagePosition';
+import { removeSavedPage } from '../utils/removeSavedPage';
 import WarningModal from './Modal/WarningModal/WarningModal';
 
 const CommonUserList = ({
@@ -31,9 +33,12 @@ const CommonUserList = ({
   isAdmin,
 }: CommonUserListProps) => {
   const navigate = useNavigate();
+  const savedPage = sessionStorage.getItem('savedPage');
 
   const [modalOn, setModalOn] = useState(false);
-  const [clickedPage, setClickedPage] = useState(1);
+  const [clickedPage, setClickedPage] = useState(
+    savedPage ? parseInt(savedPage) : 1
+  );
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
     isClicked: false,
@@ -76,6 +81,11 @@ const CommonUserList = ({
     navigate(`/follower/${id}`);
   };
 
+  const handleClickRemoveBtn = () => {
+    movePagePosition();
+    setModalOn(true);
+  };
+
   const handleClickStatusBtn = ({ status, requestId }: MutationType) => {
     if (roomId) {
       switch (status) {
@@ -83,7 +93,7 @@ const CommonUserList = ({
           return patchMutation({ roomId, requestId });
 
         case 'JOINED':
-          return setModalOn(true);
+          return handleClickRemoveBtn();
 
         case 'WAITING':
           return;
@@ -100,14 +110,17 @@ const CommonUserList = ({
 
   const handleClickPrevBtn = () => {
     setClickedPage((prev) => prev - 1);
+    removeSavedPage();
   };
 
   const handleClickPageNumber = (page: number) => {
     setClickedPage(page);
+    removeSavedPage();
   };
 
   const handleClickNextBtn = () => {
     setClickedPage((prev) => prev + 1);
+    removeSavedPage();
   };
 
   return (
@@ -193,7 +206,10 @@ const CommonUserList = ({
                     </Contents>
 
                     {isExitAndClicked && (
-                      <AdditionalProblemsModal userId={userId} />
+                      <AdditionalProblemsModal
+                        userId={userId}
+                        clickedPage={clickedPage}
+                      />
                     )}
                   </ContentsContainer>
 
@@ -328,10 +344,13 @@ const Contents = styled.div<{ $isClicked: boolean; $isAdmin?: boolean }>`
 `;
 
 const UserIdx = styled.p`
+  width: 2.2rem;
   margin-right: 1.8rem;
 
   color: ${({ theme }) => theme.colors.white};
+
   ${({ theme }) => theme.fonts.body_medium_16};
+  text-align: left;
 `;
 
 const ProfileImg = styled.img`
@@ -353,7 +372,7 @@ const UserContainer = styled.div<{ $isAdmin?: boolean }>`
 
   width: 16rem;
   padding-left: 0.8rem;
-  margin-right: ${({ $isAdmin }) => ($isAdmin ? `5.4rem` : `11.1rem`)};
+  margin-right: ${({ $isAdmin }) => ($isAdmin ? `4.4rem` : `11.1rem`)};
 
   cursor: pointer;
 `;
@@ -435,7 +454,7 @@ const PageNationBar = styled.div<{ $isEmpty: boolean }>`
   align-items: center;
 
   width: 100%;
-  margin-top: ${({ $isEmpty }) => ($isEmpty ? `8.8rem` : `4.8rem`)};
+  margin-top: ${({ $isEmpty }) => ($isEmpty ? `4.8rem` : `8.8rem`)};
 `;
 
 const PageNumber = styled.p<{ $isClicked: boolean }>`

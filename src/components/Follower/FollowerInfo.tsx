@@ -7,6 +7,7 @@ import {
 import useUpdateFollower from '../../libs/hooks/Follower/useUpdateFollower';
 import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
 import { handleClickLink } from '../../utils/handleClickLink';
+import SuccessRate from './Personal/Graph/SuccessRate';
 
 const FollowerInfo = ({ info }: FollowerInfoProps) => {
   const {
@@ -16,7 +17,7 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
     comment,
     language,
     githubUrl,
-    // successRate,
+    successRate,
   } = info;
 
   const { mutation } = useUpdateFollower();
@@ -30,8 +31,7 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
       <Language>{language}</Language>
 
       <ProfileContainer>
-        <ProfileImg src={profileImg}></ProfileImg>
-
+        <SuccessRate successRate={successRate} profileImg={profileImg} />
         <ProfileTextContainer>
           <NicknameContainer>
             <Nickname>{nickname}</Nickname>
@@ -74,10 +74,9 @@ const FollowerInfoContainer = styled.article`
 `;
 
 const Language = styled.p`
+  width: fit-content;
   padding: 0.6rem 1rem;
-  margin: 1.6rem 19.9rem 0 1.6rem;
-
-  max-width: 10rem;
+  margin: 1.6rem 0 0 1.6rem;
 
   border-radius: 0.4rem;
   background-color: ${({ theme }) => theme.colors.gray500};
@@ -89,24 +88,15 @@ const Language = styled.p`
 
 const ProfileContainer = styled.div`
   display: flex;
+  gap: 3rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  margin: 3rem 0;
-`;
-
-const ProfileImg = styled.img`
-  width: 11rem;
-  height: 11rem;
-  margin-bottom: 3rem;
-
-  border-radius: 5rem;
 `;
 
 const ProfileTextContainer = styled.div`
   display: flex;
-  gap: 1.8rem;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -166,4 +156,3 @@ const Text = styled.p<{ $isFollowed: boolean }>`
     $isFollowed ? theme.colors.gray100 : theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
-

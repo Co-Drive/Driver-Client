@@ -4,6 +4,7 @@ import HeaderBottom from './HeaderBottom';
 import HeaderTop from './HeaderTop';
 
 const CodeSpaceHeader = ({
+  isOpenOptions,
   questionInfo,
   handleClickQuestionInfo,
 }: CodeSpaceHeaderProps) => {
@@ -16,6 +17,7 @@ const CodeSpaceHeader = ({
         handleClickQuestionInfo={handleClickQuestionInfo}
       />
       <HeaderBottom
+        isOpenOptions={isOpenOptions}
         questionInfo={questionInfo}
         handleClickQuestionInfo={handleClickQuestionInfo}
       />

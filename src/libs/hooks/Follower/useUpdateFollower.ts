@@ -8,15 +8,10 @@ const useUpdateFollower = () => {
   const mutation = useMutation({
     mutationFn: async ({ isDelete, nickname }: UpdateFollowerProps) =>
       await updateFollower({ nickname, isDelete }),
-    onError: (err) => console.log(err.message),
+    onError: (err) => console.log(err),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-follow-list'] });
-      queryClient.invalidateQueries({ queryKey: ['get-follower-summary'] });
       queryClient.invalidateQueries({ queryKey: ['get-user-profile'] });
-      queryClient.invalidateQueries({ queryKey: ['get-follower-recommend'] });
-      queryClient.invalidateQueries({
-        queryKey: ['get-follower-weekly-count'],
-      });
     },
   });
 

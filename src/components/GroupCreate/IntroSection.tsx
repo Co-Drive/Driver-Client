@@ -17,16 +17,21 @@ const IntroSection = ({
   return (
     <Section>
       <Label>
-        한 줄 소개 <Essential>*</Essential>
+        <TitleContainer>
+          한 줄 소개 <Essential>*</Essential>
+        </TitleContainer>
       </Label>
+
       <CommonTextarea
         category="intro"
         value={introValue}
         handleChangeTextarea={handleChangeTextarea}
       />
-      <CharCount>
-        {charCount}/{maxChar}
-      </CharCount>
+      <ChartCountContainer>
+        <CharCount>
+          {charCount}/{maxChar}
+        </CharCount>
+      </ChartCountContainer>
     </Section>
   );
 };
@@ -43,20 +48,34 @@ const Label = styled.label`
   align-items: center;
 
   margin-bottom: 1.8rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+
+  margin-left: 0.2rem;
 
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
 `;
 
 const Essential = styled.span`
+  margin-left: 0.6rem;
+
   color: ${({ theme }) => theme.colors.codrive_purple};
+
+  ${({ theme }) => theme.fonts.title_medium_20};
+`;
+
+const ChartCountContainer = styled.div`
+  display: flex;
+  justify-content: end;
 `;
 
 const CharCount = styled.span`
   display: flex;
-  justify-content: end;
 
-  margin-top: 0.8rem;
+  margin: 0.8rem 0.2rem 0 0;
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.detail_regular_12};

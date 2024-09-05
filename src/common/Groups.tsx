@@ -16,7 +16,11 @@ const Groups = ({
 
   return (
     <React.Fragment>
-      <RecommendCard group={group} isLongPage={true} />
+      <RecommendCard
+        group={group}
+        isLongPage={true}
+        clickedPage={clickedPage}
+      />
 
       <PageNationBar>
         <IcArrowLeftSmallGray
@@ -50,7 +54,7 @@ const PageNationBar = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-top: 4.8rem;
+  margin-top: 8.8rem;
 `;
 
 const PageNumber = styled.p<{ $isClicked: boolean }>`

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../../common/Header';
 import { PageLayoutProps } from '../../types/PageLayout/PageLayoutType';
+import { movePagePosition } from '../../utils/movePagePosition';
 
 const PageLayout = ({ category, children }: PageLayoutProps) => {
   const navigate = useNavigate();
@@ -30,6 +31,10 @@ const PageLayout = ({ category, children }: PageLayoutProps) => {
     handleEarlyNavigate(innerHTML);
   };
 
+  useEffect(() => {
+    movePagePosition();
+  }, []);
+
   return (
     <PageLayoutContainer>
       <Header
@@ -50,4 +55,5 @@ const PageLayoutContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
+  padding-top: 11.5rem;
 `;
