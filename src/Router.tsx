@@ -3,6 +3,7 @@ import TotalSolutions from './components/Follower/Personal/TotalSolutions';
 import AdminPage from './page/AdminPage';
 import FollowerCurrentPage from './page/FollowerCurrentPage';
 import FollowerPage from './page/FollowerPage';
+import GroupAllPage from './page/GroupAllPage';
 import GroupComplete from './page/GroupComplete';
 import GroupCreate from './page/GroupCreate';
 import GroupDetail from './page/GroupDetail';
@@ -42,6 +43,7 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/oauth/github/callback" element={<LoginLoadingPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/group-all" element={<GroupAllPage />} />
       </Routes>
     </BrowserRouter>
   );
