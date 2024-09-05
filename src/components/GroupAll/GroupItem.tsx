@@ -3,12 +3,17 @@ import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
 import { getRoomSort } from '../../libs/apis/GroupAll/getRoomSort';
+import { removeSavedPage } from '../../utils/removeSavedPage';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
 
 const GroupItem = () => {
+  const savedPage = sessionStorage.getItem('savedPage');
+
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [clickedPage, setClickedPage] = useState(1);
+  const [clickedPage, setClickedPage] = useState(
+    savedPage ? parseInt(savedPage) : 1
+  );
   const [sorting, setSorting] = useState('최신순');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [sliderValues, setSliderValues] = useState({ min: 0, max: 50 });
@@ -61,14 +66,17 @@ const GroupItem = () => {
 
   const handleClickPrevBtn = () => {
     setClickedPage((prev) => Math.max(prev - 1, 1));
+    removeSavedPage();
   };
 
   const handleClickPage = (page: number) => {
     setClickedPage(page);
+    removeSavedPage();
   };
 
   const handleClickNextBtn = () => {
     setClickedPage((prev) => Math.min(prev + 1, totalPageRef.current));
+    removeSavedPage();
   };
 
   const handleChangeSearchBar = (filteredGroups: any[]) => {

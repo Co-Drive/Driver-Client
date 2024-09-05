@@ -38,6 +38,7 @@ const Solutions = ({ id, nickname, isFollowed }: SolutionsProps) => {
       </TopContainer>
 
       <SavedSolutionList
+        userId={id}
         isSmallList={true}
         handleDisabledMoreBtn={(value: boolean) => setDisabledMoreBtn(value)}
       />

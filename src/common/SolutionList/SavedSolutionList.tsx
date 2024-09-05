@@ -6,18 +6,22 @@ import {
   UpdateSavedRecordsProps,
   UpdateTotalPageProps,
 } from '../../types/Solution/solutionTypes';
+import { removeSavedPage } from '../../utils/removeSavedPage';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
 export interface SavedSolutionListProps {
+  userId: number;
   isSmallList: boolean;
   handleDisabledMoreBtn?: (value: boolean) => void;
 }
 
 const SavedSolutionList = ({
+  userId,
   isSmallList,
   handleDisabledMoreBtn,
 }: SavedSolutionListProps) => {
+  const savedPage = sessionStorage.getItem('savedPage');
   const totalPageRef = useRef(0);
   const pages = Array.from(
     { length: totalPageRef.current },
@@ -26,6 +30,7 @@ const SavedSolutionList = ({
   const YEAR = new Date().getFullYear();
   const MONTH = new Date().getMonth() + 1;
 
+  const [sorting, setSorting] = useState('최신순');
   const [savedRecords, setSavedRecords] = useState([
     {
       recordId: 0,
@@ -37,7 +42,9 @@ const SavedSolutionList = ({
       createdAt: '',
     },
   ]);
-  const [clickedPage, setClickedPage] = useState(1);
+  const [clickedPage, setClickedPage] = useState(
+    savedPage ? parseInt(savedPage) : 1
+  );
   const [selectedDate, setSelectedDate] = useState({
     year: YEAR,
     month: MONTH,
@@ -46,6 +53,8 @@ const SavedSolutionList = ({
   const { year, month } = selectedDate;
 
   const { data } = useGetMonthlySolution({
+    userId: userId,
+    sortType: sorting,
     year: year,
     month: month,
     page: clickedPage - 1,
@@ -73,6 +82,14 @@ const SavedSolutionList = ({
     }
   };
 
+  const handleClickSorting = (
+    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+  ) => {
+    const { innerHTML } = e.currentTarget;
+    setSorting(innerHTML);
+    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
+  };
+
   const handleClickPrevBtn = (isPage: boolean) => {
     isPage
       ? setClickedPage((prev) => prev - 1)
@@ -80,6 +97,7 @@ const SavedSolutionList = ({
           ...selectedDate,
           year: year - 1,
         });
+    removeSavedPage();
   };
 
   const handleClickValue = (value: number, isPage: boolean) => {
@@ -89,6 +107,7 @@ const SavedSolutionList = ({
           ...selectedDate,
           month: month,
         });
+    removeSavedPage();
   };
 
   const handleClickNextBtn = (isPage: boolean) => {
@@ -98,6 +117,7 @@ const SavedSolutionList = ({
           ...selectedDate,
           year: year + 1,
         });
+    removeSavedPage();
   };
 
   useEffect(() => {
@@ -111,8 +131,10 @@ const SavedSolutionList = ({
         <>
           {!isSmallList && (
             <ListFilter
+              sorting={sorting}
               year={year}
               month={month}
+              handleClickSorting={handleClickSorting}
               handleClickPrevBtn={handleClickPrevBtn}
               handleClickMonth={handleClickValue}
               handleClickNextBtn={handleClickNextBtn}
@@ -120,10 +142,16 @@ const SavedSolutionList = ({
           )}
 
           {savedRecords.map((record) => {
-            return <SavedSolution key={record.recordId} record={record} />;
+            return (
+              <SavedSolution
+                key={record.recordId}
+                record={record}
+                clickedPage={clickedPage}
+              />
+            );
           })}
 
-          {!isSmallList && data.length > 0 && (
+          {!isSmallList && (
             <PageNationBar>
               <IcArrowLeftSmallGray
                 onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
@@ -175,7 +203,7 @@ const PageNationBar = styled.div`
   align-items: center;
 
   width: 100%;
-  margin-top: 4.8rem;
+  margin-top: 8.8rem;
 `;
 
 const PageNumber = styled.p<{ $isClicked: boolean }>`

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray } from '../../assets';
 import { GroupInfoProps } from '../../types/GroupDetail/groupDetailType';
+import { movePagePosition } from '../../utils/movePagePosition';
 import ApplicationModal from './ApplicationModal';
 
 const GroupInfo = ({
@@ -17,6 +18,11 @@ const GroupInfo = ({
   const navigate = useNavigate();
   const [modalOn, setModalOn] = useState(false);
 
+  const handleClickApplicationStatus = () => {
+    movePagePosition();
+    setModalOn(true);
+  };
+
   const handleClickHost = () => {
     navigate(`/follower/${userId}`);
   };
@@ -30,7 +36,7 @@ const GroupInfo = ({
           <IcArrowRightSmallGray />
         </Host>
 
-        <ApplicationStatus onClick={() => setModalOn(true)}>
+        <ApplicationStatus onClick={handleClickApplicationStatus}>
           <Category>신청 현황</Category>
           <Status>
             <CurrentNum>{requestedCount}</CurrentNum>

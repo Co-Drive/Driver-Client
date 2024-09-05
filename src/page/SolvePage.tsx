@@ -35,6 +35,7 @@ const SolvePage = () => {
   } = records || {};
 
   const [opacity, setOpacity] = useState(0);
+  const [isOpenOptions, setIsOpenOptions] = useState(true);
   const [questionInfo, setQuestionInfo] = useState<QuestionInfoProps>({
     title: '',
     level: 0,
@@ -162,11 +163,13 @@ const SolvePage = () => {
           isTemp={isTemp}
           codeblocks={ideItems}
           questionInfo={questionInfo}
+          handleOpenOptions={(isOpen) => setIsOpenOptions(isOpen)}
         />
 
         <CodeSpace
           ideItems={ideItems}
           questionInfo={questionInfo}
+          isOpenOptions={isOpenOptions}
           handleClickQuestionInfo={handleClickQuestionInfo}
           handleClickDeleteBtn={handleClickDeleteBtn}
           handleChangeCode={handleChangeCode}

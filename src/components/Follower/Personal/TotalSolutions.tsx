@@ -8,9 +8,8 @@ const TotalSolutions = () => {
   const { state } = useLocation();
   const { nickname, isFollowed } = state;
   const { id } = useParams();
-
-  // 추후 문제풀이 조회에 쓰일 예정, 현재는 팔로워가 아닌 본인의 문제풀이 조회 결과를 반환하고 있음
-  console.log(id);
+  if (!id) return;
+  const userId = parseInt(id);
 
   return (
     <PageLayout category="문제풀이">
@@ -29,7 +28,7 @@ const TotalSolutions = () => {
           </FollowingBtn>
         </TopContainer>
 
-        <SavedSolutionList isSmallList={false} />
+        <SavedSolutionList userId={userId} isSmallList={false} />
       </TotalSolutionsContainer>
     </PageLayout>
   );

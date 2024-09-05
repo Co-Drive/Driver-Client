@@ -8,8 +8,10 @@ import { ListFilterProps } from '../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
 
 const ListFilter = ({
+  sorting,
   year,
   month,
+  handleClickSorting,
   handleClickPrevBtn,
   handleClickMonth,
   handleClickNextBtn,
@@ -17,19 +19,10 @@ const ListFilter = ({
   const { unsolvedData } = useGetUnsolvedMonths(year);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  const [sorting, setSorting] = useState('최신순');
   const unsolvedMonths = useRef<Array<number>>([]);
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
-  };
-
-  const handleClickSorting = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-  ) => {
-    const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
-    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
   const getUnsolvedMonthsArr = () => {

@@ -9,6 +9,7 @@ import CodeSpaceHeader from './Header/CodeSpaceHeader';
 const CodeSpace = ({
   ideItems,
   questionInfo,
+  isOpenOptions,
   handleClickQuestionInfo,
   handleClickDeleteBtn,
   handleChangeCode,
@@ -17,6 +18,7 @@ const CodeSpace = ({
   return (
     <CodeSpaceContainer>
       <CodeSpaceHeader
+        isOpenOptions={isOpenOptions}
         questionInfo={questionInfo}
         handleClickQuestionInfo={handleClickQuestionInfo}
       />

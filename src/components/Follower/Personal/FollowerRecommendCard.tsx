@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -8,7 +9,6 @@ import {
 } from '../../../assets';
 import useGetFollowerRecommend from '../../../libs/hooks/Follower/useGetFollowerRecommend';
 import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
-import { UpdateFollowerProps } from '../../../types/Follower/Personal/personalType';
 
 const FollowerRecommendCard = () => {
   const myNickname = sessionStorage.getItem('nickname');
@@ -18,16 +18,40 @@ const FollowerRecommendCard = () => {
   const { mutation } = useUpdateFollower();
   const { users } = !isLoading && data.data;
 
+  const [followingBtn, setFollowingBtn] = useState({
+    isClicked: false,
+    clickedNickname: [''],
+  });
+
+  const { isClicked, clickedNickname } = followingBtn;
+
   const handleClickProfile = (userId: number) => {
     navigate(`/follower/${userId}`);
     window.location.reload();
   };
 
-  const handleClickFollowerBtn = ({
-    nickname,
-    isDelete,
-  }: UpdateFollowerProps) => {
-    mutation({ nickname, isDelete });
+  const handleClickFollowerBtn = (nickname: string) => {
+    // mutation({ nickname, isDelete });
+
+    let newNicknameArr;
+    if (clickedNickname.includes(nickname)) {
+      const isDelete = true;
+      newNicknameArr = clickedNickname.filter(
+        (clickedValue) => clickedValue !== nickname
+      );
+      setFollowingBtn({
+        isClicked: !isClicked,
+        clickedNickname: newNicknameArr,
+      });
+      mutation({ nickname, isDelete });
+    } else {
+      const isDelete = false;
+      setFollowingBtn((prev) => ({
+        isClicked: !isClicked,
+        clickedNickname: [...prev.clickedNickname, nickname],
+      }));
+      mutation({ nickname, isDelete });
+    }
   };
 
   return (
@@ -48,18 +72,12 @@ const FollowerRecommendCard = () => {
                 nickname: string;
                 language: string;
                 githubUrl: string;
-                isFollowing: boolean;
               },
               idx: number
             ) => {
-              const {
-                userId,
-                profileImg,
-                nickname,
-                language,
-                githubUrl,
-                isFollowing,
-              } = user;
+              const { userId, profileImg, nickname, language, githubUrl } =
+                user;
+              const isClickedBtn = clickedNickname.includes(nickname);
               return (
                 <PersonalCard key={userId} $addHr={idx < 4}>
                   <ProfileImg
@@ -80,17 +98,16 @@ const FollowerRecommendCard = () => {
 
                   <FollowingBtn
                     type="button"
-                    $isFollowed={isFollowing}
-                    onClick={() =>
-                      handleClickFollowerBtn({
-                        nickname,
-                        isDelete: isFollowing,
-                      })
-                    }
+                    $isFollowed={isClickedBtn}
+                    onClick={() => handleClickFollowerBtn(nickname)}
                   >
-                    {isFollowing ? <IcFollowingGray /> : <IcUnfollowingWhite />}
-                    <FollowingText $isFollowed={isFollowing}>
-                      {isFollowing ? `팔로잉` : `팔로우`}
+                    {isClickedBtn ? (
+                      <IcFollowingGray />
+                    ) : (
+                      <IcUnfollowingWhite />
+                    )}
+                    <FollowingText $isFollowed={isClickedBtn}>
+                      {isClickedBtn ? `팔로잉` : `팔로우`}
                     </FollowingText>
                   </FollowingBtn>
                 </PersonalCard>

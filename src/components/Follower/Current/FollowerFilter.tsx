@@ -21,8 +21,13 @@ const FollowerFilter = ({
     id: number
   ) => {
     const { innerHTML } = e.currentTarget;
-    setSelectedGroup(innerHTML);
-    updateSelectedGroupId(id);
+    if (innerHTML === selectedGroup) {
+      setSelectedGroup('');
+      updateSelectedGroupId(0);
+    } else {
+      setSelectedGroup(innerHTML);
+      updateSelectedGroupId(id);
+    }
   };
 
   const handleClickGroupFilter = () => {
