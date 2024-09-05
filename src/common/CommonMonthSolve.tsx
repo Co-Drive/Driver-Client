@@ -10,7 +10,7 @@ const CommonMonthSolve = () => {
   const year = new Date().getFullYear();
   const [clickedYear, setClickedYear] = useState(year);
   const [clickedMonth, setClickedMonth] = useState(currentMonth);
-
+  ``;
   const { data, isLoading } = useGetMonthSolve({
     year: clickedYear,
     month: clickedMonth,
@@ -21,7 +21,7 @@ const CommonMonthSolve = () => {
   return (
     <WeekRateContainer>
       <div>
-        <Month>{monthText}</Month>
+        <Month>{clickedMonth}월 문제풀이 현황</Month>
         <SolveContainer>
           <SolveCount>
             {totalCount}
