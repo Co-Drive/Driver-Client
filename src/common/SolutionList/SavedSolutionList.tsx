@@ -6,6 +6,7 @@ import {
   UpdateSavedRecordsProps,
   UpdateTotalPageProps,
 } from '../../types/Solution/solutionTypes';
+import { removeSavedPage } from '../../utils/removeSavedPage';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
@@ -18,6 +19,7 @@ const SavedSolutionList = ({
   isSmallList,
   handleDisabledMoreBtn,
 }: SavedSolutionListProps) => {
+  const savedPage = sessionStorage.getItem('savedPage');
   const totalPageRef = useRef(0);
   const pages = Array.from(
     { length: totalPageRef.current },
@@ -37,7 +39,9 @@ const SavedSolutionList = ({
       createdAt: '',
     },
   ]);
-  const [clickedPage, setClickedPage] = useState(1);
+  const [clickedPage, setClickedPage] = useState(
+    savedPage ? parseInt(savedPage) : 1
+  );
   const [selectedDate, setSelectedDate] = useState({
     year: YEAR,
     month: MONTH,
@@ -80,6 +84,7 @@ const SavedSolutionList = ({
           ...selectedDate,
           year: year - 1,
         });
+    removeSavedPage();
   };
 
   const handleClickValue = (value: number, isPage: boolean) => {
@@ -89,6 +94,7 @@ const SavedSolutionList = ({
           ...selectedDate,
           month: month,
         });
+    removeSavedPage();
   };
 
   const handleClickNextBtn = (isPage: boolean) => {
@@ -98,6 +104,7 @@ const SavedSolutionList = ({
           ...selectedDate,
           year: year + 1,
         });
+    removeSavedPage();
   };
 
   useEffect(() => {
@@ -120,7 +127,13 @@ const SavedSolutionList = ({
           )}
 
           {savedRecords.map((record) => {
-            return <SavedSolution key={record.recordId} record={record} />;
+            return (
+              <SavedSolution
+                key={record.recordId}
+                record={record}
+                clickedPage={clickedPage}
+              />
+            );
           })}
 
           {!isSmallList && (

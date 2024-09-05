@@ -32,6 +32,7 @@ export interface SavedSolutionProps {
     problemUrl: string;
     createdAt: string;
   };
+  clickedPage?: number;
   isModal?: boolean;
   removeBorder?: boolean;
 }
@@ -105,5 +106,5 @@ export interface getMonthlySolutionProps {
   month: number;
   page: number;
   isSmallList: boolean;
-  sortType?:string;
+  sortType?: string;
 }

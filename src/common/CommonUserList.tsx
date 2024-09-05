@@ -21,6 +21,7 @@ import {
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
+import { removeSavedPage } from '../utils/removeSavedPage';
 import WarningModal from './Modal/WarningModal/WarningModal';
 
 const CommonUserList = ({
@@ -31,9 +32,12 @@ const CommonUserList = ({
   isAdmin,
 }: CommonUserListProps) => {
   const navigate = useNavigate();
+  const savedPage = sessionStorage.getItem('savedPage');
 
   const [modalOn, setModalOn] = useState(false);
-  const [clickedPage, setClickedPage] = useState(1);
+  const [clickedPage, setClickedPage] = useState(
+    savedPage ? parseInt(savedPage) : 1
+  );
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
     isClicked: false,
@@ -100,14 +104,17 @@ const CommonUserList = ({
 
   const handleClickPrevBtn = () => {
     setClickedPage((prev) => prev - 1);
+    removeSavedPage();
   };
 
   const handleClickPageNumber = (page: number) => {
     setClickedPage(page);
+    removeSavedPage();
   };
 
   const handleClickNextBtn = () => {
     setClickedPage((prev) => prev + 1);
+    removeSavedPage();
   };
 
   return (
@@ -193,7 +200,10 @@ const CommonUserList = ({
                     </Contents>
 
                     {isExitAndClicked && (
-                      <AdditionalProblemsModal userId={userId} />
+                      <AdditionalProblemsModal
+                        userId={userId}
+                        clickedPage={clickedPage}
+                      />
                     )}
                   </ContentsContainer>
 

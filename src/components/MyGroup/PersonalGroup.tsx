@@ -9,10 +9,14 @@ import {
 import Groups from '../../common/Groups';
 import { SORTING, STATUS } from '../../constants/Follower/currentConst';
 import useGetRooms from '../../libs/hooks/utils/useGetRooms';
+import { removeSavedPage } from '../../utils/removeSavedPage';
 
 const PersonalGroup = () => {
   const GROUP_CATEGORY = ['내가 참여한 그룹', '내가 생성한 그룹'];
-  const [clickedPage, setClickedPage] = useState(1);
+  const savedPage = sessionStorage.getItem('savedPage');
+  const [clickedPage, setClickedPage] = useState(
+    savedPage ? parseInt(savedPage) : 1
+  );
   const [clickedCategry, setClickedCategory] = useState(GROUP_CATEGORY[0]);
   const [filter, setFilter] = useState({
     clickedStatus: '모집 중',
@@ -67,14 +71,17 @@ const PersonalGroup = () => {
 
   const handleClickPrevBtn = () => {
     setClickedPage((prev) => prev - 1);
+    removeSavedPage();
   };
 
   const handleClickPage = (page: number) => {
     setClickedPage(page);
+    removeSavedPage();
   };
 
   const handleClickNextBtn = () => {
     setClickedPage((prev) => prev + 1);
+    removeSavedPage();
   };
 
   return (

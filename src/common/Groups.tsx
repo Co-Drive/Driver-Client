@@ -16,7 +16,11 @@ const Groups = ({
 
   return (
     <React.Fragment>
-      <RecommendCard group={group} isLongPage={true} />
+      <RecommendCard
+        group={group}
+        isLongPage={true}
+        clickedPage={clickedPage}
+      />
 
       <PageNationBar>
         <IcArrowLeftSmallGray
