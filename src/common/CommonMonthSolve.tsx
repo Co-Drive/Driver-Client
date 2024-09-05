@@ -5,12 +5,11 @@ import useGetMonthSolve from '../libs/hooks/Home/useGetMonthSolve';
 
 const CommonMonthSolve = () => {
   const currentMonth = new Date().getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
-  const monthText = `${currentMonth}월 문제풀이 현황`;
 
   const year = new Date().getFullYear();
   const [clickedYear, setClickedYear] = useState(year);
   const [clickedMonth, setClickedMonth] = useState(currentMonth);
-
+  ``;
   const { data, isLoading } = useGetMonthSolve({
     year: clickedYear,
     month: clickedMonth,
@@ -21,7 +20,7 @@ const CommonMonthSolve = () => {
   return (
     <WeekRateContainer>
       <div>
-        <Month>{monthText}</Month>
+        <Month>{clickedMonth}월 문제풀이 현황</Month>
         <SolveContainer>
           <SolveCount>
             {totalCount}
