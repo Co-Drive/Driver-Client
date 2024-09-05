@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowUpBig } from '../assets';
@@ -16,6 +17,15 @@ const FollowerPage = () => {
   const userId = parseInt(id);
   const { data, isLoading } = useGetUserProfile(userId);
   const { nickname, isFollowing } = !isLoading && data?.data;
+
+  const [opacity, setOpacity] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => setOpacity(window.scrollY));
+    return () => {
+      window.removeEventListener('scroll', () => setOpacity(window.scrollY));
+    };
+  }, []);
 
   return (
     <PageLayout category="홈">
@@ -36,7 +46,11 @@ const FollowerPage = () => {
           <ParticipatingGroup nickname={nickname} />
 
           <FollowerRecommendCard />
-          <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
+          <GoTopBtn
+            type="button"
+            onClick={handleClickGoTopBtn}
+            $opacity={opacity}
+          >
             <IcArrowUpBig />
           </GoTopBtn>
         </FollowerPageContainer>
@@ -66,7 +80,9 @@ const TopContainer = styled.section`
   margin-bottom: 8.8rem;
 `;
 
-const GoTopBtn = styled.button`
+const GoTopBtn = styled.button<{ $opacity: number }>`
+  opacity: ${({ $opacity }) => $opacity};
+
   position: fixed;
   top: calc(100vh - 15rem);
   left: calc(100vw - 22.3rem);

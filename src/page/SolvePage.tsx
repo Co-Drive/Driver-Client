@@ -34,6 +34,7 @@ const SolvePage = () => {
     ],
   } = records || {};
 
+  const [opacity, setOpacity] = useState(0);
   const [questionInfo, setQuestionInfo] = useState<QuestionInfoProps>({
     title: '',
     level: 0,
@@ -137,50 +138,54 @@ const SolvePage = () => {
     }, [records]);
   }
 
+  useEffect(() => {
+    window.addEventListener('scroll', () => setOpacity(window.scrollY));
+    return () => {
+      window.removeEventListener('scroll', () => setOpacity(window.scrollY));
+    };
+  }, []);
+
   return (
     <PageLayout category="문제풀이">
-      <ScrollContainer>
-        {ideId > 0 && (
-          <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
-            <IcArrowUpBig />
-          </GoTopBtn>
-        )}
-        <SolvePageContainer>
-          <PageHeader
-            id={recordId}
-            isTemp={isTemp}
-            codeblocks={ideItems}
-            questionInfo={questionInfo}
-          />
+      {ideId > 0 && (
+        <GoTopBtn
+          type="button"
+          onClick={handleClickGoTopBtn}
+          $opacity={opacity}
+        >
+          <IcArrowUpBig />
+        </GoTopBtn>
+      )}
+      <SolvePageContainer>
+        <PageHeader
+          id={recordId}
+          isTemp={isTemp}
+          codeblocks={ideItems}
+          questionInfo={questionInfo}
+        />
 
-          <CodeSpace
-            ideItems={ideItems}
-            questionInfo={questionInfo}
-            handleClickQuestionInfo={handleClickQuestionInfo}
-            handleClickDeleteBtn={handleClickDeleteBtn}
-            handleChangeCode={handleChangeCode}
-            handleChangeMemo={handleChangeMemo}
-          />
+        <CodeSpace
+          ideItems={ideItems}
+          questionInfo={questionInfo}
+          handleClickQuestionInfo={handleClickQuestionInfo}
+          handleClickDeleteBtn={handleClickDeleteBtn}
+          handleChangeCode={handleChangeCode}
+          handleChangeMemo={handleChangeMemo}
+        />
 
-          <AddBtnContainer>
-            {ideItems[ideItems.length - 1].code.length ? (
-              <IcAddFill onClick={handleClickAddBtn} />
-            ) : (
-              <IcAddFillDisabled />
-            )}
-          </AddBtnContainer>
-        </SolvePageContainer>
-      </ScrollContainer>
+        <AddBtnContainer>
+          {ideItems[ideItems.length - 1].code.length ? (
+            <IcAddFill onClick={handleClickAddBtn} />
+          ) : (
+            <IcAddFillDisabled />
+          )}
+        </AddBtnContainer>
+      </SolvePageContainer>
     </PageLayout>
   );
 };
 
 export default SolvePage;
-
-const ScrollContainer = styled.div`
-  width: 100vw;
-  height: auto;
-`;
 
 const SolvePageContainer = styled.section`
   display: flex;
@@ -198,7 +203,9 @@ const AddBtnContainer = styled.div`
   margin: 1.8rem 25.7rem 0;
 `;
 
-const GoTopBtn = styled.button`
+const GoTopBtn = styled.button<{ $opacity: number }>`
+  opacity: ${({ $opacity }) => $opacity};
+
   position: fixed;
   top: calc(100vh - 15rem);
   left: calc(100vw - 22.3rem);
