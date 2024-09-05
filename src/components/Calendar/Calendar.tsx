@@ -25,7 +25,7 @@ const CommonCalendar = ({
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
-  const customWeekdays = ['S', 'S', 'M', 'T', 'W', 'T', 'F'];
+  const customWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   const handleClickCalendar = () => {
     setIsCalendarClicked((prev) => !prev);
@@ -57,7 +57,7 @@ const CommonCalendar = ({
     upDatedCalendar();
   }, [data]);
 
-  // console.log(selectedDate);
+  console.log(selectedDate);
 
   return (
     <CalendarContainer>
@@ -86,6 +86,7 @@ const CommonCalendar = ({
         onChange={setSelectedDate}
         locale="ko"
         value={selectedDate}
+        calendarType="gregory"
         showNeighboringMonth={true}
         formatShortWeekday={(_, date) => customWeekdays[date.getDay()]}
         showNavigation={false}
