@@ -181,7 +181,7 @@ const ToolTipNextLine = styled.span`
   font-size: ${({ theme }) => theme.fonts.body_ligth_12};
 `;
 
-const Subtitle = styled.p`
+const Subtitle = styled.div`
   ${({ theme }) => theme.fonts.body_ligth_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;
