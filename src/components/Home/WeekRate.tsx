@@ -36,7 +36,9 @@ const WeekRate = () => {
   return (
     <Container>
       <Header>
-        {isSolvedExist ? '주간 성과율 & 문제 개수 비교' : '주간 성과율'}
+        <HeaderTitle>
+          {isSolvedExist ? '주간 성과율 & 문제 개수 비교' : '주간 성과율'}
+        </HeaderTitle>
         <Notic $isSolvedExist={isSolvedExist}>
           <BtnInformation />
           <Tooltip>
@@ -127,10 +129,13 @@ const Container = styled.div`
 const Header = styled.header`
   display: flex;
 
+  white-space: nowrap;
+`;
+
+const HeaderTitle = styled.div`
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.title_bold_20};
-  white-space: nowrap;
 `;
 
 const ChartContainer = styled.div`
@@ -156,7 +161,7 @@ const LineText = styled.div`
   display: flex;
   align-items: center;
 
-  margin-bottom: 0.4rem;
+  margin-top: 0.4rem;
 
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fonts.body_ligth_12};
