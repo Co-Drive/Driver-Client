@@ -9,31 +9,29 @@ import WeekRate from '../components/Home/WeekRate';
 import PageLayout from '../components/PageLayout/PageLayout';
 const Home = () => {
   const navigate = useNavigate();
-  const token = sessionStorage.getItem('token');
   const user = sessionStorage.getItem('user');
-  if (!user) return;
+  if (!user) {
+    useEffect(() => {
+      navigate('/login');
+    }, []);
+
+    return;
+  }
+
   const userId = parseInt(user);
 
-  useEffect(() => {
-    if (!token) {
-      navigate('/login');
-    }
-  }, [token]);
-
   return (
-    <>
-      <PageLayout category="홈">
-        <HomeHeader />
-        <MainContainer>
-          <CommonMonthSolve userId={userId} />
-          <TodaySolve />
-        </MainContainer>
-        <FooterContainer>
-          <WeekRate />
-          <WeeklyFollower />
-        </FooterContainer>
-      </PageLayout>
-    </>
+    <PageLayout category="홈">
+      <HomeHeader />
+      <MainContainer>
+        <CommonMonthSolve userId={userId} />
+        <TodaySolve />
+      </MainContainer>
+      <FooterContainer>
+        <WeekRate />
+        <WeeklyFollower />
+      </FooterContainer>
+    </PageLayout>
   );
 };
 
