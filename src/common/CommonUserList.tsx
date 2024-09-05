@@ -21,6 +21,7 @@ import {
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
+import { movePagePosition } from '../utils/movePagePosition';
 import { removeSavedPage } from '../utils/removeSavedPage';
 import WarningModal from './Modal/WarningModal/WarningModal';
 
@@ -80,6 +81,11 @@ const CommonUserList = ({
     navigate(`/follower/${id}`);
   };
 
+  const handleClickRemoveBtn = () => {
+    movePagePosition();
+    setModalOn(true);
+  };
+
   const handleClickStatusBtn = ({ status, requestId }: MutationType) => {
     if (roomId) {
       switch (status) {
@@ -87,7 +93,7 @@ const CommonUserList = ({
           return patchMutation({ roomId, requestId });
 
         case 'JOINED':
-          return setModalOn(true);
+          return handleClickRemoveBtn();
 
         case 'WAITING':
           return;
