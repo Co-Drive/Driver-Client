@@ -1,17 +1,31 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { IcArrowUpBig } from '../assets';
+import CommonMonthSolve from '../common/CommonMonthSolve';
 import FollowerInfo from '../components/Follower/FollowerInfo';
 import FollowerRecommendCard from '../components/Follower/Personal/FollowerRecommendCard';
 import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGroup';
 import Solutions from '../components/Follower/Personal/Solutions';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useGetUserProfile from '../libs/hooks/Follower/useGetUserProfile';
+import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const FollowerPage = () => {
   const { id } = useParams();
   if (!id) return;
-  const { data, isLoading } = useGetUserProfile(parseInt(id));
+  const userId = parseInt(id);
+  const { data, isLoading } = useGetUserProfile(userId);
   const { nickname, isFollowing } = !isLoading && data?.data;
+
+  const [opacity, setOpacity] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => setOpacity(window.scrollY));
+    return () => {
+      window.removeEventListener('scroll', () => setOpacity(window.scrollY));
+    };
+  }, []);
 
   return (
     <PageLayout category="홈">
@@ -20,8 +34,7 @@ const FollowerPage = () => {
           <TopContainer>
             <FollowerInfo info={data.data} />
 
-            {/* 나중에 다른 컴포넌트로 대체 예정 */}
-            <Temp></Temp>
+            <CommonMonthSolve userId={userId} />
           </TopContainer>
 
           <Solutions
@@ -33,6 +46,13 @@ const FollowerPage = () => {
           <ParticipatingGroup nickname={nickname} />
 
           <FollowerRecommendCard />
+          <GoTopBtn
+            type="button"
+            onClick={handleClickGoTopBtn}
+            $opacity={opacity}
+          >
+            <IcArrowUpBig />
+          </GoTopBtn>
         </FollowerPageContainer>
       )}
     </PageLayout>
@@ -45,6 +65,7 @@ const FollowerPageContainer = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
+  position: relative;
 
   width: 100%;
   padding: 6.4rem 25.7rem 23.2rem;
@@ -59,11 +80,10 @@ const TopContainer = styled.section`
   margin-bottom: 8.8rem;
 `;
 
-// 나중에 지울 예정
-const Temp = styled.div`
-  flex-grow: 2;
+const GoTopBtn = styled.button<{ $opacity: number }>`
+  opacity: ${({ $opacity }) => $opacity};
 
-  min-width: 60.9rem;
-
-  height: 41rem;
+  position: fixed;
+  top: calc(100vh - 15rem);
+  left: calc(100vw - 22.3rem);
 `;

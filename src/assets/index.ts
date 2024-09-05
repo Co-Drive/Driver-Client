@@ -25,6 +25,7 @@ import IcCancelFill from './icon/ic_cancel_fill.svg?react';
 import IcCancelSmall from './icon/ic_cancel_small.svg?react';
 import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
 import IcCode from './icon/ic_code.svg?react';
+import IcFilter from './icon/ic_filter.svg?react';
 import IcFollowingGray from './icon/ic_following_gray.svg?react';
 import IcGithub from './icon/ic_github.svg?react';
 import IcGithubLogoSmall from './icon/ic_github_logo_small.svg?react';
@@ -43,6 +44,7 @@ import IcMemoWhite from './icon/ic_memo_white.svg?react';
 import IcMinusWhite from './icon/ic_minus_white.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
 import IcRevise from './icon/ic_revise.svg?react';
+import IcSearch from './icon/ic_search.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
 import IcSecretGray from './icon/ic_secret_gray.svg?react';
 import IcSecretWhite from './icon/ic_secret_white.svg?react';
@@ -106,6 +108,7 @@ export {
   IcCancelSmall,
   IcCancelSmallWhite,
   IcCode,
+  IcFilter,
   IcFollowingGray,
   IcGithub,
   IcGithubLogoSmall,
@@ -124,6 +127,7 @@ export {
   IcMinusWhite,
   IcNothing,
   IcRevise,
+  IcSearch,
   IcSecretBigWhite,
   IcSecretGray,
   IcSecretWhite,
@@ -139,8 +143,8 @@ export {
   IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
-  IcWorkBookBlack,
   IcWarning,
+  IcWorkBookBlack,
   IcWorkbook,
   IcWorkbookBlack,
   TestWeekboardStatus,
