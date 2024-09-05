@@ -25,7 +25,7 @@ const CommonCalendar = ({
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
-  const customWeekdays = ['S', 'S', 'M', 'T', 'W', 'T', 'F'];
+  const customWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
   const handleClickCalendar = () => {
     setIsCalendarClicked((prev) => !prev);
@@ -57,7 +57,7 @@ const CommonCalendar = ({
     upDatedCalendar();
   }, [data]);
 
-  // console.log(selectedDate);
+  console.log(selectedDate);
 
   return (
     <CalendarContainer>
@@ -81,12 +81,12 @@ const CommonCalendar = ({
         ) : (
           <IcArrowBottomWhite onClick={handleClickCalendar} />
         )}
-        \
       </NavContainer>
       <StyledCalendar
         onChange={setSelectedDate}
         locale="ko"
         value={selectedDate}
+        calendarType="gregory"
         showNeighboringMonth={true}
         formatShortWeekday={(_, date) => customWeekdays[date.getDay()]}
         showNavigation={false}
@@ -112,6 +112,9 @@ export default CommonCalendar;
 
 const CalendarContainer = styled.div`
   .react-calendar {
+    display: flex;
+    gap: 2rem;
+
     width: 28.6rem;
 
     border: none;
@@ -127,7 +130,7 @@ const NavContainer = styled.div`
 
   width: 17.9rem;
   padding: 1.3rem 1.4rem;
-  margin-bottom: 3.4rem;
+  margin-bottom: 2rem;
   margin-left: 10.7rem;
 
   border-radius: 1.2rem;
@@ -166,6 +169,7 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile {
     width: 4rem;
     height: 4rem;
+    margin-top: 0.25rem;
 
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray500};
@@ -190,6 +194,8 @@ const StyledCalendar = styled(Calendar)`
 
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__month-view__weekdays__weekday {
+    margin-bottom: -0.8rem;
+
     color: ${({ theme }) => theme.colors.white};
 
     ${({ theme }) => theme.fonts.body_eng_medium_16}

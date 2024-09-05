@@ -57,8 +57,13 @@ export default Header;
 
 const HeaderWrapper = styled.header`
   display: flex;
+  position: fixed;
+  top: 0;
+  z-index: 100;
 
   width: 100%;
+
+  background-color: ${({ theme }) => theme.colors.gray900};
 `;
 
 const HeaderContainer = styled.div`
@@ -110,9 +115,11 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
 
 const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
+  gap: 0.8rem;
   justify-content: end;
 
   width: 23.2rem;
+  margin-right: 2rem;
   margin-left: ${({ $isLogin }) => ($isLogin ? '29.7rem' : '34.1rem')};
 `;
 

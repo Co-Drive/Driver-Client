@@ -25,7 +25,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:id" element={<MyProfilePage />} />
-        <Route path="/group" />
+        <Route path="/group" element={<GroupAllPage />} />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group/:id/admin" element={<AdminPage />} />
         <Route path="/group/:id/member" element={<GroupMemberPage />} />
