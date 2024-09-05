@@ -81,7 +81,6 @@ const CommonCalendar = ({
         ) : (
           <IcArrowBottomWhite onClick={handleClickCalendar} />
         )}
-        \
       </NavContainer>
       <StyledCalendar
         onChange={setSelectedDate}
