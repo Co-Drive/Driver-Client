@@ -1,4 +1,12 @@
 import { createGlobalStyle, css } from 'styled-components';
+import MontserratMedium from './fonts/Montserrat/Montserrat-Medium.ttf';
+import MontserratRegular from './fonts/Montserrat/Montserrat-Regular.ttf';
+import MontserratSemibold from './fonts/Montserrat/Montserrat-SemiBold.ttf';
+import SuitBold from './fonts/Suit/SUIT-Bold.ttf';
+import SuitLight from './fonts/Suit/SUIT-Light.ttf';
+import SuitMedium from './fonts/Suit/SUIT-Medium.ttf';
+import SuitRegular from './fonts/Suit/SUIT-Regular.ttf';
+import SuitSemiBold from './fonts/Suit/SUIT-SemiBold.ttf';
 
 export const reset = css`
   html,
@@ -74,7 +82,6 @@ export const reset = css`
   header,
   hgroup,
   main,
-  menu,
   nav,
   output,
   ruby,
@@ -84,10 +91,12 @@ export const reset = css`
   mark,
   audio,
   video {
-    margin: 0;
     padding: 0;
+    margin: 0;
+
     border: 0;
-    font-size: 62.5%; // 1rem = 0.1px
+    font-size: 62.5%; /* 1rem = 0.1px */
+
     vertical-align: baseline;
   }
 
@@ -101,45 +110,109 @@ export const reset = css`
   header,
   hgroup,
   main,
-  menu,
   nav,
   section {
     display: block;
   }
+
   /* HTML5 hidden-attribute fix for newer browsers */
   *[hidden] {
     display: none;
   }
+
   body {
     line-height: 1;
   }
+
   menu,
   ol,
   ul {
     list-style: none;
   }
+
   blockquote,
   q {
     quotes: none;
   }
-  blockquote:before,
-  blockquote:after,
-  q:before,
-  q:after {
+
+  blockquote::before,
+  blockquote::after,
+  q::before,
+  q::after {
     content: '';
     content: none;
   }
+
   table {
     border-collapse: collapse;
     border-spacing: 0;
   }
+
   button {
-    cursor: pointer;
-    background: transparent;
+    padding: 0;
+    margin: 0;
+
     border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .code-mirror * {
+    font-size: 1.6rem !important; /* 1.6rem을 원하는 값으로 설정 */
   }
 `;
 export const GlobalStyle = createGlobalStyle`
+
+@font-face {
+  font-family: MontserratSemibold;
+  font-style: normal;
+  src: url(${MontserratSemibold}) format('truetype');
+}
+
+
+@font-face {
+  font-family: MontserratMedium;
+  font-style: normal;
+  src: url(${MontserratMedium}) format('truetype');
+}
+
+@font-face {
+  font-family: MontserratRegular;
+  font-style: normal;
+  src: url(${MontserratRegular}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitBold;
+  font-style: normal;
+  src: url(${SuitBold}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitSemiBold;
+  font-style: normal;
+  src: url(${SuitSemiBold}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitMedium;
+  font-style: normal;
+  src: url(${SuitMedium}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitRegular;
+  font-style: normal;
+  src: url(${SuitRegular}) format('truetype');
+}
+
+@font-face {
+  font-family: SuitLight;
+  font-style: normal;
+  src: url(${SuitLight}) format('truetype');
+}
+
+
 
 ${reset}
 
@@ -148,32 +221,37 @@ ${reset}
     margin: 0 auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
+
+    background-color: ${({ theme }) => theme.colors.bg};
 }
+
 #root::-webkit-scrollbar {
     display: none; /* 크롬, 사파리, 오페라, 엣지 */
 }
 
 * {
     box-sizing: border-box;
-    // 버튼 음영 제거
-    -webkit-tap-highlight-color:rgba(255,255,255,0);
-    // 글자 선택 방지
-    user-select: none;
-    // 링크 터치 금지
-    -webkit-touch-callout: none;
-    
-}
-input:disabled, textarea:disabled, input:disabled::placeholder, textarea:disabled::placeholder {
-    opacity: 1; 
 }
 
-// 사파리 웹 뷰 브라우저 상속 스타일 제거
+/* 사파리 웹 뷰 브라우저 상속 스타일 제거 */
 input, textarea,button {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    border-radius: 0;
+    padding: 0;
+    margin: 0;
+
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
+    border-radius: 0;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
 }
+
+input:disabled, textarea:disabled, input:disabled::placeholder, textarea:disabled::placeholder {
+    opacity: 1; 
+
+    padding: 0;
+    margin: 0;
+}
+
+
 `;
