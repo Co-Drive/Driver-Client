@@ -53,7 +53,9 @@ const LanguageSection = ({
   return (
     <Section>
       <Label>
-        사용 언어 <Essential>*</Essential>
+        <TitleContainer>
+          사용 언어 <Essential>*</Essential>
+        </TitleContainer>
       </Label>
       <DropdownContainer onClick={toggleDropdown}>
         <div>
@@ -120,6 +122,12 @@ const Label = styled.label`
   align-items: center;
 
   margin-bottom: 1.8rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+
+  margin-left: 0.2rem;
 
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
@@ -134,6 +142,9 @@ const SelectedTagContainer = styled.div`
 `;
 
 const Essential = styled.span`
+  margin-left: 0.6rem;
+  ${({ theme }) => theme.fonts.title_medium_20};
+
   color: ${({ theme }) => theme.colors.codrive_purple};
 `;
 
@@ -145,7 +156,7 @@ const DropdownContainer = styled.div`
   width: 100%;
   height: 4.8rem;
   padding: 1.5rem 1.2rem 1.4rem 2rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
@@ -156,9 +167,11 @@ const DropdownContainer = styled.div`
 const DropdownItemContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  position: absolute;
+  box-shadow: 0 1rem 2rem #0b0c0f99;
 
   width: 61.1rem;
-  padding: 1.6rem;
+  padding: 1.6rem 1.6rem 0.6rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};

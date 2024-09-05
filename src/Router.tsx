@@ -3,6 +3,7 @@ import TotalSolutions from './components/Follower/Personal/TotalSolutions';
 import AdminPage from './page/AdminPage';
 import FollowerCurrentPage from './page/FollowerCurrentPage';
 import FollowerPage from './page/FollowerPage';
+import GroupAllPage from './page/GroupAllPage';
 import GroupComplete from './page/GroupComplete';
 import GroupCreate from './page/GroupCreate';
 import GroupDetail from './page/GroupDetail';
@@ -24,7 +25,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:id" element={<MyProfilePage />} />
-        <Route path="/group" />
+        <Route path="/group" element={<GroupAllPage />} />
         <Route path="/group/:id" element={<GroupDetail />} />
         <Route path="/group/:id/admin" element={<AdminPage />} />
         <Route path="/group/:id/member" element={<GroupMemberPage />} />

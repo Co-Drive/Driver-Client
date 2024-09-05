@@ -61,6 +61,7 @@ import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
 import IcWarning from './icon/ic_warning.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
+import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 
 import BtnHeart from './btn/btn_heart.svg?react';
 import BtnInformation from './btn/btn_information.svg?react';
@@ -141,8 +142,9 @@ export {
   IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
-  IcWorkBookBlack,
   IcWarning,
+  IcWorkBookBlack,
+  IcWorkBookWhite,
   IcWorkbook,
   IcWorkbookBlack,
   TestWeekboardStatus,
