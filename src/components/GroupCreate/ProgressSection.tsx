@@ -8,7 +8,7 @@ const ProgressSection = ({
   handleChangeTextarea,
 }: ProgressSectionProps) => {
   const [charCount, setCharCount] = useState(0);
-  const maxChar = 1000;
+  const maxChar = `1,000`;
 
   useEffect(() => {
     setCharCount(progressValue.length);
@@ -17,16 +17,20 @@ const ProgressSection = ({
   return (
     <Section>
       <Label>
-        진행 방식 <Essential>*</Essential>
+        <TitleContainer>
+          진행 방식 <Essential>*</Essential>
+        </TitleContainer>
       </Label>
       <CommonTextarea
         category="group"
         value={progressValue}
         handleChangeTextarea={handleChangeTextarea}
       />
-      <CharCount>
-        {charCount}/{maxChar}
-      </CharCount>
+      <ChartContainer>
+        <CharCount>
+          {charCount}/{maxChar}
+        </CharCount>
+      </ChartContainer>
     </Section>
   );
 };
@@ -43,20 +47,31 @@ const Label = styled.label`
   align-items: center;
 
   margin-bottom: 1.8rem;
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+
+  margin-left: 0.2rem;
 
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
 `;
 
 const Essential = styled.span`
+  margin-left: 0.6rem;
+
   color: ${({ theme }) => theme.colors.codrive_purple};
+  ${({ theme }) => theme.fonts.body_medium_20};
+`;
+
+const ChartContainer = styled.div`
+  display: flex;
+  justify-content: end;
 `;
 
 const CharCount = styled.span`
-  display: flex;
-  justify-content: end;
-
-  margin-top: 0.8rem;
+  margin: 0.8rem 0.2rem 0 0;
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.detail_regular_12};

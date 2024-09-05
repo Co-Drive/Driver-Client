@@ -36,12 +36,14 @@ const WeekRate = () => {
   return (
     <Container>
       <Header>
-        {isSolvedExist ? '주간 성과율 & 문제 개수 비교' : '주간 성과율'}
-        <Notic>
+        <HeaderTitle>
+          {isSolvedExist ? '주간 성과율 & 문제 개수 비교' : '주간 성과율'}
+        </HeaderTitle>
+        <Notic $isSolvedExist={isSolvedExist}>
           <BtnInformation />
           <Tooltip>
-            <LineText>주간 성과율은 문제 개수와 상관없이</LineText>
-            문제풀이 여부를 측정하는 지표입니다.
+            주간 성과율은 문제 개수와 상관없이
+            <LineText>문제풀이 여부를 측정하는 지표입니다.</LineText>
           </Tooltip>
         </Notic>
       </Header>
@@ -127,12 +129,13 @@ const Container = styled.div`
 const Header = styled.header`
   display: flex;
 
+  white-space: nowrap;
+`;
+
+const HeaderTitle = styled.div`
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.title_bold_20};
-  white-space: nowrap;
-
-  /* margin-right: 13.8rem; */
 `;
 
 const ChartContainer = styled.div`
@@ -156,17 +159,21 @@ const MessageContainer = styled.div`
 
 const LineText = styled.div`
   display: flex;
+  align-items: center;
+
+  margin-top: 0.4rem;
 
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fonts.body_ligth_12};
 `;
 
-const Notic = styled.div`
+const Notic = styled.div<{ $isSolvedExist: boolean }>`
   display: flex;
   align-items: center;
   position: relative;
 
-  margin-left: 13.8rem;
+  margin-left: ${({ $isSolvedExist }) =>
+    $isSolvedExist ? '13.8rem' : '27.6rem'};
 
   &:hover > div {
     visibility: visible;
@@ -181,7 +188,8 @@ const Tooltip = styled.div`
   visibility: hidden;
   z-index: 10;
 
-  width: 22.8rem;
+  max-width: 19.9rem;
+
   height: auto;
   padding: 1.2rem 1.1rem;
 
