@@ -111,7 +111,6 @@ const SolvePage = () => {
 
   const changeRecords = () => {
     setRecords(data.data);
-    console.log(data.data);
   };
 
   if (data) {
