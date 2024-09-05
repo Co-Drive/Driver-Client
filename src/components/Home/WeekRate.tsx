@@ -40,8 +40,8 @@ const WeekRate = () => {
         <Notic $isSolvedExist={isSolvedExist}>
           <BtnInformation />
           <Tooltip>
-            <LineText>주간 성과율은 문제 개수와 상관없이</LineText>
-            문제풀이 여부를 측정하는 지표입니다.
+            주간 성과율은 문제 개수와 상관없이
+            <LineText>문제풀이 여부를 측정하는 지표입니다.</LineText>
           </Tooltip>
         </Notic>
       </Header>
@@ -154,6 +154,7 @@ const MessageContainer = styled.div`
 
 const LineText = styled.div`
   display: flex;
+  align-items: center;
 
   margin-bottom: 0.4rem;
 
@@ -182,7 +183,8 @@ const Tooltip = styled.div`
   visibility: hidden;
   z-index: 10;
 
-  width: 22.8rem;
+  max-width: 19.9rem;
+
   height: auto;
   padding: 1.2rem 1.1rem;
 
