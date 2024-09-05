@@ -1,41 +1,42 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { postAuth } from '../libs/apis/Login/postAuth';
+// import { postAuth } from '../libs/apis/Login/postAuth';
 
 const LoginLoadingPage = () => {
-  const navigate = useNavigate();
+  console.log('test');
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const code = queryParams.get('code');
+  // useEffect(() => {
+  //   const queryParams = new URLSearchParams(window.location.search);
+  //   const code = queryParams.get('code');
 
-    if (code) {
-      postAuth(code)
-        .then(({ data }) => {
-          const {
-            userId,
-            nickname,
-            accessToken,
-            refreshToken,
-            profileImg,
-            isExistUser,
-          } = data.data;
-          sessionStorage.setItem('user', userId);
-          sessionStorage.setItem('nickname', nickname);
-          sessionStorage.setItem('token', accessToken);
-          sessionStorage.setItem('refresh', refreshToken);
-          sessionStorage.setItem('profileImg', profileImg);
+  //   if (code) {
+  //     postAuth(code)
+  //       .then(({ data }) => {
+  //         const {
+  //           userId,
+  //           nickname,
+  //           accessToken,
+  //           refreshToken,
+  //           profileImg,
+  //           isExistUser,
+  //         } = data.data;
+  //         sessionStorage.setItem('user', userId);
+  //         sessionStorage.setItem('nickname', nickname);
+  //         sessionStorage.setItem('token', accessToken);
+  //         sessionStorage.setItem('refresh', refreshToken);
+  //         sessionStorage.setItem('profileImg', profileImg);
 
-          isExistUser ? navigate('/') : navigate('/register');
-        })
-        .catch((err) => {
-          // 이거 지우고 에러 모달 띄우기
-          console.log(err);
-        });
-    }
-  }, [window.location.search]);
+  //         isExistUser ? navigate('/') : navigate('/register');
+  //       })
+  //       .catch((err) => {
+  //         // 이거 지우고 에러 모달 띄우기
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [window.location.search]);
 
   return (
     <PageLayout category="홈">
