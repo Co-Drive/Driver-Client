@@ -67,14 +67,16 @@ const TodaySolve = () => {
         <Notic>
           <BtnInformation />
           <Tooltip>
-            목표설정은 우측 상단 <br />
-            닉네임 {'>'} 내 프로필 설정 가능합니다.
+            목표설정은 우측 상단
+            <ToolTipNextLine>
+              닉네임 {'>'} 내 프로필 설정 가능합니다.
+            </ToolTipNextLine>
           </Tooltip>
         </Notic>
       </TitleContainer>
       <Subtitle>
-        달성 가능한 목표를 세우고, <br />
-        매일 설천해보세요
+        달성 가능한 목표를 세우고,
+        <SubTitleNextLine>매일 설천해보세요</SubTitleNextLine>
       </Subtitle>
 
       <PieContainer>
@@ -169,7 +171,26 @@ const Title = styled.h2`
   white-space: nowrap;
 `;
 
+const ToolTipNextLine = styled.span`
+  display: flex;
+  align-items: center;
+
+  margin-top: 0.4rem;
+
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+`;
+
 const Subtitle = styled.p`
+  ${({ theme }) => theme.fonts.body_ligth_16};
+  color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const SubTitleNextLine = styled.p`
+  display: flex;
+
+  margin-top: 0.2rem;
+
   ${({ theme }) => theme.fonts.body_ligth_16};
   color: ${({ theme }) => theme.colors.gray300};
 `;
@@ -199,8 +220,6 @@ const Notic = styled.div`
   align-items: center;
   position: relative;
 
-  margin-left: 2.5rem;
-
   &:hover > div {
     visibility: visible;
     opacity: 1;
@@ -213,7 +232,8 @@ const Tooltip = styled.div`
   top: 170%;
   visibility: hidden;
 
-  width: 22.8rem;
+  max-width: 21.1rem;
+
   height: auto;
   padding: 1.2rem 1.1rem;
 
