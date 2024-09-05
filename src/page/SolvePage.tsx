@@ -12,6 +12,7 @@ import {
   CodeProps,
   QuestionInfoProps,
 } from '../types/Solve/solveTypes';
+import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const SolvePage = () => {
   const { state } = useLocation();
@@ -33,6 +34,7 @@ const SolvePage = () => {
     ],
   } = records || {};
 
+  const [opacity, setOpacity] = useState(0);
   const [questionInfo, setQuestionInfo] = useState<QuestionInfoProps>({
     title: '',
     level: 0,
@@ -105,10 +107,6 @@ const SolvePage = () => {
     });
   };
 
-  const handleClickGoTopBtn = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const changeRecords = () => {
     setRecords(data.data);
   };
@@ -140,8 +138,24 @@ const SolvePage = () => {
     }, [records]);
   }
 
+  useEffect(() => {
+    window.addEventListener('scroll', () => setOpacity(window.scrollY));
+    return () => {
+      window.removeEventListener('scroll', () => setOpacity(window.scrollY));
+    };
+  }, []);
+
   return (
     <PageLayout category="문제풀이">
+      {ideId > 0 && (
+        <GoTopBtn
+          type="button"
+          onClick={handleClickGoTopBtn}
+          $opacity={opacity}
+        >
+          <IcArrowUpBig />
+        </GoTopBtn>
+      )}
       <SolvePageContainer>
         <PageHeader
           id={recordId}
@@ -166,11 +180,6 @@ const SolvePage = () => {
             <IcAddFillDisabled />
           )}
         </AddBtnContainer>
-        {ideId > 0 && (
-          <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
-            <IcArrowUpBig />
-          </GoTopBtn>
-        )}
       </SolvePageContainer>
     </PageLayout>
   );
@@ -182,7 +191,6 @@ const SolvePageContainer = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
-  position: relative;
 
   padding: 6rem 25.7rem 20rem;
 `;
@@ -195,8 +203,10 @@ const AddBtnContainer = styled.div`
   margin: 1.8rem 25.7rem 0;
 `;
 
-const GoTopBtn = styled.button`
-  position: absolute;
-  bottom: 25rem;
-  left: 121.7rem;
+const GoTopBtn = styled.button<{ $opacity: number }>`
+  opacity: ${({ $opacity }) => $opacity};
+
+  position: fixed;
+  top: calc(100vh - 15rem);
+  left: calc(100vw - 22.3rem);
 `;

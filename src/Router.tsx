@@ -43,6 +43,7 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/oauth/github/callback" element={<LoginLoadingPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/group-all" element={<GroupAllPage />} />
       </Routes>
     </BrowserRouter>
   );

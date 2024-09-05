@@ -1,21 +1,14 @@
 import styled from 'styled-components';
-// import RecommendCard from '../common/RecommendCard';
-import RecommendTitle from '../components/GroupAll/RecommendTitle';
-import TotalCard from '../components/GroupAll/TotalCard';
+import GroupItem from '../components/GroupAll/GroupItem';
+import GroupRecommend from '../components/GroupAll/GroupRecommend';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { GROUP_ALL_DUMMY } from '../constants/GroupAll/groupAllConst';
 
 const GroupAllPage = () => {
-  const { item, user } = GROUP_ALL_DUMMY;
-
   return (
     <PageLayout category={'그룹'}>
       <GroupAllPageContainer>
-        <TotalCard item={item} />
-        <Recommendcontainer>
-          <RecommendTitle user={user} />
-          {/* <RecommendCard group={group} isLongPage={false} /> */}
-        </Recommendcontainer>
+        <GroupRecommend />
+        <GroupItem />
       </GroupAllPageContainer>
     </PageLayout>
   );
@@ -24,18 +17,8 @@ export default GroupAllPage;
 
 const GroupAllPageContainer = styled.section`
   display: flex;
-  align-items: center;
   flex-direction: column;
 
   width: 100%;
-`;
-
-const Recommendcontainer = styled.section`
-  display: flex;
-  gap: 3rem;
-  justify-content: center;
-  flex-direction: column;
-
-  width: 100%;
-  padding: 7rem 25.7rem 21rem;
+  padding: 6rem 25.7rem 18rem;
 `;

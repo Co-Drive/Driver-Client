@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import CommonCalendar from '../components/Calendar/Calendar';
 import useGetMonthSolve from '../libs/hooks/Home/useGetMonthSolve';
 
-const CommonMonthSolve = () => {
+interface CommonMonthSolveProps {
+  userId: number;
+}
+
+const CommonMonthSolve = ({ userId }: CommonMonthSolveProps) => {
   const currentMonth = new Date().getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
 
   const year = new Date().getFullYear();
@@ -11,6 +15,7 @@ const CommonMonthSolve = () => {
   const [clickedMonth, setClickedMonth] = useState(currentMonth);
   ``;
   const { data, isLoading } = useGetMonthSolve({
+    userId: userId,
     year: clickedYear,
     month: clickedMonth,
   });
