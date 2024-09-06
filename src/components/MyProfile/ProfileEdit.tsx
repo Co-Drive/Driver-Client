@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
+import ErrorModal from '../../common/Modal/ErrorModal/ErrorModal';
 import usePatchUser from '../../libs/hooks/MyProfile/usePatchUser';
 import usePostCheckExitNickname from '../../libs/hooks/MyProfile/usePostCheckExitNickname';
 import { ProfileEdiltProps } from '../../types/MyProfile/MyProfileType';
@@ -25,7 +26,10 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const { originNickname, isExitNickname, isClickedCheckBtn } = changeNickname;
   const { comment, github, language, nickname, name } = inputs;
 
-  const { patchMutation } = usePatchUser(nickname);
+  const { patchMutation, patchUserErr } = usePatchUser({
+    nickname,
+    handleCloseModal,
+  });
   const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
     setChangeNickname({
       ...changeNickname,
@@ -33,6 +37,9 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
       isClickedCheckBtn: true,
     })
   );
+
+  const isError = patchUserErr.length > 0;
+  const [errModalOn, setErrModalOn] = useState(isError);
 
   // 입력 값의 유효성을 검사하는 변수
   const isActive =
@@ -86,7 +93,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
       nickname,
     });
     handleCloseModal(); // 모달 닫기
-  };
+
 
   // 취소 버튼 클릭 처리 함수
   const handleCancelBtnClick = () => {
@@ -100,6 +107,10 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const handleNicknameCheck = () => {
     mutation(nickname);
   };
+
+  useEffect(() => {
+    setErrModalOn(isError);
+  }, [isError]);
 
   return (
     <ModalBackground>
@@ -136,6 +147,13 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
             onClick={handleSaveBtnClick}
           />
         </ProfileButton>
+
+        {errModalOn && (
+          <ErrorModal
+            errMsg={patchUserErr}
+            onClose={() => setErrModalOn(false)}
+          />
+        )}
       </ProfileContainer>
     </ModalBackground>
   );

@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IcAdd, IcMinusWhite } from '../../assets';
+import ErrorModal from '../../common/Modal/ErrorModal/ErrorModal';
 import usePatchGoal from '../../libs/hooks/MyProfile/usePatchGoal';
 
 const MyGoal = () => {
+  const { mutation, patchGoalErr } = usePatchGoal(() => setIsSaved(true));
+  const isError = patchGoalErr.length > 0;
+
   // 추후 서버에서 받아온 목표 값으로 초기화해주세요
   const [number, setNumber] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
-
-  const { mutation } = usePatchGoal(() => setIsSaved(true));
+  const [onErrModal, setOnErrModal] = useState(isError);
 
   const handleSaveBtnClick = () => {
     mutation(number);
@@ -33,6 +36,10 @@ const MyGoal = () => {
       setNumber((prev) => prev - 1);
     }
   };
+
+  useEffect(() => {
+    setOnErrModal(isError);
+  }, [isError]);
 
   return (
     <MyGoalContainer>
@@ -78,6 +85,13 @@ const MyGoal = () => {
           )}
         </ProfileButton>
       </MyGoalBox>
+
+      {onErrModal && (
+        <ErrorModal
+          onClose={() => setOnErrModal(false)}
+          errMsg={patchGoalErr}
+        />
+      )}
     </MyGoalContainer>
   );
 };

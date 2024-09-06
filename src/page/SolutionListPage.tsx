@@ -5,7 +5,7 @@ import TempSave from '../components/Solution/List/TempSave';
 
 const SolutionListPage = () => {
   const nickname = sessionStorage.getItem('nickname');
-  const id = sessionStorage.getItem('users');
+  const id = sessionStorage.getItem('user');
   if (!id) return;
   const userId = parseInt(id);
 
