@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
   IcFollowingGray,
   IcGithubLogoSmall,
   IcUnfollowingWhite,
 } from '../../assets';
+import ErrorModal from '../../common/Modal/ErrorModal/ErrorModal';
 import useUpdateFollower from '../../libs/hooks/Follower/useUpdateFollower';
 import useDeleteUser from '../../libs/hooks/MyProfile/useDeleteUser';
 import useGetFollowList from '../../libs/hooks/MyProfile/useGetFollowList';
@@ -15,9 +16,12 @@ const FollowingList = () => {
   const [isFollowerSelected, setIsFollowerSelected] = useState(true);
 
   const { mutation } = useUpdateFollower();
-  const { deleteMutation } = useDeleteUser();
+  const { deleteMutation, deleteUserErr } = useDeleteUser();
   const { followData, isLoading } = useGetFollowList(isFollowerSelected);
   const { users, count } = !isLoading && followData.data;
+  const isError = deleteUserErr.length > 0;
+
+  const [onErrModal, setOnErrModal] = useState(isError);
 
   const handleClickFollowerBtn = ({
     nickname,
@@ -34,6 +38,10 @@ const FollowingList = () => {
     )
       deleteMutation();
   };
+
+  useEffect(() => {
+    setOnErrModal(isError);
+  }, [isError]);
 
   return (
     <div>
@@ -109,6 +117,13 @@ const FollowingList = () => {
         <DeleteText>코드라이브를 더이상 이용하지 않는다면</DeleteText>
         <DeleteBtn onClick={handleDeleteAccount}>회원탈퇴</DeleteBtn>
       </DeleteIdContainer>
+
+      {onErrModal && (
+        <ErrorModal
+          onClose={() => setOnErrModal(false)}
+          errMsg={deleteUserErr}
+        />
+      )}
     </div>
   );
 };
