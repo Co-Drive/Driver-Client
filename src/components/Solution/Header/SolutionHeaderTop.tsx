@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -8,6 +8,7 @@ import {
   IcStarGray,
   IcStarGreen,
 } from '../../../assets';
+import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
 import Modal from '../../../common/Modal/Modal';
 import useDeleteRecords from '../../../libs/hooks/Solution/useDeleteRecords';
 import { SolutionHeaderTopProps } from '../../../types/Solution/solutionTypes';
@@ -21,8 +22,10 @@ const SolutionHeaderTop = ({
   paintedStarArr,
 }: SolutionHeaderTopProps) => {
   const navigate = useNavigate();
-  const { mutation } = useDeleteRecords();
+  const { mutation, deleteErr } = useDeleteRecords();
   const [isCopied, setIsCopied] = useState(false);
+  const isDeleteErr = deleteErr.length > 0;
+  const [errModalOn, setErrModalOn] = useState(isDeleteErr);
 
   const handleClickShareBtn = () => {
     handleCopyClipBoard({ isUsedBaseUrl: false });
@@ -40,6 +43,10 @@ const SolutionHeaderTop = ({
   const handleClickModifyBtn = () => {
     navigate('/solve', { state: { recordId: recordId } });
   };
+
+  useEffect(() => {
+    setErrModalOn(isDeleteErr);
+  }, [deleteErr]);
 
   return (
     <SolutionHeaderTopContainer>
@@ -96,6 +103,10 @@ const SolutionHeaderTop = ({
           </BtnContainer>
         )}
       </BottomContainer>
+
+      {errModalOn && (
+        <ErrorModal errMsg={deleteErr} onClose={() => setErrModalOn(false)} />
+      )}
     </SolutionHeaderTopContainer>
   );
 };

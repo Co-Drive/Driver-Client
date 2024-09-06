@@ -57,6 +57,8 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
         <GroupContainer $isFirstPage={isFirstPage} $isLastPage={isLastPage}>
           {slicedGroups.map((group) => {
             const { roomId, tags, title, introduce, ownerId, isMember } = group;
+            const allTag = ['ALL'];
+            const languageTags = tags.length > 5 ? allTag : tags;
             return (
               <Group
                 key={roomId}
@@ -69,7 +71,7 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
                 }
               >
                 <TagContainer>
-                  {tags.map((tag, tagIndex) => (
+                  {languageTags.map((tag, tagIndex) => (
                     <Tag key={tagIndex}>#{tag}</Tag>
                   ))}
                 </TagContainer>

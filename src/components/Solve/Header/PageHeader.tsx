@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
 import SaveModal from '../../../common/Modal/Modal';
 import usePatchRecords from '../../../libs/hooks/Solve/usePatchRecords';
 import usePostRecords from '../../../libs/hooks/Solve/usePostRecords';
@@ -15,12 +16,23 @@ const PageHeader = ({
   questionInfo,
   handleOpenOptions,
 }: PageHeaderProps) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
   const { title, level, tags, platform, problemUrl } = questionInfo;
   const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
-  const { patchMutation } = usePatchRecords(id);
-  const { postMutation } = usePostRecords();
+  const { patchMutation, patchErr } = usePatchRecords(id);
+  const { postMutation, postErr } = usePostRecords();
+
+  const [postTempErr, setPostTempErr] = useState('');
+  const isError =
+    patchErr.length > 0 || postErr.length > 0 || postTempErr.length > 0;
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [errModalOpen, setErrModalOpen] = useState(isError);
+
+  const errMsg = patchErr || postErr || postTempErr;
+
+  const handlePostTempErr = (message: string) => {
+    setPostTempErr(message);
+  };
 
   const handleClickBtn = (isSaveBtn: boolean) => {
     if (isSaveBtn) {
@@ -45,6 +57,10 @@ const PageHeader = ({
     handleOpenOptions(true);
     setModalOpen(false);
   };
+
+  useEffect(() => {
+    setErrModalOpen(isError);
+  }, [isError]);
 
   return (
     <PageHeaderContainer>
@@ -80,9 +96,14 @@ const PageHeader = ({
       {modalOpen && (
         <SaveModal
           onClose={handleModalClose}
+          handlePostTempErr={handlePostTempErr}
           questionInfo={questionInfo}
           codeblocks={codeblocks}
         />
+      )}
+
+      {errModalOpen && (
+        <ErrorModal onClose={() => setErrModalOpen(false)} errMsg={errMsg} />
       )}
     </PageHeaderContainer>
   );

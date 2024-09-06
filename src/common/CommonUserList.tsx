@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -23,6 +23,7 @@ import {
 } from '../types/CommonUserList/userListType';
 import { movePagePosition } from '../utils/movePagePosition';
 import { removeSavedPage } from '../utils/removeSavedPage';
+import ErrorModal from './Modal/ErrorModal/ErrorModal';
 import WarningModal from './Modal/WarningModal/WarningModal';
 
 const CommonUserList = ({
@@ -67,8 +68,11 @@ const CommonUserList = ({
     (_, idx) => idx + 1
   );
 
-  const { patchMutation } = usePatchApprove();
-  const { deleteMutation } = useDeleteMember();
+  const { patchMutation, patchApproveErr } = usePatchApprove();
+  const { deleteMutation, deleteMemberErr } = useDeleteMember();
+  const isError = patchApproveErr.length > 0 || deleteMemberErr.length > 0;
+
+  const [errModalOn, setErrModalOn] = useState(isError);
 
   const handleClickContents = (id: number) => {
     setClickedContents({
@@ -103,7 +107,7 @@ const CommonUserList = ({
 
   const handleClickModalBtn = (userId: number) => {
     if (roomId) {
-      deleteMutation({ roomId, userId });
+      deleteMutation({ roomId: 100, userId });
       setModalOn(false);
     }
   };
@@ -122,6 +126,10 @@ const CommonUserList = ({
     setClickedPage((prev) => prev + 1);
     removeSavedPage();
   };
+
+  useEffect(() => {
+    setErrModalOn(isError);
+  }, [isError]);
 
   return (
     <>
@@ -213,7 +221,7 @@ const CommonUserList = ({
                     )}
                   </ContentsContainer>
 
-                  {isAdmin && modalOn && (
+                  {isAdmin && modalOn && !isError && (
                     <WarningModal
                       data={nickname}
                       isGroupStatusModal={false}
@@ -253,6 +261,13 @@ const CommonUserList = ({
 
       {!isLoading && !isAdmin && users.length === 0 && (
         <FollowerRecommendCard />
+      )}
+
+      {errModalOn && (
+        <ErrorModal
+          onClose={() => setErrModalOn(false)}
+          errMsg={patchApproveErr ? patchApproveErr : deleteMemberErr}
+        />
       )}
     </>
   );

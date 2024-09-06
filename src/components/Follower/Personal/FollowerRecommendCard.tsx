@@ -7,6 +7,7 @@ import {
   IcInformation,
   IcUnfollowingWhite,
 } from '../../../assets';
+import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
 import useGetFollowerRecommend from '../../../libs/hooks/Follower/useGetFollowerRecommend';
 import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
 
@@ -15,9 +16,11 @@ const FollowerRecommendCard = () => {
   const navigate = useNavigate();
 
   const { data, isLoading } = useGetFollowerRecommend();
-  const { mutation } = useUpdateFollower();
+  const { mutation, updateFollowerErr } = useUpdateFollower();
   const { users } = !isLoading && data.data;
+  const isError = updateFollowerErr.length > 0;
 
+  const [errModalOn, setErrModalOn] = useState(isError);
   const [followingBtn, setFollowingBtn] = useState({
     isClicked: false,
     clickedNickname: [''],
@@ -31,8 +34,6 @@ const FollowerRecommendCard = () => {
   };
 
   const handleClickFollowerBtn = (nickname: string) => {
-    // mutation({ nickname, isDelete });
-
     let newNicknameArr;
     if (clickedNickname.includes(nickname)) {
       const isDelete = true;
@@ -115,6 +116,13 @@ const FollowerRecommendCard = () => {
             }
           )}
         </RecommendCard>
+      )}
+
+      {errModalOn && (
+        <ErrorModal
+          onClose={() => setErrModalOn(false)}
+          errMsg={updateFollowerErr}
+        />
       )}
     </RecommendCardContainer>
   );

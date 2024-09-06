@@ -1,16 +1,27 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { IcCancelSmallWhite, IcSuccess } from '../../assets';
 import usePostTempRecords from '../../libs/hooks/Solve/usePostTempRecords';
 import { ModalProps } from '../../types/Solve/solveTypes';
 
-const SaveModalForm = ({ onClose, questionInfo, codeblocks }: ModalProps) => {
-  const { mutation } = usePostTempRecords(onClose);
+const SaveModalForm = ({
+  onClose,
+  handlePostTempErr,
+  questionInfo,
+  codeblocks,
+}: ModalProps) => {
+  const { mutation, postTempErr } = usePostTempRecords(onClose);
 
-  const handleClickExitBtn = async () => {
+  const handleClickExitBtn = () => {
     if (questionInfo && codeblocks) {
       mutation({ questionInfo, codeblocks });
     }
   };
+
+  useEffect(() => {
+    if (postTempErr && onClose) onClose();
+    handlePostTempErr && handlePostTempErr(postTempErr);
+  }, [postTempErr]);
 
   return (
     <ContentsContainer>

@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import ErrorModal from '../common/Modal/ErrorModal/ErrorModal';
 import GroupInfo from '../components/GroupDetail/GroupInfo';
 import Header from '../components/GroupDetail/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -13,7 +15,7 @@ const GroupDetail = () => {
   if (!id) return;
 
   const { data, isLoading } = useGetDetail(parseInt(id));
-  const { mutation, isSuccess } = usePostPublicRequest();
+  const { mutation, isSuccess, err } = usePostPublicRequest();
   const {
     title,
     owner,
@@ -24,10 +26,17 @@ const GroupDetail = () => {
     introduce,
     information,
   } = !isLoading && data.data;
+  const isError = err.length > 0;
+
+  const [onErrModal, setOnErrModal] = useState(isError);
 
   const handleClickApplyBtn = () => {
     mutation(parseInt(id));
   };
+
+  useEffect(() => {
+    setOnErrModal(isError);
+  }, [isError]);
 
   return (
     <PageLayout category="그룹">
@@ -50,6 +59,9 @@ const GroupDetail = () => {
             </ApplyBtn>
           )}
         </GroupDetailContainer>
+      )}
+      {onErrModal && (
+        <ErrorModal onClose={() => setOnErrModal(false)} errMsg={err} />
       )}
     </PageLayout>
   );

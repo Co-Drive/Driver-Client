@@ -1,24 +1,28 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PostRecordsProps } from '../../../types/Solve/solveTypes';
 import { postRecords } from '../../apis/Solve/postRecords';
 
 const usePostRecords = () => {
   const navigate = useNavigate();
+  const [errMsg, setErrMsg] = useState('');
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: async ({ questionInfo, codeblocks }: PostRecordsProps) => {
       return await postRecords({ questionInfo, codeblocks });
     },
-    onError: () => navigate('/error'),
-    onSuccess: ({ data }) => {
-      const { recordId } = data;
+    onError: (err: { response: { data: { message: string } } }) => {
+      const { message } = err.response.data;
+      setErrMsg(message);
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
-      navigate(`/solution/${recordId}`);
+      navigate(`/solution`);
     },
   });
-  return { postMutation: mutation.mutate, isLoading: mutation.isPending };
+  return { postMutation: mutation.mutate, postErr: errMsg };
 };
 
 export default usePostRecords;
