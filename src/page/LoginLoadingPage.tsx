@@ -20,13 +20,16 @@ const LoginLoadingPage = () => {
             accessToken,
             refreshToken,
             profileImg,
+            langauge,
             isExistUser,
           } = data.data;
+
           sessionStorage.setItem('user', userId);
           sessionStorage.setItem('nickname', nickname);
           sessionStorage.setItem('token', accessToken);
           sessionStorage.setItem('refresh', refreshToken);
           sessionStorage.setItem('profileImg', profileImg);
+          sessionStorage.setItem('language', langauge);
 
           isExistUser ? navigate('/') : navigate('/register');
         })
