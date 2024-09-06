@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { IcCancelSmallWhite, IcWarning } from '../../../assets';
 import { ErrorModalProps } from '../../../types/Modal/modalType';
 
-const ErrorModalForm = ({ errMsg, onClose }: ErrorModalProps) => {
+const ErrorModalForm = ({ callbackPage, errMsg, onClose }: ErrorModalProps) => {
   const navigate = useNavigate();
   const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.currentTarget === e.target && onClose) {
@@ -12,7 +12,9 @@ const ErrorModalForm = ({ errMsg, onClose }: ErrorModalProps) => {
   };
 
   const handleClickCheckBtn = () => {
-    navigate('/');
+    if (callbackPage) {
+      navigate('/');
+    }
     onClose();
   };
 

@@ -48,7 +48,11 @@ const LoginLoadingPage = () => {
   return (
     <PageLayout category="홈">
       {modalOn ? (
-        <ErrorModal errMsg={errMsg} onClose={() => setModalOn(false)} />
+        <ErrorModal
+          callbackPage="/"
+          errMsg={errMsg}
+          onClose={() => setModalOn(false)}
+        />
       ) : (
         <Title>로그인 중...</Title>
       )}
