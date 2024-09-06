@@ -23,8 +23,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   });
 
   const { originNickname, isExitNickname, isClickedCheckBtn } = changeNickname;
-  const { comment, githubUrl, language, nickname, name } = inputs;
-  const githubNickname = githubUrl.split('/')[githubUrl.split('/').length - 1];
+  const { comment, github, language, nickname, name } = inputs;
 
   const { patchMutation } = usePatchUser(nickname);
   const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
@@ -46,14 +45,15 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
     ((language !== selectedLanguage && selectedLanguage.length > 0) ||
       language === selectedLanguage) &&
     (!comment || (comment.length > 0 && comment.length <= 30)) &&
-    (!githubUrl || githubUrl.length > 0);
+    (!github || github.length > 0);
 
   // 입력 값 변경 처리 함수
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log(name, value); // 입력값이 제대로 전달되는지 확인
     setInputs((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: value, // 여기서 name이 'github'일 경우 github 값이 업데이트됨
     }));
     setChangeNickname({ ...changeNickname, isClickedCheckBtn: false });
   };
@@ -73,7 +73,18 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   // 가입 버튼 클릭 처리 함수
   const handleSaveBtnClick = () => {
     if (!isActive) return;
-    patchMutation({ comment, githubUrl, language: selectedLanguage, nickname });
+    console.log({
+      comment,
+      githubUrl: github,
+      language: selectedLanguage,
+      nickname,
+    }); // 전달되는 값을 확인
+    patchMutation({
+      comment,
+      githubUrl: github,
+      language: selectedLanguage,
+      nickname,
+    });
     handleCloseModal(); // 모달 닫기
   };
 
@@ -96,10 +107,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
         <BasicInfoContainer>
           <BasicTitle>기본정보</BasicTitle>
           <NameInfo user={name} />
-          <GithubInfo
-            github={githubNickname}
-            handleChangeInputs={handleChangeInputs}
-          />
+          <GithubInfo github={github} handleChangeInputs={handleChangeInputs} />
         </BasicInfoContainer>
         <CodriveContainer>
           <CodriveTitle>코드라이브 정보</CodriveTitle>
