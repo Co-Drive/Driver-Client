@@ -80,7 +80,9 @@ const GroupDetailContainer = styled.section`
 `;
 
 const GroupImg = styled.img`
-  width: 61.2rem;
+  min-width: 61.2rem;
+
+  width: 100%;
   height: 36.8rem;
   margin-bottom: 2.4rem;
   margin-left: 0.1rem;
@@ -92,7 +94,8 @@ const GroupImg = styled.img`
 
 const ApplyBtn = styled.button`
   position: fixed;
-  top: 84.4rem;
+  right: 48.3rem;
+  bottom: 11.5rem;
   left: 48.3rem;
 
   padding: 1.8rem 19.5rem;
