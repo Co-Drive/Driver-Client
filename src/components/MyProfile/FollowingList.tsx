@@ -15,11 +15,11 @@ import { UserType } from '../../types/MyProfile/MyProfileType';
 const FollowingList = () => {
   const [isFollowerSelected, setIsFollowerSelected] = useState(true);
 
-  const { mutation } = useUpdateFollower();
+  const { mutation, updateFollowerErr } = useUpdateFollower();
   const { deleteMutation, deleteUserErr } = useDeleteUser();
   const { followData, isLoading } = useGetFollowList(isFollowerSelected);
   const { users, count } = !isLoading && followData.data;
-  const isError = deleteUserErr.length > 0;
+  const isError = deleteUserErr.length > 0 || updateFollowerErr.length > 0;
 
   const [onErrModal, setOnErrModal] = useState(isError);
 
@@ -121,7 +121,7 @@ const FollowingList = () => {
       {onErrModal && (
         <ErrorModal
           onClose={() => setOnErrModal(false)}
-          errMsg={deleteUserErr}
+          errMsg={deleteUserErr ? deleteUserErr : updateFollowerErr}
         />
       )}
     </div>
