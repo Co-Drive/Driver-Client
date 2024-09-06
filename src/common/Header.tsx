@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcLoginIcon, IcLogo } from '../assets';
@@ -11,10 +12,32 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const userId = user && parseInt(user);
   const profileImg = sessionStorage.getItem('profileImg');
   const isLogin = nickname && nickname.length > 0;
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropDownRef = useRef<HTMLDivElement>(null);
 
   const handleClickProfile = () => {
     navigate(`/${userId}`);
   };
+
+  const haldmeDropDownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleClickOutSide = (e: MouseEvent) => {
+    if (
+      dropDownRef.current &&
+      !dropDownRef.current.contains(e.target as Node)
+    ) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutSide);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutSide);
+    };
+  }, []);
 
   return (
     <HeaderWrapper>
@@ -30,12 +53,34 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
                   {isLogin && clickedCategory === v.text && (
                     <IconContainer>{v.icon}</IconContainer>
                   )}
-                  <Text
-                    onClick={(e) => isLogin && handleClickCategory(e)}
-                    $isClickedCategory={clickedCategory === v.text}
-                  >
-                    {v.text}
-                  </Text>
+                  {v.text === '그룹' ? (
+                    <Text
+                      onClick={haldmeDropDownToggle}
+                      $isClickedCategory={clickedCategory === v.text}
+                    >
+                      {v.text}
+                    </Text>
+                  ) : (
+                    <Text
+                      onClick={(e) => isLogin && handleClickCategory(e)}
+                      $isClickedCategory={clickedCategory === v.text}
+                    >
+                      {v.text}
+                    </Text>
+                  )}
+                  {v.text === '그룹' && isDropdownOpen && (
+                    <DropdownMenu ref={dropDownRef}>
+                      <DropdownItem onClick={() => navigate('/group')}>
+                        그룹 참여하기
+                      </DropdownItem>
+                      <DropdownItem onClick={() => navigate('/group-new')}>
+                        그룹 생성하기
+                      </DropdownItem>
+                      <DropdownItem onClick={() => navigate('/my-group')}>
+                        내 그룹
+                      </DropdownItem>
+                    </DropdownMenu>
+                  )}
                 </NavBar>
               );
             })}
@@ -90,6 +135,7 @@ const NavBarContainer = styled.nav`
 const NavBarUl = styled.ul`
   display: flex;
   gap: 3rem;
+  position: relative;
 `;
 
 const NavBar = styled.li`
@@ -137,4 +183,32 @@ const LoginBtn = styled.button`
   white-space: nowrap;
 
   ${({ theme }) => theme.fonts.title_semiBold_18}
+`;
+
+const DropdownMenu = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  flex-direction: column;
+  position: absolute;
+  top: 155%;
+  left: 14.1rem;
+
+  padding: 1.6rem 0;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray600};
+
+  white-space: nowrap;
+`;
+
+const DropdownItem = styled.div`
+  padding: 0.6rem 1.9rem 0.6rem 1.8rem;
+  ${({ theme }) => theme.fonts.title_semiBold_14};
+
+  color: ${({ theme }) => theme.colors.white};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
 `;
