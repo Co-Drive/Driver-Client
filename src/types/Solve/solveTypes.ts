@@ -119,7 +119,7 @@ export interface ModalProps {
     platform: string;
     problemUrl: string;
   };
-
   codeblocks?: Array<{ id: number; code: string; memo: string }>;
+  handlePostTempErr?: (message: string) => void;
   onClose?: () => void;
 }

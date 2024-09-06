@@ -20,10 +20,19 @@ const PageHeader = ({
   const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
   const { patchMutation, patchErr } = usePatchRecords(id);
   const { postMutation, postErr } = usePostRecords();
-  const isError = patchErr.length > 0 || postErr.length > 0;
+
+  const [postTempErr, setPostTempErr] = useState('');
+  const isError =
+    patchErr.length > 0 || postErr.length > 0 || postTempErr.length > 0;
 
   const [modalOpen, setModalOpen] = useState(false);
   const [errModalOpen, setErrModalOpen] = useState(isError);
+
+  const errMsg = patchErr || postErr || postTempErr;
+
+  const handlePostTempErr = (message: string) => {
+    setPostTempErr(message);
+  };
 
   const handleClickBtn = (isSaveBtn: boolean) => {
     if (isSaveBtn) {
@@ -87,16 +96,14 @@ const PageHeader = ({
       {modalOpen && (
         <SaveModal
           onClose={handleModalClose}
+          handlePostTempErr={handlePostTempErr}
           questionInfo={questionInfo}
           codeblocks={codeblocks}
         />
       )}
 
       {errModalOpen && (
-        <ErrorModal
-          onClose={() => setErrModalOpen(false)}
-          errMsg={patchErr ? patchErr : postErr}
-        />
+        <ErrorModal onClose={() => setErrModalOpen(false)} errMsg={errMsg} />
       )}
     </PageHeaderContainer>
   );
