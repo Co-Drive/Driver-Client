@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
+import Gnb from './Gnb';
 
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const navigate = useNavigate();
@@ -11,6 +13,12 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const userId = user && parseInt(user);
   const profileImg = sessionStorage.getItem('profileImg');
   const isLogin = nickname && nickname.length > 0;
+
+  const [isGnbOpen, setIsGnbOpen] = useState(false);
+
+  const handleOpenGnb = (open: boolean) => {
+    setIsGnbOpen(open);
+  };
 
   const handleClickProfile = () => {
     navigate(`/${userId}`);
@@ -24,18 +32,26 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
         </LogoContainer>
         <NavBarContainer>
           <NavBarUl>
-            {DATA.map((v) => {
+            {DATA.map((v, idx) => {
+              const isClickedCategory = clickedCategory === v.text;
               return (
-                <NavBar key={v.text}>
-                  {isLogin && clickedCategory === v.text && (
+                <NavBar
+                  key={v.text}
+                  onMouseEnter={() => isClickedCategory && handleOpenGnb(true)}
+                >
+                  {isLogin && isClickedCategory && (
                     <IconContainer>{v.icon}</IconContainer>
                   )}
                   <Text
                     onClick={(e) => isLogin && handleClickCategory(e)}
-                    $isClickedCategory={clickedCategory === v.text}
+                    $isClickedCategory={isClickedCategory}
                   >
                     {v.text}
                   </Text>
+
+                  {idx !== 0 && isClickedCategory && isGnbOpen && (
+                    <Gnb category={v.text} handleOpenGnb={handleOpenGnb} />
+                  )}
                 </NavBar>
               );
             })}
@@ -97,6 +113,7 @@ const NavBar = styled.li`
   gap: 0.6rem;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const IconContainer = styled.div`
