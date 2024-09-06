@@ -94,69 +94,72 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
     });
     handleCloseModal(); // 모달 닫기
 
+    // 취소 버튼 클릭 처리 함수
+    const handleCancelBtnClick = () => {
+      // 입력 값들을 초기 상태로 되돌림
+      setInputs(initialData);
+      setSelectedLanguage(language);
+      handleCloseModal(); // 모달 닫기
+    };
 
-  // 취소 버튼 클릭 처리 함수
-  const handleCancelBtnClick = () => {
-    // 입력 값들을 초기 상태로 되돌림
-    setInputs(initialData);
-    setSelectedLanguage(language);
-    handleCloseModal(); // 모달 닫기
+    // 닉네임 중복 체크 함수
+    const handleNicknameCheck = () => {
+      mutation(nickname);
+    };
+
+    useEffect(() => {
+      setErrModalOn(isError);
+    }, [isError]);
+
+    return (
+      <ModalBackground>
+        <ProfileContainer onSubmit={handleSaveBtnClick}>
+          <BasicInfoContainer>
+            <BasicTitle>기본정보</BasicTitle>
+            <NameInfo user={name} />
+            <GithubInfo
+              github={github}
+              handleChangeInputs={handleChangeInputs}
+            />
+          </BasicInfoContainer>
+          <CodriveContainer>
+            <CodriveTitle>코드라이브 정보</CodriveTitle>
+            <IntroInfo
+              value={comment ? comment : ''}
+              onChange={handleChangeComment}
+            />
+            <NicknameInfo
+              changeNickname={changeNickname}
+              nickname={nickname}
+              handleChangeInputs={handleChangeInputs}
+              handleNicknameCheck={handleNicknameCheck}
+            />
+            <LanguageInfo
+              selectedTag={selectedLanguage}
+              handleChangeTag={handleChangeTag}
+            />
+          </CodriveContainer>
+          <ProfileButton>
+            <CancelButton type="button" onClick={handleCancelBtnClick}>
+              취소하기
+            </CancelButton>
+            <CommonButton
+              isActive={isActive}
+              category="Profile_save"
+              onClick={handleSaveBtnClick}
+            />
+          </ProfileButton>
+
+          {errModalOn && (
+            <ErrorModal
+              errMsg={patchUserErr}
+              onClose={() => setErrModalOn(false)}
+            />
+          )}
+        </ProfileContainer>
+      </ModalBackground>
+    );
   };
-
-  // 닉네임 중복 체크 함수
-  const handleNicknameCheck = () => {
-    mutation(nickname);
-  };
-
-  useEffect(() => {
-    setErrModalOn(isError);
-  }, [isError]);
-
-  return (
-    <ModalBackground>
-      <ProfileContainer onSubmit={handleSaveBtnClick}>
-        <BasicInfoContainer>
-          <BasicTitle>기본정보</BasicTitle>
-          <NameInfo user={name} />
-          <GithubInfo github={github} handleChangeInputs={handleChangeInputs} />
-        </BasicInfoContainer>
-        <CodriveContainer>
-          <CodriveTitle>코드라이브 정보</CodriveTitle>
-          <IntroInfo
-            value={comment ? comment : ''}
-            onChange={handleChangeComment}
-          />
-          <NicknameInfo
-            changeNickname={changeNickname}
-            nickname={nickname}
-            handleChangeInputs={handleChangeInputs}
-            handleNicknameCheck={handleNicknameCheck}
-          />
-          <LanguageInfo
-            selectedTag={selectedLanguage}
-            handleChangeTag={handleChangeTag}
-          />
-        </CodriveContainer>
-        <ProfileButton>
-          <CancelButton type="button" onClick={handleCancelBtnClick}>
-            취소하기
-          </CancelButton>
-          <CommonButton
-            isActive={isActive}
-            category="Profile_save"
-            onClick={handleSaveBtnClick}
-          />
-        </ProfileButton>
-
-        {errModalOn && (
-          <ErrorModal
-            errMsg={patchUserErr}
-            onClose={() => setErrModalOn(false)}
-          />
-        )}
-      </ProfileContainer>
-    </ModalBackground>
-  );
 };
 
 const ModalBackground = styled.div`
