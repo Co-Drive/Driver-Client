@@ -12,10 +12,6 @@ const CodeEditor = ({
   handleChangeCode,
 }: CodeEditorProps) => {
   const LANGUAGE = sessionStorage.getItem('language');
-  if (!LANGUAGE) {
-    // 추후 주 언어를 선택해달라는 문구 + 마이페이지로 네비게이트 시키기
-    return;
-  }
   const [changedLang, setChangedLang] = useState('python');
 
   const changeLanguage = () => {
