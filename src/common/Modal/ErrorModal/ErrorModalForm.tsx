@@ -1,12 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcCancelSmallWhite, IcWarning } from '../../../assets';
 import { ErrorModalProps } from '../../../types/Modal/modalType';
 
 const ErrorModalForm = ({ errMsg, onClose }: ErrorModalProps) => {
+  const navigate = useNavigate();
   const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.currentTarget === e.target && onClose) {
       onClose();
     }
+  };
+
+  const handleClickCheckBtn = () => {
+    navigate('/');
+    onClose();
   };
 
   return (
@@ -21,7 +28,7 @@ const ErrorModalForm = ({ errMsg, onClose }: ErrorModalProps) => {
           <Warning>{errMsg}</Warning>
         </WarningContainer>
 
-        <CheckBtn type="button" onClick={onClose}>
+        <CheckBtn type="button" onClick={handleClickCheckBtn}>
           확인
         </CheckBtn>
       </ContentsContainer>

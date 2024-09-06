@@ -1,11 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import ErrorModal from '../common/Modal/ErrorModal/ErrorModal';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { postAuth } from '../libs/apis/Login/postAuth';
 
 const LoginLoadingPage = () => {
   const navigate = useNavigate();
+
+  const [modalOn, setModalOn] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -34,15 +38,20 @@ const LoginLoadingPage = () => {
           isExistUser ? navigate('/') : navigate('/register');
         })
         .catch((err) => {
-          // 이거 지우고 에러 모달 띄우기
-          console.log(err);
+          const errMsg = err.response.data.message;
+          setErrMsg(errMsg);
+          setModalOn(true);
         });
     }
   }, [window.location.search]);
 
   return (
     <PageLayout category="홈">
-      <Title>로그인 중...</Title>
+      {modalOn ? (
+        <ErrorModal errMsg={errMsg} onClose={() => setModalOn(false)} />
+      ) : (
+        <Title>로그인 중...</Title>
+      )}
     </PageLayout>
   );
 };
