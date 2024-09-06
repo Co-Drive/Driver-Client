@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 import { GroupDetailHeaderProps } from '../../types/GroupDetail/groupDetailType';
+import { ALL_TAG } from '../../constants/utils/allTag';
 
 const Header = ({ title, tags }: GroupDetailHeaderProps) => {
+  const renderTags = tags.length > 5 ? ALL_TAG : tags;
+
   return (
     <TitleContainer>
       <Title>{title}</Title>
       <Tags>
-        {tags.map((tag) => {
+        {renderTags.map((tag) => {
           return <Tag key={tag}>#{tag}</Tag>;
         })}
       </Tags>

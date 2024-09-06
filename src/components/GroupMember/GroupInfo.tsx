@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowRightSmallGray, IcRevise } from '../../assets';
+import { ALL_TAG } from '../../constants/utils/allTag';
 import useGetDetail from '../../libs/hooks/GroupDetail/useGetDetail';
 import { GroupInfoProps } from '../../types/GroupMember/memberType';
 
@@ -16,6 +17,7 @@ const GroupInfo = ({
   const { data, isLoading } = useGetDetail(groupId);
   const { imageSrc, title, tags, owner } = !isLoading && data?.data;
   const { userId, nickname, profileImg } = !isLoading && owner;
+  const renderTags = tags && (tags.length > 5 ? ALL_TAG : tags);
 
   const handleClickMoreInfoBtn = () => {
     navigate(`/group/${id}`, { state: { disabledApply: true } });
@@ -58,7 +60,7 @@ const GroupInfo = ({
 
             <Group $isAdmin={isAdmin}>
               <Tags>
-                {tags.map((tag: string) => {
+                {renderTags.map((tag: string) => {
                   return <Tag key={tag}>#{tag}</Tag>;
                 })}
               </Tags>
