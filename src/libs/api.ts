@@ -5,16 +5,22 @@ let apiInstance: AxiosInstance | null;
 
 const API = () => {
   // axios instance가 존재하지 않는 경우에만 새로운 인스턴스 생성
-
-  apiInstance = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_URL,
-  });
-
-  const token = sessionStorage.getItem('token');
-
-  if (token) {
-    apiInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  if (!apiInstance) {
+    apiInstance = axios.create({
+      baseURL: import.meta.env.VITE_APP_BASE_URL,
+    });
   }
+
+  // Request interceptor를 통해 매번 요청 전에 토큰을 동적으로 설정
+  apiInstance.interceptors.request.use((config) => {
+    const token = sessionStorage.getItem('token');
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  });
 
   return apiInstance;
 };
