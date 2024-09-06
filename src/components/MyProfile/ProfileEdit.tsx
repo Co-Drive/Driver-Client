@@ -86,6 +86,10 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
       language: selectedLanguage,
       nickname,
     });
+
+    if (isError) {
+      setErrModalOn(true);
+    }
   };
 
   // 취소 버튼 클릭 처리 함수
@@ -103,7 +107,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
 
   useEffect(() => {
     setErrModalOn(isError);
-  }, [isError, patchUserErr]);
+  }, [isError]);
 
   return (
     <ModalBackground>
