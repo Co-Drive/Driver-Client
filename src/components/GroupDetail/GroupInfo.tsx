@@ -170,5 +170,7 @@ const Title = styled.p`
 
 const Description = styled.p`
   color: ${({ theme }) => theme.colors.gray200};
+
   ${({ theme }) => theme.fonts.body_medium_20};
+  white-space: pre-wrap;
 `;
