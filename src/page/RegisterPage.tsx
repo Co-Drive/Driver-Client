@@ -8,7 +8,7 @@ import IntroInput from '../components/Register/IntroInput';
 import Language from '../components/Register/Language';
 import NickName from '../components/Register/NickName';
 import { patchProfile } from '../libs/apis/Register/patchProfile';
-import { postNickname } from '../libs/apis/Register/postNickname';
+import usePostCheckExitNickname from '../libs/hooks/MyProfile/usePostCheckExitNickname';
 
 const RegisterPage = () => {
   const [inputs, setInputs] = useState({
@@ -26,6 +26,9 @@ const RegisterPage = () => {
   const userId = parseInt(id);
 
   const { nickname, github, intro } = inputs;
+  const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
+    setIsExitedNickname(isExit)
+  );
 
   // 입력 값 변경 처리 함수
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +69,8 @@ const RegisterPage = () => {
       const data = await patchProfile({ userId, profileInfo });
 
       if (data.code === 200) {
+        sessionStorage.setItem('nickname', nickname);
+        sessionStorage.setItem('language', selectedLanguage);
         navigate('/');
       }
     } catch (error) {
@@ -75,27 +80,13 @@ const RegisterPage = () => {
 
   // 닉네임 중복 체크 함수
   const handleNicknameCheck = async () => {
-    try {
-      const data = await postNickname(nickname);
-      if (data.code === 200) {
-        setIsExitedNickname(false);
-      }
-    } catch (error: any) {
-      const errorData = error.response?.data || error;
-      const errorCode = errorData?.code;
-
-      if (errorCode === 409) {
-        setIsExitedNickname(true);
-      }
-    }
+    mutation(nickname);
   };
 
   const isActive =
+    (!intro || (intro.length > 0 && intro.length <= 30)) &&
     nickname.length > 0 &&
     nickname.length <= 10 &&
-    intro.length > 0 &&
-    intro.length <= 30 &&
-    github.length > 0 &&
     selectedLanguage.length > 0 &&
     !isExitedNickname;
 
