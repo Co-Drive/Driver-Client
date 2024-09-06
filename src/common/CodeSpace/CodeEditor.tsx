@@ -1,5 +1,6 @@
 import { dracula } from '@uiw/codemirror-theme-dracula';
 import CodeMirror, { EditorView } from '@uiw/react-codemirror';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LANG_LIST } from '../../constants/CodeEditor/language';
 import { CodeEditorProps } from '../../types/Solve/solveTypes';
@@ -10,11 +11,53 @@ const CodeEditor = ({
   code,
   handleChangeCode,
 }: CodeEditorProps) => {
-  const LANGUAGE = sessionStorage.getItem('language') as keyof typeof LANG_LIST;
+  const LANGUAGE = sessionStorage.getItem('language');
   if (!LANGUAGE) {
     // 추후 주 언어를 선택해달라는 문구 + 마이페이지로 네비게이트 시키기
     return;
   }
+  const [changedLang, setChangedLang] = useState('python');
+
+  const changeLanguage = () => {
+    switch (LANGUAGE) {
+      case 'Python':
+        setChangedLang('python');
+        break;
+      case 'Java':
+        setChangedLang('java');
+        break;
+      case 'JavaScript':
+        setChangedLang('javascript');
+        break;
+      case 'C++':
+        setChangedLang('cpp');
+        break;
+      case 'C':
+        setChangedLang('c');
+        break;
+      case 'C#':
+        setChangedLang('csharp');
+        break;
+      case 'Kotlin':
+        setChangedLang('kotlin');
+        break;
+      case 'Go':
+        setChangedLang('go');
+        break;
+      case 'Ruby':
+        setChangedLang('ruby');
+        break;
+      case 'Swift':
+        setChangedLang('swift');
+        break;
+      case 'Scala':
+        setChangedLang('scala');
+        break;
+      default:
+        setChangedLang('python');
+        break;
+    }
+  };
 
   // extends에 항상 배열이 들어가도록 배열을 반환하는 함수
   const getExtensions = (language: keyof typeof LANG_LIST) => {
@@ -26,7 +69,11 @@ const CodeEditor = ({
     return extension;
   };
 
-  const extensions = getExtensions(LANGUAGE);
+  const extensions = getExtensions(changedLang as keyof typeof LANG_LIST);
+
+  useEffect(() => {
+    changeLanguage();
+  }, []);
 
   return (
     <CodeMirrorContainer className="code-mirror">
