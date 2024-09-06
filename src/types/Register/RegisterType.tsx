@@ -17,7 +17,10 @@ export interface SelectBoxProps {
 
 export interface NickNameProps {
   nickname: string;
-  isExitedNickname?: boolean;
+  changeNickname: {
+    isExistNickname: boolean;
+    isClickedCheckBtn: boolean;
+  };
   handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNicknameCheck: () => void;
 }

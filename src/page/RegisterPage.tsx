@@ -18,7 +18,12 @@ const RegisterPage = () => {
   });
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
-  const [isExitedNickname, setIsExitedNickname] = useState(false);
+  const [changeNickname, setChangeNickname] = useState({
+    isExistNickname: false,
+    isClickedCheckBtn: false,
+  });
+
+  const { isExistNickname, isClickedCheckBtn } = changeNickname;
 
   const navigate = useNavigate();
   const id = sessionStorage.getItem('user');
@@ -27,7 +32,10 @@ const RegisterPage = () => {
 
   const { nickname, github, intro } = inputs;
   const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
-    setIsExitedNickname(isExit)
+    setChangeNickname({
+      isExistNickname: isExit,
+      isClickedCheckBtn: true,
+    })
   );
 
   // 입력 값 변경 처리 함수
@@ -37,10 +45,6 @@ const RegisterPage = () => {
       ...prev,
       [name]: value,
     }));
-
-    if (name === 'nickname') {
-      setIsExitedNickname(false);
-    }
   };
 
   // 언어 태그 변경 처리 함수
@@ -79,7 +83,7 @@ const RegisterPage = () => {
   };
 
   // 닉네임 중복 체크 함수
-  const handleNicknameCheck = async () => {
+  const handleNicknameCheck = () => {
     mutation(nickname);
   };
 
@@ -87,15 +91,16 @@ const RegisterPage = () => {
     (!intro || (intro.length > 0 && intro.length <= 30)) &&
     nickname.length > 0 &&
     nickname.length <= 10 &&
-    selectedLanguage.length > 0 &&
-    !isExitedNickname;
+    isClickedCheckBtn &&
+    !isExistNickname &&
+    selectedLanguage.length > 0;
 
   return (
     <PageLayout category={'login'}>
       <RegisterContainer onSubmit={handleJoinBtnClick}>
         <NickName
           nickname={nickname}
-          isExitedNickname={isExitedNickname}
+          changeNickname={changeNickname}
           handleChangeInputs={handleChangeInputs}
           handleNicknameCheck={handleNicknameCheck}
         />
