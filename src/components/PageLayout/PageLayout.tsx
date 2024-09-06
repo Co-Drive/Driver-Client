@@ -27,7 +27,6 @@ const PageLayout = ({ category, children }: PageLayoutProps) => {
   ) => {
     const { innerHTML } = e.currentTarget;
     setClickedCategory(innerHTML);
-
     handleEarlyNavigate(innerHTML);
   };
 
