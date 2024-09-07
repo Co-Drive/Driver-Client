@@ -104,6 +104,7 @@ const Language = styled.p`
 
 const RegisterModalContainer = styled.div`
   margin-left: 53.7rem;
+  cursor: pointer;
 `;
 
 const NickName = styled.article`
@@ -129,7 +130,7 @@ const ModalBackground = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: rgb(0 0 0 / 50%);
+  background-color: rgb(0 0 0 / 90%);
 `;
 
 const ModalContent = styled.div`
