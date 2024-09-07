@@ -82,7 +82,8 @@ const Tooltip = styled.div`
   display: block;
   position: absolute;
   top: 3rem;
-  visibility: hidden;
+
+  /*  visibility: hidden; */
 
   width: 22.8rem;
   height: auto;
@@ -95,7 +96,7 @@ const Tooltip = styled.div`
 
   white-space: nowrap;
 
-  opacity: 0;
+  opacity: 1;
   transform: translateX(-5%);
   transition: opacity 0.3s ease-in-out;
 
@@ -121,10 +122,9 @@ const TooUser = styled.span`
 `;
 
 const Text = styled.p`
-  margin-top: 0.4rem;
-
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.body_ligth_12};
+  line-height: 1.8rem;
 `;
 
 export default GroupRecommend;
