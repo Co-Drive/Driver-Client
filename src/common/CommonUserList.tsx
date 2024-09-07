@@ -24,6 +24,7 @@ import {
 import { movePagePosition } from '../utils/movePagePosition';
 import { removeSavedPage } from '../utils/removeSavedPage';
 import ErrorModal from './Modal/ErrorModal/ErrorModal';
+import SaveCheckModal from './Modal/SaveCheckModal/SaveCheckModal';
 import WarningModal from './Modal/WarningModal/WarningModal';
 
 const CommonUserList = ({
@@ -36,7 +37,10 @@ const CommonUserList = ({
   const navigate = useNavigate();
   const savedPage = sessionStorage.getItem('savedPage');
 
-  const [modalOn, setModalOn] = useState(false);
+  const [modalOn, setModalOn] = useState({
+    warningModal: false,
+    saveModal: false,
+  });
   const [clickedPage, setClickedPage] = useState(
     savedPage ? parseInt(savedPage) : 1
   );
@@ -46,6 +50,7 @@ const CommonUserList = ({
     isClicked: false,
   });
 
+  const { warningModal, saveModal } = modalOn;
   const { clickedId, clickedNickname, isClicked } = clickedContents;
   const props = {
     page: clickedPage - 1,
@@ -69,8 +74,17 @@ const CommonUserList = ({
     (_, idx) => idx + 1
   );
 
+  const handleDeleteSuccess = () => {
+    setModalOn({ ...modalOn, saveModal: true });
+
+    setTimeout(() => {
+      setModalOn({ ...modalOn, saveModal: false });
+    }, 1000);
+  };
+
   const { patchMutation, patchApproveErr } = usePatchApprove();
-  const { deleteMutation, deleteMemberErr } = useDeleteMember();
+  const { deleteMutation, deleteMemberErr } =
+    useDeleteMember(handleDeleteSuccess);
   const isError = patchApproveErr.length > 0 || deleteMemberErr.length > 0;
 
   const [errModalOn, setErrModalOn] = useState(isError);
@@ -91,7 +105,10 @@ const CommonUserList = ({
     movePagePosition();
 
     setClickedContents({ ...clickedContents, clickedNickname: nickname });
-    setModalOn(true);
+    setModalOn({
+      ...modalOn,
+      warningModal: true,
+    });
   };
 
   const handleClickStatusBtn = ({
@@ -115,8 +132,11 @@ const CommonUserList = ({
 
   const handleClickModalBtn = (userId: number) => {
     if (roomId) {
-      deleteMutation({ roomId: 100, userId });
-      setModalOn(false);
+      deleteMutation({ roomId, userId });
+      setModalOn({
+        ...modalOn,
+        warningModal: false,
+      });
     }
   };
 
@@ -235,11 +255,13 @@ const CommonUserList = ({
                     )}
                   </ContentsContainer>
 
-                  {isAdmin && modalOn && !isError && (
+                  {isAdmin && warningModal && !isError && (
                     <WarningModal
                       data={clickedNickname}
                       isGroupStatusModal={false}
-                      onClose={() => setModalOn(false)}
+                      onClose={() =>
+                        setModalOn({ ...modalOn, warningModal: false })
+                      }
                       handleClickContinueBtn={() => handleClickModalBtn(userId)}
                     />
                   )}
@@ -283,6 +305,8 @@ const CommonUserList = ({
           errMsg={patchApproveErr ? patchApproveErr : deleteMemberErr}
         />
       )}
+
+      {saveModal && <SaveCheckModal />}
     </>
   );
 };
