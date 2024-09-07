@@ -42,10 +42,11 @@ const CommonUserList = ({
   );
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
+    clickedNickname: '',
     isClicked: false,
   });
 
-  const { clickedId, isClicked } = clickedContents;
+  const { clickedId, clickedNickname, isClicked } = clickedContents;
   const props = {
     page: clickedPage - 1,
     sortType: sorting,
@@ -76,6 +77,7 @@ const CommonUserList = ({
 
   const handleClickContents = (id: number) => {
     setClickedContents({
+      ...clickedContents,
       clickedId: id,
       isClicked: !isClicked,
     });
@@ -85,19 +87,25 @@ const CommonUserList = ({
     navigate(`/follower/${id}`);
   };
 
-  const handleClickRemoveBtn = () => {
+  const handleClickRemoveBtn = (nickname: string) => {
     movePagePosition();
+
+    setClickedContents({ ...clickedContents, clickedNickname: nickname });
     setModalOn(true);
   };
 
-  const handleClickStatusBtn = ({ status, requestId }: MutationType) => {
+  const handleClickStatusBtn = ({
+    status,
+    requestId,
+    nickname,
+  }: MutationType) => {
     if (roomId) {
       switch (status) {
         case 'REQUESTED':
           return patchMutation({ roomId, requestId });
 
         case 'JOINED':
-          return handleClickRemoveBtn();
+          return handleClickRemoveBtn(nickname);
 
         case 'WAITING':
           return;
@@ -168,11 +176,7 @@ const CommonUserList = ({
               return (
                 <React.Fragment key={userId}>
                   <ContentsContainer>
-                    <Contents
-                      onClick={() => handleClickContents(userId)}
-                      $isClicked={isExitAndClicked}
-                      $isAdmin={isAdmin}
-                    >
+                    <Contents $isClicked={isExitAndClicked} $isAdmin={isAdmin}>
                       {isAdmin && <UserIdx>{idx + 1}</UserIdx>}
                       <ProfileImg
                         src={profileImg}
@@ -187,11 +191,20 @@ const CommonUserList = ({
                       </UserContainer>
                       <WeeklyCurrentGraph percentage={successRate} />
 
-                      <Problem $isAdmin={isAdmin}>{recentProblemTitle}</Problem>
+                      <Problem
+                        $isAdmin={isAdmin}
+                        onClick={() => handleClickContents(userId)}
+                      >
+                        {recentProblemTitle}
+                      </Problem>
                       {isExitAndClicked ? (
-                        <IcArrowTopWhite />
+                        <IcArrowTopWhite
+                          onClick={() => handleClickContents(userId)}
+                        />
                       ) : (
-                        <IcArrowBottomWhite />
+                        <IcArrowBottomWhite
+                          onClick={() => handleClickContents(userId)}
+                        />
                       )}
 
                       {isAdmin && adminMode && (
@@ -204,6 +217,7 @@ const CommonUserList = ({
                                 status: info.status,
                                 requestId: info.requestId,
                                 userId,
+                                nickname,
                               })
                             }
                           >
@@ -223,7 +237,7 @@ const CommonUserList = ({
 
                   {isAdmin && modalOn && !isError && (
                     <WarningModal
-                      data={nickname}
+                      data={clickedNickname}
                       isGroupStatusModal={false}
                       onClose={() => setModalOn(false)}
                       handleClickContinueBtn={() => handleClickModalBtn(userId)}
