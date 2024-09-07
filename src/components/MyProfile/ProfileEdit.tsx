@@ -117,7 +117,19 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
           <NameInfo user={name} />
           <GithubInfo
             github={githubNickname}
-            handleChangeInputs={handleChangeInputs}
+            handleChangeInputs={(e) => {
+              const { value } = e.target;
+              const completeGithubUrl = `https://github.com/${value.replace('https://github.com/', '')}`;
+
+              handleChangeInputs({
+                ...e,
+                target: {
+                  ...e.target,
+                  name: 'githubUrl',
+                  value: completeGithubUrl,
+                },
+              });
+            }}
           />
         </BasicInfoContainer>
         <CodriveContainer>
