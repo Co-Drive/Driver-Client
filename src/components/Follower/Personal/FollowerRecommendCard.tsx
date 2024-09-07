@@ -81,16 +81,18 @@ const FollowerRecommendCard = () => {
               const isClickedBtn = clickedNickname.includes(nickname);
               return (
                 <PersonalCard key={userId} $addHr={idx < 4}>
-                  <ProfileImg
-                    src={profileImg}
-                    $isGithubExit={githubUrl?.length !== 0}
-                    onClick={() => handleClickProfile(userId)}
-                  />
-                  {githubUrl && (
-                    <IcContainer>
-                      <IcGithubLogoSmall />
-                    </IcContainer>
-                  )}
+                  <ProfileImgContainer>
+                    <ProfileImg
+                      src={profileImg}
+                      $isGithubExit={githubUrl?.length !== 0}
+                      onClick={() => handleClickProfile(userId)}
+                    />
+                    {githubUrl && (
+                      <IcContainer>
+                        <IcGithubLogoSmall />
+                      </IcContainer>
+                    )}
+                  </ProfileImgContainer>
 
                   <ProfileInfo onClick={() => handleClickProfile(userId)}>
                     <Nickname>{nickname}</Nickname>
@@ -178,7 +180,6 @@ const RecommendCard = styled.article`
 const PersonalCard = styled.article<{ $addHr: boolean }>`
   display: flex;
   align-items: center;
-  position: relative;
 
   width: 100%;
   padding: 1.4rem 1rem;
@@ -194,6 +195,10 @@ const PersonalCard = styled.article<{ $addHr: boolean }>`
     `};
 `;
 
+const ProfileImgContainer = styled.div`
+  position: relative;
+`;
+
 const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
   width: 6.8rem;
   height: 6.8rem;
@@ -205,7 +210,7 @@ const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
 
 const IcContainer = styled.span`
   position: absolute;
-  top: 5.8rem;
+  top: 4.8rem;
   left: 5.1rem;
 `;
 
