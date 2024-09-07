@@ -7,6 +7,7 @@ import {
   IcInformation,
   IcUnfollowingWhite,
 } from '../../../assets';
+import InformationTooltip from '../../../common/InformationTooltip';
 import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
 import useGetFollowerRecommend from '../../../libs/hooks/Follower/useGetFollowerRecommend';
 import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
@@ -61,6 +62,11 @@ const FollowerRecommendCard = () => {
         <MyNickname>{myNickname}</MyNickname>
         <Title>님을 위한 추천</Title>
         <IcInformation />
+        <InformationTooltip
+          myNickname={`${myNickname}`}
+          topContents="님 만을 위해"
+          bottomContents="하루에 6명씩 랜덤으로 개발자를 추천해드려요"
+        />
       </TitleContainer>
 
       {!isLoading && (
@@ -146,8 +152,16 @@ const RecommendCardContainer = styled.article`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
 
   margin-left: 0.3rem;
+
+  &:hover > div {
+    visibility: visible;
+
+    margin-left: 17.3rem;
+    opacity: 1;
+  }
 `;
 
 const MyNickname = styled.p`
