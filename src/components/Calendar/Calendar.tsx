@@ -111,6 +111,12 @@ const CommonCalendar = ({
 export default CommonCalendar;
 
 const CalendarContainer = styled.div`
+  display: flex;
+  align-items: end;
+  flex-direction: column;
+
+  width: 100%;
+
   .react-calendar {
     display: flex;
     gap: 2rem;
@@ -131,7 +137,6 @@ const NavContainer = styled.div`
   width: 17.9rem;
   padding: 1.3rem 1.4rem;
   margin-bottom: 2rem;
-  margin-left: 10.7rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};

@@ -24,7 +24,7 @@ const CommonMonthSolve = ({ userId }: CommonMonthSolveProps) => {
 
   return (
     <WeekRateContainer>
-      <div>
+      <div style={{ width: '100%' }}>
         <Month>{clickedMonth}월 문제풀이 현황</Month>
         <SolveContainer>
           <SolveCount>
@@ -56,13 +56,15 @@ export default CommonMonthSolve;
 const WeekRateContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-grow: 2;
 
-  width: 61.1rem;
+  min-width: 61.1rem;
+
+  width: 100%;
   padding: 3.4rem 3.8rem 4.2rem 3.4rem;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
-  max-width: 61.1rem;
 `;
 
 const Month = styled.p`

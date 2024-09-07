@@ -82,6 +82,8 @@ const FollowerInfoContainer = styled.article`
   flex-direction: column;
   flex-grow: 0.4;
 
+  width: 100%;
+
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
 
