@@ -55,7 +55,7 @@ const FollowingList = () => {
       <HeaderContainer>
         <TitleContainer>
           <Title>친구 목록</Title>
-          <FriendCount>{count}명</FriendCount>
+          <FriendCount>{count} 명</FriendCount>
         </TitleContainer>
         <TabContainer>
           <Tab
@@ -122,7 +122,7 @@ const FollowingList = () => {
           })}
       </RecommendCard>
       <DeleteIdContainer>
-        <DeleteText>코드라이브를 더이상 이용하지 않는다면</DeleteText>
+        <DeleteText>코드라이브를 더 이상 이용하지 않는다면</DeleteText>
         <DeleteBtn onClick={handleDeleteAccount}>회원탈퇴</DeleteBtn>
       </DeleteIdContainer>
 
@@ -145,8 +145,7 @@ const HeaderContainer = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
+  display: ruby;
 
   margin-left: 0.2rem;
 `;
@@ -288,6 +287,8 @@ const DeleteText = styled.p`
 `;
 
 const DeleteBtn = styled.button`
+  margin-left: 0.6rem;
+
   color: ${({ theme }) => theme.colors.codrive_purple};
   ${({ theme }) => theme.fonts.body_eng_medium_12};
 `;
