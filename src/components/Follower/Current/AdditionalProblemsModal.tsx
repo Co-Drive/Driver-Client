@@ -39,7 +39,7 @@ const AdditionalProblemsModal = ({
 export default AdditionalProblemsModal;
 
 const ModalContainer = styled.div`
-  padding-bottom: 13.8rem;
+  padding-bottom: 35rem;
 `;
 
 const AdditionalProblems = styled.div`
