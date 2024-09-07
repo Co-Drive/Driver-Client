@@ -8,16 +8,32 @@ const MyGoal = () => {
   const { mutation, patchGoalErr } = usePatchGoal(() => setIsSaved(true));
   const isError = patchGoalErr.length > 0;
 
-  // 추후 서버에서 받아온 목표 값으로 초기화해주세요
-  const [number, setNumber] = useState(0);
-  const [isSaved, setIsSaved] = useState(false);
+  // 서버에서 받아온 목표 값으로 초기화, 로컬 저장소에서 값 불러오기
+  const [number, setNumber] = useState(() => {
+    const savedGoal = localStorage.getItem('goal');
+    return savedGoal ? parseInt(savedGoal, 10) : 0;
+  });
+
+  const [isSaved, setIsSaved] = useState(() => {
+    const savedIsSaved = localStorage.getItem('isSaved');
+    return savedIsSaved === 'true';
+  });
   const [onErrModal, setOnErrModal] = useState(isError);
 
   const handleSaveBtnClick = () => {
+    if (number === 0) {
+      setOnErrModal(true);
+      return;
+    }
     mutation(number);
+    localStorage.setItem('goal', number.toString());
+    localStorage.setItem('isSaved', 'true');
+    setIsSaved(true);
   };
 
   const handleCancelBtnClick = () => {
+    localStorage.removeItem('goal');
+    localStorage.setItem('isSaved', 'false');
     setIsSaved(false);
   };
 
@@ -38,8 +54,11 @@ const MyGoal = () => {
   };
 
   useEffect(() => {
-    setOnErrModal(isError);
-  }, [isError]);
+    // patchGoalErr에 메시지가 없을 때도 모달을 띄우기 위해 수정
+    if (isError || onErrModal) {
+      setOnErrModal(true);
+    }
+  }, [isError, onErrModal]);
 
   return (
     <MyGoalContainer>
@@ -53,9 +72,25 @@ const MyGoal = () => {
           <Goal>일일 목표는 최대 7개까지 가능합니다</Goal>
         </MyInfoContainer>
         <GoalButton $isSaved={isSaved}>
-          <IcMinusWhite onClick={decreaseNumber} />
-          <Counter>{number}</Counter>
-          <IcAdd onClick={increaseNumber} />
+          {!isSaved && (
+            <>
+              <IcMinusWhite onClick={decreaseNumber} />
+              <Counter $isSaved={isSaved}>
+                <Num>{number}</Num>
+              </Counter>
+              <IcAdd onClick={increaseNumber} />
+            </>
+          )}
+          {isSaved && (
+            <DeactivateContainer>
+              <Counter $isSaved={isSaved}>
+                <div>
+                  <Num>{number}</Num>
+                  <NumberText>문제</NumberText>
+                </div>
+              </Counter>
+            </DeactivateContainer>
+          )}
         </GoalButton>
         <ProfileButton>
           {isSaved ? (
@@ -73,7 +108,7 @@ const MyGoal = () => {
       {onErrModal && (
         <ErrorModal
           onClose={() => setOnErrModal(false)}
-          errMsg={patchGoalErr}
+          errMsg={number === 0 ? '잘못된 요청입니다' : patchGoalErr}
         />
       )}
     </MyGoalContainer>
@@ -133,7 +168,7 @@ const GoalButton = styled.div<{ $isSaved?: boolean }>`
   pointer-events: ${(props) => (props.$isSaved ? 'none' : 'auto')};
 `;
 
-const Counter = styled.p`
+const Counter = styled.div<{ $isSaved?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,8 +179,24 @@ const Counter = styled.p`
 
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.gray700};
-  ${({ theme }) => theme.fonts.title_bold_46};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme, $isSaved }) =>
+    $isSaved ? theme.colors.white : theme.colors.codrive_green};
+`;
+
+const DeactivateContainer = styled.div`
+  margin: 0 3.8rem;
+
+  text-align: center;
+`;
+
+const Num = styled.span<{ $isSaved?: boolean }>`
+  ${({ theme, $isSaved }) =>
+    $isSaved ? theme.fonts.title_bold_32 : theme.fonts.title_bold_32};
+`;
+
+const NumberText = styled.div`
+  ${({ theme }) => theme.fonts.body_ligth_10};
+  color: ${({ theme }) => theme.colors.gray200};
 `;
 
 const ProfileButton = styled.div`
