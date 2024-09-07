@@ -18,15 +18,17 @@ const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const filledData = Array(15)
     .fill(0)
     .map((_, index) => {
-      return data[index] || { name: '', count: 0, height: 50 };
+      return data[index] || { name: '', count: -1, height: 50 };
     });
 
   const barArr = data.length >= 15 ? data : filledData;
 
   const getColor = (count: number) => {
     switch (count) {
-      case 0:
+      case -1:
         return '#292A2F';
+      case 0:
+        return '#646875';
       case 1:
       case 2:
       case 3:
