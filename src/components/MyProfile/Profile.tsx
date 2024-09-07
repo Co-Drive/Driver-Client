@@ -126,6 +126,7 @@ const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99;
 
   width: 100%;
   height: 100%;
@@ -134,7 +135,8 @@ const ModalBackground = styled.div`
 `;
 
 const ModalContent = styled.div`
-  z-index: 1000;
+  position: relative;
+  z-index: 100;
 
   padding: 2rem;
 
