@@ -6,6 +6,7 @@ import {
   ParticipatingGroupProps,
 } from '../../../types/Follower/Personal/personalType';
 import { GroupType } from '../../../types/MyGroup/myGroupType';
+import { ALL_TAG } from '../../../constants/utils/allTag';
 
 const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
               isMember,
             } = room;
             const { userId } = owner;
+            const renderTags = tags.length > 5 ? ALL_TAG : tags;
 
             return (
               <CardContainer
@@ -63,7 +65,7 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
                 <Contents>
                   <Name>{title}</Name>
                   <TagContainer>
-                    {tags.map((tag) => {
+                    {renderTags.map((tag) => {
                       return <Tag key={tag}>#{tag}</Tag>;
                     })}
                   </TagContainer>

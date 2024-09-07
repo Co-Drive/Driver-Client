@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { ALL_TAG } from '../constants/utils/allTag';
 import { ClickCardProps } from '../types/Follower/Personal/personalType';
 import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 
@@ -39,6 +40,7 @@ const RecommendCard = ({
           isMember,
         } = card;
         const { userId, nickname, profileImg } = owner;
+        const renderTags = tags.length > 5 ? ALL_TAG : tags;
 
         return (
           <CardContainer
@@ -67,7 +69,7 @@ const RecommendCard = ({
               </CardBody>
 
               <CardTags>
-                {tags.map((tag) => (
+                {renderTags.map((tag) => (
                   <Tag key={tag}>#{tag}</Tag>
                 ))}
               </CardTags>
