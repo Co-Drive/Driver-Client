@@ -15,8 +15,8 @@ const WeeklyCurrentGraph = ({ percentage }: WeeklyCurrentGraphProps) => {
           cx="50%"
           cy="50%"
           cornerRadius={0}
-          innerRadius={20}
-          outerRadius={26}
+          innerRadius={22}
+          outerRadius={27}
           startAngle={-(60 + (percentage / 100) * 360)}
           endAngle={480}
           isAnimationActive={false}
@@ -30,8 +30,8 @@ const WeeklyCurrentGraph = ({ percentage }: WeeklyCurrentGraphProps) => {
           cx="50%"
           cy="50%"
           cornerRadius={50}
-          innerRadius={20}
-          outerRadius={26}
+          innerRadius={22}
+          outerRadius={27}
           startAngle={90}
           endAngle={-(-90 + (percentage / 100) * 360)}
           isAnimationActive={false}
