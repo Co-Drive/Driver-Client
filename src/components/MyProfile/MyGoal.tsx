@@ -8,16 +8,32 @@ const MyGoal = () => {
   const { mutation, patchGoalErr } = usePatchGoal(() => setIsSaved(true));
   const isError = patchGoalErr.length > 0;
 
-  // 추후 서버에서 받아온 목표 값으로 초기화해주세요
-  const [number, setNumber] = useState(0);
-  const [isSaved, setIsSaved] = useState(false);
+  // 서버에서 받아온 목표 값으로 초기화, 로컬 저장소에서 값 불러오기
+  const [number, setNumber] = useState(() => {
+    const savedGoal = localStorage.getItem('goal');
+    return savedGoal ? parseInt(savedGoal, 10) : 0;
+  });
+
+  const [isSaved, setIsSaved] = useState(() => {
+    const savedIsSaved = localStorage.getItem('isSaved');
+    return savedIsSaved === 'true';
+  });
   const [onErrModal, setOnErrModal] = useState(isError);
 
   const handleSaveBtnClick = () => {
+    if (number === 0) {
+      setOnErrModal(true);
+      return;
+    }
     mutation(number);
+    localStorage.setItem('goal', number.toString());
+    localStorage.setItem('isSaved', 'true');
+    setIsSaved(true);
   };
 
   const handleCancelBtnClick = () => {
+    localStorage.removeItem('goal');
+    localStorage.setItem('isSaved', 'false');
     setIsSaved(false);
   };
 
@@ -38,8 +54,11 @@ const MyGoal = () => {
   };
 
   useEffect(() => {
-    setOnErrModal(isError);
-  }, [isError]);
+    // patchGoalErr에 메시지가 없을 때도 모달을 띄우기 위해 수정
+    if (isError || onErrModal) {
+      setOnErrModal(true);
+    }
+  }, [isError, onErrModal]);
 
   return (
     <MyGoalContainer>
@@ -89,7 +108,7 @@ const MyGoal = () => {
       {onErrModal && (
         <ErrorModal
           onClose={() => setOnErrModal(false)}
-          errMsg={patchGoalErr}
+          errMsg={number === 0 ? '잘못된 요청입니다' : patchGoalErr}
         />
       )}
     </MyGoalContainer>
