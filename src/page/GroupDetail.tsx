@@ -15,7 +15,6 @@ const GroupDetail = () => {
   if (!id) return;
 
   const { data, isLoading } = useGetDetail(parseInt(id));
-  const { mutation, isSuccess, err } = usePostPublicRequest();
   const {
     title,
     owner,
@@ -26,6 +25,8 @@ const GroupDetail = () => {
     introduce,
     information,
   } = !isLoading && data.data;
+  const { mutation, err } = usePostPublicRequest(imageSrc);
+
   const isError = err.length > 0;
 
   const [onErrModal, setOnErrModal] = useState(isError);
@@ -53,7 +54,7 @@ const GroupDetail = () => {
             information={information}
           />
 
-          {!isSuccess && !disabledApply && (
+          {!disabledApply && (
             <ApplyBtn type="button" onClick={handleClickApplyBtn}>
               신청하기
             </ApplyBtn>
