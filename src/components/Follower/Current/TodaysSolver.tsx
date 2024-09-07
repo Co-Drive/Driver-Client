@@ -28,7 +28,7 @@ const TodaysSolver = () => {
       {!isLoading && (
         <TodaysSolverContainer>
           <Header>
-            <Title>오늘 문제 푼 팔로워</Title>
+            <Title>오늘 문제 푼 사용자</Title>
 
             {followings.length && (
               <ArrowContainer>
