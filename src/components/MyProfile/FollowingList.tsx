@@ -14,22 +14,46 @@ import { UpdateFollowerProps } from '../../types/Follower/Personal/personalType'
 import { UserType } from '../../types/MyProfile/MyProfileType';
 
 const FollowingList = () => {
-  const [isFollowerSelected, setIsFollowerSelected] = useState(true);
+  const [isFollowerSelected, setIsFollowerSelected] = useState(true); // 팔로워/팔로잉 탭 선택 상태
+  const [updatedUsers, setUpdatedUsers] = useState<UserType[]>([]); // 업데이트된 사용자 리스트
+  const [isFirstLoad, setIsFirstLoad] = useState(true); // 최초 로드 여부 체크
   const navigate = useNavigate();
 
   const { mutation, updateFollowerErr } = useUpdateFollower();
   const { deleteMutation, deleteUserErr } = useDeleteUser();
-  const { followData, isLoading } = useGetFollowList(isFollowerSelected);
-  const { users, count } = !isLoading && followData.data;
+  const { followData, isLoading } = useGetFollowList(isFollowerSelected); // API로 팔로워/팔로잉 리스트 불러오기
   const isError = deleteUserErr.length > 0 || updateFollowerErr.length > 0;
 
   const [onErrModal, setOnErrModal] = useState(isError);
 
+  // API 호출로 얻은 데이터를 updatedUsers에 저장 (최초 로드 시에만)
+  useEffect(() => {
+    if (!isLoading && followData && isFirstLoad) {
+      setUpdatedUsers(followData.data.users); // 최초 리스트 설정
+      setIsFirstLoad(false); // 첫 로드 이후에는 더 이상 업데이트하지 않도록 설정
+    }
+  }, [followData, isLoading, isFirstLoad]);
+
+  // 팔로우/언팔로우 버튼 클릭 시 상태 업데이트
   const handleClickFollowerBtn = ({
     nickname,
     isDelete,
   }: UpdateFollowerProps) => {
-    mutation({ nickname, isDelete });
+    mutation(
+      { nickname, isDelete },
+      {
+        onSuccess: () => {
+          // API 성공 후, 팔로우 상태만 반전시키기 (리스트에서 제거하지 않음)
+          setUpdatedUsers((prevUsers) =>
+            prevUsers.map((user) =>
+              user.nickname === nickname
+                ? { ...user, isFollowing: !isDelete } // 팔로우 상태 반전
+                : user
+            )
+          );
+        },
+      }
+    );
   };
 
   const handleDeleteAccount = () => {
@@ -43,9 +67,10 @@ const FollowingList = () => {
 
   const handleClickProfile = (userId: number) => {
     navigate(`/follower/${userId}`);
-    window.location.reload();
+    window.location.reload(); // 페이지 새로고침
   };
 
+  // 오류 모달 제어
   useEffect(() => {
     setOnErrModal(isError);
   }, [isError]);
@@ -55,19 +80,26 @@ const FollowingList = () => {
       <HeaderContainer>
         <TitleContainer>
           <Title>친구 목록</Title>
-          <FriendCount>{count} 명</FriendCount>
+          <FriendCount>{updatedUsers.length} 명</FriendCount>{' '}
+          {/* 업데이트된 사용자 수 */}
         </TitleContainer>
         <TabContainer>
           <Tab
             $selected={isFollowerSelected}
-            onClick={() => setIsFollowerSelected(true)}
+            onClick={() => {
+              setIsFollowerSelected(true);
+              setIsFirstLoad(true); // 탭 전환 시에도 리스트 새로고침 허용
+            }}
           >
             팔로워
           </Tab>
           <Divider>|</Divider>
           <Tab
             $selected={!isFollowerSelected}
-            onClick={() => setIsFollowerSelected(false)}
+            onClick={() => {
+              setIsFollowerSelected(false);
+              setIsFirstLoad(true); // 탭 전환 시에도 리스트 새로고침 허용
+            }}
           >
             팔로잉
           </Tab>
@@ -75,7 +107,7 @@ const FollowingList = () => {
       </HeaderContainer>
       <RecommendCard>
         {!isLoading &&
-          users.map((user: UserType, idx: number) => {
+          updatedUsers.map((user: UserType, idx: number) => {
             const {
               userId,
               profileImg,
