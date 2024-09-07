@@ -68,6 +68,7 @@ const ContentsContainer = styled.article`
 
   min-width: 26.9rem;
 
+  width: fit-content;
   padding-top: 2.2rem;
   margin: 22rem 58.5rem 0;
 

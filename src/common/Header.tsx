@@ -27,7 +27,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   return (
     <HeaderWrapper>
       <HeaderContainer>
-        <LogoContainer>
+        <LogoContainer onClick={() => navigate('/')}>
           <IcLogo />
         </LogoContainer>
         <NavBarContainer>

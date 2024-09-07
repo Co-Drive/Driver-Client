@@ -7,6 +7,7 @@ import {
   IcInformation,
   IcUnfollowingWhite,
 } from '../../../assets';
+import InformationTooltip from '../../../common/InformationTooltip';
 import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
 import useGetFollowerRecommend from '../../../libs/hooks/Follower/useGetFollowerRecommend';
 import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
@@ -61,6 +62,11 @@ const FollowerRecommendCard = () => {
         <MyNickname>{myNickname}</MyNickname>
         <Title>님을 위한 추천</Title>
         <IcInformation />
+        <InformationTooltip
+          myNickname={`${myNickname}`}
+          topContents="님 만을 위해"
+          bottomContents="하루에 6명씩 랜덤으로 개발자를 추천해드려요"
+        />
       </TitleContainer>
 
       {!isLoading && (
@@ -81,16 +87,18 @@ const FollowerRecommendCard = () => {
               const isClickedBtn = clickedNickname.includes(nickname);
               return (
                 <PersonalCard key={userId} $addHr={idx < 4}>
-                  <ProfileImg
-                    src={profileImg}
-                    $isGithubExit={githubUrl?.length !== 0}
-                    onClick={() => handleClickProfile(userId)}
-                  />
-                  {githubUrl && (
-                    <IcContainer>
-                      <IcGithubLogoSmall />
-                    </IcContainer>
-                  )}
+                  <ProfileImgContainer>
+                    <ProfileImg
+                      src={profileImg}
+                      $isGithubExit={githubUrl?.length !== 0}
+                      onClick={() => handleClickProfile(userId)}
+                    />
+                    {githubUrl && (
+                      <IcContainer>
+                        <IcGithubLogoSmall />
+                      </IcContainer>
+                    )}
+                  </ProfileImgContainer>
 
                   <ProfileInfo onClick={() => handleClickProfile(userId)}>
                     <Nickname>{nickname}</Nickname>
@@ -144,8 +152,16 @@ const RecommendCardContainer = styled.article`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
+  position: relative;
 
   margin-left: 0.3rem;
+
+  &:hover > div {
+    visibility: visible;
+
+    margin-left: 17.3rem;
+    opacity: 1;
+  }
 `;
 
 const MyNickname = styled.p`
@@ -178,7 +194,6 @@ const RecommendCard = styled.article`
 const PersonalCard = styled.article<{ $addHr: boolean }>`
   display: flex;
   align-items: center;
-  position: relative;
 
   width: 100%;
   padding: 1.4rem 1rem;
@@ -194,6 +209,10 @@ const PersonalCard = styled.article<{ $addHr: boolean }>`
     `};
 `;
 
+const ProfileImgContainer = styled.div`
+  position: relative;
+`;
+
 const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
   width: 6.8rem;
   height: 6.8rem;
@@ -205,7 +224,7 @@ const ProfileImg = styled.img<{ $isGithubExit: boolean }>`
 
 const IcContainer = styled.span`
   position: absolute;
-  top: 5.8rem;
+  top: 4.8rem;
   left: 5.1rem;
 `;
 

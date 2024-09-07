@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { IcInformation } from '../../../assets';
+import InformationTooltip from '../../../common/InformationTooltip';
 import useGetFollowerWeeklyCount from '../../../libs/hooks/Follower/useGetFollowerWeeklyCount';
 import EmptyFollower from './EmptyFollower';
 import FollowerCurrentGraph from './FollowerCurrentGraph';
@@ -15,6 +16,10 @@ const NumOfQuestions = () => {
           <Header>
             <Title>문제 개수 그래프</Title>
             <IcInformation />
+            <InformationTooltip
+              topContents="한 주간 팔로워들이"
+              bottomContents="푼 문제 개수를 보여주는 그래프입니다"
+            />
           </Header>
 
           <GraphContainer>
@@ -47,8 +52,17 @@ const Header = styled.header`
   display: flex;
   gap: 2.4rem;
   align-items: center;
+  position: relative;
 
   margin-left: 0.4rem;
+
+  &:hover > div {
+    visibility: visible;
+    z-index: 1;
+
+    margin-left: 15.5rem;
+    opacity: 1;
+  }
 `;
 
 const Title = styled.p`
