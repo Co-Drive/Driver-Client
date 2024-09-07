@@ -117,7 +117,19 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
           <NameInfo user={name} />
           <GithubInfo
             github={githubNickname}
-            handleChangeInputs={handleChangeInputs}
+            handleChangeInputs={(e) => {
+              const { value } = e.target;
+              const completeGithubUrl = `https://github.com/${value.replace('https://github.com/', '')}`;
+
+              handleChangeInputs({
+                ...e,
+                target: {
+                  ...e.target,
+                  name: 'githubUrl',
+                  value: completeGithubUrl,
+                },
+              });
+            }}
           />
         </BasicInfoContainer>
         <CodriveContainer>
@@ -166,6 +178,7 @@ const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99;
 
   width: 100%;
   height: 100%;
@@ -174,9 +187,12 @@ const ModalBackground = styled.div`
 const ProfileContainer = styled.form`
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 100;
 
   height: 55.4rem;
   padding: 6.4rem 9.6rem;
+  padding: 2rem;
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray900};
