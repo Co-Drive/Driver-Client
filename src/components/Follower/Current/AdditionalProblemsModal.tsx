@@ -14,27 +14,33 @@ const AdditionalProblemsModal = ({
   const { records } = !isLoading && data.data;
 
   return (
-    <AdditionalProblems>
-      {!isLoading && (
-        <SolutionContainer>
-          {records.map((record: FollowerRecordsType, idx: number) => {
-            return (
-              <SavedSolution
-                key={record.recordId}
-                record={record}
-                isModal={true}
-                removeBorder={idx === records.length - 1}
-                clickedPage={clickedPage}
-              />
-            );
-          })}
-        </SolutionContainer>
-      )}
-    </AdditionalProblems>
+    <ModalContainer>
+      <AdditionalProblems>
+        {!isLoading && (
+          <SolutionContainer>
+            {records.map((record: FollowerRecordsType, idx: number) => {
+              return (
+                <SavedSolution
+                  key={record.recordId}
+                  record={record}
+                  isModal={true}
+                  removeBorder={idx === records.length - 1}
+                  clickedPage={clickedPage}
+                />
+              );
+            })}
+          </SolutionContainer>
+        )}
+      </AdditionalProblems>
+    </ModalContainer>
   );
 };
 
 export default AdditionalProblemsModal;
+
+const ModalContainer = styled.div`
+  padding-bottom: 13.8rem;
+`;
 
 const AdditionalProblems = styled.div`
   display: flex;
