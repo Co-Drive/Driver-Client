@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   IcFollowingGray,
@@ -14,6 +15,7 @@ import { UserType } from '../../types/MyProfile/MyProfileType';
 
 const FollowingList = () => {
   const [isFollowerSelected, setIsFollowerSelected] = useState(true);
+  const navigate = useNavigate();
 
   const { mutation, updateFollowerErr } = useUpdateFollower();
   const { deleteMutation, deleteUserErr } = useDeleteUser();
@@ -37,6 +39,11 @@ const FollowingList = () => {
       )
     )
       deleteMutation();
+  };
+
+  const handleClickProfile = (userId: number) => {
+    navigate(`/follower/${userId}`);
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -82,6 +89,7 @@ const FollowingList = () => {
                 <ProfileImg
                   src={profileImg}
                   $isGithubExit={githubUrl?.length !== 0}
+                  onClick={() => handleClickProfile(userId)}
                 />
                 {githubUrl && (
                   <IcContainer>
@@ -89,7 +97,7 @@ const FollowingList = () => {
                   </IcContainer>
                 )}
 
-                <ProfileInfo>
+                <ProfileInfo onClick={() => handleClickProfile(userId)}>
                   <Nickname>{nickname}</Nickname>
                   <Language>{`#${language}`}</Language>
                 </ProfileInfo>
