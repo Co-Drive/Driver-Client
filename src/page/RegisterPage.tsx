@@ -45,6 +45,13 @@ const RegisterPage = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === 'nickname') {
+      setChangeNickname((prev) => ({
+        ...prev,
+        isClickedCheckBtn: false,
+      }));
+    }
   };
 
   // 언어 태그 변경 처리 함수
