@@ -10,19 +10,23 @@ import {
 } from '../../../assets';
 import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
 import Modal from '../../../common/Modal/Modal';
+import useGetUserProfile from '../../../libs/hooks/Follower/useGetUserProfile';
 import useDeleteRecords from '../../../libs/hooks/Solution/useDeleteRecords';
 import { SolutionHeaderTopProps } from '../../../types/Solution/solutionTypes';
 import { handleCopyClipBoard } from '../../../utils/handleCopyClipBoard';
 
 const SolutionHeaderTop = ({
   recordId,
-  followerInfo,
+  followerId,
   title,
   date,
   paintedStarArr,
 }: SolutionHeaderTopProps) => {
   const navigate = useNavigate();
   const { mutation, deleteErr } = useDeleteRecords();
+  const { data, isLoading } = useGetUserProfile(followerId);
+  const { profileImg, nickname } = !isLoading && data?.data;
+
   const [isCopied, setIsCopied] = useState(false);
   const isDeleteErr = deleteErr.length > 0;
   const [errModalOn, setErrModalOn] = useState(isDeleteErr);
@@ -50,11 +54,11 @@ const SolutionHeaderTop = ({
 
   return (
     <SolutionHeaderTopContainer>
-      {followerInfo ? (
+      {followerId && !isLoading ? (
         <FollowerContainer>
           <FollowerInfoContainer>
-            <Img src={followerInfo.profileImg} />
-            <Nickname>{`${followerInfo.nickname} 님`}</Nickname>
+            <Img src={profileImg} />
+            <Nickname>{`${nickname} 님`}</Nickname>
             <IcArrowRightSmallGray />
           </FollowerInfoContainer>
 
@@ -92,7 +96,7 @@ const SolutionHeaderTop = ({
           <IcInformation />
         </LevelContainer>
 
-        {!followerInfo && (
+        {!followerId && (
           <BtnContainer>
             <RemoveBtn type="button" onClick={handleClickRemoveBtn}>
               삭제하기

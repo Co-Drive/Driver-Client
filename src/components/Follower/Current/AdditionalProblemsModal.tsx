@@ -22,6 +22,7 @@ const AdditionalProblemsModal = ({
               return (
                 <SavedSolution
                   key={record.recordId}
+                  followerId={userId}
                   record={record}
                   isModal={true}
                   removeBorder={idx === records.length - 1}

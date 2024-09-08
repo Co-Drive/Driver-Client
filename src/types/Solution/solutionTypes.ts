@@ -13,10 +13,7 @@ export interface RecordsTypes {
 
 export interface SolutionHeaderTopProps {
   recordId: number;
-  followerInfo?: {
-    profileImg: string;
-    nickname: string;
-  };
+  followerId?: number;
   title: string;
   date: string;
   paintedStarArr: Array<number>;
@@ -32,6 +29,7 @@ export interface SavedSolutionProps {
     problemUrl: string;
     createdAt: string;
   };
+  followerId?: number;
   clickedPage?: number;
   isModal?: boolean;
   removeBorder?: boolean;
