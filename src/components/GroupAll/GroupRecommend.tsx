@@ -82,8 +82,7 @@ const Tooltip = styled.div`
   display: block;
   position: absolute;
   top: 3rem;
-
-  /*   visibility: hidden; */
+  visibility: hidden;
 
   width: 19.3rem;
   height: auto;
@@ -96,7 +95,7 @@ const Tooltip = styled.div`
 
   white-space: nowrap;
 
-  opacity: 1;
+  opacity: 0;
   transform: translateX(-5%);
   transition: opacity 0.3s ease-in-out;
 
