@@ -66,10 +66,11 @@ const Input = styled.input`
   background: transparent;
   color: ${({ theme }) => theme.colors.white};
   outline: none;
+  ${({ theme }) => theme.fonts.body_medium_16};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray300};
-    ${({ theme }) => theme.fonts.body_ligth_16};
+    ${({ theme }) => theme.fonts.body_medium_16};
   }
 `;
 
