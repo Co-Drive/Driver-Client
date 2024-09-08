@@ -107,7 +107,7 @@ const FollowingList = () => {
       </HeaderContainer>
       <RecommendCard>
         {!isLoading &&
-          updatedUsers.map((user: UserType, idx: number) => {
+          updatedUsers.map((user: UserType) => {
             const {
               userId,
               profileImg,
@@ -117,7 +117,7 @@ const FollowingList = () => {
               isFollowing,
             } = user;
             return (
-              <PersonalCard key={userId} $addHr={idx < 4}>
+              <PersonalCard key={userId} $addHr={true}>
                 <ProfileImg
                   src={profileImg}
                   $isGithubExit={githubUrl?.length !== 0}

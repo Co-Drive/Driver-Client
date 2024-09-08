@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
-import { getRoomSort } from '../../libs/apis/GroupAll/getRoomSort';
+import useGetRoomsSort from '../../libs/hooks/GroupAll/useGetRoomSort';
 import { removeSavedPage } from '../../utils/removeSavedPage';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
@@ -14,12 +14,22 @@ const GroupItem = () => {
   const [clickedPage, setClickedPage] = useState(
     savedPage ? parseInt(savedPage) : 1
   );
-  const [sorting, setSorting] = useState('최신순');
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]); // 검색 결과 상태
   const [sliderValues, setSliderValues] = useState({ min: 0, max: 50 });
+  const [filter, setFilter] = useState({
+    sorting: '최신순',
+  });
 
-  const groupsPerPage = 9;
-  const totalPageRef = useRef(0);
+  const { sorting } = filter;
+
+  // useGetRoomsSort 훅에서 데이터를 가져옴
+  const { data } = useGetRoomsSort({
+    sortType: sorting,
+    page: clickedPage - 1,
+  });
+
+  const { totalPage, rooms } = data?.data || {};
+  const totalPageRef = useRef(totalPage || 1);
 
   // 필터링된 그룹 데이터를 반환하는 함수
   const filterGroups = (groups: any[]) => {
@@ -40,32 +50,38 @@ const GroupItem = () => {
     });
   };
 
+  // useEffect로 필터링된 데이터를 처리
   useEffect(() => {
-    const fetchGroups = async () => {
-      const sortType = sorting === '최신순' ? 'NEW' : 'DICT';
-      const response = await getRoomSort(sortType, clickedPage - 1);
+    if (rooms) {
+      const filteredGroups = filterGroups(rooms);
+      setSearchResults(filteredGroups);
 
-      if (response && response.data && response.data.rooms) {
-        const filteredGroups = filterGroups(response.data.rooms);
-        setSearchResults(filteredGroups);
-
-        totalPageRef.current = response.data.totalPage;
-        setClickedPage(Math.min(clickedPage, totalPageRef.current));
-      }
-    };
-
-    fetchGroups();
-  }, [sorting, clickedPage, selectedTags, sliderValues]);
+      totalPageRef.current = totalPage || 1;
+      setClickedPage((prevPage) => Math.min(prevPage, totalPageRef.current));
+    }
+  }, [rooms, sorting, clickedPage, selectedTags, sliderValues]);
 
   const handleClickSorting = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+    e:
+      | React.MouseEvent<HTMLParagraphElement, MouseEvent>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    isSorting: boolean
   ) => {
     const { innerText } = e.currentTarget;
-    setSorting(innerText);
+
+    isSorting;
+    setFilter({
+      ...filter,
+      sorting: innerText,
+    });
+  };
+
+  const handleChangeSearchBar = (filteredGroups: any[]) => {
+    setSearchResults(filteredGroups);
   };
 
   const handleClickPrevBtn = () => {
-    setClickedPage((prev) => Math.max(prev - 1, 1));
+    setClickedPage((prev) => prev - 1);
     removeSavedPage();
   };
 
@@ -75,19 +91,9 @@ const GroupItem = () => {
   };
 
   const handleClickNextBtn = () => {
-    setClickedPage((prev) => Math.min(prev + 1, totalPageRef.current));
+    setClickedPage((prev) => prev + 1);
     removeSavedPage();
   };
-
-  const handleChangeSearchBar = (filteredGroups: any[]) => {
-    const updatedGroups = filterGroups(filteredGroups);
-    setSearchResults(updatedGroups);
-    setClickedPage(1);
-  };
-
-  const startIdx = (clickedPage - 1) * groupsPerPage;
-  const endIdx = startIdx + groupsPerPage;
-  const currentGroups = searchResults.slice(startIdx, endIdx);
 
   return (
     <GroupContainer>
@@ -105,7 +111,7 @@ const GroupItem = () => {
         {SORTING.map((standard) => (
           <Sorting
             key={standard}
-            onClick={handleClickSorting}
+            onClick={(e) => standard !== '|' && handleClickSorting(e, true)}
             $isClicked={sorting === standard}
           >
             {standard}
@@ -114,7 +120,7 @@ const GroupItem = () => {
       </SortContainer>
       <GroupsItemContainer>
         <Groups
-          group={currentGroups}
+          group={searchResults}
           totalPage={totalPageRef.current}
           clickedPage={clickedPage}
           handleClickPages={{
