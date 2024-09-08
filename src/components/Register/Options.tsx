@@ -15,6 +15,8 @@ const Options = ({ onSelectOption }: OptionsProps) => {
 };
 
 const OptionsContainer = styled.div`
+  position: absolute;
+
   width: 29.6rem;
   margin-top: 0.6rem;
 
@@ -22,7 +24,7 @@ const OptionsContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.gray700};
 
   text-align: center;
-  max-height: 54.9rem;
+  max-height: 34.8rem;
   overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;

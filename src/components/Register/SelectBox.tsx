@@ -49,7 +49,7 @@ const SelectBox = ({
 };
 
 const SelectBoxContainer = styled.div`
-  /* Only comments */
+  position: relative;
 `;
 
 export default SelectBox;
