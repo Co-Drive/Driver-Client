@@ -16,9 +16,6 @@ const SolutionPage = () => {
   const { title, level, tags, platform, problemUrl, codeblocks, createdAt } =
     !isLoading && data?.data;
 
-  console.log(id);
-  console.log(data);
-
   return (
     <PageLayout category="문제풀이">
       {!isLoading && (
