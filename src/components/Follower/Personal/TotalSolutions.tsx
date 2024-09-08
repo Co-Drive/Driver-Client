@@ -38,7 +38,6 @@ export default TotalSolutions;
 
 const TotalSolutionsContainer = styled.section`
   display: flex;
-  gap: 5.1rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
