@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IcSearch } from '../../../assets';
 import { getRoomSearch } from '../../../libs/apis/GroupAll/getRoomSearch';
-import { getRoomSort } from '../../../libs/apis/GroupAll/getRoomSort';
+import getRoomSort from '../../../libs/apis/GroupAll/getRoomSort';
 
 const SearchBar = ({
   handleChangeSearchBar,
@@ -16,7 +16,7 @@ const SearchBar = ({
     setSearchData(newValue);
 
     if (newValue.trim() === '') {
-      const allGroupsResponse = await getRoomSort('NEW', 0);
+      const allGroupsResponse = await getRoomSort({ sortType: 'NEW', page: 0 });
       handleChangeSearchBar(allGroupsResponse.data.rooms || []);
       return;
     }
@@ -66,10 +66,11 @@ const Input = styled.input`
   background: transparent;
   color: ${({ theme }) => theme.colors.white};
   outline: none;
+  ${({ theme }) => theme.fonts.body_medium_16};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray300};
-    ${({ theme }) => theme.fonts.body_ligth_16};
+    ${({ theme }) => theme.fonts.body_medium_16};
   }
 `;
 

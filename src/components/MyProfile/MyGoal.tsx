@@ -73,13 +73,13 @@ const MyGoal = () => {
         </MyInfoContainer>
         <GoalButton $isSaved={isSaved}>
           {!isSaved && (
-            <>
+            <NumContainer>
               <IcMinusWhite onClick={decreaseNumber} />
               <Counter $isSaved={isSaved}>
                 <Num>{number}</Num>
               </Counter>
               <IcAdd onClick={increaseNumber} />
-            </>
+            </NumContainer>
           )}
           {isSaved && (
             <DeactivateContainer>
@@ -160,12 +160,19 @@ const Goal = styled.div`
 
 const GoalButton = styled.div<{ $isSaved?: boolean }>`
   display: flex;
-  gap: 2rem;
   align-items: center;
 
   margin-right: 10.5rem;
 
   pointer-events: ${(props) => (props.$isSaved ? 'none' : 'auto')};
+`;
+
+const NumContainer = styled.div`
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 
 const Counter = styled.div<{ $isSaved?: boolean }>`
