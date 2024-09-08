@@ -51,12 +51,6 @@ const HomeHeader = () => {
 export default HomeHeader;
 
 const Article = styled.article`
-  /* position: sticky; */
-
-  /* top: 11.5rem; */
-
-  /* z-index: 100; */
-
   width: 100%;
   margin-top: 6.4rem;
 
@@ -102,14 +96,13 @@ const PharseContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  /* background-color: pink; */
 `;
 
 const Button = styled.button`
   display: flex;
   gap: 0.6rem;
   align-items: center;
+  cursor: pointer;
 
   padding: 0.9rem 1.4rem;
 
