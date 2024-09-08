@@ -100,31 +100,33 @@ const Pharse = styled.p`
 
 const PharseContainer = styled.div`
   display: flex;
-
-  /* 여기 질문 */
-
-  /* gap: 41.9rem; */
   justify-content: space-between;
+  align-items: center;
+
+  /* background-color: pink; */
 `;
 
 const Button = styled.button`
   display: flex;
+  gap: 0.6rem;
   align-items: center;
 
   padding: 0.9rem 1.4rem;
 
-  border-radius: 0.4rem;
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.codrive_green};
 
   max-width: 20rem;
-
-  background-color: ${({ theme }) => theme.colors.codrive_green};
 `;
 
 const IcContainer = styled.div`
-  margin-right: 0.6rem;
+  align-items: center;
 `;
 
-const Title = styled.div`
+const Title = styled.p`
   color: ${({ theme }) => theme.colors.gray900};
+
+  white-space: nowrap;
+
   ${({ theme }) => theme.fonts.title_bold_14};
 `;
