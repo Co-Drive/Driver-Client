@@ -32,8 +32,12 @@ const TodaysSolver = () => {
 
             {followings.length && (
               <ArrowContainer>
-                <IcArrowLeftSmallGray onClick={handleClickArrowLeft} />
-                <IcArrowRightSmallGray onClick={handleClickArrowRight} />
+                <Arrow onClick={handleClickArrowLeft}>
+                  <IcArrowLeftSmallGray />
+                </Arrow>
+                <Arrow onClick={handleClickArrowRight}>
+                  <IcArrowRightSmallGray />
+                </Arrow>
               </ArrowContainer>
             )}
           </Header>
@@ -77,6 +81,21 @@ const ArrowContainer = styled.div`
   gap: 1rem;
   justify-content: center;
   align-items: center;
+`;
+
+const Arrow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 2rem;
+  height: 2rem;
+
+  border-radius: 5rem;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray600};
+  }
 `;
 
 const SolverContainer = styled.article`
