@@ -57,8 +57,6 @@ const CommonCalendar = ({
     upDatedCalendar();
   }, [data]);
 
-  console.log(selectedDate);
-
   return (
     <CalendarContainer>
       <NavContainer>
@@ -82,6 +80,7 @@ const CommonCalendar = ({
           <IcArrowBottomWhite onClick={handleClickCalendar} />
         )}
       </NavContainer>
+
       <StyledCalendar
         onChange={setSelectedDate}
         locale="ko"
@@ -125,6 +124,8 @@ const CalendarContainer = styled.div`
 
     border: none;
     background-color: ${({ theme }) => theme.colors.gray800};
+
+    max-width: 28.6rem;
   }
 `;
 
@@ -174,7 +175,7 @@ const StyledCalendar = styled(Calendar)`
   .react-calendar__tile {
     width: 4rem;
     height: 4rem;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
 
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray500};
@@ -193,7 +194,7 @@ const StyledCalendar = styled(Calendar)`
       height: 0.1rem;
 
       border: 0;
-      clip: rect(1px, 1px, 1px, 1px);
+      clip: rect(0.1rem, 0.1rem, 0.1rem, 0.1rem);
     }
   }
 
@@ -202,7 +203,6 @@ const StyledCalendar = styled(Calendar)`
     margin-bottom: -0.8rem;
 
     color: ${({ theme }) => theme.colors.white};
-
     ${({ theme }) => theme.fonts.body_eng_medium_16}
   }
 

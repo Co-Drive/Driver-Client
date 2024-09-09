@@ -8,23 +8,27 @@ const WeekRate = () => {
   const [stats, setStats] = useState({
     successRate: 0,
     weeklyCountDifference: 0,
+    weeklyCount: 0,
   });
 
   const percentage = stats.successRate || 0;
-  const isSolvedExist = stats.weeklyCountDifference <= 0;
+  const isSolvedExist = stats.weeklyCountDifference === 0;
+  const negativeNum = stats.weeklyCountDifference < 0;
+  const isSolvedZero = stats.weeklyCount === 0;
 
   const data = useGetUserAchieve();
   useEffect(() => {
     if (data) {
-      const { successRate, weeklyCountDifference } = data.data;
+      const { successRate, weeklyCountDifference, weeklyCount } = data.data;
+      console.log(weeklyCount);
+
       setStats({
         successRate: successRate,
         weeklyCountDifference: weeklyCountDifference,
+        weeklyCount: weeklyCount,
       });
     }
   }, [data]);
-
-  // console.log(stats.weeklyCountDifference);
 
   const chartData = [
     {
@@ -37,7 +41,7 @@ const WeekRate = () => {
     <Container>
       <Header>
         <HeaderTitle>
-          {isSolvedExist ? '주간 성과율 & 문제 개수 비교' : '주간 성과율'}
+          {isSolvedZero ? '주간 성과율 & 문제 개수 비교' : '주간 성과율'}
         </HeaderTitle>
         <Notic $isSolvedExist={isSolvedExist}>
           <BtnInformation />
@@ -97,17 +101,31 @@ const WeekRate = () => {
         </PieChart>
       </ChartContainer>
       <MessageContainer>
-        {!isSolvedExist ? (
+        {isSolvedZero ? (
+          <>
+            <NoGoalMessage>이번 주에 푼 문제가 없어요</NoGoalMessage>
+            <NoGoalMessage>
+              문제 풀이 인증하고 그래프를 채워보세요
+            </NoGoalMessage>
+          </>
+        ) : isSolvedExist ? (
+          <>
+            <NoGoalMessage>지난 주와 푼 문제 개수가 동일해요</NoGoalMessage>
+            <NoGoalMessage>문제를 더 풀어볼까요?</NoGoalMessage>
+          </>
+        ) : negativeNum ? (
+          <>
+            <Message>
+              지난 주보다 {Math.abs(stats.weeklyCountDifference)}문제 모자라요.
+            </Message>
+            <Message>문제를 더 풀어볼까요?</Message>
+          </>
+        ) : (
           <>
             <Message>축하해요!</Message>
             <Message>
               지난 주보다 {stats.weeklyCountDifference}문제 더 풀었어요!
             </Message>
-          </>
-        ) : (
-          <>
-            <Message>이번 주에 푼 문제가 없어요</Message>
-            <Message>문제 풀이 인증하고 그래프를 채워보세요</Message>
           </>
         )}
       </MessageContainer>
@@ -148,9 +166,17 @@ const ChartContainer = styled.div`
 const Message = styled.p`
   display: flex;
   justify-content: center;
-
   ${({ theme }) => theme.fonts.title_semiBold_18};
+
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const NoGoalMessage = styled.p`
+  display: flex;
+  justify-content: center;
+
+  ${({ theme }) => theme.fonts.title_regular_14};
+  color: ${({ theme }) => theme.colors.gray400};
 `;
 
 const MessageContainer = styled.div`

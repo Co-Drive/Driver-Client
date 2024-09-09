@@ -6,7 +6,7 @@ import CustomTooltip from './CustomTooltip';
 const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const data = users.map((user) => {
     const { nickname, count } = user;
-    const height = count === 0 ? 50 : count * 10 + 10;
+    const height = count === 0 ? 10 : count * 10 + 10;
 
     return {
       name: nickname,
@@ -18,7 +18,7 @@ const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const filledData = Array(15)
     .fill(0)
     .map((_, index) => {
-      return data[index] || { name: '', count: -1, height: 50 };
+      return data[index] || { name: '', count: -1, height: 10 };
     });
 
   const barArr = data.length >= 15 ? data : filledData;

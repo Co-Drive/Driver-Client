@@ -30,8 +30,9 @@ const API = () => {
         originalRequest._retry = true;
 
         try {
-          const res = await axios.post('/auth/refresh', {
-            refreshToken: sessionStorage.getItem('refreshToken'),
+          const res = await api.post('/auth/refresh', {
+            accessToken: sessionStorage.getItem('token'),
+            refreshToken: sessionStorage.getItem('refresh'),
           });
           const accessToken = res.data.data.accessToken;
 
@@ -40,7 +41,9 @@ const API = () => {
 
           return axios(originalRequest);
         } catch (refreshError) {
-          alert('로그아웃 후 재로그인 하세요');
+          sessionStorage.clear();
+          window.location.href = '/';
+          return;
         }
       }
 

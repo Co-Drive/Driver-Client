@@ -116,9 +116,8 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
 export default HomeProfileCard;
 
 const FollowerContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+  width: 11.5rem;
+  max-width: 11.5rem;
 `;
 
 const PieContainer = styled.div`
