@@ -39,9 +39,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
                   key={v.text}
                   onMouseEnter={() => isClickedCategory && handleOpenGnb(true)}
                 >
-                  {isLogin && isClickedCategory && (
-                    <IconContainer>{v.icon}</IconContainer>
-                  )}
+                  {isClickedCategory && <IconContainer>{v.icon}</IconContainer>}
                   <Text
                     onClick={(e) => isLogin && handleClickCategory(e)}
                     $isClickedCategory={isClickedCategory}
@@ -49,7 +47,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
                     {v.text}
                   </Text>
 
-                  {idx !== 0 && isClickedCategory && isGnbOpen && (
+                  {idx !== 0 && isClickedCategory && isGnbOpen && isLogin && (
                     <Gnb category={v.text} handleOpenGnb={handleOpenGnb} />
                   )}
                 </NavBar>

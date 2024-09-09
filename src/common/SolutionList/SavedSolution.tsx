@@ -6,6 +6,7 @@ import { SavedSolutionProps } from '../../types/Solution/solutionTypes';
 
 const SavedSolution = ({
   clickedPage,
+  followerId,
   record,
   isModal,
   removeBorder,
@@ -16,7 +17,7 @@ const SavedSolution = ({
   const [month, date] = createdAt.split('.');
 
   const handleClickArrow = () => {
-    navigate(`/solution/${recordId}`);
+    navigate(`/solution/${recordId}`, { state: followerId });
     if (clickedPage)
       sessionStorage.setItem('savedPage', clickedPage.toString());
   };

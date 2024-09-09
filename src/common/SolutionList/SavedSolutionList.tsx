@@ -22,6 +22,9 @@ const SavedSolutionList = ({
   handleDisabledMoreBtn,
 }: SavedSolutionListProps) => {
   const savedPage = sessionStorage.getItem('savedPage');
+  const myId = sessionStorage.getItem('user');
+  const isFollowerMode = myId && userId.toString() !== myId;
+  const followerId = isFollowerMode ? userId : undefined;
   const totalPageRef = useRef(0);
   const pages = Array.from(
     { length: totalPageRef.current },
@@ -145,6 +148,7 @@ const SavedSolutionList = ({
             return (
               <SavedSolution
                 key={record.recordId}
+                followerId={followerId}
                 record={record}
                 clickedPage={clickedPage}
               />

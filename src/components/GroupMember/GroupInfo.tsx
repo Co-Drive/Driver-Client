@@ -51,7 +51,7 @@ const GroupInfo = ({
                   >
                     <ToggleCircle $on={adminMode} />
                   </AdminToggle>
-                  <IcContainer $on={adminMode}>
+                  <IcContainer $on={adminMode} onClick={handleClickAdminToggle}>
                     <IcRevise />
                   </IcContainer>
                 </AdminControlContainer>

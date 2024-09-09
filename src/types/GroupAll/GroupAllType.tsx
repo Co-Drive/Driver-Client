@@ -4,3 +4,8 @@ export interface LanguageSelectBoxProps {
   sliderValues: { min: number; max: number };
   setSliderValues: (values: { min: number; max: number }) => void; // 추가
 }
+
+export interface GetRoomSortProps {
+  sortType: string;
+  page?: number;
+}

@@ -18,6 +18,8 @@ const LinkCopyModalContainer = styled.article`
   justify-content: center;
   align-items: center;
 
+  width: fit-content;
+  height: fit-content;
   padding: 2.6rem 3rem 2.6rem 2.6rem;
   margin: 20.4rem 60rem 0;
 
