@@ -101,6 +101,8 @@ const LongestSolve = styled.p`
 `;
 
 const Text = styled.span`
+  margin-right: 0.4rem;
+
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.white};
 `;
