@@ -72,7 +72,7 @@ const Month = styled.p`
 
   color: ${({ theme }) => theme.colors.white};
 
-  ${({ theme }) => theme.fonts.title_bold_16};
+  ${({ theme }) => theme.fonts.title_bold_20};
 `;
 
 const SolveContainer = styled.div`
