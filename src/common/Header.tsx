@@ -9,8 +9,7 @@ import Gnb from './Gnb';
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
-  const user = sessionStorage.getItem('user');
-  const userId = user && parseInt(user);
+  const username = sessionStorage.getItem('name');
   const profileImg = sessionStorage.getItem('profileImg');
   const isLogin = nickname && nickname.length > 0;
 
@@ -21,7 +20,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   const handleClickProfile = () => {
-    navigate(`/${userId}`);
+    if (username) navigate(`/${username}`);
   };
 
   return (
