@@ -13,7 +13,7 @@ const ErrorModalForm = ({ callbackPage, errMsg, onClose }: ErrorModalProps) => {
 
   const handleClickCheckBtn = () => {
     if (callbackPage) {
-      navigate('/');
+      navigate(callbackPage);
     }
     onClose();
   };
