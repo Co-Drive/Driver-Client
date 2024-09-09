@@ -7,17 +7,16 @@ import SavedSolutionList from '../../../common/SolutionList/SavedSolutionList';
 export interface SolutionsProps {
   id: number;
   nickname: string;
-  isFollowed: boolean;
 }
 
-const Solutions = ({ id, nickname, isFollowed }: SolutionsProps) => {
+const Solutions = ({ id, nickname }: SolutionsProps) => {
   const navigate = useNavigate();
 
   const [disabledMoreBtn, setDisabledMoreBtn] = useState(false);
 
   const handleClickMoreBtn = () => {
     navigate(`/follower/${id}/total`, {
-      state: { nickname: nickname, isFollowed: isFollowed },
+      state: { nickname: nickname },
     });
   };
 
