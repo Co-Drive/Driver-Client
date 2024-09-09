@@ -25,23 +25,19 @@ const GroupSetting = ({
         </Header>
       </HeaderContainer>
       <ButtonContainer>
-        {/* 공개 그룹 버튼 */}
         <GroupVisibilityBtn
           onClick={handleClickPublicGroup}
           isVisible={true}
           isActive={isPublicGroup === true}
         />
-
-        {/* 비밀 그룹 버튼 - isPublicGroup === null 또는 true일 때만 보임 */}
         {isPublicGroup !== false && (
           <GroupVisibilityBtn
             onClick={handleClickPrivateGroup}
             isVisible={false}
-            isActive={false} // 비밀 그룹 선택 시 활성화
+            isActive={false}
           />
         )}
-
-        {/* 비밀 그룹이 선택되었을 때만 CommonInput 표시하고, 비밀 그룹 버튼 숨김 */}
+        \
         {isPublicGroup === false && (
           <CommonInput
             category="secretKey"
