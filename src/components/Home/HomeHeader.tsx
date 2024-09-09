@@ -61,7 +61,7 @@ const Article = styled.article`
 `;
 
 const Header = styled.header`
-  padding: 3.2rem 3.4rem 4.4rem 3.6rem;
+  padding: 3.2rem 3.4rem 3.4rem 3.6rem;
 `;
 
 const DateText = styled.p`
