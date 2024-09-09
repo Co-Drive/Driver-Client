@@ -57,8 +57,6 @@ const CommonCalendar = ({
     upDatedCalendar();
   }, [data]);
 
-  console.log(selectedDate);
-
   return (
     <CalendarContainer>
       <NavContainer>
