@@ -22,6 +22,32 @@ const API = () => {
     return config;
   });
 
+  apiInstance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const originalRequest = error.config;
+      if (error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
+
+        try {
+          const res = await axios.post('/auth/refresh', {
+            refreshToken: sessionStorage.getItem('refreshToken'),
+          });
+          const accessToken = res.data.data.accessToken;
+
+          sessionStorage.setItem('token', accessToken);
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+
+          return axios(originalRequest);
+        } catch (refreshError) {
+          alert('로그아웃 후 재로그인 하세요');
+        }
+      }
+
+      return Promise.reject(error);
+    }
+  );
+
   return apiInstance;
 };
 
