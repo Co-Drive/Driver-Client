@@ -9,8 +9,12 @@ const GroupSetting = ({
   handlePasswordChange,
   secretKey,
 }: GroupSettingProps) => {
-  const handleClickButton = () => {
-    handleActiveChange(!isPublicGroup);
+  const handleClickPublicGroup = () => {
+    handleActiveChange(true);
+  };
+
+  const handleClickPrivateGroup = () => {
+    handleActiveChange(false);
   };
 
   return (
@@ -22,17 +26,19 @@ const GroupSetting = ({
       </HeaderContainer>
       <ButtonContainer>
         <GroupVisibilityBtn
-          onClick={handleClickButton}
+          onClick={handleClickPublicGroup}
           isVisible={true}
-          isActive={isPublicGroup}
+          isActive={isPublicGroup === true}
         />
-        {isPublicGroup ? (
+        {isPublicGroup !== false && (
           <GroupVisibilityBtn
-            onClick={handleClickButton}
+            onClick={handleClickPrivateGroup}
             isVisible={false}
-            isActive={!isPublicGroup}
+            isActive={false}
           />
-        ) : (
+        )}
+        \
+        {isPublicGroup === false && (
           <CommonInput
             category="secretKey"
             value={secretKey}

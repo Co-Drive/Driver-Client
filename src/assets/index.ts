@@ -67,6 +67,7 @@ import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 
 import BtnInformation from './btn/btn_information.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
+import BtnLinkWhite from './btn/btn_link_white.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
 import BtnStarGraySmall from './btn/btn_star_gray_small.svg?react';
 import BtnStarPurpleSmall from './btn/btn_star_purple_small.svg?react';
@@ -78,6 +79,7 @@ export {
   // btn
   BtnInformation,
   BtnJoinGitHub,
+  BtnLinkWhite,
   BtnShare,
   BtnStarGraySmall,
   BtnStarPurpleSmall,

@@ -57,7 +57,7 @@ const Button = styled.button<{ $category: string; $isActive?: boolean }>`
     }
   }};
 
-  border-radius: 0.8rem;
+  border-radius: 1.2rem;
   background-color: ${({ theme, $isActive, $category }) => {
     if ($isActive || $category === 'group_direct')
       return theme.colors.codrive_green;
@@ -75,7 +75,7 @@ const BtnText = styled.p<{ $category: string; $isActive?: boolean }>`
   ${({ theme, $category }) =>
     $category === 'group_direct'
       ? theme.fonts.title_bold_20
-      : theme.fonts.title_bold_16}
+      : theme.fonts.title_bold_20}
   color: ${({ theme, $isActive, $category }) => {
     if ($isActive || $category === 'group_direct') return theme.colors.gray900;
     return theme.colors.gray300;
