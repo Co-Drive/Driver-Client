@@ -15,6 +15,8 @@ const SaveCheckModalForm = () => {
 export default SaveCheckModalForm;
 
 const ModalFormConatiner = styled.section`
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 11.6rem;
 
@@ -30,6 +32,8 @@ const SaveCheckModalContainer = styled.article`
   justify-content: center;
   align-items: center;
 
+  width: fit-content;
+  height: fit-content;
   padding: 2.6rem 3rem 2.6rem 2.6rem;
   margin: 27.7rem 62.2rem 0 62rem;
 

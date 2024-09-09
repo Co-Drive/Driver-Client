@@ -50,6 +50,8 @@ const WarningMoalForm = ({
 export default WarningMoalForm;
 
 const ModalFormConatiner = styled.section`
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 11.6rem;
   z-index: 10;
@@ -66,14 +68,15 @@ const ContentsContainer = styled.article`
   flex-direction: column;
   position: relative;
 
-  min-width: 26.9rem;
-
   width: fit-content;
+  height: fit-content;
   padding-top: 2.2rem;
   margin: 22rem 58.5rem 0;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
+
+  min-width: 26.9rem;
 `;
 
 const IcCancelContainer = styled.div`
