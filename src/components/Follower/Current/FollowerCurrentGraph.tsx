@@ -86,8 +86,7 @@ const GraphContainer = styled.div`
   overflow: auto hidden;
 
   height: 100%;
-  padding-top: 7.6rem;
-  margin: 0 2.4rem;
+  padding: 7.6rem 2.4rem 0;
 
   min-width: 57rem;
 `;
