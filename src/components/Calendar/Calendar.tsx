@@ -179,8 +179,6 @@ const StyledCalendar = styled(Calendar)`
     height: 4rem;
     margin-top: 0.5rem;
 
-    /* margin-left: 0.1rem; */
-
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray500};
     color: ${({ theme }) => theme.colors.gray500};
@@ -200,17 +198,6 @@ const StyledCalendar = styled(Calendar)`
       border: 0;
       clip: rect(0.1rem, 0.1rem, 0.1rem, 0.1rem);
     }
-
-    /* stylelint-disable-next-line selector-class-pattern */
-  }
-
-  /* stylelint-disable-next-line selector-class-pattern */
-  .react-calendar__month-view__days {
-    display: flex;
-
-    /* gap: 0.1rem; */
-
-    /* flex-wrap: wrap; */
   }
 
   /* stylelint-disable-next-line selector-class-pattern */
