@@ -137,7 +137,7 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
 
 const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
-  gap: 0.8rem;
+  gap: 1.4rem;
   justify-content: end;
   position: relative;
 
@@ -147,8 +147,8 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
 `;
 
 const ProfileImg = styled.img`
-  width: 3.4rem;
-  height: 3.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
 
   border-radius: 5rem;
   object-fit: cover;

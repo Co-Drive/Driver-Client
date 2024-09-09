@@ -69,7 +69,7 @@ const TodaySolve = () => {
           <Tooltip>
             목표설정은 우측 상단
             <ToolTipNextLine>
-              닉네임 {'>'} 내 프로필 설정 가능합니다.
+              닉네임 {'>'} 나의 목표에서 설정 가능합니다.
             </ToolTipNextLine>
           </Tooltip>
         </Notic>
@@ -126,7 +126,7 @@ const TodaySolve = () => {
               content={
                 <CustomLabel
                   upValue={
-                    stats.goal && stats.todayCount ? stats.todayCount : '목표를'
+                    stats.goal && stats.todayCount ? stats.goal : '목표를'
                   }
                   downValue={
                     stats.goal && stats.todayCount ? '문제' : '설정해주세요'
@@ -219,6 +219,7 @@ const Notic = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  cursor: pointer;
 
   &:hover > div {
     visibility: visible;
