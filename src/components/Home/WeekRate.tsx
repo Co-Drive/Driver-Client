@@ -24,8 +24,6 @@ const WeekRate = () => {
     }
   }, [data]);
 
-  // console.log(stats.weeklyCountDifference);
-
   const chartData = [
     {
       name: 'Solved',
