@@ -9,11 +9,10 @@ import Gnb from './Gnb';
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
-  const user = sessionStorage.getItem('user');
-  const userId = user && parseInt(user);
   const profileImg = sessionStorage.getItem('profileImg');
   const isLogin = nickname && nickname.length > 0;
 
+  const [isProfileClicked, setIsProfileClicked] = useState(false);
   const [isGnbOpen, setIsGnbOpen] = useState(false);
 
   const handleOpenGnb = (open: boolean) => {
@@ -21,7 +20,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   const handleClickProfile = () => {
-    navigate(`/${userId}`);
+    setIsProfileClicked(true);
   };
 
   return (
@@ -39,9 +38,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
                   key={v.text}
                   onMouseEnter={() => isClickedCategory && handleOpenGnb(true)}
                 >
-                  {isLogin && isClickedCategory && (
-                    <IconContainer>{v.icon}</IconContainer>
-                  )}
+                  {isClickedCategory && <IconContainer>{v.icon}</IconContainer>}
                   <Text
                     onClick={(e) => isLogin && handleClickCategory(e)}
                     $isClickedCategory={isClickedCategory}
@@ -49,9 +46,13 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
                     {v.text}
                   </Text>
 
-                  {idx !== 0 && isClickedCategory && isGnbOpen && (
-                    <Gnb category={v.text} handleOpenGnb={handleOpenGnb} />
-                  )}
+                  {idx !== 0 &&
+                    isClickedCategory &&
+                    isGnbOpen &&
+                    isLogin &&
+                    !isProfileClicked && (
+                      <Gnb category={v.text} handleOpenGnb={handleOpenGnb} />
+                    )}
                 </NavBar>
               );
             })}
@@ -59,10 +60,14 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
         </NavBarContainer>
         <LoginBtnContainer
           $isLogin={isLogin ? true : false}
+          onMouseEnter={() => isLogin && handleOpenGnb(true)}
           onClick={handleClickProfile}
         >
           {profileImg ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
           <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+          {isLogin && isGnbOpen && isProfileClicked && (
+            <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
+          )}
         </LoginBtnContainer>
       </HeaderContainer>
     </HeaderWrapper>
@@ -134,6 +139,7 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
   gap: 0.8rem;
   justify-content: end;
+  position: relative;
 
   width: 23.2rem;
   margin-right: 2rem;

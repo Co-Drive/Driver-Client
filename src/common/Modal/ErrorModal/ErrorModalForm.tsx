@@ -13,7 +13,7 @@ const ErrorModalForm = ({ callbackPage, errMsg, onClose }: ErrorModalProps) => {
 
   const handleClickCheckBtn = () => {
     if (callbackPage) {
-      navigate('/');
+      navigate(callbackPage);
     }
     onClose();
   };
@@ -41,10 +41,12 @@ const ErrorModalForm = ({ callbackPage, errMsg, onClose }: ErrorModalProps) => {
 export default ErrorModalForm;
 
 const ModalFormConatiner = styled.section`
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 11.6rem;
 
-  width: 100%;
+  width: 100vw;
   height: calc(100vh - 11.6rem);
 
   background-color: rgb(11 12 15 / 66%);
@@ -59,6 +61,7 @@ const ContentsContainer = styled.article`
   min-width: 26.9rem;
 
   width: fit-content;
+  height: fit-content;
   padding-top: 2.2rem;
   margin: 22rem 58.5rem 0;
 

@@ -1,15 +1,24 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import FollowerList from '../components/Follower/Current/FollowerList';
 import FollowerQuestions from '../components/Follower/Current/FollowerQuestions';
 import PageLayout from '../components/PageLayout/PageLayout';
+import { updateWeek } from '../utils/updateWeek';
 
 const FollowerCurrentPage = () => {
+  const { startDate, endDate } = updateWeek();
+  const [sMonth, sDate] = startDate.split(' ');
+
+  useEffect(() => {
+    updateWeek();
+  }, [startDate, endDate]);
+
   return (
     <PageLayout category="홈">
       <FollowerCurrentPageContainer>
         <Header>
-          <Title>팔로워 현황</Title>
-          <Date>7월 15일 - 21일</Date>
+          <Title>팔로잉 현황</Title>
+          <Date>{`${sMonth}월 ${sDate}일 - ${endDate}일`}</Date>
           <Text>주간보드</Text>
         </Header>
 

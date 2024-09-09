@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import ErrorModal from '../common/Modal/ErrorModal/ErrorModal';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { postAuth } from '../libs/apis/Login/postAuth';
+import LoadingPage from './LoadingPage';
 
 const LoginLoadingPage = () => {
   const navigate = useNavigate();
@@ -30,6 +30,7 @@ const LoginLoadingPage = () => {
 
           sessionStorage.setItem('user', userId);
           sessionStorage.setItem('nickname', nickname);
+          sessionStorage.setItem('name', nickname);
           sessionStorage.setItem('token', accessToken);
           sessionStorage.setItem('refresh', refreshToken);
           sessionStorage.setItem('profileImg', profileImg);
@@ -46,23 +47,20 @@ const LoginLoadingPage = () => {
   }, [window.location.search]);
 
   return (
-    <PageLayout category="홈">
+    <>
       {modalOn ? (
-        <ErrorModal
-          callbackPage="/"
-          errMsg={errMsg}
-          onClose={() => setModalOn(false)}
-        />
+        <PageLayout category="홈">
+          <ErrorModal
+            callbackPage="/"
+            errMsg={errMsg}
+            onClose={() => setModalOn(false)}
+          />
+        </PageLayout>
       ) : (
-        <Title>로그인 중...</Title>
+        <LoadingPage />
       )}
-    </PageLayout>
+    </>
   );
 };
-
-const Title = styled.p`
-  color: wheat;
-  font-size: 100px;
-`;
 
 export default LoginLoadingPage;

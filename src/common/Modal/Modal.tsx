@@ -37,6 +37,8 @@ const Modal = ({
 export default Modal;
 
 const ModalFormConatiner = styled.section`
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 11.6rem;
 
