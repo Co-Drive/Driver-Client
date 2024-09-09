@@ -33,7 +33,7 @@ const PersonalGroup = () => {
         ? 'ACTIVE'
         : clickedStatus === '모집 마감'
           ? 'INACTIVE'
-          : 'CLOSE',
+          : 'CLOSED',
     isJoinedRooms: isJoinedRooms,
   });
 

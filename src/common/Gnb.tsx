@@ -10,15 +10,24 @@ interface GnbProps {
 const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const username = sessionStorage.getItem('name');
 
   const GNB_LIST = {
     solve: ['오늘 푼 문제 등록하기', '등록한 문제 다시 보기'],
     group: ['그룹 참여하기', '그룹 생성하기', '내 그룹'],
+    profile: ['내 프로필', '로그아웃'],
   };
+  const { solve, group, profile } = GNB_LIST;
   const solveGnb = category === '문제풀이';
-  const { solve, group } = GNB_LIST;
+  const profileGnb = category === 'profile';
+  const gnbList = solveGnb ? solve : profileGnb ? profile : group;
 
   const [clickedList, setClickedList] = useState('');
+
+  const handleClickLogout = () => {
+    sessionStorage.clear();
+    navigate('/');
+  };
 
   const navigateClickedPage = (clickedTab: string) => {
     switch (clickedTab) {
@@ -32,6 +41,10 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
         return navigate('/group-new');
       case group[2]:
         return navigate('/my-group');
+      case profile[0]:
+        return navigate(`/${username}`);
+      case profile[1]:
+        return handleClickLogout();
     }
   };
 
@@ -55,15 +68,18 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
         return setClickedList(group[1]);
       case '/my-group':
         return setClickedList(group[2]);
+      default:
+        return setClickedList(profile[0]);
     }
   }, []);
 
   return (
     <GnbContainer
+      $isProfileGnb={profileGnb}
       onMouseEnter={() => handleOpenGnb(true)}
       onMouseLeave={() => handleOpenGnb(false)}
     >
-      {(solveGnb ? solve : group).map((list) => {
+      {gnbList.map((list) => {
         return (
           <GnbTab
             key={list}
@@ -81,14 +97,23 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
 
 export default Gnb;
 
-const GnbContainer = styled.ul`
+const GnbContainer = styled.ul<{ $isProfileGnb: boolean }>`
   display: flex;
   gap: 0.4rem;
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  top: 3.4rem;
-  left: -0.2rem;
+
+  ${({ $isProfileGnb }) =>
+    $isProfileGnb
+      ? css`
+          top: 4rem;
+          right: -0.9rem;
+        `
+      : css`
+          top: 3.4rem;
+          left: -0.2rem;
+        `};
 
   padding: 1.6rem 0;
 
