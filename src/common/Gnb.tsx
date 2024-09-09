@@ -103,13 +103,15 @@ const GnbContainer = styled.ul<{ $isProfileGnb: boolean }>`
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  top: 3.4rem;
+
   ${({ $isProfileGnb }) =>
     $isProfileGnb
       ? css`
-          right: -0.5rem;
+          top: 4rem;
+          right: -0.9rem;
         `
       : css`
+          top: 3.4rem;
           left: -0.2rem;
         `};
 
