@@ -30,6 +30,7 @@ const LoginLoadingPage = () => {
 
           sessionStorage.setItem('user', userId);
           sessionStorage.setItem('nickname', nickname);
+          sessionStorage.setItem('name', nickname);
           sessionStorage.setItem('token', accessToken);
           sessionStorage.setItem('refresh', refreshToken);
           sessionStorage.setItem('profileImg', profileImg);
