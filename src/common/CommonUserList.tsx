@@ -192,7 +192,9 @@ const CommonUserList = ({
                     : '내보내기');
 
               const isExitAndClicked =
-                clickedId === userId && isClicked && successRate !== 0;
+                clickedId === userId &&
+                isClicked &&
+                (successRate !== 0 || recentProblemTitle.length > 0);
               return (
                 <React.Fragment key={userId}>
                   <ContentsContainer>
