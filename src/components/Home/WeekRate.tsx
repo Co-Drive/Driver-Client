@@ -106,8 +106,10 @@ const WeekRate = () => {
           </>
         ) : (
           <>
-            <Message>이번 주에 푼 문제가 없어요</Message>
-            <Message>문제 풀이 인증하고 그래프를 채워보세요</Message>
+            <NoGoalMessage>이번 주에 푼 문제가 없어요</NoGoalMessage>
+            <NoGoalMessage>
+              문제 풀이 인증하고 그래프를 채워보세요
+            </NoGoalMessage>
           </>
         )}
       </MessageContainer>
@@ -149,8 +151,15 @@ const Message = styled.p`
   display: flex;
   justify-content: center;
 
-  ${({ theme }) => theme.fonts.title_semiBold_18};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const NoGoalMessage = styled.p`
+  display: flex;
+  justify-content: center;
+
+  ${({ theme }) => theme.fonts.title_regular_14};
+  color: ${({ theme }) => theme.colors.gray400};
 `;
 
 const MessageContainer = styled.div`
