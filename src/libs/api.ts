@@ -30,20 +30,27 @@ const API = () => {
         originalRequest._retry = true;
 
         try {
-          const res = await api.post('/auth/refresh', {
-            accessToken: sessionStorage.getItem('token'),
-            refreshToken: sessionStorage.getItem('refresh'),
-          });
-          const accessToken = res.data.data.accessToken;
-
-          sessionStorage.setItem('token', accessToken);
-          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-
-          return axios(originalRequest);
-        } catch (refreshError) {
+          api
+            .post('/auth/refresh', {
+              accessToken: sessionStorage.getItem('token'),
+              refreshToken: sessionStorage.getItem('refresh'),
+            })
+            .then((res) => {
+              const accessToken = res.data.data.accessToken;
+              sessionStorage.setItem('token', accessToken);
+              originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+              return axios(originalRequest);
+            })
+            .catch((err) => {
+              if (err.response.status === 401) {
+                sessionStorage.clear();
+                window.location.href = '/';
+              }
+            });
+        } catch (err) {
+          console.log(err);
           sessionStorage.clear();
           window.location.href = '/';
-          return;
         }
       }
 
