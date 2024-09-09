@@ -126,7 +126,7 @@ const TodaySolve = () => {
               content={
                 <CustomLabel
                   upValue={
-                    stats.goal && stats.todayCount ? stats.todayCount : '목표를'
+                    stats.goal && stats.todayCount ? stats.goal : '목표를'
                   }
                   downValue={
                     stats.goal && stats.todayCount ? '문제' : '설정해주세요'
