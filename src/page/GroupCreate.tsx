@@ -20,7 +20,7 @@ const GroupCreate = () => {
     group: '',
   });
 
-  const [isPublicGroup, setIspublicGroup] = useState(false);
+  const [isPublicGroup, setIspublicGroup] = useState<boolean | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>('');
   const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);

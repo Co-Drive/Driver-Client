@@ -9,8 +9,12 @@ const GroupSetting = ({
   handlePasswordChange,
   secretKey,
 }: GroupSettingProps) => {
-  const handleClickButton = () => {
-    handleActiveChange(!isPublicGroup);
+  const handleClickPublicGroup = () => {
+    handleActiveChange(true);
+  };
+
+  const handleClickPrivateGroup = () => {
+    handleActiveChange(false);
   };
 
   return (
@@ -21,18 +25,24 @@ const GroupSetting = ({
         </Header>
       </HeaderContainer>
       <ButtonContainer>
+        {/* 공개 그룹 버튼 */}
         <GroupVisibilityBtn
-          onClick={handleClickButton}
+          onClick={handleClickPublicGroup}
           isVisible={true}
-          isActive={isPublicGroup}
+          isActive={isPublicGroup === true}
         />
-        {isPublicGroup ? (
+
+        {/* 비밀 그룹 버튼 - isPublicGroup === null 또는 true일 때만 보임 */}
+        {isPublicGroup !== false && (
           <GroupVisibilityBtn
-            onClick={handleClickButton}
+            onClick={handleClickPrivateGroup}
             isVisible={false}
-            isActive={!isPublicGroup}
+            isActive={false} // 비밀 그룹 선택 시 활성화
           />
-        ) : (
+        )}
+
+        {/* 비밀 그룹이 선택되었을 때만 CommonInput 표시하고, 비밀 그룹 버튼 숨김 */}
+        {isPublicGroup === false && (
           <CommonInput
             category="secretKey"
             value={secretKey}
