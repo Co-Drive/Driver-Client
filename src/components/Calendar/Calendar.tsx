@@ -60,25 +60,27 @@ const CommonCalendar = ({
   return (
     <CalendarContainer>
       <NavContainer>
-        <IcCalendar onClick={handleClickCalendar} />
         <DateContainer>
+          <IcCalendar onClick={handleClickCalendar} />
           <Year>{clickedYear}년</Year>
           <Month>{clickedMonth}월</Month>
+          {isCalendarClicked ? (
+            <CustomCalendarContainer>
+              <IcArrowTopWhite onClick={handleClickCalendar} />
+              <CustomCalendar
+                date={{ clickedYear, clickedMonth }}
+                unsolvedMonths={[]}
+                handleClickPrevBtn={handleClickPrevBtn}
+                handleClickMonth={handleClickMonth}
+                handleClickNextBtn={handleClickNextBtn}
+              />
+            </CustomCalendarContainer>
+          ) : (
+            <CustomCalendarContainer>
+              <IcArrowBottomWhite onClick={handleClickCalendar} />
+            </CustomCalendarContainer>
+          )}
         </DateContainer>
-        {isCalendarClicked ? (
-          <CustomCalendarContainer>
-            <IcArrowTopWhite onClick={handleClickCalendar} />
-            <CustomCalendar
-              date={{ clickedYear, clickedMonth }}
-              unsolvedMonths={[]}
-              handleClickPrevBtn={handleClickPrevBtn}
-              handleClickMonth={handleClickMonth}
-              handleClickNextBtn={handleClickNextBtn}
-            />
-          </CustomCalendarContainer>
-        ) : (
-          <IcArrowBottomWhite onClick={handleClickCalendar} />
-        )}
       </NavContainer>
 
       <StyledCalendar
@@ -118,7 +120,8 @@ const CalendarContainer = styled.div`
 
   .react-calendar {
     display: flex;
-    gap: 2rem;
+
+    /* gap: 2rem; */
 
     width: 28.6rem;
 
@@ -130,10 +133,9 @@ const CalendarContainer = styled.div`
 `;
 
 const NavContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  /* display: flex; */
+
+  /* position: relative; */
 
   width: 17.9rem;
   padding: 1.3rem 1.4rem;
@@ -142,6 +144,10 @@ const NavContainer = styled.div`
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 
+  /* justify-content: center; */
+
+  text-align: center;
+
   max-width: 17.9rem;
 
   outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
@@ -149,25 +155,43 @@ const NavContainer = styled.div`
 
 const DateContainer = styled.div`
   display: flex;
-  gap: 0.4rem;
-  align-items: center;
 
-  padding-right: 0.2rem;
-  padding-left: 1.1rem;
+  /* gap: 0.4rem; */
+  align-items: center;
+  position: relative;
+
+  /* padding-right: 0.2rem; */
+
+  /* padding-left: 1.1rem; */
+
+  /* background-color: darkblue; */
 `;
 
 const Year = styled.p`
+  margin-right: 0.4rem;
+  margin-left: 1.4rem;
+
   color: ${({ theme }) => theme.colors.white};
+
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
 const Month = styled.p`
+  margin-right: 0.4rem;
+
   color: ${({ theme }) => theme.colors.white};
+
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
 const CustomCalendarContainer = styled.div`
-  left: 0;
+  position: absolute;
+  top: 52%;
+  right: 0;
+
+  transform: translateY(-50%);
+
+  /* background-color: pink; */
 `;
 
 const StyledCalendar = styled(Calendar)`
