@@ -64,7 +64,6 @@ const CommonCalendar = ({
           <IcCalendar onClick={handleClickCalendar} />
           <Year>{clickedYear}년</Year>
           <Month>{clickedMonth}월</Month>
-
           {isCalendarClicked ? (
             <CustomCalendarContainer>
               <IcArrowTopWhite onClick={handleClickCalendar} />
@@ -134,6 +133,8 @@ const CalendarContainer = styled.div`
 `;
 
 const NavContainer = styled.div`
+  /* display: flex; */
+
   /* position: relative; */
 
   width: 17.9rem;
@@ -142,8 +143,6 @@ const NavContainer = styled.div`
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};
-
-  /* display: flex; */
 
   /* justify-content: center; */
 
@@ -161,7 +160,7 @@ const DateContainer = styled.div`
   align-items: center;
   position: relative;
 
-  padding-right: 0.2rem;
+  /* padding-right: 0.2rem; */
 
   /* padding-left: 1.1rem; */
 
@@ -188,11 +187,11 @@ const Month = styled.p`
 const CustomCalendarContainer = styled.div`
   position: absolute;
   top: 52%;
-  right: 1.8rem;
+  right: 0;
 
   transform: translateY(-50%);
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 const StyledCalendar = styled(Calendar)`
