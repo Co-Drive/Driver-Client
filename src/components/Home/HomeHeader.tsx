@@ -105,6 +105,7 @@ const Button = styled.button`
   cursor: pointer;
 
   padding: 0.9rem 1.4rem;
+  margin-top: 1.2rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.codrive_green};

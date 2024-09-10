@@ -20,7 +20,6 @@ const WeekRate = () => {
   useEffect(() => {
     if (data) {
       const { successRate, weeklyCountDifference, weeklyCount } = data.data;
-      console.log(weeklyCount);
 
       setStats({
         successRate: successRate,

@@ -1,5 +1,5 @@
 export interface GroupSettingProps {
-  isPublicGroup: boolean;
+  isPublicGroup: boolean | null;
   handleActiveChange: (active: boolean) => void;
   handlePasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   secretKey: string;

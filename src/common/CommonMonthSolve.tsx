@@ -82,7 +82,7 @@ const SolveContainer = styled.div`
 const SolveCount = styled.span`
   color: ${({ theme }) => theme.colors.codrive_green};
 
-  ${({ theme }) => theme.fonts.title_bold_32};
+  ${({ theme }) => theme.fonts.title_bold_46};
 `;
 
 const SolveCountText = styled.span`
