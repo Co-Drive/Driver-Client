@@ -35,7 +35,9 @@ const NickName = ({
 };
 
 const NickNameContainer = styled.div`
-  margin-bottom: 5rem;
+  max-height: 6.6rem;
+
+  margin-bottom: 9.7rem;
 `;
 
 const TitleContainer = styled.div`

@@ -38,6 +38,13 @@ const RegisterPage = () => {
     })
   );
 
+  const isActive =
+    nickname.length > 0 &&
+    nickname.length <= 10 &&
+    isClickedCheckBtn &&
+    !isExistNickname &&
+    selectedLanguage.length > 0;
+
   // 입력 값 변경 처리 함수
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,6 +52,13 @@ const RegisterPage = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (name === 'nickname') {
+      setChangeNickname((prev) => ({
+        ...prev,
+        isClickedCheckBtn: false,
+      }));
+    }
   };
 
   // 언어 태그 변경 처리 함수
@@ -86,14 +100,6 @@ const RegisterPage = () => {
   const handleNicknameCheck = () => {
     mutation(nickname);
   };
-
-  const isActive =
-    (!intro || (intro.length > 0 && intro.length <= 30)) &&
-    nickname.length > 0 &&
-    nickname.length <= 10 &&
-    isClickedCheckBtn &&
-    !isExistNickname &&
-    selectedLanguage.length > 0;
 
   return (
     <PageLayout category={'login'}>
