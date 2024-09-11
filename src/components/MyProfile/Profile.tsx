@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { IcGithub, IcRevise } from '../../assets';
 import useGetUser from '../../libs/hooks/MyProfile/useGetUser';
 import { handleClickLink } from '../../utils/handleClickLink';
-import { movePagePosition } from '../../utils/movePagePosition';
 import ProfileEdilt from './ProfileEdit';
 
 const Profile = () => {
@@ -14,7 +13,6 @@ const Profile = () => {
 
   // 모달 열기 함수
   const handleOpenModal = () => {
-    movePagePosition();
     setModalOn(true);
   };
 
