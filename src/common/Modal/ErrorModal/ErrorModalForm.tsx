@@ -93,6 +93,8 @@ const Warning = styled.p`
 
   ${({ theme }) => theme.fonts.title_bold_16};
   text-align: center;
+
+  white-space: break-spaces;
 `;
 
 const CheckBtn = styled.button`
