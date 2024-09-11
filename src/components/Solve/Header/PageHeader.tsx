@@ -5,7 +5,6 @@ import SaveModal from '../../../common/Modal/Modal';
 import usePatchRecords from '../../../libs/hooks/Solve/usePatchRecords';
 import usePostRecords from '../../../libs/hooks/Solve/usePostRecords';
 import { PageHeaderProps } from '../../../types/Solve/solveTypes';
-import { movePagePosition } from '../../../utils/movePagePosition';
 
 const BTN_CONTENTS = ['임시저장', '등록하기'];
 
@@ -22,8 +21,7 @@ const PageHeader = ({
   const { postMutation, postErr } = usePostRecords();
 
   const [postTempErr, setPostTempErr] = useState('');
-  const isError =
-    patchErr.length > 0 || postErr.length > 0 || postTempErr.length > 0;
+  const isError = patchErr.length > 0 || postErr.length > 0;
 
   const [modalOpen, setModalOpen] = useState(false);
   const [errModalOpen, setErrModalOpen] = useState(isError);
@@ -36,20 +34,25 @@ const PageHeader = ({
 
   const handleClickBtn = (isSaveBtn: boolean) => {
     if (isSaveBtn) {
-      movePagePosition();
       handleOpenOptions(false);
       setModalOpen(true);
     } else {
-      id && !isTemp
-        ? patchMutation({
-            id: id,
-            questionInfo: questionInfo,
-            codeblocks: codeblocks,
-          })
-        : postMutation({
-            questionInfo: questionInfo,
-            codeblocks: codeblocks,
-          });
+      const correctUrlPattern =
+        /^(https?):\/\/[\w.-]+(:[0-9]+)?(\/([\w\/_.]*)?)?$/;
+      if (correctUrlPattern.test(problemUrl)) {
+        id && !isTemp
+          ? patchMutation({
+              id: id,
+              questionInfo: questionInfo,
+              codeblocks: codeblocks,
+            })
+          : postMutation({
+              questionInfo: questionInfo,
+              codeblocks: codeblocks,
+            });
+      } else {
+        setErrModalOpen(true);
+      }
     }
   };
 
@@ -103,7 +106,13 @@ const PageHeader = ({
       )}
 
       {errModalOpen && (
-        <ErrorModal onClose={() => setErrModalOpen(false)} errMsg={errMsg} />
+        <ErrorModal
+          onClose={() => setErrModalOpen(false)}
+          errMsg={
+            errMsg ||
+            '유효하지 않은 주소입니다\n[ https / http ]로 시작하는 주소를 입력해주세요.'
+          }
+        />
       )}
     </PageHeaderContainer>
   );
