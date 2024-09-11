@@ -14,7 +14,7 @@ const TagContainer = styled.span`
   display: inline-flex;
   align-items: center;
 
-  padding: 0.6rem 1rem;
+  padding: 0.4rem 0.8rem;
   margin-right: 1rem;
 
   border-radius: 0.4rem;
