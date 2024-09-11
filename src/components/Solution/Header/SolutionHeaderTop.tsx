@@ -24,8 +24,8 @@ const SolutionHeaderTop = ({
 }: SolutionHeaderTopProps) => {
   const navigate = useNavigate();
   const { mutation, deleteErr } = useDeleteRecords();
-  const { data, isLoading } = useGetUserProfile(followerId);
-  const { profileImg, nickname } = !isLoading && data?.data;
+  const { data, isLoading } = useGetUserProfile(followerId) || {};
+  const { profileImg, nickname } = (!isLoading && data?.data) || {};
 
   const [isCopied, setIsCopied] = useState(false);
   const isDeleteErr = deleteErr.length > 0;

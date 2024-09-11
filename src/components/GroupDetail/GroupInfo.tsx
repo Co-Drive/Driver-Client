@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowRightSmallGray } from '../../assets';
 import { GroupInfoProps } from '../../types/GroupDetail/groupDetailType';
-import { movePagePosition } from '../../utils/movePagePosition';
 import ApplicationModal from './ApplicationModal';
 
 const GroupInfo = ({
@@ -19,7 +18,6 @@ const GroupInfo = ({
   const [modalOn, setModalOn] = useState(false);
 
   const handleClickApplicationStatus = () => {
-    movePagePosition();
     setModalOn(true);
   };
 

@@ -14,7 +14,7 @@ const TotalSolutions = () => {
   const { id } = useParams();
   if (!id) return;
   const userId = parseInt(id);
-  const { data, isLoading } = useGetUserProfile(parseInt(id));
+  const { data, isLoading } = useGetUserProfile(parseInt(id)) || {};
   const { isFollowing } = !isLoading && data?.data;
   const { mutation, updateFollowerErr } = useUpdateFollower();
   const isError = updateFollowerErr.length > 0;

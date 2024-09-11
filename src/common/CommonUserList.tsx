@@ -21,7 +21,6 @@ import {
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
-import { movePagePosition } from '../utils/movePagePosition';
 import { removeSavedPage } from '../utils/removeSavedPage';
 import ErrorModal from './Modal/ErrorModal/ErrorModal';
 import SaveCheckModal from './Modal/SaveCheckModal/SaveCheckModal';
@@ -102,8 +101,6 @@ const CommonUserList = ({
   };
 
   const handleClickRemoveBtn = (nickname: string) => {
-    movePagePosition();
-
     setClickedContents({ ...clickedContents, clickedNickname: nickname });
     setModalOn({
       ...modalOn,

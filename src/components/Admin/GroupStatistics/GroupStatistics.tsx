@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useGetRoomInfo from '../../../libs/hooks/Admin/useGetRoomInfo';
-import { movePagePosition } from '../../../utils/movePagePosition';
 import GroupStatus from './GroupStatus';
 import NumOfLanguages from './NumOfLanguages';
 import NumOfMembers from './NumOfMembers';
@@ -30,7 +29,6 @@ const GroupStatistics = () => {
   ) => {
     const { innerText } = e.currentTarget;
     setClickedStatus(innerText);
-    movePagePosition();
     setModalOn(true);
   };
 
