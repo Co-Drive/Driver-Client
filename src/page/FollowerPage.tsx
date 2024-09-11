@@ -15,7 +15,7 @@ const FollowerPage = () => {
   const { id } = useParams();
   if (!id) return;
   const userId = parseInt(id);
-  const { data, isLoading } = useGetUserProfile(userId);
+  const { data, isLoading } = useGetUserProfile(userId) || {};
   const { nickname } = !isLoading && data?.data;
 
   const [opacity, setOpacity] = useState(0);
