@@ -42,9 +42,11 @@ const GroupComplete = () => {
     }, 1000);
   };
 
-  const handleGroupPageRedirect = () => {
-    alert('그룹 페이지를 생성하고 유지보수 예정.');
-    navigate('/group-page'); // 그룹 페이지 생성 후 유지보수 예정
+  const handleGroupPageRedirect = async () => {
+    if (token && nickname) {
+      const data = await getGroupInfo(uuid!);
+      navigate(`/group/${data.roomId}/admin`);
+    }
   };
 
   return (
@@ -89,13 +91,10 @@ const Title = styled.h1`
 
 const PasswordContainer = styled.div`
   margin-bottom: 4rem;
-
-  /* background-color: blue; */
 `;
 
 const PasswordText = styled.p`
   ${({ theme }) => theme.fonts.title_bold_20};
-  /* background-color: pink; */
   color: ${({ theme }) => theme.colors.gray100};
 `;
 
