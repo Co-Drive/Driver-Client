@@ -40,6 +40,7 @@ export default Home;
 const MainContainer = styled.div`
   display: flex;
   gap: 2rem;
+  align-items: center;
 
   margin-top: 2.2rem;
 `;
@@ -47,6 +48,7 @@ const MainContainer = styled.div`
 const FooterContainer = styled.div`
   display: flex;
   gap: 1.8rem;
+  align-items: center;
 
-  margin-top: 2.4rem;
+  margin: 2.4rem 0 17rem;
 `;

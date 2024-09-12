@@ -75,7 +75,7 @@ const BtnText = styled.p<{ $category: string; $isActive?: boolean }>`
   ${({ theme, $category }) =>
     $category === 'group_direct'
       ? theme.fonts.title_bold_20
-      : theme.fonts.title_bold_20}
+      : theme.fonts.title_bold_16}
   color: ${({ theme, $isActive, $category }) => {
     if ($isActive || $category === 'group_direct') return theme.colors.gray900;
     return theme.colors.gray300;

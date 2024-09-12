@@ -209,7 +209,16 @@ const Input = styled.input<{ $category: string }>`
         return `20.1rem`;
     }
   }};
-  padding: 0.5rem 0 0.4rem;
+  padding: ${({ $category }) => {
+    switch ($category) {
+      case 'title':
+        return `0`;
+      case 'num':
+        return `0`;
+      default:
+        return `0.5rem 0 0.4rem`;
+    }
+  }};
   margin-left: ${({ $category }) => {
     switch ($category) {
       case 'title':

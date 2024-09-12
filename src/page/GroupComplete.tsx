@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { IcArrowRightBlack } from '../assets';
 import CommonButton from '../common/CommonButton';
 import Modal from '../common/Modal/Modal';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -12,26 +13,31 @@ const GroupComplete = () => {
   const [groupPassword, setGroupPassword] = useState('');
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [isCopied, setIsCopied] = useState(false);
+
   const { id: uuid } = useParams();
+  const { state } = useLocation();
+  const { imageSrc } = state && state;
   const token = sessionStorage.getItem('token');
   const nickname = sessionStorage.getItem('nickname');
 
-  useEffect(() => {
-    if (token && nickname) {
-      const fetchGroupInfo = async () => {
-        try {
-          const data = await getGroupInfo(uuid!);
-          setGroupPassword(data.password);
-          setThumbnailUrl(data.imageSrc);
-        } catch (error) {
-          console.log('error');
-        }
-      };
-      fetchGroupInfo();
-    } else {
-      navigate('/login');
-    }
-  }, [uuid, token, nickname]);
+  if (uuid) {
+    useEffect(() => {
+      if (token && nickname) {
+        const fetchGroupInfo = async () => {
+          try {
+            const data = await getGroupInfo(uuid!);
+            setGroupPassword(data.password);
+            setThumbnailUrl(data.imageSrc);
+          } catch (error) {
+            console.log('error');
+          }
+        };
+        fetchGroupInfo();
+      } else {
+        navigate('/login');
+      }
+    }, [uuid, token, nickname]);
+  }
 
   const handleClickCopyBtn = () => {
     const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
@@ -42,38 +48,48 @@ const GroupComplete = () => {
     }, 1000);
   };
 
-  const handleGroupPageRedirect = () => {
-    alert('그룹 페이지를 생성하고 유지보수 예정.');
-    navigate('/group-page'); // 그룹 페이지 생성 후 유지보수 예정
+  const handleGroupPageRedirect = async () => {
+    if (token && nickname) {
+      const data = await getGroupInfo(uuid!);
+      navigate(`/group/${data.roomId}/admin`);
+    }
   };
 
   return (
     <PageLayout category={'group_create'}>
-      <Title>그룹 생성이 완료되었어요!</Title>
+      <Title>{`그룹 ${imageSrc ? '신청' : '생성'}이 완료되었어요!`}</Title>
       <PasswordContainer>
-        {groupPassword ? (
+        {groupPassword && (
           <PasswordText>
             비밀번호 <Password>{groupPassword}</Password>
           </PasswordText>
-        ) : (
-          <PasswordText>그룹장이 승인 후 알려드릴게요</PasswordText>
+        )}
+        {imageSrc && (
+          <PasswordText>승인되면 즉시 알려드릴게요 :{')'}</PasswordText>
         )}
       </PasswordContainer>
       <ThumbnailContainer>
-        <Img src={thumbnailUrl} alt="썸네일" />
+        <Img src={thumbnailUrl || imageSrc} alt="썸네일" />
       </ThumbnailContainer>
-      <ButtonContainer>
-        <CommonButton
-          onClick={() => handleClickCopyBtn()}
-          category="link_copy"
-        />
-        {isCopied && <Modal />}
-        <CommonButton
-          onClick={handleGroupPageRedirect}
-          category="group_direct"
-          isActive={true}
-        />
-      </ButtonContainer>
+      {imageSrc ? (
+        <MoreGroupBtn type="button" onClick={() => navigate('/group')}>
+          <MoreGroupText>다른 그룹 더보기</MoreGroupText>
+          <IcArrowRightBlack />
+        </MoreGroupBtn>
+      ) : (
+        <ButtonContainer>
+          <CommonButton
+            onClick={() => handleClickCopyBtn()}
+            category="link_copy"
+          />
+          {isCopied && <Modal />}
+          <CommonButton
+            onClick={handleGroupPageRedirect}
+            category="group_direct"
+            isActive={true}
+          />
+        </ButtonContainer>
+      )}
     </PageLayout>
   );
 };
@@ -89,13 +105,10 @@ const Title = styled.h1`
 
 const PasswordContainer = styled.div`
   margin-bottom: 4rem;
-
-  /* background-color: blue; */
 `;
 
 const PasswordText = styled.p`
   ${({ theme }) => theme.fonts.title_bold_20};
-  /* background-color: pink; */
   color: ${({ theme }) => theme.colors.gray100};
 `;
 
@@ -112,6 +125,22 @@ const Img = styled.img`
   width: 44rem;
   height: 31rem;
   object-fit: cover;
+`;
+
+const MoreGroupBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1.4rem 1.6rem 1.4rem 2.1rem;
+
+  border-radius: 1.2rem;
+  background-color: ${({ theme }) => theme.colors.codrive_green};
+`;
+
+const MoreGroupText = styled.p`
+  color: ${({ theme }) => theme.colors.gray900};
+  ${({ theme }) => theme.fonts.title_bold_20};
 `;
 
 const ButtonContainer = styled.span`

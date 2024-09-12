@@ -125,13 +125,9 @@ const TodaySolve = () => {
             <Label
               content={
                 <CustomLabel
-                  upValue={
-                    stats.goal && stats.todayCount ? stats.goal : '목표를'
-                  }
-                  downValue={
-                    stats.goal && stats.todayCount ? '문제' : '설정해주세요'
-                  }
-                  isDefault={stats.goal && stats.todayCount ? false : true}
+                  upValue={stats.goal ? stats.goal : '목표를'}
+                  downValue={stats.goal ? '문제' : '설정해주세요'}
+                  isDefault={stats.goal ? false : true}
                   viewBox={{ cx: 0, cy: 0 }}
                 />
               }
