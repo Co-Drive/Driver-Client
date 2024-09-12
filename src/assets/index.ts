@@ -56,7 +56,6 @@ import IcStatusBlack from './icon/ic_status_black.svg?react';
 import IcStatusWhite from './icon/ic_status_white.svg?react';
 import IcSuccess from './icon/ic_success.svg?react';
 import IcSuccessGray from './icon/ic_success_gray.svg?react';
-import IcTop3Member from './icon/ic_top3_members.svg?react';
 import IcUnfollowingWhite from './icon/ic_unfollowing_white.svg?react';
 import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
@@ -141,7 +140,6 @@ export {
   IcStatusWhite,
   IcSuccess,
   IcSuccessGray,
-  IcTop3Member,
   IcUnfollowingWhite,
   IcUnlockGray,
   IcUnlockWhite,
