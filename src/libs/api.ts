@@ -48,7 +48,6 @@ const API = () => {
               }
             });
         } catch (err) {
-          console.log(err);
           sessionStorage.clear();
           window.location.href = '/';
         }

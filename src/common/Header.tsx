@@ -22,8 +22,6 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
     if (category) setHoveredCategory(category);
   };
 
-  console.log(hoveredCategory);
-
   return (
     <HeaderWrapper>
       <HeaderContainer>
