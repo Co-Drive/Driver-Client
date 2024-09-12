@@ -5,16 +5,58 @@ let apiInstance: AxiosInstance | null;
 
 const API = () => {
   // axios instance가 존재하지 않는 경우에만 새로운 인스턴스 생성
+  if (!apiInstance) {
+    apiInstance = axios.create({
+      baseURL: import.meta.env.VITE_APP_BASE_URL,
+    });
+  }
 
-  apiInstance = axios.create({
-    baseURL: import.meta.env.VITE_APP_BASE_URL,
+  // Request interceptor를 통해 매번 요청 전에 토큰을 동적으로 설정
+  apiInstance.interceptors.request.use((config) => {
+    const token = sessionStorage.getItem('token');
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
   });
 
-  const token = sessionStorage.getItem('token');
+  apiInstance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const originalRequest = error.config;
+      if (error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
 
-  if (token) {
-    apiInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }
+        try {
+          api
+            .post('/auth/refresh', {
+              accessToken: sessionStorage.getItem('token'),
+              refreshToken: sessionStorage.getItem('refresh'),
+            })
+            .then((res) => {
+              const accessToken = res.data.data.accessToken;
+              sessionStorage.setItem('token', accessToken);
+              originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+              return axios(originalRequest);
+            })
+            .catch((err) => {
+              if (err.response.status === 401) {
+                sessionStorage.clear();
+                window.location.href = '/';
+              }
+            });
+        } catch (err) {
+          console.log(err);
+          sessionStorage.clear();
+          window.location.href = '/';
+        }
+      }
+
+      return Promise.reject(error);
+    }
+  );
 
   return apiInstance;
 };

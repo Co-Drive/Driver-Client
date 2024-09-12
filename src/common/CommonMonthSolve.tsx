@@ -24,7 +24,7 @@ const CommonMonthSolve = ({ userId }: CommonMonthSolveProps) => {
 
   return (
     <WeekRateContainer>
-      <div>
+      <div style={{ width: '100%' }}>
         <Month>{clickedMonth}월 문제풀이 현황</Month>
         <SolveContainer>
           <SolveCount>
@@ -56,13 +56,15 @@ export default CommonMonthSolve;
 const WeekRateContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-grow: 2;
 
-  width: 61.1rem;
+  min-width: 61.1rem;
+
+  width: 100%;
   padding: 3.4rem 3.8rem 4.2rem 3.4rem;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
-  max-width: 61.1rem;
 `;
 
 const Month = styled.p`
@@ -70,7 +72,7 @@ const Month = styled.p`
 
   color: ${({ theme }) => theme.colors.white};
 
-  ${({ theme }) => theme.fonts.title_bold_16};
+  ${({ theme }) => theme.fonts.title_bold_20};
 `;
 
 const SolveContainer = styled.div`
@@ -80,7 +82,7 @@ const SolveContainer = styled.div`
 const SolveCount = styled.span`
   color: ${({ theme }) => theme.colors.codrive_green};
 
-  ${({ theme }) => theme.fonts.title_bold_32};
+  ${({ theme }) => theme.fonts.title_bold_46};
 `;
 
 const SolveCountText = styled.span`
@@ -99,6 +101,8 @@ const LongestSolve = styled.p`
 `;
 
 const Text = styled.span`
+  margin-right: 0.4rem;
+
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.white};
 `;

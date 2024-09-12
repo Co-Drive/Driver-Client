@@ -33,9 +33,9 @@ const GroupRecommend = () => {
           <IcBtnInformation />
           <Tooltip>
             <Text>
-              <TooUser>{nickname}</TooUser>님 만을 위해
+              <TooUser>{nickname}</TooUser> 님 만을 위해
             </Text>
-            <Text>하루에 6개씩 랜덤으로 그룹을 추천해드려요</Text>
+            <Text>6개씩 랜덤으로 그룹을 추천해드려요</Text>
           </Tooltip>
         </Notic>
       </TitleContainer>
@@ -84,7 +84,7 @@ const Tooltip = styled.div`
   top: 3rem;
   visibility: hidden;
 
-  width: 22.8rem;
+  width: 19.3rem;
   height: auto;
   padding: 1.2rem 1.1rem;
 
@@ -121,10 +121,9 @@ const TooUser = styled.span`
 `;
 
 const Text = styled.p`
-  margin-top: 0.4rem;
-
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.body_ligth_12};
+  line-height: 1.8rem;
 `;
 
 export default GroupRecommend;

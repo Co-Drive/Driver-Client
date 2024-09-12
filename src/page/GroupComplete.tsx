@@ -63,12 +63,10 @@ const GroupComplete = () => {
         <Img src={thumbnailUrl} alt="썸네일" />
       </ThumbnailContainer>
       <ButtonContainer>
-        {groupPassword && (
-          <CommonButton
-            onClick={() => handleClickCopyBtn()}
-            category="link_copy"
-          />
-        )}
+        <CommonButton
+          onClick={() => handleClickCopyBtn()}
+          category="link_copy"
+        />
         {isCopied && <Modal />}
         <CommonButton
           onClick={handleGroupPageRedirect}
@@ -111,8 +109,9 @@ const ThumbnailContainer = styled.div`
 `;
 
 const Img = styled.img`
-  width: 4.4rem;
-  height: 3.1rem;
+  width: 44rem;
+  height: 31rem;
+  object-fit: cover;
 `;
 
 const ButtonContainer = styled.span`

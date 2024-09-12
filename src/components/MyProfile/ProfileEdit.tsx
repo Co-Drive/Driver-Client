@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CommonButton from '../../common/CommonButton';
+import ErrorModal from '../../common/Modal/ErrorModal/ErrorModal';
 import usePatchUser from '../../libs/hooks/MyProfile/usePatchUser';
 import usePostCheckExitNickname from '../../libs/hooks/MyProfile/usePostCheckExitNickname';
 import { ProfileEdiltProps } from '../../types/MyProfile/MyProfileType';
@@ -26,7 +27,10 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const { comment, githubUrl, language, nickname, name } = inputs;
   const githubNickname = githubUrl.split('/')[githubUrl.split('/').length - 1];
 
-  const { patchMutation } = usePatchUser(nickname);
+  const { patchMutation, patchUserErr } = usePatchUser({
+    nickname,
+    handleCloseModal,
+  });
   const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
     setChangeNickname({
       ...changeNickname,
@@ -34,6 +38,9 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
       isClickedCheckBtn: true,
     })
   );
+
+  const isError = patchUserErr.length > 0;
+  const [errModalOn, setErrModalOn] = useState(isError);
 
   // 입력 값의 유효성을 검사하는 변수
   const isActive =
@@ -73,8 +80,16 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   // 가입 버튼 클릭 처리 함수
   const handleSaveBtnClick = () => {
     if (!isActive) return;
-    patchMutation({ comment, githubUrl, language: selectedLanguage, nickname });
-    handleCloseModal(); // 모달 닫기
+    patchMutation({
+      comment,
+      githubUrl,
+      language: selectedLanguage,
+      nickname,
+    });
+
+    if (isError) {
+      setErrModalOn(true);
+    }
   };
 
   // 취소 버튼 클릭 처리 함수
@@ -90,6 +105,10 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
     mutation(nickname);
   };
 
+  useEffect(() => {
+    setErrModalOn(isError);
+  }, [isError]);
+
   return (
     <ModalBackground>
       <ProfileContainer onSubmit={handleSaveBtnClick}>
@@ -98,7 +117,19 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
           <NameInfo user={name} />
           <GithubInfo
             github={githubNickname}
-            handleChangeInputs={handleChangeInputs}
+            handleChangeInputs={(e) => {
+              const { value } = e.target;
+              const completeGithubUrl = `https://github.com/${value.replace('https://github.com/', '')}`;
+
+              handleChangeInputs({
+                ...e,
+                target: {
+                  ...e.target,
+                  name: 'githubUrl',
+                  value: completeGithubUrl,
+                },
+              });
+            }}
           />
         </BasicInfoContainer>
         <CodriveContainer>
@@ -128,6 +159,13 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
             onClick={handleSaveBtnClick}
           />
         </ProfileButton>
+
+        {errModalOn && (
+          <ErrorModal
+            errMsg={patchUserErr}
+            onClose={() => setErrModalOn(false)}
+          />
+        )}
       </ProfileContainer>
     </ModalBackground>
   );
@@ -140,6 +178,7 @@ const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99;
 
   width: 100%;
   height: 100%;
@@ -148,9 +187,12 @@ const ModalBackground = styled.div`
 const ProfileContainer = styled.form`
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 100;
 
   height: 55.4rem;
   padding: 6.4rem 9.6rem;
+  padding: 2rem;
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray900};

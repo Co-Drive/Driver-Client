@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { IcGithub, IcRevise } from '../../assets';
 import useGetUser from '../../libs/hooks/MyProfile/useGetUser';
 import { handleClickLink } from '../../utils/handleClickLink';
-import { movePagePosition } from '../../utils/movePagePosition';
 import ProfileEdilt from './ProfileEdit';
 
 const Profile = () => {
@@ -14,7 +13,6 @@ const Profile = () => {
 
   // 모달 열기 함수
   const handleOpenModal = () => {
-    movePagePosition();
     setModalOn(true);
   };
 
@@ -104,6 +102,7 @@ const Language = styled.p`
 
 const RegisterModalContainer = styled.div`
   margin-left: 53.7rem;
+  cursor: pointer;
 `;
 
 const NickName = styled.article`
@@ -125,15 +124,17 @@ const ModalBackground = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 99;
 
   width: 100%;
   height: 100%;
 
-  background-color: rgb(0 0 0 / 50%);
+  background-color: rgb(0 0 0 / 90%);
 `;
 
 const ModalContent = styled.div`
-  z-index: 1000;
+  position: relative;
+  z-index: 100;
 
   padding: 2rem;
 

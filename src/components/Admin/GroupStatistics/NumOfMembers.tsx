@@ -1,18 +1,20 @@
 import styled from 'styled-components';
 import { IcInformation } from '../../../assets';
 import { NumOfMembersProps } from '../../../types/Admin/adminType';
+import Tooltip from './Tooltip';
 
 const NumOfMembers = ({ numOfMembers }: NumOfMembersProps) => {
   const { memberCount, capacity, approvedCount, requestedCount } = numOfMembers;
-
-  // 빌드 에러 방지를 위한 콘솔 (추후 툴팁에 넣을 애들)
-  console.log(approvedCount, requestedCount);
 
   return (
     <NumOfMembersContainer>
       <TitleContainer>
         <Title>그룹 인원</Title>
         <IcInformation />
+        <Tooltip
+          requestedCount={requestedCount}
+          approvedCount={approvedCount}
+        />
       </TitleContainer>
 
       <Counter>
@@ -41,9 +43,18 @@ const TitleContainer = styled.header`
   gap: 5.2rem;
   justify-content: center;
   align-items: flex-start;
+  position: relative;
 
   width: 100%;
   margin-bottom: 2rem;
+
+  &:hover > div {
+    visibility: visible;
+    z-index: 1;
+
+    margin-left: 5rem;
+    opacity: 1;
+  }
 `;
 
 const Title = styled.p`
@@ -54,7 +65,6 @@ const Title = styled.p`
 const Counter = styled.div`
   display: flex;
   justify-content: center;
-  align-items: end;
 `;
 
 const Members = styled.p`
@@ -65,7 +75,7 @@ const Members = styled.p`
 `;
 
 const Slash = styled.p`
-  margin-bottom: -1rem;
+  margin-top: 1rem;
   margin-left: 0.8rem;
 
   color: ${({ theme }) => theme.colors.gray300};
@@ -78,6 +88,8 @@ const CapacityContainer = styled.div`
   gap: 0.2rem;
   justify-content: center;
   align-items: center;
+
+  margin-top: 4.3rem;
 `;
 
 const Capacity = styled.p`

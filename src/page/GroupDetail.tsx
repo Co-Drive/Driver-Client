@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import ErrorModal from '../common/Modal/ErrorModal/ErrorModal';
 import GroupInfo from '../components/GroupDetail/GroupInfo';
 import Header from '../components/GroupDetail/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -13,7 +15,6 @@ const GroupDetail = () => {
   if (!id) return;
 
   const { data, isLoading } = useGetDetail(parseInt(id));
-  const { mutation, isSuccess } = usePostPublicRequest();
   const {
     title,
     owner,
@@ -24,10 +25,19 @@ const GroupDetail = () => {
     introduce,
     information,
   } = !isLoading && data.data;
+  const { mutation, err } = usePostPublicRequest(imageSrc);
+
+  const isError = err.length > 0;
+
+  const [onErrModal, setOnErrModal] = useState(isError);
 
   const handleClickApplyBtn = () => {
     mutation(parseInt(id));
   };
+
+  useEffect(() => {
+    setOnErrModal(isError);
+  }, [isError]);
 
   return (
     <PageLayout category="그룹">
@@ -44,12 +54,15 @@ const GroupDetail = () => {
             information={information}
           />
 
-          {!isSuccess && !disabledApply && (
+          {!disabledApply && (
             <ApplyBtn type="button" onClick={handleClickApplyBtn}>
               신청하기
             </ApplyBtn>
           )}
         </GroupDetailContainer>
+      )}
+      {onErrModal && (
+        <ErrorModal onClose={() => setOnErrModal(false)} errMsg={err} />
       )}
     </PageLayout>
   );
@@ -68,7 +81,9 @@ const GroupDetailContainer = styled.section`
 `;
 
 const GroupImg = styled.img`
-  width: 61.2rem;
+  min-width: 61.2rem;
+
+  width: 100%;
   height: 36.8rem;
   margin-bottom: 2.4rem;
   margin-left: 0.1rem;
@@ -80,7 +95,8 @@ const GroupImg = styled.img`
 
 const ApplyBtn = styled.button`
   position: fixed;
-  top: 84.4rem;
+  right: 48.3rem;
+  bottom: 11.5rem;
   left: 48.3rem;
 
   padding: 1.8rem 19.5rem;

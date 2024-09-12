@@ -6,6 +6,7 @@ export interface WarningModalProps {
 }
 
 export interface ErrorModalProps {
+  callbackPage?: string;
   errMsg: string;
   onClose: () => void;
 }

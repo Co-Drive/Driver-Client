@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray, IcFilter } from '../../../assets';
 import CommonHashTag from '../../../common/CommonHashTag';
@@ -15,6 +15,7 @@ const LanguageSelectBox = ({
   setSliderValues,
 }: LanguageSelectBoxProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [tempValue, setTempValue] = useState({
     min: 0,
@@ -69,8 +70,25 @@ const LanguageSelectBox = ({
     setSliderValues(updatedTempValue);
   };
 
+  // 외부 클릭 감지 및 드롭다운 닫기 처리
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   return (
-    <Section>
+    <Section ref={dropdownRef}>
       <DropdownContainer onClick={toggleDropdown}>
         <SelectContainer>
           <FilterIconContainer>
@@ -101,7 +119,6 @@ const LanguageSelectBox = ({
             )}
           </SelectedTagsContainer>
           {(selectedTags.length > 0 || isSliderValueVisible) && <Border />}
-
           {isSliderValueVisible && (
             <RangeValue>
               {tempValue.min}명 - {tempValue.max}명

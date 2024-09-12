@@ -1,41 +1,59 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
+import Gnb from './Gnb';
 
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
-  const user = sessionStorage.getItem('user');
-  const userId = user && parseInt(user);
   const profileImg = sessionStorage.getItem('profileImg');
   const isLogin = nickname && nickname.length > 0;
 
-  const handleClickProfile = () => {
-    navigate(`/${userId}`);
+  const [hoveredCategory, setHoveredCategory] = useState('');
+  const [isGnbOpen, setIsGnbOpen] = useState(false);
+
+  const isHoveredProfile = hoveredCategory === 'profile';
+
+  const handleOpenGnb = (open: boolean, category?: string) => {
+    setIsGnbOpen(open);
+    if (category) setHoveredCategory(category);
   };
+
+  console.log(hoveredCategory);
 
   return (
     <HeaderWrapper>
       <HeaderContainer>
-        <LogoContainer>
+        <LogoContainer onClick={() => navigate('/')}>
           <IcLogo />
         </LogoContainer>
         <NavBarContainer>
           <NavBarUl>
-            {DATA.map((v) => {
+            {DATA.map((v, idx) => {
+              const isClickedCategory = clickedCategory === v.text;
+              const isHoveredCategory = hoveredCategory === v.text;
               return (
-                <NavBar key={v.text}>
-                  {isLogin && clickedCategory === v.text && (
-                    <IconContainer>{v.icon}</IconContainer>
-                  )}
+                <NavBar
+                  key={v.text}
+                  onMouseEnter={() => handleOpenGnb(true, v.text)}
+                >
+                  {isClickedCategory && <IconContainer>{v.icon}</IconContainer>}
                   <Text
                     onClick={(e) => isLogin && handleClickCategory(e)}
-                    $isClickedCategory={clickedCategory === v.text}
+                    $isClickedCategory={isClickedCategory}
                   >
                     {v.text}
                   </Text>
+
+                  {idx !== 0 && isHoveredCategory && isGnbOpen && isLogin && (
+                    <Gnb
+                      category={hoveredCategory}
+                      handleOpenGnb={handleOpenGnb}
+                    />
+                  )}
                 </NavBar>
               );
             })}
@@ -43,10 +61,13 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
         </NavBarContainer>
         <LoginBtnContainer
           $isLogin={isLogin ? true : false}
-          onClick={handleClickProfile}
+          onMouseEnter={() => isLogin && handleOpenGnb(true, 'profile')}
         >
           {profileImg ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
           <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+          {isLogin && isGnbOpen && isHoveredProfile && (
+            <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
+          )}
         </LoginBtnContainer>
       </HeaderContainer>
     </HeaderWrapper>
@@ -97,6 +118,7 @@ const NavBar = styled.li`
   gap: 0.6rem;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 const IconContainer = styled.div`
@@ -115,8 +137,9 @@ const Text = styled.p<{ $isClickedCategory: boolean }>`
 
 const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   display: flex;
-  gap: 0.8rem;
+  gap: 1.4rem;
   justify-content: end;
+  position: relative;
 
   width: 23.2rem;
   margin-right: 2rem;
@@ -124,8 +147,8 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
 `;
 
 const ProfileImg = styled.img`
-  width: 3.4rem;
-  height: 3.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
 
   border-radius: 5rem;
   object-fit: cover;

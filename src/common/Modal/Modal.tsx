@@ -4,7 +4,12 @@ import LinkCopyModalForm from './LinkCopyModalForm';
 import ModalPortal from './ModalPortal';
 import SaveModalForm from './SaveModalForm';
 
-const Modal = ({ onClose, questionInfo, codeblocks }: ModalProps) => {
+const Modal = ({
+  onClose,
+  handlePostTempErr,
+  questionInfo,
+  codeblocks,
+}: ModalProps) => {
   const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.currentTarget === e.target && onClose) {
       onClose();
@@ -17,6 +22,7 @@ const Modal = ({ onClose, questionInfo, codeblocks }: ModalProps) => {
         {onClose ? (
           <SaveModalForm
             onClose={onClose}
+            handlePostTempErr={handlePostTempErr}
             questionInfo={questionInfo}
             codeblocks={codeblocks}
           />
@@ -31,6 +37,8 @@ const Modal = ({ onClose, questionInfo, codeblocks }: ModalProps) => {
 export default Modal;
 
 const ModalFormConatiner = styled.section`
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 11.6rem;
 

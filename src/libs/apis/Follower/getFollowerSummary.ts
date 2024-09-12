@@ -7,7 +7,7 @@ const getFollowerSummary = async ({
   page,
 }: GetFollowerSummaryProps) => {
   const { data } = await api.get(
-    `/follow/followings/summary/${sortType === '최신순' ? `NEW` : `DICT`}?page=${page}${groupId && `&groupId=${groupId}`}`
+    `/follow/followings/summary/${sortType === '최신순' ? `NEW` : `DICT`}?page=${page}${groupId && `&roomId=${groupId}`}`
   );
 
   return data;

@@ -8,7 +8,7 @@ const GithubInfo = ({ github, handleChangeInputs }: GithubInfoProps) => {
       <GitHubTitle>깃허브 주소</GitHubTitle>
       <CommonInput
         category="github"
-        value={github}
+        value={github ? github : ''}
         handleChangeInputs={handleChangeInputs}
       />
     </GithubInfoContainer>

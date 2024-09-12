@@ -15,8 +15,8 @@ const FollowerPage = () => {
   const { id } = useParams();
   if (!id) return;
   const userId = parseInt(id);
-  const { data, isLoading } = useGetUserProfile(userId);
-  const { nickname, isFollowing } = !isLoading && data?.data;
+  const { data, isLoading } = useGetUserProfile(userId) || {};
+  const { nickname } = !isLoading && data?.data;
 
   const [opacity, setOpacity] = useState(0);
 
@@ -36,7 +36,7 @@ const FollowerPage = () => {
             <CommonMonthSolve userId={userId} />
           </TopContainer>
 
-          <Solutions id={userId} nickname={nickname} isFollowed={isFollowing} />
+          <Solutions id={userId} nickname={nickname} />
 
           <ParticipatingGroup nickname={nickname} />
 

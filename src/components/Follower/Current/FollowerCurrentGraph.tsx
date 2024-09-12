@@ -6,7 +6,7 @@ import CustomTooltip from './CustomTooltip';
 const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const data = users.map((user) => {
     const { nickname, count } = user;
-    const height = count === 0 ? 50 : count * 10 + 10;
+    const height = count === 0 ? 10 : count * 10 + 10;
 
     return {
       name: nickname,
@@ -18,15 +18,17 @@ const FollowerCurrentGraph = ({ users }: FollowerCurrentGraphProps) => {
   const filledData = Array(15)
     .fill(0)
     .map((_, index) => {
-      return data[index] || { name: '', count: 0, height: 50 };
+      return data[index] || { name: '', count: -1, height: 10 };
     });
 
   const barArr = data.length >= 15 ? data : filledData;
 
   const getColor = (count: number) => {
     switch (count) {
-      case 0:
+      case -1:
         return '#292A2F';
+      case 0:
+        return '#646875';
       case 1:
       case 2:
       case 3:
@@ -84,8 +86,7 @@ const GraphContainer = styled.div`
   overflow: auto hidden;
 
   height: 100%;
-  padding-top: 7.6rem;
-  margin: 0 2.4rem;
+  padding: 7.6rem 2.4rem 0;
 
   min-width: 57rem;
 `;

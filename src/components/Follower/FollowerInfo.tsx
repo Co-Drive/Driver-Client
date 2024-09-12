@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   IcFollowingGray,
   IcGithubSmall,
   IcUnfollowingWhite,
 } from '../../assets';
+import ErrorModal from '../../common/Modal/ErrorModal/ErrorModal';
 import useUpdateFollower from '../../libs/hooks/Follower/useUpdateFollower';
 import { FollowerInfoProps } from '../../types/Follower/Personal/personalType';
 import { handleClickLink } from '../../utils/handleClickLink';
@@ -20,11 +22,18 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
     successRate,
   } = info;
 
-  const { mutation } = useUpdateFollower();
+  const { mutation, updateFollowerErr } = useUpdateFollower();
+  const isError = updateFollowerErr.length > 0;
+
+  const [errModalOn, setErrModalOn] = useState(isError);
 
   const handleClickFollowBtn = () => {
     mutation({ isDelete: isFollowing, nickname: nickname });
   };
+
+  useEffect(() => {
+    setErrModalOn(isError);
+  }, [isError]);
 
   return (
     <FollowerInfoContainer>
@@ -54,6 +63,13 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
           {isFollowing ? `팔로잉` : `팔로우 추가`}
         </Text>
       </FollowingBtn>
+
+      {errModalOn && (
+        <ErrorModal
+          onClose={() => setErrModalOn(false)}
+          errMsg={updateFollowerErr}
+        />
+      )}
     </FollowerInfoContainer>
   );
 };
@@ -65,6 +81,8 @@ const FollowerInfoContainer = styled.article`
   justify-content: space-between;
   flex-direction: column;
   flex-grow: 0.4;
+
+  width: 100%;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};

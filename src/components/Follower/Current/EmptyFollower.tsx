@@ -8,8 +8,8 @@ const EmptyFollower = () => {
   return (
     <EmptyFollowerContainer>
       <TextContainer>
-        <Text>{nickname} 님은 팔로워가 아직 없어요</Text>
-        <Text>팔로워를 추가하여 주간 문제 개수를 비교해보세요</Text>
+        <Text>{nickname} 님의 팔로잉 목록이 비어있어요</Text>
+        <Text>팔로잉을 추가하고 주간 문제 개수를 비교해보세요</Text>
       </TextContainer>
 
       <SubText>

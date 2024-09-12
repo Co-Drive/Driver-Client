@@ -65,7 +65,9 @@ const Image = styled.img`
 
 const ImageContainer = styled.div`
   position: relative;
-  max-width: 20.4rem;
+
+  width: 20.4rem;
+  height: 12.2rem;
   cursor: pointer;
 
   input {

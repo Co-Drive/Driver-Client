@@ -1,12 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcCancelSmallWhite, IcWarning } from '../../../assets';
 import { ErrorModalProps } from '../../../types/Modal/modalType';
 
-const ErrorModalForm = ({ errMsg, onClose }: ErrorModalProps) => {
+const ErrorModalForm = ({ callbackPage, errMsg, onClose }: ErrorModalProps) => {
+  const navigate = useNavigate();
   const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (e.currentTarget === e.target && onClose) {
       onClose();
     }
+  };
+
+  const handleClickCheckBtn = () => {
+    if (callbackPage) {
+      navigate(callbackPage);
+    }
+    onClose();
   };
 
   return (
@@ -21,7 +30,7 @@ const ErrorModalForm = ({ errMsg, onClose }: ErrorModalProps) => {
           <Warning>{errMsg}</Warning>
         </WarningContainer>
 
-        <CheckBtn type="button" onClick={onClose}>
+        <CheckBtn type="button" onClick={handleClickCheckBtn}>
           확인
         </CheckBtn>
       </ContentsContainer>
@@ -32,10 +41,12 @@ const ErrorModalForm = ({ errMsg, onClose }: ErrorModalProps) => {
 export default ErrorModalForm;
 
 const ModalFormConatiner = styled.section`
+  display: flex;
+  justify-content: center;
   position: fixed;
   top: 11.6rem;
 
-  width: 100%;
+  width: 100vw;
   height: calc(100vh - 11.6rem);
 
   background-color: rgb(11 12 15 / 66%);
@@ -49,6 +60,8 @@ const ContentsContainer = styled.article`
 
   min-width: 26.9rem;
 
+  width: fit-content;
+  height: fit-content;
   padding-top: 2.2rem;
   margin: 22rem 58.5rem 0;
 
@@ -80,6 +93,8 @@ const Warning = styled.p`
 
   ${({ theme }) => theme.fonts.title_bold_16};
   text-align: center;
+
+  white-space: break-spaces;
 `;
 
 const CheckBtn = styled.button`

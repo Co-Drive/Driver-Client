@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {
   IcArrowBottomWhite,
@@ -8,6 +8,7 @@ import {
   IcSuccess,
   IcSuccessGray,
 } from '../../../assets';
+import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
 import WarningModal from '../../../common/Modal/WarningModal/WarningModal';
 import { STATUS } from '../../../constants/Follower/currentConst';
 import usePatchRoomStatus from '../../../libs/hooks/Admin/usePatchRoomStatus';
@@ -29,9 +30,11 @@ const GroupStatus = ({
   onClose,
   handleClickStatus,
 }: GroupStatusProps) => {
-  const { mutation } = usePatchRoomStatus();
+  const { mutation, patchRoomErr } = usePatchRoomStatus();
+  const isError = patchRoomErr.length > 0;
 
   const [openStatusOption, setOpenStatusOption] = useState(false);
+  const [errModalOn, setErrModalOn] = useState(isError);
 
   const handleClickSelector = () => {
     setOpenStatusOption(!openStatusOption);
@@ -41,6 +44,10 @@ const GroupStatus = ({
     mutation({ roomId, status: clickedStatus });
     onClose();
   };
+
+  useEffect(() => {
+    setErrModalOn(isError);
+  }, [isError, clickedStatus]);
 
   return (
     <GroupStatusContainer>
@@ -87,12 +94,19 @@ const GroupStatus = ({
         )}
       </ChangeStatusSelector>
 
-      {modalOn && (
+      {!isError && modalOn && (
         <WarningModal
           onClose={onClose}
           handleClickContinueBtn={handleClickModalBtn}
           data={clickedStatus}
           isGroupStatusModal={true}
+        />
+      )}
+
+      {errModalOn && (
+        <ErrorModal
+          onClose={() => setErrModalOn(false)}
+          errMsg={patchRoomErr}
         />
       )}
     </GroupStatusContainer>

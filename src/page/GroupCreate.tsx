@@ -20,7 +20,7 @@ const GroupCreate = () => {
     group: '',
   });
 
-  const [isPublicGroup, setIspublicGroup] = useState(false);
+  const [isPublicGroup, setIspublicGroup] = useState<boolean | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>('');
   const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -37,6 +37,15 @@ const GroupCreate = () => {
   ) => {
     const { name, value } = e.target;
     const maxLength = maxCharLimits[name];
+    if (name === 'num') {
+      const numericValue = value.replace(/\D/g, ''); // 숫자 이외의 값 제거
+      const limitedValue = Math.min(Number(numericValue), 50).toString(); // 최대 50까지만 허용
+      setInputs({
+        ...inputs,
+        [name]: limitedValue,
+      });
+      return;
+    }
     const limitedValue = maxLength ? value.slice(0, maxLength) : value;
     setInputs({
       ...inputs,

@@ -1,11 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import ErrorModal from '../common/Modal/ErrorModal/ErrorModal';
 import PageLayout from '../components/PageLayout/PageLayout';
 import { postAuth } from '../libs/apis/Login/postAuth';
+import LoadingPage from './LoadingPage';
 
 const LoginLoadingPage = () => {
   const navigate = useNavigate();
+
+  const [modalOn, setModalOn] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -20,33 +24,43 @@ const LoginLoadingPage = () => {
             accessToken,
             refreshToken,
             profileImg,
+            langauge,
             isExistUser,
           } = data.data;
+
           sessionStorage.setItem('user', userId);
           sessionStorage.setItem('nickname', nickname);
+          sessionStorage.setItem('name', nickname);
           sessionStorage.setItem('token', accessToken);
           sessionStorage.setItem('refresh', refreshToken);
           sessionStorage.setItem('profileImg', profileImg);
+          sessionStorage.setItem('language', langauge);
 
           isExistUser ? navigate('/') : navigate('/register');
         })
         .catch((err) => {
-          // 이거 지우고 에러 모달 띄우기
-          console.log(err);
+          const errMsg = err.response.data.message;
+          setErrMsg(errMsg);
+          setModalOn(true);
         });
     }
   }, [window.location.search]);
 
   return (
-    <PageLayout category="홈">
-      <Title>로그인 중...</Title>
-    </PageLayout>
+    <>
+      {modalOn ? (
+        <PageLayout category="홈">
+          <ErrorModal
+            callbackPage="/"
+            errMsg={errMsg}
+            onClose={() => setModalOn(false)}
+          />
+        </PageLayout>
+      ) : (
+        <LoadingPage />
+      )}
+    </>
   );
 };
-
-const Title = styled.p`
-  color: wheat;
-  font-size: 100px;
-`;
 
 export default LoginLoadingPage;

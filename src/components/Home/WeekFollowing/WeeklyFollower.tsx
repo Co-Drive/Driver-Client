@@ -32,7 +32,7 @@ const WeeklyFollower = () => {
   return (
     <Container>
       <HeaderContainer>
-        <WeeklyText>주간 팔로워 현황</WeeklyText>
+        <WeeklyText>주간 팔로잉 현황</WeeklyText>
         <div>
           <AllButton type="button" onClick={handleClickAllButton}>
             전체보기
@@ -60,6 +60,10 @@ const WeeklyFollower = () => {
 export default WeeklyFollower;
 
 const Container = styled.div`
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+
   width: 45.4rem;
   padding: 3.6rem 3.4rem 0;
 
@@ -77,9 +81,10 @@ const HeaderContainer = styled.div`
 
 const ProfileContainer = styled.div<{ $isFollowing: boolean }>`
   display: flex;
-  gap: 6.6rem;
+  gap: 2.4rem;
   justify-content: ${({ $isFollowing }) => ($isFollowing ? 'start' : 'center')};
 
+  padding: 0 3.4rem;
   margin: 4rem 0 4.1rem;
 `;
 

@@ -36,7 +36,9 @@ const FollowerFilter = ({
 
   return (
     <FilteredContainer>
-      <GroupFilterContainer onClick={joinedRooms && handleClickGroupFilter}>
+      <GroupFilterContainer
+        onClick={() => joinedRooms.length > 0 && handleClickGroupFilter()}
+      >
         <SelectedGroup $isEmpty={!selectedGroup.length}>
           {selectedGroup ? selectedGroup : '그룹 별 보기'}
         </SelectedGroup>
