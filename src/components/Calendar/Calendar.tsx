@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
 import { BoardProps, CommonCalendarProps } from '../../types/Home/calendarType';
 import CustomCalendar from './CustomCalendar';
@@ -59,7 +59,7 @@ const CommonCalendar = ({
 
   return (
     <CalendarContainer>
-      <NavContainer>
+      <NavContainer $isClicked={isCalendarClicked === true}>
         <DateContainer>
           <IcCalendar onClick={handleClickCalendar} />
           <Year>{clickedYear}년</Year>
@@ -121,8 +121,6 @@ const CalendarContainer = styled.div`
   .react-calendar {
     display: flex;
 
-    /* gap: 2rem; */
-
     width: 28.6rem;
 
     border: none;
@@ -132,11 +130,7 @@ const CalendarContainer = styled.div`
   }
 `;
 
-const NavContainer = styled.div`
-  /* display: flex; */
-
-  /* position: relative; */
-
+const NavContainer = styled.div<{ $isClicked: boolean }>`
   width: 17.9rem;
   padding: 1.3rem 1.4rem;
   margin-bottom: 2rem;
@@ -144,27 +138,20 @@ const NavContainer = styled.div`
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray700};
 
-  /* justify-content: center; */
-
   text-align: center;
 
   max-width: 17.9rem;
-
-  outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
+  ${({ $isClicked }) =>
+    $isClicked &&
+    css`
+      outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
+    `};
 `;
 
 const DateContainer = styled.div`
   display: flex;
-
-  /* gap: 0.4rem; */
   align-items: center;
   position: relative;
-
-  /* padding-right: 0.2rem; */
-
-  /* padding-left: 1.1rem; */
-
-  /* background-color: darkblue; */
 `;
 
 const Year = styled.p`
