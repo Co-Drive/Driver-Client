@@ -16,7 +16,7 @@ const GroupComplete = () => {
 
   const { id: uuid } = useParams();
   const { state } = useLocation();
-  const { imageSrc } = state && state;
+  const { imageSrc } = state || {};
   const token = sessionStorage.getItem('token');
   const nickname = sessionStorage.getItem('nickname');
 

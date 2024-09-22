@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Top3Members = () => {
   return (
     <Top3MembersContainer>
-      <Img src="../../../top3member.png" />
+      <Img src="https://velog.velcdn.com/images/aroo_ming/post/0c5e3410-d452-431f-9a9e-e8e7a8dfed43/image.png" />
     </Top3MembersContainer>
   );
 };
