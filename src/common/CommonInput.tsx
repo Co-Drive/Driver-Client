@@ -163,6 +163,13 @@ const InputWrapper = styled.div<{
     css`
       box-shadow: 0 0 0 0.1rem ${theme.colors.alert};
     `};
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px ${({ theme }) => theme.colors.gray700}
+      inset;
+    -webkit-text-fill-color: ${({ theme }) => theme.colors.white};
+    caret-color: white;
+  }
 `;
 
 const CategoryWrapper = styled.div`
