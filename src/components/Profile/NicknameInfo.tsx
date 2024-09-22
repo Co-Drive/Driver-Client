@@ -8,7 +8,7 @@ const NicknameInfo = ({
   handleChangeInputs,
   handleNicknameCheck,
 }: NickNameInfoProps) => {
-  const {isExitNickname, isClickedCheckBtn} = changeNickname;
+  const { isExitNickname, isClickedCheckBtn } = changeNickname;
   return (
     <NicknameInfoContainer>
       <NicknameTitle>닉네임</NicknameTitle>
@@ -30,10 +30,12 @@ const NicknameInfo = ({
 
 const NicknameInfoContainer = styled.section`
   display: flex;
+  justify-content: center;
   align-items: center;
 
-  padding-bottom: 1.4rem;
-  margin-bottom: 3.2rem;
+  height: 7.7rem;
+  padding-bottom: 2.4rem;
+  margin-bottom: 3.1rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
@@ -48,10 +50,13 @@ const NicknameTitle = styled.h2`
 
 const InputWrapper = styled.div`
   display: flex;
-  align-items: center;
+
+  height: 5.2rem;
 `;
 
 const Button = styled.button`
+  width: 6.4rem;
+  height: 5.2rem;
   padding: 1.5rem 1.8rem 1.4rem;
   margin-left: 1rem;
 

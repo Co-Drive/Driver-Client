@@ -37,7 +37,6 @@ const GroupSetting = ({
             isActive={false}
           />
         )}
-        \
         {isPublicGroup === false && (
           <CommonInput
             category="secretKey"
