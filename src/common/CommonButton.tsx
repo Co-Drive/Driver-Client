@@ -57,7 +57,10 @@ const Button = styled.button<{ $category: string; $isActive?: boolean }>`
     }
   }};
 
-  border-radius: 1.2rem;
+  border-radius: ${({ $category }) =>
+    $category === 'account_create' || $category === 'group_create'
+      ? '0.8rem'
+      : '1.2rem'};
   background-color: ${({ theme, $isActive, $category }) => {
     if ($isActive || $category === 'group_direct')
       return theme.colors.codrive_green;
@@ -72,10 +75,12 @@ const IconContainer = styled.div`
 `;
 
 const BtnText = styled.p<{ $category: string; $isActive?: boolean }>`
-  ${({ theme, $category }) =>
-    $category === 'group_direct'
-      ? theme.fonts.title_bold_20
-      : theme.fonts.title_bold_16}
+  ${({ theme, $category }) => {
+    if ($category === 'group_direct' || $category === 'account_create') {
+      return theme.fonts.title_bold_20;
+    }
+    return theme.fonts.title_bold_16;
+  }}
   color: ${({ theme, $isActive, $category }) => {
     if ($isActive || $category === 'group_direct') return theme.colors.gray900;
     return theme.colors.gray300;
