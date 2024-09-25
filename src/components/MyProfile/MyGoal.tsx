@@ -32,7 +32,6 @@ const MyGoal = () => {
   };
 
   const handleCancelBtnClick = () => {
-    localStorage.removeItem('goal');
     localStorage.setItem('isSaved', 'false');
     setIsSaved(false);
   };
