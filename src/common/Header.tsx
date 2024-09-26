@@ -95,7 +95,7 @@ const HeaderContainer = styled.div`
   padding-bottom: 1.2rem;
   margin: 0 23.9rem;
 
-  border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray300};
+  border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray600};
 `;
 const LogoContainer = styled.div`
   margin-right: 3.5rem;
