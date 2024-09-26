@@ -71,7 +71,7 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
                 }
               >
                 <TagContainer>
-                  {languageTags.map((tag, tagIndex) => (
+                  {languageTags.slice(0, 3).map((tag, tagIndex) => (
                     <Tag key={tagIndex}>#{tag}</Tag>
                   ))}
                 </TagContainer>
