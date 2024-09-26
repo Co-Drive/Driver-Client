@@ -165,6 +165,14 @@ const Title = styled.div`
 `;
 
 const Introduce = styled.div`
+  display: -webkit-box;
+  overflow: hidden;
+
   color: ${({ theme }) => theme.colors.gray300};
+
   ${({ theme }) => theme.fonts.body_ligth_10};
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  text-overflow: ellipsis;
 `;
