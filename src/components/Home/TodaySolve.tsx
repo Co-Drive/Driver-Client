@@ -146,6 +146,7 @@ const Container = styled.div`
   width: 100%;
   max-width: 29.7rem;
 
+  height: 40rem;
   padding: 3.4rem 3.4rem 7.2rem;
 
   border-radius: 1.6rem;
