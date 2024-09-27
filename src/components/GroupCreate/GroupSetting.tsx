@@ -80,4 +80,5 @@ const ButtonContainer = styled.div`
   gap: 1.8rem;
 
   margin-top: 2rem;
+  min-height: 7.4rem;
 `;
