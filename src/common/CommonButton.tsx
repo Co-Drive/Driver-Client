@@ -58,7 +58,9 @@ const Button = styled.button<{ $category: string; $isActive?: boolean }>`
   }};
 
   border-radius: ${({ $category }) =>
-    $category === 'account_create' || $category === 'group_create'
+    $category === 'account_create' ||
+    $category === 'group_create' ||
+    $category === 'Profile_save'
       ? '0.8rem'
       : '1.2rem'};
   background-color: ${({ theme, $isActive, $category }) => {

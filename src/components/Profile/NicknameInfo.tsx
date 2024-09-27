@@ -56,7 +56,7 @@ const InputWrapper = styled.div`
 
 const Button = styled.button`
   width: 6.4rem;
-  height: 5.2rem;
+  height: 4.8rem;
   padding: 1.5rem 1.8rem 1.4rem;
   margin-left: 1rem;
 
