@@ -192,7 +192,7 @@ const BottomContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  margin: 2.6rem 0 2.6rem 0.6rem;
+  margin: 2.6rem 0 2.6rem 0.3rem;
 `;
 
 const LevelContainer = styled.div`
