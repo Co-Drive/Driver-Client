@@ -66,7 +66,7 @@ const CommonInput = ({
         {category === 'secretKey' && (
           <CategoryWrapper>
             <IcSecretWhite />
-            <Text>비밀 그룹</Text>
+            <Text>비밀그룹</Text>
             <Divider>|</Divider>
           </CategoryWrapper>
         )}
