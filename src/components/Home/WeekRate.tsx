@@ -134,6 +134,7 @@ export default WeekRate;
 
 const Container = styled.div`
   width: 45.4rem;
+  height: 28.5rem;
   padding: 3.6rem 3.4rem;
 
   border-radius: 1.2rem;
