@@ -68,8 +68,10 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
         return setClickedList(group[1]);
       case '/my-group':
         return setClickedList(group[2]);
-      default:
+      case `/${username}`:
         return setClickedList(profile[0]);
+      default:
+        setClickedList('');
     }
   }, []);
 
