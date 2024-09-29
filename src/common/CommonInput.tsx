@@ -66,7 +66,7 @@ const CommonInput = ({
         {category === 'secretKey' && (
           <CategoryWrapper>
             <IcSecretWhite />
-            <Text>비밀 그룹</Text>
+            <Text>비밀그룹</Text>
             <Divider>|</Divider>
           </CategoryWrapper>
         )}
@@ -222,6 +222,8 @@ const Input = styled.input<{ $category: string }>`
         return `0`;
       case 'num':
         return `0`;
+      case `nickname`:
+        return `0.2rem 0 0.2rem`;
       default:
         return `0.5rem 0 0.4rem`;
     }

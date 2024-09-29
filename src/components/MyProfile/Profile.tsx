@@ -65,7 +65,7 @@ const ProfileContainer = styled.article`
   display: flex;
 
   height: 21.5rem;
-  padding: 3.8rem 3.6rem 3.8rem 3.8rem;
+  padding: 3.6rem 3.6rem 3.8rem 3.8rem;
   margin-bottom: 6.8rem;
 
   border-radius: 2.8rem;
@@ -87,7 +87,7 @@ const InfoContainer = styled.div`
   display: flex;
   align-items: center;
 
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.9rem;
 `;
 
 const Language = styled.p`
@@ -101,7 +101,7 @@ const Language = styled.p`
 `;
 
 const RegisterModalContainer = styled.div`
-  margin-left: 53.7rem;
+  margin-left: 53rem;
   cursor: pointer;
 `;
 

@@ -142,7 +142,7 @@ const TextId = styled.div`
   display: flex;
 
   color: ${({ theme }) => theme.colors.gray300};
-  ${({ theme }) => theme.fonts.body_medium_14};
+  ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
 const Text = styled.p`

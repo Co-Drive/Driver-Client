@@ -57,7 +57,10 @@ const LanguageSection = ({
           사용 언어 <Essential>*</Essential>
         </TitleContainer>
       </Label>
-      <DropdownContainer onClick={toggleDropdown}>
+      <DropdownContainer
+        $hasSelectedTags={selectedTags.length > 0}
+        onClick={toggleDropdown}
+      >
         <div>
           {isAllSelected ? (
             <SelectedTagContainer key={ALL_TAG}>
@@ -67,7 +70,7 @@ const LanguageSection = ({
               />
             </SelectedTagContainer>
           ) : selectedTags.length === 0 ? (
-            <DropdownText>최대 5개까지 선택해 주세요</DropdownText>
+            <DropdownText>복수선택 가능</DropdownText>
           ) : (
             selectedTags.map((tag, index) => (
               <SelectedTagContainer key={index}>
@@ -148,14 +151,17 @@ const Essential = styled.span`
   color: ${({ theme }) => theme.colors.codrive_purple};
 `;
 
-const DropdownContainer = styled.div`
+const DropdownContainer = styled.div<{ $hasSelectedTags: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   width: 100%;
   height: 4.8rem;
-  padding: 1.5rem 1.2rem 1.4rem 2rem;
+  padding: ${({ $hasSelectedTags }) =>
+    $hasSelectedTags
+      ? '1.1rem 1.2rem 1.1rem 1.1rem'
+      : '1.2rem 1.2rem 1.2rem 2rem'};
   margin-bottom: 0.8rem;
 
   border-radius: 0.8rem;
