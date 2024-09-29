@@ -225,6 +225,8 @@ const FilterIconContainer = styled.p`
 `;
 
 const SelectedTagsContainer = styled.div`
+  display: flex;
+
   width: 29.6rem;
 `;
 

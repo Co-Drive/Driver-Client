@@ -9,6 +9,12 @@ const CommonTextarea = ({
 }: CommonTextareaProps) => {
   const isGroupType = category === 'group';
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (category === 'intro' && e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <CommonTextareaWrapper $textareaType={isGroupType}>
       <Textarea
@@ -17,6 +23,7 @@ const CommonTextarea = ({
         placeholder={isGroupType ? PLACEHOLDER[0] : PLACEHOLDER[1]}
         value={value}
         onChange={handleChangeTextarea}
+        onKeyDown={handleKeyDown}
       ></Textarea>
     </CommonTextareaWrapper>
   );
@@ -50,5 +57,5 @@ const Textarea = styled.textarea`
     color: ${({ theme }) => theme.colors.gray300};
   }
 
-  word-break: keep-all;
+  word-break: break-word;
 `;

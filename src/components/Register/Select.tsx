@@ -42,7 +42,7 @@ const SelectContainer = styled.div`
 
   width: 29.6rem;
   height: 4.8rem;
-  padding: 1.5rem;
+  padding: 1.1rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
@@ -61,6 +61,8 @@ const SelectOptions = styled.div`
 `;
 
 const Placeholder = styled.div`
+  margin-left: 0.9rem;
+
   color: ${({ theme }) => theme.colors.gray300};
 
   ${({ theme }) => theme.fonts.body_ligth_16};

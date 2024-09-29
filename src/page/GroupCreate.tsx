@@ -37,15 +37,6 @@ const GroupCreate = () => {
   ) => {
     const { name, value } = e.target;
     const maxLength = maxCharLimits[name];
-    if (name === 'num') {
-      const numericValue = value.replace(/\D/g, ''); // 숫자 이외의 값 제거
-      const limitedValue = Math.min(Number(numericValue), 50).toString(); // 최대 50까지만 허용
-      setInputs({
-        ...inputs,
-        [name]: limitedValue,
-      });
-      return;
-    }
     const limitedValue = maxLength ? value.slice(0, maxLength) : value;
     setInputs({
       ...inputs,
@@ -79,9 +70,11 @@ const GroupCreate = () => {
   };
 
   const isActive =
-    title !== '' &&
-    num !== '' &&
-    (isPublicGroup || secretKey !== '') &&
+    (isPublicGroup || (secretKey.length > 0 && secretKey.length <= 20)) &&
+    title.length > 0 &&
+    title.length <= 20 &&
+    !(Number(num) === 0 || Number(num) > 50) &&
+    selectedTags.length > 0 &&
     intro !== '' &&
     group !== '';
 

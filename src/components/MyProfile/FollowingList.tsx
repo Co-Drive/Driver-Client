@@ -219,7 +219,7 @@ const RecommendCard = styled.article`
   grid-template-columns: repeat(2, 1fr);
 
   width: 100%;
-  padding: 2rem;
+  padding: 2rem 1rem;
   margin-bottom: 5.6rem;
 
   border-radius: 1.6rem;

@@ -77,7 +77,7 @@ const InputWrapper = styled.div`
 
 const Button = styled.button`
   width: 6.4rem;
-  height: 5.3rem;
+  height: 4.8rem;
   margin-left: 1rem;
 
   border: none;

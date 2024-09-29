@@ -12,7 +12,7 @@ export const handleInput = (
     case 'num':
       e.currentTarget.value = e.currentTarget.value
         .replace(/[^0-9]/g, '')
-        .slice(0, 3);
+        .slice(0, 2);
       break;
 
     // 한글, 영어, 일반적인 특수문자 가능, 공백 불가능, 11자 제한

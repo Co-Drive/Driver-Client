@@ -14,6 +14,12 @@ const IntroInput = ({ value, onChange }: IntroProps) => {
     onChange(e);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <IntroContainer>
       <Title>한 줄 소개</Title>
@@ -23,6 +29,7 @@ const IntroInput = ({ value, onChange }: IntroProps) => {
         onChange={handleChangeIntro}
         $hasError={hasError}
         placeholder="나를 소개하는 문구를 적어주세요."
+        onKeyDown={handleKeyDown}
       />
     </IntroContainer>
   );
