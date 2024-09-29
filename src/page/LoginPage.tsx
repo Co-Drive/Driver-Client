@@ -14,7 +14,7 @@ const LoginPage = () => {
     sessionStorage.getItem('profileImg');
   const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
   const redirectUrl = import.meta.env.VITE_GITHUB_REDIRECT_URI;
-  const githubURL = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}`;
+  const githubURL = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=repo`;
   const onClickSocialLogin = () => {
     window.location.href = githubURL;
   };
