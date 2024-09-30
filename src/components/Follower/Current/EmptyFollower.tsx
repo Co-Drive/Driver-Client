@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IcNothing } from '../../../assets';
+import { IcGraphWorkBook } from '../../../assets';
 
 const EmptyFollower = () => {
   const nickname = sessionStorage.getItem('nickname');
@@ -18,7 +18,7 @@ const EmptyFollower = () => {
 
       <GraphContainer>
         {graphArr.map((graph) => {
-          return <IcNothing key={graph} />;
+          return <IcGraphWorkBook key={graph} />;
         })}
       </GraphContainer>
     </EmptyFollowerContainer>
@@ -34,6 +34,8 @@ const EmptyFollowerContainer = styled.article`
   flex-direction: column;
 
   padding: 5.2rem 3.6rem 1.4rem 3.5rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
 `;
 
 const TextContainer = styled.div`

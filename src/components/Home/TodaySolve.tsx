@@ -76,7 +76,7 @@ const TodaySolve = () => {
       </TitleContainer>
       <Subtitle>
         달성 가능한 목표를 세우고,
-        <SubTitleNextLine>매일 설천해보세요</SubTitleNextLine>
+        <SubTitleNextLine>매일 실천해보세요</SubTitleNextLine>
       </Subtitle>
 
       <PieContainer>
@@ -146,6 +146,7 @@ const Container = styled.div`
   width: 100%;
   max-width: 29.7rem;
 
+  height: 40rem;
   padding: 3.4rem 3.4rem 7.2rem;
 
   border-radius: 1.6rem;
@@ -174,7 +175,7 @@ const ToolTipNextLine = styled.span`
   margin-top: 0.4rem;
 
   color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+  ${({ theme }) => theme.fonts.body_ligth_12};
 `;
 
 const Subtitle = styled.div`
@@ -229,15 +230,13 @@ const Tooltip = styled.div`
   top: 170%;
   visibility: hidden;
 
-  max-width: 21.1rem;
-
-  height: auto;
+  height: 5.5rem;
   padding: 1.2rem 1.1rem;
 
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.gray600};
   color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+  ${({ theme }) => theme.fonts.body_ligth_12};
 
   white-space: nowrap;
 
@@ -255,6 +254,7 @@ const Tooltip = styled.div`
     border-color: transparent transparent ${({ theme }) => theme.colors.gray600};
     border-width: 5px;
     border-style: solid;
+
     content: '';
   }
 `;

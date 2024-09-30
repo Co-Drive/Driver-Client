@@ -32,7 +32,7 @@ const HomeHeader = () => {
           {month}월 {day}일 {currentDay}
         </DateText>
         <NickNameContainer>
-          안녕하세요,<NickName>{nickname} 님</NickName>
+          안녕하세요,<NickName>{nickname}</NickName>님!
         </NickNameContainer>
         <PharseContainer>
           <Pharse>오늘도 문제 풀어 볼까요?</Pharse>
@@ -61,7 +61,7 @@ const Article = styled.article`
 `;
 
 const Header = styled.header`
-  padding: 3.2rem 3.4rem 3.4rem 3.6rem;
+  padding: 3.2rem 3.4rem 4.4rem 3.6rem;
 `;
 
 const DateText = styled.p`
@@ -81,10 +81,10 @@ const NickNameContainer = styled.div`
 `;
 
 const NickName = styled.p`
-  margin-left: 0.6rem;
+  margin: 0 0.4rem 0 0.6rem;
 
   color: ${({ theme }) => theme.colors.codrive_green};
-  ${({ theme }) => theme.fonts.title_medium_20};
+  ${({ theme }) => theme.fonts.title_bold_20};
 `;
 
 const Pharse = styled.p`
@@ -95,7 +95,8 @@ const Pharse = styled.p`
 const PharseContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
+  /* align-items: center; */
 `;
 
 const Button = styled.button`
@@ -104,8 +105,12 @@ const Button = styled.button`
   align-items: center;
   cursor: pointer;
 
+  position: relative;
+  top: 1rem;
+
   padding: 0.9rem 1.4rem;
-  margin-top: 1.2rem;
+
+  /* margin-top: 1.2rem; */
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.codrive_green};
@@ -122,5 +127,5 @@ const Title = styled.p`
 
   white-space: nowrap;
 
-  ${({ theme }) => theme.fonts.title_bold_14};
+  ${({ theme }) => theme.fonts.title_bold_16};
 `;
