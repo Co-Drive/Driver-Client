@@ -63,8 +63,8 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
                 stroke="none"
               />
             </PieChart>
-            <Text>기본사용자</Text>
-            <LanguageText>#사용언어</LanguageText>
+            <Text $isBasic={true}>기본사용자</Text>
+            <LanguageText $isBasic={true}>#사용언어</LanguageText>
           </PieContainer>
         ) : (
           <PieContainer>
@@ -126,7 +126,7 @@ const PieContainer = styled.div`
   flex-direction: column;
 `;
 
-const Text = styled.div`
+const Text = styled.div<{ $isBasic?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,18 +134,20 @@ const Text = styled.div`
   margin-top: 2.4rem;
 
   ${({ theme }) => theme.fonts.title_bold_16};
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ $isBasic, theme }) =>
+    $isBasic ? theme.colors.gray600 : theme.colors.white};
 
   white-space: nowrap;
 `;
 
-const LanguageText = styled.div`
+const LanguageText = styled.div<{ $isBasic?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
 
   margin-top: 0.8rem;
 
-  color: ${({ theme }) => theme.colors.gray400};
+  color: ${({ theme, $isBasic }) =>
+    $isBasic ? theme.colors.gray700 : theme.colors.gray400};
   ${({ theme }) => theme.fonts.body_eng_regular_14};
 `;

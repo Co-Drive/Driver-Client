@@ -39,10 +39,8 @@ const WeekRate = () => {
   return (
     <Container>
       <Header>
-        <HeaderTitle>
-          {isSolvedZero ? '주간 성과율 & 문제 개수 비교' : '주간 성과율'}
-        </HeaderTitle>
-        <Notic $isSolvedExist={isSolvedExist}>
+        <HeaderTitle>{'주간 성과율'}</HeaderTitle>
+        <Notic>
           <BtnInformation />
           <Tooltip>
             주간 성과율은 문제 개수와 상관없이
@@ -136,6 +134,7 @@ export default WeekRate;
 
 const Container = styled.div`
   width: 45.4rem;
+  height: 28.5rem;
   padding: 3.6rem 3.4rem;
 
   border-radius: 1.2rem;
@@ -192,13 +191,12 @@ const LineText = styled.div`
   font-size: ${({ theme }) => theme.fonts.body_ligth_12};
 `;
 
-const Notic = styled.div<{ $isSolvedExist: boolean }>`
+const Notic = styled.div`
   display: flex;
   align-items: center;
   position: relative;
 
-  margin-left: ${({ $isSolvedExist }) =>
-    $isSolvedExist ? '13.8rem' : '27.6rem'};
+  margin-left: 27.6rem;
 
   &:hover > div {
     visibility: visible;

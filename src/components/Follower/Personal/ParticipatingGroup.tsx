@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { ALL_TAG } from '../../../constants/utils/allTag';
 import useGetRooms from '../../../libs/hooks/utils/useGetRooms';
 import {
   ClickCardProps,
   ParticipatingGroupProps,
 } from '../../../types/Follower/Personal/personalType';
 import { GroupType } from '../../../types/MyGroup/myGroupType';
-import { ALL_TAG } from '../../../constants/utils/allTag';
 
 const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
   const navigate = useNavigate();
@@ -134,8 +134,6 @@ const Img = styled.img`
   height: 17.8rem;
 
   border-radius: 1.6rem;
-  background-color: white;
-  object-fit: cover;
 `;
 
 const Contents = styled.div`
