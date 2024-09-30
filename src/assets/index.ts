@@ -30,6 +30,7 @@ import IcFollowingGray from './icon/ic_following_gray.svg?react';
 import IcGithub from './icon/ic_github.svg?react';
 import IcGithubLogoSmall from './icon/ic_github_logo_small.svg?react';
 import IcGithubSmall from './icon/ic_github_small.svg?react';
+import IcGraphWorkBook from './icon/ic_graph_workbook.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
@@ -114,6 +115,7 @@ export {
   IcGithub,
   IcGithubLogoSmall,
   IcGithubSmall,
+  IcGraphWorkBook,
   IcGroup,
   IcHome,
   IcInformation,
