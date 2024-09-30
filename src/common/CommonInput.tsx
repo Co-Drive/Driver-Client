@@ -202,6 +202,8 @@ const GithubURL = styled.p<{ $disabledGithubURL: boolean }>`
 `;
 
 const Input = styled.input<{ $category: string }>`
+  display: flex;
+
   width: ${({ $category }) => {
     switch ($category) {
       case 'title':
@@ -219,9 +221,9 @@ const Input = styled.input<{ $category: string }>`
   padding: ${({ $category }) => {
     switch ($category) {
       case 'title':
-        return `0`;
+        return `0.2rem 0`;
       case 'num':
-        return `0`;
+        return `0.2rem 0`;
       case `nickname`:
         return `0.2rem 0 0.2rem`;
       default:
