@@ -101,8 +101,14 @@ const Language = styled.p`
 `;
 
 const RegisterModalContainer = styled.div`
-  margin-left: 53rem;
+  padding: 0.6rem;
+  margin-left: 55rem;
   cursor: pointer;
+
+  &:hover {
+    border-radius: 5rem;
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
 `;
 
 const NickName = styled.article`
