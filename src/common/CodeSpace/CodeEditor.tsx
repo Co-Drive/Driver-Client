@@ -95,9 +95,7 @@ export default CodeEditor;
 const CodeMirrorContainer = styled.article`
   overflow: hidden auto;
 
-  min-width: 92.6rem;
-
-  width: 100%;
+  width: 92.6rem;
   height: 38.2rem;
   margin-bottom: 1.8rem;
 
