@@ -110,7 +110,7 @@ const Img = styled.img`
   height: 17.8rem;
 
   border-radius: 1.6rem;
-  background-color: white;
+
   object-fit: cover;
 `;
 
