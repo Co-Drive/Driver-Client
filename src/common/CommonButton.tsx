@@ -47,9 +47,9 @@ const Button = styled.button<{ $category: string; $isActive?: boolean }>`
       case 'group_create':
         return '1rem 1.4rem';
       case 'group_direct':
-        return '1.4rem 1.8rem 1.4rem 2.1rem';
+        return '1.4rem 1.6rem 1.4rem 1.7rem';
       case 'link_copy':
-        return '1rem 2rem';
+        return '1.4rem 1.6rem 1.4rem 1.7rem';
       case 'Profile_save':
         return '1rem 2rem';
       default:
@@ -78,13 +78,17 @@ const IconContainer = styled.div`
 
 const BtnText = styled.p<{ $category: string; $isActive?: boolean }>`
   ${({ theme, $category }) => {
-    if ($category === 'group_direct' || $category === 'account_create') {
+    if (
+      $category === 'group_direct' ||
+      $category === 'account_create' ||
+      $category === 'link_copy'
+    ) {
       return theme.fonts.title_bold_20;
     }
     return theme.fonts.title_bold_16;
   }}
   color: ${({ theme, $isActive, $category }) => {
     if ($isActive || $category === 'group_direct') return theme.colors.gray900;
-    return theme.colors.gray300;
+    return theme.colors.white;
   }};
 `;
