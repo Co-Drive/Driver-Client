@@ -2,10 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { GetRoomSortProps } from '../../../types/GroupAll/GroupAllType';
 import getRoomSort from '../../apis/GroupAll/getRoomSort';
 
-const useGetRoomsSort = ({ sortType, page }: GetRoomSortProps) => {
+const useGetRoomsSort = ({ sortType, page, request }: GetRoomSortProps) => {
   const { data, isLoading } = useQuery({
     queryKey: ['get-participated-rooms', sortType, page],
-    queryFn: async () => await getRoomSort({ sortType, page }),
+    queryFn: async () => await getRoomSort({ sortType, page, request }),
   });
 
   return { data, isLoading };
