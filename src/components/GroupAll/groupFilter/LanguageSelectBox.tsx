@@ -36,11 +36,11 @@ const LanguageSelectBox = ({
     }
 
     if (tag === ALL_TAG) {
-      setSelectedTags([ALL_TAG]); // ALL_TAG만 selectedTags에 추가
+      setSelectedTags([ALL_TAG]); // 'ALL' 태그만 선택
     } else {
       if (!selectedTags.includes(tag)) {
         const newTags = selectedTags.includes(ALL_TAG)
-          ? [tag] // ALL_TAG가 이미 선택되어 있으면 새로운 태그로 대체
+          ? [tag] // 'ALL' 태그 선택 시 나머지 태그를 대체
           : [...selectedTags, tag];
 
         setSelectedTags(newTags);
