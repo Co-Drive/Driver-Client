@@ -8,4 +8,9 @@ export interface LanguageSelectBoxProps {
 export interface GetRoomSortProps {
   sortType: string;
   page?: number;
+  request: {
+    tags: string[];
+    min: number;
+    max: number;
+  };
 }
