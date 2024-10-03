@@ -22,10 +22,24 @@ const GroupItem = () => {
 
   const { sorting } = filter;
 
+  const ALL_TAG = 'ALL';
+  const firstRowTags = ['Python', 'Java', 'JavaScript', 'C++', 'C', 'C#'];
+  const secondRowTags = ['Kotlin', 'Swift', 'Ruby', 'Scala', 'Go'];
+
   // useGetRoomsSort 훅에서 데이터를 가져옴
   const { data } = useGetRoomsSort({
     sortType: sorting,
     page: clickedPage - 1,
+    request: {
+      // 서버 요청 시에만 인코딩
+      tags: selectedTags.includes(ALL_TAG)
+        ? [...firstRowTags, ...secondRowTags].map((tag) =>
+            encodeURIComponent(tag)
+          )
+        : selectedTags.map((tag) => encodeURIComponent(tag)),
+      min: sliderValues.min,
+      max: sliderValues.max,
+    },
   });
 
   const { totalPage, rooms } = data?.data || {};
@@ -34,13 +48,13 @@ const GroupItem = () => {
   // 필터링된 그룹 데이터를 반환하는 함수
   const filterGroups = (groups: any[]) => {
     return groups.filter((group) => {
-      const isAllTagSelected = selectedTags.includes('ALL_TAG');
-      const groupHasAllTag = group.tags.includes('ALL_TAG');
+      const isAllTagSelected = selectedTags.includes(ALL_TAG);
+      const groupHasAllTag = group.tags.includes(ALL_TAG);
 
       const tagMatch =
         selectedTags.length === 0 ||
         (isAllTagSelected && groupHasAllTag) ||
-        selectedTags.every((tag) => group.tags.includes(tag));
+        selectedTags.every((tag) => group.tags.includes(tag)); // 인코딩되지 않은 상태로 비교
 
       const sliderMatch =
         group.memberCount >= sliderValues.min &&
