@@ -43,8 +43,7 @@ const RecommendCard = ({
         const renderTags =
           tags.length > 5
             ? ALL_TAG
-            : tags.map((tag) => encodeURIComponent(tag));
-
+            : tags.map((tag) => decodeURIComponent(encodeURIComponent(tag)));
         return (
           <CardContainer
             key={roomId}
