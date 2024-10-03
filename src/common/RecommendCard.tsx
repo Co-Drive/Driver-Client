@@ -40,7 +40,10 @@ const RecommendCard = ({
           isMember,
         } = card;
         const { userId, nickname, profileImg } = owner;
-        const renderTags = tags.length > 5 ? ALL_TAG : tags;
+        const renderTags =
+          tags.length > 5
+            ? ALL_TAG
+            : tags.map((tag) => encodeURIComponent(tag));
 
         return (
           <CardContainer
