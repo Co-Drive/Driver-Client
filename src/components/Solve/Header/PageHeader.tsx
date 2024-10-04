@@ -37,8 +37,7 @@ const PageHeader = ({
       handleOpenOptions(false);
       setModalOpen(true);
     } else {
-      const correctUrlPattern =
-        /^(https?):\/\/[\w.-]+(:[0-9]+)?(\/([\w\/_.]*)?)?$/;
+      const correctUrlPattern = /^(http|https):\/\/[^\s/$.?#].\S*$/;
       if (correctUrlPattern.test(problemUrl)) {
         id && !isTemp
           ? patchMutation({
