@@ -1,12 +1,14 @@
+import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { IcCode } from '../assets';
+import { IcArrowUpBig, IcCode } from '../assets';
 import CodeEditor from '../common/CodeSpace/CodeEditor';
 import Memo from '../common/CodeSpace/Memo';
 import PageLayout from '../components/PageLayout/PageLayout';
 import SolutionHeaderBottom from '../components/Solution/Header/SolutionHeaderBottom';
 import SolutionHeaderTop from '../components/Solution/Header/SolutionHeaderTop';
 import useGetRecords from '../libs/hooks/Solution/useGetRecords';
+import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const SolutionPage = () => {
   const { state } = useLocation();
@@ -15,9 +17,20 @@ const SolutionPage = () => {
   const { data, isLoading } = useGetRecords(parseInt(id));
   const { title, level, tags, platform, problemUrl, codeblocks, createdAt } =
     !isLoading && data?.data;
+  const [opacity, setOpacity] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => setOpacity(window.scrollY));
+    return () => {
+      window.removeEventListener('scroll', () => setOpacity(window.scrollY));
+    };
+  }, []);
 
   return (
     <PageLayout category="문제풀이">
+      <GoTopBtn type="button" onClick={handleClickGoTopBtn} $opacity={opacity}>
+        <IcArrowUpBig />
+      </GoTopBtn>
       {!isLoading && (
         <SolutionPageContainer>
           <SolutionPageHeader>
@@ -123,4 +136,12 @@ const TextContainer = styled.div`
 const Text = styled.p`
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_12};
+`;
+
+const GoTopBtn = styled.button<{ $opacity: number }>`
+  opacity: ${({ $opacity }) => $opacity};
+
+  position: fixed;
+  top: calc(100vh - 15rem);
+  left: calc(100vw - 22.3rem);
 `;
