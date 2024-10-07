@@ -18,7 +18,6 @@ import RegisterPage from './page/RegisterPage';
 import SolutionListPage from './page/SolutionListPage';
 import SolutionPage from './page/SolutionPage';
 import SolvePage from './page/SolvePage';
-import TestPage from './page/TestPage';
 
 const Router = () => {
   return (
@@ -45,7 +44,6 @@ const Router = () => {
         <Route path="/oauth/github/callback" element={<LoginLoadingPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/group-all" element={<GroupAllPage />} />
-        <Route path="/test" element={<TestPage />} />
       </Routes>
     </BrowserRouter>
   );
