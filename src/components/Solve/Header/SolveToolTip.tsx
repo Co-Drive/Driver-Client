@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import {
   IcCancelSmallWhite,
@@ -7,8 +6,8 @@ import {
   IcLevelOne,
   IcLevelThree,
   IcLevelTwo,
-} from '../assets';
-import ModalPortal from '../common/Modal/ModalPortal';
+} from '../../../assets';
+import ModalPortal from '../../../common/Modal/ModalPortal';
 
 const TooltipData = [
   {
@@ -53,27 +52,21 @@ const TooltipData = [
   },
 ];
 
-const TestPage = () => {
-  const [modalOn, setModalOn] = useState(false);
+interface SolveToopTipProps {
+  isOpen: boolean;
+  handleClose: () => void;
+}
 
-  const handleOpenModal = () => {
-    setModalOn(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOn(false);
-  };
-
+const SolveToolTip = ({ isOpen, handleClose }: SolveToopTipProps) => {
   return (
-    <Container>
-      <ToggleButton onClick={handleOpenModal}>Button Modal</ToggleButton>
-      {modalOn && (
+    <>
+      {isOpen && (
         <ModalPortal>
-          <ModalContainer onClick={handleCloseModal}>
+          <ModalContainer onClick={handleClose}>
             <ModalContent onClick={(e) => e.stopPropagation()}>
               <Header>
                 <Title>문제 풀이 가이드</Title>
-                <CloseButton typeof="button" onClick={handleCloseModal}>
+                <CloseButton typeof="button" onClick={handleClose}>
                   <IcCancelSmallWhite />
                 </CloseButton>
               </Header>
@@ -81,23 +74,23 @@ const TestPage = () => {
                 {TooltipData.map((data, idx) => (
                   <TableRow key={idx}>
                     <Stars>{data.star}</Stars>
-                    <DataContent contentType="백준">
+                    <DataContent $contentType="백준">
                       <Name>백준</Name>
                       {data.rank}
                     </DataContent>
-                    <DataContent contentType="프로그래머스">
+                    <DataContent $contentType="프로그래머스">
                       <Name>프로그래머스</Name>
                       {data.level}
                     </DataContent>
-                    <DataContent contentType="SWEA">
+                    <DataContent $contentType="SWEA">
                       <Name>SWEA</Name>
                       {data.swea}
                     </DataContent>
-                    <DataContent contentType="리트코드">
+                    <DataContent $contentType="리트코드">
                       <Name>리트코트</Name>
                       {data.letCode}
                     </DataContent>
-                    <DataContent contentType="해커랭크">
+                    <DataContent $contentType="해커랭크">
                       <Name>해커랭크</Name>
                       {data.hackerRank}
                     </DataContent>
@@ -108,15 +101,11 @@ const TestPage = () => {
           </ModalContainer>
         </ModalPortal>
       )}
-    </Container>
+    </>
   );
 };
 
-export default TestPage;
-
-const ToggleButton = styled.button`
-  background-color: pink;
-`;
+export default SolveToolTip;
 
 const Title = styled.p`
   color: ${({ theme }) => theme.colors.gray200};
@@ -135,12 +124,6 @@ const CloseButton = styled.div`
   display: flex;
   justify-content: end;
   cursor: pointer;
-`;
-
-const Container = styled.div`
-  background-color: blue;
-  display: flex;
-  justify-content: center;
 `;
 
 const ModalContainer = styled.div`
@@ -189,15 +172,15 @@ const Stars = styled.div`
   margin-right: 3.5rem;
 `;
 
-const DataContent = styled.div<{ contentType?: string }>`
+const DataContent = styled.div<{ $contentType?: string }>`
   display: flex;
   flex-direction: column;
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_regular_14};
   white-space: nowrap;
   gap: 1rem;
-  width: ${({ contentType }) => {
-    switch (contentType) {
+  width: ${({ $contentType }) => {
+    switch ($contentType) {
       case '백준':
         return '4.9rem';
       case '프로그래머스':
