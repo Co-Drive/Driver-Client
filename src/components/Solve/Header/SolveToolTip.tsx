@@ -143,7 +143,7 @@ const ModalContent = styled.div`
   position: relative;
 
   padding: 3rem;
-  bottom: 16.8rem;
+  bottom: 8rem;
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray800};
