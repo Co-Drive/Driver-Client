@@ -34,6 +34,11 @@ import IcGraphWorkBook from './icon/ic_graph_workbook.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
+import IcLevelFive from './icon/ic_level_five.svg?react';
+import IcLevelFour from './icon/ic_level_four.svg?react';
+import IcLevelOne from './icon/ic_level_one.svg?react';
+import IcLevelThree from './icon/ic_level_three.svg?react';
+import IcLevelTwo from './icon/ic_level_two.svg?react';
 import IcLinkGray from './icon/ic_link_gray.svg?react';
 import IcLinkPurple from './icon/ic_link_purple.svg?react';
 import IcLinkWhite from './icon/ic_link_white.svg?react';
@@ -119,6 +124,11 @@ export {
   IcGroup,
   IcHome,
   IcInformation,
+  IcLevelFive,
+  IcLevelFour,
+  IcLevelOne,
+  IcLevelThree,
+  IcLevelTwo,
   IcLinkGray,
   IcLinkPurple,
   IcLinkWhite,

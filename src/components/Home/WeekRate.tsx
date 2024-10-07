@@ -211,7 +211,7 @@ const Tooltip = styled.div`
   visibility: hidden;
   z-index: 10;
 
-  max-width: 19.9rem;
+  /* max-width: 19.9rem; */
 
   height: auto;
   padding: 1.2rem 1.1rem;

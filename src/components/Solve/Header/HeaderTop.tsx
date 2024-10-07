@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IcInformation, IcStarGray, IcStarGreen } from '../../../assets';
 import { HeaderTopProps } from '../../../types/Solve/solveTypes';
+import SolveToolTip from './SolveToolTip';
 
 const HeaderTop = ({
   title,
@@ -9,6 +10,7 @@ const HeaderTop = ({
   handleClickQuestionInfo,
 }: HeaderTopProps) => {
   const [selectedStar, setSelectedStar] = useState(Array(5).fill(0));
+  const [modalOn, setModalOn] = useState(false);
 
   const handleClickIc = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const { value } = e.currentTarget;
@@ -18,6 +20,13 @@ const HeaderTop = ({
         .fill(1)
         .concat(Array(5 - value).fill(0))
     );
+  };
+  const handleOpenModal = () => {
+    setModalOn(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOn(false);
   };
 
   useEffect(() => {
@@ -53,8 +62,12 @@ const HeaderTop = ({
             })}
           </LvStarContainer>
         </LevelDetailContainer>
-
-        <IcInformation />
+        <button onClick={handleOpenModal}>
+          <IcInformation />
+        </button>
+        {modalOn && (
+          <SolveToolTip handleClose={handleCloseModal} isOpen={modalOn} />
+        )}
       </LevelContainer>
     </HeaderTopContainer>
   );
