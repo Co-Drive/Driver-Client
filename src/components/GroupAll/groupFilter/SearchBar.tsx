@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IcSearch } from '../../../assets';
 import { getRoomSearch } from '../../../libs/apis/GroupAll/getRoomSearch';
-import getRoomSort from '../../../libs/apis/GroupAll/getRoomSort';
 
 const SearchBar = ({
   handleChangeSearchBar,
@@ -14,12 +13,6 @@ const SearchBar = ({
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setSearchData(newValue);
-
-    if (newValue.trim() === '') {
-      const allGroupsResponse = await getRoomSort({ sortType: 'NEW', page: 0 });
-      handleChangeSearchBar(allGroupsResponse.data.rooms || []);
-      return;
-    }
 
     const response = await getRoomSearch(newValue, 0);
 

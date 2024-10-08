@@ -40,8 +40,10 @@ const RecommendCard = ({
           isMember,
         } = card;
         const { userId, nickname, profileImg } = owner;
-        const renderTags = tags.length > 5 ? ALL_TAG : tags;
-
+        const renderTags =
+          tags.length > 5
+            ? ALL_TAG
+            : tags.map((tag) => decodeURIComponent(encodeURIComponent(tag)));
         return (
           <CardContainer
             key={roomId}
@@ -57,9 +59,9 @@ const RecommendCard = ({
                 <TextId>
                   <Text>{nickname} 님</Text>
                   <Text>|</Text>
-                  <p>
+                  <Text>
                     {memberCount} / {capacity}명
-                  </p>
+                  </Text>
                 </TextId>
               </CardHeader>
 
@@ -140,13 +142,13 @@ const UserImg = styled.img`
 
 const TextId = styled.div`
   display: flex;
-
-  color: ${({ theme }) => theme.colors.gray300};
-  ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
 const Text = styled.p`
   margin-right: 1rem;
+
+  color: ${({ theme }) => theme.colors.gray300};
+  ${({ theme }) => theme.fonts.body_medium_14};
 `;
 
 const CardBody = styled.div`
