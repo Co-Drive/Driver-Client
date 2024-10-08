@@ -33,10 +33,8 @@ const GroupItem = () => {
     request: {
       // 서버 요청 시에만 인코딩
       tags: selectedTags.includes(ALL_TAG)
-        ? [...firstRowTags, ...secondRowTags].map((tag) =>
-            encodeURIComponent(tag)
-          )
-        : selectedTags.map((tag) => encodeURIComponent(tag)),
+        ? [...firstRowTags, ...secondRowTags] // 태그를 인코딩하지 않고 그대로 전달
+        : selectedTags.map((tag) => tag), // 인코딩되지 않은 상태로 유지
       min: sliderValues.min,
       max: sliderValues.max,
     },

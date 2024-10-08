@@ -8,14 +8,24 @@ const getRoomSort = async ({
 }: GetRoomSortProps & {
   request: { tags: string[]; min: number; max: number };
 }) => {
-  const queryString = new URLSearchParams({
-    tags: request.tags.join(','), // 태그 배열을 콤마로 연결
-    min: String(request.min),
-    max: String(request.max),
-  }).toString();
+  // URLSearchParams를 사용해 쿼리스트링을 생성
+  const queryParams = new URLSearchParams();
+
+  // 각 태그를 개별적으로 추가
+  request.tags.forEach((tag) => {
+    queryParams.append('tags', tag);
+  });
+
+  // 나머지 파라미터 추가
+  queryParams.append('min', String(request.min));
+  queryParams.append('max', String(request.max));
 
   const { data } = await api.get(
-    `/rooms/filter/${sortType === '최신순' ? `NEW` : `DICT`}${page !== undefined ? `?page=${page}&${queryString}` : `?${queryString}`}`
+    `/rooms/filter/${sortType === '최신순' ? 'NEW' : 'DICT'}${
+      page !== undefined
+        ? `?page=${page}&${queryParams.toString()}`
+        : `?${queryParams.toString()}`
+    }`
   );
 
   return data;
