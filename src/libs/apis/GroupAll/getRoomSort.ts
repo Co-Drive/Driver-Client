@@ -1,13 +1,7 @@
 import { GetRoomSortProps } from '../../../types/GroupAll/GroupAllType';
 import { api } from '../../api';
 
-const getRoomSort = async ({
-  sortType,
-  page,
-  request,
-}: GetRoomSortProps & {
-  request: { tags: string[]; min: number; max: number };
-}) => {
+const getRoomSort = async ({ sortType, page, request }: GetRoomSortProps) => {
   // URLSearchParams를 사용해 쿼리스트링을 생성
   const queryParams = new URLSearchParams();
 
