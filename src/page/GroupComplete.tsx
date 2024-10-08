@@ -61,7 +61,7 @@ const GroupComplete = () => {
       <PasswordContainer>
         {groupPassword && (
           <PasswordText>
-            비밀번호 <Password>{groupPassword}</Password>
+            비밀번호<Password>{groupPassword}</Password>
           </PasswordText>
         )}
         {imageSrc && (
@@ -113,6 +113,8 @@ const PasswordText = styled.p`
 `;
 
 const Password = styled.span`
+  margin-left: 0.8rem;
+
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.codrive_purple};
 `;
