@@ -12,7 +12,7 @@ export const TAG_PLATFORM_LISTS = [
       '탐욕법 (Greedy)',
       '동적계획법 (Dynamic Programming)',
       '백트래킹',
-      '깊이/너비 우선 탐색(DFS/BFS)',
+      '깊이/너비 우선 탐색 (DFS/BFS)',
       '그래프',
       '트리',
       '이분탐색',
