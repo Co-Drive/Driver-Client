@@ -8,7 +8,6 @@ import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { postGroupInfo } from '../libs/apis/GroupCreate/postGroupInfo';
 import CommonButton from './../common/CommonButton';
 
 const GroupEdit = () => {
@@ -78,42 +77,9 @@ const GroupEdit = () => {
     intro !== '' &&
     group !== '';
 
-  const handleGroupCreate = async () => {
-    const postData = {
-      title: title,
-      password: secretKey,
-      capacity: num,
-      tags: selectedTags,
-      introduce: intro,
-      information: group,
-    };
-    const requestBody = new FormData();
-    const jsonChange = JSON.stringify(postData);
-
-    requestBody.append('request', jsonChange);
-
-    if (selectdImageFile) {
-      requestBody.append('imageFile', selectdImageFile);
-    }
-
-    try {
-      const data = await postGroupInfo(requestBody);
-      const { uuid } = data.data;
-      if (uuid) {
-        navigate(`/group-complete/${uuid}`);
-      } else {
-        navigate('/group-complete', {
-          state: {
-            thumbnailUrl: previewImage,
-          },
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSaveBtnClick = () => {
+    // 저장 버튼 함수
   };
-
-  const handleSaveBtnClick = () => {};
 
   const handleCancelBtnClick = () => {
     // 입력 값들을 초기 상태로 되돌림
