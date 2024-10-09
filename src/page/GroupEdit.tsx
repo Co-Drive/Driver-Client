@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
 import ImageSection from '../components/GroupCreate/ImageSection';
@@ -21,9 +20,9 @@ const GroupEdit = () => {
 
   const [isPublicGroup, setIspublicGroup] = useState<boolean | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>('');
-  const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
+  /* const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null); */
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const navigate = useNavigate();
+  /* const navigate = useNavigate(); */
   const { title, num, secretKey, intro, group } = inputs;
 
   const maxCharLimits: { [key: string]: number } = {
@@ -57,7 +56,7 @@ const GroupEdit = () => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       // 선택된 파일을 상태로 저장
-      setSelctedImageFIle(file);
+      /* setSelctedImageFIle(file); */
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result as string);
