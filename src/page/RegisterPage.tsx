@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
@@ -27,7 +27,13 @@ const RegisterPage = () => {
 
   const navigate = useNavigate();
   const id = sessionStorage.getItem('user');
-  if (!id) return;
+  if (!id) {
+    useEffect(() => {
+      navigate('/login');
+    }, []);
+
+    return;
+  }
   const userId = parseInt(id);
 
   const { nickname, github, intro } = inputs;

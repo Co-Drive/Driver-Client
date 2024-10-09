@@ -10,7 +10,8 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
   const profileImg = sessionStorage.getItem('profileImg');
-  const isLogin = nickname && nickname.length > 0;
+  const language = sessionStorage.getItem('language');
+  const isLoginSuccess = nickname && profileImg && language !== '사용언어';
 
   const [hoveredCategory, setHoveredCategory] = useState('');
   const [isGnbOpen, setIsGnbOpen] = useState(false);
@@ -40,32 +41,35 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
                 >
                   {isClickedCategory && <IconContainer>{v.icon}</IconContainer>}
                   <Text
-                    onClick={(e) => isLogin && handleClickCategory(e)}
+                    onClick={(e) => isLoginSuccess && handleClickCategory(e)}
                     $isClickedCategory={isClickedCategory}
                   >
                     {v.text}
                   </Text>
 
-                  {idx !== 0 && isHoveredCategory && isGnbOpen && isLogin && (
-                    <Gnb
-                      category={hoveredCategory}
-                      handleOpenGnb={handleOpenGnb}
-                    />
-                  )}
+                  {idx !== 0 &&
+                    isHoveredCategory &&
+                    isGnbOpen &&
+                    isLoginSuccess && (
+                      <Gnb
+                        category={hoveredCategory}
+                        handleOpenGnb={handleOpenGnb}
+                      />
+                    )}
                 </NavBar>
               );
             })}
           </NavBarUl>
         </NavBarContainer>
         <LoginBtnContainer
-          $isLogin={isLogin ? true : false}
-          onMouseEnter={() => isLogin && handleOpenGnb(true, 'profile')}
+          $isLogin={isLoginSuccess ? true : false}
+          onMouseEnter={() => isLoginSuccess && handleOpenGnb(true, 'profile')}
         >
-          {profileImg ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
-          <LoginBtn onClick={() => !nickname && navigate('/login')}>
-            {isLogin ? `${nickname} 님` : '로그인'}
+          {isLoginSuccess ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
+          <LoginBtn onClick={() => !isLoginSuccess && navigate('/login')}>
+            {isLoginSuccess ? `${nickname} 님` : '로그인'}
           </LoginBtn>
-          {isLogin && isGnbOpen && isHoveredProfile && (
+          {isLoginSuccess && isGnbOpen && isHoveredProfile && (
             <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
           )}
         </LoginBtnContainer>
