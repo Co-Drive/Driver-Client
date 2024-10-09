@@ -62,7 +62,9 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
           onMouseEnter={() => isLogin && handleOpenGnb(true, 'profile')}
         >
           {profileImg ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
-          <LoginBtn>{isLogin ? `${nickname} 님` : '로그인'}</LoginBtn>
+          <LoginBtn onClick={() => !nickname && navigate('/login')}>
+            {isLogin ? `${nickname} 님` : '로그인'}
+          </LoginBtn>
           {isLogin && isGnbOpen && isHoveredProfile && (
             <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
           )}
