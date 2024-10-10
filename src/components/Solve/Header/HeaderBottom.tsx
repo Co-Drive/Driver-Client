@@ -162,7 +162,6 @@ const SelectContainer = styled.article<{ $isTagCategory: boolean }>`
   gap: 0.8rem;
   justify-content: center;
   flex-direction: column;
-  flex-grow: ${({ $isTagCategory }) => ($isTagCategory ? 1.87 : 1)};
   position: relative;
 `;
 

@@ -52,7 +52,6 @@ const Container = styled.li`
   display: flex;
   gap: 1.8rem;
   flex-direction: column;
-  flex-grow: 1;
 `;
 
 const Category = styled.span`
@@ -89,8 +88,6 @@ const LinkContainer = styled(CommonTagStyle)`
 `;
 
 const Link = styled.p`
-  flex-grow: 1;
-
   width: 25.7rem;
   margin-left: 0.8rem;
 

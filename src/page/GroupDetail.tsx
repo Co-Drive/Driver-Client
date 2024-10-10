@@ -55,9 +55,11 @@ const GroupDetail = () => {
           />
 
           {!disabledApply && (
-            <ApplyBtn type="button" onClick={handleClickApplyBtn}>
-              신청하기
-            </ApplyBtn>
+            <BtnContainer>
+              <ApplyBtn type="button" onClick={handleClickApplyBtn}>
+                신청하기
+              </ApplyBtn>
+            </BtnContainer>
           )}
         </GroupDetailContainer>
       )}
@@ -76,8 +78,8 @@ const GroupDetailContainer = styled.section`
   flex-direction: column;
   position: relative;
 
-  width: 100%;
-  padding: 6.4rem 41.4rem 23.2rem;
+  width: 61.3rem;
+  padding: 6.4rem 0 23.2rem;
 `;
 
 const GroupImg = styled.img`
@@ -93,12 +95,18 @@ const GroupImg = styled.img`
   object-fit: cover;
 `;
 
-const ApplyBtn = styled.button`
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
   position: fixed;
-  right: 48.3rem;
   bottom: 11.5rem;
-  left: 48.3rem;
+  left: 0;
 
+  width: 100%;
+`;
+
+const ApplyBtn = styled.button`
+  width: 47.4rem;
   padding: 1.8rem 19.5rem;
 
   box-shadow: rgb(183 255 199 / 70%) 0 0 1.5rem;

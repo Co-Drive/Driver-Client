@@ -35,7 +35,6 @@ const NumOfLanguagesContainer = styled.article`
   display: flex;
   gap: 2rem;
   flex-direction: column;
-  flex-grow: 1;
 `;
 
 const Title = styled.header`
@@ -70,7 +69,6 @@ const Language = styled.p`
 `;
 
 const Graph = styled.div`
-  flex-grow: 1;
   position: relative;
 
   height: 1.4rem;

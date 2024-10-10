@@ -62,8 +62,8 @@ const FollowerPageContainer = styled.section`
   flex-direction: column;
   position: relative;
 
-  width: 100%;
-  padding: 6.4rem 25.7rem 23.2rem;
+  width: 92.6rem;
+  padding: 6.4rem 0 23.2rem;
 `;
 
 const TopContainer = styled.section`
@@ -71,7 +71,7 @@ const TopContainer = styled.section`
   gap: 1.8rem;
   align-items: center;
 
-  width: 100%;
+  width: 92.4rem;
   margin-bottom: 8.8rem;
 `;
 

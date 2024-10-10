@@ -101,10 +101,7 @@ const GroupInfoContainer = styled.article`
 `;
 
 const GroupImg = styled.img`
-  min-width: 36.4rem;
-
-  flex-grow: 0.5;
-
+  width: 36.4rem;
   height: 21.8rem;
 
   border-radius: 1.2rem;
@@ -115,7 +112,6 @@ const TotalGroupInfo = styled.div<{ $isAdmin: boolean }>`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  flex-grow: 1.3;
 
   margin: ${({ $isAdmin }) => ($isAdmin ? ` 0 0 1.8rem` : ` 1.2rem 0 1.6rem`)};
 `;

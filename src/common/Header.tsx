@@ -82,6 +82,7 @@ export default Header;
 
 const HeaderWrapper = styled.header`
   display: flex;
+  justify-content: center;
   position: fixed;
   top: 0;
   z-index: 100;
@@ -96,10 +97,9 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
+  width: 96.2rem;
   padding-top: 4.9rem;
   padding-bottom: 1.2rem;
-  margin: 0 23.9rem;
 
   border-bottom: 0.01rem solid ${({ theme }) => theme.colors.gray600};
 `;
@@ -109,7 +109,6 @@ const LogoContainer = styled.div`
 
 const NavBarContainer = styled.nav`
   display: flex;
-  flex-grow: 1.5;
 `;
 
 const NavBarUl = styled.ul`
