@@ -201,6 +201,10 @@ const OptionContainer = styled.ul<{
   top: 5.8rem;
   z-index: 1;
 
+  max-width: 38.5rem;
+  max-height: 49.8rem;
+  overflow-y: auto;
+
   width: 100%;
   padding: 0.8rem 0.8rem 0.2rem;
 
