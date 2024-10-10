@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
 import ImageSection from '../components/GroupCreate/ImageSection';
@@ -8,8 +9,11 @@ import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
+import getJoin from './../libs/apis/GroupEdit/getJoin';
+import patchRooms from './../libs/apis/GroupEdit/patchRooms';
 
 const GroupEdit = () => {
+  const { id } = useParams<{ id: string }>(); // URL에서 id 가져오기
   const [inputs, setInputs] = useState({
     title: '',
     num: '',
@@ -18,11 +22,11 @@ const GroupEdit = () => {
     group: '',
   });
 
-  const [isPublicGroup, setIspublicGroup] = useState<boolean | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>('');
-  /* const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null); */
+  const [isPublicGroup, setIsPublicGroup] = useState<boolean | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null); // 이미지 파일
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  /* const navigate = useNavigate(); */
+
   const { title, num, secretKey, intro, group } = inputs;
 
   const maxCharLimits: { [key: string]: number } = {
@@ -30,6 +34,36 @@ const GroupEdit = () => {
     group: 1000,
   };
 
+  // 그룹 정보 불러오기
+  useEffect(() => {
+    const fetchGroupData = async () => {
+      try {
+        const data = await getJoin(Number(id));
+        console.log(data); // 데이터가 정상적으로 오는지 확인
+        if (data) {
+          setInputs({
+            title: data.title || '', // title 값이 없으면 빈 문자열
+            num: data.capacity ? data.capacity.toString() : '0', // capacity 값이 없으면 '0'
+            secretKey: data.password || '', // password 값이 없으면 빈 문자열
+            intro: data.introduce || '', // introduce 값이 없으면 빈 문자열
+            group: data.information || '', // information 값이 없으면 빈 문자열
+          });
+          setSelectedTags(data.tags || []); // tags 값이 없으면 빈 배열
+          setIsPublicGroup(!data.password);
+          if (data.imageUrl) {
+            setPreviewImage(data.imageUrl);
+          }
+        } else {
+          console.error('그룹 데이터를 찾을 수 없습니다.');
+        }
+      } catch (error) {
+        console.error('그룹 정보를 불러오는 중 오류가 발생했습니다.', error);
+      }
+    };
+    fetchGroupData();
+  }, [id]);
+
+  // 입력값 처리 함수
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
   ) => {
@@ -43,7 +77,7 @@ const GroupEdit = () => {
   };
 
   const handleActiveChange = (active: boolean) => {
-    setIspublicGroup(active);
+    setIsPublicGroup(active);
     if (active) {
       setInputs((prevInputs) => ({
         ...prevInputs,
@@ -55,14 +89,12 @@ const GroupEdit = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
-      // 선택된 파일을 상태로 저장
-      /* setSelctedImageFIle(file); */
+      setSelectedImageFile(file); // 선택된 파일 저장
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result as string);
       };
       reader.readAsDataURL(file);
-      // 파일 입력 필드 초기화
       e.target.value = '';
     }
   };
@@ -76,8 +108,27 @@ const GroupEdit = () => {
     intro !== '' &&
     group !== '';
 
-  const handleSaveBtnClick = () => {
-    // 저장 버튼 함수
+  // 저장 버튼 클릭 시 그룹 정보 수정 API 호출
+  const handleSaveBtnClick = async () => {
+    try {
+      if (isActive) {
+        await patchRooms(
+          Number(id), // roomId 대신 id 사용
+          title,
+          secretKey,
+          Number(num),
+          selectedTags,
+          intro,
+          group,
+          selectedImageFile || undefined // 이미지 파일이 있으면 전송
+        );
+        alert('그룹 정보가 성공적으로 수정되었습니다.');
+      } else {
+        alert('입력된 정보를 확인해 주세요.');
+      }
+    } catch (error) {
+      console.error('그룹 정보를 수정하는 중 오류가 발생했습니다.', error);
+    }
   };
 
   const handleCancelBtnClick = () => {
