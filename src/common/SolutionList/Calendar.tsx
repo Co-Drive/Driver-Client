@@ -13,6 +13,8 @@ const Calendar = ({
   const { clickedYear, clickedMonth } = date;
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
 
+  // console.log(clickedMonth)
+
   return (
     <CalendarContainer>
       <YearContainer>
@@ -29,7 +31,7 @@ const Calendar = ({
               key={month}
               $disabled={disabled}
               $isClicked={clickedMonth === month}
-              onClick={() => !disabled && handleClickMonth(month)}
+              onClick={(e) => !disabled && handleClickMonth({ e })}
             >
               {month}
             </Month>
