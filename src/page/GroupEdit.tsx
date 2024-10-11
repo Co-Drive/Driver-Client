@@ -9,11 +9,13 @@ import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
-import getJoin from './../libs/apis/GroupEdit/getJoin';
+
+import getRooms from '../libs/apis/GroupEdit/getRooms';
 import patchRooms from './../libs/apis/GroupEdit/patchRooms';
 
 const GroupEdit = () => {
   const { id } = useParams<{ id: string }>(); // URL에서 id 가져오기
+  console.log(id);
   const [inputs, setInputs] = useState({
     title: '',
     num: '',
@@ -38,23 +40,21 @@ const GroupEdit = () => {
   useEffect(() => {
     const fetchGroupData = async () => {
       try {
-        const data = await getJoin(Number(id));
-        console.log(data); // 데이터가 정상적으로 오는지 확인
+        const data = await getRooms(Number(id));
         if (data) {
+          console.log(data); // 데이터를 확인하여 title, capacity 값 확인
           setInputs({
-            title: data.title || '', // title 값이 없으면 빈 문자열
-            num: data.capacity ? data.capacity.toString() : '0', // capacity 값이 없으면 '0'
-            secretKey: data.password || '', // password 값이 없으면 빈 문자열
-            intro: data.introduce || '', // introduce 값이 없으면 빈 문자열
-            group: data.information || '', // information 값이 없으면 빈 문자열
+            title: data.title || '', // title이 null이면 빈 값
+            num: data.capacity ? data.capacity.toString() : '0', // 모집 인원 0으로 초기화
+            secretKey: data.password || '',
+            intro: data.introduce || '',
+            group: data.information || '',
           });
-          setSelectedTags(data.tags || []); // tags 값이 없으면 빈 배열
+          setSelectedTags(data.tags || []);
           setIsPublicGroup(!data.password);
           if (data.imageUrl) {
             setPreviewImage(data.imageUrl);
           }
-        } else {
-          console.error('그룹 데이터를 찾을 수 없습니다.');
         }
       } catch (error) {
         console.error('그룹 정보를 불러오는 중 오류가 발생했습니다.', error);
