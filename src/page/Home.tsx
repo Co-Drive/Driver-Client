@@ -10,12 +10,15 @@ import PageLayout from '../components/PageLayout/PageLayout';
 const Home = () => {
   const navigate = useNavigate();
   const user = sessionStorage.getItem('user');
-  if (!user) {
-    useEffect(() => {
-      navigate('/login');
-    }, []);
 
-    return;
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user]);
+
+  if (!user) {
+    return null;
   }
 
   const userId = parseInt(user);
