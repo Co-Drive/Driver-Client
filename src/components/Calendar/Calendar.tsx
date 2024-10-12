@@ -1,11 +1,10 @@
 /* stylelint-disable selector-class-pattern */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled, { css } from 'styled-components';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
-import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import { BoardProps, CommonCalendarProps } from '../../types/Home/calendarType';
 import CustomCalendar from './CustomCalendar';
 
@@ -25,20 +24,6 @@ const CommonCalendar = ({
   const [board, setBoard] = useState<BoardProps[]>([]);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  const year = new Date().getFullYear();
-  const { unsolvedData } = useGetUnsolvedMonths(year);
-
-  const unsolvedMonths = useRef<Array<number>>([]);
-
-  const getUnsolvedMonthsArr = () => {
-    if (unsolvedData) {
-      const { months } = unsolvedData.data;
-      unsolvedMonths.current = months;
-    }
-  };
-  useEffect(() => {
-    getUnsolvedMonthsArr();
-  }, [unsolvedData]);
 
   const customWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -84,7 +69,7 @@ const CommonCalendar = ({
               <IcArrowTopWhite onClick={handleClickCalendar} />
               <CustomCalendar
                 date={{ clickedYear, clickedMonth }}
-                unsolvedMonths={unsolvedMonths.current}
+                unsolvedMonths={[]}
                 handleClickPrevBtn={handleClickPrevBtn}
                 handleClickMonth={handleClickMonth}
                 handleClickNextBtn={handleClickNextBtn}

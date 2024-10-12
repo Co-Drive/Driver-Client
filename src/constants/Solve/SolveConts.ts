@@ -8,7 +8,6 @@ export const TAG_PLATFORM_LISTS = [
       '수학',
       '자료구조',
       '완전탐색',
-      '정렬',
       '탐욕법 (Greedy)',
       '동적계획법 (Dynamic Programming)',
       '백트래킹',
