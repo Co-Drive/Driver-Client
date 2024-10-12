@@ -14,7 +14,7 @@ const GroupDetail = () => {
   const navigate = useNavigate();
 
   const { state } = useLocation();
-  const { disabledApply } = state || {};
+  const { disabledApply } = state || { disabledApply: false };
   const { id } = useParams();
   if (!id) return;
   const isUuid = id?.includes('-');
@@ -25,7 +25,6 @@ const GroupDetail = () => {
   const uuidToRoomId =
     isUuid && !isGroupDataLoading && groupDataFromUuid.data.roomId;
   const finalRoomId = isUuid ? uuidToRoomId : parseInt(id);
-
   const { data, isLoading } = useGetDetail(finalRoomId);
 
   const {
@@ -39,9 +38,7 @@ const GroupDetail = () => {
     information,
   } = !isLoading && data.data;
   const { isPublicRoom } = state || (!isLoading && data.data);
-
   const { mutation, err } = usePostPublicRequest(imageSrc);
-
   const isError = err.length > 0;
 
   const [onErrModal, setOnErrModal] = useState(isError);
@@ -55,7 +52,7 @@ const GroupDetail = () => {
       sessionStorage.getItem('user') &&
       sessionStorage.getItem('language') !== '사용언어';
 
-    if (!isPublicRoom && !isLoading) {
+    if (!isPublicRoom && !isLoading && !disabledApply) {
       isLogin
         ? navigate(`/group-join`, { state: { roomId: id } })
         : navigate(`/login`, { state: { roomId: id } });
