@@ -18,6 +18,7 @@ const FollowerPage = () => {
   const { data, isLoading } = useGetUserProfile(userId) || {};
   const { nickname } = !isLoading && data?.data;
 
+
   const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {

@@ -13,6 +13,7 @@ export interface RecommendCardProps {
     tags: Array<string>;
     introduce: string;
     isMember: boolean;
+    isPublicRoom: boolean;
   }>;
   isLongPage: boolean;
   clickedPage?: number;

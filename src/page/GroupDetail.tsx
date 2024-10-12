@@ -15,7 +15,7 @@ const GroupDetail = () => {
     sessionStorage.getItem('user') &&
     sessionStorage.getItem('language') !== '사용언어';
   const { state } = useLocation();
-  const { disabledApply, isPublic } = state || {};
+  const { disabledApply, isPublicRoom } = state || {};
   const { id } = useParams();
   if (!id) return;
 
@@ -43,8 +43,7 @@ const GroupDetail = () => {
 
   useEffect(() => {
     if (isLogin) {
-      if (!state && !isPublic)
-        navigate(`/group-join`, { state: { roomId: id } });
+      if (!isPublicRoom) navigate(`/group-join`, { state: { roomId: id } });
     } else {
       navigate(`/login`, { state: { roomId: id } });
     }

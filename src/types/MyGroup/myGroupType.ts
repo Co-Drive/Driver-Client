@@ -23,6 +23,7 @@ export interface GroupType {
   tags: Array<string>;
   introduce: string;
   isMember: boolean;
+  isPublicRoom: boolean;
 }
 
 export interface PersonalGroupProps {
