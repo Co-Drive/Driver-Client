@@ -23,5 +23,5 @@ export interface ClickCardProps {
   userId: number;
   groupId: number;
   isMember: boolean;
-  isPublicRoom: boolean;
+  isPublicRoom?: boolean;
 }
