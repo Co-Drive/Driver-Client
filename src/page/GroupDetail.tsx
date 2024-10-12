@@ -6,20 +6,27 @@ import GroupInfo from '../components/GroupDetail/GroupInfo';
 import Header from '../components/GroupDetail/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
+import useGetGroupId from '../libs/hooks/GroupDetail/useGetGroupId';
 import usePostPublicRequest from '../libs/hooks/GroupDetail/usePostPublicRequest';
 import LoadingPage from './LoadingPage';
 
 const GroupDetail = () => {
   const navigate = useNavigate();
-  const isLogin =
-    sessionStorage.getItem('user') &&
-    sessionStorage.getItem('language') !== '사용언어';
+
   const { state } = useLocation();
-  const { disabledApply, isPublicRoom } = state || {};
+  const { disabledApply } = state || {};
   const { id } = useParams();
   if (!id) return;
+  const isUuid = id?.includes('-');
 
-  const { data, isLoading } = useGetDetail(parseInt(id));
+  const { groupDataFromUuid, isGroupDataLoading } = isUuid
+    ? useGetGroupId(id)
+    : { groupDataFromUuid: null, isGroupDataLoading: false };
+  const uuidToRoomId =
+    isUuid && !isGroupDataLoading && groupDataFromUuid.data.roomId;
+  const finalRoomId = isUuid ? uuidToRoomId : parseInt(id);
+
+  const { data, isLoading } = useGetDetail(finalRoomId);
 
   const {
     title,
@@ -31,6 +38,8 @@ const GroupDetail = () => {
     introduce,
     information,
   } = !isLoading && data.data;
+  const { isPublicRoom } = state || (!isLoading && data.data);
+
   const { mutation, err } = usePostPublicRequest(imageSrc);
 
   const isError = err.length > 0;
@@ -42,12 +51,16 @@ const GroupDetail = () => {
   };
 
   useEffect(() => {
-    if (isLogin) {
-      if (!isPublicRoom) navigate(`/group-join`, { state: { roomId: id } });
-    } else {
-      navigate(`/login`, { state: { roomId: id } });
+    const isLogin =
+      sessionStorage.getItem('user') &&
+      sessionStorage.getItem('language') !== '사용언어';
+
+    if (!isPublicRoom && !isLoading) {
+      isLogin
+        ? navigate(`/group-join`, { state: { roomId: id } })
+        : navigate(`/login`, { state: { roomId: id } });
     }
-  }, [isLogin]);
+  }, [isLoading]);
 
   useEffect(() => {
     setOnErrModal(isError);
