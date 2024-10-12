@@ -40,10 +40,10 @@ const GroupJoin = () => {
   };
 
   useEffect(() => {
-    const { isMember } = !isLoading && data.data;
-    isMember &&
+    const { isMember, isPublicRoom } = !isLoading && data.data;
+    (isMember || isPublicRoom) &&
       navigate(`/group/${finalRoomId}`, {
-        state: { isMember: isMember, isPublicRoom: false },
+        state: { isMember: isMember, isPublicRoom: isPublicRoom },
       });
   }, [isLoading]);
 
