@@ -34,19 +34,16 @@ export default FollowerCurrentPage;
 
 const FollowerCurrentPageContainer = styled.section`
   display: flex;
-  align-items: center;
   flex-direction: column;
 
-  width: 100%;
-  padding: 6rem 25.7rem 18rem;
+  width: 92.6rem;
+  padding: 6rem 0 18rem;
 `;
 
 const Header = styled.header`
   display: flex;
   gap: 1.4rem;
   align-items: end;
-
-  width: 100%;
 `;
 
 const Title = styled.p`

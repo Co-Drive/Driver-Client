@@ -29,7 +29,7 @@ const Calendar = ({
               key={month}
               $disabled={disabled}
               $isClicked={clickedMonth === month}
-              onClick={() => !disabled && handleClickMonth(month)}
+              onClick={(e) => !disabled && handleClickMonth({ e })}
             >
               {month}
             </Month>

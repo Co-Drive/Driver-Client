@@ -11,14 +11,14 @@ const RecommendCard = ({
 }: RecommendCardProps) => {
   const navigate = useNavigate();
 
-  const handleClickCard = ({ groupId, userId, isMember }: ClickCardProps) => {
+  const handleClickCard = ({ groupId, userId, isMember, isPublicRoom }: ClickCardProps) => {
     const myId = sessionStorage.getItem('user');
     if (myId && parseInt(myId) === userId) {
       navigate(`/group/${groupId}/admin`);
     } else {
       isMember
         ? navigate(`/group/${groupId}/member`)
-        : navigate(`/group/${groupId}`);
+        : navigate(`/group/${groupId}`, {state: {isPublicRoom: isPublicRoom}});
     }
 
     if (clickedPage)
@@ -38,6 +38,7 @@ const RecommendCard = ({
           tags,
           introduce,
           isMember,
+          isPublicRoom,
         } = card;
         const { userId, nickname, profileImg } = owner;
         const renderTags =
@@ -48,7 +49,7 @@ const RecommendCard = ({
           <CardContainer
             key={roomId}
             onClick={() =>
-              handleClickCard({ groupId: roomId, isMember, userId })
+              handleClickCard({ groupId: roomId, isMember, userId, isPublicRoom })
             }
           >
             <Img src={imageSrc} />

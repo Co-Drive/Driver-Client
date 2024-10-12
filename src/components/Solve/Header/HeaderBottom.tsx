@@ -162,7 +162,6 @@ const SelectContainer = styled.article<{ $isTagCategory: boolean }>`
   gap: 0.8rem;
   justify-content: center;
   flex-direction: column;
-  flex-grow: ${({ $isTagCategory }) => ($isTagCategory ? 1.87 : 1)};
   position: relative;
 `;
 
@@ -201,6 +200,10 @@ const OptionContainer = styled.ul<{
   position: absolute;
   top: 5.8rem;
   z-index: 1;
+
+  max-width: 38.5rem;
+  max-height: 49.8rem;
+  overflow-y: auto;
 
   width: 100%;
   padding: 0.8rem 0.8rem 0.2rem;

@@ -10,17 +10,16 @@ import PageLayout from '../components/PageLayout/PageLayout';
 const Home = () => {
   const navigate = useNavigate();
   const user = sessionStorage.getItem('user');
+  const language = sessionStorage.getItem('language');
+  const isNotRegisted = language === '사용언어';
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-  }, [user]);
+  if (!user || isNotRegisted) {
+    useEffect(() => {
+      !user ? navigate('/login') : navigate('/register');
+    }, []);
 
-  if (!user) {
-    return null;
+    return;
   }
-
   const userId = parseInt(user);
 
   return (
