@@ -1,32 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ErrorModal from '../common/Modal/ErrorModal/ErrorModal';
 import GroupInfo from '../components/GroupDetail/GroupInfo';
 import Header from '../components/GroupDetail/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
-import useGetGroupId from '../libs/hooks/GroupDetail/useGetGroupId';
 import usePostPublicRequest from '../libs/hooks/GroupDetail/usePostPublicRequest';
 import LoadingPage from './LoadingPage';
 
 const GroupDetail = () => {
+  const navigate = useNavigate();
+  const isLogin =
+    sessionStorage.getItem('user') &&
+    sessionStorage.getItem('language') !== '사용언어';
   const { state } = useLocation();
   const { disabledApply } = state ? state : { disabledApply: false };
   const { id } = useParams();
   if (!id) return;
-  const isPrivateGroup = id.includes('-');
 
-  const { groupDataFromUuid, isGroupDataLoading } = isPrivateGroup
-    ? useGetGroupId(id)
-    : { groupDataFromUuid: null, isGroupDataLoading: false };
-  const { roomId } =
-    isPrivateGroup && !isGroupDataLoading && groupDataFromUuid.data;
-
-  const { data, isLoading } = useGetDetail(
-    isPrivateGroup ? roomId : parseInt(id)
-  );
-  const loading = isGroupDataLoading || isLoading;
+  const { data, isLoading } = useGetDetail(parseInt(id));
 
   const {
     title,
@@ -49,12 +42,20 @@ const GroupDetail = () => {
   };
 
   useEffect(() => {
+    if (isLogin) {
+      if (!state) navigate(`/group-join`, { state: { roomId: id } });
+    } else {
+      navigate(`/login`, { state: { roomId: id } });
+    }
+  }, [isLogin]);
+
+  useEffect(() => {
     setOnErrModal(isError);
   }, [isError]);
 
   return (
     <PageLayout category="그룹">
-      {loading ? (
+      {isLoading ? (
         <LoadingPage isPageLoading={true} />
       ) : (
         <GroupDetailContainer>
