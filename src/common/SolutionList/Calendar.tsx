@@ -13,8 +13,6 @@ const Calendar = ({
   const { clickedYear, clickedMonth } = date;
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
 
-  // console.log(clickedMonth)
-
   return (
     <CalendarContainer>
       <YearContainer>
