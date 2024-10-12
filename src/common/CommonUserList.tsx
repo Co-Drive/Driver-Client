@@ -88,12 +88,13 @@ const CommonUserList = ({
 
   const [errModalOn, setErrModalOn] = useState(isError);
 
-  const handleClickContents = (id: number) => {
-    setClickedContents({
-      ...clickedContents,
-      clickedId: id,
-      isClicked: !isClicked,
-    });
+  const handleClickContents = (id: number, problemTitle?: string) => {
+    if (problemTitle)
+      setClickedContents({
+        ...clickedContents,
+        clickedId: id,
+        isClicked: !isClicked,
+      });
   };
 
   const handleClickUserInfo = (id: number) => {
@@ -218,11 +219,15 @@ const CommonUserList = ({
                       </Problem>
                       {isExitAndClicked ? (
                         <IcArrowTopWhite
-                          onClick={() => handleClickContents(userId)}
+                          onClick={() =>
+                            handleClickContents(userId, recentProblemTitle)
+                          }
                         />
                       ) : (
                         <IcArrowBottomWhite
-                          onClick={() => handleClickContents(userId)}
+                          onClick={() =>
+                            handleClickContents(userId, recentProblemTitle)
+                          }
                         />
                       )}
 
