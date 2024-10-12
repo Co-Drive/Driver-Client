@@ -20,7 +20,6 @@ const Home = () => {
 
     return;
   }
-
   const userId = parseInt(user);
 
   return (
