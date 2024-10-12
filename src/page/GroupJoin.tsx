@@ -26,13 +26,7 @@ const GroupJoin = () => {
     try {
       const { data } = await postAnswer({ roomId, password });
       if (data) {
-        navigate(`/group/${roomId}/member`),
-          {
-            state: {
-              roomId,
-              password,
-            },
-          };
+        navigate(`/group/${roomId}/member`);
       }
     } catch (error) {
       alert('비밀번호가 틀렸습니다');
