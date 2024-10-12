@@ -6,15 +6,28 @@ import GroupInfo from '../components/GroupDetail/GroupInfo';
 import Header from '../components/GroupDetail/Header';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
+import useGetGroupId from '../libs/hooks/GroupDetail/useGetGroupId';
 import usePostPublicRequest from '../libs/hooks/GroupDetail/usePostPublicRequest';
+import LoadingPage from './LoadingPage';
 
 const GroupDetail = () => {
   const { state } = useLocation();
   const { disabledApply } = state ? state : { disabledApply: false };
   const { id } = useParams();
   if (!id) return;
+  const isPrivateGroup = id.includes('-');
 
-  const { data, isLoading } = useGetDetail(parseInt(id));
+  const { groupDataFromUuid, isGroupDataLoading } = isPrivateGroup
+    ? useGetGroupId(id)
+    : { groupDataFromUuid: null, isGroupDataLoading: false };
+  const { roomId } =
+    isPrivateGroup && !isGroupDataLoading && groupDataFromUuid.data;
+
+  const { data, isLoading } = useGetDetail(
+    isPrivateGroup ? roomId : parseInt(id)
+  );
+  const loading = isGroupDataLoading || isLoading;
+
   const {
     title,
     owner,
@@ -41,7 +54,9 @@ const GroupDetail = () => {
 
   return (
     <PageLayout category="그룹">
-      {!isLoading && (
+      {loading ? (
+        <LoadingPage isPageLoading={true} />
+      ) : (
         <GroupDetailContainer>
           <Header title={title} tags={tags} />
           <GroupImg src={imageSrc} />
