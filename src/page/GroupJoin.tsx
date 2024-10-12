@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcSecretBigWhite } from '../assets';
 import CommonButton from '../common/CommonButton';
 import CommonInput from '../common/CommonInput';
 import PageLayout from '../components/PageLayout/PageLayout';
+import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
 import useGetGroupId from '../libs/hooks/GroupDetail/useGetGroupId';
 import usePostAnswer from '../libs/hooks/GroupJoin/usePostAnswer';
 
@@ -15,6 +16,7 @@ const GroupJoin = () => {
   const { state } = useLocation();
   const { roomId } = state || {};
   const isPrivateGroup = roomId?.includes('-');
+  const navigate = useNavigate();
 
   const { groupDataFromUuid, isGroupDataLoading } = isPrivateGroup
     ? useGetGroupId(roomId)
@@ -22,6 +24,7 @@ const GroupJoin = () => {
   const uuidToRoomId =
     isPrivateGroup && !isGroupDataLoading && groupDataFromUuid.data.roomId;
   const finalRoomId = isPrivateGroup ? uuidToRoomId : roomId;
+  const { data, isLoading } = useGetDetail(finalRoomId);
 
   const { mutation } = usePostAnswer(finalRoomId);
 
@@ -35,6 +38,16 @@ const GroupJoin = () => {
   const handleJoinButton = () => {
     mutation({ roomId: finalRoomId, password: password });
   };
+
+  if (data) {
+    useEffect(() => {
+      const { isMember } = !isLoading && data.data;
+      isMember &&
+        navigate(`/group/${finalRoomId}`, {
+          state: { isMember: isMember, isPublicRoom: false },
+        });
+    }, [data]);
+  }
 
   return (
     /* category 역할이 헤더 눌렀을 떄 어떤 페이지로 이동하냐인데, 그룹 생성 완료하면 카테고리 변경하기  */
