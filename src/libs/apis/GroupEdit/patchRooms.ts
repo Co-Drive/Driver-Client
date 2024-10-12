@@ -1,15 +1,26 @@
 import { api } from '../../api';
 
-const patchRooms = async (
-  roomId: number,
-  title: string,
-  password: string,
-  capacity: number,
-  tags: string[],
-  introduce: string,
-  information: string,
-  imageFile?: File // imageFile은 선택적
-) => {
+interface PatchRoomProps {
+  roomId: number;
+  title: string;
+  password: string;
+  capacity: number;
+  tags: string[];
+  introduce: string;
+  information: string;
+  imageFile?: File; // imageFile은 선택적
+}
+
+const patchRooms = async ({
+  roomId,
+  title,
+  password,
+  capacity,
+  tags,
+  introduce,
+  information,
+  imageFile,
+}: PatchRoomProps) => {
   const formData = new FormData();
 
   // 필수 값 추가
