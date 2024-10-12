@@ -13,7 +13,7 @@ const GroupJoin = () => {
   const [isNotMatchedPW, setIsNotMatchedPW] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { roomdId } = state || {};
+  const { roomId } = state || {};
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -24,9 +24,15 @@ const GroupJoin = () => {
 
   const handleJoinButton = async () => {
     try {
-      const { data } = await postAnswer({ roomdId, password });
+      const { data } = await postAnswer({ roomId, password });
       if (data) {
-        navigate('/group-complete');
+        navigate(`/group/${roomId}/member`),
+          {
+            state: {
+              roomId,
+              password,
+            },
+          };
       }
     } catch (error) {
       alert('비밀번호가 틀렸습니다');
