@@ -195,7 +195,8 @@ const SolvePageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  padding: 6rem 25.7rem 20rem;
+  width: 92.6rem;
+  padding: 6rem 0 20rem;
 `;
 
 const AddBtnContainer = styled.div`

@@ -87,7 +87,6 @@ const HeaderTopContainer = styled.section`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-grow: 2.05;
 
   padding-bottom: 1.4rem;
 

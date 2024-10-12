@@ -71,6 +71,7 @@ export interface QuestionInfoProps {
 }
 
 export interface PostRecordsProps {
+  id?: number;
   questionInfo: {
     title: string;
     level: number;
@@ -112,6 +113,7 @@ export interface ClickedListProps {
 }
 
 export interface ModalProps {
+  id?: number;
   questionInfo?: {
     title: string;
     level: number;

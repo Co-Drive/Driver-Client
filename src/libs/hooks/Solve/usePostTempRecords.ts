@@ -10,8 +10,8 @@ const usePostTempRecords = (onClose?: () => void) => {
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: async ({ questionInfo, codeblocks }: PostRecordsProps) => {
-      return await postTempRecords({ questionInfo, codeblocks });
+    mutationFn: async ({ id, questionInfo, codeblocks }: PostRecordsProps) => {
+      return await postTempRecords({ id, questionInfo, codeblocks });
     },
     onError: (err: { response: { data: { message: string } } }) => {
       const { message } = err.response.data;

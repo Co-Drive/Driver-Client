@@ -1,6 +1,16 @@
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
-import { CalendarProps } from '../../types/Solution/solutionTypes';
+
+interface CustomCalendarProps {
+  date: {
+    clickedYear: number;
+    clickedMonth: number;
+  };
+  unsolvedMonths: Array<number>;
+  handleClickPrevBtn: () => void;
+  handleClickMonth: (month: number) => void;
+  handleClickNextBtn: () => void;
+}
 
 const CustomCalendar = ({
   date,
@@ -8,7 +18,7 @@ const CustomCalendar = ({
   handleClickPrevBtn,
   handleClickMonth,
   handleClickNextBtn,
-}: CalendarProps) => {
+}: CustomCalendarProps) => {
   const year = new Date().getFullYear();
   const { clickedYear, clickedMonth } = date;
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
