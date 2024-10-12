@@ -15,7 +15,7 @@ const GroupInfo = ({
   if (!id) return;
   const groupId = parseInt(id);
   const { data, isLoading } = useGetDetail(groupId);
-  const { imageSrc, title, tags, owner } = !isLoading && data?.data;
+  const { imageSrc, title, tags, owner, password } = !isLoading && data?.data;
   const { userId, nickname, profileImg } = !isLoading && owner;
   const renderTags = tags && (tags.length > 5 ? ALL_TAG : tags);
 
@@ -31,7 +31,15 @@ const GroupInfo = ({
     <>
       {!isLoading && (
         <GroupInfoContainer>
-          <GroupImg src={imageSrc} />
+          <ImgContainer>
+            <GroupImg src={imageSrc} />
+            {password && (
+              <PassWordContainer>
+                <PasswordTxt>비밀번호</PasswordTxt>
+                <Password>{password}</Password>
+              </PassWordContainer>
+            )}
+          </ImgContainer>
 
           <TotalGroupInfo $isAdmin={isAdmin}>
             {isAdmin && (
@@ -100,12 +108,47 @@ const GroupInfoContainer = styled.article`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray800};
 `;
 
-const GroupImg = styled.img`
+const ImgContainer = styled.div`
+  position: relative;
+
   width: 36.4rem;
   height: 21.8rem;
+`;
+
+const GroupImg = styled.img`
+  width: 100%;
+  height: 100%;
 
   border-radius: 1.2rem;
   object-fit: cover;
+`;
+
+const PassWordContainer = styled.div`
+  display: flex;
+  gap: 0.4rem;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 1.2rem;
+  bottom: 1.2rem;
+
+  padding: 0.8rem 1.2rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray600};
+`;
+
+const PasswordTxt = styled.p`
+  padding-right: 0.4rem;
+
+  border-right: 0.1rem solid ${({ theme }) => theme.colors.gray100};
+  color: ${({ theme }) => theme.colors.gray100};
+  ${({ theme }) => theme.fonts.title_regular_14};
+`;
+
+const Password = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_regular_14};
 `;
 
 const TotalGroupInfo = styled.div<{ $isAdmin: boolean }>`
