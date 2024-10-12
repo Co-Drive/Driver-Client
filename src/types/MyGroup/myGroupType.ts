@@ -6,6 +6,7 @@ export interface ActiveGroupProps {
     tags: Array<string>;
     ownerId: number;
     isMember: boolean;
+    isPublicRoom: boolean;
   }>;
 }
 

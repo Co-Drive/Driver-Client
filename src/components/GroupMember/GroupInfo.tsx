@@ -15,12 +15,15 @@ const GroupInfo = ({
   if (!id) return;
   const groupId = parseInt(id);
   const { data, isLoading } = useGetDetail(groupId);
-  const { imageSrc, title, tags, owner, password } = !isLoading && data?.data;
+  const { imageSrc, title, tags, owner, password, isPublicRoom } =
+    !isLoading && data?.data;
   const { userId, nickname, profileImg } = !isLoading && owner;
   const renderTags = tags && (tags.length > 5 ? ALL_TAG : tags);
 
   const handleClickMoreInfoBtn = () => {
-    navigate(`/group/${id}`, { state: { disabledApply: true } });
+    navigate(`/group/${id}`, {
+      state: { disabledApply: true, isPublicRoom: isPublicRoom },
+    });
   };
 
   const handleClickHost = () => {

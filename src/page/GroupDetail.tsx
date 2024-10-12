@@ -14,7 +14,7 @@ const GroupDetail = () => {
   const navigate = useNavigate();
 
   const { state } = useLocation();
-  const { disabledApply } = state || { disabledApply: false };
+  const { disabledApply } = state ? state : { disabledApply: false };
   const { id } = useParams();
   if (!id) return;
   const isUuid = id?.includes('-');
@@ -36,6 +36,7 @@ const GroupDetail = () => {
     tags,
     introduce,
     information,
+    isMember,
   } = !isLoading && data.data;
   const { isPublicRoom } = state || (!isLoading && data.data);
   const { mutation, err } = usePostPublicRequest(imageSrc);
@@ -52,10 +53,11 @@ const GroupDetail = () => {
       sessionStorage.getItem('user') &&
       sessionStorage.getItem('language') !== '사용언어';
 
-    if (!isPublicRoom && !isLoading && !disabledApply) {
-      isLogin
-        ? navigate(`/group-join`, { state: { roomId: id } })
-        : navigate(`/login`, { state: { roomId: id } });
+    if (isLogin) {
+      if (!isLoading && !isPublicRoom && !disabledApply && !isMember)
+        navigate(`/group-join`, { state: { roomId: id } });
+    } else {
+      navigate(`/login`, { state: { roomId: id } });
     }
   }, [isLoading]);
 
@@ -80,7 +82,7 @@ const GroupDetail = () => {
             information={information}
           />
 
-          {!disabledApply && (
+          {!disabledApply && !isMember && (
             <BtnContainer>
               <ApplyBtn type="button" onClick={handleClickApplyBtn}>
                 신청하기

@@ -33,7 +33,9 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
     } else {
       isMember
         ? navigate(`/group/${groupId}/member`)
-        : navigate(`/group/${groupId}`, { state: { isPublicRoom } });
+        : navigate(`/group/${groupId}`, {
+            state: { isPublicRoom: isPublicRoom },
+          });
     }
   };
 
