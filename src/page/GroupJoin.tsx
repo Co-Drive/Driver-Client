@@ -15,15 +15,15 @@ const GroupJoin = () => {
   const [isNotMatchedPW, setIsNotMatchedPW] = useState(false);
   const { state } = useLocation();
   const { roomId } = state || {};
-  const isPrivateGroup = roomId?.includes('-');
+  const isUuid = roomId?.includes('-');
   const navigate = useNavigate();
 
-  const { groupDataFromUuid, isGroupDataLoading } = isPrivateGroup
+  const { groupDataFromUuid, isGroupDataLoading } = isUuid
     ? useGetGroupId(roomId)
     : { groupDataFromUuid: null, isGroupDataLoading: false };
   const uuidToRoomId =
-    isPrivateGroup && !isGroupDataLoading && groupDataFromUuid.data.roomId;
-  const finalRoomId = isPrivateGroup ? uuidToRoomId : roomId;
+    isUuid && !isGroupDataLoading && groupDataFromUuid.data.roomId;
+  const finalRoomId = isUuid ? uuidToRoomId : roomId;
   const { data, isLoading } = useGetDetail(finalRoomId);
 
   const { mutation } = usePostAnswer(finalRoomId);
@@ -45,28 +45,32 @@ const GroupJoin = () => {
       navigate(`/group/${finalRoomId}`, {
         state: { isMember: isMember, isPublicRoom: false },
       });
-  }, [data]);
+  }, [isLoading]);
 
   return (
     /* category 역할이 헤더 눌렀을 떄 어떤 페이지로 이동하냐인데, 그룹 생성 완료하면 카테고리 변경하기  */
     <PageLayout category={'group'}>
-      <IconContainer>
-        <IcSecretBigWhite />
-      </IconContainer>
-      <Text>비밀그룹 참여하기</Text>
-      <CommonInputContainer>
-        <CommonInput
-          category="password"
-          value={password}
-          handleChangeInputs={handleChangeInputs}
-          isNotMatchedPW={isNotMatchedPW}
-        />
-      </CommonInputContainer>
-      <CommonButton
-        category="group_join"
-        isActive={isActive}
-        onClick={handleJoinButton}
-      />
+      {!isLoading && (
+        <>
+          <IconContainer>
+            <IcSecretBigWhite />
+          </IconContainer>
+          <Text>비밀그룹 참여하기</Text>
+          <CommonInputContainer>
+            <CommonInput
+              category="password"
+              value={password}
+              handleChangeInputs={handleChangeInputs}
+              isNotMatchedPW={isNotMatchedPW}
+            />
+          </CommonInputContainer>
+          <CommonButton
+            category="group_join"
+            isActive={isActive}
+            onClick={handleJoinButton}
+          />
+        </>
+      )}
     </PageLayout>
   );
 };
