@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
@@ -24,6 +24,7 @@ const RegisterPage = () => {
   });
 
   const { isExistNickname, isClickedCheckBtn } = changeNickname;
+  const { state } = useLocation();
 
   const navigate = useNavigate();
   const id = sessionStorage.getItem('user');
@@ -95,7 +96,9 @@ const RegisterPage = () => {
       if (data.code === 200) {
         sessionStorage.setItem('nickname', nickname);
         sessionStorage.setItem('language', selectedLanguage);
-        navigate('/');
+        state
+          ? navigate('/group-join', { state: { roomId: state } })
+          : navigate('/');
       }
     } catch (error) {
       console.log(error);
