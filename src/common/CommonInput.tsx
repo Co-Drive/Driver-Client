@@ -11,6 +11,8 @@ const CommonInput = ({
   value,
   isExitedNickname,
   isNotMatchedPW,
+  isExitedRepositories,
+  isClickedCheckRepositoriesBtn,
   handleChangeInputs,
 }: CommonInputProps) => {
   const isError =
@@ -21,13 +23,21 @@ const CommonInput = ({
     (category === 'num' && parseInt(value) > 50) ||
     (category === 'nickname' &&
       (value.length > 10 || (isExitedNickname && isClickedCheckBtn))) ||
-    (category === 'password' && isNotMatchedPW);
+    (category === 'password' && isNotMatchedPW) ||
+    (category === 'repositories' &&
+      isExitedRepositories &&
+      isClickedCheckRepositoriesBtn);
 
   const isNicknameSuccess =
     category === 'nickname' &&
     isClickedCheckBtn &&
     !isExitedNickname &&
     value.length !== 0;
+
+  const isRepositoriesSuccess =
+    category === 'repositories' &&
+    isClickedCheckRepositoriesBtn &&
+    !isExitedRepositories;
 
   const [placeholder, setPlaceholder] = useState('');
 
@@ -50,6 +60,9 @@ const CommonInput = ({
         break;
       case 'secretKey':
         setPlaceholder('비밀번호를 입력해주세요');
+        break;
+      case 'repositories':
+        setPlaceholder('리포지토리 이름을 입력해주세요');
         break;
       default:
         setPlaceholder('');
@@ -92,6 +105,11 @@ const CommonInput = ({
             <IcSuccess />
           </IcWrapper>
         )}
+        {isRepositoriesSuccess && !isError && (
+          <IcWrapper $isRepositoriesSuccess={isRepositoriesSuccess}>
+            <IcSuccess />
+          </IcWrapper>
+        )}
       </InputWrapper>
 
       {category === 'secretKey' && (
@@ -100,7 +118,9 @@ const CommonInput = ({
         </Notice>
       )}
 
-      {(isNotMatchedPW || (isExitedNickname && isClickedCheckBtn)) && (
+      {(isNotMatchedPW ||
+        (isExitedNickname && isClickedCheckBtn) ||
+        (isExitedRepositories && isClickedCheckRepositoriesBtn)) && (
         <ErrorMessage $isPW={category === 'password'}>
           {ERROR_MSG[category as keyof typeof ERROR_MSG]}
         </ErrorMessage>
@@ -128,6 +148,8 @@ const CommonInputWrapper = styled.article<{ $category: string }>`
         return `40.5rem`;
       case 'nickname':
         return `22.2rem`;
+      case 'repositories':
+        return `22.2rem`;
       default:
         return `29.6rem`;
     }
@@ -147,6 +169,8 @@ const InputWrapper = styled.div<{
         return `space-between`;
       case 'password':
         return `center`;
+      case 'repositories':
+        return `space-between`;
       default:
         return `start`;
     }
@@ -214,6 +238,8 @@ const Input = styled.input<{ $category: string }>`
         return `15.5rem`;
       case 'github':
         return `12.3rem`;
+      case `repositories`:
+        return `18.1rem`;
       default:
         return `20.1rem`;
     }
@@ -225,6 +251,8 @@ const Input = styled.input<{ $category: string }>`
       case 'num':
         return `0.2rem 0`;
       case `nickname`:
+        return `0.2rem 0 0.2rem`;
+      case `repositories`:
         return `0.2rem 0 0.2rem`;
       default:
         return `0.5rem 0 0.4rem`;
@@ -238,6 +266,8 @@ const Input = styled.input<{ $category: string }>`
         return `2rem`;
       case 'secretKey':
         return `0.8rem`;
+      case `repositories`:
+        return `2rem`;
       default:
         return 0;
     }
@@ -284,9 +314,12 @@ const Num = styled.p`
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-const IcWrapper = styled.div<{ $isNicknameSuccess: boolean }>`
-  ${({ $isNicknameSuccess }) =>
-    $isNicknameSuccess &&
+const IcWrapper = styled.div<{
+  $isNicknameSuccess?: boolean;
+  $isRepositoriesSuccess?: boolean;
+}>`
+  ${({ $isNicknameSuccess, $isRepositoriesSuccess }) =>
+    ($isNicknameSuccess || $isRepositoriesSuccess) &&
     css`
       margin-right: 1.2rem;
     `};
