@@ -7,6 +7,7 @@ import Github from '../components/Register/Gitbhub';
 import IntroInput from '../components/Register/IntroInput';
 import Language from '../components/Register/Language';
 import NickName from '../components/Register/NickName';
+import Repositories from '../components/Register/Repositories';
 import { patchProfile } from '../libs/apis/Register/patchProfile';
 import usePostCheckExitNickname from '../libs/hooks/MyProfile/usePostCheckExitNickname';
 
@@ -15,6 +16,7 @@ const RegisterPage = () => {
     nickname: '',
     github: '',
     intro: '',
+    repositories: '',
   });
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -23,7 +25,13 @@ const RegisterPage = () => {
     isClickedCheckBtn: false,
   });
 
+  const [changeRepositories, setchangeRepositories] = useState({
+    isExistNickname: false,
+    isClickedCheckBtn: false,
+  });
+
   const { isExistNickname, isClickedCheckBtn } = changeNickname;
+
   const { state } = useLocation();
 
   const navigate = useNavigate();
@@ -37,7 +45,7 @@ const RegisterPage = () => {
   }
   const userId = parseInt(id);
 
-  const { nickname, github, intro } = inputs;
+  const { nickname, github, intro, repositories } = inputs;
   const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
     setChangeNickname({
       isExistNickname: isExit,
@@ -110,6 +118,10 @@ const RegisterPage = () => {
     mutation(nickname);
   };
 
+  const handleRepositoriesCheck = () => {
+    // 리포지토리 체크 함수
+  };
+
   return (
     <PageLayout category={'login'}>
       <RegisterContainer onSubmit={handleJoinBtnClick}>
@@ -122,6 +134,12 @@ const RegisterPage = () => {
         <Language
           selectedTag={selectedLanguage}
           handleChangeTag={handleChangeTag}
+        />
+        <Repositories
+          repositories={repositories}
+          changeRepositories={changeRepositories}
+          handleChangeInputs={handleChangeInputs}
+          handleRepositoriesCheck={handleRepositoriesCheck}
         />
         <IntroInput value={intro} onChange={handleChangeIntro} />
         <Github github={github} handleChangeInputs={handleChangeInputs} />
