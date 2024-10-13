@@ -11,7 +11,7 @@ const CommonInput = ({
   value,
   isExitedNickname,
   isNotMatchedPW,
-  isExitedRepositories,
+  isExistRepositories,
   isClickedCheckRepositoriesBtn,
   handleChangeInputs,
 }: CommonInputProps) => {
@@ -25,7 +25,7 @@ const CommonInput = ({
       (value.length > 10 || (isExitedNickname && isClickedCheckBtn))) ||
     (category === 'password' && isNotMatchedPW) ||
     (category === 'repositories' &&
-      isExitedRepositories &&
+      isExistRepositories &&
       isClickedCheckRepositoriesBtn);
 
   const isNicknameSuccess =
@@ -37,7 +37,7 @@ const CommonInput = ({
   const isRepositoriesSuccess =
     category === 'repositories' &&
     isClickedCheckRepositoriesBtn &&
-    !isExitedRepositories;
+    !isExistRepositories;
 
   const [placeholder, setPlaceholder] = useState('');
 
@@ -120,7 +120,7 @@ const CommonInput = ({
 
       {(isNotMatchedPW ||
         (isExitedNickname && isClickedCheckBtn) ||
-        (isExitedRepositories && isClickedCheckRepositoriesBtn)) && (
+        (isExistRepositories && isClickedCheckRepositoriesBtn)) && (
         <ErrorMessage $isPW={category === 'password'}>
           {ERROR_MSG[category as keyof typeof ERROR_MSG]}
         </ErrorMessage>
@@ -239,7 +239,7 @@ const Input = styled.input<{ $category: string }>`
       case 'github':
         return `12.3rem`;
       case `repositories`:
-        return `18.1rem`;
+        return `17rem`;
       default:
         return `20.1rem`;
     }

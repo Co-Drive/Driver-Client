@@ -3,13 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
-import Github from '../components/Register/Gitbhub';
 import IntroInput from '../components/Register/IntroInput';
 import Language from '../components/Register/Language';
 import NickName from '../components/Register/NickName';
 import Repositories from '../components/Register/Repositories';
 import { patchProfile } from '../libs/apis/Register/patchProfile';
 import usePostCheckExitNickname from '../libs/hooks/MyProfile/usePostCheckExitNickname';
+import usePostCheckExitRepository from '../libs/hooks/MyProfile/usePostCheckExitRepository';
 
 const RegisterPage = () => {
   const [inputs, setInputs] = useState({
@@ -25,12 +25,14 @@ const RegisterPage = () => {
     isClickedCheckBtn: false,
   });
 
-  const [changeRepositories, setchangeRepositories] = useState({
-    isExistNickname: false,
-    isClickedCheckBtn: false,
+  const [changeRepositories, setChangeRepositories] = useState({
+    isExistRepositories: false,
+    isClickedCheckRepositoriesBtn: false,
   });
 
   const { isExistNickname, isClickedCheckBtn } = changeNickname;
+  const { isExistRepositories, isClickedCheckRepositoriesBtn } =
+    changeRepositories;
 
   const { state } = useLocation();
 
@@ -45,19 +47,30 @@ const RegisterPage = () => {
   }
   const userId = parseInt(id);
 
-  const { nickname, github, intro, repositories } = inputs;
-  const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
-    setChangeNickname({
-      isExistNickname: isExit,
-      isClickedCheckBtn: true,
-    })
+  const { nickname, intro, repositories } = inputs;
+  const { mutation: nicknameMutation } = usePostCheckExitNickname(
+    (isExit: boolean) =>
+      setChangeNickname({
+        isExistNickname: isExit,
+        isClickedCheckBtn: true,
+      })
+  );
+
+  const { mutation: repositoryMutation } = usePostCheckExitRepository(
+    (isExit: boolean) =>
+      setChangeRepositories({
+        isExistRepositories: isExit,
+        isClickedCheckRepositoriesBtn: true,
+      })
   );
 
   const isActive =
     nickname.length > 0 &&
     nickname.length <= 10 &&
     isClickedCheckBtn &&
+    isClickedCheckRepositoriesBtn &&
     !isExistNickname &&
+    !isExistRepositories &&
     selectedLanguage.length > 0;
 
   // 입력 값 변경 처리 함수
@@ -72,6 +85,13 @@ const RegisterPage = () => {
       setChangeNickname((prev) => ({
         ...prev,
         isClickedCheckBtn: false,
+      }));
+    }
+
+    if (name === 'repositories') {
+      setChangeRepositories((prev) => ({
+        ...prev,
+        isClickedCheckRepositoriesBtn: false,
       }));
     }
   };
@@ -95,7 +115,7 @@ const RegisterPage = () => {
       nickname: nickname,
       language: selectedLanguage,
       comment: intro,
-      githubUrl: github,
+      githubRepositoryName: repositories,
     };
 
     try {
@@ -115,11 +135,11 @@ const RegisterPage = () => {
 
   // 닉네임 중복 체크 함수
   const handleNicknameCheck = () => {
-    mutation(nickname);
+    nicknameMutation(nickname);
   };
 
   const handleRepositoriesCheck = () => {
-    // 리포지토리 체크 함수
+    repositoryMutation(repositories);
   };
 
   return (
@@ -142,7 +162,6 @@ const RegisterPage = () => {
           handleRepositoriesCheck={handleRepositoriesCheck}
         />
         <IntroInput value={intro} onChange={handleChangeIntro} />
-        <Github github={github} handleChangeInputs={handleChangeInputs} />
         <RegisterButton>
           <CommonButton
             isActive={isActive}

@@ -3,8 +3,8 @@ import CommonInput from '../../common/CommonInput';
 interface RepositoriesProps {
   repositories: string;
   changeRepositories: {
-    isExistNickname: boolean;
-    isClickedCheckBtn: boolean;
+    isExistRepositories: boolean;
+    isClickedCheckRepositoriesBtn: boolean;
   };
   handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRepositoriesCheck: () => void;
@@ -16,7 +16,7 @@ const Repositories = ({
   handleChangeInputs,
   handleRepositoriesCheck,
 }: RepositoriesProps) => {
-  const { isExitedRepositories, isClickedCheckRepositoriesBtn } =
+  const { isExistRepositories, isClickedCheckRepositoriesBtn } =
     changeRepositories;
 
   return (
@@ -31,7 +31,7 @@ const Repositories = ({
           category="repositories"
           value={repositories}
           isClickedCheckRepositoriesBtn={isClickedCheckRepositoriesBtn}
-          isExitedRepositories={isExitedRepositories}
+          isExistRepositories={isExistRepositories}
           handleChangeInputs={handleChangeInputs}
         />
         <Button type="button" onClick={handleRepositoriesCheck}>
