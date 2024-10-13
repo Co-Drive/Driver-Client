@@ -19,6 +19,6 @@ const GroupAllPageContainer = styled.section`
   display: flex;
   flex-direction: column;
 
-  width: 100%;
-  padding: 6rem 25.7rem 18rem;
+  width: 92.6rem;
+  padding: 6rem 0 18rem;
 `;

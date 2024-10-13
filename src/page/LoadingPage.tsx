@@ -2,9 +2,13 @@ import Lottie from 'lottie-react';
 import styled from 'styled-components';
 import animationData from '../assets/lottie/lottie.json';
 
-const LoadingPage = () => {
+interface LoadingPageProps {
+  isPageLoading?: boolean;
+}
+
+const LoadingPage = ({ isPageLoading }: LoadingPageProps) => {
   return (
-    <LoadingPageContainer>
+    <LoadingPageContainer $isPageLoading={isPageLoading}>
       <LottieContainer>
         <Lottie animationData={animationData} />
       </LottieContainer>
@@ -14,14 +18,15 @@ const LoadingPage = () => {
 
 export default LoadingPage;
 
-const LoadingPageContainer = styled.section`
+const LoadingPageContainer = styled.section<{ $isPageLoading?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
   width: 100vw;
-  height: 100dvh;
+  height: ${({ $isPageLoading }) =>
+    $isPageLoading ? 'calc(100vh - 11.6rem)' : '100vh'};
 `;
 
 const LottieContainer = styled.article`

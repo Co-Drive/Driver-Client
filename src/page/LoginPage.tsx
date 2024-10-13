@@ -1,10 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcLoginBig } from '../assets';
 import LoginButton from '../components/Login/LoginButton';
 import PageLayout from '../components/PageLayout/PageLayout';
 
 const LoginPage = () => {
+  const { state } = useLocation();
+  const { roomId } = state || {};
+
   const navigate = useNavigate();
   const isAlreadyLogin =
     sessionStorage.getItem('user') ||
@@ -12,9 +15,12 @@ const LoginPage = () => {
     sessionStorage.getItem('token') ||
     sessionStorage.getItem('refresh') ||
     sessionStorage.getItem('profileImg');
+  const isNotResgisted = sessionStorage.getItem('language') === '사용언어';
   const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
   const redirectUrl = import.meta.env.VITE_GITHUB_REDIRECT_URI;
-  const githubURL = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=repo`;
+  const githubURL = state
+    ? `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=repo&state=${roomId}`
+    : `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=repo`;
   const onClickSocialLogin = () => {
     window.location.href = githubURL;
   };
@@ -24,10 +30,10 @@ const LoginPage = () => {
       <LoginContainer>
         <Title>성공적인 코딩테스트를 위한 최적의 경로</Title>
         <IcLoginBig />
-        {isAlreadyLogin ? (
-          <HomeBtn onClick={() => navigate('/')}>홈으로</HomeBtn>
-        ) : (
+        {!isAlreadyLogin || isNotResgisted ? (
           <LoginButton onClick={onClickSocialLogin} />
+        ) : (
+          <HomeBtn onClick={() => navigate('/')}>홈으로</HomeBtn>
         )}
       </LoginContainer>
     </PageLayout>

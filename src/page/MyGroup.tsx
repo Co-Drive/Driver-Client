@@ -28,6 +28,6 @@ const GroupAllPageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  width: 100%;
-  padding: 6rem 21.5rem 17.8rem;
+  width: 101rem;
+  padding: 6rem 0 17.8rem;
 `;

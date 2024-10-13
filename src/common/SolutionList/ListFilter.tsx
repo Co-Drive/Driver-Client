@@ -52,7 +52,7 @@ const ListFilter = ({
               date={{ clickedYear: year, clickedMonth: month }}
               unsolvedMonths={unsolvedMonths.current}
               handleClickPrevBtn={() => handleClickPrevBtn(false)}
-              handleClickMonth={() => handleClickMonth(month, false)}
+              handleClickMonth={handleClickMonth}
               handleClickNextBtn={() => handleClickNextBtn(false)}
             />
           </>

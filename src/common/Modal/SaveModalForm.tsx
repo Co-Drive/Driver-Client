@@ -5,6 +5,7 @@ import usePostTempRecords from '../../libs/hooks/Solve/usePostTempRecords';
 import { ModalProps } from '../../types/Solve/solveTypes';
 
 const SaveModalForm = ({
+  id,
   onClose,
   handlePostTempErr,
   questionInfo,
@@ -14,7 +15,7 @@ const SaveModalForm = ({
 
   const handleClickExitBtn = () => {
     if (questionInfo && codeblocks) {
-      mutation({ questionInfo, codeblocks });
+      mutation({ id, questionInfo, codeblocks });
     }
   };
 

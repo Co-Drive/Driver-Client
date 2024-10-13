@@ -46,6 +46,7 @@ const PageHeader = ({
               codeblocks: codeblocks,
             })
           : postMutation({
+              id: id,
               questionInfo: questionInfo,
               codeblocks: codeblocks,
             });
@@ -97,6 +98,7 @@ const PageHeader = ({
       </BtnContainer>
       {modalOpen && (
         <SaveModal
+          id={id}
           onClose={handleModalClose}
           handlePostTempErr={handlePostTempErr}
           questionInfo={questionInfo}

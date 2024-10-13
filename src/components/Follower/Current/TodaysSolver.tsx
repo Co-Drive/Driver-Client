@@ -58,7 +58,6 @@ const TodaysSolverContainer = styled.article`
   gap: 3.2rem;
   justify-content: center;
   flex-direction: column;
-  flex-grow: 1;
 `;
 
 const Header = styled.header`

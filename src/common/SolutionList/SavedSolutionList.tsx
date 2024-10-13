@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
 import useGetMonthlySolution from '../../libs/hooks/Solution/useGetMonthlySolution';
 import {
+  ClickedValueProps,
   UpdateSavedRecordsProps,
   UpdateTotalPageProps,
 } from '../../types/Solution/solutionTypes';
@@ -103,13 +104,19 @@ const SavedSolutionList = ({
     removeSavedPage();
   };
 
-  const handleClickValue = (value: number, isPage: boolean) => {
-    isPage
-      ? setClickedPage(value)
-      : setSelectedDate({
+  const handleClickValue = ({ e, value }: ClickedValueProps) => {
+    if (value) {
+      setClickedPage(value);
+    } else {
+      if (e) {
+        const clickedMonth = parseInt(e.currentTarget.innerHTML);
+        setSelectedDate({
           ...selectedDate,
-          month: month,
+          month: clickedMonth,
         });
+      }
+    }
+
     removeSavedPage();
   };
 
@@ -165,7 +172,7 @@ const SavedSolutionList = ({
                   <PageNumber
                     key={page}
                     $isClicked={clickedPage === page}
-                    onClick={() => handleClickValue(page, true)}
+                    onClick={() => handleClickValue({ value: page })}
                   >
                     {page}
                   </PageNumber>

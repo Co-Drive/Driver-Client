@@ -21,14 +21,21 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
   });
   const { joinedRooms } = !isLoading && data?.data;
 
-  const handleClickCard = ({ groupId, userId, isMember }: ClickCardProps) => {
+  const handleClickCard = ({
+    groupId,
+    userId,
+    isMember,
+    isPublicRoom,
+  }: ClickCardProps) => {
     const myId = sessionStorage.getItem('user');
     if (myId && parseInt(myId) === userId) {
       navigate(`/group/${groupId}/admin`);
     } else {
       isMember
         ? navigate(`/group/${groupId}/member`)
-        : navigate(`/group/${groupId}`);
+        : navigate(`/group/${groupId}`, {
+            state: { isPublicRoom: isPublicRoom },
+          });
     }
   };
 
@@ -50,6 +57,7 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
               introduce,
               owner,
               isMember,
+              isPublicRoom,
             } = room;
             const { userId } = owner;
             const renderTags = tags.length > 5 ? ALL_TAG : tags;
@@ -58,7 +66,12 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
               <CardContainer
                 key={roomId}
                 onClick={() =>
-                  handleClickCard({ groupId: roomId, userId, isMember })
+                  handleClickCard({
+                    groupId: roomId,
+                    userId,
+                    isMember,
+                    isPublicRoom,
+                  })
                 }
               >
                 <Img src={imageSrc} />
