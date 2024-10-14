@@ -1,49 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcAdd, IcMinusWhite } from '../../assets';
 import ErrorModal from '../../common/Modal/ErrorModal/ErrorModal';
+import useGetUser from '../../libs/hooks/MyProfile/useGetUser';
 import usePatchGoal from '../../libs/hooks/MyProfile/usePatchGoal';
 
 const MyGoal = () => {
   const { mutation, patchGoalErr } = usePatchGoal(() => setIsSaved(true));
+  const { data, isLoading } = useGetUser();
+  const { goal } = !isLoading && data?.data;
 
   const isError = patchGoalErr.length > 0;
 
-  // 서버에서 받아온 목표 값으로 초기화, 로컬 저장소에서 값 불러오기
-  // const [number, setNumber] = useState(() => {
-  //   const savedGoal = localStorage.getItem('goal');
-  //   return savedGoal ? parseInt(savedGoal, 10) : 0;
-  // });
-
-  const [number, setNumber] = useState(0);
-  const [isSaved, setIsSaved] = useState(false);
+  const [number, setNumber] = useState(goal || 1);
+  const [isSaved, setIsSaved] = useState(true);
   const [onErrModal, setOnErrModal] = useState(isError);
-  const location = useLocation(); // 현재 페이지 경로 감지
-
-  useEffect(() => {
-    const savedGoal = localStorage.getItem('goal');
-    const savedIsSaved = localStorage.getItem('isSaved') === 'true';
-
-    if (savedGoal) setNumber(parseInt(savedGoal, 10));
-    setIsSaved(savedIsSaved);
-  }, []);
-
-  // 페이지 경로가 변경될 때마다 isSaved를 false로 설정
-  useEffect(() => {
-    const handleRouteChange = () => {
-      console.log('Route changed, setting isSaved to false');
-      localStorage.setItem('isSaved', 'true');
-      setIsSaved(true); // 상태 업데이트
-    };
-
-    handleRouteChange(); // 페이지 이동 시마다 호출
-  }, [location]); // location이 변경될 때마다 실행
-
-  // const [isSaved, setIsSaved] = useState(() => {
-  //   const savedIsSaved = localStorage.getItem('isSaved');
-  //   return savedIsSaved === 'true';
-  // });
 
   const handleSaveBtnClick = () => {
     if (number === 0) {
@@ -52,12 +23,9 @@ const MyGoal = () => {
     }
     setIsSaved(true);
     mutation(number);
-    localStorage.setItem('goal', number.toString());
-    localStorage.setItem('isSaved', 'true');
   };
 
   const handleCancelBtnClick = () => {
-    localStorage.setItem('isSaved', 'false');
     setIsSaved(false);
   };
 
@@ -66,14 +34,14 @@ const MyGoal = () => {
   // 증가 함수: isActionAllowed가 true일 경우에만 작동
   const increaseNumber = () => {
     if (isActionAllowed && number < 7) {
-      setNumber((prev) => prev + 1);
+      setNumber((prev: number) => prev + 1);
     }
   };
 
   // 감소 함수: isActionAllowed가 true일 경우에만 작동
   const decreaseNumber = () => {
     if (isActionAllowed && number > 0) {
-      setNumber((prev) => prev - 1);
+      setNumber((prev: number) => prev - 1);
     }
   };
 
