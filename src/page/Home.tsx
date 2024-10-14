@@ -13,14 +13,14 @@ const Home = () => {
   const language = sessionStorage.getItem('language');
   const isNotRegisted = language === '사용언어';
 
-  if (!user || isNotRegisted) {
-    useEffect(() => {
-      !user ? navigate('/login') : navigate('/register');
-    }, []);
+  const userId = parseInt(user!);
 
+  useEffect(() => {
+    if (!user || isNotRegisted) {
+      !user ? navigate('/login') : navigate('/register');
+    }
     return;
-  }
-  const userId = parseInt(user);
+  });
 
   return (
     <PageLayout category="홈">
