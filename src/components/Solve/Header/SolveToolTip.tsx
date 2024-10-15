@@ -1,61 +1,8 @@
 import styled from 'styled-components';
-import {
-  IcCancelSmallWhite,
-  IcLevelFive,
-  IcLevelFour,
-  IcLevelOne,
-  IcLevelThree,
-  IcLevelTwo,
-} from '../../../assets';
+import { IcCancelSmallWhite } from '../../../assets';
 import ModalPortal from '../../../common/Modal/ModalPortal';
-
-const TooltipData = [
-  {
-    star: <IcLevelOne />,
-    rank: 'Bronze',
-    level: 'Level 1',
-    swea: 'D1 - D2',
-    letCode: 'Easy',
-    hackerRank: 'Easy',
-  },
-  {
-    star: <IcLevelTwo />,
-    rank: 'Sliver',
-    level: 'Level 2',
-    swea: 'D2 - D3',
-    letCode: 'Easy',
-    hackerRank: 'Easy',
-  },
-  {
-    star: <IcLevelThree />,
-    rank: 'Gold',
-    level: 'Level 2',
-    swea: 'D4',
-    letCode: 'Medium',
-    hackerRank: 'Medium',
-  },
-  {
-    star: <IcLevelFour />,
-    rank: 'Platinum',
-    level: 'Level 3',
-    swea: 'D5',
-    letCode: 'Medium',
-    hackerRank: 'Medium',
-  },
-  {
-    star: <IcLevelFive />,
-    rank: '그 이상',
-    level: '그 이상',
-    swea: 'D6 - D8',
-    letCode: 'Hard',
-    hackerRank: 'Hard',
-  },
-];
-
-interface SolveToopTipProps {
-  isOpen: boolean;
-  handleClose: () => void;
-}
+import { TooltipData } from '../../../constants/Solve/SolveTooltipConst';
+import { SolveToopTipProps } from '../../../types/Solve/solveTooltipTypes';
 
 const SolveToolTip = ({ isOpen, handleClose }: SolveToopTipProps) => {
   return (
@@ -87,7 +34,7 @@ const SolveToolTip = ({ isOpen, handleClose }: SolveToopTipProps) => {
                       {data.swea}
                     </DataContent>
                     <DataContent $contentType="리트코드">
-                      <Name>리트코트</Name>
+                      <Name>리트코드</Name>
                       {data.letCode}
                     </DataContent>
                     <DataContent $contentType="해커랭크">
