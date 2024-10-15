@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
 import useGetRoomsSort from '../../libs/hooks/GroupAll/useGetRoomSort';
-import LoadingPage from '../../page/LoadingPage';
 import { removeSavedPage } from '../../utils/removeSavedPage';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
@@ -28,7 +27,7 @@ const GroupItem = () => {
   const secondRowTags = ['Kotlin', 'Swift', 'Ruby', 'Scala', 'Go'];
 
   // useGetRoomsSort 훅에서 데이터를 가져옴
-  const { data, isLoading } = useGetRoomsSort({
+  const { data } = useGetRoomsSort({
     sortType: sorting,
     page: clickedPage - 1,
     request: {
@@ -110,45 +109,39 @@ const GroupItem = () => {
 
   return (
     <GroupContainer>
-      {isLoading ? (
-        <LoadingPage isPageLoading={true} />
-      ) : (
-        <>
-          <GroupTitle>그룹 전체 보기</GroupTitle>
-          <TopContainer>
-            <LanguageSelectBox
-              selectedTags={selectedTags}
-              setSelectedTags={setSelectedTags}
-              sliderValues={sliderValues}
-              setSliderValues={setSliderValues}
-            />
-            <SearchBar handleChangeSearchBar={handleChangeSearchBar} />
-          </TopContainer>
-          <SortContainer>
-            {SORTING.map((standard) => (
-              <Sorting
-                key={standard}
-                onClick={(e) => standard !== '|' && handleClickSorting(e, true)}
-                $isClicked={sorting === standard}
-              >
-                {standard}
-              </Sorting>
-            ))}
-          </SortContainer>
-          <GroupsItemContainer>
-            <Groups
-              group={searchResults}
-              totalPage={totalPageRef.current}
-              clickedPage={clickedPage}
-              handleClickPages={{
-                handleClickPrevBtn: handleClickPrevBtn,
-                handleClickPage: handleClickPage,
-                handleClickNextBtn: handleClickNextBtn,
-              }}
-            />
-          </GroupsItemContainer>
-        </>
-      )}
+      <GroupTitle>그룹 전체 보기</GroupTitle>
+      <TopContainer>
+        <LanguageSelectBox
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
+          sliderValues={sliderValues}
+          setSliderValues={setSliderValues}
+        />
+        <SearchBar handleChangeSearchBar={handleChangeSearchBar} />
+      </TopContainer>
+      <SortContainer>
+        {SORTING.map((standard) => (
+          <Sorting
+            key={standard}
+            onClick={(e) => standard !== '|' && handleClickSorting(e, true)}
+            $isClicked={sorting === standard}
+          >
+            {standard}
+          </Sorting>
+        ))}
+      </SortContainer>
+      <GroupsItemContainer>
+        <Groups
+          group={searchResults}
+          totalPage={totalPageRef.current}
+          clickedPage={clickedPage}
+          handleClickPages={{
+            handleClickPrevBtn: handleClickPrevBtn,
+            handleClickPage: handleClickPage,
+            handleClickNextBtn: handleClickNextBtn,
+          }}
+        />
+      </GroupsItemContainer>
     </GroupContainer>
   );
 };
