@@ -3,14 +3,37 @@ import styled from 'styled-components';
 
 // 리차트에서 제공되는 tooltip 사용
 // number와 string은 각각 chartData 에서 주는데, name : string, value : number
-const CustomToolTip = ({ active, payload }: TooltipProps<number, string>) => {
-  if (active && payload && payload.length) {
-    return <TooltipContainer>{`${payload[0].value}%`}</TooltipContainer>;
+const CustomToolTip = ({
+  active,
+  payload,
+  coordinate,
+}: TooltipProps<number, string>) => {
+  if (active && payload && payload.length && coordinate) {
+    const { x = 0, y = 0 } = coordinate;
+    const tooltipWidth = 47; // 툴팁 너비
+    const tooltipHeight = 26; // 툴팁 높이
+    return (
+      <Container
+        style={{
+          transform: `translate(${x - tooltipWidth / 2}px, ${
+            y - tooltipHeight / 2
+          }px)`,
+        }}
+      >
+        <TooltipContainer>{`${payload[0].value}%`}</TooltipContainer>
+      </Container>
+    );
   }
   return null;
 };
 
 export default CustomToolTip;
+
+const Container = styled.div`
+  position: absolute;
+
+  /* width: 4.7rem; */
+`;
 
 const TooltipContainer = styled.div`
   padding: 0.6rem 1rem;
