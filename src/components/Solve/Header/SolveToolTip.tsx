@@ -108,16 +108,19 @@ const SolveToolTip = ({ isOpen, handleClose }: SolveToopTipProps) => {
 export default SolveToolTip;
 
 const Title = styled.p`
-  color: ${({ theme }) => theme.colors.gray200};
-  ${({ theme }) => theme.fonts.title_bold_14};
   margin-right: 55.9rem;
   margin-left: 1rem;
+
+  color: ${({ theme }) => theme.colors.gray200};
+
+  ${({ theme }) => theme.fonts.title_bold_14};
 `;
 
 const Header = styled.div`
   display: flex;
-  margin-bottom: 3rem;
   justify-content: end;
+
+  margin-bottom: 3rem;
 `;
 
 const CloseButton = styled.div`
@@ -136,14 +139,15 @@ const ModalContainer = styled.div`
 
   width: 100%;
   height: 100%;
+
   background-color: rgb(0 0 0 / 90%);
 `;
 
 const ModalContent = styled.div`
   position: relative;
+  bottom: 8rem;
 
   padding: 3rem;
-  bottom: 8rem;
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -151,19 +155,18 @@ const ModalContent = styled.div`
 
 const DataTable = styled.div`
   display: flex;
-  flex-direction: column;
-
   gap: 0.6rem;
+  flex-direction: column;
 `;
 
 const TableRow = styled.div`
   display: flex;
+  gap: 4rem;
 
   padding: 1.7rem 2.8rem 2.2rem 1.8rem;
-  gap: 4rem;
-  background-color: ${({ theme }) => theme.colors.gray700};
 
   border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
 `;
 
 const Stars = styled.div`
@@ -174,11 +177,9 @@ const Stars = styled.div`
 
 const DataContent = styled.div<{ $contentType?: string }>`
   display: flex;
-  flex-direction: column;
-  color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.title_regular_14};
-  white-space: nowrap;
   gap: 1rem;
+  flex-direction: column;
+
   width: ${({ $contentType }) => {
     switch ($contentType) {
       case '백준':
@@ -194,6 +195,11 @@ const DataContent = styled.div<{ $contentType?: string }>`
       default:
     }
   }};
+
+  color: ${({ theme }) => theme.colors.white};
+
+  ${({ theme }) => theme.fonts.title_regular_14};
+  white-space: nowrap;
 `;
 
 const Name = styled.p`

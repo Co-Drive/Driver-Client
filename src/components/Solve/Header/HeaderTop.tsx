@@ -96,7 +96,7 @@ const TitleContainer = styled.div`
 const TitleInput = styled.input`
   overflow: hidden;
 
-  width: 100%;
+  width: 60.9rem;
 
   border: none;
   outline: none;
