@@ -6,14 +6,12 @@ import useGetUser from '../../libs/hooks/MyProfile/useGetUser';
 import usePatchGoal from '../../libs/hooks/MyProfile/usePatchGoal';
 
 const MyGoal = () => {
-  const { mutation, patchGoalErr } = usePatchGoal(() => setIsSaved(true));
   const { data, isLoading } = useGetUser();
   const { goal } = !isLoading && data?.data;
-
-  const isError = patchGoalErr.length > 0;
-
   const [number, setNumber] = useState(goal || 1);
   const [isSaved, setIsSaved] = useState(true);
+  const { mutation, patchGoalErr } = usePatchGoal(() => setIsSaved(true));
+  const isError = patchGoalErr.length > 0;
   const [onErrModal, setOnErrModal] = useState(isError);
 
   const handleSaveBtnClick = () => {
