@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { IcSecretBigWhite } from '../assets';
 import { ALL_TAG } from '../constants/utils/allTag';
 import { ClickCardProps } from '../types/Follower/Personal/personalType';
 import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
@@ -11,14 +12,27 @@ const RecommendCard = ({
 }: RecommendCardProps) => {
   const navigate = useNavigate();
 
-  const handleClickCard = ({ groupId, userId, isMember, isPublicRoom }: ClickCardProps) => {
+  const handleClickCard = ({
+    groupId,
+    userId,
+    isMember,
+    isPublicRoom,
+  }: ClickCardProps) => {
     const myId = sessionStorage.getItem('user');
-    if (myId && parseInt(myId) === userId) {
+    const isOwner = myId && parseInt(myId) === userId;
+    const navigatedPage = isPublicRoom ? `/group/${groupId}` : '/group-join';
+    const navigatedState = isPublicRoom
+      ? { isPublicRoom: isPublicRoom }
+      : { roomId: groupId.toString(), notNavigateDetail: true };
+
+    if (isOwner) {
       navigate(`/group/${groupId}/admin`);
     } else {
       isMember
         ? navigate(`/group/${groupId}/member`)
-        : navigate(`/group/${groupId}`, {state: {isPublicRoom: isPublicRoom}});
+        : navigate(navigatedPage, {
+            state: navigatedState,
+          });
     }
 
     if (clickedPage)
@@ -49,10 +63,23 @@ const RecommendCard = ({
           <CardContainer
             key={roomId}
             onClick={() =>
-              handleClickCard({ groupId: roomId, isMember, userId, isPublicRoom })
+              handleClickCard({
+                groupId: roomId,
+                isMember,
+                userId,
+                isPublicRoom,
+              })
             }
           >
-            <Img src={imageSrc} />
+            <CardImgContainer>
+              {!isPublicRoom && (
+                <SecretCardBg>
+                  <IcSecretBigWhite />
+                  <SecretCardDesc>해당 그룹은 비빌그룹 입니다</SecretCardDesc>
+                </SecretCardBg>
+              )}
+              <Img src={imageSrc} />
+            </CardImgContainer>
 
             <Info>
               <CardHeader>
@@ -108,9 +135,35 @@ const CardContainer = styled.div`
   flex-direction: column;
 `;
 
-const Img = styled.img`
+const CardImgContainer = styled.div`
+  position: relative;
+
   width: 100%;
   height: 17.8rem;
+`;
+
+const SecretCardBg = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  inset: 0;
+
+  border-radius: 1.6rem;
+  background-color: ${({ theme }) => theme.colors.gray800};
+  opacity: 0.7;
+`;
+
+const SecretCardDesc = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_medium_16};
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
 
   border-radius: 1.6rem;
 
