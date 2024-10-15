@@ -53,7 +53,6 @@ const GroupJoin = () => {
   }, [isLoading, notNavigateDetail]);
 
   return (
-    /* category 역할이 헤더 눌렀을 떄 어떤 페이지로 이동하냐인데, 그룹 생성 완료하면 카테고리 변경하기  */
     <PageLayout category={'group'}>
       {isPageLoading ? (
         <LoadingPage isPageLoading={true} />
