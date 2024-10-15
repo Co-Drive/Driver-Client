@@ -11,6 +11,8 @@ import IntroInfo from '../Profile/IntroInfo';
 import LanguageInfo from '../Profile/LanguageInfo';
 import NameInfo from '../Profile/NameInfo';
 import NicknameInfo from '../Profile/NicknameInfo';
+import usePostCheckExitRepository from './../../libs/hooks/MyProfile/usePostCheckExitRepository';
+import RepositoriesInfo from './../Profile/RepositoriesInfo';
 
 const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const [inputs, setInputs] = useState(initialData);
@@ -22,8 +24,15 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
     isExitNickname: false,
     isClickedCheckBtn: false,
   });
+  const [changeRepositories, setChangeRepositories] = useState({
+    repositories: initialData.githubRepositoryName,
+    isExistRepositories: false,
+    isClickedCheckRepositoriesBtn: false,
+  });
 
   const { originNickname, isExitNickname, isClickedCheckBtn } = changeNickname;
+  const { isExistRepositories, isClickedCheckRepositoriesBtn, repositories } =
+    changeRepositories;
   const { comment, githubUrl, language, nickname, name } = inputs;
   const githubNickname = githubUrl.split('/')[githubUrl.split('/').length - 1];
 
@@ -31,12 +40,23 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
     nickname,
     handleCloseModal,
   });
-  const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
-    setChangeNickname({
-      ...changeNickname,
-      isExitNickname: isExit,
-      isClickedCheckBtn: true,
-    })
+  const { mutation: nicknameMutation } = usePostCheckExitNickname(
+    (isExit: boolean) =>
+      setChangeNickname({
+        ...changeNickname,
+        isExitNickname: isExit,
+        isClickedCheckBtn: true,
+      })
+  );
+
+  const { mutation: repositoryMutation } = usePostCheckExitRepository(
+    (isExit: boolean) => {
+      setChangeRepositories({
+        ...changeRepositories,
+        isExistRepositories: isExit,
+        isClickedCheckRepositoriesBtn: true,
+      });
+    }
   );
 
   const isError = patchUserErr.length > 0;
@@ -85,6 +105,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
       githubUrl,
       language: selectedLanguage,
       nickname,
+      githubRepositoryName: repositories,
     });
 
     if (isError) {
@@ -102,7 +123,11 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
 
   // 닉네임 중복 체크 함수
   const handleNicknameCheck = () => {
-    mutation(nickname);
+    nicknameMutation(nickname);
+  };
+
+  const handleRepositoriesCheck = () => {
+    repositoryMutation(repositories);
   };
 
   useEffect(() => {
@@ -115,6 +140,12 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
         <BasicInfoContainer>
           <BasicTitle>기본정보</BasicTitle>
           <NameInfo user={name} />
+          <RepositoriesInfo
+            changeRepositories={changeRepositories}
+            repositories={repositories}
+            handleChangeInputs={handleChangeInputs}
+            handleRepositoriesCheck={handleRepositoriesCheck}
+          />
           <GithubInfo
             github={githubNickname}
             handleChangeInputs={(e) => {
