@@ -11,8 +11,8 @@ import IntroInfo from '../Profile/IntroInfo';
 import LanguageInfo from '../Profile/LanguageInfo';
 import NameInfo from '../Profile/NameInfo';
 import NicknameInfo from '../Profile/NicknameInfo';
+import RepositoriesInfo from '../Profile/RepositoriesInfo';
 import usePostCheckExitRepository from './../../libs/hooks/MyProfile/usePostCheckExitRepository';
-import RepositoriesInfo from './../Profile/RepositoriesInfo';
 
 const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const [inputs, setInputs] = useState(initialData);
@@ -24,6 +24,7 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
     isExitNickname: false,
     isClickedCheckBtn: false,
   });
+
   const [changeRepositories, setChangeRepositories] = useState({
     repositories: initialData.githubRepositoryName,
     isExistRepositories: false,
@@ -33,8 +34,11 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const { originNickname, isExitNickname, isClickedCheckBtn } = changeNickname;
   const { isExistRepositories, isClickedCheckRepositoriesBtn, repositories } =
     changeRepositories;
-  const { comment, githubUrl, language, nickname, name } = inputs;
-  const githubNickname = githubUrl.split('/')[githubUrl.split('/').length - 1];
+  const { comment, githubUrl, language, nickname, name, githubRepositoryName } =
+    inputs;
+  const githubNickname = githubUrl
+    ? githubUrl.split('/')[githubUrl.split('/').length - 1]
+    : '';
 
   const { patchMutation, patchUserErr } = usePatchUser({
     nickname,
@@ -64,25 +68,42 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
 
   // 입력 값의 유효성을 검사하는 변수
   const isActive =
-    ((originNickname !== nickname &&
-      isClickedCheckBtn &&
-      !isExitNickname &&
-      nickname.length > 0 &&
-      nickname.length <= 10) ||
-      originNickname === nickname) &&
+    (originNickname === nickname || // 닉네임이 수정되지 않았으면 중복 체크 필요 없음
+      (originNickname !== nickname &&
+        isClickedCheckBtn &&
+        !isExitNickname &&
+        nickname.length > 0 &&
+        nickname.length <= 10)) &&
     ((language !== selectedLanguage && selectedLanguage.length > 0) ||
       language === selectedLanguage) &&
     (!comment || (comment.length > 0 && comment.length <= 30)) &&
-    (!githubUrl || githubUrl.length > 0);
+    (!githubUrl || githubUrl.length > 0) &&
+    (githubRepositoryName === repositories || // 리포지토리가 수정되지 않았으면 중복 체크 필요 없음
+      (githubRepositoryName !== repositories &&
+        isClickedCheckRepositoriesBtn &&
+        !isExistRepositories));
 
   // 입력 값 변경 처리 함수
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // 'repositories' 필드를 수정할 때 changeRepositories 상태를 업데이트
+    if (name === 'repositories') {
+      setChangeRepositories((prev) => ({
+        ...prev,
+        repositories: value,
+        isClickedCheckRepositoriesBtn: false,
+      }));
+    }
+
     setInputs((prev) => ({
       ...prev,
       [name]: value,
     }));
-    setChangeNickname({ ...changeNickname, isClickedCheckBtn: false });
+
+    if (name === 'nickname') {
+      setChangeNickname({ ...changeNickname, isClickedCheckBtn: false });
+    }
   };
 
   // 언어 태그 변경 처리 함수
