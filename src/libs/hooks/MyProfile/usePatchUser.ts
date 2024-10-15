@@ -18,8 +18,15 @@ const usePatchUser = ({ nickname, handleCloseModal }: usePatchUserProps) => {
       githubUrl,
       comment,
       language,
+      githubRepositoryName,
     }: PatchUserProps) =>
-      await patchUser({ nickname, githubUrl, comment, language }),
+      await patchUser({
+        nickname,
+        githubUrl,
+        comment,
+        language,
+        githubRepositoryName,
+      }),
     onError: (err: { response: { data: { message: string } } }) => {
       const { message } = err.response.data;
       setErrMsg(message);
