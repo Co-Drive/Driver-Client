@@ -15,10 +15,16 @@ import RepositoriesInfo from '../Profile/RepositoriesInfo';
 import usePostCheckExitRepository from './../../libs/hooks/MyProfile/usePostCheckExitRepository';
 
 const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
-  const [inputs, setInputs] = useState(initialData);
+  const [inputs, setInputs] = useState({
+    ...initialData,
+    githubUrl: `https://github.com/${initialData.username?.split('/').pop()}`, // GitHub URL 설정
+  });
+  console.log(inputs);
+
   const [selectedLanguage, setSelectedLanguage] = useState(
     initialData.language
   );
+
   const [changeNickname, setChangeNickname] = useState({
     originNickname: initialData.nickname,
     isExitNickname: false,
@@ -186,10 +192,6 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
         </BasicInfoContainer>
         <CodriveContainer>
           <CodriveTitle>코드라이브 정보</CodriveTitle>
-          <IntroInfo
-            value={comment ? comment : ''}
-            onChange={handleChangeComment}
-          />
           <NicknameInfo
             changeNickname={changeNickname}
             nickname={nickname}
@@ -199,6 +201,10 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
           <LanguageInfo
             selectedTag={selectedLanguage}
             handleChangeTag={handleChangeTag}
+          />
+          <IntroInfo
+            value={comment ? comment : ''}
+            onChange={handleChangeComment}
           />
         </CodriveContainer>
         <ProfileButton>
