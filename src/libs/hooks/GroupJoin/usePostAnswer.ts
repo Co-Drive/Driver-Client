@@ -17,7 +17,7 @@ const usePostAnswer = (roomId: number) => {
     },
   });
 
-  return { mutation: mutation.mutate, isMutationLoading: mutation.mutate };
+  return { mutation: mutation.mutate, isMutationLoading: mutation.isPending };
 };
 
 export default usePostAnswer;
