@@ -34,15 +34,12 @@ const CommonUserList = ({
   isAdmin,
 }: CommonUserListProps) => {
   const navigate = useNavigate();
-  const savedPage = sessionStorage.getItem('savedPage');
 
   const [modalOn, setModalOn] = useState({
     warningModal: false,
     saveModal: false,
   });
-  const [clickedPage, setClickedPage] = useState(
-    savedPage ? parseInt(savedPage) : 1
-  );
+  const [clickedPage, setClickedPage] = useState(1);
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
     clickedNickname: '',
@@ -61,6 +58,8 @@ const CommonUserList = ({
     : isFollowerList
       ? useGetFollowerSummary(props)
       : useGetMemberList(props);
+
+  console.log(clickedPage);
 
   const { data, isLoading } = getData;
   const { totalPage, followings, members, participants } =
