@@ -59,8 +59,6 @@ const CommonUserList = ({
       ? useGetFollowerSummary(props)
       : useGetMemberList(props);
 
-  console.log(clickedPage);
-
   const { data, isLoading } = getData;
   const { totalPage, followings, members, participants } =
     !isLoading && data.data;
