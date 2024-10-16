@@ -188,21 +188,20 @@ const ProfileImgContainer = styled.div<{
             ${$isNotRealUser
               ? theme.colors.gray400
               : theme.colors.codrive_green};
-          border-top: 0.4rem solid transparent;
         `
       : css`
           width: 4.2rem;
           height: 4.024rem;
-          padding: 0.2rem 0.4rem 0.424rem;
+          padding: 0.3rem 0.4rem 0.324rem;
 
           border: 0.1rem solid
             ${$isNotRealUser
               ? theme.colors.gray400
               : theme.colors.codrive_green};
-          border-top: 0.1rem solid transparent;
         `};
 
   border-radius: 50%;
+  clip-path: polygon(0 0, 0 7%, 100% 7%, 100% 100%, 0 100%);
 `;
 
 const ProfileImg = styled.img`
