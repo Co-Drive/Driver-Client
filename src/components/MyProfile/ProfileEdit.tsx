@@ -250,7 +250,6 @@ const ProfileContainer = styled.form`
 
   height: 55.4rem;
   padding: 6.4rem 9.6rem;
-  padding: 2rem;
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray900};
