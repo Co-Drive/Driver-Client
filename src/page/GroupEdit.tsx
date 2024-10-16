@@ -10,7 +10,7 @@ import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
 
-import getRooms from '../libs/apis/GroupEdit/getRooms';
+import getRoomsId from '../libs/apis/GroupEdit/getRoomsId';
 import patchRooms from './../libs/apis/GroupEdit/patchRooms';
 
 const GroupEdit = () => {
@@ -22,6 +22,7 @@ const GroupEdit = () => {
     secretKey: '',
     intro: '',
     group: '',
+    previewImage: '',
   });
 
   const [isPublicGroup, setIsPublicGroup] = useState<boolean | null>(null);
@@ -30,30 +31,36 @@ const GroupEdit = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const { title, num, secretKey, intro, group } = inputs;
+  console.log(inputs);
 
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
     group: 1000,
   };
 
+  useEffect(() => {
+    console.log(inputs);
+  }, [inputs]); // inputs 상태가 업데이트될 때마다 로그 출력
+
   // 그룹 정보 불러오기
   useEffect(() => {
     const fetchGroupData = async () => {
       try {
-        const data = await getRooms(Number(id));
+        const data = await getRoomsId(Number(id));
+        console.log(data);
         if (data) {
-          console.log(data); // 데이터를 확인하여 title, capacity 값 확인
           setInputs({
-            title: data.title || '', // title이 null이면 빈 값
-            num: data.capacity ? data.capacity.toString() : '0', // 모집 인원 0으로 초기화
+            title: data.title || '',
+            num: data.capacity ? data.capacity.toString() : '0',
             secretKey: data.password || '',
             intro: data.introduce || '',
             group: data.information || '',
+            previewImage: data.imageSrc || null,
           });
           setSelectedTags(data.tags || []);
           setIsPublicGroup(!data.password);
-          if (data.imageUrl) {
-            setPreviewImage(data.imageUrl);
+          if (data.imageSrc) {
+            setPreviewImage(data.imageSrc);
           }
         }
       } catch (error) {
@@ -61,7 +68,7 @@ const GroupEdit = () => {
       }
     };
     fetchGroupData();
-  }, [id]);
+  }, [id]); // id가 바뀔 때마다 fetchGroupData 실행
 
   // 입력값 처리 함수
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
@@ -113,7 +120,6 @@ const GroupEdit = () => {
     try {
       if (isActive) {
         await patchRooms(
-          Number(id), // roomId 대신 id 사용
           title,
           secretKey,
           Number(num),
