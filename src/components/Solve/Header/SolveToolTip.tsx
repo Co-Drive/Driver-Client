@@ -1,61 +1,8 @@
 import styled from 'styled-components';
-import {
-  IcCancelSmallWhite,
-  IcLevelFive,
-  IcLevelFour,
-  IcLevelOne,
-  IcLevelThree,
-  IcLevelTwo,
-} from '../../../assets';
+import { IcCancelSmallWhite } from '../../../assets';
 import ModalPortal from '../../../common/Modal/ModalPortal';
-
-const TooltipData = [
-  {
-    star: <IcLevelOne />,
-    rank: 'Bronze',
-    level: 'Level 1',
-    swea: 'D1 - D2',
-    letCode: 'Easy',
-    hackerRank: 'Easy',
-  },
-  {
-    star: <IcLevelTwo />,
-    rank: 'Sliver',
-    level: 'Level 2',
-    swea: 'D2 - D3',
-    letCode: 'Easy',
-    hackerRank: 'Easy',
-  },
-  {
-    star: <IcLevelThree />,
-    rank: 'Gold',
-    level: 'Level 2',
-    swea: 'D4',
-    letCode: 'Medium',
-    hackerRank: 'Medium',
-  },
-  {
-    star: <IcLevelFour />,
-    rank: 'Platinum',
-    level: 'Level 3',
-    swea: 'D5',
-    letCode: 'Medium',
-    hackerRank: 'Medium',
-  },
-  {
-    star: <IcLevelFive />,
-    rank: '그 이상',
-    level: '그 이상',
-    swea: 'D6 - D8',
-    letCode: 'Hard',
-    hackerRank: 'Hard',
-  },
-];
-
-interface SolveToopTipProps {
-  isOpen: boolean;
-  handleClose: () => void;
-}
+import { TooltipData } from '../../../constants/Solve/SolveTooltipConst';
+import { SolveToopTipProps } from '../../../types/Solve/solveTooltipTypes';
 
 const SolveToolTip = ({ isOpen, handleClose }: SolveToopTipProps) => {
   return (
@@ -87,7 +34,7 @@ const SolveToolTip = ({ isOpen, handleClose }: SolveToopTipProps) => {
                       {data.swea}
                     </DataContent>
                     <DataContent $contentType="리트코드">
-                      <Name>리트코트</Name>
+                      <Name>리트코드</Name>
                       {data.letCode}
                     </DataContent>
                     <DataContent $contentType="해커랭크">
@@ -108,16 +55,19 @@ const SolveToolTip = ({ isOpen, handleClose }: SolveToopTipProps) => {
 export default SolveToolTip;
 
 const Title = styled.p`
-  color: ${({ theme }) => theme.colors.gray200};
-  ${({ theme }) => theme.fonts.title_bold_14};
   margin-right: 55.9rem;
   margin-left: 1rem;
+
+  color: ${({ theme }) => theme.colors.gray200};
+
+  ${({ theme }) => theme.fonts.title_bold_14};
 `;
 
 const Header = styled.div`
   display: flex;
-  margin-bottom: 3rem;
   justify-content: end;
+
+  margin-bottom: 3rem;
 `;
 
 const CloseButton = styled.div`
@@ -136,14 +86,15 @@ const ModalContainer = styled.div`
 
   width: 100%;
   height: 100%;
+
   background-color: rgb(0 0 0 / 90%);
 `;
 
 const ModalContent = styled.div`
   position: relative;
+  bottom: 8rem;
 
   padding: 3rem;
-  bottom: 8rem;
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -151,19 +102,18 @@ const ModalContent = styled.div`
 
 const DataTable = styled.div`
   display: flex;
-  flex-direction: column;
-
   gap: 0.6rem;
+  flex-direction: column;
 `;
 
 const TableRow = styled.div`
   display: flex;
+  gap: 4rem;
 
   padding: 1.7rem 2.8rem 2.2rem 1.8rem;
-  gap: 4rem;
-  background-color: ${({ theme }) => theme.colors.gray700};
 
   border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray700};
 `;
 
 const Stars = styled.div`
@@ -174,11 +124,9 @@ const Stars = styled.div`
 
 const DataContent = styled.div<{ $contentType?: string }>`
   display: flex;
-  flex-direction: column;
-  color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.title_regular_14};
-  white-space: nowrap;
   gap: 1rem;
+  flex-direction: column;
+
   width: ${({ $contentType }) => {
     switch ($contentType) {
       case '백준':
@@ -194,6 +142,11 @@ const DataContent = styled.div<{ $contentType?: string }>`
       default:
     }
   }};
+
+  color: ${({ theme }) => theme.colors.white};
+
+  ${({ theme }) => theme.fonts.title_regular_14};
+  white-space: nowrap;
 `;
 
 const Name = styled.p`

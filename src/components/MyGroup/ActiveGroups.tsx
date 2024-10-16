@@ -34,14 +34,21 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
     updateTotalActiveGroups();
   };
 
-  const handleClickCard = ({ groupId, userId, isMember }: ClickCardProps) => {
+  const handleClickCard = ({
+    groupId,
+    userId,
+    isMember,
+    isPublicRoom,
+  }: ClickCardProps) => {
     const myId = sessionStorage.getItem('user');
     if (myId && parseInt(myId) === userId) {
       navigate(`/group/${groupId}/admin`);
     } else {
       isMember
         ? navigate(`/group/${groupId}/member`)
-        : navigate(`/group/${groupId}`);
+        : navigate(`/group/${groupId}`, {
+            state: { isPublicRoom: isPublicRoom },
+          });
     }
   };
 
@@ -56,7 +63,15 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
 
         <GroupContainer $isFirstPage={isFirstPage} $isLastPage={isLastPage}>
           {slicedGroups.map((group) => {
-            const { roomId, tags, title, introduce, ownerId, isMember } = group;
+            const {
+              roomId,
+              tags,
+              title,
+              introduce,
+              ownerId,
+              isMember,
+              isPublicRoom,
+            } = group;
             const allTag = ['ALL'];
             const languageTags = tags.length > 5 ? allTag : tags;
             return (
@@ -67,6 +82,7 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
                     groupId: roomId,
                     userId: ownerId,
                     isMember,
+                    isPublicRoom,
                   })
                 }
               >

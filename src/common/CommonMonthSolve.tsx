@@ -56,11 +56,8 @@ export default CommonMonthSolve;
 const WeekRateContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-grow: 2;
 
-  min-width: 61.1rem;
-
-  width: 100%;
+  width: 61.1rem;
   padding: 3.4rem 3.8rem 4.2rem 3.4rem;
 
   border-radius: 1.6rem;

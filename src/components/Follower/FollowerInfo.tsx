@@ -80,15 +80,12 @@ const FollowerInfoContainer = styled.article`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  flex-grow: 0.4;
 
-  width: 100%;
+  width: 29.7rem;
+  height: 41rem;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
-
-  min-width: 29.7rem;
-  min-height: 41rem;
 `;
 
 const Language = styled.p`

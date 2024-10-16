@@ -79,8 +79,8 @@ const TotalSolutionsContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  width: 100%;
-  padding: 6.8rem 25.7rem 16.4rem;
+  width: 92.6rem;
+  padding: 6.8rem 0 16.4rem;
 `;
 
 const TopContainer = styled.div`

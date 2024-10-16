@@ -5,6 +5,7 @@ import ModalPortal from './ModalPortal';
 import SaveModalForm from './SaveModalForm';
 
 const Modal = ({
+  id,
   onClose,
   handlePostTempErr,
   questionInfo,
@@ -21,6 +22,7 @@ const Modal = ({
       <ModalFormConatiner onClick={handleClickBg}>
         {onClose ? (
           <SaveModalForm
+            id={id}
             onClose={onClose}
             handlePostTempErr={handlePostTempErr}
             questionInfo={questionInfo}

@@ -46,7 +46,7 @@ export interface CalendarProps {
   };
   unsolvedMonths: Array<number>;
   handleClickPrevBtn: () => void;
-  handleClickMonth: (month: number) => void;
+  handleClickMonth: ({ e, value }: ClickedValueProps) => void;
   handleClickNextBtn: () => void;
 }
 
@@ -91,6 +91,11 @@ export interface UpdateSavedRecordsProps {
   };
 }
 
+export interface ClickedValueProps {
+  e?: React.MouseEvent<HTMLSpanElement, MouseEvent>;
+  value?: number;
+}
+
 export interface ListFilterProps {
   sorting: string;
   year: number;
@@ -99,7 +104,7 @@ export interface ListFilterProps {
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => void;
   handleClickPrevBtn: (isPage: boolean) => void;
-  handleClickMonth: (value: number, isPage: boolean) => void;
+  handleClickMonth: ({ e, value }: ClickedValueProps) => void;
   handleClickNextBtn: (isPage: boolean) => void;
 }
 

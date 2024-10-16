@@ -18,9 +18,8 @@ const usePatchRecords = (id?: number) => {
       setErrMsg(message);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['get-monthly-solution', 'get-records'],
-      });
+      queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
+      queryClient.invalidateQueries({ queryKey: ['get-records'] });
       navigate(`/solution/${id}`);
     },
   });
