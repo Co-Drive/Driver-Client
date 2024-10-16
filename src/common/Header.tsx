@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { IcLoginIcon, IcLogo } from '../assets';
+import { IcArrowBottomWhite, IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import { HeaderProps } from '../types/Header/HeaderType';
 import Gnb from './Gnb';
@@ -16,6 +16,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const [hoveredCategory, setHoveredCategory] = useState('');
   const [isGnbOpen, setIsGnbOpen] = useState(false);
 
+  // Profile 호버만 따로 하기 위해 사용
   const isHoveredProfile = hoveredCategory === 'profile';
 
   const handleOpenGnb = (open: boolean, category?: string) => {
@@ -23,9 +24,16 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
     if (category) setHoveredCategory(category);
   };
 
+  // const toggleGnb = (category: string) => {
+  //   setIsGnbOpen((prev) => !prev); // Gnb 토글
+  //   setHoveredCategory(category); // 카테고리 설정
+  // };
+
+  // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
+  // 컨텐츠 부분을 지나치지 않더라도 바로 창이 닫히게끔 하기 위해 추가함
   return (
     <HeaderWrapper>
-      <HeaderContainer>
+      <HeaderContainer onMouseLeave={() => handleOpenGnb(false)}>
         <LogoContainer onClick={() => navigate('/')}>
           <IcLogo />
         </LogoContainer>
@@ -61,18 +69,20 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
             })}
           </NavBarUl>
         </NavBarContainer>
-        <LoginBtnContainer
-          $isLogin={isLoginSuccess ? true : false}
-          onMouseEnter={() => isLoginSuccess && handleOpenGnb(true, 'profile')}
-        >
+        <LoginBtnContainer $isLogin={isLoginSuccess ? true : false}>
           {isLoginSuccess ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
           <LoginBtn onClick={() => !isLoginSuccess && navigate('/login')}>
             {isLoginSuccess ? `${nickname} 님` : '로그인'}
           </LoginBtn>
+        </LoginBtnContainer>
+        <AlarmContainer
+          onMouseEnter={() => isLoginSuccess && handleOpenGnb(true, 'profile')}
+        >
+          <IcArrowBottomWhite />
           {isLoginSuccess && isGnbOpen && isHoveredProfile && (
             <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
           )}
-        </LoginBtnContainer>
+        </AlarmContainer>
       </HeaderContainer>
     </HeaderWrapper>
   );
@@ -145,7 +155,7 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   position: relative;
 
   width: 23.2rem;
-  margin-right: 2rem;
+  margin-right: 0.8rem;
   margin-left: ${({ $isLogin }) => ($isLogin ? '29.7rem' : '34.1rem')};
 `;
 
@@ -163,4 +173,12 @@ const LoginBtn = styled.button`
   white-space: nowrap;
 
   ${({ theme }) => theme.fonts.title_semiBold_18}
+`;
+
+const AlarmContainer = styled.div`
+  position: relative;
+
+  margin-right: 2rem;
+
+  background-color: pink;
 `;
