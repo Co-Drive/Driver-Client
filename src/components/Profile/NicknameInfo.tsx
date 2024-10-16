@@ -34,14 +34,14 @@ const NicknameInfoContainer = styled.section`
   align-items: center;
 
   height: 7.7rem;
-  padding-bottom: 2.4rem;
-  margin-bottom: 3.1rem;
+  padding-bottom: 1.9rem;
+  margin-bottom: 3.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const NicknameTitle = styled.h2`
-  margin-right: 8rem;
+  margin-right: 9.2rem;
 
   color: ${({ theme }) => theme.colors.white};
 

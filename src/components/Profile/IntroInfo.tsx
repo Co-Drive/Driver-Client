@@ -32,13 +32,12 @@ const IntroInfoContainer = styled.section`
   align-items: center;
 
   padding-bottom: 1.4rem;
-  margin-bottom: 3.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const IntroTitle = styled.h2`
-  margin-right: 5.9rem;
+  margin-right: 6.5rem;
 
   color: ${({ theme }) => theme.colors.white};
 

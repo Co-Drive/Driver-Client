@@ -260,7 +260,7 @@ const ProfileContainer = styled.form`
 `;
 
 const BasicInfoContainer = styled.div`
-  margin-bottom: 8rem;
+  margin-bottom: 4rem;
 `;
 
 const CodriveContainer = styled.div`
