@@ -1,7 +1,16 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { IcInformation, ImgEmptyProfile, ImgRankingBg } from '../../assets';
+import {
+  IcInformation,
+  IcRank1,
+  IcRank2,
+  IcRank2Gray,
+  IcRank3,
+  IcRank3Gray,
+  ImgEmptyProfile,
+  ImgRankingBg,
+} from '../../assets';
 import useGetRanking from '../../libs/hooks/GroupMember/useGetRanking';
 import RankingTooltip from './RankingTooltip';
 
@@ -40,10 +49,18 @@ const Top3Members = () => {
     });
   const [isHovered, setIsHovered] = useState(false);
 
-  console.log(rank);
-
   const handleHoverIc = () => setIsHovered(true);
   const handleLeaveIc = () => setIsHovered(false);
+  const renderProfile = (idx: number, userId: number) => {
+    if (userId === -1) {
+      if (idx === 0) return <IcRank2Gray />;
+      else if (idx === 2) return <IcRank3Gray />;
+    } else {
+      if (idx === 0) return <IcRank2 />;
+      else if (idx === 1) return <IcRank1 />;
+      else return <IcRank3 />;
+    }
+  };
 
   return (
     <Top3MembersContainer>
@@ -66,10 +83,16 @@ const Top3Members = () => {
 
           return (
             <Member key={idx} $winner={idx === 1}>
-              <ProfileImgContainer $winner={idx === 1}>
+              <Ranking $winner={idx === 1}>
+                {renderProfile(idx, userId)}
+              </Ranking>
+              <ProfileImgContainer
+                $winner={idx === 1}
+                $isNotRealUser={userId === -1}
+              >
                 <ProfileImg src={profileImg} alt="프로필 이미지" />
               </ProfileImgContainer>
-              <ProfileName $isNotRealUser={userId === -1}>
+              <ProfileName $winner={idx === 1} $isNotRealUser={userId === -1}>
                 {nickname}
               </ProfileName>
             </Member>
@@ -85,7 +108,7 @@ export default Top3Members;
 const Top3MembersContainer = styled.article`
   position: relative;
 
-  width: 100%;
+  width: 92.6rem;
   height: 21.6rem;
   margin-top: 1.8rem;
 `;
@@ -127,7 +150,6 @@ const Img = styled.img`
 const MembersContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
 
   width: 100%;
   height: 100%;
@@ -136,39 +158,57 @@ const MembersContainer = styled.div`
 
 const Member = styled.div<{ $winner: boolean }>`
   display: flex;
-  gap: 1rem;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  position: relative;
 
   ${({ $winner }) =>
     $winner
       ? css`
-          margin-right: 17.7rem;
-          margin-left: 17.9rem;
+          margin: 3.6rem 17.9rem 0 17.7rem;
         `
       : css`
-          margin-top: 11rem;
+          margin-top: 9.8rem;
         `};
 `;
 
-const ProfileImgContainer = styled.div<{ $winner: boolean }>`
+const Ranking = styled.span<{ $winner: boolean }>`
   z-index: 1;
 
-  ${({ $winner, theme }) =>
+  margin-bottom: ${({ $winner }) => ($winner ? '-1rem' : '-0.2rem')};
+`;
+
+const ProfileImgContainer = styled.div<{
+  $winner: boolean;
+  $isNotRealUser: boolean;
+}>`
+  z-index: 1;
+
+  ${({ $winner, $isNotRealUser, theme }) =>
     $winner
       ? css`
-          width: 6.8rem;
-          height: 6.8rem;
-          outline: 0.4rem solid ${theme.colors.codrive_green};
+          width: 8.8rem;
+          height: 8.459rem;
+          padding: 0.459rem 0.6rem 0.4rem;
+
+          border: 0.4rem solid
+            ${$isNotRealUser
+              ? theme.colors.gray400
+              : theme.colors.codrive_green};
+          border-top: 0.4rem solid transparent;
         `
       : css`
-          width: 3.4rem;
-          height: 3.4rem;
-          outline: 0.1rem solid ${theme.colors.green300};
-        `};
+          width: 4.2rem;
+          height: 4.024rem;
+          padding: 0.2rem 0.4rem 0.424rem;
 
-  padding: 1rem;
+          border: 0.1rem solid
+            ${$isNotRealUser
+              ? theme.colors.gray400
+              : theme.colors.codrive_green};
+          border-top: 0.1rem solid transparent;
+        `};
 
   border-radius: 50%;
 `;
@@ -181,10 +221,16 @@ const ProfileImg = styled.img`
   object-fit: cover;
 `;
 
-const ProfileName = styled.p<{ $isNotRealUser: boolean }>`
+const ProfileName = styled.p<{ $winner: boolean; $isNotRealUser: boolean }>`
+  position: absolute;
+  top: ${({ $winner }) => ($winner ? '10.5rem' : '5.602rem')};
   z-index: 1;
+
+  margin-top: 1rem;
 
   color: ${({ theme, $isNotRealUser }) =>
     $isNotRealUser ? theme.colors.gray400 : theme.colors.white};
   ${({ theme }) => theme.fonts.title_semiBold_18};
+
+  white-space: nowrap;
 `;
