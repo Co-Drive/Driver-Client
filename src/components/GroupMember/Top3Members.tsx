@@ -12,16 +12,8 @@ import {
   ImgRankingBg,
 } from '../../assets';
 import useGetRanking from '../../libs/hooks/GroupMember/useGetRanking';
+import { RankType } from '../../types/Admin/memberTypes';
 import RankingTooltip from './RankingTooltip';
-
-interface RankType {
-  rank: Array<{
-    language: string;
-    nickname: string;
-    profileImg: string;
-    userId: number;
-  }>;
-}
 
 const Top3Members = () => {
   const todayYear = new Date().getFullYear();
