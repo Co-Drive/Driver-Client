@@ -195,6 +195,7 @@ export default LanguageSelectBox;
 
 const Section = styled.section`
   position: relative;
+  z-index: 10;
 `;
 
 const DropdownContainer = styled.div`
@@ -227,7 +228,7 @@ const FilterIconContainer = styled.p`
 const SelectedTagsContainer = styled.div`
   display: flex;
 
-  width: 29.6rem;
+  width: 32rem;
 `;
 
 const SelectedTagContainer = styled.div`
