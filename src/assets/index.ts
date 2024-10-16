@@ -49,6 +49,11 @@ import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
 import IcMinusWhite from './icon/ic_minus_white.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
+import IcRank1 from './icon/ic_rank_1.svg?react';
+import IcRank2 from './icon/ic_rank_2.svg?react';
+import IcRank2Gray from './icon/ic_rank_2_gray.svg?react';
+import IcRank3 from './icon/ic_rank_3.svg?react';
+import IcRank3Gray from './icon/ic_rank_3_gray.svg?react';
 import IcRevise from './icon/ic_revise.svg?react';
 import IcSearch from './icon/ic_search.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
@@ -141,6 +146,11 @@ export {
   IcMemoWhite,
   IcMinusWhite,
   IcNothing,
+  IcRank1,
+  IcRank2,
+  IcRank2Gray,
+  IcRank3,
+  IcRank3Gray,
   IcRevise,
   IcSearch,
   IcSecretBigWhite,
