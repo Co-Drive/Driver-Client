@@ -1,6 +1,7 @@
-import { Cell, Label, Pie, PieChart } from 'recharts';
+import { Cell, Label, Pie, PieChart, Tooltip } from 'recharts';
 import { GRAPH_COLORS } from '../../../../constants/Follower/currentConst';
 import CustomLabel from './CustomLabel';
+import CustomToolTip from './CustomToolTip';
 
 interface SuccessRateProps {
   profileImg: string;
@@ -8,11 +9,13 @@ interface SuccessRateProps {
 }
 
 const SuccessRate = ({ profileImg, successRate }: SuccessRateProps) => {
-  const chartData = [
-    { name: 'success', value: successRate === 0 ? 10 : successRate },
-  ];
+  const chartData = [{ name: '', value: successRate === 0 ? 10 : successRate }];
 
   const endAngle = 90 - (360 * chartData[0].value) / 100;
+
+  const formatTooltip = (value: number) => {
+    return `${value}%`;
+  };
 
   return (
     <PieChart width={154} height={154}>
@@ -46,6 +49,11 @@ const SuccessRate = ({ profileImg, successRate }: SuccessRateProps) => {
       >
         <Cell key="success" fill={GRAPH_COLORS[0]} />
       </Pie>
+      <Tooltip
+        separator=""
+        formatter={formatTooltip}
+        content={<CustomToolTip />}
+      />
     </PieChart>
   );
 };

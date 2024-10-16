@@ -8,7 +8,7 @@ export const handleCopyClipBoard = async ({
   isUsedBaseUrl,
 }: handleCopyClipBoardProps) => {
   const text = isUsedBaseUrl
-    ? `${baseUrl}${location.pathname}`
+    ? `${baseUrl}`
     : window.location.href;
   await navigator.clipboard.writeText(text);
 };

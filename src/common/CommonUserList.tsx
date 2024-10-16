@@ -34,15 +34,12 @@ const CommonUserList = ({
   isAdmin,
 }: CommonUserListProps) => {
   const navigate = useNavigate();
-  const savedPage = sessionStorage.getItem('savedPage');
 
   const [modalOn, setModalOn] = useState({
     warningModal: false,
     saveModal: false,
   });
-  const [clickedPage, setClickedPage] = useState(
-    savedPage ? parseInt(savedPage) : 1
-  );
+  const [clickedPage, setClickedPage] = useState(1);
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
     clickedNickname: '',
@@ -88,12 +85,13 @@ const CommonUserList = ({
 
   const [errModalOn, setErrModalOn] = useState(isError);
 
-  const handleClickContents = (id: number) => {
-    setClickedContents({
-      ...clickedContents,
-      clickedId: id,
-      isClicked: !isClicked,
-    });
+  const handleClickContents = (id: number, problemTitle?: string) => {
+    if (problemTitle)
+      setClickedContents({
+        ...clickedContents,
+        clickedId: id,
+        isClicked: !isClicked,
+      });
   };
 
   const handleClickUserInfo = (id: number) => {
@@ -218,11 +216,15 @@ const CommonUserList = ({
                       </Problem>
                       {isExitAndClicked ? (
                         <IcArrowTopWhite
-                          onClick={() => handleClickContents(userId)}
+                          onClick={() =>
+                            handleClickContents(userId, recentProblemTitle)
+                          }
                         />
                       ) : (
                         <IcArrowBottomWhite
-                          onClick={() => handleClickContents(userId)}
+                          onClick={() =>
+                            handleClickContents(userId, recentProblemTitle)
+                          }
                         />
                       )}
 
@@ -317,7 +319,7 @@ const ListContainer = styled.article`
   justify-content: center;
   flex-direction: column;
 
-  width: 100%;
+  width: 92.6rem;
 `;
 
 const ListHeader = styled.header<{ $isAdmin?: boolean }>`
@@ -332,8 +334,6 @@ const ListHeader = styled.header<{ $isAdmin?: boolean }>`
 `;
 
 const ProfileText = styled.p<{ $isAdmin?: boolean }>`
-  flex-grow: 1;
-
   margin-right: ${({ $isAdmin }) => ($isAdmin ? `19.6rem` : `26.3rem`)};
 
   color: ${({ theme }) => theme.colors.gray300};
@@ -341,8 +341,6 @@ const ProfileText = styled.p<{ $isAdmin?: boolean }>`
 `;
 
 const WeeklyText = styled.p<{ $isAdmin?: boolean }>`
-  flex-grow: 1;
-
   margin-right: ${({ $isAdmin }) => ($isAdmin ? `5.8rem` : `9.4rem`)};
 
   color: ${({ theme }) => theme.colors.gray300};
@@ -350,15 +348,11 @@ const WeeklyText = styled.p<{ $isAdmin?: boolean }>`
 `;
 
 const RecentText = styled.p`
-  flex-grow: 2;
-
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_16};
 `;
 
 const Management = styled.p`
-  flex-grow: 1;
-
   margin-left: 32.9rem;
 
   color: ${({ theme }) => theme.colors.gray300};
@@ -420,7 +414,6 @@ const UserContainer = styled.div<{ $isAdmin?: boolean }>`
   gap: 0.4rem;
   justify-content: center;
   flex-direction: column;
-  flex-grow: 1;
 
   width: 16rem;
   padding-left: 0.8rem;
@@ -440,8 +433,6 @@ const Language = styled.p`
 `;
 
 const Problem = styled.p<{ $isAdmin?: boolean }>`
-  flex-grow: 2;
-
   width: 29.7rem;
 
   ${({ $isAdmin }) =>
@@ -465,8 +456,6 @@ const Problem = styled.p<{ $isAdmin?: boolean }>`
 `;
 
 const StatusBtnContainer = styled.div`
-  flex-grow: 1;
-
   margin-left: 4.2rem;
 
   text-align: end;

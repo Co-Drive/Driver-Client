@@ -117,7 +117,8 @@ const GroupFilterContainer = styled.div`
 
 const SelectedGroup = styled.p<{ $isEmpty: boolean }>`
   max-width: 16.4rem;
-  overflow-x: hidden;
+
+  overflow: hidden;
 
   color: ${({ theme, $isEmpty }) =>
     $isEmpty ? theme.colors.gray300 : theme.colors.white};

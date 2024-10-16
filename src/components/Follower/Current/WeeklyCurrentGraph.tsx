@@ -49,7 +49,6 @@ const WeeklyCurrentGraph = ({ percentage }: WeeklyCurrentGraphProps) => {
 export default WeeklyCurrentGraph;
 
 const GraphContainer = styled.div`
-  flex-grow: 1;
   position: relative;
 
   width: 5.5rem;

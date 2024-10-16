@@ -6,6 +6,7 @@ export interface ActiveGroupProps {
     tags: Array<string>;
     ownerId: number;
     isMember: boolean;
+    isPublicRoom: boolean;
   }>;
 }
 
@@ -23,6 +24,7 @@ export interface GroupType {
   tags: Array<string>;
   introduce: string;
   isMember: boolean;
+  isPublicRoom: boolean;
 }
 
 export interface PersonalGroupProps {

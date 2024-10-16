@@ -14,6 +14,7 @@ const LoginLoadingPage = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const code = queryParams.get('code');
+    const state = queryParams.get('state');
 
     if (code) {
       postAuth(code)
@@ -36,7 +37,13 @@ const LoginLoadingPage = () => {
           sessionStorage.setItem('profileImg', profileImg);
           sessionStorage.setItem('language', langauge);
 
-          isExistUser ? navigate('/') : navigate('/register');
+          if (state) {
+            isExistUser
+              ? navigate('/group-join', { state: { roomId: state } })
+              : navigate('/register', { state: state });
+          } else {
+            isExistUser ? navigate('/') : navigate('/register');
+          }
         })
         .catch((err) => {
           const errMsg = err.response.data.message;

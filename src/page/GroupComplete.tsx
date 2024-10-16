@@ -40,7 +40,7 @@ const GroupComplete = () => {
   }
 
   const handleClickCopyBtn = () => {
-    const baseUrl = window.location.origin; // 생성한 그룹 페이지가 만들어지면 대체 될 예정
+    const baseUrl = `https://www.codrive.co.kr/group/${uuid}`;
     handleCopyClipBoard({ baseUrl: baseUrl, isUsedBaseUrl: true });
     setIsCopied(true);
     setTimeout(() => {
