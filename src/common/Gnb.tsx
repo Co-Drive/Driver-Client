@@ -109,8 +109,8 @@ const GnbContainer = styled.ul<{ $isProfileGnb: boolean }>`
   ${({ $isProfileGnb }) =>
     $isProfileGnb
       ? css`
-          top: 3.3rem;
-          right: -6.4rem;
+          top: 4.4rem;
+          right: -2rem;
         `
       : css`
           top: 3.4rem;
