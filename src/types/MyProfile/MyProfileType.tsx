@@ -15,6 +15,7 @@ export interface ProfileEdiltProps {
     nickname: string;
     name: string;
     githubRepositoryName: string;
+    username: string;
   };
 }
 
