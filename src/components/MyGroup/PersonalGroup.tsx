@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
   IcStatusBlack,
@@ -14,10 +14,14 @@ import { removeSavedPage } from '../../utils/removeSavedPage';
 const PersonalGroup = () => {
   const GROUP_CATEGORY = ['내가 참여한 그룹', '내가 생성한 그룹'];
   const savedPage = sessionStorage.getItem('savedPage');
+  const savedCategory = sessionStorage.getItem('savedCategory');
+
   const [clickedPage, setClickedPage] = useState(
     savedPage ? parseInt(savedPage) : 1
   );
-  const [clickedCategry, setClickedCategory] = useState(GROUP_CATEGORY[0]);
+  const [clickedCategry, setClickedCategory] = useState(
+    savedCategory ? savedCategory : GROUP_CATEGORY[0]
+  );
   const [filter, setFilter] = useState({
     clickedStatus: '모집 중',
     sorting: '최신순',
@@ -25,7 +29,7 @@ const PersonalGroup = () => {
   const isJoinedRooms = clickedCategry === GROUP_CATEGORY[0];
 
   const { clickedStatus, sorting } = filter;
-  const { data } = useGetRooms({
+  const { data, isLoading } = useGetRooms({
     sortType: sorting,
     page: clickedPage - 1,
     status:
@@ -36,11 +40,13 @@ const PersonalGroup = () => {
           : 'CLOSED',
     isJoinedRooms: isJoinedRooms,
   });
+  const successData = !isLoading && data.data;
+  const { totalPage, joinedRooms, createdRooms } = successData;
+  const group = isJoinedRooms ? joinedRooms : createdRooms;
 
-  const { totalPage, joinedRooms, createdRooms } = data?.data || {};
-
-  const group = data ? (isJoinedRooms ? joinedRooms : createdRooms) : [];
-  const totalPageRef = useRef(data ? totalPage : 1);
+  useEffect(() => {
+    sessionStorage.removeItem('savedPage');
+  }, []);
 
   const handleClickSorting = (
     e:
@@ -67,6 +73,9 @@ const PersonalGroup = () => {
   ) => {
     const { innerHTML } = e.currentTarget;
     setClickedCategory(innerHTML);
+    sessionStorage.setItem('savedCategory', innerHTML);
+
+    setClickedPage(1);
   };
 
   const handleClickPrevBtn = () => {
@@ -134,16 +143,18 @@ const PersonalGroup = () => {
           })}
         </SortContainer>
       </TopContainer>
-      <Groups
-        group={group}
-        totalPage={totalPageRef.current}
-        clickedPage={clickedPage}
-        handleClickPages={{
-          handleClickPrevBtn: handleClickPrevBtn,
-          handleClickPage: handleClickPage,
-          handleClickNextBtn: handleClickNextBtn,
-        }}
-      />
+      {!isLoading && (
+        <Groups
+          group={group}
+          totalPage={totalPage}
+          clickedPage={clickedPage}
+          handleClickPages={{
+            handleClickPrevBtn: handleClickPrevBtn,
+            handleClickPage: handleClickPage,
+            handleClickNextBtn: handleClickNextBtn,
+          }}
+        />
+      )}
     </PersonalGroupContainer>
   );
 };

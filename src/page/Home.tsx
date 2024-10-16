@@ -10,15 +10,17 @@ import PageLayout from '../components/PageLayout/PageLayout';
 const Home = () => {
   const navigate = useNavigate();
   const user = sessionStorage.getItem('user');
-  if (!user) {
-    useEffect(() => {
-      navigate('/login');
-    }, []);
+  const language = sessionStorage.getItem('language');
+  const isNotRegisted = language === '사용언어';
 
+  const userId = parseInt(user!);
+
+  useEffect(() => {
+    if (!user || isNotRegisted) {
+      !user ? navigate('/login') : navigate('/register');
+    }
     return;
-  }
-
-  const userId = parseInt(user);
+  });
 
   return (
     <PageLayout category="홈">

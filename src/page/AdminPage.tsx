@@ -36,7 +36,7 @@ const AdminPageContainer = styled.section<{ $isAdminMode: boolean }>`
   justify-content: center;
   flex-direction: column;
 
-  width: 100%;
+  width: 92.6rem;
   padding: ${({ $isAdminMode }) =>
-    $isAdminMode ? `6.4rem 25.7rem 18rem` : `6.4rem 25.7rem 14.4rem`};
+    $isAdminMode ? `6.4rem 0 18rem` : `6.4rem 0 14.4rem`};
 `;

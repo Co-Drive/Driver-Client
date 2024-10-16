@@ -6,7 +6,6 @@ import PageLayout from '../components/PageLayout/PageLayout';
 import CodeSpace from '../components/Solve/CodeSpace';
 import PageHeader from '../components/Solve/Header/PageHeader';
 import useGetRecords from '../libs/hooks/Solution/useGetRecords';
-import { RecordsTypes } from '../types/Solution/solutionTypes';
 import {
   ClickQuestionInfoProps,
   CodeProps,
@@ -17,22 +16,7 @@ import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 const SolvePage = () => {
   const { state } = useLocation();
   const { recordId, isTemp } = state || {};
-  const [records, setRecords] = useState<RecordsTypes>();
-  const { data = [] } = recordId ? useGetRecords(recordId) : {};
-
-  const {
-    title = '',
-    level = 0,
-    tags = [],
-    platform = '',
-    problemUrl = '',
-    codeblocks = [
-      {
-        code: '',
-        memo: '',
-      },
-    ],
-  } = records || {};
+  const { data, isLoading } = useGetRecords(recordId) || {};
 
   const [opacity, setOpacity] = useState(0);
   const [isOpenOptions, setIsOpenOptions] = useState(true);
@@ -108,36 +92,34 @@ const SolvePage = () => {
     });
   };
 
-  const changeRecords = () => {
-    setRecords(data.data);
-  };
+  useEffect(() => {
+    if (recordId && !isLoading) {
+      const { title, level, tags, platform, problemUrl, codeblocks } =
+        data.data;
 
-  if (data) {
-    useEffect(() => {
-      changeRecords();
-    }, [data]);
+      setQuestionInfo({
+        title: title,
+        level: level,
+        tags: tags,
+        platform: platform,
+        problemUrl: problemUrl,
+      });
 
-    useEffect(() => {
-      if (records) {
-        setQuestionInfo({
-          title: title,
-          level: level,
-          tags: tags,
-          platform: platform,
-          problemUrl: problemUrl,
-        });
-
-        setIde({
-          ideId: 0,
-          ideItems: codeblocks.map((codeblock, idx) => ({
+      setIde({
+        ideId: 0,
+        ideItems: codeblocks.map(
+          (
+            codeblock: { id: number; code: string; memo: string },
+            idx: number
+          ) => ({
             id: idx,
             code: codeblock.code,
             memo: codeblock.memo,
-          })),
-        });
-      }
-    }, [records]);
-  }
+          })
+        ),
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
     window.addEventListener('scroll', () => setOpacity(window.scrollY));
@@ -195,7 +177,8 @@ const SolvePageContainer = styled.section`
   align-items: center;
   flex-direction: column;
 
-  padding: 6rem 25.7rem 20rem;
+  width: 92.6rem;
+  padding: 6rem 0 20rem;
 `;
 
 const AddBtnContainer = styled.div`

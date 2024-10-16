@@ -32,8 +32,8 @@ const ListPageContainer = styled.section`
   justify-content: center;
   flex-direction: column;
 
-  width: 100%;
-  padding: 6.4rem 25.7rem 18rem;
+  width: 92.6rem;
+  padding: 6.4rem 0 18rem;
 `;
 
 const TitleContainer = styled.div`
