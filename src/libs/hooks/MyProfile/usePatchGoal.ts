@@ -4,12 +4,13 @@ import patchGoal from '../../apis/MyProfile/patchGoal';
 
 const usePatchGoal = (saveGoal: () => void) => {
   const [errMsg, setErrMsg] = useState('');
-
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: async (goal: number) => await patchGoal(goal),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-goal'] });
+      queryClient.invalidateQueries({ queryKey: ['get-user'] });
       saveGoal();
     },
     onError: (err: { response: { data: { message: string } } }) => {

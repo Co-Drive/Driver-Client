@@ -255,6 +255,8 @@ const Group = styled.div<{ $isAdmin: boolean }>`
   justify-content: center;
   flex-direction: column;
 
+  width: 52.6rem;
+
   ${({ $isAdmin, theme }) =>
     !$isAdmin &&
     css`

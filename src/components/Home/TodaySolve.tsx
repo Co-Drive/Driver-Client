@@ -56,7 +56,9 @@ const TodaySolve = () => {
   }, [data]);
 
   const percentage =
-    stats.goal && stats.todayCount ? (stats.todayCount / stats.goal) * 100 : 10;
+    stats.goal && stats.todayCount
+      ? (stats.todayCount / stats.goal) * 100
+      : 0.01;
 
   const chartData = [{ name: 'Solved', value: percentage }];
 

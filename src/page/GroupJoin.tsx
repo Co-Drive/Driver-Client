@@ -8,13 +8,14 @@ import PageLayout from '../components/PageLayout/PageLayout';
 import useGetDetail from '../libs/hooks/GroupDetail/useGetDetail';
 import useGetGroupId from '../libs/hooks/GroupDetail/useGetGroupId';
 import usePostAnswer from '../libs/hooks/GroupJoin/usePostAnswer';
+import LoadingPage from './LoadingPage';
 
 const GroupJoin = () => {
   const [password, setPassword] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [isNotMatchedPW, setIsNotMatchedPW] = useState(false);
   const { state } = useLocation();
-  const { roomId } = state || {};
+  const { roomId, notNavigateDetail } = state || {};
   const isUuid = roomId?.includes('-');
   const navigate = useNavigate();
 
@@ -26,7 +27,8 @@ const GroupJoin = () => {
   const finalRoomId = isUuid ? uuidToRoomId : roomId;
   const { data, isLoading } = useGetDetail(finalRoomId);
 
-  const { mutation } = usePostAnswer(finalRoomId);
+  const { mutation, isMutationLoading } = usePostAnswer(finalRoomId);
+  const isPageLoading = isLoading || isMutationLoading;
 
   const handleChangeInputs = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -40,17 +42,21 @@ const GroupJoin = () => {
   };
 
   useEffect(() => {
-    const { isMember } = !isLoading && data.data;
-    isMember &&
-      navigate(`/group/${finalRoomId}`, {
-        state: { isMember: isMember, isPublicRoom: false },
-      });
-  }, [isLoading]);
+    if (!notNavigateDetail) {
+      const { isMember, isPublicRoom } = !isLoading && data.data;
+      if (isMember || isPublicRoom) {
+        navigate(`/group/${finalRoomId}`, {
+          state: { isMember: isMember, isPublicRoom: isPublicRoom },
+        });
+      }
+    }
+  }, [isLoading, notNavigateDetail]);
 
   return (
-    /* category 역할이 헤더 눌렀을 떄 어떤 페이지로 이동하냐인데, 그룹 생성 완료하면 카테고리 변경하기  */
     <PageLayout category={'group'}>
-      {!isLoading && (
+      {isPageLoading ? (
+        <LoadingPage isPageLoading={true} />
+      ) : (
         <>
           <IconContainer>
             <IcSecretBigWhite />
