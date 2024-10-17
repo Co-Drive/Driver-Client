@@ -27,16 +27,17 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   const handleOpenAlarm = () => {
-    setIsAlarmOpen(true); // AlarmModal을 여는 상태로 변경
+    setIsAlarmOpen(true);
   };
 
   const handleCloseAlarm = () => {
-    setIsAlarmOpen(false); // AlarmModal을 닫는 상태로 변경
+    setIsAlarmOpen(false);
   };
 
+  // Gnb 토글
   const toggleGnb = (category: string) => {
-    setIsGnbOpen((prev) => !prev); // Gnb 토글
-    setHoveredCategory(category); // 카테고리 설정
+    setIsGnbOpen((prev) => !prev);
+    setHoveredCategory(category);
   };
 
   // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
