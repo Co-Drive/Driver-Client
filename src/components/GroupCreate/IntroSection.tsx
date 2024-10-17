@@ -11,8 +11,12 @@ const IntroSection = ({
   const maxChar = 60;
 
   useEffect(() => {
-    setCharCount(introValue.length);
-  });
+    if (introValue) {
+      setCharCount(introValue.length);
+    } else {
+      setCharCount(0); // introValue가 undefined인 경우 0으로 설정
+    }
+  }, [introValue]);
 
   return (
     <Section>

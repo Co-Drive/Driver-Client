@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
 import ImageSection from '../components/GroupCreate/ImageSection';
@@ -9,27 +10,64 @@ import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
 
+import getRoomsId from '../libs/apis/GroupEdit/getRoomsId';
+import patchRooms from './../libs/apis/GroupEdit/patchRooms';
+
 const GroupEdit = () => {
+  const { id } = useParams<{ id: string }>(); // URL에서 id 가져오기
+  console.log(id);
   const [inputs, setInputs] = useState({
     title: '',
     num: '',
     secretKey: '',
     intro: '',
     group: '',
+    previewImage: '',
   });
 
-  const [isPublicGroup, setIspublicGroup] = useState<boolean | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>('');
-  /* const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null); */
+  const [isPublicGroup, setIsPublicGroup] = useState<boolean | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null); // 이미지 파일
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  /* const navigate = useNavigate(); */
+  const navigate = useNavigate();
   const { title, num, secretKey, intro, group } = inputs;
-
+  console.log(inputs);
+  const [roomId, setRoomId] = useState<number | null>(null);
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
     group: 1000,
   };
 
+  // 그룹 정보 불러오기
+  useEffect(() => {
+    const fetchGroupData = async () => {
+      try {
+        const data = await getRoomsId(Number(id));
+
+        if (data) {
+          setRoomId(data.roomId || Number(id)); // roomId를 설정해줍니다.
+          setInputs({
+            title: data.title || '',
+            num: data.capacity ? data.capacity.toString() : '0',
+            secretKey: data.password || '',
+            intro: data.introduce || '',
+            group: data.information || '',
+            previewImage: data.imageSrc || null,
+          });
+          setSelectedTags(data.tags || []);
+          setIsPublicGroup(!data.password);
+          if (data.imageSrc) {
+            setPreviewImage(data.imageSrc);
+          }
+        }
+      } catch (error) {
+        console.error('그룹 정보를 불러오는 중 오류가 발생했습니다.', error);
+      }
+    };
+    fetchGroupData();
+  }, [id]); // id가 바뀔 때마다 fetchGroupData 실행
+
+  // 입력값 처리 함수
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
   ) => {
@@ -43,7 +81,7 @@ const GroupEdit = () => {
   };
 
   const handleActiveChange = (active: boolean) => {
-    setIspublicGroup(active);
+    setIsPublicGroup(active);
     if (active) {
       setInputs((prevInputs) => ({
         ...prevInputs,
@@ -55,14 +93,12 @@ const GroupEdit = () => {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
     if (file) {
-      // 선택된 파일을 상태로 저장
-      /* setSelctedImageFIle(file); */
+      setSelectedImageFile(file); // 선택된 파일 저장
       const reader = new FileReader();
       reader.onload = () => {
         setPreviewImage(reader.result as string);
       };
       reader.readAsDataURL(file);
-      // 파일 입력 필드 초기화
       e.target.value = '';
     }
   };
@@ -76,12 +112,39 @@ const GroupEdit = () => {
     intro !== '' &&
     group !== '';
 
-  const handleSaveBtnClick = () => {
-    // 저장 버튼 함수
+  // 저장 버튼 클릭 시 그룹 정보 수정 API 호출
+  const handleSaveBtnClick = async () => {
+    if (!isActive || roomId === null) return;
+
+    const postData = {
+      title: title,
+      password: secretKey,
+      capacity: num,
+      tags: selectedTags,
+      introduce: intro,
+      information: group,
+    };
+    const requestBody = new FormData();
+    const jsonChange = JSON.stringify(postData);
+
+    requestBody.append('request', jsonChange);
+
+    if (selectedImageFile) {
+      requestBody.append('imageFile', selectedImageFile);
+    }
+
+    try {
+      const data = await patchRooms(roomId, requestBody);
+      const { groupId } = data.data;
+      console.log(groupId);
+      navigate(`/group/${groupId}/admin`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCancelBtnClick = () => {
-    // 입력 값들을 초기 상태로 되돌림
+    navigate(`/group/${roomId}/edit`);
   };
 
   return (

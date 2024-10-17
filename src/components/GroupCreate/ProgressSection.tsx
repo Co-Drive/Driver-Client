@@ -11,8 +11,12 @@ const ProgressSection = ({
   const maxChar = `1,000`;
 
   useEffect(() => {
-    setCharCount(progressValue.length);
-  });
+    if (progressValue) {
+      setCharCount(progressValue.length);
+    } else {
+      setCharCount(0); // introValue가 undefined인 경우 0으로 설정
+    }
+  }, [progressValue]);
 
   return (
     <Section>
