@@ -39,7 +39,7 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
+  width: 92.6rem;
   padding: 0 1rem 2.6rem 0.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray800};
