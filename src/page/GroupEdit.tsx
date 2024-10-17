@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
 import ImageSection from '../components/GroupCreate/ImageSection';
@@ -29,26 +29,23 @@ const GroupEdit = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null); // 이미지 파일
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
+  const navigate = useNavigate();
   const { title, num, secretKey, intro, group } = inputs;
   console.log(inputs);
-
+  const [roomId, setRoomId] = useState<number | null>(null);
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
     group: 1000,
   };
-
-  useEffect(() => {
-    console.log(inputs);
-  }, [inputs]); // inputs 상태가 업데이트될 때마다 로그 출력
 
   // 그룹 정보 불러오기
   useEffect(() => {
     const fetchGroupData = async () => {
       try {
         const data = await getRoomsId(Number(id));
-        console.log(data);
+
         if (data) {
+          setRoomId(data.roomId || Number(id)); // roomId를 설정해줍니다.
           setInputs({
             title: data.title || '',
             num: data.capacity ? data.capacity.toString() : '0',
@@ -117,28 +114,37 @@ const GroupEdit = () => {
 
   // 저장 버튼 클릭 시 그룹 정보 수정 API 호출
   const handleSaveBtnClick = async () => {
+    if (!isActive || roomId === null) return;
+
+    const postData = {
+      title: title,
+      password: secretKey,
+      capacity: num,
+      tags: selectedTags,
+      introduce: intro,
+      information: group,
+    };
+    const requestBody = new FormData();
+    const jsonChange = JSON.stringify(postData);
+
+    requestBody.append('request', jsonChange);
+
+    if (selectedImageFile) {
+      requestBody.append('imageFile', selectedImageFile);
+    }
+
     try {
-      if (isActive) {
-        await patchRooms(
-          title,
-          secretKey,
-          Number(num),
-          selectedTags,
-          intro,
-          group,
-          selectedImageFile || undefined // 이미지 파일이 있으면 전송
-        );
-        alert('그룹 정보가 성공적으로 수정되었습니다.');
-      } else {
-        alert('입력된 정보를 확인해 주세요.');
-      }
+      const data = await patchRooms(roomId, requestBody);
+      const { groupId } = data.data;
+      console.log(groupId);
+      navigate(`/group/${groupId}/admin`);
     } catch (error) {
-      console.error('그룹 정보를 수정하는 중 오류가 발생했습니다.', error);
+      console.log(error);
     }
   };
 
   const handleCancelBtnClick = () => {
-    // 입력 값들을 초기 상태로 되돌림
+    navigate(`/group/${roomId}/edit`);
   };
 
   return (
