@@ -75,7 +75,7 @@ const RecommendCard = ({
               {!isPublicRoom && (
                 <SecretCardBg>
                   <IcSecretBigWhite />
-                  <SecretCardDesc>해당 그룹은 비빌그룹 입니다</SecretCardDesc>
+                  <SecretCardDesc>해당 그룹은 비밀그룹 입니다</SecretCardDesc>
                 </SecretCardBg>
               )}
               <Img src={imageSrc} />

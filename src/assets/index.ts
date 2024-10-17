@@ -49,6 +49,11 @@ import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
 import IcMinusWhite from './icon/ic_minus_white.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
+import IcRank1 from './icon/ic_rank_1.svg?react';
+import IcRank2 from './icon/ic_rank_2.svg?react';
+import IcRank2Gray from './icon/ic_rank_2_gray.svg?react';
+import IcRank3 from './icon/ic_rank_3.svg?react';
+import IcRank3Gray from './icon/ic_rank_3_gray.svg?react';
 import IcRevise from './icon/ic_revise.svg?react';
 import IcSearch from './icon/ic_search.svg?react';
 import IcSecretBigWhite from './icon/ic_secret_big_white.svg?react';
@@ -70,13 +75,15 @@ import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 
+import ImgEmptyProfile from './img/img_empty_profile.png';
+import ImgRankingBg from './img/img_ranking_bg.png';
+
 import BtnInformation from './btn/btn_information.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnLinkWhite from './btn/btn_link_white.svg?react';
 import BtnShare from './btn/btn_share.svg?react';
 import BtnStarGraySmall from './btn/btn_star_gray_small.svg?react';
 import BtnStarPurpleSmall from './btn/btn_star_purple_small.svg?react';
-import HomeHeaderImg from './icon/ic_home_Header.svg';
 import IcWorkBookBlack from './icon/ic_workbook_black.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
@@ -88,7 +95,7 @@ export {
   BtnShare,
   BtnStarGraySmall,
   BtnStarPurpleSmall,
-  HomeHeaderImg,
+
   // icon
   IcAdd,
   IcAddBlack,
@@ -139,6 +146,11 @@ export {
   IcMemoWhite,
   IcMinusWhite,
   IcNothing,
+  IcRank1,
+  IcRank2,
+  IcRank2Gray,
+  IcRank3,
+  IcRank3Gray,
   IcRevise,
   IcSearch,
   IcSecretBigWhite,
@@ -160,4 +172,8 @@ export {
   IcWorkBookWhite,
   IcWorkbook,
   IcWorkbookBlack,
+
+  // img
+  ImgEmptyProfile,
+  ImgRankingBg,
 };
