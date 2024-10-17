@@ -1,52 +1,33 @@
 import styled from 'styled-components';
-
-interface AlarmModalProps {
-  isOpen: boolean;
-  handleClose: () => void;
-}
+import { ALARMLIST } from '../constants/Alarm/alarm';
+import { AlarmModalProps } from '../types/Alarm/alarmType';
 
 const AlarmModal = ({ isOpen, handleClose }: AlarmModalProps) => {
-  const ALARMLIST = {
-    NewAlarms: [
-      { groupName: '[그룹이름] ', message: '에 새로운 신청이 들어왔습니다' },
-      { groupName: '[닉네임] ', message: '님이 회원님을 팔로우 했습니다' },
-    ],
-    ReadAlarms: [
-      { groupName: '[그룹이름] ', message: '에 [닉네임] 님이 참여하였습니다' },
-      { groupName: '[그룹이름] ', message: '에 새로운 신청이 들어왔습니다' },
-    ],
-  };
-
-  const { NewAlarms, ReadAlarms } = ALARMLIST;
+  const { NEWALARMS, READALARMS } = ALARMLIST;
 
   return (
     <>
       {isOpen && (
         <ModalContainer onMouseLeave={handleClose}>
-          <Section>
-            <Title>새로운 알림</Title>
-            {NewAlarms.map((data, idx) => {
-              return (
-                <ModalTab key={idx}>
-                  <Highlight>{data.groupName}</Highlight>
-                  {data.message}
-                </ModalTab>
-              );
-            })}
-          </Section>
+          <Title>새로운 알림</Title>
+          {NEWALARMS.map((data, idx) => {
+            return (
+              <ModalTab key={idx}>
+                <Highlight>{data.groupName}</Highlight>
+                {data.message}
+              </ModalTab>
+            );
+          })}
           <Divider />
-          <Section>
-            <Title>읽음</Title>
-
-            {ReadAlarms.map((data, idx) => {
-              return (
-                <ModalTab key={idx}>
-                  <Highlight>{data.groupName}</Highlight>
-                  {data.message}
-                </ModalTab>
-              );
-            })}
-          </Section>
+          <Title>읽음</Title>
+          {READALARMS.map((data, idx) => {
+            return (
+              <ModalTab key={idx}>
+                <Highlight>{data.groupName}</Highlight>
+                {data.message}
+              </ModalTab>
+            );
+          })}
         </ModalContainer>
       )}
     </>
@@ -83,11 +64,6 @@ const Title = styled.p`
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.detail_regular_12};
-`;
-
-const Section = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 const Divider = styled.div`
