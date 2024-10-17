@@ -34,12 +34,6 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
     setIsAlarmOpen(false);
   };
 
-  // Gnb 토글
-  const toggleGnb = (category: string) => {
-    setIsGnbOpen((prev) => !prev);
-    setHoveredCategory(category);
-  };
-
   // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
   // 컨텐츠 부분을 지나치지 않더라도 바로 창이 닫히게끔 하기 위해 추가함
   return (
@@ -95,7 +89,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
           )}
         </AlarmContainer>
         <IcArrowContainer
-          onClick={() => isLoginSuccess && toggleGnb('profile')} // 클릭 시 Gnb 토글
+          onClick={() => isLoginSuccess && handleOpenGnb(true, 'profile')} // 클릭 시 Gnb 토글
         >
           <IcArrowBottomWhite />
           {isLoginSuccess && isGnbOpen && isHoveredProfile && (
