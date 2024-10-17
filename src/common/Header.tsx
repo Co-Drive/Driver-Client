@@ -198,8 +198,6 @@ const IcArrowContainer = styled.div`
   position: relative;
 
   margin-right: 2rem;
-
-  background-color: pink;
 `;
 
 const AlarmContainer = styled.div`
