@@ -38,13 +38,14 @@ export default AlarmModal;
 
 const ModalContainer = styled.ul`
   display: flex;
+  gap: 0.4rem;
   flex-direction: column;
   position: absolute;
   top: 3rem;
   right: -2rem;
 
   width: 36.4rem;
-  padding: 2.2rem 2.2rem 1.8rem 2rem;
+  padding: 2.2rem 0 1.8rem;
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray600};
@@ -52,14 +53,22 @@ const ModalContainer = styled.ul`
 
 const ModalTab = styled.li`
   width: 100%;
-  padding: 1.1rem 1rem 1.1rem 0;
+  padding: 1.1rem 3.9rem 1.1rem 2.2rem;
   ${({ theme }) => theme.fonts.title_regular_14};
 
   color: ${({ theme }) => theme.colors.white};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.gray500};
+    color: ${({ theme }) => theme.colors.white};
+
+    ${({ theme }) => theme.fonts.title_semiBold_14};
+  }
 `;
 
 const Title = styled.p`
   margin-bottom: 0.8rem;
+  margin-left: 2rem;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -67,9 +76,9 @@ const Title = styled.p`
 `;
 
 const Divider = styled.div`
-  width: calc(100% + 4.2rem); /* ModalContainer의 100% 너비에 4.2rem 추가 */
+  width: 100%;
   height: 0.1rem;
-  margin: 1.2rem -2rem;
+  margin: 1.2rem 0;
 
   background-color: ${({ theme }) => theme.colors.gray500};
 `;
