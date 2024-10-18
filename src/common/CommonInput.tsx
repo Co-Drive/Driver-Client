@@ -11,7 +11,7 @@ const CommonInput = ({
   value,
   isExitedNickname,
   isNotMatchedPW,
-  isExistRepositories,
+  isExitedRepositories,
   isClickedCheckRepositoriesBtn,
   handleChangeInputs,
 }: CommonInputProps) => {
@@ -25,7 +25,7 @@ const CommonInput = ({
       (value.length > 10 || (isExitedNickname && isClickedCheckBtn))) ||
     (category === 'password' && isNotMatchedPW) ||
     (category === 'repositories' &&
-      isExistRepositories &&
+      isExitedRepositories &&
       isClickedCheckRepositoriesBtn);
 
   const isNicknameSuccess =
@@ -37,7 +37,7 @@ const CommonInput = ({
   const isRepositoriesSuccess =
     category === 'repositories' &&
     isClickedCheckRepositoriesBtn &&
-    !isExistRepositories;
+    !isExitedRepositories;
 
   const [placeholder, setPlaceholder] = useState('');
 
@@ -120,7 +120,7 @@ const CommonInput = ({
 
       {(isNotMatchedPW ||
         (isExitedNickname && isClickedCheckBtn) ||
-        (isExistRepositories && isClickedCheckRepositoriesBtn)) && (
+        (isExitedRepositories && isClickedCheckRepositoriesBtn)) && (
         <ErrorMessage $isPW={category === 'password'}>
           {ERROR_MSG[category as keyof typeof ERROR_MSG]}
         </ErrorMessage>

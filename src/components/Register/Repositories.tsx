@@ -31,7 +31,7 @@ const Repositories = ({
           category="repositories"
           value={repositories}
           isClickedCheckRepositoriesBtn={isClickedCheckRepositoriesBtn}
-          isExistRepositories={isExistRepositories}
+          isExitedRepositories={isExistRepositories}
           handleChangeInputs={handleChangeInputs}
         />
         <Button type="button" onClick={handleRepositoriesCheck}>
