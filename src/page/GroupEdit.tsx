@@ -18,10 +18,17 @@ const GroupEdit = () => {
   if (!id) return;
   const { data, isLoading } = useGetDetail(parseInt(id));
   console.log('API 데이터:', data);
-  const { title, imageSrc, capacity, tags, introduce, information, password } =
-    !isLoading && data?.data;
+  const {
+    title: groupTitle,
+    imageSrc,
+    capacity,
+    tags,
+    introduce,
+    information,
+    password,
+  } = !isLoading && data?.data;
   const [inputs, setInputs] = useState({
-    title: title || '',
+    title: groupTitle || '',
     num: capacity ? capacity.toString() : '0',
     secretKey: password || '',
     intro: introduce || '',
@@ -37,7 +44,7 @@ const GroupEdit = () => {
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null); // 이미지 파일
   const [selectedTags, setSelectedTags] = useState<string[]>(tags || []);
   const navigate = useNavigate();
-  const { title: groupTitle, num, secretKey, intro, group } = inputs;
+  const { title: roomTitleInput, num, secretKey, intro, group } = inputs;
 
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
@@ -111,8 +118,8 @@ const GroupEdit = () => {
 
   const isActive =
     (isPublicGroup || (secretKey.length > 0 && secretKey.length <= 20)) &&
-    title.length > 0 &&
-    title.length <= 20 &&
+    roomTitleInput.length > 0 &&
+    roomTitleInput.length <= 20 &&
     !(Number(num) === 0 || Number(num) > 50) &&
     selectedTags.length > 0 &&
     intro !== '' &&
@@ -123,7 +130,7 @@ const GroupEdit = () => {
     if (!isActive) return;
 
     const postData = {
-      title: title,
+      title: roomTitleInput,
       password: secretKey,
       capacity: num,
       tags: selectedTags,
@@ -141,8 +148,7 @@ const GroupEdit = () => {
 
     try {
       const data = await patchRooms(Number(id), requestBody);
-      const { groupId } = data.data;
-      console.log(groupId);
+
       navigate(`/group/${id}/admin`);
     } catch (error) {
       console.log(error);
@@ -150,7 +156,7 @@ const GroupEdit = () => {
   };
 
   const handleCancelBtnClick = () => {
-    navigate(`/group/${id}/edit`);
+    navigate(`/group/${id}/admin`);
   };
 
   return (
@@ -169,7 +175,7 @@ const GroupEdit = () => {
           handleImageChange={handleImageChange}
         />
         <TitleSection
-          titleValue={groupTitle}
+          titleValue={roomTitleInput}
           recruitedValue={inputs.num}
           handleMemberCountChange={handleChangeInputs}
         />
