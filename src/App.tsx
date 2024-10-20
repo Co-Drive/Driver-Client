@@ -18,14 +18,16 @@ function App() {
     if (isLoginSuccess) {
       let eventSource: EventSourcePolyfill;
 
-      const connect = () => {
+      const connectSSE = () => {
         eventSource = new EventSourcePolyfill(url, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          // 연결 주기를 2시간으로 설정
           heartbeatTimeout: 72 * 100 * 1000,
         });
 
+        // 연결 후 메시지가 넘어왔을 때 동작
         eventSource.addEventListener('message', (event) => {
           if (event) {
             const response = JSON.parse(event.data);
@@ -35,19 +37,20 @@ function App() {
           }
         });
 
-        eventSource.addEventListener('error', (event) => {
-          console.error('Error:', event);
+        // 연결 중 에러가 발생했을 때 동작
+        eventSource.addEventListener('error', () => {
           eventSource.close();
-          deleteNotifications(connect);
+          deleteNotifications(connectSSE);
         });
       };
 
-      connect();
+      // 초기 연결
+      connectSSE();
 
       // Cleanup 함수로 연결을 닫음
       return () => {
         eventSource.close();
-        deleteNotifications(connect);
+        deleteNotifications(connectSSE);
       };
     }
   }, [isLoginSuccess]);
