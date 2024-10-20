@@ -43,6 +43,7 @@ const GroupEdit = () => {
   );
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null); // 이미지 파일
   const [selectedTags, setSelectedTags] = useState<string[]>(tags || []);
+  const [savedSecretKey, setSavedSecretKey] = useState<string>(password || ''); // 임시로 비밀번호를 저장하는 변수
   const navigate = useNavigate();
   const { title: roomTitleInput, num, secretKey, intro, group } = inputs;
 
@@ -94,13 +95,21 @@ const GroupEdit = () => {
   };
 
   const handleActiveChange = (active: boolean) => {
-    setIsPublicGroup(active);
     if (active) {
+      // 공개 그룹 선택 시 기존 비밀번호를 임시 저장하고 비밀번호 필드 초기화
+      setSavedSecretKey(inputs.secretKey);
       setInputs((prevInputs) => ({
         ...prevInputs,
         secretKey: '',
       }));
+    } else {
+      // 비밀 그룹 선택 시 저장된 비밀번호 복원
+      setInputs((prevInputs) => ({
+        ...prevInputs,
+        secretKey: savedSecretKey,
+      }));
     }
+    setIsPublicGroup(active);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
