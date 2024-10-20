@@ -17,7 +17,7 @@ const GroupEdit = () => {
   const { id } = useParams();
   if (!id) return;
   const { data, isLoading } = useGetDetail(parseInt(id));
-  console.log('API 데이터:', data);
+
   const {
     title: groupTitle,
     imageSrc,
@@ -27,16 +27,16 @@ const GroupEdit = () => {
     information,
     password,
   } = !isLoading && data?.data;
-  const [inputs, setInputs] = useState({
+  const initialData = {
     title: groupTitle || '',
     num: capacity ? capacity.toString() : '0',
     secretKey: password || '',
     intro: introduce || '',
     group: information || '',
     previewImage: imageSrc || null,
-  });
-  console.log(inputs);
+  };
 
+  const [inputs, setInputs] = useState(initialData);
   const [isPublicGroup, setIsPublicGroup] = useState<boolean>(!password);
   const [previewImage, setPreviewImage] = useState<string | null>(
     imageSrc || ''
@@ -52,35 +52,6 @@ const GroupEdit = () => {
     group: 1000,
   };
 
-  // 그룹 정보 불러오기
-  /* useEffect(() => {
-    const fetchGroupData = async () => {
-      try {
-        const data = await getRoomsId(Number(id));
-
-        if (data) {
-          setRoomId(data.roomId || Number(id)); // roomId를 설정해줍니다.
-          setInputs({
-            title: data.title || '',
-            num: data.capacity ? data.capacity.toString() : '0',
-            secretKey: data.password || '',
-            intro: data.introduce || '',
-            group: data.information || '',
-            previewImage: data.imageSrc || null,
-          });
-          setSelectedTags(data.tags || []);
-          setIsPublicGroup(!data.password);
-          if (data.imageSrc) {
-            setPreviewImage(data.imageSrc);
-          }
-        }
-      } catch (error) {
-        console.error('그룹 정보를 불러오는 중 오류가 발생했습니다.', error);
-      }
-    };
-    fetchGroupData();
-  }, [id]); // id가 바뀔 때마다 fetchGroupData 실행
- */
   // 입력값 처리 함수
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -156,8 +127,7 @@ const GroupEdit = () => {
     }
 
     try {
-      const data = await patchRooms(Number(id), requestBody);
-
+      await patchRooms(Number(id), requestBody);
       navigate(`/group/${id}/admin`);
     } catch (error) {
       console.log(error);
@@ -165,7 +135,12 @@ const GroupEdit = () => {
   };
 
   const handleCancelBtnClick = () => {
-    navigate(`/group/${id}/admin`);
+    // 초기 데이터로 되돌립니다.
+    setInputs(initialData);
+    setSelectedTags(tags || []);
+    setIsPublicGroup(!password);
+    setSelectedImageFile(null);
+    navigate(`/group/${id}/admin`); // 초기화 후 라우터로 이동
   };
 
   return (
