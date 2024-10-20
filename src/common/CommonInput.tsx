@@ -8,7 +8,7 @@ import { handleInput } from '../utils/handleInput';
 const CommonInput = ({
   isClickedCheckBtn,
   category,
-  value,
+  value = '',
   isExitedNickname,
   isNotMatchedPW,
   isExitedRepositories,

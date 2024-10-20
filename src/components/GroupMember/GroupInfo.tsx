@@ -14,6 +14,7 @@ const GroupInfo = ({
   const { id } = useParams();
   if (!id) return;
   const groupId = parseInt(id);
+
   const { data, isLoading } = useGetDetail(groupId);
   const { imageSrc, title, tags, owner, password, isPublicRoom } =
     !isLoading && data?.data;
@@ -28,6 +29,10 @@ const GroupInfo = ({
 
   const handleClickHost = () => {
     navigate(`/follower/${userId}`);
+  };
+
+  const handleClickGroupEdit = (groupId: number) => {
+    navigate(`/group/${groupId}/edit`);
   };
 
   return (
@@ -62,7 +67,10 @@ const GroupInfo = ({
                   >
                     <ToggleCircle $on={adminMode} />
                   </AdminToggle>
-                  <IcContainer $on={adminMode} onClick={handleClickAdminToggle}>
+                  <IcContainer
+                    $on={adminMode}
+                    onClick={() => handleClickGroupEdit(groupId)}
+                  >
                     <IcRevise />
                   </IcContainer>
                 </AdminControlContainer>
