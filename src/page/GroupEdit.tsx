@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
@@ -10,36 +10,42 @@ import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
 
-import getRoomsId from '../libs/apis/GroupEdit/getRoomsId';
 import patchRooms from './../libs/apis/GroupEdit/patchRooms';
+import useGetDetail from './../libs/hooks/GroupDetail/useGetDetail';
 
 const GroupEdit = () => {
-  const { id } = useParams<{ id: string }>(); // URL에서 id 가져오기
-  console.log(id);
+  const { id } = useParams();
+  if (!id) return;
+  const { data, isLoading } = useGetDetail(parseInt(id));
+  console.log('API 데이터:', data);
+  const { title, imageSrc, capacity, tags, introduce, information, password } =
+    !isLoading && data?.data;
   const [inputs, setInputs] = useState({
-    title: '',
-    num: '',
-    secretKey: '',
-    intro: '',
-    group: '',
-    previewImage: '',
+    title: title || '',
+    num: capacity ? capacity.toString() : '0',
+    secretKey: password || '',
+    intro: introduce || '',
+    group: information || '',
+    previewImage: imageSrc || null,
   });
-
-  const [isPublicGroup, setIsPublicGroup] = useState<boolean | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null); // 이미지 파일
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const navigate = useNavigate();
-  const { title, num, secretKey, intro, group } = inputs;
   console.log(inputs);
-  const [roomId, setRoomId] = useState<number | null>(null);
+
+  const [isPublicGroup, setIsPublicGroup] = useState<boolean>(!password);
+  const [previewImage, setPreviewImage] = useState<string | null>(
+    imageSrc || ''
+  );
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null); // 이미지 파일
+  const [selectedTags, setSelectedTags] = useState<string[]>(tags || []);
+  const navigate = useNavigate();
+  const { title: groupTitle, num, secretKey, intro, group } = inputs;
+
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
     group: 1000,
   };
 
   // 그룹 정보 불러오기
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchGroupData = async () => {
       try {
         const data = await getRoomsId(Number(id));
@@ -66,7 +72,7 @@ const GroupEdit = () => {
     };
     fetchGroupData();
   }, [id]); // id가 바뀔 때마다 fetchGroupData 실행
-
+ */
   // 입력값 처리 함수
   const handleChangeInputs = <T extends HTMLInputElement | HTMLTextAreaElement>(
     e: React.ChangeEvent<T>
@@ -114,7 +120,7 @@ const GroupEdit = () => {
 
   // 저장 버튼 클릭 시 그룹 정보 수정 API 호출
   const handleSaveBtnClick = async () => {
-    if (!isActive || roomId === null) return;
+    if (!isActive) return;
 
     const postData = {
       title: title,
@@ -134,17 +140,17 @@ const GroupEdit = () => {
     }
 
     try {
-      const data = await patchRooms(roomId, requestBody);
+      const data = await patchRooms(Number(id), requestBody);
       const { groupId } = data.data;
       console.log(groupId);
-      navigate(`/group/${groupId}/admin`);
+      navigate(`/group/${id}/admin`);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleCancelBtnClick = () => {
-    navigate(`/group/${roomId}/edit`);
+    navigate(`/group/${id}/edit`);
   };
 
   return (
@@ -163,7 +169,7 @@ const GroupEdit = () => {
           handleImageChange={handleImageChange}
         />
         <TitleSection
-          titleValue={inputs.title}
+          titleValue={groupTitle}
           recruitedValue={inputs.num}
           handleMemberCountChange={handleChangeInputs}
         />
