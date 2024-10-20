@@ -7,6 +7,7 @@ import GroupAllPage from './page/GroupAllPage';
 import GroupComplete from './page/GroupComplete';
 import GroupCreate from './page/GroupCreate';
 import GroupDetail from './page/GroupDetail';
+import GroupEdit from './page/GroupEdit';
 import GroupJoin from './page/GroupJoin';
 import GroupMemberPage from './page/GroupMemberPage';
 import Home from './page/Home';
@@ -44,6 +45,7 @@ const Router = () => {
         <Route path="/oauth/github/callback" element={<LoginLoadingPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/group-all" element={<GroupAllPage />} />
+        <Route path="/group/:id/edit" element={<GroupEdit />} />
       </Routes>
     </BrowserRouter>
   );
