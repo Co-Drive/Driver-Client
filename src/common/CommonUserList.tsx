@@ -319,14 +319,13 @@ const ListContainer = styled.article`
   justify-content: center;
   flex-direction: column;
 
-  width: 92.6rem;
+  width: 100%;
 `;
 
 const ListHeader = styled.header<{ $isAdmin?: boolean }>`
   display: flex;
   align-items: center;
 
-  width: 100%;
   padding: ${({ $isAdmin }) =>
     $isAdmin ? `1.6rem 5.8rem 1.6rem 6.4rem` : `1.6rem 35.2rem 1.6rem 2.4rem`};
 
@@ -338,6 +337,8 @@ const ProfileText = styled.p<{ $isAdmin?: boolean }>`
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_16};
+
+  white-space: nowrap;
 `;
 
 const WeeklyText = styled.p<{ $isAdmin?: boolean }>`
@@ -345,11 +346,15 @@ const WeeklyText = styled.p<{ $isAdmin?: boolean }>`
 
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_16};
+
+  white-space: nowrap;
 `;
 
 const RecentText = styled.p`
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_eng_medium_16};
+
+  white-space: nowrap;
 `;
 
 const Management = styled.p`
