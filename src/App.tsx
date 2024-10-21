@@ -15,6 +15,7 @@ function App() {
   const url = `${import.meta.env.VITE_APP_BASE_URL}/notifications`;
 
   useEffect(() => {
+    console.log(token, language);
     if (isLoginSuccess) {
       let eventSource: EventSourcePolyfill;
 
@@ -27,12 +28,21 @@ function App() {
           heartbeatTimeout: 72 * 100 * 1000,
         });
 
+        // 개발 완료되기 전까지 확인용 콘솔
+        eventSource.addEventListener('open', () => {
+          console.log('open');
+        });
+
         // 연결 후 메시지가 넘어왔을 때 동작
         eventSource.addEventListener('message', (event) => {
           if (event) {
             const response = JSON.parse(event.data);
             const { notificationType } = response;
 
+            if (notificationType && notificationType !== 'CONNECT_START')
+              sessionStorage.setItem('isNewAlarmExit', 'true');
+
+            // 개발 완료되기 전까지 확인용 콘솔
             console.log(notificationType);
           }
         });
