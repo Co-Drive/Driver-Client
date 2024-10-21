@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
 import useGetRoomsSort from '../../libs/hooks/GroupAll/useGetRoomSort';
+import { GroupsItemProps } from '../../types/GroupItem/groupItemType';
 import { removeSavedPage } from '../../utils/removeSavedPage';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
@@ -44,15 +45,19 @@ const GroupItem = () => {
   const totalPageRef = useRef(totalPage || 1);
 
   // 필터링된 그룹 데이터를 반환하는 함수
-  const filterGroups = (groups: any[]) => {
-    return groups.filter((group) => {
-      const isAllTagSelected = selectedTags.includes(ALL_TAG);
-      const groupHasAllTag = group.tags.includes(ALL_TAG);
+  const filterGroups = (groups: GroupsItemProps[]) => {
+    const isAllTagSelected = selectedTags.includes(ALL_TAG);
 
+    return groups.filter((group) => {
+      // ALL_TAG가 선택된 경우, 태그 필터링을 건너뛰고 모든 그룹을 반환
+      if (isAllTagSelected) {
+        return true; // 모든 그룹 반환
+      }
+
+      // ALL_TAG가 선택되지 않았을 경우, 태그와 매칭된 그룹만 반환
       const tagMatch =
         selectedTags.length === 0 ||
-        (isAllTagSelected && groupHasAllTag) ||
-        selectedTags.every((tag) => group.tags.includes(tag)); // 인코딩되지 않은 상태로 비교
+        selectedTags.every((tag) => group.tags.includes(tag));
 
       const sliderMatch =
         group.memberCount >= sliderValues.min &&
