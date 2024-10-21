@@ -70,7 +70,9 @@ const LanguageSection = ({
               />
             </SelectedTagContainer>
           ) : selectedTags.length === 0 ? (
-            <DropdownText>복수선택 가능</DropdownText>
+            <DropdownText>
+              {isDropdownOpen ? '최대 5개까지 선택해주세요' : '복수선택 가능'}
+            </DropdownText>
           ) : (
             selectedTags.map((tag, index) => (
               <SelectedTagContainer key={index}>
