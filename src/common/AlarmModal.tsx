@@ -1,30 +1,35 @@
 import styled from 'styled-components';
-import { ALARMLIST } from '../constants/Alarm/alarm';
 import { AlarmModalProps } from '../types/Alarm/alarmType';
 
-const AlarmModal = ({ isOpen, handleClose }: AlarmModalProps) => {
-  const { NEWALARMS, READALARMS } = ALARMLIST;
+const AlarmModal = ({
+  isOpen,
+  handleClose,
+  notifications,
+}: AlarmModalProps) => {
+  // const { NEWALARMS, READALARMS } = ALARMLIST;
+  const newAlarms = notifications.filter((data) => data.isRead === false);
+  const readAlarms = notifications.filter((data) => data.isRead === true);
 
   return (
     <>
       {isOpen && (
         <ModalContainer onMouseLeave={handleClose}>
           <Title>새로운 알림</Title>
-          {NEWALARMS.map((data, idx) => {
+          {newAlarms.map((data, idx) => {
             return (
               <ModalTab key={idx}>
-                <Highlight>{data.groupName}</Highlight>
-                {data.message}
+                {/* <Highlight>{data.content}</Highlight> */}
+                {data.content}
               </ModalTab>
             );
           })}
           <Divider />
           <Title>읽음</Title>
-          {READALARMS.map((data, idx) => {
+          {readAlarms.map((data, idx) => {
             return (
               <ModalTab key={idx}>
-                <Highlight>{data.groupName}</Highlight>
-                {data.message}
+                {/* <Highlight>{data.groupName}</Highlight> */}
+                {data.content}
               </ModalTab>
             );
           })}
@@ -83,7 +88,7 @@ const Divider = styled.div`
   background-color: ${({ theme }) => theme.colors.gray500};
 `;
 
-const Highlight = styled.span`
-  ${({ theme }) => theme.fonts.title_semiBold_14};
-  color: ${({ theme }) => theme.colors.white};
-`;
+// const Highlight = styled.span`
+//   ${({ theme }) => theme.fonts.title_semiBold_14};
+//   color: ${({ theme }) => theme.colors.white};
+// `;
