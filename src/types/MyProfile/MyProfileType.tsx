@@ -2,7 +2,7 @@ export interface PatchUserProps {
   nickname: string;
   language: string;
   comment: string;
-  githubUrl: string;
+  githubUrl: string | null;
   githubRepositoryName: string;
 }
 
