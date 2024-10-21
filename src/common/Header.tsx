@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowBottomWhite, IcLoginIcon, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
+import useGetAlarmList from '../libs/hooks/Alarm/useGetAlarmList';
 import { HeaderProps } from '../types/Header/HeaderType';
 import AlarmModal from './AlarmModal';
 import Gnb from './Gnb';
@@ -33,6 +34,9 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const handleCloseAlarm = () => {
     setIsAlarmOpen(false);
   };
+  const { data, isLoading } = useGetAlarmList();
+  const { notifications } = !isLoading && data?.data;
+  console.log(notifications);
 
   // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
   // 컨텐츠 부분을 지나치지 않더라도 바로 창이 닫히게끔 하기 위해 추가함
@@ -85,7 +89,11 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
         </LoginBtnContainer>
         <AlarmContainer>
           {isAlarmOpen && (
-            <AlarmModal isOpen={isAlarmOpen} handleClose={handleCloseAlarm} />
+            <AlarmModal
+              isOpen={isAlarmOpen}
+              handleClose={handleCloseAlarm}
+              notifications={notifications}
+            />
           )}
         </AlarmContainer>
         <IcArrowContainer
