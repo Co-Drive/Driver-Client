@@ -39,7 +39,11 @@ const Profile = () => {
       <ProfileInfo>
         <InfoContainer>
           <Language>{language}</Language>
-          {githubUrl && <IcGithub onClick={() => handleClickLink(githubUrl)} />}
+          <IconWrapper>
+            {githubUrl && (
+              <IcGithub onClick={() => handleClickLink(githubUrl)} />
+            )}
+          </IconWrapper>
           <RegisterModalContainer>
             <IcRevise onClick={handleOpenModal} />
           </RegisterModalContainer>
@@ -90,6 +94,11 @@ const InfoContainer = styled.div`
   margin-bottom: 0.9rem;
 `;
 
+const IconWrapper = styled.div`
+  width: 3.5rem;
+  height: 3.5rem;
+`;
+
 const Language = styled.p`
   padding: 0.6rem 1rem;
   margin-right: 1.4rem;
@@ -102,7 +111,7 @@ const Language = styled.p`
 
 const RegisterModalContainer = styled.div`
   padding: 0.6rem;
-  margin-left: 55rem;
+  margin-left: 50rem;
   cursor: pointer;
 
   &:hover {
