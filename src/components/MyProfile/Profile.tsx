@@ -39,7 +39,7 @@ const Profile = () => {
       <ProfileInfo>
         <InfoContainer>
           <Language>{language}</Language>
-          <IcGithub onClick={() => handleClickLink(githubUrl)} />
+          {githubUrl && <IcGithub onClick={() => handleClickLink(githubUrl)} />}
           <RegisterModalContainer>
             <IcRevise onClick={handleOpenModal} />
           </RegisterModalContainer>
