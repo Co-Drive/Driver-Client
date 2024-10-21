@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
 import useGetRoomsSort from '../../libs/hooks/GroupAll/useGetRoomSort';
+import { GroupsItemProps } from '../../types/GroupItem/groupItemType';
 import { removeSavedPage } from '../../utils/removeSavedPage';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
@@ -44,7 +45,7 @@ const GroupItem = () => {
   const totalPageRef = useRef(totalPage || 1);
 
   // 필터링된 그룹 데이터를 반환하는 함수
-  const filterGroups = (groups: any[]) => {
+  const filterGroups = (groups: GroupsItemProps[]) => {
     const isAllTagSelected = selectedTags.includes(ALL_TAG);
 
     return groups.filter((group) => {
