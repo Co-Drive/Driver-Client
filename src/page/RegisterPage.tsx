@@ -110,12 +110,13 @@ const RegisterPage = () => {
   // 가입 버튼 클릭 처리 함수
   const handleJoinBtnClick = async () => {
     if (!isActive) return;
-
+    const name = sessionStorage.getItem('name'); // 세션에서 name 가져오기
     const profileInfo = {
       nickname: nickname,
       language: selectedLanguage,
       comment: intro,
       githubRepositoryName: repositories,
+      githubUrl: name ? `https://github.com/${name}` : undefined,
     };
 
     try {

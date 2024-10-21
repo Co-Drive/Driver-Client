@@ -17,9 +17,7 @@ import usePostCheckExitRepository from './../../libs/hooks/MyProfile/usePostChec
 const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   const [inputs, setInputs] = useState({
     ...initialData,
-    githubUrl: `https://github.com/${initialData.username?.split('/').pop()}`, // GitHub URL 설정
   });
-  console.log(inputs);
 
   const [selectedLanguage, setSelectedLanguage] = useState(
     initialData.language
@@ -127,9 +125,13 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   // 가입 버튼 클릭 처리 함수
   const handleSaveBtnClick = () => {
     if (!isActive) return;
+
+    const editGithubUrl =
+      githubUrl === 'https://github.com/' ? null : githubUrl;
+
     patchMutation({
       comment,
-      githubUrl,
+      githubUrl: editGithubUrl,
       language: selectedLanguage,
       nickname,
       githubRepositoryName: repositories,
