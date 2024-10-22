@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { IcNewAlarm } from '../assets';
 import usePostAlarmRead from '../libs/hooks/Alarm/usePostAlarmRead';
 import { AlarmModalProps } from '../types/Alarm/alarmType';
 
@@ -8,7 +9,6 @@ const AlarmModal = ({
   handleClose,
   notifications,
 }: AlarmModalProps) => {
-  // const { NEWALARMS, READALARMS } = ALARMLIST;
   // notifications가 로드되지 않았을 때 빈 배열을 기본값으로 설정
   const newAlarms =
     notifications?.filter((data) => data?.isRead === false) || [];
@@ -17,8 +17,8 @@ const AlarmModal = ({
   const { mutation } = usePostAlarmRead();
 
   const navigate = useNavigate();
-  // console.log('아이디값', id);
 
+  // 알람 클릭 시 일어나는 일
   const handleAlarmClick = (
     notificationIds: number,
     type: string,
@@ -41,7 +41,7 @@ const AlarmModal = ({
             navigate(`/group/${dataId}/admin`);
             break;
           case 'PUBLIC_ROOM_REQUEST':
-            navigate('group-complete');
+            navigate(`/group/${dataId}`);
             break;
           case 'PUBLIC_ROOM_APPROVE':
             navigate(`/group/${dataId}/member`);
@@ -69,20 +69,17 @@ const AlarmModal = ({
                   handleAlarmClick(data.notificationId, data.type, data.dataId)
                 }
               >
-                {/* <Highlight>{data.content}</Highlight> */}
                 {data.content}
+                <IcContainer>
+                  <IcNewAlarm />
+                </IcContainer>
               </ModalTab>
             );
           })}
           <Divider />
           <Title>읽음</Title>
           {readAlarms.map((data, idx) => {
-            return (
-              <ModalTab key={idx}>
-                {/* <Highlight>{data.groupName}</Highlight> */}
-                {data.content}
-              </ModalTab>
-            );
+            return <ModalTab key={idx}>{data.content}</ModalTab>;
           })}
         </ModalContainer>
       )}
@@ -108,11 +105,16 @@ const ModalContainer = styled.ul`
 `;
 
 const ModalTab = styled.li`
+  display: flex;
+  position: relative;
+
   width: 100%;
   padding: 1.1rem 3.9rem 1.1rem 2.2rem;
   ${({ theme }) => theme.fonts.title_regular_14};
 
   color: ${({ theme }) => theme.colors.white};
+
+  white-space: nowrap;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray500};
@@ -139,7 +141,13 @@ const Divider = styled.div`
   background-color: ${({ theme }) => theme.colors.gray500};
 `;
 
-// const Highlight = styled.span`
-//   ${({ theme }) => theme.fonts.title_semiBold_14};
-//   color: ${({ theme }) => theme.colors.white};
-// `;
+const IcContainer = styled.div`
+  display: flex;
+  position: absolute;
+  top: 1.1rem;
+  right: 2.2rem;
+
+  /* margin-left: 9.5rem; */
+
+  /* background-color: pink; */
+`;

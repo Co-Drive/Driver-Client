@@ -34,9 +34,10 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const handleCloseAlarm = () => {
     setIsAlarmOpen(false);
   };
+
+  // 알람 리스트 전부를 받아와서 notifications 의 담아줌
   const { data, isLoading } = useGetAlarmList();
   const { notifications } = !isLoading && data?.data;
-  console.log(notifications);
 
   // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
   // 컨텐츠 부분을 지나치지 않더라도 바로 창이 닫히게끔 하기 위해 추가함
