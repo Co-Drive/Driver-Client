@@ -7,6 +7,7 @@ export interface AlarmModalProps {
       isRead: boolean;
       notificationId: number;
       type: string;
+      dataId: number;
     },
   ];
 }
