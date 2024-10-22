@@ -47,6 +47,7 @@ function App() {
 
             // 개발 완료되기 전까지 확인용 콘솔
             console.log(notificationType);
+            console.log(response);
           }
         });
 
