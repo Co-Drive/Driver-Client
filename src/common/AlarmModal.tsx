@@ -18,16 +18,12 @@ const AlarmModal = ({
 
   const navigate = useNavigate();
 
-  // 알람 클릭 시 일어나는 일
+  // notifications 에서 data 전달
   const handleAlarmClick = (
     notificationIds: number,
     type: string,
     dataId: number
   ) => {
-    console.log('알람클릭:', notificationIds); // 클릭 시 로그 출력
-    console.log(dataId);
-    console.log('타입', type);
-
     mutation(notificationIds, {
       onSuccess: () => {
         switch (type) {
@@ -49,8 +45,6 @@ const AlarmModal = ({
           case 'ROOM_STATUS_INACTIVE':
             navigate('/group/my-page');
             break;
-          default:
-            console.log('매치된거없음', type);
         }
       },
     });
@@ -68,6 +62,7 @@ const AlarmModal = ({
                 onClick={() =>
                   handleAlarmClick(data.notificationId, data.type, data.dataId)
                 }
+                /* 알림 클릭 시 type,dataId,notificationId 전달 */
               >
                 {data.content}
                 <IcContainer>
@@ -146,8 +141,4 @@ const IcContainer = styled.div`
   position: absolute;
   top: 1.1rem;
   right: 2.2rem;
-
-  /* margin-left: 9.5rem; */
-
-  /* background-color: pink; */
 `;
