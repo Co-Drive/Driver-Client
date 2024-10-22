@@ -1,4 +1,6 @@
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import usePostAlarmRead from '../libs/hooks/Alarm/usePostAlarmRead';
 import { AlarmModalProps } from '../types/Alarm/alarmType';
 
 const AlarmModal = ({
@@ -7,8 +9,46 @@ const AlarmModal = ({
   notifications,
 }: AlarmModalProps) => {
   // const { NEWALARMS, READALARMS } = ALARMLIST;
-  const newAlarms = notifications.filter((data) => data.isRead === false);
-  const readAlarms = notifications.filter((data) => data.isRead === true);
+  // notifications가 로드되지 않았을 때 빈 배열을 기본값으로 설정
+  const newAlarms =
+    notifications?.filter((data) => data?.isRead === false) || [];
+  const readAlarms =
+    notifications?.filter((data) => data?.isRead === true) || [];
+  const { mutation } = usePostAlarmRead();
+  // console.log(mutation);
+
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  console.log(id);
+
+  const handleAlarmClick = (notificationIds: number, type: string) => {
+    console.log('Alarm clicked:', notificationIds, type); // 클릭 시 로그 출력
+    mutation(notificationIds, {
+      onSuccess: () => {
+        switch (type) {
+          case 'FOLLOW':
+            navigate('/follower');
+            break;
+          case 'CREATED_PUBLIC_ROOM_REQUEST':
+            navigate(`/group/${id}/admin`);
+            break;
+          case 'CREATED_PRIVATE_ROOM_REQUEST':
+            navigate(`/group/${id}/admin`);
+            break;
+          case 'PUBLIC_ROOM_REQUSET':
+            navigate('group-complete');
+            break;
+          case 'PUBLIC_ROOM_APPROVE':
+            navigate(`/group/${id}/member`);
+            break;
+          case 'ROOM_STATUS_INACTIVE':
+            navigate('/group/my-page');
+            break;
+        }
+      },
+    });
+  };
 
   return (
     <>
@@ -17,7 +57,10 @@ const AlarmModal = ({
           <Title>새로운 알림</Title>
           {newAlarms.map((data, idx) => {
             return (
-              <ModalTab key={idx}>
+              <ModalTab
+                key={idx}
+                onClick={() => handleAlarmClick(data.notificationId, data.type)}
+              >
                 {/* <Highlight>{data.content}</Highlight> */}
                 {data.content}
               </ModalTab>
