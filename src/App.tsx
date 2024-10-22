@@ -59,12 +59,31 @@ function App() {
             if (e.target.readyState !== EventSource.CLOSED) {
               deleteNotification();
             }
+
+            // 개발 완료되기 전까지 확인용 콘솔
+            else console.log('finish');
           }
         });
       };
 
       // 초기 연결
       connectSSE();
+
+      // 새로고침 감지 후 연결 해제
+      const handleBeforeUnload = () => {
+        if (eventSource) {
+          // 로그아웃으로 연결을 해지한 경우는 실행되지 않음
+          token && deleteNotification();
+          eventSource.close();
+        }
+      };
+
+      window.addEventListener('beforeunload', handleBeforeUnload);
+
+      // Cleanup 함수로 연결을 닫음
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload); // 새로고침 이벤트 해제
+      };
     }
   }, [token, language]);
 
