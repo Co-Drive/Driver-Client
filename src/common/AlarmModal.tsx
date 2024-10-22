@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import usePostAlarmRead from '../libs/hooks/Alarm/usePostAlarmRead';
 import { AlarmModalProps } from '../types/Alarm/alarmType';
@@ -15,15 +15,19 @@ const AlarmModal = ({
   const readAlarms =
     notifications?.filter((data) => data?.isRead === true) || [];
   const { mutation } = usePostAlarmRead();
-  // console.log(mutation);
 
   const navigate = useNavigate();
-  const { id } = useParams();
+  // console.log('아이디값', id);
 
-  console.log(id);
+  const handleAlarmClick = (
+    notificationIds: number,
+    type: string,
+    dataId: number
+  ) => {
+    console.log('알람클릭:', notificationIds); // 클릭 시 로그 출력
+    console.log(dataId);
+    console.log('타입', type);
 
-  const handleAlarmClick = (notificationIds: number, type: string) => {
-    console.log('Alarm clicked:', notificationIds, type); // 클릭 시 로그 출력
     mutation(notificationIds, {
       onSuccess: () => {
         switch (type) {
@@ -31,20 +35,22 @@ const AlarmModal = ({
             navigate('/follower');
             break;
           case 'CREATED_PUBLIC_ROOM_REQUEST':
-            navigate(`/group/${id}/admin`);
+            navigate(`/group/${dataId}/admin`);
             break;
-          case 'CREATED_PRIVATE_ROOM_REQUEST':
-            navigate(`/group/${id}/admin`);
+          case 'CREATED_PRIVATE_ROOM_JOIN':
+            navigate(`/group/${dataId}/admin`);
             break;
-          case 'PUBLIC_ROOM_REQUSET':
+          case 'PUBLIC_ROOM_REQUEST':
             navigate('group-complete');
             break;
           case 'PUBLIC_ROOM_APPROVE':
-            navigate(`/group/${id}/member`);
+            navigate(`/group/${dataId}/member`);
             break;
           case 'ROOM_STATUS_INACTIVE':
             navigate('/group/my-page');
             break;
+          default:
+            console.log('매치된거없음', type);
         }
       },
     });
@@ -59,7 +65,9 @@ const AlarmModal = ({
             return (
               <ModalTab
                 key={idx}
-                onClick={() => handleAlarmClick(data.notificationId, data.type)}
+                onClick={() =>
+                  handleAlarmClick(data.notificationId, data.type, data.dataId)
+                }
               >
                 {/* <Highlight>{data.content}</Highlight> */}
                 {data.content}
