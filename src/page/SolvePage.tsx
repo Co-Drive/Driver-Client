@@ -159,7 +159,7 @@ const SolvePage = () => {
         />
 
         <AddBtnContainer>
-          {ideItems[ideItems.length - 1].code.length ? (
+          {ideItems && ideItems[ideItems.length - 1].code.length ? (
             <IcAddFill onClick={handleClickAddBtn} />
           ) : (
             <IcAddFillDisabled />
