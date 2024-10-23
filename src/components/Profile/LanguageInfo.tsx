@@ -24,6 +24,7 @@ const LanguageInfoContainer = styled.section`
   position: relative;
 
   padding-bottom: 1.4rem;
+  margin-bottom: 3.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;

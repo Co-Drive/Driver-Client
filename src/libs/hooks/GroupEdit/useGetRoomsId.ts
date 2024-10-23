@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import getRoomsId from './../../apis/GroupEdit/getRoomsId';
 
-const uasGetRoomsId = (roomId: number) => {
+const useGetRoomsId = (roomId: number) => {
   const { data, isLoading } = useQuery({
     queryKey: ['get-rooms-id'],
     queryFn: async () => await getRoomsId(roomId),
@@ -10,4 +10,4 @@ const uasGetRoomsId = (roomId: number) => {
   return { data, isLoading };
 };
 
-export default uasGetRoomsId;
+export default useGetRoomsId;

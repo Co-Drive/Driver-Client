@@ -16,11 +16,21 @@ export interface LanguageInfoProps {
 
 export interface NickNameInfoProps {
   nickname: string;
-  changeNickname: {isExitNickname: boolean, isClickedCheckBtn: boolean};
+  changeNickname: { isExitNickname: boolean; isClickedCheckBtn: boolean };
   handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNicknameCheck: () => void;
 }
 
 export interface NameInfoProps {
   user: string;
+}
+
+export interface RepositoriesInfoProps {
+  repositories: string;
+  changeRepositories: {
+    isExistRepositories: boolean;
+    isClickedCheckRepositoriesBtn: boolean;
+  };
+  handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleRepositoriesCheck: () => void;
 }

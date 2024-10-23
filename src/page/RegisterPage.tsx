@@ -3,18 +3,20 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from '../common/CommonButton';
 import PageLayout from '../components/PageLayout/PageLayout';
-import Github from '../components/Register/Gitbhub';
 import IntroInput from '../components/Register/IntroInput';
 import Language from '../components/Register/Language';
 import NickName from '../components/Register/NickName';
+import Repositories from '../components/Register/Repositories';
 import { patchProfile } from '../libs/apis/Register/patchProfile';
 import usePostCheckExitNickname from '../libs/hooks/MyProfile/usePostCheckExitNickname';
+import usePostCheckExitRepository from '../libs/hooks/MyProfile/usePostCheckExitRepository';
 
 const RegisterPage = () => {
   const [inputs, setInputs] = useState({
     nickname: '',
     github: '',
     intro: '',
+    repositories: '',
   });
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -23,7 +25,15 @@ const RegisterPage = () => {
     isClickedCheckBtn: false,
   });
 
+  const [changeRepositories, setChangeRepositories] = useState({
+    isExistRepositories: false,
+    isClickedCheckRepositoriesBtn: false,
+  });
+
   const { isExistNickname, isClickedCheckBtn } = changeNickname;
+  const { isExistRepositories, isClickedCheckRepositoriesBtn } =
+    changeRepositories;
+
   const { state } = useLocation();
 
   const navigate = useNavigate();
@@ -37,19 +47,30 @@ const RegisterPage = () => {
   }
   const userId = parseInt(id);
 
-  const { nickname, github, intro } = inputs;
-  const { mutation } = usePostCheckExitNickname((isExit: boolean) =>
-    setChangeNickname({
-      isExistNickname: isExit,
-      isClickedCheckBtn: true,
-    })
+  const { nickname, intro, repositories } = inputs;
+  const { mutation: nicknameMutation } = usePostCheckExitNickname(
+    (isExit: boolean) =>
+      setChangeNickname({
+        isExistNickname: isExit,
+        isClickedCheckBtn: true,
+      })
+  );
+
+  const { mutation: repositoryMutation } = usePostCheckExitRepository(
+    (isExit: boolean) =>
+      setChangeRepositories({
+        isExistRepositories: isExit,
+        isClickedCheckRepositoriesBtn: true,
+      })
   );
 
   const isActive =
     nickname.length > 0 &&
     nickname.length <= 10 &&
     isClickedCheckBtn &&
+    isClickedCheckRepositoriesBtn &&
     !isExistNickname &&
+    !isExistRepositories &&
     selectedLanguage.length > 0;
 
   // 입력 값 변경 처리 함수
@@ -64,6 +85,13 @@ const RegisterPage = () => {
       setChangeNickname((prev) => ({
         ...prev,
         isClickedCheckBtn: false,
+      }));
+    }
+
+    if (name === 'repositories') {
+      setChangeRepositories((prev) => ({
+        ...prev,
+        isClickedCheckRepositoriesBtn: false,
       }));
     }
   };
@@ -82,12 +110,13 @@ const RegisterPage = () => {
   // 가입 버튼 클릭 처리 함수
   const handleJoinBtnClick = async () => {
     if (!isActive) return;
-
+    const name = sessionStorage.getItem('name'); // 세션에서 name 가져오기
     const profileInfo = {
       nickname: nickname,
       language: selectedLanguage,
       comment: intro,
-      githubUrl: github,
+      githubRepositoryName: repositories,
+      githubUrl: name ? `https://github.com/${name}` : undefined,
     };
 
     try {
@@ -107,7 +136,11 @@ const RegisterPage = () => {
 
   // 닉네임 중복 체크 함수
   const handleNicknameCheck = () => {
-    mutation(nickname);
+    nicknameMutation(nickname);
+  };
+
+  const handleRepositoriesCheck = () => {
+    repositoryMutation(repositories);
   };
 
   return (
@@ -123,8 +156,13 @@ const RegisterPage = () => {
           selectedTag={selectedLanguage}
           handleChangeTag={handleChangeTag}
         />
+        <Repositories
+          repositories={repositories}
+          changeRepositories={changeRepositories}
+          handleChangeInputs={handleChangeInputs}
+          handleRepositoriesCheck={handleRepositoriesCheck}
+        />
         <IntroInput value={intro} onChange={handleChangeIntro} />
-        <Github github={github} handleChangeInputs={handleChangeInputs} />
         <RegisterButton>
           <CommonButton
             isActive={isActive}

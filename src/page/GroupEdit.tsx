@@ -10,6 +10,7 @@ import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
 
+import { ALL_TAG, DUMMY } from './../constants/GroupCreate/LanguageConst';
 import patchRooms from './../libs/apis/GroupEdit/patchRooms';
 import useGetDetail from './../libs/hooks/GroupDetail/useGetDetail';
 
@@ -41,9 +42,12 @@ const GroupEdit = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(
     imageSrc || ''
   );
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null); // 이미지 파일
-  const [selectedTags, setSelectedTags] = useState<string[]>(tags || []);
-  const [savedSecretKey, setSavedSecretKey] = useState<string>(password || ''); // 임시로 비밀번호를 저장하는 변수
+  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>(
+    tags?.length === DUMMY.length ? [ALL_TAG] : tags || []
+  );
+
+  const [savedSecretKey, setSavedSecretKey] = useState<string>(password || '');
   const navigate = useNavigate();
   const { title: roomTitleInput, num, secretKey, intro, group } = inputs;
 
