@@ -37,7 +37,9 @@ const AlarmModal = ({
             navigate(`/group/${dataId}/admin`);
             break;
           case 'PUBLIC_ROOM_REQUEST':
-            navigate(`/group/${dataId}`);
+            navigate(`/group/${dataId}`, {
+              state: { disabledApply: true },
+            }); // state 를 true로 변경하여 신청하기 버튼 없애기
             break;
           case 'PUBLIC_ROOM_APPROVE':
             navigate(`/group/${dataId}/member`);
