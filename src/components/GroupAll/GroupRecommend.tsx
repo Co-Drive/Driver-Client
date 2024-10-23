@@ -83,6 +83,7 @@ const Tooltip = styled.div`
   position: absolute;
   top: 3rem;
   visibility: hidden;
+  z-index: 10;
 
   width: 19.3rem;
   height: auto;

@@ -6,6 +6,7 @@ const patchUser = async ({
   githubUrl,
   comment,
   language,
+  githubRepositoryName,
 }: PatchUserProps) => {
   const id = sessionStorage.getItem('user');
   const userId = id && parseInt(id);
@@ -14,6 +15,7 @@ const patchUser = async ({
     githubUrl: githubUrl,
     comment: comment,
     language: language,
+    githubRepositoryName: githubRepositoryName,
   });
 
   return data;

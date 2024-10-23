@@ -1,47 +1,50 @@
 import styled from 'styled-components';
-import { NickNameInfoProps } from '../../types/Profile/ProfileType';
-import CommonInput from './../../common/CommonInput';
+import CommonInput from '../../common/CommonInput';
+import { RepositoriesInfoProps } from '../../types/Profile/ProfileType';
 
-const NicknameInfo = ({
-  nickname,
-  changeNickname,
+const RepositoriesInfo = ({
+  repositories,
+  changeRepositories,
   handleChangeInputs,
-  handleNicknameCheck,
-}: NickNameInfoProps) => {
-  const { isExitNickname, isClickedCheckBtn } = changeNickname;
+  handleRepositoriesCheck,
+}: RepositoriesInfoProps) => {
+  const { isExistRepositories, isClickedCheckRepositoriesBtn } =
+    changeRepositories;
+
   return (
-    <NicknameInfoContainer>
-      <NicknameTitle>닉네임</NicknameTitle>
+    <RepositoriesContainer>
+      <div>
+        <NicknameTitle>깃허브</NicknameTitle>
+        <NicknameTitle>리포지토리</NicknameTitle>
+      </div>
       <InputWrapper>
         <CommonInput
-          category="nickname"
-          value={nickname}
-          isClickedCheckBtn={isClickedCheckBtn}
-          isExitedNickname={isExitNickname}
+          category="repositories"
+          value={repositories}
+          isClickedCheckRepositoriesBtn={isClickedCheckRepositoriesBtn}
+          isExitedRepositories={isExistRepositories}
           handleChangeInputs={handleChangeInputs}
         />
-        <Button type="button" onClick={handleNicknameCheck}>
+        <Button type="button" onClick={handleRepositoriesCheck}>
           검색
         </Button>
       </InputWrapper>
-    </NicknameInfoContainer>
+    </RepositoriesContainer>
   );
 };
 
-const NicknameInfoContainer = styled.section`
+const RepositoriesContainer = styled.section`
   display: flex;
-  justify-content: center;
   align-items: center;
 
   height: 7.7rem;
-  padding-bottom: 1.9rem;
-  margin-bottom: 3.2rem;
+  margin-top: 2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const NicknameTitle = styled.h2`
-  margin-right: 9.2rem;
+  margin-right: 5.8rem;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -67,4 +70,4 @@ const Button = styled.button`
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
-export default NicknameInfo;
+export default RepositoriesInfo;

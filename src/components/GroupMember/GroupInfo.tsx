@@ -207,14 +207,10 @@ const AdminControlContainer = styled.div`
 const IcContainer = styled.div<{ $on?: boolean }>`
   padding: 0.6rem;
 
-  ${({ $on }) =>
-    $on &&
-    css`
-      &:hover {
-        border-radius: 5rem;
-        background-color: ${({ theme }) => theme.colors.gray500};
-      }
-    `};
+  &:hover {
+    border-radius: 5rem;
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
 `;
 
 const AdminToggle = styled.button<{ $on?: boolean }>`

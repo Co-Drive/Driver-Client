@@ -2,7 +2,8 @@ export interface PatchUserProps {
   nickname: string;
   language: string;
   comment: string;
-  githubUrl: string;
+  githubUrl: string | null;
+  githubRepositoryName: string;
 }
 
 export interface ProfileEdiltProps {
@@ -13,6 +14,8 @@ export interface ProfileEdiltProps {
     language: string;
     nickname: string;
     name: string;
+    githubRepositoryName: string;
+    username: string;
   };
 }
 
