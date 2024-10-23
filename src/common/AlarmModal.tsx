@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcNewAlarm } from '../assets';
 import usePostAlarmRead from '../libs/hooks/Alarm/usePostAlarmRead';
@@ -16,40 +15,13 @@ const AlarmModal = ({
     notifications?.filter((data) => data?.isRead === true) || [];
   const { mutation } = usePostAlarmRead();
 
-  const navigate = useNavigate();
-
   // notifications 에서 data 전달
   const handleAlarmClick = (
-    notificationIds: number,
+    notificationId: number,
     type: string,
     dataId: number
   ) => {
-    mutation(notificationIds, {
-      onSuccess: () => {
-        switch (type) {
-          case 'FOLLOW':
-            navigate('/follower');
-            break;
-          case 'CREATED_PUBLIC_ROOM_REQUEST':
-            navigate(`/group/${dataId}/admin`);
-            break;
-          case 'CREATED_PRIVATE_ROOM_JOIN':
-            navigate(`/group/${dataId}/admin`);
-            break;
-          case 'PUBLIC_ROOM_REQUEST':
-            navigate(`/group/${dataId}`, {
-              state: { disabledApply: true },
-            }); // state 를 true로 변경하여 신청하기 버튼 없애기
-            break;
-          case 'PUBLIC_ROOM_APPROVE':
-            navigate(`/group/${dataId}/member`);
-            break;
-          case 'ROOM_STATUS_INACTIVE':
-            navigate('/group/my-page');
-            break;
-        }
-      },
-    });
+    mutation({ notificationId, type, dataId });
   };
 
   return (
