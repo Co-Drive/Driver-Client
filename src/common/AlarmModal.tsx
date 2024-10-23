@@ -67,10 +67,13 @@ const ModalContainer = styled.ul`
   right: -2rem;
 
   width: 36.4rem;
+  max-height: 53rem;
+
   padding: 2.2rem 0 1.8rem;
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray600};
+  overflow-y: scroll;
 `;
 
 const ModalTab = styled.li`
