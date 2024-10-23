@@ -58,12 +58,11 @@ const AlarmModal = ({
         <ModalContainer onMouseLeave={handleClose}>
           <Title>새로운 알림</Title>
           {newAlarms.map((data, idx) => {
+            const { notificationId, type, dataId } = data;
             return (
               <ModalTab
                 key={idx}
-                onClick={() =>
-                  handleAlarmClick(data.notificationId, data.type, data.dataId)
-                }
+                onClick={() => handleAlarmClick(notificationId, type, dataId)}
                 /* 알림 클릭 시 type,dataId,notificationId 전달 */
               >
                 {data.content}
@@ -76,7 +75,8 @@ const AlarmModal = ({
           <Divider />
           <Title>읽음</Title>
           {readAlarms.map((data, idx) => {
-            return <ModalTab key={idx}>{data.content}</ModalTab>;
+            const { content } = data;
+            return <ModalTab key={idx}>{content}</ModalTab>;
           })}
         </ModalContainer>
       )}
