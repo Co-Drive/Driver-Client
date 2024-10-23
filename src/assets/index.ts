@@ -48,6 +48,7 @@ import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
 import IcMinusWhite from './icon/ic_minus_white.svg?react';
+import IcNewAlarm from './icon/ic_new_alarm.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
 import IcRank1 from './icon/ic_rank_1.svg?react';
 import IcRank2 from './icon/ic_rank_2.svg?react';
@@ -145,6 +146,7 @@ export {
   IcMemoGray,
   IcMemoWhite,
   IcMinusWhite,
+  IcNewAlarm,
   IcNothing,
   IcRank1,
   IcRank2,
