@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowBottomWhite, IcLoginIcon, IcLogo } from '../assets';
-import { ALARMLIST } from '../constants/Alarm/alarm';
 import { DATA } from '../constants/Header/HeaderConst';
 import useGetAlarmList from '../libs/hooks/Alarm/useGetAlarmList';
 import { HeaderProps } from '../types/Header/HeaderType';
@@ -14,10 +13,16 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const nickname = sessionStorage.getItem('nickname');
   const profileImg = sessionStorage.getItem('profileImg');
   const language = sessionStorage.getItem('language');
-  const isLoginSuccess = nickname && profileImg && language !== '사용언어';
+  // isLoginSuccess를 불린 값으로 정의
+  const isLoginSuccess = !!(nickname && profileImg && language !== '사용언어');
 
-  // 서버에서 알람 리스트를 불러오는 부분
-  const { NEWALARMS } = ALARMLIST;
+  // 알람 리스트 전부를 받아와서 notifications 의 담아줌
+  const { data, isLoading } = useGetAlarmList(isLoginSuccess);
+  const { notifications } = (!isLoading && data?.data) || {};
+  const newAlarms =
+    notifications?.filter(
+      (data: { isRead: boolean }) => data.isRead === false
+    ) || [];
 
   const [hoveredCategory, setHoveredCategory] = useState('');
   const [isGnbOpen, setIsGnbOpen] = useState(false);
@@ -40,18 +45,17 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
     setIsAlarmOpen(false);
   };
 
-  // 알람 리스트 전부를 받아와서 notifications 의 담아줌
-  const { data, isLoading } = (isLoginSuccess && useGetAlarmList()) || {};
-  const { notifications } = (!isLoading && data?.data) || {};
-
   useEffect(() => {
-    if (NEWALARMS || sessionStorage.getItem('isNewAlarmExit')) {
+    const hasNewAlarms = newAlarms || sessionStorage.getItem('isNewAlarmExit');
+
+    if (hasNewAlarms) {
       sessionStorage.setItem('isNewAlarmExit', 'true');
       setIsNewAlarmExit(true);
     } else {
       sessionStorage.removeItem('isNewAlarmExit');
+      setIsNewAlarmExit(false);
     }
-  }, [NEWALARMS]);
+  }, [newAlarms]);
 
   // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
   // 컨텐츠 부분을 지나치지 않더라도 바로 창이 닫히게끔 하기 위해 추가함
