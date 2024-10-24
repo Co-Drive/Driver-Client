@@ -9,6 +9,7 @@ import {
   IcRank3,
   IcRank3Gray,
   ImgEmptyProfile,
+  ImgRankBgNonePeople,
   ImgRankingBg,
 } from '../../assets';
 import useGetRanking from '../../libs/hooks/GroupMember/useGetRanking';
@@ -26,6 +27,7 @@ const Top3Members = () => {
   const { data, isLoading } = useGetRanking(roomId);
   const { rank } = !isLoading && data.data;
   const isActiveRank = !isLoading && rank.length > 0;
+  const rankBg = isActiveRank ? ImgRankingBg : ImgRankBgNonePeople;
   const changedRank = isActiveRank ? [rank[1], rank[0], rank[2]] : [];
   const finalRank = Array(3)
     .fill(0)
@@ -67,30 +69,41 @@ const Top3Members = () => {
         </IcContainer>
       </TopInfo>
 
-      <Img src={ImgRankingBg} alt="랭킹 배경 이미지" />
+      <Img src={rankBg} alt="랭킹 배경 이미지" />
 
-      <MembersContainer>
-        {finalRank.map((member, idx) => {
-          const { userId, profileImg, nickname } = member;
+      {isActiveRank ? (
+        <MembersContainer>
+          {finalRank.map((member, idx) => {
+            const { userId, profileImg, nickname } = member;
 
-          return (
-            <Member key={idx} $winner={idx === 1}>
-              <Ranking $winner={idx === 1}>
-                {renderProfile(idx, userId)}
-              </Ranking>
-              <ProfileImgContainer
-                $winner={idx === 1}
-                $isNotRealUser={userId === -1}
-              >
-                <ProfileImg src={profileImg} alt="프로필 이미지" />
-              </ProfileImgContainer>
-              <ProfileName $winner={idx === 1} $isNotRealUser={userId === -1}>
-                {nickname}
-              </ProfileName>
-            </Member>
-          );
-        })}
-      </MembersContainer>
+            return (
+              <Member key={idx} $winner={idx === 1}>
+                <Ranking $winner={idx === 1}>
+                  {renderProfile(idx, userId)}
+                </Ranking>
+                <ProfileImgContainer
+                  $winner={idx === 1}
+                  $isNotRealUser={userId === -1}
+                >
+                  <ProfileImg src={profileImg} alt="프로필 이미지" />
+                </ProfileImgContainer>
+                <ProfileName $winner={idx === 1} $isNotRealUser={userId === -1}>
+                  {nickname}
+                </ProfileName>
+              </Member>
+            );
+          })}
+        </MembersContainer>
+      ) : (
+        <NonePeopleContainer>
+          <MotivationTextContainer>
+            <MotivationText>오늘 문제를 푼 사용자가 아직 없어요</MotivationText>
+            <MotivationText>가장 먼저 문제를 풀어보세요!</MotivationText>
+          </MotivationTextContainer>
+
+          <SolveBtn>문제풀이 등록하러 가기</SolveBtn>
+        </NonePeopleContainer>
+      )}
     </Top3MembersContainer>
   );
 };
@@ -137,6 +150,45 @@ const Img = styled.img`
 
   width: 100%;
   height: 100%;
+`;
+
+const NonePeopleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+  margin-top: 6.2rem;
+`;
+
+const MotivationTextContainer = styled.div`
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const MotivationText = styled.p`
+  z-index: 1;
+
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_medium_20};
+
+  text-align: center;
+`;
+
+const SolveBtn = styled.button`
+  z-index: 1;
+
+  padding: 0.95rem 1.4rem;
+  margin-top: 2.4rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.codrive_green};
+  color: ${({ theme }) => theme.colors.gray900};
+  ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
 const MembersContainer = styled.div`
