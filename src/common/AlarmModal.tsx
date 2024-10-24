@@ -9,10 +9,8 @@ const AlarmModal = ({
   notifications,
 }: AlarmModalProps) => {
   // notifications가 로드되지 않았을 때 빈 배열을 기본값으로 설정
-  const newAlarms =
-    notifications?.filter((data) => data?.isRead === false) || [];
-  const readAlarms =
-    notifications?.filter((data) => data?.isRead === true) || [];
+  const newAlarms = notifications.filter((data) => data.isRead === false) || [];
+  const readAlarms = notifications.filter((data) => data.isRead === true) || [];
   const { mutation } = usePostAlarmRead();
 
   // notifications 에서 data 전달

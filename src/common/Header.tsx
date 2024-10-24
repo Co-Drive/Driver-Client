@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowBottomWhite, IcLoginIcon, IcLogo } from '../assets';
@@ -13,11 +13,22 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const nickname = sessionStorage.getItem('nickname');
   const profileImg = sessionStorage.getItem('profileImg');
   const language = sessionStorage.getItem('language');
-  const isLoginSuccess = nickname && profileImg && language !== '사용언어';
+  // isLoginSuccess를 불린 값으로 정의
+  const isLoginSuccess = !!(nickname && profileImg && language !== '사용언어');
+
+  // 알람 리스트 전부를 받아와서 notifications 의 담아줌
+  const { data, isLoading } = useGetAlarmList(isLoginSuccess);
+  const { notifications } = (!isLoading && data?.data) || {};
+  const isAlarmExit = !isLoading && notifications?.length > 0;
+  const newAlarms =
+    notifications?.filter(
+      (data: { isRead: boolean }) => data.isRead === false
+    ) || [];
 
   const [hoveredCategory, setHoveredCategory] = useState('');
   const [isGnbOpen, setIsGnbOpen] = useState(false);
   const [isAlarmOpen, setIsAlarmOpen] = useState(false);
+  const [isNewAlarmExit, setIsNewAlarmExit] = useState(false);
 
   // Profile 호버만 따로 하기 위해 사용
   const isHoveredProfile = hoveredCategory === 'profile';
@@ -35,9 +46,17 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
     setIsAlarmOpen(false);
   };
 
-  // 알람 리스트 전부를 받아와서 notifications 의 담아줌
-  const { data, isLoading } = useGetAlarmList();
-  const { notifications } = !isLoading && data?.data;
+  useEffect(() => {
+    const hasNewAlarms = newAlarms || sessionStorage.getItem('isNewAlarmExit');
+
+    if (hasNewAlarms) {
+      sessionStorage.setItem('isNewAlarmExit', 'true');
+      setIsNewAlarmExit(true);
+    } else {
+      sessionStorage.removeItem('isNewAlarmExit');
+      setIsNewAlarmExit(false);
+    }
+  }, [newAlarms]);
 
   // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
   // 컨텐츠 부분을 지나치지 않더라도 바로 창이 닫히게끔 하기 위해 추가함
@@ -83,13 +102,20 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
           $isLogin={isLoginSuccess ? true : false}
           onMouseEnter={() => isLoginSuccess && handleOpenAlarm()}
         >
-          {isLoginSuccess ? <ProfileImg src={profileImg} /> : <IcLoginIcon />}
+          {isLoginSuccess ? (
+            <ProfileContainer>
+              {isNewAlarmExit && <NewAlarm />}
+              <ProfileImg src={profileImg} />
+            </ProfileContainer>
+          ) : (
+            <IcLoginIcon />
+          )}
           <LoginBtn onClick={() => !isLoginSuccess && navigate('/login')}>
             {isLoginSuccess ? `${nickname} 님` : '로그인'}
           </LoginBtn>
         </LoginBtnContainer>
         <AlarmContainer>
-          {isAlarmOpen && (
+          {isAlarmOpen && isAlarmExit && (
             <AlarmModal
               isOpen={isAlarmOpen}
               handleClose={handleCloseAlarm}
@@ -181,9 +207,30 @@ const LoginBtnContainer = styled.div<{ $isLogin: boolean }>`
   margin-left: ${({ $isLogin }) => ($isLogin ? '29.7rem' : '34.1rem')};
 `;
 
-const ProfileImg = styled.img`
+const ProfileContainer = styled.div`
+  position: relative;
+
   width: 2.4rem;
   height: 2.4rem;
+`;
+
+const NewAlarm = styled.span`
+  position: absolute;
+  top: 0;
+  right: -0.171rem;
+
+  width: 0.771rem;
+  height: 0.771rem;
+
+  outline: 0.515rem solid ${({ theme }) => theme.colors.gray900};
+
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.codrive_green};
+`;
+
+const ProfileImg = styled.img`
+  width: 100%;
+  height: 100%;
 
   border-radius: 5rem;
   object-fit: cover;
