@@ -19,6 +19,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   // 알람 리스트 전부를 받아와서 notifications 의 담아줌
   const { data, isLoading } = useGetAlarmList(isLoginSuccess);
   const { notifications } = (!isLoading && data?.data) || {};
+  const isAlarmExit = !isLoading && notifications?.length > 0;
   const newAlarms =
     notifications?.filter(
       (data: { isRead: boolean }) => data.isRead === false
@@ -114,7 +115,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
           </LoginBtn>
         </LoginBtnContainer>
         <AlarmContainer>
-          {isAlarmOpen && (
+          {isAlarmOpen && isAlarmExit && (
             <AlarmModal
               isOpen={isAlarmOpen}
               handleClose={handleCloseAlarm}
