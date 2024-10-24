@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   IcInformation,
@@ -21,6 +21,7 @@ const Top3Members = () => {
   const todayMonth = new Date().getMonth() + 1;
   const todayDate = new Date().getDate();
 
+  const navigate = useNavigate();
   const { id } = useParams();
   if (!id) return;
   const roomId = parseInt(id);
@@ -45,6 +46,11 @@ const Top3Members = () => {
 
   const handleHoverIc = () => setIsHovered(true);
   const handleLeaveIc = () => setIsHovered(false);
+
+  const handleClickSolveBtn = () => {
+    navigate('/solve');
+  };
+
   const renderProfile = (idx: number, userId: number) => {
     if (userId === -1) {
       if (idx === 0) return <IcRank2Gray />;
@@ -101,7 +107,9 @@ const Top3Members = () => {
             <MotivationText>가장 먼저 문제를 풀어보세요!</MotivationText>
           </MotivationTextContainer>
 
-          <SolveBtn>문제풀이 등록하러 가기</SolveBtn>
+          <SolveBtn onClick={handleClickSolveBtn}>
+            문제풀이 등록하러 가기
+          </SolveBtn>
         </NonePeopleContainer>
       )}
     </Top3MembersContainer>
