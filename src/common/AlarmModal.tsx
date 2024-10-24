@@ -72,6 +72,25 @@ const ModalContainer = styled.ul`
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray600};
   overflow-y: scroll;
+
+  scrollbar-color: ${({ theme }) => theme.colors.gray500};
+
+  /* 스크롤바 굵기 설정 */
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  /* 스크롤바 막대 설정 */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
+
+  /* 스크롤바 뒷배경 */
+  &::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: ${({ theme }) => theme.colors.gray600};
+  }
 `;
 
 const ModalTab = styled.li`
