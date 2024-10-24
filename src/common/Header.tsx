@@ -41,8 +41,8 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   // 알람 리스트 전부를 받아와서 notifications 의 담아줌
-  const { data, isLoading } = useGetAlarmList();
-  const { notifications } = !isLoading && data?.data;
+  const { data, isLoading } = (isLoginSuccess && useGetAlarmList()) || {};
+  const { notifications } = (!isLoading && data?.data) || {};
 
   useEffect(() => {
     if (NEWALARMS || sessionStorage.getItem('isNewAlarmExit')) {
