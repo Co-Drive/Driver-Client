@@ -34,12 +34,15 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const isHoveredProfile = hoveredCategory === 'profile';
 
   const handleOpenGnb = (open: boolean, category?: string) => {
+    if (isAlarmOpen) return;
     setIsGnbOpen(open);
     if (category) setHoveredCategory(category);
   };
 
   const handleOpenAlarm = () => {
-    setIsAlarmOpen(true);
+    if (!isGnbOpen) {
+      setIsAlarmOpen(true);
+    }
   };
 
   const handleCloseAlarm = () => {
