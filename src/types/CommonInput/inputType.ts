@@ -5,4 +5,6 @@ export interface CommonInputProps {
   isExitedNickname?: boolean;
   isNotMatchedPW?: boolean;
   handleChangeInputs: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isExitedRepositories?: boolean;
+  isClickedCheckRepositoriesBtn?: boolean;
 }

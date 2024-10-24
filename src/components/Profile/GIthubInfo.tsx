@@ -20,6 +20,7 @@ const GithubInfoContainer = styled.section`
   align-items: center;
 
   padding-bottom: 1.4rem;
+  margin-top: 3.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
