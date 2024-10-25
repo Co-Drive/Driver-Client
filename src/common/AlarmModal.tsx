@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcNewAlarm } from '../assets';
 import usePostAlarmRead from '../libs/hooks/Alarm/usePostAlarmRead';
@@ -12,6 +13,10 @@ const AlarmModal = ({
   const newAlarms = notifications.filter((data) => data.isRead === false) || [];
   const readAlarms = notifications.filter((data) => data.isRead === true) || [];
   const { mutation } = usePostAlarmRead();
+  // const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  // useEffect(() => {}, [pathname]);
 
   // notifications 에서 data 전달
   const handleAlarmClick = (
@@ -20,6 +25,7 @@ const AlarmModal = ({
     dataId: number
   ) => {
     mutation({ notificationId, type, dataId });
+    navigate(`/${type}/${dataId}`);
   };
 
   return (
