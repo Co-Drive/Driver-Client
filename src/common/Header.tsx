@@ -40,9 +40,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   const handleOpenAlarm = (open: boolean) => {
-    if (!isGnbOpen) {
-      setIsAlarmOpen(open);
-    }
+    setIsAlarmOpen(open);
   };
 
   const handleCloseAlarm = () => {
@@ -249,6 +247,7 @@ const LoginBtn = styled.button`
 
 const IcArrowContainer = styled.div`
   position: relative;
+  cursor: pointer;
 
   margin-right: 2rem;
 `;
