@@ -40,6 +40,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   const handleOpenAlarm = (open: boolean) => {
+    if (isGnbOpen) return;
     setIsAlarmOpen(open);
   };
 
