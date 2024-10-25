@@ -76,6 +76,7 @@ import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 
 import ImgEmptyProfile from './img/img_empty_profile.png';
+import ImgLanding1Bg from './img/img_landing1_bg.png';
 import ImgRankingBg from './img/img_ranking_bg.png';
 
 import BtnInformation from './btn/btn_information.svg?react';
@@ -175,5 +176,6 @@ export {
 
   // img
   ImgEmptyProfile,
+  ImgLanding1Bg,
   ImgRankingBg,
 };
