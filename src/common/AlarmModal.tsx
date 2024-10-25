@@ -65,6 +65,8 @@ const ModalContainer = styled.ul`
   right: -2rem;
 
   width: 36.4rem;
+  max-width: 36.4rem;
+
   max-height: 53rem;
 
   padding: 2.2rem 0 1.8rem;
@@ -84,12 +86,6 @@ const ModalContainer = styled.ul`
   &::-webkit-scrollbar-thumb {
     border-radius: 1rem;
     background-color: ${({ theme }) => theme.colors.gray500};
-  }
-
-  /* 스크롤바 뒷배경 */
-  &::-webkit-scrollbar-track {
-    border-radius: 5px;
-    background-color: ${({ theme }) => theme.colors.gray600};
   }
 `;
 
