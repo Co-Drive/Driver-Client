@@ -34,12 +34,14 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const isHoveredProfile = hoveredCategory === 'profile';
 
   const handleOpenGnb = (open: boolean, category?: string) => {
+    if (isAlarmOpen) return;
     setIsGnbOpen(open);
     if (category) setHoveredCategory(category);
   };
 
-  const handleOpenAlarm = () => {
-    setIsAlarmOpen(true);
+  const handleOpenAlarm = (open: boolean) => {
+    if (isGnbOpen) return;
+    setIsAlarmOpen(open);
   };
 
   const handleCloseAlarm = () => {
@@ -61,7 +63,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
   // 컨텐츠 부분을 지나치지 않더라도 바로 창이 닫히게끔 하기 위해 추가함
   return (
-    <HeaderWrapper>
+    <HeaderWrapper onMouseLeave={() => handleOpenAlarm(false)}>
       <HeaderContainer onMouseLeave={() => handleOpenGnb(false)}>
         <LogoContainer onClick={() => navigate('/')}>
           <IcLogo />
@@ -100,7 +102,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
         </NavBarContainer>
         <LoginBtnContainer
           $isLogin={isLoginSuccess ? true : false}
-          onMouseEnter={() => isLoginSuccess && handleOpenAlarm()}
+          onMouseEnter={() => isLoginSuccess && handleOpenAlarm(true)}
         >
           {isLoginSuccess ? (
             <ProfileContainer>
@@ -246,6 +248,7 @@ const LoginBtn = styled.button`
 
 const IcArrowContainer = styled.div`
   position: relative;
+  cursor: pointer;
 
   margin-right: 2rem;
 `;

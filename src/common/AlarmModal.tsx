@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcNewAlarm } from '../assets';
 import usePostAlarmRead from '../libs/hooks/Alarm/usePostAlarmRead';
@@ -12,6 +13,10 @@ const AlarmModal = ({
   const newAlarms = notifications.filter((data) => data.isRead === false) || [];
   const readAlarms = notifications.filter((data) => data.isRead === true) || [];
   const { mutation } = usePostAlarmRead();
+  // const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  // useEffect(() => {}, [pathname]);
 
   // notifications 에서 data 전달
   const handleAlarmClick = (
@@ -20,6 +25,7 @@ const AlarmModal = ({
     dataId: number
   ) => {
     mutation({ notificationId, type, dataId });
+    navigate(`/${type}/${dataId}`);
   };
 
   return (
@@ -65,6 +71,8 @@ const ModalContainer = styled.ul`
   right: -2rem;
 
   width: 36.4rem;
+  max-width: 36.4rem;
+
   max-height: 53rem;
 
   padding: 2.2rem 0 1.8rem;
@@ -72,6 +80,19 @@ const ModalContainer = styled.ul`
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray600};
   overflow-y: scroll;
+
+  scrollbar-color: ${({ theme }) => theme.colors.gray500};
+
+  /* 스크롤바 굵기 설정 */
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  /* 스크롤바 막대 설정 */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
 `;
 
 const ModalTab = styled.li`
