@@ -19,6 +19,7 @@ const usePostRecords = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
+      queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
       navigate(`/solution`);
     },
   });

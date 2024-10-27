@@ -1,78 +1,35 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowRightBig } from '../../../assets';
 import useGetTempRecords from '../../../libs/hooks/Solution/useGetTempRecords';
-import {
-  UpdateRecordsProps,
-  UpdateTotalPageProps,
-} from '../../../types/Solution/solutionTypes';
 import Level from '../Level';
 
 const TempSave = () => {
-  const totalPageRef = useRef(0);
-
   const [clickedPage, setClickedPage] = useState(1);
-  const [tempRecords, setTempRecords] = useState({
-    tempRecordId: 0,
-    tempTitle: '',
-    tempLevel: 0,
-    tempCreatedAt: '',
-  });
 
   const navigate = useNavigate();
-  const { data } = useGetTempRecords(clickedPage - 1);
-  const { tempRecordId, tempTitle, tempLevel, tempCreatedAt } = tempRecords;
-  const tempArr = Array.from(
-    { length: totalPageRef.current },
-    (_, idx) => idx + 1
-  );
-  const isTempExit = !(
-    totalPageRef.current === 0 &&
-    (tempTitle.length === 0 || tempLevel === 0 || tempCreatedAt.length === 0)
-  );
+  const { data, isLoading } = useGetTempRecords(clickedPage - 1);
+  const { totalPage, records } = !isLoading && data.data;
+  const { createdAt, level, recordId, title } =
+    (!isLoading && records[0]) || {};
+  const tempArr = Array.from({ length: totalPage }, (_, idx) => idx + 1);
+  const isTempExit = !(records && records.length === 0);
 
   const handleClickSavedSolutionNum = (clickedNum: number) => {
     setClickedPage(clickedNum);
   };
 
-  const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
-    if (data) {
-      const { totalPage } = data.data;
-      totalPageRef.current = totalPage;
-    }
-  };
-
-  const updateRecords = async ({ data }: UpdateRecordsProps) => {
-    if (data) {
-      const { records } = data.data;
-      if (records.length) {
-        const { recordId, title, level, createdAt } = records[0];
-        setTempRecords({
-          tempRecordId: recordId,
-          tempTitle: title,
-          tempLevel: level,
-          tempCreatedAt: createdAt,
-        });
-      }
-    }
-  };
-
   const handleClickWriteBtn = () => {
     navigate('/solve', {
-      state: { recordId: tempRecordId, isTemp: true },
+      state: { recordId, isTemp: true },
       replace: true,
     });
   };
 
-  useEffect(() => {
-    updateTotalPage({ data });
-    updateRecords({ data });
-  }, [data]);
-
   return (
     <>
-      {isTempExit && (
+      {!isLoading && isTempExit && (
         <TempSaveContainer>
           <Header>
             <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
@@ -93,15 +50,15 @@ const TempSave = () => {
           </Header>
           <QuestionContainer>
             <TopInfo>
-              <Title>{tempTitle}</Title>
+              <Title>{title}</Title>
               <DateContainer>
                 <DateTxt>임시저장</DateTxt>
                 <DateTxt>|</DateTxt>
-                <Date>{tempCreatedAt}</Date>
+                <Date>{createdAt}</Date>
               </DateContainer>
             </TopInfo>
 
-            <Level level={tempLevel} />
+            <Level level={level} />
           </QuestionContainer>
           <WriteBtn type="button" onClick={handleClickWriteBtn}>
             <BtnTxt>마저 작성하러 가기</BtnTxt>

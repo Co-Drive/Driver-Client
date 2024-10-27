@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import useDeleteNotification from '../libs/hooks/SSE/useDeleteNotification';
 
 interface GnbProps {
   category: string;
@@ -18,6 +19,7 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
     profile: ['내 프로필', '로그아웃'],
   };
   const { solve, group, profile } = GNB_LIST;
+  const { deleteNotification } = useDeleteNotification();
   const solveGnb = category === '문제풀이';
   const profileGnb = category === 'profile';
   const gnbList = solveGnb ? solve : profileGnb ? profile : group;
@@ -25,8 +27,7 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
   const [clickedList, setClickedList] = useState('');
 
   const handleClickLogout = () => {
-    sessionStorage.clear();
-    navigate('/');
+    deleteNotification();
   };
 
   const navigateClickedPage = (clickedTab: string) => {
