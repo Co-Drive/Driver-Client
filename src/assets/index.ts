@@ -34,6 +34,7 @@ import IcGraphWorkBook from './icon/ic_graph_workbook.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
+import IcLandingLogo from './icon/ic_landing_logo.svg?react';
 import IcLevelFive from './icon/ic_level_five.svg?react';
 import IcLevelFour from './icon/ic_level_four.svg?react';
 import IcLevelOne from './icon/ic_level_one.svg?react';
@@ -78,7 +79,19 @@ import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 import ImgEmptyProfile from './img/img_empty_profile.png';
 import ImgLanding1Bg from './img/img_landing1_bg.png';
 import ImgRankingBg from './img/img_ranking_bg.png';
+import LandingCommitImg from './landing/landing_commit_img.png';
+import LandingGithubInfoImg from './landing/landing_github_info_img.png';
+import LandingHomeImg from './landing/landing_home_img.png';
+import LandingLogo1 from './landing/landing_logo1.png';
+import LandingLogo2 from './landing/landing_logo2.png';
+import LandingLogo3 from './landing/landing_logo3.png';
+import LandingLogo4 from './landing/landing_logo4.png';
+import LandingLogo5 from './landing/landing_logo5.png';
+import LandingSolve1 from './landing/landing_solve1.png';
+import LandingSolve2 from './landing/landing_solve2.png';
+import LandingSolveLevel from './landing/landing_solve_level.png';
 
+import ArrowRightWhite from './btn/arrow_right_white.svg?react';
 import BtnInformation from './btn/btn_information.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnLinkWhite from './btn/btn_link_white.svg?react';
@@ -89,6 +102,7 @@ import IcWorkBookBlack from './icon/ic_workbook_black.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
 export {
+  ArrowRightWhite,
   // btn
   BtnInformation,
   BtnJoinGitHub,
@@ -96,7 +110,6 @@ export {
   BtnShare,
   BtnStarGraySmall,
   BtnStarPurpleSmall,
-
   // icon
   IcAdd,
   IcAddBlack,
@@ -132,6 +145,7 @@ export {
   IcGroup,
   IcHome,
   IcInformation,
+  IcLandingLogo,
   IcLevelFive,
   IcLevelFour,
   IcLevelOne,
@@ -173,9 +187,19 @@ export {
   IcWorkBookWhite,
   IcWorkbook,
   IcWorkbookBlack,
-
   // img
   ImgEmptyProfile,
   ImgLanding1Bg,
   ImgRankingBg,
+  LandingCommitImg,
+  LandingGithubInfoImg,
+  LandingHomeImg,
+  LandingLogo1,
+  LandingLogo2,
+  LandingLogo3,
+  LandingLogo4,
+  LandingLogo5,
+  LandingSolve1,
+  LandingSolve2,
+  LandingSolveLevel,
 };
