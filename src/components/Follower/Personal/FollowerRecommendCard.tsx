@@ -61,6 +61,7 @@ const FollowerRecommendCard = () => {
       <TitleContainer>
         <MyNickname>{myNickname}</MyNickname>
         <Title>님을 위한 추천</Title>
+
         <IcInformation />
         <InformationTooltip
           myNickname={`${myNickname}`}
@@ -159,7 +160,8 @@ const TitleContainer = styled.div`
   &:hover > div {
     visibility: visible;
 
-    margin-left: 17.3rem;
+    margin-left: 24.4rem;
+
     opacity: 1;
   }
 `;
@@ -167,7 +169,7 @@ const TitleContainer = styled.div`
 const MyNickname = styled.p`
   margin-right: 0.4rem;
 
-  ${({ theme }) => theme.fonts.title_bold_20};
+  ${({ theme }) => theme.fonts.title_bold_24};
   color: ${({ theme }) => theme.colors.codrive_green};
 `;
 

@@ -17,9 +17,8 @@ const FollowerCurrentPage = () => {
     <PageLayout category="홈">
       <FollowerCurrentPageContainer>
         <Header>
-          <Title>팔로잉 현황</Title>
+          <Title>주간 팔로잉 현황</Title>
           <Date>{`${sMonth}월 ${sDate}일 - ${endDate}일`}</Date>
-          <Text>주간보드</Text>
         </Header>
 
         <FollowerQuestions />
