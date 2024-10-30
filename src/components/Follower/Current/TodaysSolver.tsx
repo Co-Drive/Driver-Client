@@ -7,6 +7,9 @@ import Solver from './Solver';
 const TodaysSolver = () => {
   const { data, isLoading } = useGetTodaysSolver();
   const { followings } = !isLoading && data.data;
+
+  const userId = followings.map((user: any) => user.userId);
+
   const totalPages = followings ? Math.ceil(followings.length / 3) : 0;
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,7 +46,11 @@ const TodaysSolver = () => {
           </Header>
 
           <SolverContainer>
-            <Solver currentPage={currentPage} users={followings} />
+            <Solver
+              currentPage={currentPage}
+              users={followings}
+              userId={userId}
+            />
           </SolverContainer>
         </TodaysSolverContainer>
       )}
