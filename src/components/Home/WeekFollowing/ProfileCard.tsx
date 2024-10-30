@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import {
@@ -5,21 +6,27 @@ import {
   HomeProfileCardProps,
 } from '../../../types/Week/HomeFollowerTypes';
 
-const CustomLabel = ({ profileImg }: CustomLabelProps) => {
-  return (
-    <image
-      href={profileImg}
-      x={8}
-      y={8}
-      width={60}
-      height={60}
-      clipPath="circle(50%)"
-    />
-  );
-};
-
 const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
   const { userId, successRate, profileImg, nickname, language } = user;
+  const navigate = useNavigate();
+  const handleClickBtn = () => {
+    navigate(`/follower/${userId}`);
+  };
+
+  const CustomLabel = ({ profileImg }: CustomLabelProps) => {
+    return (
+      <image
+        onClick={handleClickBtn}
+        href={profileImg}
+        x={8}
+        y={8}
+        width={60}
+        height={60}
+        clipPath="circle(50%)"
+        cursor="pointer"
+      />
+    );
+  };
 
   // nickname과 language의 존재 여부에 따라 기본값 설정
   let NickName = nickname;
@@ -104,7 +111,7 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
                 />
               </Pie>
             </PieChart>
-            <Text>{NickName}</Text>
+            <Text onClick={handleClickBtn}>{NickName}</Text>
             <LanguageText>#{Language}</LanguageText>
           </PieContainer>
         )}
@@ -130,6 +137,7 @@ const Text = styled.div<{ $isBasic?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   margin-top: 2.4rem;
 
