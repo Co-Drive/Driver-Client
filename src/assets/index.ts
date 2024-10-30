@@ -79,6 +79,9 @@ import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 import ImgEmptyProfile from './img/img_empty_profile.png';
 import ImgLanding1Bg from './img/img_landing1_bg.png';
 import ImgRankingBg from './img/img_ranking_bg.png';
+import LandingCode1Img from './landing/landing_code1_img.png';
+import LandingCode2Img from './landing/landing_code2_img.png';
+import LandingCodriveImg from './landing/landing_codrive_img.png';
 import LandingCommitImg from './landing/landing_commit_img.png';
 import LandingGithubInfoImg from './landing/landing_github_info_img.png';
 import LandingHomeImg from './landing/landing_home_img.png';
@@ -87,8 +90,12 @@ import LandingLogo2 from './landing/landing_logo2.png';
 import LandingLogo3 from './landing/landing_logo3.png';
 import LandingLogo4 from './landing/landing_logo4.png';
 import LandingLogo5 from './landing/landing_logo5.png';
+import LandingRealImg from './landing/landing_real_img.png';
 import LandingSolve1 from './landing/landing_solve1.png';
+import LandingSolveImg1 from './landing/landing_solve1_img.png';
 import LandingSolve2 from './landing/landing_solve2.png';
+import LandingSolveImg2 from './landing/landing_solve2_img.png';
+import LandingSolveImg3 from './landing/landing_solve3_img.png';
 import LandingSolveLevel from './landing/landing_solve_level.png';
 
 import ArrowRightWhite from './btn/arrow_right_white.svg?react';
@@ -191,6 +198,9 @@ export {
   ImgEmptyProfile,
   ImgLanding1Bg,
   ImgRankingBg,
+  LandingCode1Img,
+  LandingCode2Img,
+  LandingCodriveImg,
   LandingCommitImg,
   LandingGithubInfoImg,
   LandingHomeImg,
@@ -199,7 +209,11 @@ export {
   LandingLogo3,
   LandingLogo4,
   LandingLogo5,
+  LandingRealImg,
   LandingSolve1,
   LandingSolve2,
+  LandingSolveImg1,
+  LandingSolveImg2,
+  LandingSolveImg3,
   LandingSolveLevel,
 };
