@@ -8,7 +8,8 @@ const TodaysSolver = () => {
   const { data, isLoading } = useGetTodaysSolver();
   const { followings } = !isLoading && data.data;
 
-  const userId = followings.map((user: any) => user.userId);
+  // 옵셔널체이닝을 이용해 followings 가 빈 값일떄 빈 배열 넣음
+  const userId = followings ?? [].map((user: any) => user.userId);
 
   const totalPages = followings ? Math.ceil(followings.length / 3) : 0;
 
