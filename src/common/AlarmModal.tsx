@@ -12,6 +12,13 @@ const AlarmModal = ({
   // notifications가 로드되지 않았을 때 빈 배열을 기본값으로 설정
   const newAlarms = notifications.filter((data) => data.isRead === false) || [];
   const readAlarms = notifications.filter((data) => data.isRead === true) || [];
+  // const wordsInBrackets = notifications
+  //   .map((data) => {
+  //     const match = data.content.match(/\[([^\]]+)\]/);
+  //     return match ? match[0] : null; // 매칭된 단어만 추출
+  //   })
+  //   .filter((word) => word !== null); // null 제거
+
   const { mutation } = usePostAlarmRead();
   // const { pathname } = useLocation();
   const navigate = useNavigate();
