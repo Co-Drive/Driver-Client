@@ -56,7 +56,3 @@ const Date = styled.p`
   color: ${({ theme }) => theme.colors.gray300};
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
-
-const Text = styled(Date)`
-  margin-left: -1rem;
-`;
