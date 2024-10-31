@@ -63,8 +63,6 @@ const TopContainer = styled.div`
 
   width: 100%;
   padding-bottom: 3.8rem;
-
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const NicknameContainer = styled.div`
