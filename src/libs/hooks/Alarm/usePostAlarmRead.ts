@@ -25,7 +25,7 @@ const usePostAlarmRead = () => {
     onSuccess: ({ type, dataId }: { type: string; dataId: number }) => {
       switch (type) {
         case 'FOLLOW':
-          navigate(`/follower`);
+          navigate(`/follower/${dataId}`);
           break;
         case 'CREATED_PUBLIC_ROOM_REQUEST':
           navigate(`/group/${dataId}/admin`);
