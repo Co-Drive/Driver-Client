@@ -69,6 +69,7 @@ const ProfileImg = styled.img`
   border-radius: 5rem;
 
   object-fit: cover;
+  cursor: pointer;
 `;
 
 const Nickname = styled.p`
