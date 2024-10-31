@@ -159,7 +159,6 @@ const Nickname = styled.p`
 
 const Date = styled.p`
   margin-bottom: 3.4rem;
-  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.body_medium_14};
@@ -174,8 +173,6 @@ const TopContainer = styled.div`
 `;
 
 const Title = styled.p`
-  margin-left: 0.2rem;
-
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_32};
 `;
@@ -192,7 +189,7 @@ const BottomContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  margin: 2.6rem 0 2.6rem 0.3rem;
+  margin: 2.6rem 0;
 `;
 
 const LevelContainer = styled.div`
