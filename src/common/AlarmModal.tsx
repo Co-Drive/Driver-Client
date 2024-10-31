@@ -55,8 +55,15 @@ const AlarmModal = ({
           <Divider />
           <Title>읽음</Title>
           {readAlarms.map((data, idx) => {
-            const { content } = data;
-            return <ModalTab key={idx}>{content}</ModalTab>;
+            // const { content } = data;
+            const bracketText = data.content.match(/\[[^\]]+\]/g);
+            const nonBracketText = data.content.split(/\[[^\]]+\]/);
+            return (
+              <ModalTab key={idx}>
+                <AlarmTitle>{bracketText}</AlarmTitle>
+                {nonBracketText}
+              </ModalTab>
+            );
           })}
         </ModalContainer>
       )}
