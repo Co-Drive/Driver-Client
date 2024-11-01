@@ -79,20 +79,21 @@ const CloseButton = styled.div`
 const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   position: fixed;
   top: 0;
   left: 0;
 
   width: 100%;
   height: 100%;
+  padding-top: 16.8rem;
 
-  background-color: rgb(0 0 0 / 90%);
+  background-color: rgb(11 12 15 / 76%);
 `;
 
 const ModalContent = styled.div`
-  position: relative;
-  bottom: 8rem;
+  display: flex;
+  flex-direction: column;
 
   padding: 3rem;
 
