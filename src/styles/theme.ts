@@ -124,7 +124,7 @@ const fonts = {
   body_medium_20: css`
     font-family: SuitMedium;
     font-size: 2rem;
-    line-height: 120%;
+    line-height: 150%;
     letter-spacing: -1%;
   `,
 

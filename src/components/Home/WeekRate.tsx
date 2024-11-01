@@ -62,7 +62,7 @@ const WeekRate = () => {
             startAngle={180}
             endAngle={0}
             innerRadius={95}
-            outerRadius={115}
+            outerRadius={113}
             stroke="none"
             cornerRadius={10}
             paddingAngle={0}
@@ -86,7 +86,7 @@ const WeekRate = () => {
             startAngle={180}
             endAngle={endAngle}
             innerRadius={95}
-            outerRadius={115}
+            outerRadius={113}
             stroke="none"
             cornerRadius={10}
             paddingAngle={0}
