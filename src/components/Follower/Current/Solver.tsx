@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { SolverProps } from '../../../types/Follower/Current/currentType';
 import EmptySolver from './EmptySolver';
 
-const Solver = ({ currentPage, users }: SolverProps) => {
+const Solver = ({ currentPage, users, userId }: SolverProps) => {
+  const navigate = useNavigate();
   const [slicedUsers, setSlicedUsers] = useState(
     users.length > 3 ? users.slice(0, 3) : users
   );
@@ -14,6 +16,10 @@ const Solver = ({ currentPage, users }: SolverProps) => {
     }, [currentPage]);
   }
 
+  const handleClickBtn = () => {
+    navigate(`/follower/${userId}`);
+  };
+
   return (
     <>
       {users.length ? (
@@ -22,8 +28,8 @@ const Solver = ({ currentPage, users }: SolverProps) => {
             const { profileImg, nickname } = solver;
             return (
               <SolverInfo key={nickname}>
-                <ProfileImg src={profileImg} />
-                <Nickname>{nickname}</Nickname>
+                <ProfileImg src={profileImg} onClick={handleClickBtn} />
+                <Nickname onClick={handleClickBtn}>{nickname}</Nickname>
               </SolverInfo>
             );
           })}
@@ -63,9 +69,11 @@ const ProfileImg = styled.img`
   border-radius: 5rem;
 
   object-fit: cover;
+  cursor: pointer;
 `;
 
 const Nickname = styled.p`
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_semiBold_18};
+  cursor: pointer;
 `;

@@ -14,6 +14,7 @@ import useGetUserProfile from '../../../libs/hooks/Follower/useGetUserProfile';
 import useDeleteRecords from '../../../libs/hooks/Solution/useDeleteRecords';
 import { SolutionHeaderTopProps } from '../../../types/Solution/solutionTypes';
 import { handleCopyClipBoard } from '../../../utils/handleCopyClipBoard';
+import SolveToolTip from '../../Solve/Header/SolveToolTip';
 
 const SolutionHeaderTop = ({
   recordId,
@@ -30,6 +31,11 @@ const SolutionHeaderTop = ({
   const [isCopied, setIsCopied] = useState(false);
   const isDeleteErr = deleteErr.length > 0;
   const [errModalOn, setErrModalOn] = useState(isDeleteErr);
+  const [modalOn, setModalOn] = useState(false);
+
+  const toggleModal = () => {
+    setModalOn((prev) => !prev);
+  };
 
   const handleClickShareBtn = () => {
     handleCopyClipBoard({ isUsedBaseUrl: false });
@@ -92,8 +98,12 @@ const SolutionHeaderTop = ({
               })}
             </LvStarContainer>
           </LevelDetailContainer>
-
-          <IcInformation />
+          <button onClick={toggleModal}>
+            <IcInformation />
+          </button>
+          {modalOn && (
+            <SolveToolTip isOpen={modalOn} handleClose={toggleModal} />
+          )}
         </LevelContainer>
 
         {!followerId && (

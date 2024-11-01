@@ -127,6 +127,8 @@ const Img = styled.img`
   width: 44rem;
   height: 31rem;
   object-fit: cover;
+
+  border-radius: 1.2rem;
 `;
 
 const MoreGroupBtn = styled.button`

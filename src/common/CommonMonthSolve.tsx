@@ -58,6 +58,10 @@ const WeekRateContainer = styled.div`
   justify-content: space-between;
 
   width: 61.1rem;
+  height: 41rem;
+
+  /* max-width: 41rem; */
+
   padding: 3.4rem 3.8rem 4.2rem 3.4rem;
 
   border-radius: 1.6rem;

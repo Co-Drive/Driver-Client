@@ -12,11 +12,10 @@ const AlarmModal = ({
   // notifications가 로드되지 않았을 때 빈 배열을 기본값으로 설정
   const newAlarms = notifications.filter((data) => data.isRead === false) || [];
   const readAlarms = notifications.filter((data) => data.isRead === true) || [];
-  const { mutation } = usePostAlarmRead();
-  // const { pathname } = useLocation();
-  const navigate = useNavigate();
 
-  // useEffect(() => {}, [pathname]);
+  const { mutation } = usePostAlarmRead();
+
+  const navigate = useNavigate();
 
   // notifications 에서 data 전달
   const handleAlarmClick = (
@@ -35,13 +34,18 @@ const AlarmModal = ({
           <Title>새로운 알림</Title>
           {newAlarms.map((data, idx) => {
             const { notificationId, type, dataId } = data;
+
+            // /\[[^\]]+\]/g 정규식은 [ ]로 감싸진 텍스트를 [ ] 포함해서 추출
+            const bracketText = data.content.match(/\[[^\]]+\]/g);
+            //[ ]로 감싸진 부분을 기준으로 문자열을 분리합니다.
+            const nonBracketText = data.content.split(/\[[^\]]+\]/);
             return (
               <ModalTab
                 key={idx}
                 onClick={() => handleAlarmClick(notificationId, type, dataId)}
-                /* 알림 클릭 시 type,dataId,notificationId 전달 */
               >
-                {data.content}
+                <AlarmTitle>{bracketText}</AlarmTitle>
+                {nonBracketText}
                 <IcContainer>
                   <IcNewAlarm />
                 </IcContainer>
@@ -51,8 +55,15 @@ const AlarmModal = ({
           <Divider />
           <Title>읽음</Title>
           {readAlarms.map((data, idx) => {
-            const { content } = data;
-            return <ModalTab key={idx}>{content}</ModalTab>;
+            // const { content } = data;
+            const bracketText = data.content.match(/\[[^\]]+\]/g);
+            const nonBracketText = data.content.split(/\[[^\]]+\]/);
+            return (
+              <ModalTab key={idx}>
+                <AlarmTitle>{bracketText}</AlarmTitle>
+                {nonBracketText}
+              </ModalTab>
+            );
           })}
         </ModalContainer>
       )}
@@ -137,4 +148,9 @@ const IcContainer = styled.div`
   position: absolute;
   top: 1.1rem;
   right: 2.2rem;
+`;
+
+const AlarmTitle = styled.span`
+  ${({ theme }) => theme.fonts.title_semiBold_14};
+  margin-right: 0.4rem;
 `;

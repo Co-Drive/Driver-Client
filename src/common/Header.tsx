@@ -165,6 +165,7 @@ const HeaderContainer = styled.div`
 `;
 const LogoContainer = styled.div`
   margin-right: 3.5rem;
+  cursor: pointer;
 `;
 
 const NavBarContainer = styled.nav`
