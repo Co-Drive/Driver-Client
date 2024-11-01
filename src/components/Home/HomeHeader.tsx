@@ -95,7 +95,7 @@ const NickNameSub = styled.p`
 
 const Pharse = styled.p`
   ${({ theme }) => theme.fonts.title_bold_24};
-  margin-right: 41.9rem;
+  margin-right: 41.5rem;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -112,7 +112,6 @@ const Button = styled.button`
   display: flex;
   gap: 0.6rem;
   align-items: center;
-  position: relative;
 
   width: 19.8rem;
   padding: 0.95rem 1.4rem;

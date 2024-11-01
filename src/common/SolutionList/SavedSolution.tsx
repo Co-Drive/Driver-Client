@@ -28,9 +28,8 @@ const SavedSolution = ({
         <Date>
           {month}월 {date}일
         </Date>
-
         <Question>
-          <Title>{title}</Title>
+          <Title onClick={handleClickArrow}>{title}</Title>
           <TagContainer>
             <Tag>{tags.join(', ')}</Tag>
             <Tag>{platform}</Tag>
@@ -42,8 +41,9 @@ const SavedSolution = ({
           <Level level={level} />
         </Question>
       </QuesitonContainer>
-
-      <IcArrowRightGray onClick={handleClickArrow} />
+      <button>
+        <IcArrowRightGray onClick={handleClickArrow} />
+      </button>
     </SavedSolutionContainer>
   );
 };
@@ -93,6 +93,7 @@ const Question = styled.article`
 
 const Title = styled.p`
   margin-bottom: 1.8rem;
+  cursor: pointer;
 
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_20};
