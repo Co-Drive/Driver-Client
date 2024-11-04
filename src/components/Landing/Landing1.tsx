@@ -1,45 +1,21 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ImgLanding1Bg } from '../../assets';
-import LoginButton from '../Login/LoginButton';
 import PageLayout from '../PageLayout/PageLayout';
 
 const Landing1 = () => {
-  const { state } = useLocation();
-  const { roomId } = state || {};
-
   const navigate = useNavigate();
-  const isAlreadyLogin =
-    sessionStorage.getItem('user') ||
-    sessionStorage.getItem('nickname') ||
-    sessionStorage.getItem('token') ||
-    sessionStorage.getItem('refresh') ||
-    sessionStorage.getItem('profileImg');
-  const isNotResgisted = sessionStorage.getItem('language') === '사용언어';
-  const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
-  const redirectUrl = import.meta.env.VITE_GITHUB_REDIRECT_URI;
-  const githubURL = state
-    ? `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=repo&state=${roomId}`
-    : `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=repo`;
-  const onClickSocialLogin = () => {
-    window.location.href = githubURL;
-  };
 
   return (
     <PageLayout category="홈">
       <LoginContainer>
         <TitleContainer>
           <Text>이번 코딩테스트는 합격하자!</Text>
-          <Title>성공적인 코딩테스트를 위한</Title>
-          <Title>최적의 경로</Title>
+          <Title>코딩테스트 100번 이상 본 개발자들이</Title>
+          <Title>사용하려고 만든 서비스</Title>
         </TitleContainer>
-
-        {!isAlreadyLogin || isNotResgisted ? (
-          <LoginButton onClick={onClickSocialLogin} />
-        ) : (
-          <HomeBtn onClick={() => navigate('/')}>지금 무료로 시작하기</HomeBtn>
-        )}
-        <Img src={ImgLanding1Bg} alt="랜딩페이지"></Img>
+        <HomeBtn onClick={() => navigate('/')}>지금 무료로 시작하기</HomeBtn>
+        <img src={ImgLanding1Bg} alt="랜딩페이지"></img>
       </LoginContainer>
     </PageLayout>
   );
@@ -51,11 +27,17 @@ const LoginContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
-  padding-top: 20.4rem;
+  height: 100vh;
   margin: 0 auto;
+
+  background-size: cover; /* 화면에 맞게 확대 */
+  background-image: url('/src/assets/img/img_landing.png'); /* 이미지 경로 */
+  background-repeat: no-repeat;
 `;
 
 const TitleContainer = styled.div`
+  padding-top: 14.6rem;
+
   text-align: center;
 `;
 
@@ -88,17 +70,14 @@ const HomeBtn = styled.button`
   position: relative;
 
   padding: 1.8rem 13.8rem;
-  margin-top: 4.8rem;
-  margin-bottom: 4.8rem;
+  margin-top: 4.6rem;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.codrive_green};
   ${({ theme }) => theme.fonts.title_bold_24};
   color: ${({ theme }) => theme.colors.gray900};
-`;
 
-const Img = styled.img`
-  margin-bottom: 18.6rem;
+  box-shadow: rgb(183 255 199 / 70%) 0 0 1.5rem;
 `;
 
 export default Landing1;
