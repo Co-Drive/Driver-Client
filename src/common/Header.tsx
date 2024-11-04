@@ -28,7 +28,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const [hoveredCategory, setHoveredCategory] = useState('');
   const [isGnbOpen, setIsGnbOpen] = useState(false);
   const [isAlarmOpen, setIsAlarmOpen] = useState(false);
-  const [isNewAlarmExit, setIsNewAlarmExit] = useState(false);
+  const [isNewAlarmExit, setIsNewAlarmExit] = useState(newAlarms.length > 0);
 
   // Profile 호버만 따로 하기 위해 사용
   const isHoveredProfile = hoveredCategory === 'profile';
@@ -49,9 +49,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   useEffect(() => {
-    const hasNewAlarms = newAlarms || sessionStorage.getItem('isNewAlarmExit');
-
-    if (hasNewAlarms) {
+    if (newAlarms.length > 0) {
       sessionStorage.setItem('isNewAlarmExit', 'true');
       setIsNewAlarmExit(true);
     } else {
