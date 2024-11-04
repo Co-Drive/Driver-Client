@@ -83,6 +83,7 @@ import LandingCode1Img from './landing/landing_code1_img.png';
 import LandingCode2Img from './landing/landing_code2_img.png';
 import LandingCodriveImg from './landing/landing_codrive_img.png';
 import LandingCommitImg from './landing/landing_commit_img.png';
+import LandingDriver from './landing/landing_driver.png';
 import LandingGithubInfoImg from './landing/landing_github_info_img.png';
 import LandingHomeImg from './landing/landing_home_img.png';
 import LandingLogo1 from './landing/landing_logo1.png';
@@ -96,6 +97,7 @@ import LandingSolveImg1 from './landing/landing_solve1_img.png';
 import LandingSolve2 from './landing/landing_solve2.png';
 import LandingSolveImg2 from './landing/landing_solve2_img.png';
 import LandingSolveImg3 from './landing/landing_solve3_img.png';
+import LandingSolveImg4 from './landing/landing_solve4_img.png';
 import LandingSolveLevel from './landing/landing_solve_level.png';
 
 import ArrowRightWhite from './btn/arrow_right_white.svg?react';
@@ -202,6 +204,7 @@ export {
   LandingCode2Img,
   LandingCodriveImg,
   LandingCommitImg,
+  LandingDriver,
   LandingGithubInfoImg,
   LandingHomeImg,
   LandingLogo1,
@@ -215,5 +218,6 @@ export {
   LandingSolveImg1,
   LandingSolveImg2,
   LandingSolveImg3,
+  LandingSolveImg4,
   LandingSolveLevel,
 };
