@@ -19,14 +19,13 @@ const GithubInfoContainer = styled.section`
   display: flex;
   align-items: center;
 
-  padding-bottom: 1.4rem;
-  margin-top: 3.2rem;
+  padding: 3.2rem 0 1.4rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const GitHubTitle = styled.h2`
-  margin-right: 4.8rem;
+  margin-right: 4.9rem;
 
   color: ${({ theme }) => theme.colors.white};
 

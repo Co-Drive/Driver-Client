@@ -37,7 +37,7 @@ const IntroInfoContainer = styled.section`
 `;
 
 const IntroTitle = styled.h2`
-  margin-right: 6.5rem;
+  margin-right: 5.9rem;
 
   color: ${({ theme }) => theme.colors.white};
 

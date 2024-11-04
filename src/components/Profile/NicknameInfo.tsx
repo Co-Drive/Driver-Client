@@ -30,10 +30,8 @@ const NicknameInfo = ({
 
 const NicknameInfoContainer = styled.section`
   display: flex;
-  justify-content: center;
   align-items: center;
 
-  height: 7.7rem;
   padding-bottom: 1.9rem;
   margin-bottom: 3.2rem;
 
@@ -41,7 +39,7 @@ const NicknameInfoContainer = styled.section`
 `;
 
 const NicknameTitle = styled.h2`
-  margin-right: 9.2rem;
+  margin-right: 8rem;
 
   color: ${({ theme }) => theme.colors.white};
 
