@@ -14,6 +14,7 @@ import useGetUserProfile from '../../../libs/hooks/Follower/useGetUserProfile';
 import useDeleteRecords from '../../../libs/hooks/Solution/useDeleteRecords';
 import { SolutionHeaderTopProps } from '../../../types/Solution/solutionTypes';
 import { handleCopyClipBoard } from '../../../utils/handleCopyClipBoard';
+import SolveToolTip from '../../Solve/Header/SolveToolTip';
 
 const SolutionHeaderTop = ({
   recordId,
@@ -27,9 +28,13 @@ const SolutionHeaderTop = ({
   const { data, isLoading } = useGetUserProfile(followerId) || {};
   const { profileImg, nickname } = (!isLoading && data?.data) || {};
 
+  const [isLevelModalOn, setIsLevelModalOn] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const isDeleteErr = deleteErr.length > 0;
   const [errModalOn, setErrModalOn] = useState(isDeleteErr);
+
+  const handleClickIc = () => setIsLevelModalOn(true);
+  const handleCloseModal = () => setIsLevelModalOn(false);
 
   const handleClickShareBtn = () => {
     handleCopyClipBoard({ isUsedBaseUrl: false });
@@ -93,7 +98,7 @@ const SolutionHeaderTop = ({
             </LvStarContainer>
           </LevelDetailContainer>
 
-          <IcInformation />
+          <IcInformation onClick={handleClickIc} />
         </LevelContainer>
 
         {!followerId && (
@@ -107,6 +112,10 @@ const SolutionHeaderTop = ({
           </BtnContainer>
         )}
       </BottomContainer>
+
+      {isLevelModalOn && (
+        <SolveToolTip isOpen={isLevelModalOn} handleClose={handleCloseModal} />
+      )}
 
       {errModalOn && (
         <ErrorModal errMsg={deleteErr} onClose={() => setErrModalOn(false)} />
@@ -159,7 +168,6 @@ const Nickname = styled.p`
 
 const Date = styled.p`
   margin-bottom: 3.4rem;
-  margin-left: 0.2rem;
 
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.body_medium_14};
@@ -174,8 +182,6 @@ const TopContainer = styled.div`
 `;
 
 const Title = styled.p`
-  margin-left: 0.2rem;
-
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_32};
 `;
@@ -192,7 +198,7 @@ const BottomContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  margin: 2.6rem 0 2.6rem 0.3rem;
+  margin: 2.6rem 0;
 `;
 
 const LevelContainer = styled.div`

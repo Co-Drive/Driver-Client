@@ -37,6 +37,7 @@ interface FollowingsType {
 
 export interface SolverProps extends FollowingsType {
   currentPage: number;
+  userId: number;
 }
 
 export interface GetFollowerSummaryProps {

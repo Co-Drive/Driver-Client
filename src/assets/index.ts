@@ -49,6 +49,7 @@ import IcLogo from './icon/ic_logo.svg?react';
 import IcMemoGray from './icon/ic_memo_gray.svg?react';
 import IcMemoWhite from './icon/ic_memo_white.svg?react';
 import IcMinusWhite from './icon/ic_minus_white.svg?react';
+import IcNewAlarm from './icon/ic_new_alarm.svg?react';
 import IcNothing from './icon/ic_nothing.svg?react';
 import IcRank1 from './icon/ic_rank_1.svg?react';
 import IcRank2 from './icon/ic_rank_2.svg?react';
@@ -77,7 +78,7 @@ import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 
 import ImgEmptyProfile from './img/img_empty_profile.png';
-import ImgLanding1Bg from './img/img_landing1_bg.png';
+import ImgRankBgNonePeople from './img/img_rank_bg_none_people.png';
 import ImgRankingBg from './img/img_ranking_bg.png';
 import LandingCode1Img from './landing/landing_code1_img.png';
 import LandingCode2Img from './landing/landing_code2_img.png';
@@ -169,6 +170,7 @@ export {
   IcMemoGray,
   IcMemoWhite,
   IcMinusWhite,
+  IcNewAlarm,
   IcNothing,
   IcRank1,
   IcRank2,
@@ -198,7 +200,7 @@ export {
   IcWorkbookBlack,
   // img
   ImgEmptyProfile,
-  ImgLanding1Bg,
+  ImgRankBgNonePeople,
   ImgRankingBg,
   LandingCode1Img,
   LandingCode2Img,

@@ -143,5 +143,5 @@ const GoTopBtn = styled.button<{ $opacity: number }>`
 
   position: fixed;
   top: calc(100vh - 15rem);
-  left: calc(100vw - 22.3rem);
+  right: calc(100vw / 8.4211);
 `;

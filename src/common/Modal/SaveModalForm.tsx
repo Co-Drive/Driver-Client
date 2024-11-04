@@ -98,6 +98,8 @@ const ContinueBtn = styled(commonBtnStyle)`
   padding: 1.3rem 2.8rem 1.6rem 3rem;
 
   background-color: ${({ theme }) => theme.colors.gray600};
+
+  white-space: nowrap;
 `;
 
 const ExitBtn = styled(commonBtnStyle)`
@@ -106,4 +108,6 @@ const ExitBtn = styled(commonBtnStyle)`
   padding: 1.3rem 4.8rem 1.6rem 5rem;
 
   background-color: ${({ theme }) => theme.colors.gray700};
+
+  white-space: nowrap;
 `;

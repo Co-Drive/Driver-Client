@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { IcArrowRightGray } from '../../../assets';
+import { IcArrowRightSmallGray } from '../../../assets';
 import SavedSolutionList from '../../../common/SolutionList/SavedSolutionList';
 
 export interface SolutionsProps {
@@ -31,7 +31,7 @@ const Solutions = ({ id, nickname }: SolutionsProps) => {
         {!disabledMoreBtn && (
           <MoreBtn type="button" onClick={handleClickMoreBtn}>
             <MoreText>더보기</MoreText>
-            <IcArrowRightGray />
+            <IcArrowRightSmallGray />
           </MoreBtn>
         )}
       </TopContainer>
@@ -63,8 +63,6 @@ const TopContainer = styled.div`
 
   width: 100%;
   padding-bottom: 3.8rem;
-
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const NicknameContainer = styled.div`
