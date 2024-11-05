@@ -60,6 +60,8 @@ const TitleContainer = styled.header`
 const Title = styled.p`
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.title_bold_14};
+
+  white-space: nowrap;
 `;
 
 const Counter = styled.div`

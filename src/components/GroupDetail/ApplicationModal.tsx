@@ -20,50 +20,52 @@ const ApplicationModal = ({ id, onClose }: ApplicationModalProps) => {
       {isRequestsExit && (
         <ModalPortal>
           <ModalForm onClick={handleClickBg}>
-            <Modal>
-              <Header>신청 현황</Header>
-              <ApplicantsContainer>
-                <Applicants>
-                  {requests.map(
-                    (request: {
-                      roomRequestId: number;
-                      language: string;
-                      nickname: string;
-                      roomRequestStatus: string;
-                    }) => {
-                      const {
-                        roomRequestId,
-                        language,
-                        nickname,
-                        roomRequestStatus,
-                      } = request;
-                      return (
-                        <Applicant key={roomRequestId}>
-                          <TopContainer
-                            $isJoined={roomRequestStatus === 'JOINED'}
-                          >
-                            <Language>#{language}</Language>
-                            {roomRequestStatus === 'JOINED' ? (
-                              <IcSuccess />
-                            ) : (
-                              <Status>대기</Status>
-                            )}
-                          </TopContainer>
-                          <NicknameContainer>
-                            <Nickname>{nickname}</Nickname>
-                            <NicknameText>님</NicknameText>
-                          </NicknameContainer>
-                        </Applicant>
-                      );
-                    }
-                  )}
-                </Applicants>
-              </ApplicantsContainer>
-              <JoinedNumContainer>
-                <JoinedNum>{approvedCount - 1}</JoinedNum>
-                <JoinedText>명 승인</JoinedText>
-              </JoinedNumContainer>
-            </Modal>
+            <ModalContainer>
+              <Modal>
+                <Header>신청 현황</Header>
+                <ApplicantsContainer>
+                  <Applicants>
+                    {requests.map(
+                      (request: {
+                        roomRequestId: number;
+                        language: string;
+                        nickname: string;
+                        roomRequestStatus: string;
+                      }) => {
+                        const {
+                          roomRequestId,
+                          language,
+                          nickname,
+                          roomRequestStatus,
+                        } = request;
+                        return (
+                          <Applicant key={roomRequestId}>
+                            <TopContainer
+                              $isJoined={roomRequestStatus === 'JOINED'}
+                            >
+                              <Language>#{language}</Language>
+                              {roomRequestStatus === 'JOINED' ? (
+                                <IcSuccess />
+                              ) : (
+                                <Status>대기</Status>
+                              )}
+                            </TopContainer>
+                            <NicknameContainer>
+                              <Nickname>{nickname}</Nickname>
+                              <NicknameText>님</NicknameText>
+                            </NicknameContainer>
+                          </Applicant>
+                        );
+                      }
+                    )}
+                  </Applicants>
+                </ApplicantsContainer>
+                <JoinedNumContainer>
+                  <JoinedNum>{approvedCount - 1}</JoinedNum>
+                  <JoinedText>명 승인</JoinedText>
+                </JoinedNumContainer>
+              </Modal>
+            </ModalContainer>
           </ModalForm>
         </ModalPortal>
       )}
@@ -83,13 +85,21 @@ const ModalForm = styled.div`
   background-color: rgb(11 12 15 / 66%);
 `;
 
+const ModalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+`;
+
 const Modal = styled.article`
   display: flex;
   align-items: end;
   flex-direction: column;
 
+  width: 50.6rem;
   padding: 2.4rem 0.8rem 1.8rem;
-  margin: 11.8rem 46.6rem 102rem 46.8rem;
+  margin-top: 11.8rem;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};

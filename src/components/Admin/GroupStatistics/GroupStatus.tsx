@@ -157,6 +157,8 @@ const ChangeStatusSelector = styled.div`
 const ChangeStatusText = styled.p`
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_regular_14};
+
+  white-space: nowrap;
 `;
 
 const StatusOption = styled.div`
@@ -208,4 +210,6 @@ const Text = styled.p<{ $status: string }>`
   color: ${({ $status, theme }) =>
     $status === '모집 중' ? theme.colors.gray900 : theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_14};
+
+  white-space: nowrap;
 `;

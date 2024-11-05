@@ -364,6 +364,8 @@ const Management = styled.p`
 
   ${({ theme }) => theme.fonts.body_eng_medium_16};
   text-align: right;
+
+  white-space: nowrap;
 `;
 
 const List = styled.article`
