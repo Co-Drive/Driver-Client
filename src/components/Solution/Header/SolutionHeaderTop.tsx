@@ -53,6 +53,10 @@ const SolutionHeaderTop = ({
     navigate('/solve', { state: { recordId: recordId } });
   };
 
+  const handleClickProfile = () => {
+    navigate(`/follower/${followerId}`);
+  };
+
   useEffect(() => {
     setErrModalOn(isDeleteErr);
   }, [deleteErr]);
@@ -60,7 +64,7 @@ const SolutionHeaderTop = ({
   return (
     <SolutionHeaderTopContainer>
       {followerId && !isLoading ? (
-        <FollowerContainer>
+        <FollowerContainer onClick={handleClickProfile}>
           <FollowerInfoContainer>
             <Img src={profileImg} />
             <Nickname>{`${nickname} 님`}</Nickname>
