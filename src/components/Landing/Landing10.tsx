@@ -16,12 +16,12 @@ const Landing10 = () => {
 };
 
 const Landing10Container = styled.article`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   padding: 5.4rem;
 
   background-position: center;
-  background-size: contain;
+  background-size: cover;
 
   background-image: url('/src/assets/img/img_landing10_bg.png');
   background-repeat: no-repeat;

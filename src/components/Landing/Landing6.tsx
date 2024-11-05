@@ -41,7 +41,7 @@ const Info = styled.p`
   margin: 0 auto;
 
   border-radius: 2.5rem;
-  background-color: ${({ theme }) => theme.colors.gray500};
+  background-color: rgb(255 255 255 / 10%);
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.white};
 `;
