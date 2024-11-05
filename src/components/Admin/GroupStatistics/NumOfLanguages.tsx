@@ -35,6 +35,12 @@ const NumOfLanguagesContainer = styled.article`
   display: flex;
   gap: 2rem;
   flex-direction: column;
+
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Title = styled.header`
