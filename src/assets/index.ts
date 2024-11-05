@@ -34,6 +34,7 @@ import IcGraphWorkBook from './icon/ic_graph_workbook.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
+import IcLandingCursor from './icon/ic_landing_cursor.svg?react';
 import IcLandingLogo from './icon/ic_landing_logo.svg?react';
 import IcLevelFive from './icon/ic_level_five.svg?react';
 import IcLevelFour from './icon/ic_level_four.svg?react';
@@ -84,14 +85,15 @@ import LandingCode1Img from './landing/landing_code1_img.png';
 import LandingCode2Img from './landing/landing_code2_img.png';
 import LandingCodriveImg from './landing/landing_codrive_img.png';
 import LandingCommitImg from './landing/landing_commit_img.png';
-import LandingDriver from './landing/landing_driver.png';
 import LandingGithubInfoImg from './landing/landing_github_info_img.png';
+import LandingGroupImg from './landing/Landing_group_img.png';
 import LandingHomeImg from './landing/landing_home_img.png';
 import LandingLogo1 from './landing/landing_logo1.png';
 import LandingLogo2 from './landing/landing_logo2.png';
 import LandingLogo3 from './landing/landing_logo3.png';
 import LandingLogo4 from './landing/landing_logo4.png';
 import LandingLogo5 from './landing/landing_logo5.png';
+import LandingMoon from './landing/landing_moon.png';
 import LandingRealImg from './landing/landing_real_img.png';
 import LandingSolve1 from './landing/landing_solve1.png';
 import LandingSolveImg1 from './landing/landing_solve1_img.png';
@@ -155,6 +157,7 @@ export {
   IcGroup,
   IcHome,
   IcInformation,
+  IcLandingCursor,
   IcLandingLogo,
   IcLevelFive,
   IcLevelFour,
@@ -206,14 +209,15 @@ export {
   LandingCode2Img,
   LandingCodriveImg,
   LandingCommitImg,
-  LandingDriver,
   LandingGithubInfoImg,
+  LandingGroupImg,
   LandingHomeImg,
   LandingLogo1,
   LandingLogo2,
   LandingLogo3,
   LandingLogo4,
   LandingLogo5,
+  LandingMoon,
   LandingRealImg,
   LandingSolve1,
   LandingSolve2,
