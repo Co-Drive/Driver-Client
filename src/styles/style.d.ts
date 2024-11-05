@@ -58,6 +58,12 @@ declare module 'styled-components' {
 
       // detail
       detail_regular_12: SerializedStyles;
+
+      // landing
+      landing_bold_48: SerializedStyles;
+      landing_bold_34: SerializedStyles;
+      landing_semibold_24: SerializedStyles;
+      landing_regular_20: SerializedStyles;
     };
   }
 }

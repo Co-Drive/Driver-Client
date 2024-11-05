@@ -5,6 +5,11 @@ const commonFontStyle = css`
   letter-spacing: -1%;
 `;
 
+const landingFontStyle = css`
+  line-height: 140%;
+  letter-spacing: -1%;
+`;
+
 const colors = {
   white: '#FFFFFF',
   gray100: '#D8D9DD',
@@ -188,6 +193,31 @@ const fonts = {
     font-family: SuitRegular;
     font-size: 1.2rem;
     ${commonFontStyle}
+  `,
+
+  // Landing
+  landing_bold_48: css`
+    font-family: SuitBold;
+    font-size: 4.8rem;
+    ${commonFontStyle}
+  `,
+
+  landing_bold_34: css`
+    font-family: SuitBold;
+    font-size: 3.4rem;
+    ${landingFontStyle}
+  `,
+
+  landing_semibold_24: css`
+    font-family: SuitSemiBold;
+    font-size: 2.4rem;
+    ${commonFontStyle}
+  `,
+
+  landing_regular_20: css`
+    font-family: SuitRegular;
+    font-size: 2rem;
+    ${landingFontStyle}
   `,
 };
 
