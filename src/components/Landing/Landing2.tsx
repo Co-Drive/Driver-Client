@@ -1,26 +1,45 @@
 import styled from 'styled-components';
+import {
+  ImgLanding2Bg,
+  Recruit1,
+  Recruit10,
+  Recruit11,
+  Recruit12,
+  Recruit13,
+  Recruit14,
+  Recruit15,
+  Recruit16,
+  Recruit2,
+  Recruit3,
+  Recruit4,
+  Recruit5,
+  Recruit6,
+  Recruit7,
+  Recruit8,
+  Recruit9,
+} from '../../assets';
 
 const Landing2 = () => {
   const imagesList1 = [
-    '/src/assets/landing/recruit1.png',
-    '/src/assets/landing/recruit2.png',
-    '/src/assets/landing/recruit3.png',
-    '/src/assets/landing/recruit4.png',
-    '/src/assets/landing/recruit5.png',
-    '/src/assets/landing/recruit6.png',
-    '/src/assets/landing/recruit7.png',
-    '/src/assets/landing/recruit8.png',
+    Recruit1,
+    Recruit2,
+    Recruit3,
+    Recruit4,
+    Recruit5,
+    Recruit6,
+    Recruit7,
+    Recruit8,
   ];
 
   const imagesList2 = [
-    '/src/assets/landing/recruit9.png',
-    '/src/assets/landing/recruit10.png',
-    '/src/assets/landing/recruit11.png',
-    '/src/assets/landing/recruit12.png',
-    '/src/assets/landing/recruit13.png',
-    '/src/assets/landing/recruit14.png',
-    '/src/assets/landing/recruit15.png',
-    '/src/assets/landing/recruit16.png',
+    Recruit9,
+    Recruit10,
+    Recruit11,
+    Recruit12,
+    Recruit13,
+    Recruit14,
+    Recruit15,
+    Recruit16,
   ];
 
   return (
@@ -69,7 +88,7 @@ const Landing2Container = styled.article`
   padding: 34rem 0 22.9rem;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing2_bg.png');
+  background-image: url(${ImgLanding2Bg});
   background-repeat: no-repeat;
 `;
 

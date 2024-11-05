@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ImgLanding6Bg } from '../../assets';
 
 const Landing6 = () => {
   return (
@@ -23,7 +24,7 @@ const Landing6Container = styled.article`
   padding: 5.4rem 19.1rem 73.3rem;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing6_bg.png');
+  background-image: url(${ImgLanding6Bg});
   background-repeat: no-repeat;
 `;
 

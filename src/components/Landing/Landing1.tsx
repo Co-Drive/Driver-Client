@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { LandingMoon } from '../../assets';
+import { ImgLanding, LandingMoon } from '../../assets';
 import PageLayout from '../PageLayout/PageLayout';
 
 const Landing1 = () => {
@@ -32,7 +32,7 @@ const LoginContainer = styled.div`
   margin: 0 auto;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing.png');
+  background-image: url(${ImgLanding});
 `;
 
 const TitleContainer = styled.div`

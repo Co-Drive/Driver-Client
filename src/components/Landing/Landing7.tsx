@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import {
+  ImgLanding7Bg,
   LandingLogo1,
   LandingLogo2,
   LandingLogo3,
@@ -53,7 +54,7 @@ const Landing7Container = styled.article`
   padding: 5.4rem 0 4.6rem;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing7_bg.png');
+  background-image: url(${ImgLanding7Bg});
   background-repeat: no-repeat;
 `;
 
