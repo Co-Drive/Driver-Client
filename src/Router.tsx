@@ -11,6 +11,7 @@ import GroupEdit from './page/GroupEdit';
 import GroupJoin from './page/GroupJoin';
 import GroupMemberPage from './page/GroupMemberPage';
 import Home from './page/Home';
+import LandingPage from './page/LandingPage';
 import LoginLoadingPage from './page/LoginLoadingPage';
 import LoginPage from './page/LoginPage';
 import MyGroup from './page/MyGroup';
@@ -46,6 +47,7 @@ const Router = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/group-all" element={<GroupAllPage />} />
         <Route path="/group/:id/edit" element={<GroupEdit />} />
+        <Route path="/landing" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
   );
