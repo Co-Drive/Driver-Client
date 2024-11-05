@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { IcLoginBig } from '../../assets';
+import { IcLoginBig, ImgLanding11Bg } from '../../assets';
 
 const Landing11 = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const Landing10Container = styled.div`
   padding: 21.4rem 0 31rem;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing11_bg.png');
+  background-image: url(${ImgLanding11Bg});
   background-repeat: no-repeat;
 `;
 
@@ -41,7 +41,7 @@ const Title = styled.h2`
     #fff 0%,
     #58ff7d 100%
   );
-  background-color: #ffff; /* background 뒤로 이동 */
+  background-color: #ffff;
   color: ${({ theme }) => theme.colors.gray100};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

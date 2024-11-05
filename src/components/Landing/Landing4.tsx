@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import styled from 'styled-components';
-import { LandingGithubInfoImg } from '../../assets';
+import { ImgLanding4Bg, LandingGithubInfoImg } from '../../assets';
 
 const Landing4 = forwardRef<HTMLDivElement>((_, ref) => {
   return (
@@ -28,7 +28,7 @@ const Landing4Container = styled.article`
   padding: 5.4rem 14.7rem 16rem;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing4_bg.png');
+  background-image: url(${ImgLanding4Bg});
   background-repeat: no-repeat;
 `;
 

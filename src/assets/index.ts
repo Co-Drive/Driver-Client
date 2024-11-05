@@ -79,6 +79,17 @@ import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 
 import ImgEmptyProfile from './img/img_empty_profile.png';
+import ImgLanding from './img/img_landing.png';
+import ImgLanding10Bg from './img/img_landing10_bg.png';
+import ImgLanding11Bg from './img/img_landing11_bg.png';
+import ImgLanding2Bg from './img/img_landing2_bg.png';
+import ImgLanding3Bg from './img/img_landing3_bg.png';
+import ImgLanding4Bg from './img/img_landing4_bg.png';
+import ImgLanding5Bg from './img/img_landing5_bg.png';
+import ImgLanding6Bg from './img/img_landing6_bg.png';
+import ImgLanding7Bg from './img/img_landing7_bg.png';
+import ImgLanding8Bg from './img/img_landing8_bg.png';
+import ImgLanding9Bg from './img/img_landing9_bg.png';
 import ImgRankBgNonePeople from './img/img_rank_bg_none_people.png';
 import ImgRankingBg from './img/img_ranking_bg.png';
 import LandingCode1Img from './landing/landing_code1_img.png';
@@ -102,6 +113,22 @@ import LandingSolveImg2 from './landing/landing_solve2_img.png';
 import LandingSolveImg3 from './landing/landing_solve3_img.png';
 import LandingSolveImg4 from './landing/landing_solve4_img.png';
 import LandingSolveLevel from './landing/landing_solve_level.png';
+import Recruit1 from './landing/recruit1.png';
+import Recruit10 from './landing/recruit10.png';
+import Recruit11 from './landing/recruit11.png';
+import Recruit12 from './landing/recruit12.png';
+import Recruit13 from './landing/recruit13.png';
+import Recruit14 from './landing/recruit14.png';
+import Recruit15 from './landing/recruit15.png';
+import Recruit16 from './landing/recruit16.png';
+import Recruit2 from './landing/recruit2.png';
+import Recruit3 from './landing/recruit3.png';
+import Recruit4 from './landing/recruit4.png';
+import Recruit5 from './landing/recruit5.png';
+import Recruit6 from './landing/recruit6.png';
+import Recruit7 from './landing/recruit7.png';
+import Recruit8 from './landing/recruit8.png';
+import Recruit9 from './landing/recruit9.png';
 
 import ArrowRightWhite from './btn/arrow_right_white.svg?react';
 import BtnInformation from './btn/btn_information.svg?react';
@@ -203,6 +230,17 @@ export {
   IcWorkbookBlack,
   // img
   ImgEmptyProfile,
+  ImgLanding,
+  ImgLanding10Bg,
+  ImgLanding11Bg,
+  ImgLanding2Bg,
+  ImgLanding3Bg,
+  ImgLanding4Bg,
+  ImgLanding5Bg,
+  ImgLanding6Bg,
+  ImgLanding7Bg,
+  ImgLanding8Bg,
+  ImgLanding9Bg,
   ImgRankBgNonePeople,
   ImgRankingBg,
   LandingCode1Img,
@@ -226,4 +264,20 @@ export {
   LandingSolveImg3,
   LandingSolveImg4,
   LandingSolveLevel,
+  Recruit1,
+  Recruit10,
+  Recruit11,
+  Recruit12,
+  Recruit13,
+  Recruit14,
+  Recruit15,
+  Recruit16,
+  Recruit2,
+  Recruit3,
+  Recruit4,
+  Recruit5,
+  Recruit6,
+  Recruit7,
+  Recruit8,
+  Recruit9,
 };

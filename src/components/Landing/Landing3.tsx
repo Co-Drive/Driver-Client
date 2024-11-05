@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { ArrowRightWhite, LandingCodriveImg } from '../../assets';
+import {
+  ArrowRightWhite,
+  ImgLanding3Bg,
+  LandingCodriveImg,
+} from '../../assets';
 
 interface Landing3Props {
   scrollToLanding4: () => void;
@@ -38,7 +42,8 @@ const Landing3Container = styled.article`
   padding: 5.4rem 9.1rem 11.8rem 12.9rem;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing3_bg.png');
+
+  background-image: url(${ImgLanding3Bg});
   background-repeat: no-repeat;
 `;
 

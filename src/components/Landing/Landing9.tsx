@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IcLandingLogo, LandingRealImg } from '../../assets';
+import { IcLandingLogo, ImgLanding9Bg, LandingRealImg } from '../../assets';
 
 const Landing9 = () => {
   return (
@@ -18,7 +18,7 @@ const Landing9Container = styled.article`
   padding: 18.1rem 13.2rem;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing9_bg.png');
+  background-image: url(${ImgLanding9Bg});
   background-repeat: no-repeat;
 `;
 
