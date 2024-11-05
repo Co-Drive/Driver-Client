@@ -79,6 +79,7 @@ import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 
 import ImgEmptyProfile from './img/img_empty_profile.png';
+import ImgLanding from './img/img_landing.png';
 import ImgLanding10Bg from './img/img_landing10_bg.png';
 import ImgLanding11Bg from './img/img_landing11_bg.png';
 import ImgLanding2Bg from './img/img_landing2_bg.png';
@@ -229,6 +230,7 @@ export {
   IcWorkbookBlack,
   // img
   ImgEmptyProfile,
+  ImgLanding,
   ImgLanding10Bg,
   ImgLanding11Bg,
   ImgLanding2Bg,
