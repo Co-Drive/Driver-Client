@@ -38,7 +38,10 @@ export default CommonButton;
 
 const Button = styled.button<{ $category: string; $isActive?: boolean }>`
   display: flex;
-  gap: 0.8rem;
+  gap: ${({ $category }) =>
+    $category === 'link_copy' || $category === 'group_direct'
+      ? '0.4rem'
+      : '0.8rem'};
   justify-content: center;
   align-items: center;
 
@@ -47,9 +50,9 @@ const Button = styled.button<{ $category: string; $isActive?: boolean }>`
       case 'group_create':
         return '1rem 1.4rem';
       case 'group_direct':
-        return '1.4rem 1.6rem 1.4rem 1.7rem';
+        return '1.4rem 1.7rem 1.4rem 2rem';
       case 'link_copy':
-        return '1.4rem 1.6rem 1.4rem 1.7rem';
+        return '1.4rem 1.7rem 1.4rem 2rem';
       case 'Profile_save':
         return '1rem 2rem';
       default:
