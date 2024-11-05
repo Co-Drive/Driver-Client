@@ -14,19 +14,19 @@ const NameInfoContainer = styled.section`
   display: flex;
   align-items: center;
 
-  padding: 0 24.3rem 2.5rem 0;
+  padding-bottom: 2.5rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const NameTitle = styled.h2`
+  margin-right: 10.5rem;
+
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
 
 const Name = styled.p`
-  margin-left: 10.5rem;
-
   color: ${({ theme }) => theme.colors.gray100};
 
   ${({ theme }) => theme.fonts.body_medium_16};

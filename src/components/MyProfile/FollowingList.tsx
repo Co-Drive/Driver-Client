@@ -75,6 +75,11 @@ const FollowingList = () => {
     setOnErrModal(isError);
   }, [isError]);
 
+  // updatedUsers를 반으로 나누기
+  const halfIndex = Math.ceil(updatedUsers.length / 2);
+  const leftColumn = updatedUsers.slice(0, halfIndex);
+  const rightColumn = updatedUsers.slice(halfIndex);
+
   return (
     <div>
       <HeaderContainer>
@@ -106,52 +111,93 @@ const FollowingList = () => {
         </TabContainer>
       </HeaderContainer>
       <RecommendCard>
-        {!isLoading &&
-          updatedUsers.map((user: UserType) => {
-            const {
-              userId,
-              profileImg,
-              nickname,
-              language,
-              githubUrl,
-              isFollowing,
-            } = user;
-            return (
-              <PersonalCard key={userId} $addHr={true}>
-                <ProfileImg
-                  src={profileImg}
-                  $isGithubExit={githubUrl?.length !== 0}
-                  onClick={() => handleClickProfile(userId)}
-                />
-                {githubUrl && (
-                  <IcContainer>
-                    <IcGithubLogoSmall />
-                  </IcContainer>
+        {/* 왼쪽 컬럼 */}
+        <Column>
+          {leftColumn.map((user, index) => (
+            <PersonalCard
+              key={user.userId}
+              $addHr={index !== leftColumn.length - 1} // 왼쪽 마지막 아이템에는 구분선 생략
+            >
+              <ProfileImg
+                src={user.profileImg}
+                $isGithubExit={user.githubUrl?.length !== 0}
+                onClick={() => handleClickProfile(user.userId)}
+              />
+              {user.githubUrl && (
+                <IcContainer>
+                  <IcGithubLogoSmall />
+                </IcContainer>
+              )}
+              <ProfileInfo onClick={() => handleClickProfile(user.userId)}>
+                <Nickname>{user.nickname}</Nickname>
+                <Language>{`#${user.language}`}</Language>
+              </ProfileInfo>
+              <FollowingBtn
+                type="button"
+                $isFollowed={user.isFollowing}
+                onClick={() =>
+                  handleClickFollowerBtn({
+                    nickname: user.nickname,
+                    isDelete: user.isFollowing,
+                  })
+                }
+              >
+                {user.isFollowing ? (
+                  <IcFollowingGray />
+                ) : (
+                  <IcUnfollowingWhite />
                 )}
+                <FollowingText $isFollowed={user.isFollowing}>
+                  {user.isFollowing ? `팔로잉` : `팔로우`}
+                </FollowingText>
+              </FollowingBtn>
+            </PersonalCard>
+          ))}
+        </Column>
 
-                <ProfileInfo onClick={() => handleClickProfile(userId)}>
-                  <Nickname>{nickname}</Nickname>
-                  <Language>{`#${language}`}</Language>
-                </ProfileInfo>
-
-                <FollowingBtn
-                  type="button"
-                  $isFollowed={isFollowing}
-                  onClick={() =>
-                    handleClickFollowerBtn({
-                      nickname,
-                      isDelete: isFollowing,
-                    })
-                  }
-                >
-                  {isFollowing ? <IcFollowingGray /> : <IcUnfollowingWhite />}
-                  <FollowingText $isFollowed={isFollowing}>
-                    {isFollowing ? `팔로잉` : `팔로우`}
-                  </FollowingText>
-                </FollowingBtn>
-              </PersonalCard>
-            );
-          })}
+        {/* 오른쪽 컬럼 */}
+        <Column>
+          {rightColumn.map((user, index) => (
+            <PersonalCard
+              key={user.userId}
+              $addHr={index !== rightColumn.length - 1} // 오른쪽 마지막 아이템에는 구분선 생략
+            >
+              <ProfileImg
+                src={user.profileImg}
+                $isGithubExit={user.githubUrl?.length !== 0}
+                onClick={() => handleClickProfile(user.userId)}
+              />
+              {user.githubUrl && (
+                <IcContainer>
+                  <IcGithubLogoSmall />
+                </IcContainer>
+              )}
+              <ProfileInfo onClick={() => handleClickProfile(user.userId)}>
+                <Nickname>{user.nickname}</Nickname>
+                <Language>{`#${user.language}`}</Language>
+              </ProfileInfo>
+              <FollowingBtn
+                type="button"
+                $isFollowed={user.isFollowing}
+                onClick={() =>
+                  handleClickFollowerBtn({
+                    nickname: user.nickname,
+                    isDelete: user.isFollowing,
+                  })
+                }
+              >
+                {user.isFollowing ? (
+                  <IcFollowingGray />
+                ) : (
+                  <IcUnfollowingWhite />
+                )}
+                <FollowingText $isFollowed={user.isFollowing}>
+                  {user.isFollowing ? `팔로잉` : `팔로우`}
+                </FollowingText>
+              </FollowingBtn>
+            </PersonalCard>
+          ))}
+        </Column>
       </RecommendCard>
       <DeleteIdContainer>
         <DeleteText>코드라이브를 더 이상 이용하지 않는다면</DeleteText>
@@ -174,6 +220,11 @@ const HeaderContainer = styled.div`
   align-items: center;
 
   margin-bottom: 2.8rem;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const TitleContainer = styled.div`

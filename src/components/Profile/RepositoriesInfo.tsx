@@ -37,14 +37,13 @@ const RepositoriesContainer = styled.section`
   display: flex;
   align-items: center;
 
-  height: 7.7rem;
-  margin-top: 2rem;
+  padding: 3.3rem 0 1.4rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
 const NicknameTitle = styled.h2`
-  margin-right: 5.8rem;
+  margin-right: 5.2rem;
 
   color: ${({ theme }) => theme.colors.white};
 

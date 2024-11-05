@@ -34,6 +34,8 @@ import IcGraphWorkBook from './icon/ic_graph_workbook.svg?react';
 import IcGroup from './icon/ic_group.svg?react';
 import IcHome from './icon/ic_home.svg?react';
 import IcInformation from './icon/ic_information.svg?react';
+import IcLandingCursor from './icon/ic_landing_cursor.svg?react';
+import IcLandingLogo from './icon/ic_landing_logo.svg?react';
 import IcLevelFive from './icon/ic_level_five.svg?react';
 import IcLevelFour from './icon/ic_level_four.svg?react';
 import IcLevelOne from './icon/ic_level_one.svg?react';
@@ -79,7 +81,29 @@ import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
 import ImgEmptyProfile from './img/img_empty_profile.png';
 import ImgRankBgNonePeople from './img/img_rank_bg_none_people.png';
 import ImgRankingBg from './img/img_ranking_bg.png';
+import LandingCode1Img from './landing/landing_code1_img.png';
+import LandingCode2Img from './landing/landing_code2_img.png';
+import LandingCodriveImg from './landing/landing_codrive_img.png';
+import LandingCommitImg from './landing/landing_commit_img.png';
+import LandingGithubInfoImg from './landing/landing_github_info_img.png';
+import LandingGroupImg from './landing/Landing_group_img.png';
+import LandingHomeImg from './landing/landing_home_img.png';
+import LandingLogo1 from './landing/landing_logo1.png';
+import LandingLogo2 from './landing/landing_logo2.png';
+import LandingLogo3 from './landing/landing_logo3.png';
+import LandingLogo4 from './landing/landing_logo4.png';
+import LandingLogo5 from './landing/landing_logo5.png';
+import LandingMoon from './landing/landing_moon.png';
+import LandingRealImg from './landing/landing_real_img.png';
+import LandingSolve1 from './landing/landing_solve1.png';
+import LandingSolveImg1 from './landing/landing_solve1_img.png';
+import LandingSolve2 from './landing/landing_solve2.png';
+import LandingSolveImg2 from './landing/landing_solve2_img.png';
+import LandingSolveImg3 from './landing/landing_solve3_img.png';
+import LandingSolveImg4 from './landing/landing_solve4_img.png';
+import LandingSolveLevel from './landing/landing_solve_level.png';
 
+import ArrowRightWhite from './btn/arrow_right_white.svg?react';
 import BtnInformation from './btn/btn_information.svg?react';
 import BtnJoinGitHub from './btn/btn_join_github.svg?react';
 import BtnLinkWhite from './btn/btn_link_white.svg?react';
@@ -90,6 +114,7 @@ import IcWorkBookBlack from './icon/ic_workbook_black.svg?react';
 
 // svg 더 추가하게 되면 ,(콤마)로 이어서 쓰기
 export {
+  ArrowRightWhite,
   // btn
   BtnInformation,
   BtnJoinGitHub,
@@ -97,7 +122,6 @@ export {
   BtnShare,
   BtnStarGraySmall,
   BtnStarPurpleSmall,
-
   // icon
   IcAdd,
   IcAddBlack,
@@ -133,6 +157,8 @@ export {
   IcGroup,
   IcHome,
   IcInformation,
+  IcLandingCursor,
+  IcLandingLogo,
   IcLevelFive,
   IcLevelFour,
   IcLevelOne,
@@ -175,9 +201,29 @@ export {
   IcWorkBookWhite,
   IcWorkbook,
   IcWorkbookBlack,
-
   // img
   ImgEmptyProfile,
   ImgRankBgNonePeople,
   ImgRankingBg,
+  LandingCode1Img,
+  LandingCode2Img,
+  LandingCodriveImg,
+  LandingCommitImg,
+  LandingGithubInfoImg,
+  LandingGroupImg,
+  LandingHomeImg,
+  LandingLogo1,
+  LandingLogo2,
+  LandingLogo3,
+  LandingLogo4,
+  LandingLogo5,
+  LandingMoon,
+  LandingRealImg,
+  LandingSolve1,
+  LandingSolve2,
+  LandingSolveImg1,
+  LandingSolveImg2,
+  LandingSolveImg3,
+  LandingSolveImg4,
+  LandingSolveLevel,
 };
