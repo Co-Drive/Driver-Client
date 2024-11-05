@@ -72,7 +72,7 @@ const ProfileContainer = styled.article`
   padding: 3.6rem 3.6rem 3.8rem 3.8rem;
   margin-bottom: 6.8rem;
 
-  border-radius: 2.8rem;
+  border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
