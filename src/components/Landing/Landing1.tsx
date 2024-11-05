@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { ImgLanding1Bg } from '../../assets';
+
+import { LandingMoon } from '../../assets';
 import PageLayout from '../PageLayout/PageLayout';
 
 const Landing1 = () => {
@@ -15,7 +16,7 @@ const Landing1 = () => {
           <Title>사용하려고 만든 서비스</Title>
         </TitleContainer>
         <HomeBtn onClick={() => navigate('/')}>지금 무료로 시작하기</HomeBtn>
-        <img src={ImgLanding1Bg} alt="랜딩페이지"></img>
+        <img src={LandingMoon} alt="랜딩페이지"></img>
       </LoginContainer>
     </PageLayout>
   );

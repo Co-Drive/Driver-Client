@@ -1,11 +1,5 @@
 import styled from 'styled-components';
-import {
-  LandingDriver,
-  LandingSolveImg1,
-  LandingSolveImg2,
-  LandingSolveImg3,
-  LandingSolveImg4,
-} from '../../assets';
+import { IcLandingCursor, LandingGroupImg } from '../../assets';
 
 const Landing8 = () => {
   return (
@@ -21,12 +15,10 @@ const Landing8 = () => {
         </Text>
       </LandingTop>
       <LandingBottom>
-        <ImageBox src={LandingSolveImg1} alt="문제풀이 이미지1" />
-        <ImageBox src={LandingSolveImg3} alt="문제풀이 이미지2" />
-        <MergedImageBox src={LandingSolveImg2} alt="문제풀이 이미지3" />
-        <ImageBox src={LandingSolveImg4} alt="문제풀이 이미지4" />
-        <ImageBox />
-        <Driver src={LandingDriver} alt="driver" />
+        <LandingGroup src={LandingGroupImg} alt="랜딩 그룹 이미지" />
+        <IconWrapper>
+          <IcLandingCursor />
+        </IconWrapper>
       </LandingBottom>
     </Landing8Container>
   );
@@ -77,35 +69,23 @@ const Text = styled.p`
 `;
 
 const LandingBottom = styled.div`
-  display: grid;
-  gap: 1rem;
+  display: flex;
   justify-content: center;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  place-items: center center;
-
   position: relative;
 `;
 
-const ImageBox = styled.img`
-  width: 40.4rem;
-  height: 24rem;
+const LandingGroup = styled.img`
+  position: relative;
 
-  border-radius: 2.4rem;
-  background-color: ${({ theme }) => theme.colors.gray900};
+  width: 100%;
+  height: auto;
 `;
 
-const MergedImageBox = styled(ImageBox)`
-  grid-column: 2 / 3;
-  grid-row: 1 / 3;
-
-  height: 100%;
-`;
-
-const Driver = styled.img`
+const IconWrapper = styled.div`
   position: absolute;
-  top: 22rem;
-  right: 12.5rem;
+  top: 27rem;
+  right: 1rem;
+  transform: translate(-50%, -50%);
 `;
 
 export default Landing8;
