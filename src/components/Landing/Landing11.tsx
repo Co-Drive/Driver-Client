@@ -25,9 +25,9 @@ const Landing10Container = styled.div`
   width: 100%;
   padding: 21.4rem 0 31rem;
 
-  background-size: cover; /* 이미지가 확대되지 않고 전체에 맞도록 조정 */
-  background-image: url('/src/assets/img/img_landing11_bg.png'); /* 이미지 경로 */
-  background-repeat: no-repeat; /* 이미지 반복 안되도록 설정 */
+  background-size: cover;
+  background-image: url('/src/assets/img/img_landing11_bg.png');
+  background-repeat: no-repeat;
 `;
 
 const TitleContainer = styled.div`

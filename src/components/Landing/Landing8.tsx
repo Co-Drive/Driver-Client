@@ -29,8 +29,8 @@ const Landing8Container = styled.article`
   padding: 5.4rem 10rem 15.2rem;
 
   background-size: cover;
-  background-image: url('/src/assets/img/img_landing8_bg.png'); /* 이미지 경로 */
-  background-repeat: no-repeat; /* 이미지 반복 안되도록 설정 */
+  background-image: url('/src/assets/img/img_landing8_bg.png');
+  background-repeat: no-repeat;
 `;
 
 const LandingTop = styled.div`

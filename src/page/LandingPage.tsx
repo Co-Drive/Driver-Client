@@ -13,7 +13,7 @@ import Landing9 from '../components/Landing/Landing9';
 useRef;
 
 const LandingPage = () => {
-  const landing4Ref = useRef<HTMLDivElement>(null); // Landing4에 대한 ref 생성
+  const landing4Ref = useRef<HTMLDivElement>(null);
 
   const scrollToLanding4 = () => {
     landing4Ref.current?.scrollIntoView({ behavior: 'smooth' });

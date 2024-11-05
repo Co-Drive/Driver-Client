@@ -31,9 +31,8 @@ const LoginContainer = styled.div`
   height: 100vh;
   margin: 0 auto;
 
-  background-size: cover; /* 화면에 맞게 확대 */
-  background-image: url('/src/assets/img/img_landing.png'); /* 이미지 경로 */
-  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('/src/assets/img/img_landing.png');
 `;
 
 const TitleContainer = styled.div`
@@ -56,7 +55,7 @@ const Title = styled.h2`
     #fff 0%,
     #58ff7d 100%
   );
-  background-color: #ffff; /* background 뒤로 이동 */
+  background-color: #ffff;
   color: ${({ theme }) => theme.colors.gray100};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

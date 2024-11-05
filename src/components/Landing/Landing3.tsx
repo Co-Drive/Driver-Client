@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { ArrowRightWhite, LandingCodriveImg } from '../../assets';
 
-const Landing3 = ({ scrollToLanding4 }) => {
+interface Landing3Props {
+  scrollToLanding4: () => void;
+}
+
+const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
   return (
     <Landing3Container>
       <LandingTop>
@@ -33,9 +37,9 @@ const Landing3Container = styled.article`
   width: 100%;
   padding: 5.4rem 9.1rem 11.8rem 12.9rem;
 
-  background-size: cover; /* 이미지가 확대되지 않고 전체에 맞도록 조정 */
-  background-image: url('/src/assets/img/img_landing3_bg.png'); /* 이미지 경로 */
-  background-repeat: no-repeat; /* 이미지 반복 안되도록 설정 */
+  background-size: cover;
+  background-image: url('/src/assets/img/img_landing3_bg.png');
+  background-repeat: no-repeat;
 `;
 
 const LandingTop = styled.div`
@@ -68,7 +72,7 @@ const Title = styled.h2`
     #fff 0%,
     #58ff7d 100%
   );
-  background-color: #ffff; /* background 뒤로 이동 */
+  background-color: #ffff;
   color: ${({ theme }) => theme.colors.gray100};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

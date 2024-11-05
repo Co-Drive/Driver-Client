@@ -68,9 +68,9 @@ const Landing2Container = styled.article`
   width: 100%;
   padding: 34rem 0 22.9rem;
 
-  background-size: cover; /* 이미지가 확대되지 않고 전체에 맞도록 조정 */
-  background-image: url('/src/assets/img/img_landing2_bg.png'); /* 이미지 경로 */
-  background-repeat: no-repeat; /* 이미지 반복 안되도록 설정 */
+  background-size: cover;
+  background-image: url('/src/assets/img/img_landing2_bg.png');
+  background-repeat: no-repeat;
 `;
 
 const TitleContainer = styled.div`
@@ -86,7 +86,7 @@ const Title = styled.h2`
     #fff 0%,
     #58ff7d 100%
   );
-  background-color: #ffff; /* background 뒤로 이동 */
+  background-color: #ffff;
   color: ${({ theme }) => theme.colors.gray100};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -95,9 +95,9 @@ const Title = styled.h2`
 
 const SliderContainer = styled.div`
   position: relative;
-  overflow: hidden; /* 슬라이드가 밖으로 넘치지 않도록 설정 */
+  overflow: hidden;
 
-  width: 100%; /* 슬라이더 컨테이너의 너비를 전체 화면으로 설정 */
+  width: 100%;
 `;
 
 const CodriveList1 = styled.div`

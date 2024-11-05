@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { LandingGithubInfoImg } from '../../assets';
 
-const Landing4 = forwardRef<HTMLDivElement>((props, ref) => {
+const Landing4 = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <Landing4Container ref={ref}>
       <LandingTop>
@@ -27,7 +27,7 @@ const Landing4Container = styled.article`
   width: 100%;
   padding: 5.4rem 14.7rem 16rem;
 
-  background-size: cover; /* 이미지 비율을 유지하여 화면에 맞춤 */
+  background-size: cover;
   background-image: url('/src/assets/img/img_landing4_bg.png');
   background-repeat: no-repeat;
 `;

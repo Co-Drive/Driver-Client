@@ -25,9 +25,9 @@ const Landing5Container = styled.article`
   width: 100%;
   padding: 5.4rem 19.1rem 9.3rem;
 
-  background-size: cover; /* 이미지가 확대되지 않고 전체에 맞도록 조정 */
-  background-image: url('/src/assets/img/img_landing5_bg.png'); /* 이미지 경로 */
-  background-repeat: no-repeat; /* 이미지 반복 안되도록 설정 */
+  background-size: cover;
+  background-image: url('/src/assets/img/img_landing5_bg.png');
+  background-repeat: no-repeat;
 `;
 
 const LandingTop = styled.div`
