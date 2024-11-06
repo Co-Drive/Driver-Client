@@ -179,7 +179,7 @@ const InformaitonContainer = styled.div`
   &:hover > div {
     visibility: visible;
 
-    margin: -0.3rem 0 0 -0.1rem;
+    margin: -0.3rem 0 0 -0.2rem;
     opacity: 1;
   }
 `;
