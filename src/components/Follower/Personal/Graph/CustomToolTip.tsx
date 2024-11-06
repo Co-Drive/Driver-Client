@@ -12,6 +12,8 @@ const CustomToolTip = ({
     const { x = 0, y = 0 } = coordinate;
     const tooltipWidth = 47; // 툴팁 너비
     const tooltipHeight = 26; // 툴팁 높이
+    const successRate = payload[0].payload.successRate;
+
     return (
       <Container
         style={{
@@ -20,19 +22,16 @@ const CustomToolTip = ({
           }px)`,
         }}
       >
-        <TooltipContainer>{`${payload[0].value}%`}</TooltipContainer>
+        <TooltipContainer>{`${successRate}%`}</TooltipContainer>
       </Container>
     );
   }
-  return null;
 };
 
 export default CustomToolTip;
 
 const Container = styled.div`
   position: absolute;
-
-  /* width: 4.7rem; */
 `;
 
 const TooltipContainer = styled.div`

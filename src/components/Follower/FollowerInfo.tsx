@@ -40,7 +40,7 @@ const FollowerInfo = ({ info }: FollowerInfoProps) => {
       <Language>{language}</Language>
 
       <ProfileContainer>
-        <SuccessRate successRate={successRate} profileImg={profileImg} />
+        <SuccessRate successRate={successRate} profileImg={profileImg} nickname={nickname} />
         <ProfileTextContainer>
           <NicknameContainer>
             <Nickname>{nickname}</Nickname>

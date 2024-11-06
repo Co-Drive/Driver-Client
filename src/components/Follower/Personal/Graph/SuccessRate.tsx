@@ -4,17 +4,24 @@ import CustomLabel from './CustomLabel';
 import CustomToolTip from './CustomToolTip';
 
 interface SuccessRateProps {
+  nickname: string;
   profileImg: string;
   successRate: number;
 }
 
-const SuccessRate = ({ profileImg, successRate }: SuccessRateProps) => {
-  const chartData = [{ name: '', value: successRate === 0 ? 10 : successRate }];
+const SuccessRate = ({
+  nickname,
+  profileImg,
+  successRate,
+}: SuccessRateProps) => {
+  const chartData = [
+    { name: nickname, value: successRate + 10, successRate: successRate },
+  ];
+  const isGraphActive = successRate > 0;
+  const endAngle = 90 - (360 * chartData[0].successRate) / 100;
 
-  const endAngle = 90 - (360 * chartData[0].value) / 100;
-
-  const formatTooltip = (value: number) => {
-    return `${value}%`;
+  const formatTooltip = (successRate: number) => {
+    return `${successRate}%`;
   };
 
   return (
@@ -36,19 +43,21 @@ const SuccessRate = ({ profileImg, successRate }: SuccessRateProps) => {
           position="center"
         />
       </Pie>
-      <Pie
-        isAnimationActive={false}
-        data={chartData}
-        dataKey="value"
-        stroke="none"
-        startAngle={90}
-        endAngle={endAngle}
-        cornerRadius={15}
-        innerRadius={68}
-        outerRadius={77}
-      >
-        <Cell key="success" fill={GRAPH_COLORS[0]} />
-      </Pie>
+      {isGraphActive && (
+        <Pie
+          isAnimationActive={false}
+          data={chartData}
+          dataKey="value"
+          stroke="none"
+          startAngle={90}
+          endAngle={endAngle}
+          cornerRadius={15}
+          innerRadius={68}
+          outerRadius={77}
+        >
+          <Cell key="success" fill={GRAPH_COLORS[0]} />
+        </Pie>
+      )}
       <Tooltip
         separator=""
         formatter={formatTooltip}
