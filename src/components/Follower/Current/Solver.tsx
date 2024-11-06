@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { SolverProps } from '../../../types/Follower/Current/currentType';
 import EmptySolver from './EmptySolver';
 
-const Solver = ({ currentPage, users, userId }: SolverProps) => {
+const Solver = ({ currentPage, users }: SolverProps) => {
   const navigate = useNavigate();
   const [slicedUsers, setSlicedUsers] = useState(
     users.length > 3 ? users.slice(0, 3) : users
@@ -16,7 +16,7 @@ const Solver = ({ currentPage, users, userId }: SolverProps) => {
     }, [currentPage]);
   }
 
-  const handleClickBtn = () => {
+  const handleClickBtn = (userId: number) => {
     navigate(`/follower/${userId}`);
   };
 
@@ -25,11 +25,11 @@ const Solver = ({ currentPage, users, userId }: SolverProps) => {
       {users.length ? (
         <SolverContainer>
           {slicedUsers.map((solver) => {
-            const { profileImg, nickname } = solver;
+            const { profileImg, nickname, userId } = solver;
             return (
-              <SolverInfo key={nickname}>
-                <ProfileImg src={profileImg} onClick={handleClickBtn} />
-                <Nickname onClick={handleClickBtn}>{nickname}</Nickname>
+              <SolverInfo key={nickname} onClick={() => handleClickBtn(userId)}>
+                <ProfileImg src={profileImg} />
+                <Nickname>{nickname}</Nickname>
               </SolverInfo>
             );
           })}

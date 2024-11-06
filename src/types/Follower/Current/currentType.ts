@@ -32,12 +32,11 @@ export interface FollowerCurrentGraphProps {
 }
 
 interface FollowingsType {
-  users: Array<{ nickname: string; profileImg: string }>;
+  users: Array<{ nickname: string; profileImg: string; userId: number }>;
 }
 
 export interface SolverProps extends FollowingsType {
   currentPage: number;
-  userId: number;
 }
 
 export interface GetFollowerSummaryProps {
