@@ -8,6 +8,7 @@ import { updateWeek } from '../utils/updateWeek';
 const FollowerCurrentPage = () => {
   const { startDate, endDate } = updateWeek();
   const [sMonth, sDate] = startDate.split(' ');
+  const [eMonth, eDate] = endDate.split(' ');
 
   useEffect(() => {
     updateWeek();
@@ -18,7 +19,7 @@ const FollowerCurrentPage = () => {
       <FollowerCurrentPageContainer>
         <Header>
           <Title>주간 팔로잉 현황</Title>
-          <Date>{`${sMonth}월 ${sDate}일 - ${endDate}일`}</Date>
+          <Date>{`${sMonth}월 ${sDate}일 - ${eMonth}월 ${eDate}일`}</Date>
         </Header>
 
         <FollowerQuestions />
