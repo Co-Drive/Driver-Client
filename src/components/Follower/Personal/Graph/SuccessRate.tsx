@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Cell, Label, Pie, PieChart, Tooltip } from 'recharts';
 import styled from 'styled-components';
 import { GRAPH_COLORS } from '../../../../constants/Follower/currentConst';
@@ -22,14 +21,9 @@ const SuccessRate = ({
   const isGraphActive = successRate > 0;
   const endAngle = 90 - (360 * chartData[0].successRate) / 100;
 
-  const [isTooltipActive, setIsTooltipActive] = useState(false);
-
   const formatTooltip = (successRate: number) => {
     return `${successRate}%`;
   };
-
-  const handleHoverGraph = () => setIsTooltipActive(true);
-  const handleLeaveGraph = () => setIsTooltipActive(false);
 
   return (
     <ChartContainer>
@@ -63,14 +57,12 @@ const SuccessRate = ({
             cornerRadius={15}
             innerRadius={68}
             outerRadius={77}
-            onMouseEnter={handleHoverGraph}
-            onMouseLeave={handleLeaveGraph}
           >
             <Cell key="success" fill={GRAPH_COLORS[0]} />
           </Pie>
         )}
 
-        {isTooltipActive && (
+        {isGraphActive && (
           <Tooltip
             separator=""
             formatter={formatTooltip}
