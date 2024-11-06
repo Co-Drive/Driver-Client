@@ -1,27 +1,14 @@
 import { TooltipProps } from 'recharts';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // 리차트에서 제공되는 tooltip 사용
 // number와 string은 각각 chartData 에서 주는데, name : string, value : number
-const CustomToolTip = ({
-  active,
-  payload,
-  coordinate,
-}: TooltipProps<number, string>) => {
-  if (active && payload && payload.length && coordinate) {
-    const { x = 0, y = 0 } = coordinate;
-    const tooltipWidth = 47; // 툴팁 너비
-    const tooltipHeight = 26; // 툴팁 높이
+const CustomToolTip = ({ active, payload }: TooltipProps<number, string>) => {
+  if (active && payload && payload.length) {
     const successRate = payload[0].payload.successRate;
 
     return (
-      <Container
-        style={{
-          transform: `translate(${x - tooltipWidth / 2}px, ${
-            y - tooltipHeight / 2
-          }px)`,
-        }}
-      >
+      <Container $successRate={successRate}>
         <TooltipContainer>{`${successRate}%`}</TooltipContainer>
       </Container>
     );
@@ -30,8 +17,48 @@ const CustomToolTip = ({
 
 export default CustomToolTip;
 
-const Container = styled.div`
+const Container = styled.div<{ $successRate: number }>`
   position: absolute;
+
+  ${({ $successRate }) => {
+    switch ($successRate) {
+      case 15:
+        return css`
+          top: -1rem;
+          left: 11rem;
+        `;
+      case 30:
+        return css`
+          top: 0.8rem;
+          left: 12rem;
+        `;
+      case 45:
+        return css`
+          top: 10rem;
+          left: 12.8rem;
+        `;
+      case 60:
+        return css`
+          top: 13rem;
+          left: 10rem;
+        `;
+      case 75:
+        return css`
+          top: 9.8rem;
+          left: -2rem;
+        `;
+      case 90:
+        return css`
+          top: 3rem;
+          left: -2rem;
+        `;
+      case 100:
+        return css`
+          top: 14rem;
+          left: 5rem;
+        `;
+    }
+  }};
 `;
 
 const TooltipContainer = styled.div`
