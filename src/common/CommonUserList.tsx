@@ -358,7 +358,7 @@ const RecentText = styled.p`
 `;
 
 const Management = styled.p`
-  margin-left: 32.9rem;
+  width: 100%;
 
   color: ${({ theme }) => theme.colors.gray300};
 
