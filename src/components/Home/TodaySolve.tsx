@@ -200,6 +200,10 @@ const PieContainer = styled.div`
 
   width: 100%;
   margin-top: 3.1rem;
+
+  & :focus {
+    outline: none;
+  }
 `;
 
 const StyledText = styled.text<{ $isDefault?: boolean }>`

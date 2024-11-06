@@ -159,6 +159,10 @@ const ChartContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
+
+  & :focus {
+    outline: none;
+  }
 `;
 
 const Message = styled.p`

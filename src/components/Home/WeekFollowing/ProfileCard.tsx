@@ -43,80 +43,78 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
   const endAngle = 90 - (360 * chartData[0].value) / 100;
 
   return (
-    <>
-      <FollowerContainer key={userId}>
-        {nickname === '기본사용자' && language === '사용언어' ? (
-          <PieContainer>
-            <PieChart width={76} height={76}>
-              <Pie
-                data={[{ name: 'Gray Circle', value: 100 }]}
-                dataKey="value"
-                startAngle={0}
-                endAngle={360}
-                outerRadius={30}
-                fill="#292A2F"
-                stroke="none"
+    <FollowerContainer key={userId}>
+      {nickname === '기본사용자' && language === '사용언어' ? (
+        <PieContainer>
+          <PieChart width={76} height={76}>
+            <Pie
+              data={[{ name: 'Gray Circle', value: 100 }]}
+              dataKey="value"
+              startAngle={0}
+              endAngle={360}
+              outerRadius={30}
+              fill="#292A2F"
+              stroke="none"
+            />
+            <Pie
+              dataKey="value"
+              data={[{ name: 'Empty', value: 100 }]}
+              startAngle={90}
+              endAngle={-270}
+              innerRadius={33}
+              outerRadius={38}
+              paddingAngle={0}
+              cornerRadius={15}
+              fill="#494B53"
+              stroke="none"
+            />
+          </PieChart>
+          <Text $isBasic={true}>기본사용자</Text>
+          <LanguageText $isBasic={true}>#사용언어</LanguageText>
+        </PieContainer>
+      ) : (
+        <PieContainer>
+          <PieChart width={76} height={76}>
+            <Pie
+              dataKey="value"
+              data={chartData}
+              startAngle={90}
+              endAngle={-270}
+              innerRadius={33}
+              outerRadius={38}
+              paddingAngle={0}
+              cornerRadius={15}
+              fill="#494B53"
+              stroke="none"
+            >
+              <Label
+                content={<CustomLabel profileImg={profileImg} />}
+                position="center"
               />
-              <Pie
-                dataKey="value"
-                data={[{ name: 'Empty', value: 100 }]}
-                startAngle={90}
-                endAngle={-270}
-                innerRadius={33}
-                outerRadius={38}
-                paddingAngle={0}
-                cornerRadius={15}
-                fill="#494B53"
-                stroke="none"
+            </Pie>
+            <Pie
+              data={chartData}
+              dataKey="value"
+              endAngle={endAngle}
+              startAngle={90}
+              outerRadius={38}
+              innerRadius={33}
+              paddingAngle={0}
+              stroke="none"
+              cornerRadius={15}
+            >
+              <Cell key="success" fill="#BF57FF" />
+              <Label
+                content={<CustomLabel profileImg={profileImg} />}
+                position="center"
               />
-            </PieChart>
-            <Text $isBasic={true}>기본사용자</Text>
-            <LanguageText $isBasic={true}>#사용언어</LanguageText>
-          </PieContainer>
-        ) : (
-          <PieContainer>
-            <PieChart width={76} height={76}>
-              <Pie
-                dataKey="value"
-                data={chartData}
-                startAngle={90}
-                endAngle={-270}
-                innerRadius={33}
-                outerRadius={38}
-                paddingAngle={0}
-                cornerRadius={15}
-                fill="#494B53"
-                stroke="none"
-              >
-                <Label
-                  content={<CustomLabel profileImg={profileImg} />}
-                  position="center"
-                />
-              </Pie>
-              <Pie
-                data={chartData}
-                dataKey="value"
-                endAngle={endAngle}
-                startAngle={90}
-                outerRadius={38}
-                innerRadius={33}
-                paddingAngle={0}
-                stroke="none"
-                cornerRadius={15}
-              >
-                <Cell key="success" fill="#BF57FF" />
-                <Label
-                  content={<CustomLabel profileImg={profileImg} />}
-                  position="center"
-                />
-              </Pie>
-            </PieChart>
-            <Text onClick={handleClickBtn}>{NickName}</Text>
-            <LanguageText>#{Language}</LanguageText>
-          </PieContainer>
-        )}
-      </FollowerContainer>
-    </>
+            </Pie>
+          </PieChart>
+          <Text onClick={handleClickBtn}>{NickName}</Text>
+          <LanguageText>#{Language}</LanguageText>
+        </PieContainer>
+      )}
+    </FollowerContainer>
   );
 };
 
@@ -125,6 +123,10 @@ export default HomeProfileCard;
 const FollowerContainer = styled.div`
   width: 11.5rem;
   max-width: 11.5rem;
+
+  & :focus {
+    outline: none;
+  }
 `;
 
 const PieContainer = styled.div`
