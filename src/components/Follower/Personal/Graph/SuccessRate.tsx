@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Cell, Label, Pie, PieChart, Tooltip } from 'recharts';
+import styled from 'styled-components';
 import { GRAPH_COLORS } from '../../../../constants/Follower/currentConst';
 import CustomLabel from './CustomLabel';
 import CustomToolTip from './CustomToolTip';
@@ -31,52 +32,60 @@ const SuccessRate = ({
   const handleLeaveGraph = () => setIsTooltipActive(false);
 
   return (
-    <PieChart width={154} height={154}>
-      <Pie
-        isAnimationActive={false}
-        data={chartData}
-        dataKey="value"
-        stroke="none"
-        startAngle={90}
-        endAngle={-270}
-        cornerRadius={15}
-        innerRadius={68}
-        outerRadius={77}
-        fill={GRAPH_COLORS[1]}
-      >
-        <Label
-          content={<CustomLabel profileImg={profileImg} />}
-          position="center"
-        />
-      </Pie>
-
-      {isGraphActive && (
+    <ChartContainer>
+      <PieChart width={154} height={154}>
         <Pie
           isAnimationActive={false}
           data={chartData}
           dataKey="value"
           stroke="none"
           startAngle={90}
-          endAngle={endAngle}
+          endAngle={-270}
           cornerRadius={15}
           innerRadius={68}
           outerRadius={77}
-          onMouseEnter={handleHoverGraph}
-          onMouseLeave={handleLeaveGraph}
+          fill={GRAPH_COLORS[1]}
         >
-          <Cell key="success" fill={GRAPH_COLORS[0]} />
+          <Label
+            content={<CustomLabel profileImg={profileImg} />}
+            position="center"
+          />
         </Pie>
-      )}
 
-      {isTooltipActive && (
-        <Tooltip
-          separator=""
-          formatter={formatTooltip}
-          content={<CustomToolTip />}
-        />
-      )}
-    </PieChart>
+        {isGraphActive && (
+          <Pie
+            isAnimationActive={false}
+            data={chartData}
+            dataKey="value"
+            stroke="none"
+            startAngle={90}
+            endAngle={endAngle}
+            cornerRadius={15}
+            innerRadius={68}
+            outerRadius={77}
+            onMouseEnter={handleHoverGraph}
+            onMouseLeave={handleLeaveGraph}
+          >
+            <Cell key="success" fill={GRAPH_COLORS[0]} />
+          </Pie>
+        )}
+
+        {isTooltipActive && (
+          <Tooltip
+            separator=""
+            formatter={formatTooltip}
+            content={<CustomToolTip />}
+          />
+        )}
+      </PieChart>
+    </ChartContainer>
   );
 };
 
 export default SuccessRate;
+
+const ChartContainer = styled.div`
+  & :focus {
+    outline: none;
+  }
+`;
