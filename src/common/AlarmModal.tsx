@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcNewAlarm } from '../assets';
 import usePostAlarmRead from '../libs/hooks/Alarm/usePostAlarmRead';
@@ -15,8 +14,6 @@ const AlarmModal = ({
 
   const { mutation } = usePostAlarmRead();
 
-  const navigate = useNavigate();
-
   // notifications 에서 data 전달
   const handleAlarmClick = (
     notificationId: number,
@@ -24,7 +21,6 @@ const AlarmModal = ({
     dataId: number
   ) => {
     mutation({ notificationId, type, dataId });
-    navigate(`/${type}/${dataId}`);
   };
 
   return (
@@ -55,9 +51,9 @@ const AlarmModal = ({
           <Divider />
           <Title>읽음</Title>
           {readAlarms.map((data, idx) => {
-            // const { content } = data;
-            const bracketText = data.content.match(/\[[^\]]+\]/g);
-            const nonBracketText = data.content.split(/\[[^\]]+\]/);
+            const { content } = data;
+            const bracketText = content.match(/\[[^\]]+\]/g);
+            const nonBracketText = content.split(/\[[^\]]+\]/);
             return (
               <ModalTab key={idx}>
                 <AlarmTitle>{bracketText}</AlarmTitle>
