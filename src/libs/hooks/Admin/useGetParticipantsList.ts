@@ -8,7 +8,7 @@ const useGetParticipantsList = ({
   page,
 }: GetMemberListProps) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['get-participants-list', page, sortType],
+    queryKey: ['get-participants-list', page, sortType, groupId],
     queryFn: async () => await getParticipantsList({ groupId, sortType, page }),
   });
 

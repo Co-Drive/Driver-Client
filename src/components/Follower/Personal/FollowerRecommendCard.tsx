@@ -62,12 +62,14 @@ const FollowerRecommendCard = () => {
         <MyNickname>{myNickname}</MyNickname>
         <Title>님을 위한 추천</Title>
 
-        <IcInformation />
-        <InformationTooltip
-          myNickname={`${myNickname}`}
-          topContents="님 만을 위해"
-          bottomContents="하루에 6명씩 랜덤으로 개발자를 추천해드려요"
-        />
+        <InformaitonContainer>
+          <IcInformation />
+          <InformationTooltip
+            myNickname={`${myNickname}`}
+            topContents="님 만을 위해"
+            bottomContents="하루에 6명씩 랜덤으로 개발자를 추천해드려요"
+          />
+        </InformaitonContainer>
       </TitleContainer>
 
       {!isLoading && (
@@ -153,17 +155,8 @@ const RecommendCardContainer = styled.article`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
-  position: relative;
 
   margin-left: 0.3rem;
-
-  &:hover > div {
-    visibility: visible;
-
-    margin-left: 24.4rem;
-
-    opacity: 1;
-  }
 `;
 
 const MyNickname = styled.p`
@@ -178,6 +171,17 @@ const Title = styled.p`
 
   ${({ theme }) => theme.fonts.title_bold_20};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const InformaitonContainer = styled.div`
+  position: relative;
+
+  &:hover > div {
+    visibility: visible;
+
+    margin: -0.3rem 0 0 -0.1rem;
+    opacity: 1;
+  }
 `;
 
 const RecommendCard = styled.article`

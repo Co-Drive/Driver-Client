@@ -4,7 +4,7 @@ import getRoomInfo from '../../apis/Admin/getRoomInfo';
 
 const useGetRoomInfo = ({ roomId }: GetRoomInfoProps) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['get-room-info'],
+    queryKey: ['get-room-info', roomId],
     queryFn: async () => await getRoomInfo({ roomId }),
   });
 

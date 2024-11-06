@@ -61,7 +61,7 @@ const ApplicationModal = ({ id, onClose }: ApplicationModalProps) => {
                   </Applicants>
                 </ApplicantsContainer>
                 <JoinedNumContainer>
-                  <JoinedNum>{approvedCount - 1}</JoinedNum>
+                  <JoinedNum>{approvedCount}</JoinedNum>
                   <JoinedText>명 승인</JoinedText>
                 </JoinedNumContainer>
               </Modal>
