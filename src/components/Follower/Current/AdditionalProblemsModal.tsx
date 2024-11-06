@@ -56,7 +56,20 @@ const AdditionalProblems = styled.div`
   max-height: 50.4rem;
   overflow-y: auto;
 
-  padding: 0.4rem 2.4rem 2.4rem;
+  scrollbar-color: ${({ theme }) => theme.colors.gray500};
+
+  /* 스크롤바 굵기 설정 */
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  /* 스크롤바 막대 설정 */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
+
+  padding: 0.4rem 1.9rem 2.4rem 2.4rem;
 
   background-color: ${({ theme }) => theme.colors.gray800};
 
