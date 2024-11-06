@@ -3,7 +3,7 @@ import getRanking from '../../apis/GroupMember/getRanking';
 
 const useGetRanking = (roomId: number) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['get-ranking'],
+    queryKey: ['get-ranking', roomId],
     queryFn: async () => await getRanking(roomId),
     enabled: !!roomId,
   });
