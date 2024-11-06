@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Cell, Label, Pie, PieChart, Tooltip } from 'recharts';
 import { GRAPH_COLORS } from '../../../../constants/Follower/currentConst';
 import CustomLabel from './CustomLabel';
@@ -20,9 +21,14 @@ const SuccessRate = ({
   const isGraphActive = successRate > 0;
   const endAngle = 90 - (360 * chartData[0].successRate) / 100;
 
+  const [isTooltipActive, setIsTooltipActive] = useState(false);
+
   const formatTooltip = (successRate: number) => {
     return `${successRate}%`;
   };
+
+  const handleHoverGraph = () => setIsTooltipActive(true);
+  const handleLeaveGraph = () => setIsTooltipActive(false);
 
   return (
     <PieChart width={154} height={154}>
@@ -43,6 +49,7 @@ const SuccessRate = ({
           position="center"
         />
       </Pie>
+
       {isGraphActive && (
         <Pie
           isAnimationActive={false}
@@ -54,15 +61,20 @@ const SuccessRate = ({
           cornerRadius={15}
           innerRadius={68}
           outerRadius={77}
+          onMouseEnter={handleHoverGraph}
+          onMouseLeave={handleLeaveGraph}
         >
           <Cell key="success" fill={GRAPH_COLORS[0]} />
         </Pie>
       )}
-      <Tooltip
-        separator=""
-        formatter={formatTooltip}
-        content={<CustomToolTip />}
-      />
+
+      {isTooltipActive && (
+        <Tooltip
+          separator=""
+          formatter={formatTooltip}
+          content={<CustomToolTip />}
+        />
+      )}
     </PieChart>
   );
 };
