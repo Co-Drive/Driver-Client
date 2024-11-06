@@ -40,7 +40,7 @@ const usePostAlarmRead = () => {
           navigate(`/group/${dataId}/member`);
           break;
         case 'ROOM_STATUS_INACTIVE':
-          navigate('/group/my-page');
+          navigate('/my-group');
           break;
       }
       queryClient.invalidateQueries({ queryKey: ['get-alarm-read'] });
