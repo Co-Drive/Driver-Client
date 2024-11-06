@@ -4,7 +4,7 @@ import getUserProfile from '../../apis/Follower/getUserProfile';
 const useGetUserProfile = (userId?: number) => {
   if (userId) {
     const { data, isLoading } = useQuery({
-      queryKey: ['get-user-profile'],
+      queryKey: ['get-user-profile', userId],
       queryFn: async () => await getUserProfile(userId),
     });
 

@@ -4,7 +4,7 @@ import getMeberList from '../../apis/GroupMember/getMeberList';
 
 const useGetMemberList = ({ groupId, sortType, page }: GetMemberListProps) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['get-member-list', page, sortType],
+    queryKey: ['get-member-list', page, sortType, groupId],
     queryFn: async () => await getMeberList({ groupId, sortType, page }),
   });
 

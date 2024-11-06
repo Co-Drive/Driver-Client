@@ -1,11 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
 import postAlarmRead from '../../apis/Alarm/postAlarmRead';
 
 import { useNavigate } from 'react-router-dom';
 
 const usePostAlarmRead = () => {
-  const [errMsg, setErrMsg] = useState('');
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -42,19 +40,15 @@ const usePostAlarmRead = () => {
           navigate(`/group/${dataId}/member`);
           break;
         case 'ROOM_STATUS_INACTIVE':
-          navigate('/group/my-page');
+          navigate('/my-group');
           break;
       }
       queryClient.invalidateQueries({ queryKey: ['get-alarm-read'] });
       queryClient.invalidateQueries({ queryKey: ['get-alarm-list'] });
     },
-    onError: (err: { response: { data: { message: string } } }) => {
-      const { message } = err.response.data;
-      setErrMsg(message);
-    },
   });
 
-  return { mutation: mutation.mutate, readErr: errMsg };
+  return { mutation: mutation.mutate };
 };
 
 export default usePostAlarmRead;

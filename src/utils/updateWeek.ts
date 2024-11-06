@@ -33,9 +33,9 @@ const updateEndDate = (today: Date) => {
     .toLocaleDateString()
     .split('.')
     .filter((date) => date.length !== 0)
-    .slice(2);
+    .slice(1);
 
-  return endDate.join();
+  return endDate.join('').trim();
 };
 
 export const updateWeek = () => {
