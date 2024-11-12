@@ -146,7 +146,7 @@ const SavedSolutionList = ({
                 return (
                   <PageNumber
                     key={page}
-                    $isClicked={clickedPage === page}
+                    $isClicked={clickedPage === page && totalPage > 0}
                     onClick={() => handleClickValue({ value: page })}
                   >
                     {page}
