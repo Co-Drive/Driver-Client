@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
+import useGetRecentFollowerRecords from '../../libs/hooks/Follower/useGetRecentFollowerRecords';
 import useGetMonthlySolution from '../../libs/hooks/Solution/useGetMonthlySolution';
 import {
   ClickedValueProps,
@@ -56,14 +57,15 @@ const SavedSolutionList = ({
 
   const { year, month } = selectedDate;
 
-  const { data } = useGetMonthlySolution({
-    userId: userId,
-    sortType: sorting,
-    year: year,
-    month: month,
-    page: clickedPage - 1,
-    isSmallList: isSmallList,
-  });
+  const { data } = isSmallList
+    ? useGetRecentFollowerRecords({ userId })
+    : useGetMonthlySolution({
+        userId: userId,
+        sortType: sorting,
+        year: year,
+        month: month,
+        page: clickedPage - 1,
+      });
 
   const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
     if (data) {
@@ -77,7 +79,9 @@ const SavedSolutionList = ({
       const { records } = data.data;
 
       if (records.length) {
-        setSavedRecords(records);
+        isSmallList
+          ? setSavedRecords(records.slice(0, 5))
+          : setSavedRecords(records);
         handleDisabledMoreBtn && handleDisabledMoreBtn(false);
       } else {
         setSavedRecords([]);
