@@ -8,6 +8,7 @@ import { ListFilterProps } from '../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
 
 const ListFilter = ({
+  followerId,
   sorting,
   year,
   month,
@@ -16,8 +17,7 @@ const ListFilter = ({
   handleClickMonth,
   handleClickNextBtn,
 }: ListFilterProps) => {
-  const { unsolvedData } = useGetUnsolvedMonths(year);
-
+  const { unsolvedData } = useGetUnsolvedMonths({ year, followerId });
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
   const unsolvedMonths = useRef<Array<number>>([]);
 

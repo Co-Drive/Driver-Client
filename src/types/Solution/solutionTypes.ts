@@ -105,6 +105,7 @@ export interface ClickedValueProps {
 }
 
 export interface ListFilterProps {
+  followerId?: number;
   sorting: string;
   year: number;
   month: number;

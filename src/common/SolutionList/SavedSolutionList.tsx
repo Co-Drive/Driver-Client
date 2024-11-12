@@ -116,6 +116,7 @@ const SavedSolutionList = ({
         <>
           {!isSmallList && (
             <ListFilter
+              followerId={followerId}
               sorting={sorting}
               year={year}
               month={month}
