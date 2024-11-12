@@ -17,7 +17,6 @@ const SavedSolutionList = ({
   isSmallList,
   handleDisabledMoreBtn,
 }: SavedSolutionListProps) => {
-  const savedPage = sessionStorage.getItem('savedPage');
   const myId = sessionStorage.getItem('user');
   const isFollowerMode = myId && userId.toString() !== myId;
   const followerId = isFollowerMode ? userId : undefined;
@@ -26,16 +25,13 @@ const SavedSolutionList = ({
   const MONTH = new Date().getMonth() + 1;
 
   const [sorting, setSorting] = useState('최신순');
-  const [clickedPage, setClickedPage] = useState(
-    savedPage ? parseInt(savedPage) : 1
-  );
+  const [clickedPage, setClickedPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState({
     year: YEAR,
     month: MONTH,
   });
 
   const { year, month } = selectedDate;
-
   const { data, isLoading } = isSmallList
     ? useGetRecentFollowerRecords({ userId })
     : useGetMonthlySolution({
@@ -50,7 +46,7 @@ const SavedSolutionList = ({
   const recordsArr =
     !isLoading && (records.length > 5 ? records.slice(0, 5) : records);
   const pages = Array.from(
-    { length: totalPage ? totalPage : 0 },
+    { length: totalPage ? totalPage : 1 },
     (_, idx) => idx + 1
   );
 
@@ -63,12 +59,16 @@ const SavedSolutionList = ({
   };
 
   const handleClickPrevBtn = (isPage: boolean) => {
-    isPage
-      ? setClickedPage((prev) => prev - 1)
-      : setSelectedDate({
-          ...selectedDate,
-          year: year - 1,
-        });
+    if (isPage) {
+      setClickedPage((prev) => prev - 1);
+    } else {
+      setSelectedDate({
+        ...selectedDate,
+        year: year - 1,
+      });
+      setClickedPage(1);
+    }
+
     removeSavedPage();
   };
 
@@ -82,6 +82,7 @@ const SavedSolutionList = ({
           ...selectedDate,
           month: clickedMonth,
         });
+        setClickedPage(1);
       }
     }
 
@@ -89,12 +90,16 @@ const SavedSolutionList = ({
   };
 
   const handleClickNextBtn = (isPage: boolean) => {
-    isPage
-      ? setClickedPage((prev) => prev + 1)
-      : setSelectedDate({
-          ...selectedDate,
-          year: year + 1,
-        });
+    if (isPage) {
+      setClickedPage((prev) => prev + 1);
+    } else {
+      setSelectedDate({
+        ...selectedDate,
+        year: year + 1,
+      });
+      setClickedPage(1);
+    }
+
     removeSavedPage();
   };
 
