@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
@@ -17,24 +17,17 @@ const ListFilter = ({
   handleClickMonth,
   handleClickNextBtn,
 }: ListFilterProps) => {
-  const { unsolvedData } = useGetUnsolvedMonths({ year, followerId });
+  const { unsolvedData, isLoading } = useGetUnsolvedMonths({
+    year,
+    followerId,
+  });
+  const { months } = !isLoading && unsolvedData.data;
+
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  const unsolvedMonths = useRef<Array<number>>([]);
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
   };
-
-  const getUnsolvedMonthsArr = () => {
-    if (unsolvedData) {
-      const { months } = unsolvedData.data;
-      unsolvedMonths.current = months;
-    }
-  };
-
-  useEffect(() => {
-    getUnsolvedMonthsArr();
-  }, [unsolvedData]);
 
   return (
     <FilteredContainer>
@@ -50,7 +43,7 @@ const ListFilter = ({
             <IcArrowTopWhite onClick={handleClickDateFilter} />
             <Calendar
               date={{ clickedYear: year, clickedMonth: month }}
-              unsolvedMonths={unsolvedMonths.current}
+              unsolvedMonths={months}
               handleClickPrevBtn={() => handleClickPrevBtn(false)}
               handleClickMonth={handleClickMonth}
               handleClickNextBtn={() => handleClickNextBtn(false)}
