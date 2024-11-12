@@ -9,7 +9,7 @@ const useGetMonthlySolution = ({
   page,
   sortType,
 }: getMonthlySolutionProps) => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     // 어떤 값이 바뀔 때마다 queryFn이 실행되었으면 좋겠다 -> queryKey에 해당 값 포함시키기 !
     queryKey: ['get-monthly-solution', year, month, page, sortType, userId],
     queryFn: async () =>
@@ -22,7 +22,7 @@ const useGetMonthlySolution = ({
       }),
   });
 
-  return { data };
+  return { data, isLoading };
 };
 
 export default useGetMonthlySolution;
