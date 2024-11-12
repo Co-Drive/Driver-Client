@@ -1,22 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
 import useGetRecentFollowerRecords from '../../libs/hooks/Follower/useGetRecentFollowerRecords';
 import useGetMonthlySolution from '../../libs/hooks/Solution/useGetMonthlySolution';
 import {
   ClickedValueProps,
-  UpdateSavedRecordsProps,
-  UpdateTotalPageProps,
+  recordType,
+  SavedSolutionListProps,
 } from '../../types/Solution/solutionTypes';
 import { removeSavedPage } from '../../utils/removeSavedPage';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
-
-export interface SavedSolutionListProps {
-  userId: number;
-  isSmallList: boolean;
-  handleDisabledMoreBtn?: (value: boolean) => void;
-}
 
 const SavedSolutionList = ({
   userId,
@@ -27,26 +21,11 @@ const SavedSolutionList = ({
   const myId = sessionStorage.getItem('user');
   const isFollowerMode = myId && userId.toString() !== myId;
   const followerId = isFollowerMode ? userId : undefined;
-  const totalPageRef = useRef(0);
-  const pages = Array.from(
-    { length: totalPageRef.current },
-    (_, idx) => idx + 1
-  );
+
   const YEAR = new Date().getFullYear();
   const MONTH = new Date().getMonth() + 1;
 
   const [sorting, setSorting] = useState('최신순');
-  const [savedRecords, setSavedRecords] = useState([
-    {
-      recordId: 0,
-      title: '',
-      level: 0,
-      tags: [''],
-      platform: '',
-      problemUrl: '',
-      createdAt: '',
-    },
-  ]);
   const [clickedPage, setClickedPage] = useState(
     savedPage ? parseInt(savedPage) : 1
   );
@@ -57,7 +36,7 @@ const SavedSolutionList = ({
 
   const { year, month } = selectedDate;
 
-  const { data } = isSmallList
+  const { data, isLoading } = isSmallList
     ? useGetRecentFollowerRecords({ userId })
     : useGetMonthlySolution({
         userId: userId,
@@ -67,28 +46,13 @@ const SavedSolutionList = ({
         page: clickedPage - 1,
       });
 
-  const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
-    if (data) {
-      const { totalPage } = data.data;
-      totalPageRef.current = totalPage;
-    }
-  };
-
-  const updateRecords = async ({ data }: UpdateSavedRecordsProps) => {
-    if (data) {
-      const { records } = data.data;
-
-      if (records.length) {
-        isSmallList
-          ? setSavedRecords(records.slice(0, 5))
-          : setSavedRecords(records);
-        handleDisabledMoreBtn && handleDisabledMoreBtn(false);
-      } else {
-        setSavedRecords([]);
-        handleDisabledMoreBtn && handleDisabledMoreBtn(true);
-      }
-    }
-  };
+  const { records, totalPage } = !isLoading && data.data;
+  const recordsArr =
+    !isLoading && (records.length > 5 ? records.slice(0, 5) : records);
+  const pages = Array.from(
+    { length: totalPage ? totalPage : 0 },
+    (_, idx) => idx + 1
+  );
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
@@ -135,13 +99,15 @@ const SavedSolutionList = ({
   };
 
   useEffect(() => {
-    updateTotalPage({ data });
-    updateRecords({ data });
-  }, [data]);
+    if (handleDisabledMoreBtn && !isLoading)
+      records.length <= 5
+        ? handleDisabledMoreBtn(true)
+        : handleDisabledMoreBtn(false);
+  }, [records]);
 
   return (
     <ListContainer $isSmallList={isSmallList}>
-      {data && (
+      {!isLoading && (
         <>
           {!isSmallList && (
             <ListFilter
@@ -155,7 +121,7 @@ const SavedSolutionList = ({
             />
           )}
 
-          {savedRecords.map((record) => {
+          {recordsArr.map((record: recordType) => {
             return (
               <SavedSolution
                 key={record.recordId}
@@ -184,8 +150,7 @@ const SavedSolutionList = ({
               })}
               <IcArrowRightSmallGray
                 onClick={() =>
-                  clickedPage !== totalPageRef.current &&
-                  handleClickNextBtn(true)
+                  clickedPage !== totalPage && handleClickNextBtn(true)
                 }
               />
             </PageNationBar>
