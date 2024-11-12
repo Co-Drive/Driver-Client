@@ -3,26 +3,19 @@ import styled, { css } from 'styled-components';
 
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
 import { OLD_AND_NEW } from '../../constants/Follower/currentConst';
-import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import { ListFilterProps } from '../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
 
 const ListFilter = ({
-  followerId,
   sorting,
   year,
   month,
+  unsolvedMonths,
   handleClickSorting,
   handleClickPrevBtn,
   handleClickMonth,
   handleClickNextBtn,
 }: ListFilterProps) => {
-  const { unsolvedData, isLoading } = useGetUnsolvedMonths({
-    year,
-    followerId,
-  });
-  const { months } = !isLoading && unsolvedData.data;
-
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
   const handleClickDateFilter = () => {
@@ -43,7 +36,7 @@ const ListFilter = ({
             <IcArrowTopWhite onClick={handleClickDateFilter} />
             <Calendar
               date={{ clickedYear: year, clickedMonth: month }}
-              unsolvedMonths={months}
+              unsolvedMonths={unsolvedMonths}
               handleClickPrevBtn={() => handleClickPrevBtn(false)}
               handleClickMonth={(e) => {
                 handleClickMonth(e);

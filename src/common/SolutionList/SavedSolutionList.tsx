@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
 import useGetRecentFollowerRecords from '../../libs/hooks/Follower/useGetRecentFollowerRecords';
 import useGetMonthlySolution from '../../libs/hooks/Solution/useGetMonthlySolution';
+import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import {
   ClickedValueProps,
   recordType,
@@ -21,14 +22,28 @@ const SavedSolutionList = ({
   const isFollowerMode = myId && userId.toString() !== myId;
   const followerId = isFollowerMode ? userId : undefined;
 
-  const YEAR = new Date().getFullYear();
-  const MONTH = new Date().getMonth() + 1;
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1;
+  const { unsolvedData, isLoading: isUnsolvedDataLoading } =
+    useGetUnsolvedMonths({
+      year: currentYear,
+      followerId,
+    });
+  const { months: unsolvedMonths } =
+    !isUnsolvedDataLoading && unsolvedData.data;
+
+  const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
+  const solvedMonths =
+    !isUnsolvedDataLoading &&
+    monthCalendar.filter((month) => !unsolvedMonths.includes(month));
+  const recentSolvedMonth =
+    !isUnsolvedDataLoading && solvedMonths && Math.max(...solvedMonths);
 
   const [sorting, setSorting] = useState('최신순');
   const [clickedPage, setClickedPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState({
-    year: YEAR,
-    month: MONTH,
+    year: currentYear,
+    month: isFollowerMode ? recentSolvedMonth : currentMonth,
   });
 
   const { year, month } = selectedDate;
@@ -55,7 +70,6 @@ const SavedSolutionList = ({
   ) => {
     const { innerHTML } = e.currentTarget;
     setSorting(innerHTML);
-    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
   const handleClickPrevBtn = (isPage: boolean) => {
@@ -116,10 +130,10 @@ const SavedSolutionList = ({
         <>
           {!isSmallList && (
             <ListFilter
-              followerId={followerId}
               sorting={sorting}
               year={year}
               month={month}
+              unsolvedMonths={unsolvedMonths}
               handleClickSorting={handleClickSorting}
               handleClickPrevBtn={handleClickPrevBtn}
               handleClickMonth={handleClickValue}

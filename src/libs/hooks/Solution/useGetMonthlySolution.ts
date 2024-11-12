@@ -20,6 +20,7 @@ const useGetMonthlySolution = ({
         page,
         sortType,
       }),
+    enabled: !!month,
   });
 
   return { data, isLoading };

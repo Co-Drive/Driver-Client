@@ -50,7 +50,7 @@ export interface LevelProps {
 export interface CalendarProps {
   date: {
     clickedYear: number;
-    clickedMonth: number;
+    clickedMonth: number | boolean;
   };
   unsolvedMonths: Array<number>;
   handleClickPrevBtn: () => void;
@@ -105,10 +105,10 @@ export interface ClickedValueProps {
 }
 
 export interface ListFilterProps {
-  followerId?: number;
   sorting: string;
   year: number;
-  month: number;
+  month: number | boolean;
+  unsolvedMonths: Array<number>;
   handleClickSorting: (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => void;
@@ -120,7 +120,7 @@ export interface ListFilterProps {
 export interface getMonthlySolutionProps {
   userId: number;
   year: number;
-  month: number;
+  month: number | boolean;
   page: number;
   sortType?: string;
 }
