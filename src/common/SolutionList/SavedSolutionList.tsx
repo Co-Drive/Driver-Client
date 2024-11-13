@@ -1,106 +1,88 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
+import useGetRecentFollowerRecords from '../../libs/hooks/Follower/useGetRecentFollowerRecords';
 import useGetMonthlySolution from '../../libs/hooks/Solution/useGetMonthlySolution';
+import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import {
   ClickedValueProps,
-  UpdateSavedRecordsProps,
-  UpdateTotalPageProps,
+  recordType,
+  SavedSolutionListProps,
 } from '../../types/Solution/solutionTypes';
 import { removeSavedPage } from '../../utils/removeSavedPage';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
-
-export interface SavedSolutionListProps {
-  userId: number;
-  isSmallList: boolean;
-  handleDisabledMoreBtn?: (value: boolean) => void;
-}
 
 const SavedSolutionList = ({
   userId,
   isSmallList,
   handleDisabledMoreBtn,
 }: SavedSolutionListProps) => {
-  const savedPage = sessionStorage.getItem('savedPage');
   const myId = sessionStorage.getItem('user');
   const isFollowerMode = myId && userId.toString() !== myId;
   const followerId = isFollowerMode ? userId : undefined;
-  const totalPageRef = useRef(0);
-  const pages = Array.from(
-    { length: totalPageRef.current },
-    (_, idx) => idx + 1
-  );
-  const YEAR = new Date().getFullYear();
-  const MONTH = new Date().getMonth() + 1;
+
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1;
+  const { unsolvedData, isLoading: isUnsolvedDataLoading } =
+    useGetUnsolvedMonths({
+      year: currentYear,
+      followerId,
+    });
+  const { months: unsolvedMonths } =
+    !isUnsolvedDataLoading && unsolvedData.data;
+
+  const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
+  const solvedMonths =
+    !isUnsolvedDataLoading &&
+    monthCalendar.filter((month) => !unsolvedMonths.includes(month));
+  const recentSolvedMonth =
+    !isUnsolvedDataLoading && solvedMonths && Math.max(...solvedMonths);
 
   const [sorting, setSorting] = useState('최신순');
-  const [savedRecords, setSavedRecords] = useState([
-    {
-      recordId: 0,
-      title: '',
-      level: 0,
-      tags: [''],
-      platform: '',
-      problemUrl: '',
-      createdAt: '',
-    },
-  ]);
-  const [clickedPage, setClickedPage] = useState(
-    savedPage ? parseInt(savedPage) : 1
-  );
+  const [clickedPage, setClickedPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState({
-    year: YEAR,
-    month: MONTH,
+    year: currentYear,
+    month: isFollowerMode ? recentSolvedMonth : currentMonth,
   });
 
   const { year, month } = selectedDate;
+  const { data, isLoading } = isSmallList
+    ? useGetRecentFollowerRecords({ userId })
+    : useGetMonthlySolution({
+        userId: userId,
+        sortType: sorting,
+        year: year,
+        month: month,
+        page: clickedPage - 1,
+      });
 
-  const { data } = useGetMonthlySolution({
-    userId: userId,
-    sortType: sorting,
-    year: year,
-    month: month,
-    page: clickedPage - 1,
-    isSmallList: isSmallList,
-  });
-
-  const updateTotalPage = async ({ data }: UpdateTotalPageProps) => {
-    if (data) {
-      const { totalPage } = data.data;
-      totalPageRef.current = totalPage;
-    }
-  };
-
-  const updateRecords = async ({ data }: UpdateSavedRecordsProps) => {
-    if (data) {
-      const { records } = data.data;
-
-      if (records.length) {
-        setSavedRecords(records);
-        handleDisabledMoreBtn && handleDisabledMoreBtn(false);
-      } else {
-        setSavedRecords([]);
-        handleDisabledMoreBtn && handleDisabledMoreBtn(true);
-      }
-    }
-  };
+  const { records, totalPage } = !isLoading && data.data;
+  const recordsArr =
+    !isLoading && (records.length > 5 ? records.slice(0, 5) : records);
+  const pages = Array.from(
+    { length: totalPage ? totalPage : 1 },
+    (_, idx) => idx + 1
+  );
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => {
     const { innerHTML } = e.currentTarget;
     setSorting(innerHTML);
-    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
   const handleClickPrevBtn = (isPage: boolean) => {
-    isPage
-      ? setClickedPage((prev) => prev - 1)
-      : setSelectedDate({
-          ...selectedDate,
-          year: year - 1,
-        });
+    if (isPage) {
+      setClickedPage((prev) => prev - 1);
+    } else {
+      setSelectedDate({
+        ...selectedDate,
+        year: year - 1,
+      });
+      setClickedPage(1);
+    }
+
     removeSavedPage();
   };
 
@@ -114,6 +96,7 @@ const SavedSolutionList = ({
           ...selectedDate,
           month: clickedMonth,
         });
+        setClickedPage(1);
       }
     }
 
@@ -121,29 +104,36 @@ const SavedSolutionList = ({
   };
 
   const handleClickNextBtn = (isPage: boolean) => {
-    isPage
-      ? setClickedPage((prev) => prev + 1)
-      : setSelectedDate({
-          ...selectedDate,
-          year: year + 1,
-        });
+    if (isPage) {
+      setClickedPage((prev) => prev + 1);
+    } else {
+      setSelectedDate({
+        ...selectedDate,
+        year: year + 1,
+      });
+      setClickedPage(1);
+    }
+
     removeSavedPage();
   };
 
   useEffect(() => {
-    updateTotalPage({ data });
-    updateRecords({ data });
-  }, [data]);
+    if (handleDisabledMoreBtn && !isLoading)
+      records.length <= 5
+        ? handleDisabledMoreBtn(true)
+        : handleDisabledMoreBtn(false);
+  }, [records]);
 
   return (
     <ListContainer $isSmallList={isSmallList}>
-      {data && (
+      {!isLoading && (
         <>
           {!isSmallList && (
             <ListFilter
               sorting={sorting}
               year={year}
               month={month}
+              unsolvedMonths={unsolvedMonths}
               handleClickSorting={handleClickSorting}
               handleClickPrevBtn={handleClickPrevBtn}
               handleClickMonth={handleClickValue}
@@ -151,7 +141,7 @@ const SavedSolutionList = ({
             />
           )}
 
-          {savedRecords.map((record) => {
+          {recordsArr.map((record: recordType) => {
             return (
               <SavedSolution
                 key={record.recordId}
@@ -171,7 +161,7 @@ const SavedSolutionList = ({
                 return (
                   <PageNumber
                     key={page}
-                    $isClicked={clickedPage === page}
+                    $isClicked={clickedPage === page && totalPage > 0}
                     onClick={() => handleClickValue({ value: page })}
                   >
                     {page}
@@ -180,8 +170,7 @@ const SavedSolutionList = ({
               })}
               <IcArrowRightSmallGray
                 onClick={() =>
-                  clickedPage !== totalPageRef.current &&
-                  handleClickNextBtn(true)
+                  clickedPage !== totalPage && handleClickNextBtn(true)
                 }
               />
             </PageNationBar>
