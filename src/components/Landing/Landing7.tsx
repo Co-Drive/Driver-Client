@@ -94,6 +94,7 @@ const Text = styled.p`
 `;
 
 const SolveImg = styled.img`
+  width: 50%;
   margin-top: 6.6rem;
 `;
 
