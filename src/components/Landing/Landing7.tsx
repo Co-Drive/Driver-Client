@@ -51,9 +51,10 @@ const Landing7 = () => {
 };
 const Landing7Container = styled.article`
   width: 100%;
-  padding: 5.4rem 0 4.6rem;
+  height: 100vh;
+  padding: 5.4rem 0 0;
 
-  background-size: cover;
+  background-size: center;
   background-image: url(${ImgLanding7Bg});
   background-repeat: no-repeat;
 `;
@@ -94,6 +95,7 @@ const Text = styled.p`
 `;
 
 const SolveImg = styled.img`
+  width: 50%;
   margin-top: 6.6rem;
 `;
 
