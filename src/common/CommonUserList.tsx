@@ -296,9 +296,7 @@ const CommonUserList = ({
         />
       </PageNationBar>
 
-      {!isLoading && !isAdmin && users.length === 0 && (
-        <FollowerRecommendCard />
-      )}
+      {!isLoading && !isAdmin && <FollowerRecommendCard />}
 
       {errModalOn && (
         <ErrorModal

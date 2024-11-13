@@ -19,16 +19,24 @@ export interface SolutionHeaderTopProps {
   paintedStarArr: Array<number>;
 }
 
+export interface SavedSolutionListProps {
+  userId: number;
+  isSmallList: boolean;
+  handleDisabledMoreBtn?: (value: boolean) => void;
+}
+
+export interface recordType {
+  recordId: number;
+  title: string;
+  level: number;
+  tags: Array<string>;
+  platform: string;
+  problemUrl: string;
+  createdAt: string;
+}
+
 export interface SavedSolutionProps {
-  record: {
-    recordId: number;
-    title: string;
-    level: number;
-    tags: Array<string>;
-    platform: string;
-    problemUrl: string;
-    createdAt: string;
-  };
+  record: recordType;
   followerId?: number;
   clickedPage?: number;
   isModal?: boolean;
@@ -42,7 +50,7 @@ export interface LevelProps {
 export interface CalendarProps {
   date: {
     clickedYear: number;
-    clickedMonth: number;
+    clickedMonth: number | boolean;
   };
   unsolvedMonths: Array<number>;
   handleClickPrevBtn: () => void;
@@ -99,7 +107,8 @@ export interface ClickedValueProps {
 export interface ListFilterProps {
   sorting: string;
   year: number;
-  month: number;
+  month: number | boolean;
+  unsolvedMonths: Array<number>;
   handleClickSorting: (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => void;
@@ -111,8 +120,7 @@ export interface ListFilterProps {
 export interface getMonthlySolutionProps {
   userId: number;
   year: number;
-  month: number;
+  month: number | boolean;
   page: number;
-  isSmallList: boolean;
   sortType?: string;
 }
