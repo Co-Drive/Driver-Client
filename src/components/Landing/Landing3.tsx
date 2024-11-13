@@ -27,7 +27,7 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
         </Text>
       </LandingTop>
       <LandingImgContainer>
-        <img src={LandingCodriveImg} alt="코드라이브" />
+        <LandingImg src={LandingCodriveImg} alt="코드라이브" />
       </LandingImgContainer>
       <LandingButton onClick={scrollToLanding4}>
         <Button>자세히 알아보기</Button>
@@ -97,12 +97,14 @@ const LandingButton = styled.div`
   justify-content: center;
   align-items: center;
 
-  width: 20.5rem;
-  padding: 1.65rem 2.8rem;
+  width: 18.1rem;
+  padding: 1.65rem 0;
   margin: 0 auto;
 
   border: 2px solid ${({ theme }) => theme.colors.white};
   border-radius: 5rem;
+
+  text-align: center;
 `;
 
 const Button = styled.button`
@@ -114,6 +116,10 @@ const LandingImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const LandingImg = styled.img`
+  width: 100%;
 `;
 
 export default Landing3;

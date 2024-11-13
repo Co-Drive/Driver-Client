@@ -17,7 +17,10 @@ const Landing4 = forwardRef<HTMLDivElement>((_, ref) => {
         </Text>
       </LandingTop>
       <LandingImgContainer>
-        <img src={LandingGithubInfoImg} alt="Landing Github Info Image" />
+        <LandingImg
+          src={LandingGithubInfoImg}
+          alt="Landing Github Info Image"
+        />
       </LandingImgContainer>
     </Landing4Container>
   );
@@ -71,6 +74,10 @@ const LandingImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const LandingImg = styled.img`
+  width: 100%;
 `;
 
 export default Landing4;

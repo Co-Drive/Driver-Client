@@ -14,9 +14,9 @@ const Landing5 = () => {
           다양한 형태의 그래프를 통해 나의 문제풀이 현황을 한 눈에 볼 수 있어요
         </Text>
       </LandingTop>
-      <LandingImg>
-        <img src={LandingHomeImg} alt="홈 이미지" />
-      </LandingImg>
+      <LandingImgContainer>
+        <LandingImg src={LandingHomeImg} alt="홈 이미지" />
+      </LandingImgContainer>
     </Landing5Container>
   );
 };
@@ -65,10 +65,14 @@ const Text = styled.p`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-const LandingImg = styled.div`
+const LandingImgContainer = styled.div`
   margin-left: 18rem;
 
   text-align: center;
+`;
+
+const LandingImg = styled.img`
+  width: 100%;
 `;
 
 export default Landing5;
