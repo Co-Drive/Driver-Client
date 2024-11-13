@@ -16,7 +16,6 @@ const LandingPage = () => {
   const landing4Ref = useRef<HTMLDivElement>(null);
   const pagesRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
-  const touchStartRef = useRef(0);
   const isAnimating = useRef(false);
 
   const scrollToLanding4 = () => {
@@ -41,31 +40,15 @@ const LandingPage = () => {
     const gotoNext = () => current < count - 1 && gotoNum(current + 1);
     const gotoPrev = () => current > 0 && gotoNum(current - 1);
 
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartRef.current = e.touches[0].screenY;
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      if (!isAnimating.current) {
-        touchStartRef.current < e.changedTouches[0].screenY
-          ? gotoPrev()
-          : gotoNext();
-      }
-    };
-
     const handleScroll = (e: WheelEvent) => {
       if (!isAnimating.current) {
         e.deltaY > 0 ? gotoNext() : gotoPrev();
       }
     };
 
-    pagesElement?.addEventListener('touchstart', handleTouchStart);
-    pagesElement?.addEventListener('touchend', handleTouchEnd);
     pagesElement?.addEventListener('wheel', handleScroll);
 
     return () => {
-      pagesElement?.removeEventListener('touchstart', handleTouchStart);
-      pagesElement?.removeEventListener('touchend', handleTouchEnd);
       pagesElement?.removeEventListener('wheel', handleScroll);
     };
   }, [current]);
