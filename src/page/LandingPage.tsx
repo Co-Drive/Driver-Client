@@ -16,7 +16,6 @@ const LandingPage = () => {
   const landing4Ref = useRef<HTMLDivElement>(null);
   const pagesRef = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
-  const isAnimating = useRef(false);
 
   const scrollToLanding4 = () => {
     landing4Ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -24,33 +23,21 @@ const LandingPage = () => {
 
   useEffect(() => {
     const pagesElement = pagesRef.current;
-    const slides = pagesElement?.children || [];
-    const count = slides.length;
+    const count = pagesElement?.children.length || 0;
 
     const gotoNum = (index: number) => {
-      if (index !== current && !isAnimating.current) {
-        isAnimating.current = true;
-        setCurrent(index);
-        setTimeout(() => {
-          isAnimating.current = false;
-        }, 700);
-      }
+      setCurrent(index);
     };
 
     const gotoNext = () => current < count - 1 && gotoNum(current + 1);
     const gotoPrev = () => current > 0 && gotoNum(current - 1);
 
     const handleScroll = (e: WheelEvent) => {
-      if (!isAnimating.current) {
-        e.deltaY > 0 ? gotoNext() : gotoPrev();
-      }
+      e.deltaY > 0 ? gotoNext() : gotoPrev();
     };
 
     pagesElement?.addEventListener('wheel', handleScroll);
-
-    return () => {
-      pagesElement?.removeEventListener('wheel', handleScroll);
-    };
+    return () => pagesElement?.removeEventListener('wheel', handleScroll);
   }, [current]);
 
   return (
