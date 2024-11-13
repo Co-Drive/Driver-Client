@@ -51,10 +51,9 @@ const Landing7 = () => {
 };
 const Landing7Container = styled.article`
   width: 100%;
-  height: 100vh;
-  padding: 5.4rem 0 0;
+  padding: 5.4rem 0 4.6rem;
 
-  background-size: center;
+  background-size: cover;
   background-image: url(${ImgLanding7Bg});
   background-repeat: no-repeat;
 `;
