@@ -11,15 +11,17 @@
 
   <img src="https://velog.velcdn.com/images/aroo_ming/post/09b8efaa-0acb-4180-9647-c17506011d3e/image.png" alt="메인 솔루션"/>
 
+  <img src="https://velog.velcdn.com/images/aroo_ming/post/d7d45982-5070-4167-ae8a-f5af1cca29ae/image.png" alt="홈 화면" />
+
   <img src="https://velog.velcdn.com/images/aroo_ming/post/bce105ec-c5cf-4a76-9b0f-f957d04db486/image.png" alt="깃허브 자동 연동"/>
 
   <img src="https://velog.velcdn.com/images/aroo_ming/post/5ecc6fae-2731-407a-b274-2e3e43de834f/image.png" alt="주간 팔로잉 현황"/>
 
-  <img src="https://velog.velcdn.com/images/aroo_ming/post/e5379234-779b-4939-a7f0-564a6767eb96/image.png" alt="실시간 알림"/>
-
   <img src="https://velog.velcdn.com/images/aroo_ming/post/be644f7f-969a-4825-bd91-962a785f64c9/image.png" alt="그룹"/>
 
   <img src="https://velog.velcdn.com/images/aroo_ming/post/7b0c8267-8f30-4867-89c5-c709dbdc96a1/image.png" alt="그룹 커스텀, 관리"/>
+
+  <img src="https://velog.velcdn.com/images/aroo_ming/post/e5379234-779b-4939-a7f0-564a6767eb96/image.png" alt="실시간 알림"/>
 
 </div>
 
