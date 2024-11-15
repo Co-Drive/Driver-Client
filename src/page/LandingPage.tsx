@@ -9,7 +9,6 @@ import Landing6 from '../components/Landing/Landing6';
 import Landing7 from '../components/Landing/Landing7';
 import Landing8 from '../components/Landing/Landing8';
 import Landing9 from '../components/Landing/Landing9';
-import PageLayout from '../components/PageLayout/PageLayout';
 
 const LandingPage = () => {
   const scrollToLanding4 = () => {
@@ -23,7 +22,7 @@ const LandingPage = () => {
   };
 
   return (
-    <PageLayout category="랜딩페이지">
+    <>
       <Landing1 />
       <Landing2 />
       <Landing3 scrollToLanding4={scrollToLanding4} />
@@ -35,7 +34,7 @@ const LandingPage = () => {
       <Landing9 />
       <Landing10 />
       <Landing11 />
-    </PageLayout>
+    </>
   );
 };
 
