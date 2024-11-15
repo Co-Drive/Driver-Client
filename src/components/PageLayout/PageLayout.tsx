@@ -54,5 +54,4 @@ const PageLayoutContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
-  padding-top: 11.5rem;
 `;
