@@ -126,9 +126,11 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
         <IcArrowContainer
           onClick={() => isLoginSuccess && handleOpenGnb(true, 'profile')} // 클릭 시 Gnb 토글
         >
-          <IcArrowBottomWhite />
           {isLoginSuccess && isGnbOpen && isHoveredProfile && (
-            <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
+            <>
+              <IcArrowBottomWhite />
+              <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
+            </>
           )}
         </IcArrowContainer>
       </HeaderContainer>
