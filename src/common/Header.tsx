@@ -78,7 +78,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
       onMouseLeave={() => handleOpenAlarm(false)}
     >
       <HeaderContainer onMouseLeave={() => handleOpenGnb(false)}>
-        <LogoContainer onClick={() => navigate('/')}>
+        <LogoContainer onClick={() => isLoginSuccess && navigate('/')}>
           <IcLogo />
         </LogoContainer>
         <NavBarContainer>
