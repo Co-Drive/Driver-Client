@@ -15,7 +15,9 @@ const Landing1 = () => {
           <Title>코딩테스트 100번 이상 본 개발자들이</Title>
           <Title>사용하려고 만든 서비스</Title>
         </TitleContainer>
-        <HomeBtn onClick={() => navigate('/')}>지금 무료로 시작하기</HomeBtn>
+        <HomeBtn onClick={() => navigate('/login')}>
+          지금 무료로 시작하기
+        </HomeBtn>
         <img src={LandingMoon} alt="랜딩페이지"></img>
       </LoginContainer>
     </PageLayout>

@@ -18,7 +18,7 @@ const PageLayout = ({ category, children }: PageLayoutProps) => {
       case '그룹':
         return navigate('/group');
       default:
-        return navigate('/');
+        return navigate('/login');
     }
   };
 
