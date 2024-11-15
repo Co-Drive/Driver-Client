@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Header from '../../common/Header';
 import { PageLayoutProps } from '../../types/PageLayout/PageLayoutType';
 import { movePagePosition } from '../../utils/movePagePosition';
 
 const PageLayout = ({ category, children }: PageLayoutProps) => {
   const navigate = useNavigate();
+  const nickname = sessionStorage.getItem('nickname');
+  const profileImg = sessionStorage.getItem('profileImg');
+  const language = sessionStorage.getItem('language');
+  // isLoginSuccess를 불린 값으로 정의
+  const isLoginSuccess = !!(nickname && profileImg && language !== '사용언어');
   const [clickedCategory, setClickedCategory] = useState(category);
 
   const handleEarlyNavigate = (clickedNav: string) => {
@@ -35,7 +40,7 @@ const PageLayout = ({ category, children }: PageLayoutProps) => {
   }, []);
 
   return (
-    <PageLayoutContainer>
+    <PageLayoutContainer $isNotLandingPage={isLoginSuccess}>
       <Header
         clickedCategory={clickedCategory}
         handleClickCategory={handleClickCategory}
@@ -47,12 +52,16 @@ const PageLayout = ({ category, children }: PageLayoutProps) => {
 
 export default PageLayout;
 
-const PageLayoutContainer = styled.div`
+const PageLayoutContainer = styled.div<{ $isNotLandingPage: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
   width: 100%;
-  padding-top: 11.5rem;
+  ${({ $isNotLandingPage }) =>
+    $isNotLandingPage &&
+    css`
+      padding-top: 11.5rem;
+    `};
 `;
