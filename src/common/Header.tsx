@@ -50,12 +50,14 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 0);
-    window.addEventListener('scroll', handleScroll);
+    if (!isLoginSuccess) {
+      const handleScroll = () => setIsScrolled(window.scrollY > 0);
+      window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    } else setIsScrolled(true);
   }, []);
 
   useEffect(() => {
