@@ -25,6 +25,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
       (data: { isRead: boolean }) => data.isRead === false
     ) || [];
 
+  const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState('');
   const [isGnbOpen, setIsGnbOpen] = useState(false);
   const [isAlarmOpen, setIsAlarmOpen] = useState(false);
@@ -49,6 +50,17 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   };
 
   useEffect(() => {
+    if (!isLoginSuccess) {
+      const handleScroll = () => setIsScrolled(window.scrollY > 0);
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    } else setIsScrolled(true);
+  }, []);
+
+  useEffect(() => {
     if (newAlarms.length > 0) {
       sessionStorage.setItem('isNewAlarmExit', 'true');
       setIsNewAlarmExit(true);
@@ -61,9 +73,12 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   // HeaderContainer 에 Leave 있는 이유는 Gnb 컨텐츠 부분을 꼭 지나치고 마우스를 나가야만 창이 닫혀서
   // 컨텐츠 부분을 지나치지 않더라도 바로 창이 닫히게끔 하기 위해 추가함
   return (
-    <HeaderWrapper onMouseLeave={() => handleOpenAlarm(false)}>
+    <HeaderWrapper
+      $isColorBg={isScrolled}
+      onMouseLeave={() => handleOpenAlarm(false)}
+    >
       <HeaderContainer onMouseLeave={() => handleOpenGnb(false)}>
-        <LogoContainer onClick={() => navigate('/')}>
+        <LogoContainer onClick={() => isLoginSuccess && navigate('/')}>
           <IcLogo />
         </LogoContainer>
         <NavBarContainer>
@@ -126,9 +141,13 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
         <IcArrowContainer
           onClick={() => isLoginSuccess && handleOpenGnb(true, 'profile')} // 클릭 시 Gnb 토글
         >
-          <IcArrowBottomWhite />
-          {isLoginSuccess && isGnbOpen && isHoveredProfile && (
-            <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
+          {isLoginSuccess && (
+            <>
+              <IcArrowBottomWhite />
+              {isGnbOpen && isHoveredProfile && (
+                <Gnb category="profile" handleOpenGnb={handleOpenGnb} />
+              )}
+            </>
           )}
         </IcArrowContainer>
       </HeaderContainer>
@@ -138,7 +157,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
 
 export default Header;
 
-const HeaderWrapper = styled.header`
+const HeaderWrapper = styled.header<{ $isColorBg: boolean }>`
   display: flex;
   justify-content: center;
   position: fixed;
@@ -147,7 +166,8 @@ const HeaderWrapper = styled.header`
 
   width: 100%;
 
-  background-color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${({ $isColorBg, theme }) =>
+    $isColorBg ? theme.colors.gray900 : 'transparent'};
 `;
 
 const HeaderContainer = styled.div`

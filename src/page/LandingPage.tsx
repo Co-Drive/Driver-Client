@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import Landing1 from '../components/Landing/Landing1';
 import Landing10 from '../components/Landing/Landing10';
 import Landing11 from '../components/Landing/Landing11';
@@ -12,10 +11,14 @@ import Landing8 from '../components/Landing/Landing8';
 import Landing9 from '../components/Landing/Landing9';
 
 const LandingPage = () => {
-  const landing4Ref = useRef<HTMLDivElement>(null);
-
   const scrollToLanding4 = () => {
-    landing4Ref.current?.scrollIntoView({ behavior: 'smooth' });
+    const landing4Top = document.getElementById('Landing4')?.offsetTop;
+
+    if (landing4Top) {
+      const scrollToLanding4 = landing4Top - 100;
+
+      scrollTo({ top: scrollToLanding4, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -23,7 +26,7 @@ const LandingPage = () => {
       <Landing1 />
       <Landing2 />
       <Landing3 scrollToLanding4={scrollToLanding4} />
-      <Landing4 ref={landing4Ref} />
+      <Landing4 />
       <Landing5 />
       <Landing6 />
       <Landing7 />
