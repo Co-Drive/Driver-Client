@@ -16,7 +16,7 @@ const Landing6 = () => {
         <Info>문제풀이</Info>
         <TitleContainer>
           <Title>자체 코드블록, 플랫폼 별 문제풀이 난이도 통합</Title>
-          <Title>임시저장 기능으로 언제든 다시 풀 수 있게</Title>
+          <Title>편리한 문제풀이 기록</Title>
         </TitleContainer>
         <Text>
           문제풀이 등록은 최대 10개까지 코드블록과 메모장을 자유롭게 사용할 수
@@ -24,7 +24,9 @@ const Landing6 = () => {
         </Text>
 
         {isScrolled && (
+          <LandingImgContainer>
           <SolveImg src={LandingSolveLevel} alt="문제풀이 난이도" />
+        </LandingImgContainer>
         )}
       </LandingTop>
 
@@ -51,7 +53,7 @@ const LandingTop = styled.div<{ $isScrolled: boolean }>`
   ${({ $isScrolled }) =>
     $isScrolled &&
     css`
-      margin-bottom: 4.9rem;
+      margin-bottom: 3rem;
     `};
   padding-top: 5.4rem;
 
@@ -87,8 +89,16 @@ const Text = styled.p`
   color: ${({ theme }) => theme.colors.white};
 `;
 
+const LandingImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 40rem;
+`;
+
 const SolveImg = styled.img`
-  width: 50%;
+  width: 100%;
   margin-top: 6.6rem;
 `;
 
