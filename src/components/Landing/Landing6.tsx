@@ -13,7 +13,7 @@ const Landing6 = () => {
       onClick={() => setIsScrolled(!isScrolled)}
     >
       <LandingTop $isScrolled={isScrolled}>
-        <Info $isScrolled={isScrolled}>문제풀이</Info>
+        <Info>문제풀이</Info>
         <TitleContainer>
           <Title>자체 코드블록, 플랫폼 별 문제풀이 난이도 통합</Title>
           <Title>임시저장 기능으로 언제든 다시 풀 수 있게</Title>
@@ -53,7 +53,7 @@ const LandingTop = styled.div<{ $isScrolled: boolean }>`
   text-align: center;
 `;
 
-const Info = styled.p<{ $isScrolled: boolean }>`
+const Info = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,8 +63,7 @@ const Info = styled.p<{ $isScrolled: boolean }>`
   margin: 0 auto;
 
   border-radius: 2.5rem;
-  background-color: ${({ $isScrolled, theme }) =>
-    $isScrolled ? theme.colors.gray500 : `rgb(255 255 255 / 10%)`};
+  background-color: rgb(255 255 255 / 10%);
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.white};
 `;
