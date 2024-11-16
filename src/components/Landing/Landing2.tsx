@@ -85,15 +85,16 @@ const Landing2 = () => {
 
 const Landing2Container = styled.article`
   width: 100%;
-  padding: 34rem 0 22.9rem;
+  min-height: 100vh;
 
+  background-position: center;
   background-size: cover;
   background-image: url(${ImgLanding2Bg});
   background-repeat: no-repeat;
 `;
 
 const TitleContainer = styled.div`
-  margin-bottom: 6.2rem;
+  padding: 18.6rem 0 6.2rem;
 
   text-align: center;
 `;
