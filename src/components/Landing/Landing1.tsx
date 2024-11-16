@@ -20,7 +20,7 @@ const Landing1 = () => {
     if (viewport / latest < viewport) {
       scrollAnimation.start({ translateY: 0 });
     } else {
-      scrollAnimation.start({ translateY: 130 });
+      scrollAnimation.start({ translateY: 150 });
     }
   });
 
@@ -35,7 +35,7 @@ const Landing1 = () => {
       <motion.img
         src={LandingMoon}
         alt="랜딩페이지"
-        initial={{ translateY: 130 }}
+        initial={{ translateY: 150 }}
         animate={scrollAnimation}
         transition={{ type: 'spring', stiffness: 100, damping: 20 }}
       />
