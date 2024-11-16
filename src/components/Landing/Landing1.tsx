@@ -1,3 +1,9 @@
+import {
+  motion,
+  useAnimation,
+  useMotionValueEvent,
+  useScroll,
+} from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -5,6 +11,18 @@ import { ImgLanding, LandingMoon } from '../../assets';
 
 const Landing1 = () => {
   const navigate = useNavigate();
+
+  const { scrollY } = useScroll();
+  const scrollAnimation = useAnimation();
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const viewport = window.innerHeight;
+    if (viewport / latest < viewport) {
+      scrollAnimation.start({ translateY: 0 });
+    } else {
+      scrollAnimation.start({ translateY: 130 });
+    }
+  });
 
   return (
     <LoginContainer>
@@ -14,7 +32,13 @@ const Landing1 = () => {
         <Title>사용하려고 만든 서비스</Title>
       </TitleContainer>
       <HomeBtn onClick={() => navigate('/login')}>지금 무료로 시작하기</HomeBtn>
-      <img src={LandingMoon} alt="랜딩페이지"></img>
+      <motion.img
+        src={LandingMoon}
+        alt="랜딩페이지"
+        initial={{ translateY: 130 }}
+        animate={scrollAnimation}
+        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+      />
     </LoginContainer>
   );
 };
