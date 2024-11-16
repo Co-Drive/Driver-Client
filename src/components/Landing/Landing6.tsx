@@ -1,10 +1,27 @@
+import {
+  motion,
+  useAnimation,
+  useMotionValueEvent,
+  useScroll,
+} from 'framer-motion';
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ImgLanding6Bg, ImgLanding7Bg, LandingSolveLevel } from '../../assets';
 import Landing7 from './Landing7';
 
 const Landing6 = () => {
+  const { scrollY } = useScroll();
+  const scrollInfoAnimation = useAnimation();
+
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    if (window.innerHeight / latest < 0.175) {
+      scrollInfoAnimation.start({ opacity: 1 });
+    } else {
+      scrollInfoAnimation.start({ opacity: 0 });
+    }
+  });
 
   useEffect(() => {
     const handleChangePages = () => {
@@ -41,13 +58,22 @@ const Landing6 = () => {
         </Text>
 
         {isScrolled && (
-          <LandingImgContainer>
-            <SolveImg src={LandingSolveLevel} alt="문제풀이 난이도" />
-          </LandingImgContainer>
+          <motion.article
+            initial={{ opacity: 0 }}
+            animate={scrollInfoAnimation}
+          >
+            <LandingImgContainer>
+              <SolveImg src={LandingSolveLevel} alt="문제풀이 난이도" />
+            </LandingImgContainer>
+          </motion.article>
         )}
       </LandingTop>
 
-      {isScrolled && <Landing7 />}
+      {isScrolled && (
+        <motion.article initial={{ opacity: 0 }} animate={scrollInfoAnimation}>
+          <Landing7 />
+        </motion.article>
+      )}
     </Landing6Container>
   );
 };
