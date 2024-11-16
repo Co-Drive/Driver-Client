@@ -13,7 +13,7 @@ const Landing6 = () => {
       const documentHeight = document.body.scrollHeight;
       const scrollRatio = (scrollY + viewportHeight) / documentHeight;
 
-      if (scrollRatio > 0.638) {
+      if (scrollRatio > 0.633) {
         setIsScrolled(true);
       } else if (scrollRatio < 0.593) {
         setIsScrolled(false);
