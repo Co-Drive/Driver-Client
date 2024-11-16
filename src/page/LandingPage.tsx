@@ -6,7 +6,6 @@ import Landing3 from '../components/Landing/Landing3';
 import Landing4 from '../components/Landing/Landing4';
 import Landing5 from '../components/Landing/Landing5';
 import Landing6 from '../components/Landing/Landing6';
-import Landing7 from '../components/Landing/Landing7';
 import Landing8 from '../components/Landing/Landing8';
 import Landing9 from '../components/Landing/Landing9';
 
@@ -29,7 +28,6 @@ const LandingPage = () => {
       <Landing4 />
       <Landing5 />
       <Landing6 />
-      <Landing7 />
       <Landing8 />
       <Landing9 />
       <Landing10 />
