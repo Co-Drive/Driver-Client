@@ -1,10 +1,9 @@
-import { forwardRef } from 'react';
 import styled from 'styled-components';
 import { ImgLanding4Bg, LandingGithubInfoImg } from '../../assets';
 
-const Landing4 = forwardRef<HTMLDivElement>((_, ref) => {
+const Landing4 = () => {
   return (
-    <Landing4Container ref={ref}>
+    <Landing4Container id="Landing4">
       <LandingTop>
         <Info>깃허브와의 연동</Info>
         <TitleContainer>
@@ -17,11 +16,14 @@ const Landing4 = forwardRef<HTMLDivElement>((_, ref) => {
         </Text>
       </LandingTop>
       <LandingImgContainer>
-        <img src={LandingGithubInfoImg} alt="Landing Github Info Image" />
+        <LandingImg
+          src={LandingGithubInfoImg}
+          alt="Landing Github Info Image"
+        />
       </LandingImgContainer>
     </Landing4Container>
   );
-});
+};
 
 const Landing4Container = styled.article`
   width: 100%;
@@ -71,6 +73,10 @@ const LandingImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const LandingImg = styled.img`
+  width: 100%;
 `;
 
 export default Landing4;

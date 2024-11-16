@@ -8,7 +8,7 @@ const Landing9 = () => {
         <IcLandingLogo />
         <Title>실제 사용 후기</Title>
       </TitleContainer>
-      <Img src={LandingRealImg} alt="실제사용후기이미지" />
+      <LandingImg src={LandingRealImg} alt="실제사용후기이미지" />
     </Landing9Container>
   );
 };
@@ -43,8 +43,8 @@ const Title = styled.h2`
   background-clip: text;
 `;
 
-const Img = styled.img`
-  width: inherit;
+const LandingImg = styled.img`
+  width: 100%;
 `;
 
 export default Landing9;

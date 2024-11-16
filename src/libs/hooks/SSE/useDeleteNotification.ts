@@ -8,7 +8,7 @@ const useDeleteNotification = () => {
     mutationFn: async () => await deleteNotification(),
     onSuccess: () => {
       sessionStorage.clear();
-      navigate('/');
+      navigate('/login');
     },
     onError: (err) => console.log(err),
   });
