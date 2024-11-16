@@ -1,10 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ImgLanding6Bg, ImgLanding7Bg, LandingSolveLevel } from '../../assets';
 import Landing7 from './Landing7';
 
 const Landing6 = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const landing6 = document.getElementById('landing6');
+
+    if (landing6) {
+      const handleChangePages = () => {
+        const scrollY = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        const documentHeight = document.body.scrollHeight;
+        const scrollRatio = (scrollY + viewportHeight) / documentHeight;
+
+        if (scrollRatio > 0.638) {
+          setIsScrolled(true);
+        } else if (scrollRatio < 0.593) {
+          setIsScrolled(false);
+        }
+      };
+
+      window.addEventListener('scroll', handleChangePages);
+
+      return () => {
+        window.removeEventListener('scroll', handleChangePages);
+      };
+    }
+  }, []);
 
   return (
     <Landing6Container
@@ -25,8 +50,8 @@ const Landing6 = () => {
 
         {isScrolled && (
           <LandingImgContainer>
-          <SolveImg src={LandingSolveLevel} alt="문제풀이 난이도" />
-        </LandingImgContainer>
+            <SolveImg src={LandingSolveLevel} alt="문제풀이 난이도" />
+          </LandingImgContainer>
         )}
       </LandingTop>
 
