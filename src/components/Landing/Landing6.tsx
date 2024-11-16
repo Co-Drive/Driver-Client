@@ -11,22 +11,25 @@ import Landing7 from './Landing7';
 
 const Landing6 = () => {
   const { scrollY } = useScroll();
-  const scrollInfoAnimation = useAnimation();
+  const scrollAnimation = useAnimation();
+  const windowScrollY = window.scrollY;
+  const viewportHeight = window.innerHeight;
+  const documentHeight = document.body.scrollHeight;
+  const scrollRatio = (windowScrollY + viewportHeight) / documentHeight;
 
   const [isScrolled, setIsScrolled] = useState(false);
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
-    if (window.innerHeight / latest < 0.175) {
-      scrollInfoAnimation.start({ opacity: 1 });
+  useMotionValueEvent(scrollY, 'change', () => {
+    if (scrollRatio > 0.593) {
+      scrollAnimation.start({ opacity: 1 });
     } else {
-      scrollInfoAnimation.start({ opacity: 0 });
+      scrollAnimation.start({ opacity: 0 });
     }
   });
 
   useEffect(() => {
     const handleChangePages = () => {
       const scrollY = window.scrollY;
-      const viewportHeight = window.innerHeight;
       const documentHeight = document.body.scrollHeight;
       const scrollRatio = (scrollY + viewportHeight) / documentHeight;
 
@@ -58,10 +61,7 @@ const Landing6 = () => {
         </Text>
 
         {isScrolled && (
-          <motion.article
-            initial={{ opacity: 0 }}
-            animate={scrollInfoAnimation}
-          >
+          <motion.article initial={{ opacity: 0 }} animate={scrollAnimation}>
             <LandingImgContainer>
               <SolveImg src={LandingSolveLevel} alt="문제풀이 난이도" />
             </LandingImgContainer>
@@ -70,7 +70,7 @@ const Landing6 = () => {
       </LandingTop>
 
       {isScrolled && (
-        <motion.article initial={{ opacity: 0 }} animate={scrollInfoAnimation}>
+        <motion.article initial={{ opacity: 0 }} animate={scrollAnimation}>
           <Landing7 />
         </motion.article>
       )}
