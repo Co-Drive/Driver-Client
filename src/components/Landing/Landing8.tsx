@@ -26,15 +26,16 @@ const Landing8 = () => {
 
 const Landing8Container = styled.article`
   width: 100%;
-  padding: 5.4rem 10rem 15.2rem;
+  min-height: 100vh;
 
+  background-position: center;
   background-size: cover;
   background-image: url(${ImgLanding8Bg});
   background-repeat: no-repeat;
 `;
 
 const LandingTop = styled.div`
-  margin-bottom: 4.9rem;
+  padding-top: 5.4rem;
 
   text-align: center;
 `;
@@ -64,6 +65,8 @@ const Title = styled.h2`
 `;
 
 const Text = styled.p`
+  margin-bottom: 8.9rem;
+
   ${({ theme }) => theme.fonts.landing_regular_20};
   color: ${({ theme }) => theme.colors.white};
 `;
@@ -72,6 +75,8 @@ const LandingBottom = styled.div`
   display: flex;
   justify-content: center;
   position: relative;
+
+  padding: 0 10rem;
 `;
 
 const LandingGroup = styled.img`

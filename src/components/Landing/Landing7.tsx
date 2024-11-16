@@ -23,14 +23,16 @@ const Landing7 = () => {
       <LandingTop>
         <Info>문제풀이</Info>
         <TitleContainer>
-          <Title>자체 코드블록, 플랫폼 별 문제풀이 난이도 통합</Title>
-          <Title>임시저장 기능으로 언제든 다시 풀 수 있게</Title>
+          <Title>자체 코드블록, 플랫폼 별 문제풀이 난이도 통합 기능으로</Title>
+          <Title>편리한 문제풀이 기록</Title>
         </TitleContainer>
         <Text>
           백준, 프로그래머스, SWEA, 리트코드, 해커랭크 총 6개 플랫폼의 난이도를
           하나의 가이드로 정리하여 볼 수 있어요.
         </Text>
-        <SolveImg src={LandingSolveLevel} alt="문제풀이 난이도" />
+        <LandingImgContainer>
+          <SolveImg src={LandingSolveLevel} alt="문제풀이 난이도" />
+        </LandingImgContainer>
       </LandingTop>
       <LandingBottom>
         <BottomText>
@@ -51,15 +53,17 @@ const Landing7 = () => {
 };
 const Landing7Container = styled.article`
   width: 100%;
-  padding: 5.4rem 0 4.6rem;
+  min-height: 100vh;
 
+  background-position: center;
   background-size: cover;
   background-image: url(${ImgLanding7Bg});
   background-repeat: no-repeat;
 `;
 
 const LandingTop = styled.div`
-  margin-bottom: 4.9rem;
+  padding-top: 5.4rem;
+  margin-bottom: 3rem;
 
   text-align: center;
 `;
@@ -93,8 +97,16 @@ const Text = styled.p`
   color: ${({ theme }) => theme.colors.white};
 `;
 
+const LandingImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 40rem;
+`;
+
 const SolveImg = styled.img`
-  width: 50%;
+  width: 100%;
   margin-top: 6.6rem;
 `;
 

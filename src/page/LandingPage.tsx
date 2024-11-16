@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import styled from 'styled-components';
 import Landing1 from '../components/Landing/Landing1';
 import Landing10 from '../components/Landing/Landing10';
 import Landing11 from '../components/Landing/Landing11';
@@ -19,7 +20,7 @@ const LandingPage = () => {
   };
 
   return (
-    <>
+    <LandingContainer>
       <Landing1 />
       <Landing2 />
       <Landing3 scrollToLanding4={scrollToLanding4} />
@@ -31,8 +32,14 @@ const LandingPage = () => {
       <Landing9 />
       <Landing10 />
       <Landing11 />
-    </>
+    </LandingContainer>
   );
 };
+
+const LandingContainer = styled.div`
+  display: flex;
+  align-items: stretch; /* 각 컴포넌트를 화면 크기에 맞게 채웁니다. */
+  flex-direction: column;
+`;
 
 export default LandingPage;

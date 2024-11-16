@@ -39,8 +39,9 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
 
 const Landing3Container = styled.article`
   width: 100%;
-  padding: 5.4rem 9.1rem 11.8rem 12.9rem;
+  min-height: 100vh;
 
+  background-position: center;
   background-size: cover;
 
   background-image: url(${ImgLanding3Bg});
@@ -48,6 +49,8 @@ const Landing3Container = styled.article`
 `;
 
 const LandingTop = styled.div`
+  padding-top: 5.4rem;
+
   text-align: center;
 `;
 
@@ -116,6 +119,8 @@ const LandingImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  padding: 0 11rem;
 `;
 
 const LandingImg = styled.img`

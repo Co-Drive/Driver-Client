@@ -28,15 +28,16 @@ const Landing4 = forwardRef<HTMLDivElement>((_, ref) => {
 
 const Landing4Container = styled.article`
   width: 100%;
-  padding: 5.4rem 14.7rem 16rem;
+  min-height: 100vh;
 
+  background-position: center;
   background-size: cover;
   background-image: url(${ImgLanding4Bg});
   background-repeat: no-repeat;
 `;
 
 const LandingTop = styled.div`
-  margin-bottom: 4.9rem;
+  padding-top: 5.4rem;
 
   text-align: center;
 `;
@@ -66,6 +67,8 @@ const Title = styled.h2`
 `;
 
 const Text = styled.p`
+  margin-bottom: 4.9rem;
+
   ${({ theme }) => theme.fonts.landing_regular_20};
   color: ${({ theme }) => theme.colors.white};
 `;
@@ -74,6 +77,8 @@ const LandingImgContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  padding: 0 14.7rem;
 `;
 
 const LandingImg = styled.img`
