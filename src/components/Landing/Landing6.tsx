@@ -7,36 +7,28 @@ const Landing6 = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const landing6 = document.getElementById('landing6');
+    const handleChangePages = () => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const documentHeight = document.body.scrollHeight;
+      const scrollRatio = (scrollY + viewportHeight) / documentHeight;
 
-    if (landing6) {
-      const handleChangePages = () => {
-        const scrollY = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const documentHeight = document.body.scrollHeight;
-        const scrollRatio = (scrollY + viewportHeight) / documentHeight;
+      if (scrollRatio > 0.638) {
+        setIsScrolled(true);
+      } else if (scrollRatio < 0.593) {
+        setIsScrolled(false);
+      }
+    };
 
-        if (scrollRatio > 0.638) {
-          setIsScrolled(true);
-        } else if (scrollRatio < 0.593) {
-          setIsScrolled(false);
-        }
-      };
+    window.addEventListener('scroll', handleChangePages);
 
-      window.addEventListener('scroll', handleChangePages);
-
-      return () => {
-        window.removeEventListener('scroll', handleChangePages);
-      };
-    }
+    return () => {
+      window.removeEventListener('scroll', handleChangePages);
+    };
   }, []);
 
   return (
-    <Landing6Container
-      id="landing6"
-      $isScrolled={isScrolled}
-      onClick={() => setIsScrolled(!isScrolled)}
-    >
+    <Landing6Container $isScrolled={isScrolled}>
       <LandingTop $isScrolled={isScrolled}>
         <Info>문제풀이</Info>
         <TitleContainer>
