@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { IcLoginBig } from '../assets';
 import LoginButton from '../components/Login/LoginButton';
 import PageLayout from '../components/PageLayout/PageLayout';
+import LandingPage from './LandingPage';
 
 const LoginPage = () => {
   const { state } = useLocation();
-  const { roomId } = state || {};
+  const { roomId, isLandingActive } = state || {};
 
   const navigate = useNavigate();
   const isAlreadyLogin =
@@ -27,15 +28,19 @@ const LoginPage = () => {
 
   return (
     <PageLayout category={isAlreadyLogin ? '홈' : 'login'}>
-      <LoginContainer>
-        <Title>성공적인 코딩테스트를 위한 최적의 경로</Title>
-        <IcLoginBig />
-        {!isAlreadyLogin || isNotResgisted ? (
-          <LoginButton onClick={onClickSocialLogin} />
-        ) : (
-          <HomeBtn onClick={() => navigate('/')}>홈으로</HomeBtn>
-        )}
-      </LoginContainer>
+      {isLandingActive ? (
+        <LandingPage />
+      ) : (
+        <LoginContainer>
+          <Title>성공적인 코딩테스트를 위한 최적의 경로</Title>
+          <IcLoginBig />
+          {!isAlreadyLogin || isNotResgisted ? (
+            <LoginButton onClick={onClickSocialLogin} />
+          ) : (
+            <HomeBtn onClick={() => navigate('/')}>홈으로</HomeBtn>
+          )}
+        </LoginContainer>
+      )}
     </PageLayout>
   );
 };

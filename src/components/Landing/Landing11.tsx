@@ -13,7 +13,7 @@ const Landing11 = () => {
         <div>
           <IcLoginBig />
         </div>
-        <HomeBtn onClick={() => navigate('/')}>
+        <HomeBtn onClick={() => navigate('/login')}>
           깃허브로 3초만에 가입하기
         </HomeBtn>
       </TitleContainer>
