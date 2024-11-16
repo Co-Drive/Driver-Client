@@ -35,9 +35,12 @@ const Landing6 = () => {
 
 const Landing6Container = styled.article<{ $isScrolled: boolean }>`
   width: 100%;
+  min-height: 100vh;
+
   padding: ${({ $isScrolled }) =>
     $isScrolled ? `5.4rem 0 4.6rem` : `5.4rem 19.1rem 73.3rem`};
 
+  background-position: center;
   background-size: cover;
   background-image: ${({ $isScrolled }) =>
     $isScrolled ? `url(${ImgLanding7Bg})` : `url(${ImgLanding6Bg})`};
@@ -50,6 +53,8 @@ const LandingTop = styled.div<{ $isScrolled: boolean }>`
     css`
       margin-bottom: 4.9rem;
     `};
+  padding-top: 5.4rem;
+
   text-align: center;
 `;
 
