@@ -21,14 +21,17 @@ const Landing6 = () => {
 
 const Landing6Container = styled.article`
   width: 100%;
-  padding: 5.4rem 19.1rem 73.3rem;
+  min-height: 100vh;
 
+  background-position: center;
   background-size: cover;
   background-image: url(${ImgLanding6Bg});
   background-repeat: no-repeat;
 `;
 
 const LandingTop = styled.div`
+  padding-top: 5.4rem;
+
   text-align: center;
 `;
 

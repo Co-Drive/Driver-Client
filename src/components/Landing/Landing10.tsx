@@ -18,8 +18,7 @@ const Landing10 = () => {
 
 const Landing10Container = styled.article`
   width: 100%;
-  height: 100vh;
-  padding: 5.4rem;
+  min-height: 100vh;
 
   background-position: center;
   background-size: cover;
@@ -29,6 +28,8 @@ const Landing10Container = styled.article`
 `;
 
 const LandingTop = styled.div`
+  padding-top: 5.4rem;
+
   text-align: center;
 `;
 
