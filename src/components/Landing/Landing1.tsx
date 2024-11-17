@@ -28,8 +28,8 @@ const Landing1 = () => {
     <LoginContainer>
       <TitleContainer>
         <Text>이번 코딩테스트는 합격하자!</Text>
-        <Title>코딩테스트 100번 이상 본 개발자들이</Title>
-        <Title>사용하려고 만든 서비스</Title>
+        <Title>알고리즘 문제 1000개 풀어본 개발자들이</Title>
+        <Title>사용하려고 만든 동기부여 서비스</Title>
       </TitleContainer>
       <HomeBtn onClick={() => navigate('/login')}>지금 무료로 시작하기</HomeBtn>
       <motion.img
