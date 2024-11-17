@@ -11,7 +11,6 @@ import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
 
 import usePatchRooms from '../libs/hooks/GroupEdit/usePatchRooms';
-import { ALL_TAG, DUMMY } from './../constants/GroupCreate/LanguageConst';
 import useGetDetail from './../libs/hooks/GroupDetail/useGetDetail';
 
 const GroupEdit = () => {
@@ -35,16 +34,17 @@ const GroupEdit = () => {
     intro: introduce || '',
     group: information || '',
     previewImage: imageSrc || null,
+    selectedTags: tags || '',
   };
-  console.log(initialData);
-  const [inputs, setInputs] = useState({ ...initialData });
+
+  const [inputs, setInputs] = useState(initialData);
   const [isPublicGroup, setIsPublicGroup] = useState<boolean>(!password);
   const [previewImage, setPreviewImage] = useState<string | null>(
     initialData.previewImage
   );
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>(
-    tags?.length === DUMMY.length ? [ALL_TAG] : tags || []
+    initialData.selectedTags
   );
 
   const [savedSecretKey, setSavedSecretKey] = useState<string>(password || '');
@@ -163,10 +163,11 @@ const GroupEdit = () => {
         intro: introduce || '',
         group: information || '',
         previewImage: imageSrc || null,
+        selectedTags: tags || '',
       };
 
       setInputs(initialData);
-      setSelectedTags(tags?.length === DUMMY.length ? [ALL_TAG] : tags || []);
+      setSelectedTags(initialData.selectedTags);
       setIsPublicGroup(!password);
       setPreviewImage(initialData.previewImage);
     }
