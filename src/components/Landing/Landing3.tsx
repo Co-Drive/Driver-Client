@@ -1,3 +1,9 @@
+import {
+  motion,
+  useAnimation,
+  useMotionValueEvent,
+  useScroll,
+} from 'framer-motion';
 import styled from 'styled-components';
 import {
   ArrowRightWhite,
@@ -10,6 +16,22 @@ interface Landing3Props {
 }
 
 const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
+  const { scrollY } = useScroll();
+  const scrollAnimation = useAnimation();
+
+  useMotionValueEvent(scrollY, 'change', () => {
+    const windowScrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const documentHeight = document.body.scrollHeight;
+    const scrollRatio = (windowScrollY + viewportHeight) / documentHeight;
+
+    if (scrollRatio > 0.28) {
+      scrollAnimation.start({ translateY: 0 });
+    } else {
+      scrollAnimation.start({ translateY: 300 });
+    }
+  });
+
   return (
     <Landing3Container>
       <LandingTop>
@@ -26,9 +48,15 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
           합류해주세요!
         </Text>
       </LandingTop>
-      <LandingImgContainer>
-        <LandingImg src={LandingCodriveImg} alt="코드라이브" />
-      </LandingImgContainer>
+      <motion.div
+        initial={{ translateY: 300 }}
+        animate={scrollAnimation}
+        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+      >
+        <LandingImgContainer>
+          <LandingImg src={LandingCodriveImg} alt="코드라이브" />
+        </LandingImgContainer>
+      </motion.div>
       <LandingButton onClick={scrollToLanding4}>
         <Button>자세히 알아보기</Button>
         <ArrowRightWhite />
