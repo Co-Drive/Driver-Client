@@ -90,6 +90,7 @@ import ImgLanding6Bg from './img/img_landing6_bg.png';
 import ImgLanding7Bg from './img/img_landing7_bg.png';
 import ImgLanding8Bg from './img/img_landing8_bg.png';
 import ImgLanding9Bg from './img/img_landing9_bg.png';
+import ImgMac from './img/img_mac.png';
 import ImgRankBgNonePeople from './img/img_rank_bg_none_people.png';
 import ImgRankingBg from './img/img_ranking_bg.png';
 import LandingCode1Img from './landing/landing_code1_img.png';
@@ -241,6 +242,7 @@ export {
   ImgLanding7Bg,
   ImgLanding8Bg,
   ImgLanding9Bg,
+  ImgMac,
   ImgRankBgNonePeople,
   ImgRankingBg,
   LandingCode1Img,
