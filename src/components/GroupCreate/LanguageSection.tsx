@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../assets';
 import CommonHashTag from '../../common/CommonHashTag';
-import { ALL_TAG, DUMMY } from '../../constants/GroupCreate/LanguageConst';
+import { ALL_TAG, LANGUAGE } from '../../constants/GroupCreate/LanguageConst';
 import { LanguageSectionProps } from '../../types/GroupCreate/GroupCreateType';
 
 const LanguageSection = ({
@@ -22,7 +22,7 @@ const LanguageSection = ({
     }
     if (tag === ALL_TAG) {
       setIsAllSelected(true);
-      setSelectedTags(DUMMY);
+      setSelectedTags(LANGUAGE);
     } else {
       if (!selectedTags.includes(tag)) {
         const newTags = [...selectedTags, tag];
@@ -46,7 +46,7 @@ const LanguageSection = ({
 
   const selectAllTags = () => {
     setIsAllSelected(true);
-    setSelectedTags(DUMMY);
+    setSelectedTags(LANGUAGE);
     toggleDropdown();
   };
 
@@ -97,7 +97,7 @@ const LanguageSection = ({
             {ALL_TAG}
           </DropdownItem>
           <Borderline />
-          {DUMMY.map((tag) => (
+          {LANGUAGE.map((tag) => (
             <PickTagContainer key={tag}>
               <DropdownItem
                 $isSelected={selectedTags.includes(tag)}
