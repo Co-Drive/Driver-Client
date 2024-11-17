@@ -10,7 +10,9 @@ const LanguageSection = ({
   setSelectedTags,
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isAllSelected, setIsAllSelected] = useState(false);
+  const [isAllSelected, setIsAllSelected] = useState(
+    selectedTags.length === 11
+  );
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
