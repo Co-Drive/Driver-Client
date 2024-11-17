@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
@@ -36,8 +36,8 @@ const GroupEdit = () => {
     group: information || '',
     previewImage: imageSrc || null,
   };
-
-  const [inputs, setInputs] = useState(initialData);
+  console.log(initialData);
+  const [inputs, setInputs] = useState({ ...initialData });
   const [isPublicGroup, setIsPublicGroup] = useState<boolean>(!password);
   const [previewImage, setPreviewImage] = useState<string | null>(
     initialData.previewImage
@@ -141,8 +141,36 @@ const GroupEdit = () => {
     setSelectedTags(tags || []);
     setIsPublicGroup(!password);
     setSelectedImageFile(null);
-    navigate(`/group/${id}/admin`); // 초기화 후 라우터로 이동
+    navigate(`/group/${id}/admin`);
   };
+
+  useEffect(() => {
+    if (id && !isLoading) {
+      const {
+        title: groupTitle,
+        imageSrc,
+        capacity,
+        tags,
+        introduce,
+        information,
+        password,
+      } = data.data;
+
+      const initialData = {
+        title: groupTitle || '',
+        num: capacity ? capacity.toString() : '0',
+        secretKey: password || '',
+        intro: introduce || '',
+        group: information || '',
+        previewImage: imageSrc || null,
+      };
+
+      setInputs(initialData);
+      setSelectedTags(tags?.length === DUMMY.length ? [ALL_TAG] : tags || []);
+      setIsPublicGroup(!password);
+      setPreviewImage(initialData.previewImage);
+    }
+  }, [data]);
 
   return (
     <PageLayout category="그룹">
