@@ -10,8 +10,8 @@ import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
 
+import usePatchRooms from '../libs/hooks/GroupEdit/usePatchRooms';
 import { ALL_TAG, DUMMY } from './../constants/GroupCreate/LanguageConst';
-import patchRooms from './../libs/apis/GroupEdit/patchRooms';
 import useGetDetail from './../libs/hooks/GroupDetail/useGetDetail';
 
 const GroupEdit = () => {
@@ -40,7 +40,7 @@ const GroupEdit = () => {
   const [inputs, setInputs] = useState(initialData);
   const [isPublicGroup, setIsPublicGroup] = useState<boolean>(!password);
   const [previewImage, setPreviewImage] = useState<string | null>(
-    imageSrc || ''
+    initialData.previewImage
   );
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>(
@@ -49,6 +49,7 @@ const GroupEdit = () => {
 
   const [savedSecretKey, setSavedSecretKey] = useState<string>(password || '');
   const navigate = useNavigate();
+  const { patchMutation } = usePatchRooms();
   const { title: roomTitleInput, num, secretKey, intro, group } = inputs;
 
   const maxCharLimits: { [key: string]: number } = {
@@ -110,7 +111,7 @@ const GroupEdit = () => {
     group !== '';
 
   // 저장 버튼 클릭 시 그룹 정보 수정 API 호출
-  const handleSaveBtnClick = async () => {
+  const handleSaveBtnClick = () => {
     if (!isActive) return;
 
     const postData = {
@@ -121,6 +122,7 @@ const GroupEdit = () => {
       introduce: intro,
       information: group,
     };
+
     const requestBody = new FormData();
     const jsonChange = JSON.stringify(postData);
 
@@ -130,12 +132,7 @@ const GroupEdit = () => {
       requestBody.append('imageFile', selectedImageFile);
     }
 
-    try {
-      await patchRooms(Number(id), requestBody);
-      navigate(`/group/${id}/admin`);
-    } catch (error) {
-      console.log(error);
-    }
+    patchMutation({ roomId: Number(id), requestBody });
   };
 
   const handleCancelBtnClick = () => {
