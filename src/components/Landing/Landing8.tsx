@@ -26,7 +26,7 @@ const Landing8 = () => {
 
 const Landing8Container = styled.article`
   width: 100%;
-  min-height: 100vh;
+  padding: 5.4rem 0 15.2rem;
 
   background-position: center;
   background-size: cover;

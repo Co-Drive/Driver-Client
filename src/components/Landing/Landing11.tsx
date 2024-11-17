@@ -6,7 +6,7 @@ const Landing11 = () => {
   const navigate = useNavigate();
 
   return (
-    <Landing10Container>
+    <Landing11Container>
       <TitleContainer>
         <Title>꿈을 향한 성공 궤도에 올라탈 여러분을 기다리고 있어요!</Title>
         <Text>성공적인 코딩테스트를 위한 최적의 경로</Text>
@@ -17,13 +17,13 @@ const Landing11 = () => {
           깃허브로 3초만에 가입하기
         </HomeBtn>
       </TitleContainer>
-    </Landing10Container>
+    </Landing11Container>
   );
 };
 
-const Landing10Container = styled.div`
+const Landing11Container = styled.article`
   width: 100%;
-  min-height: 100vh;
+  padding: 21.4rem 0 31rem;
 
   background-position: center;
   background-size: cover;
@@ -32,8 +32,6 @@ const Landing10Container = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  padding-top: 21.4rem;
-
   text-align: center;
 `;
 
@@ -49,6 +47,8 @@ const Title = styled.h2`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+
+  white-space: nowrap;
 `;
 
 const Text = styled.p`

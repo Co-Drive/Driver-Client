@@ -58,7 +58,7 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
         </LandingImgContainer>
       </motion.div>
       <LandingButton onClick={scrollToLanding4}>
-        <Button>자세히 알아보기</Button>
+        자세히 알아보기
         <ArrowRightWhite />
       </LandingButton>
     </Landing3Container>
@@ -66,8 +66,13 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
 };
 
 const Landing3Container = styled.article`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
   width: 100%;
-  min-height: 100vh;
+  padding-bottom: 11.8rem;
 
   background-position: center;
   background-size: cover;
@@ -77,22 +82,21 @@ const Landing3Container = styled.article`
 `;
 
 const LandingTop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
   padding-top: 5.4rem;
 
   text-align: center;
 `;
 
 const Info = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 8.4rem;
-  height: 4.7rem;
-  margin: 0 auto;
+  padding: 1.4rem 2.8rem;
 
   border-radius: 2.5rem;
-  background-color: ${({ theme }) => theme.colors.gray500};
+  background-color: rgb(255 255 255 / 10%);
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.white};
 `;
@@ -122,25 +126,20 @@ const Text = styled.p`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-const LandingButton = styled.div`
+const LandingButton = styled.button`
   display: flex;
   gap: 1rem;
   justify-content: center;
   align-items: center;
 
-  width: 18.1rem;
-  padding: 1.65rem 0;
-  margin: 0 auto;
+  padding: 1.65rem 1.8rem 1.65rem 2.8rem;
 
   border: 2px solid ${({ theme }) => theme.colors.white};
   border-radius: 5rem;
-
-  text-align: center;
-`;
-
-const Button = styled.button`
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.white};
+
+  text-align: center;
 `;
 
 const LandingImgContainer = styled.div`

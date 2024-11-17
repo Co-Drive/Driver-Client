@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ImgLanding10Bg } from '../../assets';
+import { ImgLanding10Bg, ImgMac } from '../../assets';
 
 const Landing10 = () => {
   return (
@@ -12,6 +12,7 @@ const Landing10 = () => {
         </TitleContainer>
         <Text>해당 서비스는 프리미엄 서비스로 제공돼요.</Text>
       </LandingTop>
+      <ImgComputer src={ImgMac} />
     </Landing10Container>
   );
 };
@@ -20,16 +21,15 @@ const Landing10Container = styled.article`
   width: 100%;
   min-height: 100vh;
 
+  padding: 5.4rem 25.256rem 11rem;
+
   background-position: center;
   background-size: cover;
-
   background-image: url(${ImgLanding10Bg});
   background-repeat: no-repeat;
 `;
 
 const LandingTop = styled.div`
-  padding-top: 5.4rem;
-
   text-align: center;
 `;
 
@@ -62,6 +62,10 @@ const Text = styled.p`
 
   ${({ theme }) => theme.fonts.landing_regular_20};
   color: ${({ theme }) => theme.colors.white};
+`;
+
+const ImgComputer = styled.img`
+  width: 100%;
 `;
 
 export default Landing10;

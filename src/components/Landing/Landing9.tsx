@@ -17,7 +17,7 @@ const Landing9 = () => {
 
 const Landing9Container = styled.article`
   width: 100%;
-  min-height: 100vh;
+  padding: 18.1rem 0 19.1rem;
 
   background-position: center;
   background-size: cover;
@@ -31,7 +31,6 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  padding-top: 18.1rem;
   margin-bottom: 12rem;
 
   text-align: center;

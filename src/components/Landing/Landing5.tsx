@@ -23,7 +23,7 @@ const Landing5 = () => {
 
 const Landing5Container = styled.article`
   width: 100%;
-  min-height: 100vh;
+  padding: 5.4rem 0 9.255rem;
 
   background-position: center;
   background-size: cover;
@@ -32,22 +32,19 @@ const Landing5Container = styled.article`
 `;
 
 const LandingTop = styled.div`
-  padding-top: 5.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   text-align: center;
 `;
 
 const Info = styled.p`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 15.7rem;
-  height: 4.7rem;
-  margin: 0 auto;
+  padding: 1.4rem 2.8rem;
 
   border-radius: 2.5rem;
-  background-color: ${({ theme }) => theme.colors.gray500};
+  background-color: rgb(255 255 255 / 10%);
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.white};
 `;
@@ -69,8 +66,7 @@ const Text = styled.p`
 `;
 
 const LandingImgContainer = styled.div`
-  padding: 0 18.5rem;
-  margin-left: 18rem;
+  margin: 0 18.5rem 0 36.5rem;
 
   text-align: center;
 `;

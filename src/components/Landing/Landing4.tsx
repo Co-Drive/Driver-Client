@@ -27,7 +27,7 @@ const Landing4 = () => {
 
 const Landing4Container = styled.article`
   width: 100%;
-  min-height: 100vh;
+  padding: 5.4rem 0 16rem;
 
   background-position: center;
   background-size: cover;
@@ -51,7 +51,7 @@ const Info = styled.p`
   margin: 0 auto;
 
   border-radius: 2.5rem;
-  background-color: ${({ theme }) => theme.colors.gray500};
+  background-color: rgb(255 255 255 / 10%);
   ${({ theme }) => theme.fonts.title_bold_16};
   color: ${({ theme }) => theme.colors.white};
 `;
