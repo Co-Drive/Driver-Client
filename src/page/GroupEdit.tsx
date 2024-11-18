@@ -101,9 +101,11 @@ const GroupEdit = () => {
   const handleSaveBtnClick = () => {
     if (!isActive) return;
 
+    const trimmedPassword = isPublicGroup ? '' : secretKey.trim();
+
     const postData = {
       title,
-      password: isPublicGroup ? '' : secretKey,
+      password: trimmedPassword,
       capacity: num,
       tags: selectedTags,
       introduce: intro,
