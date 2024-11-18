@@ -29,28 +29,32 @@ const API = () => {
       if (error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
 
-        try {
-          api
-            .post('/auth/refresh', {
-              accessToken: sessionStorage.getItem('token'),
-              refreshToken: sessionStorage.getItem('refresh'),
-            })
-            .then((res) => {
-              const accessToken = res.data.data.accessToken;
-              sessionStorage.setItem('token', accessToken);
-              originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-              return axios(originalRequest);
-            })
-            .catch((err) => {
-              if (err.response.status === 401) {
-                sessionStorage.clear();
-                window.location.href = '/';
-              }
-            });
-        } catch (err) {
-          sessionStorage.clear();
-          window.location.href = '/';
-        }
+        const token = sessionStorage.getItem('token');
+        const refreshToken = sessionStorage.getItem('refresh');
+
+        if (token && refreshToken)
+          try {
+            api
+              .post('/auth/refresh', {
+                accessToken: sessionStorage.getItem('token'),
+                refreshToken: sessionStorage.getItem('refresh'),
+              })
+              .then((res) => {
+                const accessToken = res.data.data.accessToken;
+                sessionStorage.setItem('token', accessToken);
+                originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+                return axios(originalRequest);
+              })
+              .catch((err) => {
+                if (err.response.status === 401) {
+                  sessionStorage.clear();
+                  window.location.href = '/login';
+                }
+              });
+          } catch (err) {
+            sessionStorage.clear();
+            window.location.href = '/login';
+          }
       }
 
       return Promise.reject(error);
