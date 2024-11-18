@@ -43,7 +43,8 @@ const SavedSolutionList = ({
   const [clickedPage, setClickedPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState({
     year: currentYear,
-    month: isFollowerMode ? recentSolvedMonth : currentMonth,
+    month:
+      recentSolvedMonth || (isFollowerMode ? recentSolvedMonth : currentMonth),
   });
 
   const { year, month } = selectedDate;
