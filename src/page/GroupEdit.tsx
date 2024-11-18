@@ -27,6 +27,7 @@ const GroupEdit = () => {
     introduce,
     information,
     password,
+    isPublicRoom,
   } = !isGetDetailLoading && data?.data;
 
   const initialData = {
@@ -40,12 +41,11 @@ const GroupEdit = () => {
   };
 
   const [inputs, setInputs] = useState(initialData);
-  const [isPublicGroup, setIsPublicGroup] = useState<boolean>(!password);
+  const [isPublicGroup, setIsPublicGroup] = useState<boolean>(isPublicRoom);
   const [previewImage, setPreviewImage] = useState<string | null>(imageSrc);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>(tags);
 
-  const [savedSecretKey, setSavedSecretKey] = useState<string>(password || '');
   const navigate = useNavigate();
   const { patchMutation, isPending } = usePatchRooms();
   const { title, num, secretKey, intro, group } = inputs;
@@ -69,20 +69,6 @@ const GroupEdit = () => {
   };
 
   const handleActiveChange = (active: boolean) => {
-    if (active) {
-      // 공개 그룹 선택 시 기존 비밀번호를 임시 저장하고 비밀번호 필드 초기화
-      setSavedSecretKey(inputs.secretKey);
-      setInputs((prevInputs) => ({
-        ...prevInputs,
-        secretKey: '',
-      }));
-    } else {
-      // 비밀 그룹 선택 시 저장된 비밀번호 복원
-      setInputs((prevInputs) => ({
-        ...prevInputs,
-        secretKey: savedSecretKey,
-      }));
-    }
     setIsPublicGroup(active);
   };
 
@@ -115,7 +101,7 @@ const GroupEdit = () => {
 
     const postData = {
       title,
-      password: secretKey,
+      password: isPublicGroup ? '' : secretKey,
       capacity: num,
       tags: selectedTags,
       introduce: intro,
@@ -154,7 +140,7 @@ const GroupEdit = () => {
         previewImage: imageSrc,
         selectedTags: tags,
       });
-      /*    setIsPublicGroup(isPublicRoom); */
+      setIsPublicGroup(isPublicRoom);
       setPreviewImage(imageSrc);
       setSelectedTags(tags);
     }
