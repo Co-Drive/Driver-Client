@@ -55,6 +55,8 @@ const TodaySolve = () => {
     }
   }, [data]);
 
+  const { goal, todayCount } = stats;
+
   const percentage =
     stats.goal && stats.todayCount
       ? (stats.todayCount / stats.goal) * 100
@@ -118,18 +120,14 @@ const TodaySolve = () => {
           >
             <Cell
               key={`cell-1`}
-              fill={
-                stats.goal && stats.todayCount
-                  ? 'url(#colorGradient)'
-                  : '#B2B4BA'
-              }
+              fill={todayCount ? 'url(#colorGradient)' : '#B2B4BA'}
             />
             <Label
               content={
                 <CustomLabel
-                  upValue={stats.goal ? stats.goal : '목표를'}
-                  downValue={stats.goal ? '문제' : '설정해주세요'}
-                  isDefault={stats.goal ? false : true}
+                  upValue={todayCount ? todayCount : '목표를'}
+                  downValue={goal ? '문제' : '설정해주세요'}
+                  isDefault={goal ? false : true}
                   viewBox={{ cx: 0, cy: 0 }}
                 />
               }
