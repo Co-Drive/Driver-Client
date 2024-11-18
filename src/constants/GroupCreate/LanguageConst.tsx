@@ -1,7 +1,7 @@
-export const DUMMY = [
+export const LANGUAGE = [
   'Python',
   'Java',
-  'Javascript',
+  'JavaScript',
   'C++',
   'C',
   'C#',
