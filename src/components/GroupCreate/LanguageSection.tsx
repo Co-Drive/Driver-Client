@@ -6,7 +6,7 @@ import { ALL_TAG, LANGUAGE } from '../../constants/GroupCreate/LanguageConst';
 import { LanguageSectionProps } from '../../types/GroupCreate/GroupCreateType';
 
 const LanguageSection = ({
-  selectedTags = [], // 기본 값을 빈 배열로 설정
+  selectedTags,
   setSelectedTags,
 }: LanguageSectionProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

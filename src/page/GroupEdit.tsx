@@ -49,7 +49,9 @@ const GroupEdit = () => {
   const navigate = useNavigate();
   const { patchMutation, isPending } = usePatchRooms();
   const { title, num, secretKey, intro, group } = inputs;
+
   const isLoading = isPending || isGetDetailLoading;
+
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
     group: 1000,
@@ -169,10 +171,12 @@ const GroupEdit = () => {
             recruitedValue={num.toString()}
             handleMemberCountChange={handleChangeInputs}
           />
-          <LanguageSection
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-          />
+          {selectedTags && (
+            <LanguageSection
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          )}
           <IntroSection
             introValue={intro}
             handleChangeTextarea={handleChangeInputs}
