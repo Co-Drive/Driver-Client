@@ -28,7 +28,11 @@ const usePatchRooms = () => {
     },
   });
 
-  return { patchMutation: mutation.mutate, patchApproveErr: errMsg };
+  return {
+    patchMutation: mutation.mutate,
+    patchApproveErr: errMsg,
+    isPending: mutation.isPending,
+  };
 };
 
 export default usePatchRooms;

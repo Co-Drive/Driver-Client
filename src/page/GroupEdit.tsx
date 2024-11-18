@@ -12,11 +12,12 @@ import CommonButton from './../common/CommonButton';
 
 import usePatchRooms from '../libs/hooks/GroupEdit/usePatchRooms';
 import useGetDetail from './../libs/hooks/GroupDetail/useGetDetail';
+import LoadingPage from './LoadingPage';
 
 const GroupEdit = () => {
   const { id } = useParams();
   if (!id) return;
-  const { data, isLoading } = useGetDetail(parseInt(id));
+  const { data, isLoading: isGetDetailLoading } = useGetDetail(parseInt(id));
 
   const {
     title: groupTitle,
@@ -26,7 +27,7 @@ const GroupEdit = () => {
     introduce,
     information,
     password,
-  } = !isLoading && data?.data;
+  } = !isGetDetailLoading && data?.data;
   const initialData = {
     title: groupTitle || '',
     num: capacity ? capacity.toString() : '0',
@@ -49,9 +50,9 @@ const GroupEdit = () => {
 
   const [savedSecretKey, setSavedSecretKey] = useState<string>(password || '');
   const navigate = useNavigate();
-  const { patchMutation } = usePatchRooms();
+  const { patchMutation, isPending } = usePatchRooms();
   const { title: roomTitleInput, num, secretKey, intro, group } = inputs;
-
+  const isLoading = isPending || isGetDetailLoading;
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
     group: 1000,
@@ -145,7 +146,7 @@ const GroupEdit = () => {
   };
 
   useEffect(() => {
-    if (id && !isLoading) {
+    if (id && !isGetDetailLoading) {
       const {
         title: groupTitle,
         imageSrc,
@@ -175,47 +176,51 @@ const GroupEdit = () => {
 
   return (
     <PageLayout category="그룹">
-      <Form>
-        <Header>그룹 생성하기</Header>
-        <Borderline />
-        <GroupSetting
-          isPublicGroup={isPublicGroup}
-          handleActiveChange={handleActiveChange}
-          handlePasswordChange={handleChangeInputs}
-          secretKey={inputs.secretKey}
-        />
-        <ImageSection
-          previewImage={previewImage}
-          handleImageChange={handleImageChange}
-        />
-        <TitleSection
-          titleValue={roomTitleInput}
-          recruitedValue={inputs.num}
-          handleMemberCountChange={handleChangeInputs}
-        />
-        <LanguageSection
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
-        <IntroSection
-          introValue={inputs.intro}
-          handleChangeTextarea={handleChangeInputs}
-        />
-        <ProgressSection
-          progressValue={inputs.group}
-          handleChangeTextarea={handleChangeInputs}
-        />
-        <ProfileButton>
-          <CancelButton type="button" onClick={handleCancelBtnClick}>
-            취소하기
-          </CancelButton>
-          <CommonButton
-            isActive={isActive}
-            category="Profile_save"
-            onClick={handleSaveBtnClick}
+      {isLoading ? (
+        <LoadingPage isPageLoading={true} />
+      ) : (
+        <Form>
+          <Header>그룹 생성하기</Header>
+          <Borderline />
+          <GroupSetting
+            isPublicGroup={isPublicGroup}
+            handleActiveChange={handleActiveChange}
+            handlePasswordChange={handleChangeInputs}
+            secretKey={inputs.secretKey}
           />
-        </ProfileButton>
-      </Form>
+          <ImageSection
+            previewImage={previewImage}
+            handleImageChange={handleImageChange}
+          />
+          <TitleSection
+            titleValue={roomTitleInput}
+            recruitedValue={inputs.num}
+            handleMemberCountChange={handleChangeInputs}
+          />
+          <LanguageSection
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
+          <IntroSection
+            introValue={inputs.intro}
+            handleChangeTextarea={handleChangeInputs}
+          />
+          <ProgressSection
+            progressValue={inputs.group}
+            handleChangeTextarea={handleChangeInputs}
+          />
+          <ProfileButton>
+            <CancelButton type="button" onClick={handleCancelBtnClick}>
+              취소하기
+            </CancelButton>
+            <CommonButton
+              isActive={isActive}
+              category="Profile_save"
+              onClick={handleSaveBtnClick}
+            />
+          </ProfileButton>
+        </Form>
+      )}
     </PageLayout>
   );
 };
