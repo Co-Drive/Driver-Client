@@ -25,7 +25,7 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
     const documentHeight = document.body.scrollHeight;
     const scrollRatio = (windowScrollY + viewportHeight) / documentHeight;
 
-    if (scrollRatio > 0.28) {
+    if (scrollRatio > 0.26) {
       scrollAnimation.start({ translateY: 0 });
     } else {
       scrollAnimation.start({ translateY: 300 });

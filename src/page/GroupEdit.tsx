@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
@@ -10,46 +10,47 @@ import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
 
-import { ALL_TAG, DUMMY } from './../constants/GroupCreate/LanguageConst';
-import patchRooms from './../libs/apis/GroupEdit/patchRooms';
+import usePatchRooms from '../libs/hooks/GroupEdit/usePatchRooms';
 import useGetDetail from './../libs/hooks/GroupDetail/useGetDetail';
+import LoadingPage from './LoadingPage';
 
 const GroupEdit = () => {
   const { id } = useParams();
   if (!id) return;
-  const { data, isLoading } = useGetDetail(parseInt(id));
+  const { data, isLoading: isGetDetailLoading } = useGetDetail(parseInt(id));
 
   const {
-    title: groupTitle,
+    title: originTitle,
     imageSrc,
     capacity,
     tags,
     introduce,
     information,
     password,
-  } = !isLoading && data?.data;
+    isPublicRoom,
+  } = !isGetDetailLoading && data?.data;
+
   const initialData = {
-    title: groupTitle || '',
-    num: capacity ? capacity.toString() : '0',
-    secretKey: password || '',
-    intro: introduce || '',
-    group: information || '',
-    previewImage: imageSrc || null,
+    title: '',
+    num: 0,
+    secretKey: '',
+    intro: '',
+    group: '',
+    previewImage: '',
+    selectedTags: [''],
   };
 
   const [inputs, setInputs] = useState(initialData);
-  const [isPublicGroup, setIsPublicGroup] = useState<boolean>(!password);
-  const [previewImage, setPreviewImage] = useState<string | null>(
-    imageSrc || ''
-  );
+  const [isPublicGroup, setIsPublicGroup] = useState<boolean>(isPublicRoom);
+  const [previewImage, setPreviewImage] = useState<string | null>(imageSrc);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [selectedTags, setSelectedTags] = useState<string[]>(
-    tags?.length === DUMMY.length ? [ALL_TAG] : tags || []
-  );
+  const [selectedTags, setSelectedTags] = useState<string[]>(tags);
 
-  const [savedSecretKey, setSavedSecretKey] = useState<string>(password || '');
   const navigate = useNavigate();
-  const { title: roomTitleInput, num, secretKey, intro, group } = inputs;
+  const { patchMutation, isPending } = usePatchRooms();
+  const { title, num, secretKey, intro, group } = inputs;
+
+  const isLoading = isPending || isGetDetailLoading;
 
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
@@ -70,20 +71,6 @@ const GroupEdit = () => {
   };
 
   const handleActiveChange = (active: boolean) => {
-    if (active) {
-      // 공개 그룹 선택 시 기존 비밀번호를 임시 저장하고 비밀번호 필드 초기화
-      setSavedSecretKey(inputs.secretKey);
-      setInputs((prevInputs) => ({
-        ...prevInputs,
-        secretKey: '',
-      }));
-    } else {
-      // 비밀 그룹 선택 시 저장된 비밀번호 복원
-      setInputs((prevInputs) => ({
-        ...prevInputs,
-        secretKey: savedSecretKey,
-      }));
-    }
     setIsPublicGroup(active);
   };
 
@@ -102,25 +89,29 @@ const GroupEdit = () => {
 
   const isActive =
     (isPublicGroup || (secretKey.length > 0 && secretKey.length <= 20)) &&
-    roomTitleInput.length > 0 &&
-    roomTitleInput.length <= 20 &&
-    !(Number(num) === 0 || Number(num) > 50) &&
+    title.length > 0 &&
+    title.length <= 20 &&
+    !(num === 0 || num > 50) &&
+    selectedTags !== undefined &&
     selectedTags.length > 0 &&
     intro !== '' &&
     group !== '';
 
   // 저장 버튼 클릭 시 그룹 정보 수정 API 호출
-  const handleSaveBtnClick = async () => {
+  const handleSaveBtnClick = () => {
     if (!isActive) return;
 
+    const trimmedPassword = isPublicGroup ? '' : secretKey.trim();
+
     const postData = {
-      title: roomTitleInput,
-      password: secretKey,
+      title,
+      password: trimmedPassword,
       capacity: num,
       tags: selectedTags,
       introduce: intro,
       information: group,
     };
+
     const requestBody = new FormData();
     const jsonChange = JSON.stringify(postData);
 
@@ -130,12 +121,7 @@ const GroupEdit = () => {
       requestBody.append('imageFile', selectedImageFile);
     }
 
-    try {
-      await patchRooms(Number(id), requestBody);
-      navigate(`/group/${id}/admin`);
-    } catch (error) {
-      console.log(error);
-    }
+    patchMutation({ roomId: Number(id), requestBody });
   };
 
   const handleCancelBtnClick = () => {
@@ -144,52 +130,75 @@ const GroupEdit = () => {
     setSelectedTags(tags || []);
     setIsPublicGroup(!password);
     setSelectedImageFile(null);
-    navigate(`/group/${id}/admin`); // 초기화 후 라우터로 이동
+    navigate(`/group/${id}/admin`);
   };
+
+  useEffect(() => {
+    if (!isGetDetailLoading) {
+      setInputs({
+        title: originTitle,
+        num: capacity,
+        secretKey: password,
+        intro: introduce,
+        group: information,
+        previewImage: imageSrc,
+        selectedTags: tags,
+      });
+      setIsPublicGroup(isPublicRoom);
+      setPreviewImage(imageSrc);
+      setSelectedTags(tags);
+    }
+  }, [isGetDetailLoading]);
 
   return (
     <PageLayout category="그룹">
-      <Form>
-        <Header>그룹 생성하기</Header>
-        <Borderline />
-        <GroupSetting
-          isPublicGroup={isPublicGroup}
-          handleActiveChange={handleActiveChange}
-          handlePasswordChange={handleChangeInputs}
-          secretKey={inputs.secretKey}
-        />
-        <ImageSection
-          previewImage={previewImage}
-          handleImageChange={handleImageChange}
-        />
-        <TitleSection
-          titleValue={roomTitleInput}
-          recruitedValue={inputs.num}
-          handleMemberCountChange={handleChangeInputs}
-        />
-        <LanguageSection
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
-        <IntroSection
-          introValue={inputs.intro}
-          handleChangeTextarea={handleChangeInputs}
-        />
-        <ProgressSection
-          progressValue={inputs.group}
-          handleChangeTextarea={handleChangeInputs}
-        />
-        <ProfileButton>
-          <CancelButton type="button" onClick={handleCancelBtnClick}>
-            취소하기
-          </CancelButton>
-          <CommonButton
-            isActive={isActive}
-            category="Profile_save"
-            onClick={handleSaveBtnClick}
+      {isLoading ? (
+        <LoadingPage isPageLoading={true} />
+      ) : (
+        <Form>
+          <Header>그룹 생성하기</Header>
+          <Borderline />
+          <GroupSetting
+            isPublicGroup={isPublicGroup}
+            handleActiveChange={handleActiveChange}
+            handlePasswordChange={handleChangeInputs}
+            secretKey={secretKey}
           />
-        </ProfileButton>
-      </Form>
+          <ImageSection
+            previewImage={previewImage}
+            handleImageChange={handleImageChange}
+          />
+          <TitleSection
+            titleValue={title}
+            recruitedValue={num.toString()}
+            handleMemberCountChange={handleChangeInputs}
+          />
+          {selectedTags && (
+            <LanguageSection
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          )}
+          <IntroSection
+            introValue={intro}
+            handleChangeTextarea={handleChangeInputs}
+          />
+          <ProgressSection
+            progressValue={group}
+            handleChangeTextarea={handleChangeInputs}
+          />
+          <ProfileButton>
+            <CancelButton type="button" onClick={handleCancelBtnClick}>
+              취소하기
+            </CancelButton>
+            <CommonButton
+              isActive={isActive}
+              category="Profile_save"
+              onClick={handleSaveBtnClick}
+            />
+          </ProfileButton>
+        </Form>
+      )}
     </PageLayout>
   );
 };

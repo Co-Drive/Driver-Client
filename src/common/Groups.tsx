@@ -10,7 +10,10 @@ const Groups = ({
   clickedPage,
   handleClickPages,
 }: PersonalGroupProps) => {
-  const pages = Array.from({ length: totalPage }, (_, idx) => idx + 1);
+  const pages = Array.from(
+    { length: totalPage > 0 ? totalPage : 1 },
+    (_, idx) => idx + 1
+  );
   const { handleClickPrevBtn, handleClickPage, handleClickNextBtn } =
     handleClickPages;
 
@@ -24,13 +27,13 @@ const Groups = ({
 
       <PageNationBar>
         <IcArrowLeftSmallGray
-          onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
+          onClick={() => clickedPage > 1 && handleClickPrevBtn()}
         />
         {pages.map((page) => {
           return (
             <PageNumber
               key={page}
-              $isClicked={clickedPage === page}
+              $isClicked={totalPage > 0 && clickedPage === page}
               onClick={() => handleClickPage(page)}
             >
               {page}

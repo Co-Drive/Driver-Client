@@ -57,85 +57,87 @@ const FollowerRecommendCard = () => {
   };
 
   return (
-    <RecommendCardContainer>
-      <TitleContainer>
-        <MyNickname>{myNickname}</MyNickname>
-        <Title>님을 위한 추천</Title>
+    <>
+      {!isLoading && users.length > 0 && (
+        <RecommendCardContainer>
+          <TitleContainer>
+            <MyNickname>{myNickname}</MyNickname>
+            <Title>님을 위한 추천</Title>
 
-        <InformaitonContainer>
-          <IcInformation />
-          <InformationTooltip
-            myNickname={`${myNickname}`}
-            topContents="님 만을 위해"
-            bottomContents="하루에 6명씩 랜덤으로 개발자를 추천해드려요"
-          />
-        </InformaitonContainer>
-      </TitleContainer>
+            <InformaitonContainer>
+              <IcInformation />
+              <InformationTooltip
+                myNickname={`${myNickname}`}
+                topContents="님 만을 위해"
+                bottomContents="하루에 6명씩 랜덤으로 개발자를 추천해드려요"
+              />
+            </InformaitonContainer>
+          </TitleContainer>
 
-      {!isLoading && (
-        <RecommendCard>
-          {users.map(
-            (
-              user: {
-                userId: number;
-                profileImg: string;
-                nickname: string;
-                language: string;
-                githubUrl: string;
-              },
-              idx: number
-            ) => {
-              const { userId, profileImg, nickname, language, githubUrl } =
-                user;
-              const isClickedBtn = clickedNickname.includes(nickname);
-              return (
-                <PersonalCard key={userId} $addHr={idx < 4}>
-                  <ProfileImgContainer>
-                    <ProfileImg
-                      src={profileImg}
-                      $isGithubExit={githubUrl?.length !== 0}
-                      onClick={() => handleClickProfile(userId)}
-                    />
-                    {githubUrl && (
-                      <IcContainer>
-                        <IcGithubLogoSmall />
-                      </IcContainer>
-                    )}
-                  </ProfileImgContainer>
+          <RecommendCard>
+            {users.map(
+              (
+                user: {
+                  userId: number;
+                  profileImg: string;
+                  nickname: string;
+                  language: string;
+                  githubUrl: string;
+                },
+                idx: number
+              ) => {
+                const { userId, profileImg, nickname, language, githubUrl } =
+                  user;
+                const isClickedBtn = clickedNickname.includes(nickname);
+                return (
+                  <PersonalCard key={userId} $addHr={idx < 4}>
+                    <ProfileImgContainer>
+                      <ProfileImg
+                        src={profileImg}
+                        $isGithubExit={githubUrl?.length !== 0}
+                        onClick={() => handleClickProfile(userId)}
+                      />
+                      {githubUrl && (
+                        <IcContainer>
+                          <IcGithubLogoSmall />
+                        </IcContainer>
+                      )}
+                    </ProfileImgContainer>
 
-                  <ProfileInfo onClick={() => handleClickProfile(userId)}>
-                    <Nickname>{nickname}</Nickname>
-                    <Language>{`#${language}`}</Language>
-                  </ProfileInfo>
+                    <ProfileInfo onClick={() => handleClickProfile(userId)}>
+                      <Nickname>{nickname}</Nickname>
+                      <Language>{`#${language}`}</Language>
+                    </ProfileInfo>
 
-                  <FollowingBtn
-                    type="button"
-                    $isFollowed={isClickedBtn}
-                    onClick={() => handleClickFollowerBtn(nickname)}
-                  >
-                    {isClickedBtn ? (
-                      <IcFollowingGray />
-                    ) : (
-                      <IcUnfollowingWhite />
-                    )}
-                    <FollowingText $isFollowed={isClickedBtn}>
-                      {isClickedBtn ? `팔로잉` : `팔로우`}
-                    </FollowingText>
-                  </FollowingBtn>
-                </PersonalCard>
-              );
-            }
+                    <FollowingBtn
+                      type="button"
+                      $isFollowed={isClickedBtn}
+                      onClick={() => handleClickFollowerBtn(nickname)}
+                    >
+                      {isClickedBtn ? (
+                        <IcFollowingGray />
+                      ) : (
+                        <IcUnfollowingWhite />
+                      )}
+                      <FollowingText $isFollowed={isClickedBtn}>
+                        {isClickedBtn ? `팔로잉` : `팔로우`}
+                      </FollowingText>
+                    </FollowingBtn>
+                  </PersonalCard>
+                );
+              }
+            )}
+          </RecommendCard>
+
+          {errModalOn && (
+            <ErrorModal
+              onClose={() => setErrModalOn(false)}
+              errMsg={updateFollowerErr}
+            />
           )}
-        </RecommendCard>
+        </RecommendCardContainer>
       )}
-
-      {errModalOn && (
-        <ErrorModal
-          onClose={() => setErrModalOn(false)}
-          errMsg={updateFollowerErr}
-        />
-      )}
-    </RecommendCardContainer>
+    </>
   );
 };
 
