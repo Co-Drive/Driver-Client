@@ -20,7 +20,7 @@ const GroupEdit = () => {
   const { data, isLoading: isGetDetailLoading } = useGetDetail(parseInt(id));
 
   const {
-    title: groupTitle,
+    title: originTitle,
     imageSrc,
     capacity,
     tags,
@@ -28,30 +28,27 @@ const GroupEdit = () => {
     information,
     password,
   } = !isGetDetailLoading && data?.data;
+
   const initialData = {
-    title: groupTitle || '',
-    num: capacity ? capacity.toString() : '0',
-    secretKey: password || '',
-    intro: introduce || '',
-    group: information || '',
-    previewImage: imageSrc || null,
-    selectedTags: tags || '',
+    title: '',
+    num: 0,
+    secretKey: '',
+    intro: '',
+    group: '',
+    previewImage: '',
+    selectedTags: [''],
   };
 
   const [inputs, setInputs] = useState(initialData);
   const [isPublicGroup, setIsPublicGroup] = useState<boolean>(!password);
-  const [previewImage, setPreviewImage] = useState<string | null>(
-    initialData.previewImage
-  );
+  const [previewImage, setPreviewImage] = useState<string | null>(imageSrc);
   const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null);
-  const [selectedTags, setSelectedTags] = useState<string[]>(
-    initialData.selectedTags
-  );
+  const [selectedTags, setSelectedTags] = useState<string[]>(tags);
 
   const [savedSecretKey, setSavedSecretKey] = useState<string>(password || '');
   const navigate = useNavigate();
   const { patchMutation, isPending } = usePatchRooms();
-  const { title: roomTitleInput, num, secretKey, intro, group } = inputs;
+  const { title, num, secretKey, intro, group } = inputs;
   const isLoading = isPending || isGetDetailLoading;
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
@@ -104,9 +101,10 @@ const GroupEdit = () => {
 
   const isActive =
     (isPublicGroup || (secretKey.length > 0 && secretKey.length <= 20)) &&
-    roomTitleInput.length > 0 &&
-    roomTitleInput.length <= 20 &&
-    !(Number(num) === 0 || Number(num) > 50) &&
+    title.length > 0 &&
+    title.length <= 20 &&
+    !(num === 0 || num > 50) &&
+    selectedTags !== undefined &&
     selectedTags.length > 0 &&
     intro !== '' &&
     group !== '';
@@ -116,7 +114,7 @@ const GroupEdit = () => {
     if (!isActive) return;
 
     const postData = {
-      title: roomTitleInput,
+      title,
       password: secretKey,
       capacity: num,
       tags: selectedTags,
@@ -146,33 +144,21 @@ const GroupEdit = () => {
   };
 
   useEffect(() => {
-    if (id && !isGetDetailLoading) {
-      const {
-        title: groupTitle,
-        imageSrc,
-        capacity,
-        tags,
-        introduce,
-        information,
-        password,
-      } = data.data;
-
-      const initialData = {
-        title: groupTitle || '',
-        num: capacity ? capacity.toString() : '0',
-        secretKey: password || '',
-        intro: introduce || '',
-        group: information || '',
-        previewImage: imageSrc || null,
-        selectedTags: tags || '',
-      };
-
-      setInputs(initialData);
-      setSelectedTags(initialData.selectedTags);
-      setIsPublicGroup(!password);
-      setPreviewImage(initialData.previewImage);
+    if (!isGetDetailLoading) {
+      setInputs({
+        title: originTitle,
+        num: capacity,
+        secretKey: password,
+        intro: introduce,
+        group: information,
+        previewImage: imageSrc,
+        selectedTags: tags,
+      });
+      /*    setIsPublicGroup(isPublicRoom); */
+      setPreviewImage(imageSrc);
+      setSelectedTags(tags);
     }
-  }, [data]);
+  }, [isGetDetailLoading]);
 
   return (
     <PageLayout category="그룹">
@@ -193,8 +179,8 @@ const GroupEdit = () => {
             handleImageChange={handleImageChange}
           />
           <TitleSection
-            titleValue={roomTitleInput}
-            recruitedValue={inputs.num}
+            titleValue={title}
+            recruitedValue={num.toString()}
             handleMemberCountChange={handleChangeInputs}
           />
           <LanguageSection
