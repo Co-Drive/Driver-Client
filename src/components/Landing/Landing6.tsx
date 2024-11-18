@@ -20,7 +20,7 @@ const Landing6 = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useMotionValueEvent(scrollY, 'change', () => {
-    if (scrollRatio > 0.593) {
+    if (scrollRatio > 0.6) {
       scrollAnimation.start({ opacity: 1 });
     } else {
       scrollAnimation.start({ opacity: 0 });
@@ -33,9 +33,9 @@ const Landing6 = () => {
       const documentHeight = document.body.scrollHeight;
       const scrollRatio = (scrollY + viewportHeight) / documentHeight;
 
-      if (scrollRatio > 0.633) {
+      if (scrollRatio > 0.6) {
         setIsScrolled(true);
-      } else if (scrollRatio < 0.593) {
+      } else if (scrollRatio < 0.565) {
         setIsScrolled(false);
       }
     };
