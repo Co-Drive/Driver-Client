@@ -14,8 +14,9 @@ const usePatchRooms = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: ({ roomId, requestBody }: PatchRoomsProps) =>
-      patchRooms(roomId, requestBody), // await 제거
+    mutationFn: async ({ roomId, requestBody }: PatchRoomsProps) =>
+      // 객체 형태로 전달
+      await patchRooms(roomId, requestBody),
     onSuccess: (_, { roomId }) => {
       // roomId를 queryKey와 navigate에 사용
       queryClient.invalidateQueries({ queryKey: ['get-detail', roomId] });
