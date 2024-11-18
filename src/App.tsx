@@ -44,10 +44,6 @@ function App() {
             if (notificationType && notificationType !== 'CONNECT_START') {
               sessionStorage.setItem('isNewAlarmExit', 'true');
             }
-
-            // 개발 완료되기 전까지 확인용 콘솔
-            console.log(notificationType);
-            console.log(response);
           }
         });
 
@@ -60,9 +56,6 @@ function App() {
             if (e.target.readyState !== EventSource.CLOSED) {
               deleteNotification();
             }
-
-            // 개발 완료되기 전까지 확인용 콘솔
-            else console.log('finish');
           }
         });
       };
