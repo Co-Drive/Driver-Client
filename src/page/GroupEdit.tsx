@@ -158,7 +158,7 @@ const GroupEdit = () => {
             isPublicGroup={isPublicGroup}
             handleActiveChange={handleActiveChange}
             handlePasswordChange={handleChangeInputs}
-            secretKey={inputs.secretKey}
+            secretKey={secretKey}
           />
           <ImageSection
             previewImage={previewImage}
@@ -174,11 +174,11 @@ const GroupEdit = () => {
             setSelectedTags={setSelectedTags}
           />
           <IntroSection
-            introValue={inputs.intro}
+            introValue={intro}
             handleChangeTextarea={handleChangeInputs}
           />
           <ProgressSection
-            progressValue={inputs.group}
+            progressValue={group}
             handleChangeTextarea={handleChangeInputs}
           />
           <ProfileButton>
