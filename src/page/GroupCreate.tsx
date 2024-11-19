@@ -78,10 +78,12 @@ const GroupCreate = () => {
     intro !== '' &&
     group !== '';
 
+  const trimmedPassword = isPublicGroup ? '' : secretKey.trim();
+
   const handleGroupCreate = async () => {
     const postData = {
       title: title,
-      password: secretKey,
+      password: trimmedPassword,
       capacity: num,
       tags: selectedTags,
       introduce: intro,
