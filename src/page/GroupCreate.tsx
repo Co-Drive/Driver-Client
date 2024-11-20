@@ -96,8 +96,8 @@ const GroupCreate = () => {
 
     if (selectdImageFile) {
       requestBody.append('imageFile', selectdImageFile);
-      mutation(requestBody);
     }
+    mutation(requestBody);
   };
 
   return (
