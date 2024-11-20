@@ -88,6 +88,8 @@ const LinkContainer = styled(CommonTagStyle)`
 `;
 
 const Link = styled.p`
+  overflow: hidden;
+
   width: 25.7rem;
   margin-left: 0.8rem;
 
@@ -96,5 +98,4 @@ const Link = styled.p`
 
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow-x: hidden;
 `;
