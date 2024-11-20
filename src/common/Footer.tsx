@@ -9,24 +9,20 @@ const Footer = () => {
   return (
     <FooterContainer>
       <FooterInfoContaniner>
-        <div onClick={() => navigate('/')}>
-          <IcFooterLogo />
-        </div>
+        <IcFooterLogo onClick={() => navigate('/')} />
         <FootercCopyright>
           Copyright &copy; 2024 Codrive. All Rights Reserved
         </FootercCopyright>
       </FooterInfoContaniner>
       <FooterAdrress>
-        <div onClick={() => handleClickLink('mailto:codrive.co.kr@gmail.com')}>
-          <IcFooterEmail />
-        </div>
-        <div
+        <IcFooterEmail
+          onClick={() => handleClickLink('mailto:codrive.co.kr@gmail.com')}
+        />
+        <IcFooterInsta
           onClick={() =>
             handleClickLink('https://www.instagram.com/co.drive_official/')
           }
-        >
-          <IcFooterInsta />
-        </div>
+        />
       </FooterAdrress>
     </FooterContainer>
   );
