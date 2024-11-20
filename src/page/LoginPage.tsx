@@ -18,10 +18,10 @@ const LoginPage = () => {
     sessionStorage.getItem('profileImg');
   const isNotResgisted = sessionStorage.getItem('language') === '사용언어';
   const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
-  const redirectUrl = import.meta.env.VITE_GITHUB_REDIRECT_URI;
+
   const githubURL = state
-    ? `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=repo&state=${roomId}`
-    : `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=repo`;
+    ? `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo&state=${roomId}`
+    : `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo`;
   const onClickSocialLogin = () => {
     window.location.href = githubURL;
   };
@@ -51,7 +51,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
-  padding: 32rem 0 8rem;
+  padding-top: 20.4rem;
 `;
 
 const Title = styled.h2`
