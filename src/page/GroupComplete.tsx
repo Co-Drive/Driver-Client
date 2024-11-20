@@ -137,6 +137,7 @@ const MoreGroupBtn = styled.button`
   align-items: center;
 
   padding: 1.4rem 1.6rem 1.4rem 2.1rem;
+  margin-bottom: 8rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.codrive_green};
@@ -151,4 +152,6 @@ const ButtonContainer = styled.span`
   display: flex;
   gap: 1.8rem;
   justify-content: center;
+
+  padding-bottom: 8rem;
 `;

@@ -88,7 +88,7 @@ const SolutionPageContainer = styled.section`
   flex-direction: column;
 
   width: 92.6rem;
-  padding: 6.4rem 0 20rem;
+  padding: 6.4rem 0 8rem;
 `;
 
 const SolutionPageHeader = styled.header`

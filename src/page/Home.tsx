@@ -54,5 +54,5 @@ const FooterContainer = styled.div`
   gap: 1.8rem;
   align-items: center;
 
-  margin: 2.4rem 0 17rem;
+  margin: 2.4rem 0 8rem;
 `;

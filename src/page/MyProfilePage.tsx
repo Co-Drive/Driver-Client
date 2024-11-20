@@ -39,7 +39,7 @@ const MyProfilePage = () => {
 };
 
 const MyProfileContainer = styled.div`
-  padding: 6.4rem 0;
+  padding: 6.4rem 0 8rem;
 `;
 
 export default MyProfilePage;

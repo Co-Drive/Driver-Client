@@ -56,7 +56,7 @@ const FollowerPageContainer = styled.section`
   position: relative;
 
   width: 92.6rem;
-  padding: 6.4rem 0 23.2rem;
+  padding: 6.4rem 0 8rem;
 `;
 
 const TopContainer = styled.section`
