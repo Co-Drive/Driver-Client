@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,14 +12,16 @@ import {
   CodeProps,
   QuestionInfoProps,
 } from '../types/Solve/solveTypes';
+
+import useScrollAnimation from '../libs/hooks/utils/useScrollAnimation';
 import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const SolvePage = () => {
   const { state } = useLocation();
   const { recordId, isTemp } = state || {};
   const { data, isLoading } = useGetRecords(recordId) || {};
+  const scrollAnimation = useScrollAnimation();
 
-  const [opacity, setOpacity] = useState(0);
   const [isOpenOptions, setIsOpenOptions] = useState(true);
   const [questionInfo, setQuestionInfo] = useState<QuestionInfoProps>({
     title: '',
@@ -121,23 +124,14 @@ const SolvePage = () => {
     }
   }, [data]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', () => setOpacity(window.scrollY));
-    return () => {
-      window.removeEventListener('scroll', () => setOpacity(window.scrollY));
-    };
-  }, []);
-
   return (
     <PageLayout category="문제풀이">
       {ideId > 0 && (
-        <GoTopBtn
-          type="button"
-          onClick={handleClickGoTopBtn}
-          $opacity={opacity}
-        >
-          <IcArrowUpBig />
-        </GoTopBtn>
+        <motion.div style={{ opacity: 0 }} animate={scrollAnimation}>
+          <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
+            <IcArrowUpBig />
+          </GoTopBtn>
+        </motion.div>
       )}
       <SolvePageContainer>
         <PageHeader
@@ -189,9 +183,7 @@ const AddBtnContainer = styled.div`
   margin: 1.8rem 25.7rem 0;
 `;
 
-const GoTopBtn = styled.button<{ $opacity: number }>`
-  opacity: ${({ $opacity }) => $opacity};
-
+const GoTopBtn = styled.button`
   position: fixed;
   top: calc(100vh - 15rem);
   left: calc(100vw - 22.3rem);

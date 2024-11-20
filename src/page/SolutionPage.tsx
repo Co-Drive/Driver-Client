@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useLocation, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowUpBig, IcCode } from '../assets';
@@ -8,6 +8,8 @@ import PageLayout from '../components/PageLayout/PageLayout';
 import SolutionHeaderBottom from '../components/Solution/Header/SolutionHeaderBottom';
 import SolutionHeaderTop from '../components/Solution/Header/SolutionHeaderTop';
 import useGetRecords from '../libs/hooks/Solution/useGetRecords';
+
+import useScrollAnimation from '../libs/hooks/utils/useScrollAnimation';
 import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const SolutionPage = () => {
@@ -17,20 +19,16 @@ const SolutionPage = () => {
   const { data, isLoading } = useGetRecords(parseInt(id));
   const { title, level, tags, platform, problemUrl, codeblocks, createdAt } =
     !isLoading && data?.data;
-  const [opacity, setOpacity] = useState(0);
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => setOpacity(window.scrollY));
-    return () => {
-      window.removeEventListener('scroll', () => setOpacity(window.scrollY));
-    };
-  }, []);
+  const scrollAnimation = useScrollAnimation();
 
   return (
     <PageLayout category="문제풀이">
-      <GoTopBtn type="button" onClick={handleClickGoTopBtn} $opacity={opacity}>
-        <IcArrowUpBig />
-      </GoTopBtn>
+      <motion.div style={{ opacity: 0 }} animate={scrollAnimation}>
+        <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
+          <IcArrowUpBig />
+        </GoTopBtn>
+      </motion.div>
+
       {!isLoading && (
         <SolutionPageContainer>
           <SolutionPageHeader>
@@ -138,9 +136,7 @@ const Text = styled.p`
   ${({ theme }) => theme.fonts.body_eng_medium_12};
 `;
 
-const GoTopBtn = styled.button<{ $opacity: number }>`
-  opacity: ${({ $opacity }) => $opacity};
-
+const GoTopBtn = styled.button`
   position: fixed;
   top: calc(100vh - 15rem);
   right: calc(100vw / 8.4211);
