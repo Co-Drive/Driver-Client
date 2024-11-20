@@ -9,7 +9,7 @@ import SolutionHeaderBottom from '../components/Solution/Header/SolutionHeaderBo
 import SolutionHeaderTop from '../components/Solution/Header/SolutionHeaderTop';
 import useGetRecords from '../libs/hooks/Solution/useGetRecords';
 
-import useScrollAnimation from '../libs/hooks/utils/\buseScrollAnimation';
+import useScrollAnimation from '../libs/hooks/utils/useScrollAnimation';
 import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const SolutionPage = () => {

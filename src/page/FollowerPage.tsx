@@ -10,7 +10,7 @@ import Solutions from '../components/Follower/Personal/Solutions';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useGetUserProfile from '../libs/hooks/Follower/useGetUserProfile';
 
-import useScrollAnimation from '../libs/hooks/utils/\buseScrollAnimation';
+import useScrollAnimation from '../libs/hooks/utils/useScrollAnimation';
 import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const FollowerPage = () => {

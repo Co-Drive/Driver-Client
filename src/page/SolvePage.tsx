@@ -13,7 +13,7 @@ import {
   QuestionInfoProps,
 } from '../types/Solve/solveTypes';
 
-import useScrollAnimation from '../libs/hooks/utils/\buseScrollAnimation';
+import useScrollAnimation from '../libs/hooks/utils/useScrollAnimation';
 import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const SolvePage = () => {
