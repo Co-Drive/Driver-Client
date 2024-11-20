@@ -86,7 +86,7 @@ const ModalContainer = styled.ul`
 
   border-radius: 1rem;
   background-color: ${({ theme }) => theme.colors.gray600};
-  overflow-y: scroll;
+  overflow-y: auto;
 
   scrollbar-color: ${({ theme }) => theme.colors.gray500};
 
