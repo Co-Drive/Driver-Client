@@ -54,8 +54,8 @@ const SavedSolutionContainer = styled.article<{
   $removeBorder?: boolean;
   $isModal?: boolean;
 }>`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 81.6rem 10.1rem;
 
   width: 100%;
 
@@ -76,8 +76,8 @@ const SavedSolutionContainer = styled.article<{
 `;
 
 const QuesitonContainer = styled.article`
-  display: flex;
-  gap: 9.7rem;
+  display: grid;
+  grid-template-columns: 16rem 65.6rem;
 `;
 
 const Date = styled.p`
