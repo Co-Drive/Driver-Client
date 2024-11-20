@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowRightBig } from '../../../assets';
 import useGetTempRecords from '../../../libs/hooks/Solution/useGetTempRecords';
+import LoadingPage from '../../../page/LoadingPage';
 import Level from '../Level';
 
 const TempSave = () => {
@@ -29,42 +30,46 @@ const TempSave = () => {
 
   return (
     <>
-      {!isLoading && isTempExit && (
-        <TempSaveContainer>
-          <Header>
-            <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
-            <SavedSolutionList>
-              {tempArr.map((num) => {
-                return (
-                  <SavedSolutionNum
-                    key={num}
-                    $isActive={clickedPage === num}
-                    $isFirstNum={num === 1}
-                    onClick={() => handleClickSavedSolutionNum(num)}
-                  >
-                    {num}
-                  </SavedSolutionNum>
-                );
-              })}
-            </SavedSolutionList>
-          </Header>
-          <QuestionContainer>
-            <TopInfo>
-              <Title>{title}</Title>
-              <DateContainer>
-                <DateTxt>임시저장</DateTxt>
-                <DateTxt>|</DateTxt>
-                <Date>{createdAt}</Date>
-              </DateContainer>
-            </TopInfo>
+      {isLoading ? (
+        <LoadingPage isPageLoading={true} />
+      ) : (
+        isTempExit && (
+          <TempSaveContainer>
+            <Header>
+              <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
+              <SavedSolutionList>
+                {tempArr.map((num) => {
+                  return (
+                    <SavedSolutionNum
+                      key={num}
+                      $isActive={clickedPage === num}
+                      $isFirstNum={num === 1}
+                      onClick={() => handleClickSavedSolutionNum(num)}
+                    >
+                      {num}
+                    </SavedSolutionNum>
+                  );
+                })}
+              </SavedSolutionList>
+            </Header>
+            <QuestionContainer>
+              <TopInfo>
+                <Title>{title}</Title>
+                <DateContainer>
+                  <DateTxt>임시저장</DateTxt>
+                  <DateTxt>|</DateTxt>
+                  <Date>{createdAt}</Date>
+                </DateContainer>
+              </TopInfo>
 
-            <Level level={level} />
-          </QuestionContainer>
-          <WriteBtn type="button" onClick={handleClickWriteBtn}>
-            <BtnTxt>마저 작성하러 가기</BtnTxt>
-            <IcArrowRightBig />
-          </WriteBtn>
-        </TempSaveContainer>
+              <Level level={level} />
+            </QuestionContainer>
+            <WriteBtn type="button" onClick={handleClickWriteBtn}>
+              <BtnTxt>마저 작성하러 가기</BtnTxt>
+              <IcArrowRightBig />
+            </WriteBtn>
+          </TempSaveContainer>
+        )
       )}
     </>
   );
