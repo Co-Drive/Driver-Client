@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowUpBig } from '../assets';
@@ -9,6 +9,8 @@ import ParticipatingGroup from '../components/Follower/Personal/ParticipatingGro
 import Solutions from '../components/Follower/Personal/Solutions';
 import PageLayout from '../components/PageLayout/PageLayout';
 import useGetUserProfile from '../libs/hooks/Follower/useGetUserProfile';
+
+import useScrollAnimation from '../libs/hooks/utils/\buseScrollAnimation';
 import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
 const FollowerPage = () => {
@@ -17,16 +19,7 @@ const FollowerPage = () => {
   const userId = parseInt(id);
   const { data, isLoading } = useGetUserProfile(userId) || {};
   const { nickname } = !isLoading && data?.data;
-
-
-  const [opacity, setOpacity] = useState(0);
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => setOpacity(window.scrollY));
-    return () => {
-      window.removeEventListener('scroll', () => setOpacity(window.scrollY));
-    };
-  }, []);
+  const scrollAnimation = useScrollAnimation();
 
   return (
     <PageLayout category="홈">
@@ -42,13 +35,12 @@ const FollowerPage = () => {
           <ParticipatingGroup nickname={nickname} />
 
           <FollowerRecommendCard />
-          <GoTopBtn
-            type="button"
-            onClick={handleClickGoTopBtn}
-            $opacity={opacity}
-          >
-            <IcArrowUpBig />
-          </GoTopBtn>
+
+          <motion.div initial={{ opacity: 0 }} animate={scrollAnimation}>
+            <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
+              <IcArrowUpBig />
+            </GoTopBtn>
+          </motion.div>
         </FollowerPageContainer>
       )}
     </PageLayout>
@@ -76,9 +68,7 @@ const TopContainer = styled.section`
   margin-bottom: 8.8rem;
 `;
 
-const GoTopBtn = styled.button<{ $opacity: number }>`
-  opacity: ${({ $opacity }) => $opacity};
-
+const GoTopBtn = styled.button`
   position: fixed;
   top: calc(100vh - 15rem);
   left: calc(100vw - 22.3rem);
