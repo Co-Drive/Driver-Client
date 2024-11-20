@@ -24,7 +24,7 @@ const SavedSolution = ({
 
   return (
     <SavedSolutionContainer $removeBorder={removeBorder} $isModal={isModal}>
-      <QuesitonContainer>
+      <QuesitonContainer $isModal={isModal}>
         <Date>
           {month}월 {date}일
         </Date>
@@ -55,7 +55,8 @@ const SavedSolutionContainer = styled.article<{
   $isModal?: boolean;
 }>`
   display: grid;
-  grid-template-columns: 81.6rem 10.1rem;
+  grid-template-columns: ${({ $isModal }) =>
+    $isModal ? `80.1rem 7.7rem` : `81.6rem 10.1rem`};
 
   width: 100%;
 
@@ -75,9 +76,10 @@ const SavedSolutionContainer = styled.article<{
     `};
 `;
 
-const QuesitonContainer = styled.article`
+const QuesitonContainer = styled.article<{ $isModal?: boolean }>`
   display: grid;
-  grid-template-columns: 16rem 65.6rem;
+  grid-template-columns: ${({ $isModal }) =>
+    $isModal ? `13.6rem 65.6rem` : `16rem 65.6rem`};
 `;
 
 const Date = styled.p`
