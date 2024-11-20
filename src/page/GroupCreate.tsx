@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
 import GroupSetting from '../components/GroupCreate/GroupSetting';
@@ -9,7 +8,8 @@ import LanguageSection from '../components/GroupCreate/LanguageSection';
 import ProgressSection from '../components/GroupCreate/ProgressSection';
 import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { postGroupInfo } from '../libs/apis/GroupCreate/postGroupInfo';
+import usePostGroup from '../libs/hooks/GroupCreate/usePostGroup';
+import LoadingPage from './LoadingPage';
 
 const GroupCreate = () => {
   const [inputs, setInputs] = useState({
@@ -24,8 +24,8 @@ const GroupCreate = () => {
   const [previewImage, setPreviewImage] = useState<string | null>('');
   const [selectdImageFile, setSelctedImageFIle] = useState<File | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const navigate = useNavigate();
   const { title, num, secretKey, intro, group } = inputs;
+  const { mutation, isLoading } = usePostGroup();
 
   const maxCharLimits: { [key: string]: number } = {
     intro: 60,
@@ -78,10 +78,12 @@ const GroupCreate = () => {
     intro !== '' &&
     group !== '';
 
+  const trimmedPassword = isPublicGroup ? '' : secretKey.trim();
+
   const handleGroupCreate = async () => {
     const postData = {
       title: title,
-      password: secretKey,
+      password: trimmedPassword,
       capacity: num,
       tags: selectedTags,
       introduce: intro,
@@ -94,62 +96,51 @@ const GroupCreate = () => {
 
     if (selectdImageFile) {
       requestBody.append('imageFile', selectdImageFile);
-    }
-
-    try {
-      const data = await postGroupInfo(requestBody);
-      const { uuid } = data.data;
-      if (uuid) {
-        navigate(`/group-complete/${uuid}`);
-      } else {
-        navigate('/group-complete', {
-          state: {
-            thumbnailUrl: previewImage,
-          },
-        });
-      }
-    } catch (error) {
-      console.log(error);
+      mutation(requestBody);
     }
   };
 
   return (
     <PageLayout category="그룹">
-      <Form>
-        <Header>그룹 생성하기</Header>
-        <Borderline />
-        <GroupSetting
-          isPublicGroup={isPublicGroup}
-          handleActiveChange={handleActiveChange}
-          handlePasswordChange={handleChangeInputs}
-          secretKey={inputs.secretKey}
-        />
-        <ImageSection
-          previewImage={previewImage}
-          handleImageChange={handleImageChange}
-        />
-        <TitleSection
-          titleValue={inputs.title}
-          recruitedValue={inputs.num}
-          handleMemberCountChange={handleChangeInputs}
-        />
-        <LanguageSection
-          selectedTags={selectedTags}
-          setSelectedTags={setSelectedTags}
-        />
-        <IntroSection
-          introValue={inputs.intro}
-          handleChangeTextarea={handleChangeInputs}
-        />
-        <ProgressSection
-          progressValue={inputs.group}
-          handleChangeTextarea={handleChangeInputs}
-        />
-        <CreateButton
-          isActive={isActive}
-          handleGroupCreate={handleGroupCreate}
-        />
-      </Form>
+      {isLoading ? (
+        <LoadingPage isPageLoading={true} />
+      ) : (
+        <Form>
+          <Header>그룹 생성하기</Header>
+          <Borderline />
+          <GroupSetting
+            isPublicGroup={isPublicGroup}
+            handleActiveChange={handleActiveChange}
+            handlePasswordChange={handleChangeInputs}
+            secretKey={inputs.secretKey}
+          />
+          <ImageSection
+            previewImage={previewImage}
+            handleImageChange={handleImageChange}
+          />
+          <TitleSection
+            titleValue={inputs.title}
+            recruitedValue={inputs.num}
+            handleMemberCountChange={handleChangeInputs}
+          />
+          <LanguageSection
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
+          <IntroSection
+            introValue={inputs.intro}
+            handleChangeTextarea={handleChangeInputs}
+          />
+          <ProgressSection
+            progressValue={inputs.group}
+            handleChangeTextarea={handleChangeInputs}
+          />
+          <CreateButton
+            isActive={isActive}
+            handleGroupCreate={handleGroupCreate}
+          />
+        </Form>
+      )}
     </PageLayout>
   );
 };
@@ -157,7 +148,7 @@ const GroupCreate = () => {
 export default GroupCreate;
 
 const Form = styled.form`
-  margin-bottom: 25.1rem;
+  padding-bottom: 8rem;
 `;
 
 const Header = styled.header`

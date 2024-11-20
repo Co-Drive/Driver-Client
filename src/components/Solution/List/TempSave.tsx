@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { IcArrowRightBig } from '../../../assets';
+import { IcArrowRightBig, IcInformation } from '../../../assets';
 import useGetTempRecords from '../../../libs/hooks/Solution/useGetTempRecords';
+import LoadingPage from '../../../page/LoadingPage';
 import Level from '../Level';
 
 const TempSave = () => {
@@ -29,42 +30,57 @@ const TempSave = () => {
 
   return (
     <>
-      {!isLoading && isTempExit && (
-        <TempSaveContainer>
-          <Header>
-            <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
-            <SavedSolutionList>
-              {tempArr.map((num) => {
-                return (
-                  <SavedSolutionNum
-                    key={num}
-                    $isActive={clickedPage === num}
-                    $isFirstNum={num === 1}
-                    onClick={() => handleClickSavedSolutionNum(num)}
-                  >
-                    {num}
-                  </SavedSolutionNum>
-                );
-              })}
-            </SavedSolutionList>
-          </Header>
-          <QuestionContainer>
-            <TopInfo>
-              <Title>{title}</Title>
-              <DateContainer>
-                <DateTxt>임시저장</DateTxt>
-                <DateTxt>|</DateTxt>
-                <Date>{createdAt}</Date>
-              </DateContainer>
-            </TopInfo>
+      {isLoading ? (
+        <LoadingPage isPageLoading={true} />
+      ) : (
+        isTempExit && (
+          <TempSaveContainer>
+            <Header>
+              <HeaderTxtContainer>
+                <HeaderTxt>현재 작성하고 있는 문제</HeaderTxt>
+                <InformationContainer>
+                  <Tooltip>
+                    <Notice>문제풀이 임시저장은 총</Notice>
+                    <Point>3개</Point>
+                    <Notice>까지 가능합니다</Notice>
+                  </Tooltip>
+                  <IcInformation />
+                </InformationContainer>
+              </HeaderTxtContainer>
 
-            <Level level={level} />
-          </QuestionContainer>
-          <WriteBtn type="button" onClick={handleClickWriteBtn}>
-            <BtnTxt>마저 작성하러 가기</BtnTxt>
-            <IcArrowRightBig />
-          </WriteBtn>
-        </TempSaveContainer>
+              <SavedSolutionList>
+                {tempArr.map((num) => {
+                  return (
+                    <SavedSolutionNum
+                      key={num}
+                      $isActive={clickedPage === num}
+                      $isFirstNum={num === 1}
+                      onClick={() => handleClickSavedSolutionNum(num)}
+                    >
+                      {num}
+                    </SavedSolutionNum>
+                  );
+                })}
+              </SavedSolutionList>
+            </Header>
+            <QuestionContainer>
+              <TopInfo>
+                <Title>{title}</Title>
+                <DateContainer>
+                  <DateTxt>임시저장</DateTxt>
+                  <DateTxt>|</DateTxt>
+                  <Date>{createdAt}</Date>
+                </DateContainer>
+              </TopInfo>
+
+              <Level level={level} />
+            </QuestionContainer>
+            <WriteBtn type="button" onClick={handleClickWriteBtn}>
+              <BtnTxt>마저 작성하러 가기</BtnTxt>
+              <IcArrowRightBig />
+            </WriteBtn>
+          </TempSaveContainer>
+        )
       )}
     </>
   );
@@ -93,9 +109,68 @@ const Header = styled.header`
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
 `;
 
+const HeaderTxtContainer = styled.div`
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+`;
+
 const HeaderTxt = styled.span`
   color: ${({ theme }) => theme.colors.gray200};
   ${({ theme }) => theme.fonts.title_bold_16};
+`;
+
+const InformationContainer = styled.div`
+  position: relative;
+
+  &:hover > div {
+    visibility: visible;
+
+    margin: -0.3rem 0 0 -0.2rem;
+    opacity: 1;
+  }
+`;
+
+const Tooltip = styled.div`
+  display: flex;
+  gap: 0.2rem;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 2.9rem;
+  left: -0.6rem;
+  visibility: hidden;
+
+  width: fit-content;
+  padding: 1.2rem 1.1rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray600};
+
+  white-space: nowrap;
+
+  transition: opacity 0.3s ease-in-out;
+
+  &::after {
+    position: absolute;
+    top: 3.8rem;
+    left: 1.2rem;
+
+    border-color: ${({ theme }) => theme.colors.gray600} transparent transparent;
+    border-width: 5px;
+    border-style: solid;
+    content: '';
+  }
+`;
+
+const Notice = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_ligth_12};
+`;
+
+const Point = styled.p`
+  color: ${({ theme }) => theme.colors.codrive_green};
+  ${({ theme }) => theme.fonts.body_ligth_12};
 `;
 
 const SavedSolutionList = styled.div`

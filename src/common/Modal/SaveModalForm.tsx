@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { IcCancelSmallWhite, IcSuccess } from '../../assets';
 import usePostTempRecords from '../../libs/hooks/Solve/usePostTempRecords';
 import { ModalProps } from '../../types/Solve/solveTypes';
+import { debounce } from '../../utils/debounce';
 
 const SaveModalForm = ({
   id,
@@ -12,11 +13,18 @@ const SaveModalForm = ({
   codeblocks,
 }: ModalProps) => {
   const { mutation, postTempErr } = usePostTempRecords(onClose);
+  const debouncedMutation = useRef(
+    debounce(
+      () =>
+        questionInfo &&
+        codeblocks &&
+        mutation({ id, questionInfo, codeblocks }),
+      500
+    )
+  );
 
   const handleClickExitBtn = () => {
-    if (questionInfo && codeblocks) {
-      mutation({ id, questionInfo, codeblocks });
-    }
+    debouncedMutation.current();
   };
 
   useEffect(() => {

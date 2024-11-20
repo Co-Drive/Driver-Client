@@ -57,7 +57,7 @@ const GroupJoin = () => {
       {isPageLoading ? (
         <LoadingPage isPageLoading={true} />
       ) : (
-        <>
+        <GroupJoinContainer>
           <IconContainer>
             <IcSecretBigWhite />
           </IconContainer>
@@ -70,18 +70,26 @@ const GroupJoin = () => {
               isNotMatchedPW={isNotMatchedPW}
             />
           </CommonInputContainer>
-          <CommonButton
-            category="group_join"
-            isActive={isActive}
-            onClick={handleJoinButton}
-          />
-        </>
+          <JoinButtonContainer>
+            <CommonButton
+              category="group_join"
+              isActive={isActive}
+              onClick={handleJoinButton}
+            />
+          </JoinButtonContainer>
+        </GroupJoinContainer>
       )}
     </PageLayout>
   );
 };
 
 export default GroupJoin;
+
+const GroupJoinContainer = styled.article`
+  padding-bottom: 8rem;
+
+  text-align: center;
+`;
 
 const IconContainer = styled.div`
   margin-top: 12.9rem;
@@ -96,4 +104,9 @@ const CommonInputContainer = styled.div`
 const Text = styled.p`
   ${({ theme }) => theme.fonts.title_bold_24}
   color: ${({ theme }) => theme.colors.white}
+`;
+
+const JoinButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;

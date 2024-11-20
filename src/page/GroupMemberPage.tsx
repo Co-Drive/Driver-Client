@@ -23,5 +23,5 @@ const GroupMemberContainer = styled.section`
   justify-content: center;
   flex-direction: column;
 
-  padding: 6.4rem 25.7rem 14.4rem;
+  padding: 6.4rem 25.7rem 8rem;
 `;
