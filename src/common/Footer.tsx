@@ -8,12 +8,12 @@ const Footer = () => {
 
   return (
     <FooterContainer>
-      <FooterInfoContaniner>
+      <div>
         <IcFooterLogo onClick={() => navigate('/')} />
         <FootercCopyright>
           Copyright &copy; 2024 Codrive. All Rights Reserved
         </FootercCopyright>
-      </FooterInfoContaniner>
+      </div>
       <FooterAdrress>
         <IcFooterEmail
           onClick={() => handleClickLink('mailto:codrive.co.kr@gmail.com')}
@@ -31,13 +31,15 @@ const Footer = () => {
 const FooterContainer = styled.article`
   display: flex;
   justify-content: space-between;
+  position: absolute;
+  bottom: 0;
 
   width: 96.2rem;
   padding: 6.3rem 3.4rem 13.3rem;
 
   border-top: 0.01rem solid ${({ theme }) => theme.colors.gray600};
+  background-color: ${({ theme }) => theme.colors.gray900};
 `;
-const FooterInfoContaniner = styled.div``;
 const FootercCopyright = styled.p`
   margin-top: 1.6rem;
 

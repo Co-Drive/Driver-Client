@@ -59,6 +59,7 @@ const PageLayoutContainer = styled.div<{ $isNotLandingPage: boolean }>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 
   width: 100%;
   ${({ $isNotLandingPage }) =>
