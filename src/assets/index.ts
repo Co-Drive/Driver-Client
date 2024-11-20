@@ -27,6 +27,9 @@ import IcCancelSmallWhite from './icon/ic_cancel_small_white.svg?react';
 import IcCode from './icon/ic_code.svg?react';
 import IcFilter from './icon/ic_filter.svg?react';
 import IcFollowingGray from './icon/ic_following_gray.svg?react';
+import IcFooterEmail from './icon/ic_footer_email.svg?react';
+import IcFooterInsta from './icon/ic_footer_insta.svg?react';
+import IcFooterLogo from './icon/ic_footer_logo.svg?react';
 import IcGithub from './icon/ic_github.svg?react';
 import IcGithubLogoSmall from './icon/ic_github_logo_small.svg?react';
 import IcGithubSmall from './icon/ic_github_small.svg?react';
@@ -178,6 +181,9 @@ export {
   IcCode,
   IcFilter,
   IcFollowingGray,
+  IcFooterEmail,
+  IcFooterInsta,
+  IcFooterLogo,
   IcGithub,
   IcGithubLogoSmall,
   IcGithubSmall,
