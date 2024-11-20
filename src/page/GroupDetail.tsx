@@ -107,7 +107,7 @@ const GroupDetailContainer = styled.section`
   position: relative;
 
   width: 61.3rem;
-  padding: 6.4rem 0 23.2rem;
+  padding: 6.4rem 0 8rem;
 `;
 
 const GroupImg = styled.img`

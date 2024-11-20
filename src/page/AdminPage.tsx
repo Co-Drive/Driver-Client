@@ -38,5 +38,5 @@ const AdminPageContainer = styled.section<{ $isAdminMode: boolean }>`
 
   width: 92.6rem;
   padding: ${({ $isAdminMode }) =>
-    $isAdminMode ? `6.4rem 0 18rem` : `6.4rem 0 14.4rem`};
+    $isAdminMode ? `6.4rem 0 8rem` : `6.4rem 0 8rem`};
 `;

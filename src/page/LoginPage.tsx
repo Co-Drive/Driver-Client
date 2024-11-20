@@ -51,7 +51,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
 
   width: 100%;
-  padding-top: 20.4rem;
+  padding: 20.4rem 0 8rem;
   margin: 0 auto;
 `;
 
