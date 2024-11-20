@@ -36,7 +36,7 @@ const TitleContainer = styled.div`
 `;
 
 const Title = styled.h2`
-  ${({ theme }) => theme.fonts.landing_bold_48};
+  ${({ theme }) => theme.fonts.landing_bold_34};
   background: radial-gradient(
     circle farthest-corner at center center,
     #fff 0%,

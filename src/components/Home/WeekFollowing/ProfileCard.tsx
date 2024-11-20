@@ -37,7 +37,7 @@ const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
   const Language = language && language.length > 0 ? language : '사용언어';
 
   const chartData = [
-    { name: 'Success', value: successRate === 0 ? 10 : successRate },
+    { name: 'Success', value: successRate === 0 ? 0.01 : successRate },
   ];
 
   const endAngle = 90 - (360 * chartData[0].value) / 100;

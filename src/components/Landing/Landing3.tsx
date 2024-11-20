@@ -147,7 +147,7 @@ const LandingImgContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  padding: 0 11rem;
+  margin: 0 9.1rem 0 12.9rem;
 `;
 
 const LandingImg = styled.img`

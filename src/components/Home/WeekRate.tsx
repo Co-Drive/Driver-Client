@@ -32,7 +32,7 @@ const WeekRate = () => {
   const chartData = [
     {
       name: 'Solved',
-      value: percentage === 0 ? 10 : percentage,
+      value: percentage === 0 ? 6 : percentage,
     },
   ];
   const endAngle = 180 - (chartData[0].value / 100) * 180;
