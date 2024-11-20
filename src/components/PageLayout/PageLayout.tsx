@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import Footer from '../../common/Footer';
 import Header from '../../common/Header';
 import { PageLayoutProps } from '../../types/PageLayout/PageLayoutType';
 import { movePagePosition } from '../../utils/movePagePosition';
@@ -46,6 +47,7 @@ const PageLayout = ({ category, children }: PageLayoutProps) => {
         handleClickCategory={handleClickCategory}
       />
       {clickedCategory === category && children}
+      <Footer />
     </PageLayoutContainer>
   );
 };
