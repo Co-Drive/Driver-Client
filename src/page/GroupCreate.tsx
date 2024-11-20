@@ -148,7 +148,7 @@ const GroupCreate = () => {
 export default GroupCreate;
 
 const Form = styled.form`
-  padding-bottom: 8rem;
+  padding-bottom: 33.2rem;
 `;
 
 const Header = styled.header`

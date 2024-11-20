@@ -24,6 +24,7 @@ const Landing11 = () => {
 const Landing11Container = styled.article`
   width: 100%;
   padding: 21.4rem 0 31rem;
+  margin-bottom: 25.2rem;
 
   background-position: center;
   background-size: cover;

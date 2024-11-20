@@ -86,7 +86,7 @@ const GroupJoin = () => {
 export default GroupJoin;
 
 const GroupJoinContainer = styled.article`
-  padding-bottom: 8rem;
+  padding-bottom: 33.2rem;
 
   text-align: center;
 `;

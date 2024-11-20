@@ -176,7 +176,7 @@ const RegisterPage = () => {
 };
 
 const RegisterContainer = styled.form`
-  padding-bottom: 8rem;
+  padding-bottom: 33.2rem;
   margin-top: 18.5rem;
 `;
 

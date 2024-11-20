@@ -16,7 +16,7 @@ const AdminPage = () => {
 
   return (
     <PageLayout category="그룹">
-      <AdminPageContainer $isAdminMode={adminMode}>
+      <AdminPageContainer>
         <GroupInfo
           isAdmin={true}
           adminMode={adminMode}
@@ -31,11 +31,11 @@ const AdminPage = () => {
 
 export default AdminPage;
 
-const AdminPageContainer = styled.section<{ $isAdminMode: boolean }>`
+const AdminPageContainer = styled.section`
   display: flex;
   justify-content: center;
   flex-direction: column;
 
   width: 92.6rem;
-  padding: 6.4rem 0 8rem;
+  padding: 6.4rem 0 33.2rem;
 `;

@@ -153,5 +153,5 @@ const ButtonContainer = styled.span`
   gap: 1.8rem;
   justify-content: center;
 
-  padding-bottom: 8rem;
+  padding-bottom: 33.2rem;
 `;

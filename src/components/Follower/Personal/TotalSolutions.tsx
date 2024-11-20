@@ -80,7 +80,7 @@ const TotalSolutionsContainer = styled.section`
   flex-direction: column;
 
   width: 92.6rem;
-  padding: 6.8rem 0 16.4rem;
+  padding: 6.8rem 0 33.2rem;
 `;
 
 const TopContainer = styled.div`
