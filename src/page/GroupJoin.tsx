@@ -53,7 +53,7 @@ const GroupJoin = () => {
   }, [isLoading, notNavigateDetail]);
 
   return (
-    <PageLayout category={'group'}>
+    <PageLayout category={'group'} isDisabledFooter={true}>
       {isPageLoading ? (
         <LoadingPage isPageLoading={true} />
       ) : (

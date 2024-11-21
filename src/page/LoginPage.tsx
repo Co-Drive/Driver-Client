@@ -27,7 +27,10 @@ const LoginPage = () => {
   };
 
   return (
-    <PageLayout category={isAlreadyLogin ? '홈' : 'login'}>
+    <PageLayout
+      category={isAlreadyLogin ? '홈' : 'login'}
+      isDisabledFooter={true}
+    >
       {isLandingActive ? (
         <LandingPage />
       ) : (

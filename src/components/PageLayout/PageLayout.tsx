@@ -6,7 +6,11 @@ import Header from '../../common/Header';
 import { PageLayoutProps } from '../../types/PageLayout/PageLayoutType';
 import { movePagePosition } from '../../utils/movePagePosition';
 
-const PageLayout = ({ category, children }: PageLayoutProps) => {
+const PageLayout = ({
+  category,
+  children,
+  isDisabledFooter,
+}: PageLayoutProps) => {
   const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
   const profileImg = sessionStorage.getItem('profileImg');
@@ -47,7 +51,7 @@ const PageLayout = ({ category, children }: PageLayoutProps) => {
         handleClickCategory={handleClickCategory}
       />
       {clickedCategory === category && children}
-      <Footer />
+      {!isDisabledFooter && <Footer />}
     </PageLayoutContainer>
   );
 };

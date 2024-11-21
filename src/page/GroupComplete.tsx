@@ -56,7 +56,7 @@ const GroupComplete = () => {
   };
 
   return (
-    <PageLayout category={'group_create'}>
+    <PageLayout category={'group_create'} isDisabledFooter={true}>
       <Title>{`그룹 ${imageSrc ? '신청' : '생성'}이 완료되었어요!`}</Title>
       <PasswordContainer>
         {groupPassword && (
