@@ -76,7 +76,10 @@ const LandingBottom = styled.div`
   justify-content: center;
   position: relative;
 
+  width: 124rem;
+  height: 49.4rem;
   padding: 0 10rem;
+  margin: 0 auto;
 `;
 
 const LandingGroup = styled.img`

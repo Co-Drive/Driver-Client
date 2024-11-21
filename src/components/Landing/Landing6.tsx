@@ -136,10 +136,12 @@ const LandingImgContainer = styled.div`
   align-items: center;
 
   padding: 0 40rem;
+  margin: 0 auto;
 `;
 
 const SolveImg = styled.img`
-  width: 100%;
+  width: 64rem;
+  height: 47.1rem;
   margin-top: 6.6rem;
 `;
 
