@@ -1,10 +1,10 @@
 import ModalPortal from '../ModalPortal';
 import SaveCheckModalForm from './SaveCheckModalForm';
 
-const SaveCheckModal = () => {
+const SaveCheckModal = ({ isCommit }: { isCommit?: boolean }) => {
   return (
     <ModalPortal>
-      <SaveCheckModalForm />
+      <SaveCheckModalForm isCommit={isCommit} />
     </ModalPortal>
   );
 };
