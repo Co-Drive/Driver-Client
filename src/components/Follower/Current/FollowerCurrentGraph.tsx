@@ -100,7 +100,7 @@ const ToolTipContainer = styled.div<{ $count: number }>`
 
   &::after {
     position: absolute;
-    top: 3.7rem;
+    top: 3.6rem;
 
     border-color: ${({ theme }) => theme.colors.gray500} transparent transparent;
     border-width: 5px;
