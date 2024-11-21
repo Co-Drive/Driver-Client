@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -64,9 +64,8 @@ const CommonUserList = ({
     !isLoading && data.data;
   const users = isAdmin ? participants : isFollowerList ? followings : members;
 
-  const totalPageRef = useRef(totalPage > 0 ? totalPage : 1);
   const pages = Array.from(
-    { length: totalPageRef.current },
+    { length: totalPage > 0 ? totalPage : 1 },
     (_, idx) => idx + 1
   );
 
@@ -290,9 +289,7 @@ const CommonUserList = ({
           );
         })}
         <IcArrowRightSmallGray
-          onClick={() =>
-            clickedPage !== totalPageRef.current && handleClickNextBtn()
-          }
+          onClick={() => clickedPage !== pages.length && handleClickNextBtn()}
         />
       </PageNationBar>
 
