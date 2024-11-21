@@ -24,12 +24,14 @@ const usePatchRecords = ({
       setErrMsg(message);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
-      queryClient.invalidateQueries({ queryKey: ['get-records'] });
       handleCommitSuccess(true);
 
       setTimeout(() => handleCommitSuccess(false), 1000);
-      setTimeout(() => navigate(`/solution/${id}`), 1500);
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
+        queryClient.invalidateQueries({ queryKey: ['get-records'] });
+        navigate(`/solution/${id}`);
+      }, 1500);
     },
   });
 

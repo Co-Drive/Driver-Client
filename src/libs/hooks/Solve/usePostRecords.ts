@@ -22,12 +22,14 @@ const usePostRecords = ({
       setErrMsg(message);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
-      queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
       handleCommitSuccess(true);
 
       setTimeout(() => handleCommitSuccess(false), 1000);
-      setTimeout(() => navigate(`/solution`), 1500);
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
+        queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
+        navigate(`/solution`);
+      }, 1500);
     },
   });
   return { postMutation: mutation.mutate, postErr: errMsg };
