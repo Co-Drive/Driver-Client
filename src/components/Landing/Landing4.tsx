@@ -81,7 +81,8 @@ const LandingImgContainer = styled.div`
 `;
 
 const LandingImg = styled.img`
-  width: 100%;
+  width: 114.6rem;
+  height: 52.6rem;
 `;
 
 export default Landing4;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IcLandingLogo, ImgLanding9Bg, LandingRealImg } from '../../assets';
+import { IcLandingLogo, ImgLanding9Bg, LandingRealImg2 } from '../../assets';
 
 const Landing9 = () => {
   return (
@@ -9,7 +9,7 @@ const Landing9 = () => {
         <Title>실제 사용 후기</Title>
       </TitleContainer>
       <LandingImgContainer>
-        <LandingImg src={LandingRealImg} alt="실제사용후기이미지" />
+        <LandingRealImg2 />
       </LandingImgContainer>
     </Landing9Container>
   );
@@ -52,10 +52,6 @@ const LandingImgContainer = styled.div`
   align-items: center;
 
   padding: 0 13.2rem;
-`;
-
-const LandingImg = styled.img`
-  width: 100%;
 `;
 
 export default Landing9;
