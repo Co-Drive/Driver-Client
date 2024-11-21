@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { IcArrowBottomWhite, IcLoginIcon, IcLogo } from '../assets';
+import { IcArrowBottomWhite, IcLogo } from '../assets';
 import { DATA } from '../constants/Header/HeaderConst';
 import useGetAlarmList from '../libs/hooks/Alarm/useGetAlarmList';
 import { HeaderProps } from '../types/Header/HeaderType';
@@ -117,13 +117,11 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
           $isLogin={isLoginSuccess ? true : false}
           onMouseEnter={() => isLoginSuccess && handleOpenAlarm(true)}
         >
-          {isLoginSuccess ? (
+          {isLoginSuccess && (
             <ProfileContainer>
               {isNewAlarmExit && <NewAlarm />}
               <ProfileImg src={profileImg} />
             </ProfileContainer>
-          ) : (
-            <IcLoginIcon />
           )}
           <LoginBtn onClick={() => !isLoginSuccess && navigate('/login')}>
             {isLoginSuccess ? `${nickname} 님` : '로그인'}
