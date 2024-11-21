@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { PostRecordsProps } from '../../../types/Solve/solveTypes';
 import { postRecords } from '../../apis/Solve/postRecords';
 
-const usePostRecords = () => {
+const usePostRecords = ({
+  handleCommitSuccess,
+}: {
+  handleCommitSuccess: (isSuccess: boolean) => void;
+}) => {
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState('');
 
@@ -20,7 +24,10 @@ const usePostRecords = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
       queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
-      navigate(`/solution`);
+      handleCommitSuccess(true);
+
+      setTimeout(() => handleCommitSuccess(false), 1000);
+      setTimeout(() => navigate(`/solution`), 1500);
     },
   });
   return { postMutation: mutation.mutate, postErr: errMsg };

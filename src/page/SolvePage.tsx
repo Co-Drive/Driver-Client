@@ -13,6 +13,7 @@ import {
   QuestionInfoProps,
 } from '../types/Solve/solveTypes';
 
+import SaveCheckModal from '../common/Modal/SaveCheckModal/SaveCheckModal';
 import useScrollAnimation from '../libs/hooks/utils/useScrollAnimation';
 import { handleClickGoTopBtn } from '../utils/handleClickGoTopBtn';
 
@@ -22,6 +23,7 @@ const SolvePage = () => {
   const { data, isLoading } = useGetRecords(recordId) || {};
   const scrollAnimation = useScrollAnimation();
 
+  const [isCommitSuccess, setIsCommitSuccess] = useState(false);
   const [isOpenOptions, setIsOpenOptions] = useState(true);
   const [questionInfo, setQuestionInfo] = useState<QuestionInfoProps>({
     title: '',
@@ -37,6 +39,10 @@ const SolvePage = () => {
   });
 
   const { ideId, ideItems } = ide;
+
+  const handleCommitSuccess = (isSuccess: boolean) => {
+    setIsCommitSuccess(isSuccess);
+  };
 
   const handleClickQuestionInfo = ({
     category,
@@ -139,6 +145,7 @@ const SolvePage = () => {
           isTemp={isTemp}
           codeblocks={ideItems}
           questionInfo={questionInfo}
+          handleCommitSuccess={handleCommitSuccess}
           handleOpenOptions={(isOpen) => setIsOpenOptions(isOpen)}
         />
 
@@ -160,6 +167,8 @@ const SolvePage = () => {
           )}
         </AddBtnContainer>
       </SolvePageContainer>
+
+      {isCommitSuccess && <SaveCheckModal isCommit={true} />}
     </PageLayout>
   );
 };
