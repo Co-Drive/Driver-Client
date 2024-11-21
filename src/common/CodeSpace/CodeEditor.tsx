@@ -111,5 +111,18 @@ const CodeMirrorContainer = styled.article`
 
     white-space: pre-wrap;
     overflow-wrap: break-word;
+
+    scrollbar-color: ${({ theme }) => theme.colors.gray500};
+
+    /* 스크롤바 굵기 설정 */
+    &::-webkit-scrollbar {
+      width: 0.7rem;
+    }
+
+    /* 스크롤바 막대 설정 */
+    &::-webkit-scrollbar-thumb {
+      border-radius: 1rem;
+      background-color: ${({ theme }) => theme.colors.gray500};
+    }
   }
 `;

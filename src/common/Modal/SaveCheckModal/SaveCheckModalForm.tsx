@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { IcSuccess } from '../../../assets';
 
-const SaveCheckModalForm = () => {
+const SaveCheckModalForm = ({ isCommit }: { isCommit?: boolean }) => {
   return (
     <ModalFormConatiner>
       <SaveCheckModalContainer>
         <IcSuccess />
-        <Text>저장 되었습니다</Text>
+        <Text>{isCommit ? '깃허브 자동 커밋 완료!' : '저장 되었습니다'}</Text>
       </SaveCheckModalContainer>
     </ModalFormConatiner>
   );
@@ -44,4 +44,6 @@ const SaveCheckModalContainer = styled.article`
 const Text = styled.p`
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
+
+  white-space: nowrap;
 `;

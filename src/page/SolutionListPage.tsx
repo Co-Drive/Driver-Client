@@ -29,8 +29,8 @@ export default SolutionListPage;
 
 const ListPageContainer = styled.section`
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  min-height: calc(100vh - 11.5rem);
 
   width: 92.6rem;
   padding: 6.4rem 0 33.2rem;
