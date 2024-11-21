@@ -79,6 +79,7 @@ import IcWarning from './icon/ic_warning.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
+import LandingRealImg2 from './icon/landing_real_img2.svg?react';
 
 import ImgEmptyProfile from './img/img_empty_profile.png';
 import ImgLanding from './img/img_landing.png';
@@ -263,6 +264,7 @@ export {
   LandingLogo5,
   LandingMoon,
   LandingRealImg,
+  LandingRealImg2,
   LandingSolve1,
   LandingSolve2,
   LandingSolveImg1,
