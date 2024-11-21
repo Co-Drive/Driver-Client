@@ -27,24 +27,26 @@ const LoginPage = () => {
   };
 
   return (
-    <PageLayout
-      category={isAlreadyLogin ? '홈' : 'login'}
-      isDisabledFooter={true}
-    >
+    <>
       {isLandingActive ? (
         <LandingPage />
       ) : (
-        <LoginContainer>
-          <Title>성공적인 코딩테스트를 위한 최적의 경로</Title>
-          <IcLoginBig />
-          {!isAlreadyLogin || isNotResgisted ? (
-            <LoginButton onClick={onClickSocialLogin} />
-          ) : (
-            <HomeBtn onClick={() => navigate('/')}>홈으로</HomeBtn>
-          )}
-        </LoginContainer>
+        <PageLayout
+          category={isAlreadyLogin ? '홈' : 'login'}
+          isDisabledFooter={true}
+        >
+          <LoginContainer>
+            <Title>성공적인 코딩테스트를 위한 최적의 경로</Title>
+            <IcLoginBig />
+            {!isAlreadyLogin || isNotResgisted ? (
+              <LoginButton onClick={onClickSocialLogin} />
+            ) : (
+              <HomeBtn onClick={() => navigate('/')}>홈으로</HomeBtn>
+            )}
+          </LoginContainer>
+        </PageLayout>
       )}
-    </PageLayout>
+    </>
   );
 };
 
