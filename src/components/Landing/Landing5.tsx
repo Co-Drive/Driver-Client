@@ -72,7 +72,8 @@ const LandingImgContainer = styled.div`
 `;
 
 const LandingImg = styled.img`
-  width: 100%;
+  width: 90.174rem;
+  height: 57.145rem;
 `;
 
 export default Landing5;

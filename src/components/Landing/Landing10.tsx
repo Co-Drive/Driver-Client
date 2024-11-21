@@ -19,12 +19,13 @@ const Landing10 = () => {
 
 const Landing10Container = styled.article`
   width: 100%;
-  min-height: 100vh;
-
   padding: 5.4rem 25.256rem 11rem;
 
   background-position: center;
   background-size: cover;
+
+  text-align: center;
+  min-height: 100vh;
   background-image: url(${ImgLanding10Bg});
   background-repeat: no-repeat;
 `;
@@ -65,7 +66,8 @@ const Text = styled.p`
 `;
 
 const ImgComputer = styled.img`
-  width: 100%;
+  width: 93.488rem;
+  height: 53.7rem;
 `;
 
 export default Landing10;

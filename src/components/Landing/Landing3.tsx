@@ -25,7 +25,7 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
     const documentHeight = document.body.scrollHeight;
     const scrollRatio = (windowScrollY + viewportHeight) / documentHeight;
 
-    if (scrollRatio > 0.26) {
+    if (scrollRatio > 0.23) {
       scrollAnimation.start({ translateY: 0 });
     } else {
       scrollAnimation.start({ translateY: 300 });
@@ -51,7 +51,7 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
       <motion.div
         initial={{ translateY: 300 }}
         animate={scrollAnimation}
-        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+        transition={{ type: 'spring', stiffness: 90, damping: 20 }}
       >
         <LandingImgContainer>
           <LandingImg src={LandingCodriveImg} alt="코드라이브" />
@@ -151,7 +151,8 @@ const LandingImgContainer = styled.div`
 `;
 
 const LandingImg = styled.img`
-  width: 100%;
+  width: 122rem;
+  height: 48.3rem;
 `;
 
 export default Landing3;
