@@ -13,12 +13,16 @@ const PageHeader = ({
   isTemp,
   codeblocks,
   questionInfo,
+  handleCommitSuccess,
   handleOpenOptions,
 }: PageHeaderProps) => {
   const { title, level, tags, platform, problemUrl } = questionInfo;
   const isEmptyCode = codeblocks.map((v) => v.code.length === 0).includes(true);
-  const { patchMutation, patchErr } = usePatchRecords(id);
-  const { postMutation, postErr } = usePostRecords();
+  const { patchMutation, patchErr } = usePatchRecords({
+    id,
+    handleCommitSuccess,
+  });
+  const { postMutation, postErr } = usePostRecords({ handleCommitSuccess });
 
   const [postTempErr, setPostTempErr] = useState('');
   const isError = patchErr.length > 0 || postErr.length > 0;

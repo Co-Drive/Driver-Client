@@ -91,6 +91,7 @@ export interface PageHeaderProps extends PostRecordsProps {
   isTemp?: boolean;
   id?: number;
   handleOpenOptions: (isOpen: boolean) => void;
+  handleCommitSuccess: (isSuccess: boolean) => void;
 }
 
 export interface HeaderBottomProps extends ClickQuestionInfoFnProps {

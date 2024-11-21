@@ -99,4 +99,17 @@ const Textarea = styled.textarea`
   ${({ theme }) => theme.fonts.body_medium_16};
   background-color: transparent;
   color: ${({ theme }) => theme.colors.white};
+
+  scrollbar-color: ${({ theme }) => theme.colors.gray500};
+
+  /* 스크롤바 굵기 설정 */
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  /* 스크롤바 막대 설정 */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
 `;

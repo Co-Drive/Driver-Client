@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { PatchRecordsProps } from '../../../types/Solve/solveTypes';
 import { patchRecords } from '../../apis/Solve/patchRecords';
 
-const usePatchRecords = (id?: number) => {
+const usePatchRecords = ({
+  id,
+  handleCommitSuccess,
+}: {
+  id?: number;
+  handleCommitSuccess: (isSuccess: boolean) => void;
+}) => {
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState('');
 
@@ -18,9 +24,14 @@ const usePatchRecords = (id?: number) => {
       setErrMsg(message);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
-      queryClient.invalidateQueries({ queryKey: ['get-records'] });
-      navigate(`/solution/${id}`);
+      handleCommitSuccess(true);
+
+      setTimeout(() => handleCommitSuccess(false), 1000);
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
+        queryClient.invalidateQueries({ queryKey: ['get-records'] });
+        navigate(`/solution/${id}`);
+      }, 1500);
     },
   });
 
