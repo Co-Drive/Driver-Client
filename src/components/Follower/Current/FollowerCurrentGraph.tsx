@@ -59,6 +59,19 @@ const GraphContainer = styled.div`
   padding: 1.4rem 2rem;
 
   min-width: 57rem;
+
+  scrollbar-color: ${({ theme }) => theme.colors.gray500};
+
+  /* 스크롤바 굵기 설정 */
+  &::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+
+  /* 스크롤바 막대 설정 */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: ${({ theme }) => theme.colors.gray500};
+  }
 `;
 
 const GraphDetail = styled.div`
