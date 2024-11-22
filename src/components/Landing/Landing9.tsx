@@ -144,7 +144,6 @@ const FeedbackBox = styled.div`
 
   width: 37.6rem;
   height: 23.1rem;
-  padding: 3.8rem rem;
 
   border: 1px solid rgb(255 255 255 / 100%);
   border-radius: 2.4rem;
