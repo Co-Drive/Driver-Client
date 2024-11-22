@@ -85,8 +85,8 @@ const LandingBottom = styled.div`
 const LandingGroup = styled.img`
   position: relative;
 
-  width: 100%;
-  height: auto;
+  width: 124rem;
+  height: 49.4rem;
 `;
 
 const IconWrapper = styled.div`
