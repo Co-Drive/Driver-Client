@@ -5,6 +5,10 @@ import Footer from '../../common/Footer';
 import Header from '../../common/Header';
 import { PageLayoutProps } from '../../types/PageLayout/PageLayoutType';
 import { movePagePosition } from '../../utils/movePagePosition';
+import {
+  removeSavedPage,
+  removeSavedSorting,
+} from '../../utils/removeSavedPage';
 
 const PageLayout = ({
   category,
@@ -38,6 +42,8 @@ const PageLayout = ({
     const { innerHTML } = e.currentTarget;
     setClickedCategory(innerHTML);
     handleEarlyNavigate(innerHTML);
+    removeSavedSorting();
+    removeSavedPage();
   };
 
   useEffect(() => {
