@@ -10,6 +10,7 @@ import SearchBar from './groupFilter/SearchBar';
 
 const GroupItem = () => {
   const savedPage = sessionStorage.getItem('savedPage');
+  const savedSorting = sessionStorage.getItem('savedSorting');
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [clickedPage, setClickedPage] = useState(
@@ -17,11 +18,7 @@ const GroupItem = () => {
   );
   const [searchResults, setSearchResults] = useState<any[]>([]); // 검색 결과 상태
   const [sliderValues, setSliderValues] = useState({ min: 0, max: 50 });
-  const [filter, setFilter] = useState({
-    sorting: '최신순',
-  });
-
-  const { sorting } = filter;
+  const [sorting, setSorting] = useState(savedSorting || '최신순');
 
   const ALL_TAG = 'ALL';
   const firstRowTags = ['Python', 'Java', 'JavaScript', 'C++', 'C', 'C#'];
@@ -81,16 +78,12 @@ const GroupItem = () => {
   const handleClickSorting = (
     e:
       | React.MouseEvent<HTMLParagraphElement, MouseEvent>
-      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    isSorting: boolean
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const { innerText } = e.currentTarget;
+    setSorting(innerText);
 
-    isSorting;
-    setFilter({
-      ...filter,
-      sorting: innerText,
-    });
+    sessionStorage.setItem('savedSorting', innerText);
   };
 
   const handleChangeSearchBar = (filteredGroups: any[]) => {
@@ -128,7 +121,7 @@ const GroupItem = () => {
         {SORTING.map((standard) => (
           <Sorting
             key={standard}
-            onClick={(e) => standard !== '|' && handleClickSorting(e, true)}
+            onClick={(e) => standard !== '|' && handleClickSorting(e)}
             $isClicked={sorting === standard}
           >
             {standard}
