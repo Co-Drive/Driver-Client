@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { IcSecretBigWhite } from '../../../assets';
 import { ALL_TAG } from '../../../constants/utils/allTag';
 import useGetRooms from '../../../libs/hooks/utils/useGetRooms';
 import {
@@ -74,7 +75,18 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
                   })
                 }
               >
-                <Img src={imageSrc} />
+                <CardImgContainer>
+                  {!isPublicRoom && (
+                    <SecretCardBg>
+                      <IcSecretBigWhite />
+                      <SecretCardDesc>
+                        해당 그룹은 비밀그룹 입니다
+                      </SecretCardDesc>
+                    </SecretCardBg>
+                  )}
+                  <Img src={imageSrc} />
+                </CardImgContainer>
+
                 <Contents>
                   <Name>{title}</Name>
                   <TagContainer>
@@ -140,6 +152,32 @@ const CardContainer = styled.div`
 
   width: 100%;
   height: 27.1rem;
+`;
+
+const CardImgContainer = styled.div`
+  position: relative;
+
+  width: 100%;
+  height: 17.8rem;
+`;
+
+const SecretCardBg = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  inset: 0;
+
+  border-radius: 1.6rem;
+  background-color: ${({ theme }) => theme.colors.gray800};
+  opacity: 0.7;
+`;
+
+const SecretCardDesc = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
 const Img = styled.img`
