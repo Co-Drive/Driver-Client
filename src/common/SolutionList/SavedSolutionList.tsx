@@ -191,10 +191,13 @@ const ListContainer = styled.section<{ $isSmallList: boolean }>`
 
   width: 100%;
   ${({ $isSmallList }) =>
-    !$isSmallList &&
-    css`
-      margin-top: 4.3rem;
-    `};
+    $isSmallList
+      ? css`
+          border-top: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+        `
+      : css`
+          margin-top: 4.3rem;
+        `};
 `;
 
 const PageNationBar = styled.div`
