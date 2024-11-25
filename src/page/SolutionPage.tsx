@@ -21,6 +21,10 @@ const SolutionPage = () => {
     !isLoading && data?.data;
   const scrollAnimation = useScrollAnimation();
 
+  const token = sessionStorage.getItem('token');
+  const language = sessionStorage.getItem('language');
+  const isLogin = token && language !== '사용언어' ? true : false;
+
   return (
     <PageLayout category="문제풀이">
       <motion.div style={{ opacity: 0 }} animate={scrollAnimation}>
@@ -30,7 +34,7 @@ const SolutionPage = () => {
       </motion.div>
 
       {!isLoading && (
-        <SolutionPageContainer>
+        <SolutionPageContainer $isLogin={isLogin}>
           <SolutionPageHeader>
             <SolutionHeaderTop
               recordId={parseInt(id)}
@@ -82,13 +86,14 @@ const SolutionPage = () => {
 
 export default SolutionPage;
 
-const SolutionPageContainer = styled.section`
+const SolutionPageContainer = styled.section<{ $isLogin: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: column;
 
   width: 92.6rem;
-  margin: 17.9rem 0 33.2rem;
+  margin: ${({ $isLogin }) =>
+    $isLogin ? '7.4rem 0 33.2rem' : '18.9rem 0 33.2rem'};
 `;
 
 const SolutionPageHeader = styled.header`
