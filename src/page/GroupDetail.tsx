@@ -1,3 +1,9 @@
+import {
+  motion,
+  useAnimation,
+  useMotionValueEvent,
+  useScroll,
+} from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -48,6 +54,22 @@ const GroupDetail = () => {
     mutation(parseInt(id));
   };
 
+  const { scrollY } = useScroll();
+  const scrollAnimation = useAnimation();
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+
+    if (maxScroll - 252 <= latest) {
+      scrollAnimation.start({
+        marginBottom: '25.2rem',
+        transition: { duration: 0 },
+      });
+    } else {
+      scrollAnimation.start({ marginBottom: 0, transition: { duration: 0 } });
+    }
+  });
+
   useEffect(() => {
     const isLogin =
       sessionStorage.getItem('user') &&
@@ -83,11 +105,20 @@ const GroupDetail = () => {
           />
 
           {!disabledApply && !isMember && (
-            <BtnContainer>
+            <motion.div
+              initial={{ position: 'fixed', bottom: '11.2rem', left: 0 }}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+
+                width: '100%',
+              }}
+              animate={scrollAnimation}
+            >
               <ApplyBtn type="button" onClick={handleClickApplyBtn}>
                 신청하기
               </ApplyBtn>
-            </BtnContainer>
+            </motion.div>
           )}
         </GroupDetailContainer>
       )}
@@ -107,7 +138,7 @@ const GroupDetailContainer = styled.section`
   position: relative;
 
   width: 61.3rem;
-  padding: 6.4rem 0 33.2rem;
+  margin: 6.4rem 0 33.2rem;
 `;
 
 const GroupImg = styled.img`
@@ -121,16 +152,6 @@ const GroupImg = styled.img`
   border-radius: 1.6rem;
 
   object-fit: cover;
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  bottom: 11.5rem;
-  left: 0;
-
-  width: 100%;
 `;
 
 const ApplyBtn = styled.button`
