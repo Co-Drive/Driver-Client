@@ -38,13 +38,13 @@ const SavedSolutionList = ({
     monthCalendar.filter((month) => !unsolvedMonths.includes(month));
   const recentSolvedMonth =
     !isUnsolvedDataLoading && solvedMonths && Math.max(...solvedMonths);
+  const isRecentSolvedMonthExit = recentSolvedMonth && recentSolvedMonth > 0;
 
   const [sorting, setSorting] = useState('최신순');
   const [clickedPage, setClickedPage] = useState(1);
   const [selectedDate, setSelectedDate] = useState({
     year: currentYear,
-    month:
-      recentSolvedMonth || (isFollowerMode ? recentSolvedMonth : currentMonth),
+    month: isRecentSolvedMonthExit ? recentSolvedMonth : currentMonth,
   });
 
   const { year, month } = selectedDate;
