@@ -51,7 +51,6 @@ export default FollowerCurrentGraph;
 const GraphContainer = styled.div`
   display: flex;
   gap: 1.8rem;
-  justify-content: center;
   align-items: flex-end;
   overflow: auto hidden;
 
