@@ -50,6 +50,10 @@ const MyGoal = () => {
     }
   }, [isError, onErrModal]);
 
+  useEffect(() => {
+    setNumber(goal);
+  }, [goal]);
+
   return (
     <MyGoalContainer>
       <Title>나의 목표</Title>
