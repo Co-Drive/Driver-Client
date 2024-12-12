@@ -14,6 +14,9 @@ const MyGoal = () => {
   const isError = patchGoalErr.length > 0;
   const [onErrModal, setOnErrModal] = useState(isError);
 
+  const errMsg =
+    number === 0 ? '목표를 1 ~ 7개 사이로 설정해주세요.' : patchGoalErr;
+
   const handleSaveBtnClick = () => {
     if (number === 0) {
       setOnErrModal(true);
@@ -100,10 +103,7 @@ const MyGoal = () => {
       </MyGoalBox>
 
       {onErrModal && (
-        <ErrorModal
-          onClose={() => setOnErrModal(false)}
-          errMsg={number === 0 ? '잘못된 요청입니다' : patchGoalErr}
-        />
+        <ErrorModal onClose={() => setOnErrModal(false)} errMsg={errMsg} />
       )}
     </MyGoalContainer>
   );
