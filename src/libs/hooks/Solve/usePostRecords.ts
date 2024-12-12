@@ -32,7 +32,11 @@ const usePostRecords = ({
       }, 1500);
     },
   });
-  return { postMutation: mutation.mutate, postErr: errMsg };
+  return {
+    postMutation: mutation.mutate,
+    postErr: errMsg,
+    isPostLoading: mutation.isPending,
+  };
 };
 
 export default usePostRecords;

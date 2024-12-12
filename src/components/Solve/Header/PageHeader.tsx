@@ -22,7 +22,9 @@ const PageHeader = ({
     id,
     handleCommitSuccess,
   });
-  const { postMutation, postErr } = usePostRecords({ handleCommitSuccess });
+  const { postMutation, postErr, isPostLoading } = usePostRecords({
+    handleCommitSuccess,
+  });
 
   const [postTempErr, setPostTempErr] = useState('');
   const isError = patchErr.length > 0 || postErr.length > 0;
@@ -92,6 +94,7 @@ const PageHeader = ({
               $submitBtn={!saveBtn}
               onClick={() =>
                 (saveBtn ? !disabledSave : !disabledSubmit) &&
+                !isPostLoading &&
                 handleClickBtn(saveBtn)
               }
             >
