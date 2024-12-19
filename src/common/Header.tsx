@@ -11,6 +11,7 @@ import Gnb from './Gnb';
 const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
   const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
+  const username = sessionStorage.getItem('name');
   const profileImg = sessionStorage.getItem('profileImg');
   const language = sessionStorage.getItem('language');
   // isLoginSuccess를 불린 값으로 정의
@@ -113,17 +114,23 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
             })}
           </NavBarUl>
         </NavBarContainer>
-        <LoginBtnContainer
-          $isLogin={isLoginSuccess ? true : false}
-          onMouseEnter={() => isLoginSuccess && handleOpenAlarm(true)}
-        >
+        <LoginBtnContainer $isLogin={isLoginSuccess ? true : false}>
           {isLoginSuccess && (
             <ProfileContainer>
               {isNewAlarmExit && <NewAlarm />}
-              <ProfileImg src={profileImg} />
+              <ProfileImg
+                src={profileImg}
+                onMouseEnter={() => isLoginSuccess && handleOpenAlarm(true)}
+                onClick={() => navigate(`/${username}`)}
+              />
             </ProfileContainer>
           )}
-          <LoginBtn onClick={() => !isLoginSuccess && navigate('/login')}>
+          <LoginBtn
+            onClick={() =>
+              !isLoginSuccess ? navigate('/login') : navigate(`/${username}`)
+            }
+            onMouseEnter={() => isLoginSuccess && handleOpenAlarm(true)}
+          >
             {isLoginSuccess ? `${nickname} 님` : '로그인'}
           </LoginBtn>
         </LoginBtnContainer>
@@ -253,6 +260,7 @@ const ProfileImg = styled.img`
 
   border-radius: 5rem;
   object-fit: cover;
+  cursor: pointer;
 `;
 
 const LoginBtn = styled.button`
