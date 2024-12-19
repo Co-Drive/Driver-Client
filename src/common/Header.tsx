@@ -114,13 +114,15 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
             })}
           </NavBarUl>
         </NavBarContainer>
-        <LoginBtnContainer $isLogin={isLoginSuccess ? true : false}>
+        <LoginBtnContainer
+          $isLogin={isLoginSuccess ? true : false}
+          onMouseEnter={() => isLoginSuccess && handleOpenAlarm(true)}
+        >
           {isLoginSuccess && (
             <ProfileContainer>
               {isNewAlarmExit && <NewAlarm />}
               <ProfileImg
                 src={profileImg}
-                onMouseEnter={() => isLoginSuccess && handleOpenAlarm(true)}
                 onClick={() => navigate(`/${username}`)}
               />
             </ProfileContainer>
@@ -129,20 +131,19 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
             onClick={() =>
               !isLoginSuccess ? navigate('/login') : navigate(`/${username}`)
             }
-            onMouseEnter={() => isLoginSuccess && handleOpenAlarm(true)}
           >
             {isLoginSuccess ? `${nickname} 님` : '로그인'}
           </LoginBtn>
         </LoginBtnContainer>
-        <AlarmContainer>
-          {isAlarmOpen && isAlarmExit && (
+        {isAlarmOpen && isAlarmExit && (
+          <AlarmContainer>
             <AlarmModal
               isOpen={isAlarmOpen}
               handleClose={handleCloseAlarm}
               notifications={notifications}
             />
-          )}
-        </AlarmContainer>
+          </AlarmContainer>
+        )}
         <IcArrowContainer
           onClick={() => isLoginSuccess && handleOpenGnb(true, 'profile')} // 클릭 시 Gnb 토글
         >
