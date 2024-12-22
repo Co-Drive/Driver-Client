@@ -172,7 +172,7 @@ const DateContainer = styled.div`
   position: relative;
 `;
 
-const Year = styled.text`
+const Year = styled.p`
   margin-right: 0.4rem;
   margin-left: 1.4rem;
   cursor: default;
@@ -182,7 +182,7 @@ const Year = styled.text`
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-const Month = styled.text`
+const Month = styled.p`
   margin-right: 0.4rem;
   cursor: default;
 
