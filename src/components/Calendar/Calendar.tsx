@@ -74,14 +74,17 @@ const CommonCalendar = ({
 
   return (
     <CalendarContainer>
-      <NavContainer $isClicked={isCalendarClicked === true}>
+      <NavContainer
+        $isClicked={isCalendarClicked === true}
+        onClick={handleClickCalendar}
+      >
         <DateContainer>
-          <IcCalendar onClick={handleClickCalendar} />
+          <IcCalendar />
           <Year>{clickedYear}년</Year>
           <Month>{clickedMonth}월</Month>
           {isCalendarClicked ? (
             <CustomCalendarContainer>
-              <IcArrowTopWhite onClick={handleClickCalendar} />
+              <IcArrowTopWhite />
               <CustomCalendar
                 date={{ clickedYear, clickedMonth }}
                 unsolvedMonths={unsolvedMonths.current}
@@ -92,7 +95,7 @@ const CommonCalendar = ({
             </CustomCalendarContainer>
           ) : (
             <CustomCalendarContainer>
-              <IcArrowBottomWhite onClick={handleClickCalendar} />
+              <IcArrowBottomWhite />
             </CustomCalendarContainer>
           )}
         </DateContainer>
@@ -169,17 +172,19 @@ const DateContainer = styled.div`
   position: relative;
 `;
 
-const Year = styled.p`
+const Year = styled.text`
   margin-right: 0.4rem;
   margin-left: 1.4rem;
+  cursor: default;
 
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.body_medium_16};
 `;
 
-const Month = styled.p`
+const Month = styled.text`
   margin-right: 0.4rem;
+  cursor: default;
 
   color: ${({ theme }) => theme.colors.white};
 
