@@ -192,8 +192,6 @@ const CustomCalendarContainer = styled.div`
   right: 0;
 
   transform: translateY(-50%);
-
-  /* background-color: pink; */
 `;
 
 const StyledCalendar = styled(Calendar)`
@@ -202,6 +200,7 @@ const StyledCalendar = styled(Calendar)`
     width: 4rem;
     height: 4rem;
     margin-top: 0.5rem;
+    cursor: default;
 
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray500};
@@ -255,6 +254,8 @@ const StyledCalendar = styled(Calendar)`
 
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__tile:enabled:hover {
+    cursor: default;
+
     &:enabled:hover {
       background-color: ${({ theme }) => theme.colors.gray500};
     }
