@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Footer from '../../common/Footer';
 import Header from '../../common/Header';
+import LoginPage from '../../page/LoginPage';
 import { PageLayoutProps } from '../../types/PageLayout/PageLayoutType';
 import { movePagePosition } from '../../utils/movePagePosition';
 import {
@@ -14,6 +15,7 @@ const PageLayout = ({
   category,
   children,
   isDisabledFooter,
+  isNotRequiredLogin,
 }: PageLayoutProps) => {
   const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
@@ -50,15 +52,19 @@ const PageLayout = ({
     movePagePosition();
   }, []);
 
-  return (
-    <PageLayoutContainer $isNotLandingPage={isLoginSuccess}>
-      <Header
-        clickedCategory={clickedCategory}
-        handleClickCategory={handleClickCategory}
-      />
-      {clickedCategory === category && children}
-      {!isDisabledFooter && <Footer />}
-    </PageLayoutContainer>
+  return isNotRequiredLogin || isLoginSuccess ? (
+    <>
+      <PageLayoutContainer $isNotLandingPage={isLoginSuccess}>
+        <Header
+          clickedCategory={clickedCategory}
+          handleClickCategory={handleClickCategory}
+        />
+        {clickedCategory === category && children}
+        {!isDisabledFooter && <Footer />}
+      </PageLayoutContainer>
+    </>
+  ) : (
+    <LoginPage />
   );
 };
 
