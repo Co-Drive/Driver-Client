@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import TotalSolutions from './components/Follower/Personal/TotalSolutions';
 import AdminPage from './page/AdminPage';
+import ErrorPage from './page/ErrorPage';
 import FollowerCurrentPage from './page/FollowerCurrentPage';
 import FollowerPage from './page/FollowerPage';
 import GroupAllPage from './page/GroupAllPage';
@@ -35,8 +36,7 @@ const Router = () => {
       }
     }
 
-    // 추후 전역 에러페이지로 대체 예정
-    return <p style={{ color: 'white' }}>error</p>;
+    return <ErrorPage />;
   }
 
   return (
@@ -44,6 +44,7 @@ const Router = () => {
       <Suspense fallback={<LoadingPage />}>
         <Sentry.ErrorBoundary fallback={fallback}>
           <Routes>
+            <Route path="/error" element={<ErrorPage />} />
             <Route path="/" element={<Home />} />
             <Route path="/:id" element={<MyProfilePage />} />
             <Route path="/group" element={<GroupAllPage />} />
