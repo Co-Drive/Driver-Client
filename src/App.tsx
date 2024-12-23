@@ -9,7 +9,13 @@ import { GlobalStyle } from './styles/globalStyle';
 import theme from './styles/theme';
 
 function App() {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      // 에러 상위 전파를 위한 옵션 추가
+      new QueryClient({
+        defaultOptions: { queries: { throwOnError: true } },
+      })
+  );
   const [isConnectedStream, setIsConnectedStream] = useState(false);
 
   const token = useGetSessionStorage('token');
