@@ -26,7 +26,7 @@ const SolutionPage = () => {
   const isLogin = token && language !== '사용언어' ? true : false;
 
   return (
-    <PageLayout category="문제풀이">
+    <PageLayout category="문제풀이" isNotRequiredLogin={true}>
       <motion.div style={{ opacity: 0 }} animate={scrollAnimation}>
         <GoTopBtn type="button" onClick={handleClickGoTopBtn}>
           <IcArrowUpBig />

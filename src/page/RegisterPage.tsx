@@ -144,7 +144,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <PageLayout category={'login'}>
+    <PageLayout category={'login'} isNotRequiredLogin={true}>
       <RegisterContainer onSubmit={handleJoinBtnClick}>
         <NickName
           nickname={nickname}

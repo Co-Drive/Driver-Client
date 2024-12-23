@@ -56,7 +56,7 @@ const LoginLoadingPage = () => {
   return (
     <>
       {modalOn ? (
-        <PageLayout category="홈">
+        <PageLayout category="홈" isNotRequiredLogin={true}>
           <ErrorModal
             callbackPage="/"
             errMsg={errMsg}

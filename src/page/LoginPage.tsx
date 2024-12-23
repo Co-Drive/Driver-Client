@@ -34,6 +34,7 @@ const LoginPage = () => {
         <PageLayout
           category={isAlreadyLogin ? '홈' : 'login'}
           isDisabledFooter={true}
+          isNotRequiredLogin={true}
         >
           <LoginContainer>
             <Title>성공적인 코딩테스트를 위한 최적의 경로</Title>
