@@ -22,7 +22,7 @@ const LandingPage = () => {
   };
 
   return (
-    <PageLayout category="랜딩페이지" isNotRequiredLogin={true}>
+    <PageLayout category="랜딩페이지">
       <Landing1 />
       <Landing2 />
       <Landing3 scrollToLanding4={scrollToLanding4} />

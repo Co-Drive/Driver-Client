@@ -25,7 +25,7 @@ const Home = () => {
   });
 
   return (
-    <PageLayout category="홈" isNotRequiredLogin={true}>
+    <PageLayout category="홈">
       <HomeHeader />
       <MainContainer>
         <CommonMonthSolve userId={userId} />
