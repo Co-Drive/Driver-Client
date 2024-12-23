@@ -74,14 +74,17 @@ const CommonCalendar = ({
 
   return (
     <CalendarContainer>
-      <NavContainer $isClicked={isCalendarClicked === true}>
+      <NavContainer
+        $isClicked={isCalendarClicked === true}
+        onClick={handleClickCalendar}
+      >
         <DateContainer>
-          <IcCalendar onClick={handleClickCalendar} />
+          <IcCalendar />
           <Year>{clickedYear}년</Year>
           <Month>{clickedMonth}월</Month>
           {isCalendarClicked ? (
             <CustomCalendarContainer>
-              <IcArrowTopWhite onClick={handleClickCalendar} />
+              <IcArrowTopWhite />
               <CustomCalendar
                 date={{ clickedYear, clickedMonth }}
                 unsolvedMonths={unsolvedMonths.current}
@@ -92,7 +95,7 @@ const CommonCalendar = ({
             </CustomCalendarContainer>
           ) : (
             <CustomCalendarContainer>
-              <IcArrowBottomWhite onClick={handleClickCalendar} />
+              <IcArrowBottomWhite />
             </CustomCalendarContainer>
           )}
         </DateContainer>
@@ -172,6 +175,7 @@ const DateContainer = styled.div`
 const Year = styled.p`
   margin-right: 0.4rem;
   margin-left: 1.4rem;
+  cursor: default;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -180,6 +184,7 @@ const Year = styled.p`
 
 const Month = styled.p`
   margin-right: 0.4rem;
+  cursor: default;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -192,8 +197,6 @@ const CustomCalendarContainer = styled.div`
   right: 0;
 
   transform: translateY(-50%);
-
-  /* background-color: pink; */
 `;
 
 const StyledCalendar = styled(Calendar)`
@@ -202,6 +205,7 @@ const StyledCalendar = styled(Calendar)`
     width: 4rem;
     height: 4rem;
     margin-top: 0.5rem;
+    cursor: default;
 
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.gray500};
@@ -255,6 +259,8 @@ const StyledCalendar = styled(Calendar)`
 
   /* stylelint-disable-next-line selector-class-pattern */
   .react-calendar__tile:enabled:hover {
+    cursor: default;
+
     &:enabled:hover {
       background-color: ${({ theme }) => theme.colors.gray500};
     }
