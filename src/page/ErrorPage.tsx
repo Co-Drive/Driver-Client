@@ -3,15 +3,20 @@ import styled from 'styled-components';
 import { IcWarningBig } from '../assets';
 import PageLayout from '../components/PageLayout/PageLayout';
 
-const ErrorPage = () => {
+const ErrorPage = ({ handleErrorReset }: { handleErrorReset: () => void }) => {
   const navigate = useNavigate();
+
+  const handleClickBtn = () => {
+    navigate('/');
+    handleErrorReset();
+  };
 
   return (
     <PageLayout category="에러 페이지" isDisabledFooter={true}>
       <WarningContainer>
         <IcWarningBig />
         <WarningText>{`오류가 발생했어요 :(`}</WarningText>
-        <GoHomeBtn onClick={() => navigate('/')}>홈으로 돌아가기</GoHomeBtn>
+        <GoHomeBtn onClick={handleClickBtn}>홈으로 돌아가기</GoHomeBtn>
       </WarningContainer>
     </PageLayout>
   );
