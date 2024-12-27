@@ -126,8 +126,6 @@ const SavedSolutionList = ({
         : handleDisabledMoreBtn(false);
   }, [records]);
 
-  console.log(recordsArr);
-
   return (
     <ListContainer $isSmallList={isSmallList}>
       {!isLoading && (
