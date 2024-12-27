@@ -113,7 +113,7 @@ const ContinueBtn = styled(commonBtnStyle)`
 const ExitBtn = styled(commonBtnStyle)`
   border-bottom-right-radius: 1.2rem;
 
-  padding: 1.3rem 4.8rem 1.6rem 5rem;
+  padding: 1.3rem 2.3rem 1.6rem 2.4rem;
 
   background-color: ${({ theme }) => theme.colors.gray700};
 
