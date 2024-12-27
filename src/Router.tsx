@@ -1,4 +1,6 @@
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ErrorBoundary from './common/ErrorBoundary';
 import TotalSolutions from './components/Follower/Personal/TotalSolutions';
 import AdminPage from './page/AdminPage';
 import FollowerCurrentPage from './page/FollowerCurrentPage';
@@ -23,30 +25,39 @@ import SolvePage from './page/SolvePage';
 const Router = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/:id" element={<MyProfilePage />} />
-        <Route path="/group" element={<GroupAllPage />} />
-        <Route path="/group/:id" element={<GroupDetail />} />
-        <Route path="/group/:id/admin" element={<AdminPage />} />
-        <Route path="/group/:id/member" element={<GroupMemberPage />} />
-        <Route path="/group-new" element={<GroupCreate />} />
-        <Route path="/my-group" element={<MyGroup />} />
-        <Route path="/group-join" element={<GroupJoin />} />
-        <Route path="/group-complete" element={<GroupComplete />} />
-        <Route path="/group-complete/:id" element={<GroupComplete />} />
-        <Route path="/solve" element={<SolvePage />} />
-        <Route path="/solution" element={<SolutionListPage />} />
-        <Route path="/solution/:id" element={<SolutionPage />} />
-        <Route path="/follower" element={<FollowerCurrentPage />} />
-        <Route path="/follower/:id" element={<FollowerPage />} />
-        <Route path="/follower/:id/total" element={<TotalSolutions />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/oauth/github/callback" element={<LoginLoadingPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/group-all" element={<GroupAllPage />} />
-        <Route path="/group/:id/edit" element={<GroupEdit />} />
-      </Routes>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary onReset={reset}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/:id" element={<MyProfilePage />} />
+              <Route path="/group" element={<GroupAllPage />} />
+              <Route path="/group/:id" element={<GroupDetail />} />
+              <Route path="/group/:id/admin" element={<AdminPage />} />
+              <Route path="/group/:id/member" element={<GroupMemberPage />} />
+              <Route path="/group-new" element={<GroupCreate />} />
+              <Route path="/my-group" element={<MyGroup />} />
+              <Route path="/group-join" element={<GroupJoin />} />
+              <Route path="/group-complete" element={<GroupComplete />} />
+              <Route path="/group-complete/:id" element={<GroupComplete />} />
+              <Route path="/solve" element={<SolvePage />} />
+              <Route path="/solution" element={<SolutionListPage />} />
+              <Route path="/solution/:id" element={<SolutionPage />} />
+              <Route path="/follower" element={<FollowerCurrentPage />} />
+              <Route path="/follower/:id" element={<FollowerPage />} />
+              <Route path="/follower/:id/total" element={<TotalSolutions />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route
+                path="/oauth/github/callback"
+                element={<LoginLoadingPage />}
+              />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/group-all" element={<GroupAllPage />} />
+              <Route path="/group/:id/edit" element={<GroupEdit />} />
+            </Routes>
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
     </BrowserRouter>
   );
 };

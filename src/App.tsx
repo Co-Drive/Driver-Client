@@ -9,7 +9,13 @@ import { GlobalStyle } from './styles/globalStyle';
 import theme from './styles/theme';
 
 function App() {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      // 에러 발생 시 한 번에 처리하는 옵션, error boundary를 사용하기 위한 옵션 추가
+      new QueryClient({
+        defaultOptions: { queries: { retry: false, throwOnError: true } },
+      })
+  );
   const [isConnectedStream, setIsConnectedStream] = useState(false);
 
   const token = useGetSessionStorage('token');

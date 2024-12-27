@@ -76,6 +76,7 @@ import IcUnfollowingWhite from './icon/ic_unfollowing_white.svg?react';
 import IcUnlockGray from './icon/ic_unlock_gray.svg?react';
 import IcUnlockWhite from './icon/ic_unlock_white.svg?react';
 import IcWarning from './icon/ic_warning.svg?react';
+import IcWarningBig from './icon/ic_warning_big.svg?react';
 import IcWorkbook from './icon/ic_workbook.svg?react';
 import IcWorkbookBlack from './icon/ic_workbook_black.svg?react';
 import IcWorkBookWhite from './icon/ic_workbook_white.svg?react';
@@ -230,6 +231,7 @@ export {
   IcUnlockGray,
   IcUnlockWhite,
   IcWarning,
+  IcWarningBig,
   IcWorkBookBlack,
   IcWorkBookWhite,
   IcWorkbook,
