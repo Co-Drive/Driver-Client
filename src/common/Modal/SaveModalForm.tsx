@@ -39,13 +39,13 @@ const SaveModalForm = ({
       </IcCancelContainer>
 
       <IcSuccess />
-      <Notice>임시저장이 완료되었습니다</Notice>
+      <Notice>임시저장 하시겠습니까?</Notice>
       <BtnContainer>
         <ContinueBtn type="button" onClick={onClose}>
           마저 작성하기
         </ContinueBtn>
         <ExitBtn type="button" onClick={handleClickExitBtn}>
-          나가기
+          저장하고 나가기
         </ExitBtn>
       </BtnContainer>
     </ContentsContainer>
