@@ -60,7 +60,8 @@ const SavedSolutionList = ({
 
   const { records, totalPage } = !isLoading && data.data;
   const recordsArr =
-    !isLoading && (records.length > 5 ? records.slice(0, 5) : records);
+    !isLoading &&
+    (isSmallList && records.length > 5 ? records.slice(0, 5) : records);
   const pages = Array.from(
     { length: totalPage ? totalPage : 1 },
     (_, idx) => idx + 1
@@ -124,6 +125,8 @@ const SavedSolutionList = ({
         ? handleDisabledMoreBtn(true)
         : handleDisabledMoreBtn(false);
   }, [records]);
+
+  console.log(recordsArr);
 
   return (
     <ListContainer $isSmallList={isSmallList}>
