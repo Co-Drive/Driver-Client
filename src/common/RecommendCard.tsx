@@ -231,7 +231,6 @@ const CardContent = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 
-  overflow: hidden;
   text-overflow: ellipsis;
 
   height: 5.3rem;
