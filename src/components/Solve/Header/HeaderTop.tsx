@@ -55,9 +55,13 @@ const HeaderTop = ({
           <LvStarContainer>
             {selectedStar.map((selected, idx) => {
               return (
-                <li key={idx} value={idx + 1} onClick={(e) => handleClickIc(e)}>
+                <Level
+                  key={idx}
+                  value={idx + 1}
+                  onClick={(e) => handleClickIc(e)}
+                >
                   {selected ? <IcStarGreen /> : <IcStarGray />}
-                </li>
+                </Level>
               );
             })}
           </LvStarContainer>
@@ -145,4 +149,8 @@ const LvStarContainer = styled.ul`
   gap: 0.4rem;
   justify-content: center;
   align-items: center;
+`;
+
+const Level = styled.li`
+  cursor: pointer;
 `;

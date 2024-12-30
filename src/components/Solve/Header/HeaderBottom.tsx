@@ -175,6 +175,7 @@ const InputContainer = styled.div<{ $isTagCategory: boolean }>`
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray800};
+  cursor: pointer;
 `;
 
 const Input = styled.input<{ $isTagCategory: boolean }>`
