@@ -231,13 +231,15 @@ const CardContent = styled.p`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 
+  overflow: hidden;
+
   text-overflow: ellipsis;
 
-  height: 5.3rem;
+  max-height: 2.8rem;
 
   color: ${({ theme }) => theme.colors.gray300};
+
   ${({ theme }) => theme.fonts.body_ligth_12};
-  flex: 1;
 `;
 
 const CardTags = styled.div`
