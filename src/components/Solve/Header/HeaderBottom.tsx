@@ -165,7 +165,7 @@ const SelectContainer = styled.article<{ $isTagCategory: boolean }>`
   position: relative;
 `;
 
-const InputContainer = styled.div<{ $isTagCategory: boolean }>`
+const InputContainer = styled.button<{ $isTagCategory: boolean }>`
   display: flex;
   gap: ${({ $isTagCategory }) => ($isTagCategory ? `1.2rem` : `0.8rem`)};
   justify-content: space-between;
@@ -175,7 +175,6 @@ const InputContainer = styled.div<{ $isTagCategory: boolean }>`
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray800};
-  cursor: pointer;
 `;
 
 const Input = styled.input<{ $isTagCategory: boolean }>`
