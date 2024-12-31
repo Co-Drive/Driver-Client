@@ -191,6 +191,8 @@ const Input = styled.input<{ $isTagCategory: boolean }>`
   &::placeholder {
     color: ${({ theme }) => theme.colors.gray300};
   }
+
+  cursor: pointer;
 `;
 
 const OptionContainer = styled.ul<{
