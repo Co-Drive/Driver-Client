@@ -58,7 +58,6 @@ const CommonCalendar = ({
     const newDate = new Date(clickedYear, month - 1);
     setClickedMonth(month);
     setSelectedDate(newDate);
-    setIsCalendarClicked(false);
   };
 
   const upDatedCalendar = () => {
@@ -71,6 +70,12 @@ const CommonCalendar = ({
   useEffect(() => {
     upDatedCalendar();
   }, [data]);
+
+  useEffect(() => {
+    if (!isCalendarClicked) {
+      setIsCalendarClicked(false);
+    }
+  });
 
   return (
     <CalendarContainer>
