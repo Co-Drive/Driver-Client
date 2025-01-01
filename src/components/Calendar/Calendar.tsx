@@ -163,6 +163,8 @@ const NavContainer = styled.div<{ $isClicked: boolean }>`
     css`
       outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
     `};
+
+  cursor: pointer;
 `;
 
 const DateContainer = styled.div`
