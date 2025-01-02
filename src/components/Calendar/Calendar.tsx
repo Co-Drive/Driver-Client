@@ -75,7 +75,7 @@ const CommonCalendar = ({
     if (!isCalendarClicked) {
       setIsCalendarClicked(false);
     }
-  });
+  }, [isCalendarClicked]);
 
   return (
     <CalendarContainer>
