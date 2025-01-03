@@ -70,10 +70,6 @@ const CommonCalendar = ({
     upDatedCalendar();
   }, [data]);
 
-  useEffect(() => {
-    console.log(isCalendarClicked);
-  });
-
   return (
     <CalendarContainer>
       <NavContainer
