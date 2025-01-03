@@ -57,7 +57,6 @@ const CommonCalendar = ({
     const newDate = new Date(clickedYear, month - 1);
     setClickedMonth(month);
     setSelectedDate(newDate);
-    setIsCalendarClicked(false);
   };
 
   const upDatedCalendar = () => {
