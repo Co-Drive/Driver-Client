@@ -24,9 +24,10 @@ const SavedSolutionList = ({
 
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const { unsolvedData, isLoading: isUnsolvedDataLoading } =
     useGetUnsolvedMonths({
-      year: currentYear,
+      year: selectedYear,
       followerId,
     });
   const { months: unsolvedMonths } =
@@ -42,25 +43,24 @@ const SavedSolutionList = ({
 
   const [sorting, setSorting] = useState('최신순');
   const [clickedPage, setClickedPage] = useState(1);
-  const [selectedDate, setSelectedDate] = useState({
-    year: currentYear,
-    month: isRecentSolvedMonthExit ? recentSolvedMonth : currentMonth,
-  });
+  const [selectedMonth, setSelectedMonth] = useState(
+    isRecentSolvedMonthExit ? recentSolvedMonth : currentMonth
+  );
 
-  const { year, month } = selectedDate;
   const { data, isLoading } = isSmallList
     ? useGetRecentFollowerRecords({ userId })
     : useGetMonthlySolution({
         userId: userId,
         sortType: sorting,
-        year: year,
-        month: month,
+        year: selectedYear,
+        month: selectedMonth,
         page: clickedPage - 1,
       });
 
   const { records, totalPage } = !isLoading && data.data;
   const recordsArr =
-    !isLoading && (records.length > 5 ? records.slice(0, 5) : records);
+    !isLoading &&
+    (isSmallList && records.length > 5 ? records.slice(0, 5) : records);
   const pages = Array.from(
     { length: totalPage ? totalPage : 1 },
     (_, idx) => idx + 1
@@ -77,10 +77,7 @@ const SavedSolutionList = ({
     if (isPage) {
       setClickedPage((prev) => prev - 1);
     } else {
-      setSelectedDate({
-        ...selectedDate,
-        year: year - 1,
-      });
+      setSelectedYear((year) => year - 1);
       setClickedPage(1);
     }
 
@@ -93,10 +90,7 @@ const SavedSolutionList = ({
     } else {
       if (e) {
         const clickedMonth = parseInt(e.currentTarget.innerHTML);
-        setSelectedDate({
-          ...selectedDate,
-          month: clickedMonth,
-        });
+        setSelectedMonth(clickedMonth);
         setClickedPage(1);
       }
     }
@@ -108,10 +102,7 @@ const SavedSolutionList = ({
     if (isPage) {
       setClickedPage((prev) => prev + 1);
     } else {
-      setSelectedDate({
-        ...selectedDate,
-        year: year + 1,
-      });
+      setSelectedYear((year) => year + 1);
       setClickedPage(1);
     }
 
@@ -132,8 +123,8 @@ const SavedSolutionList = ({
           {!isSmallList && (
             <ListFilter
               sorting={sorting}
-              year={year}
-              month={month}
+              year={selectedYear}
+              month={selectedMonth}
               unsolvedMonths={unsolvedMonths}
               handleClickSorting={handleClickSorting}
               handleClickPrevBtn={handleClickPrevBtn}
