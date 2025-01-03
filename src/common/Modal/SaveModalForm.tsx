@@ -39,13 +39,13 @@ const SaveModalForm = ({
       </IcCancelContainer>
 
       <IcSuccess />
-      <Notice>임시저장이 완료되었습니다</Notice>
+      <Notice>임시저장 하시겠습니까?</Notice>
       <BtnContainer>
         <ContinueBtn type="button" onClick={onClose}>
           마저 작성하기
         </ContinueBtn>
         <ExitBtn type="button" onClick={handleClickExitBtn}>
-          나가기
+          저장하고 나가기
         </ExitBtn>
       </BtnContainer>
     </ContentsContainer>
@@ -113,7 +113,7 @@ const ContinueBtn = styled(commonBtnStyle)`
 const ExitBtn = styled(commonBtnStyle)`
   border-bottom-right-radius: 1.2rem;
 
-  padding: 1.3rem 4.8rem 1.6rem 5rem;
+  padding: 1.3rem 2.3rem 1.6rem 2.4rem;
 
   background-color: ${({ theme }) => theme.colors.gray700};
 

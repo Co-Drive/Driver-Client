@@ -61,6 +61,8 @@ const TopBar = styled.div`
 
   width: 100%;
   padding: 0 0.4rem 2.4rem;
+
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`

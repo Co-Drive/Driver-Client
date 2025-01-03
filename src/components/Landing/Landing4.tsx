@@ -8,7 +8,7 @@ const Landing4 = () => {
         <Info>깃허브와의 연동</Info>
         <TitleContainer>
           <Title>3초만에 깃허브 계정으로 회원가입하고</Title>
-          <Title>리퍼지토리에 자동 커밋</Title>
+          <Title>리포지토리에 자동 커밋</Title>
         </TitleContainer>
         <Text>
           어떤 플랫폼이든 내가 기록하고 싶은 내용 그대로 깃허브에 자동으로 올릴

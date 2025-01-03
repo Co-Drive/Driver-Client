@@ -79,6 +79,8 @@ const FilteredContainer = styled.header`
   padding-bottom: 2.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+
+  cursor: pointer;
 `;
 
 const DateFilterContainer = styled.div<{ $isCalendarClicked: boolean }>`

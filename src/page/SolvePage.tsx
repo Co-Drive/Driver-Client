@@ -184,7 +184,7 @@ const SolvePageContainer = styled.section`
   padding: 6rem 0 33.2rem;
 `;
 
-const AddBtnContainer = styled.div`
+const AddBtnContainer = styled.button`
   display: flex;
   justify-content: end;
 
