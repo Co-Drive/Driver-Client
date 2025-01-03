@@ -25,8 +25,8 @@ const CommonCalendar = ({
   const [board, setBoard] = useState<BoardProps[]>([]);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  // const year = new Date().getFullYear();
-  const { unsolvedData } = useGetUnsolvedMonths({ year: clickedYear });
+  const year = new Date().getFullYear();
+  const { unsolvedData } = useGetUnsolvedMonths({ year });
 
   const unsolvedMonths = useRef<Array<number>>([]);
 
