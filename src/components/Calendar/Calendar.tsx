@@ -25,8 +25,7 @@ const CommonCalendar = ({
   const [board, setBoard] = useState<BoardProps[]>([]);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  const year = new Date().getFullYear();
-  const { unsolvedData } = useGetUnsolvedMonths({ year });
+  const { unsolvedData } = useGetUnsolvedMonths({ year: clickedYear });
 
   const unsolvedMonths = useRef<Array<number>>([]);
 
@@ -58,7 +57,6 @@ const CommonCalendar = ({
     const newDate = new Date(clickedYear, month - 1);
     setClickedMonth(month);
     setSelectedDate(newDate);
-    setIsCalendarClicked(false);
   };
 
   const upDatedCalendar = () => {
@@ -164,6 +162,8 @@ const NavContainer = styled.div<{ $isClicked: boolean }>`
     css`
       outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
     `};
+
+  cursor: pointer;
 `;
 
 const DateContainer = styled.div`

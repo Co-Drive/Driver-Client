@@ -85,6 +85,8 @@ const LinkContainer = styled(CommonTagStyle)`
   min-width: 28.9rem;
 
   padding: 1.2rem 0;
+
+  cursor: pointer;
 `;
 
 const Link = styled.p`
