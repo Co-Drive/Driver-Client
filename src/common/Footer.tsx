@@ -28,7 +28,7 @@ const Footer = () => {
   );
 };
 
-const FooterContainer = styled.article`
+const FooterContainer = styled.footer`
   display: flex;
   justify-content: space-between;
   position: absolute;
