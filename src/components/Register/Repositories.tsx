@@ -19,6 +19,8 @@ const Repositories = ({
   const { isExistRepositories, isClickedCheckRepositoriesBtn } =
     changeRepositories;
 
+  const isButtonEnabled = repositories.length > 0;
+
   return (
     <RepositoriesContainer>
       <TitleContainer>
@@ -34,7 +36,12 @@ const Repositories = ({
           isExitedRepositories={isExistRepositories}
           handleChangeInputs={handleChangeInputs}
         />
-        <Button type="button" onClick={handleRepositoriesCheck}>
+        <Button
+          type="button"
+          onClick={handleRepositoriesCheck}
+          disabled={!isButtonEnabled}
+          $isEnabled={isButtonEnabled}
+        >
           검색
         </Button>
       </InputWrapper>
@@ -85,14 +92,16 @@ const InputWrapper = styled.div`
   display: flex;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ $isEnabled: boolean }>`
   width: 6.4rem;
   height: 4.8rem;
   margin-left: 1rem;
 
   border: none;
   border-radius: 0.6rem;
-  background-color: ${({ theme }) => theme.colors.codrive_green};
-  color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${({ theme, $isEnabled }) =>
+    $isEnabled ? theme.colors.codrive_green : theme.colors.gray500};
+  color: ${({ theme, $isEnabled }) =>
+    $isEnabled ? theme.colors.gray900 : theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
 `;
