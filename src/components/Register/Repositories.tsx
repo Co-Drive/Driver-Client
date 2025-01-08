@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import { IcCancelSmallWhite } from '../../assets';
 import CommonInput from '../../common/CommonInput';
 interface RepositoriesProps {
   repositories: string;
@@ -18,16 +20,18 @@ const Repositories = ({
 }: RepositoriesProps) => {
   const { isExistRepositories, isClickedCheckRepositoriesBtn } =
     changeRepositories;
+  const [isTooltipVisible, setIsTooltipVisible] = useState(true);
 
   const isButtonEnabled = repositories.length > 0;
 
+  const handleTooltipClose = () => setIsTooltipVisible(false);
   return (
     <RepositoriesContainer>
       <TitleContainer>
         <Title>깃허브 리포지토리</Title>
         <Essential>*</Essential>
       </TitleContainer>
-      <Info>코드라이브와 연동할 깃허브 리포지토리의 이름을 작성해주세요</Info>
+      <Info>코드라이브와 연동할 깃허브 리포지토리의 풀네임을 작성해주세요</Info>
       <InputWrapper>
         <CommonInput
           category="repositories"
@@ -45,6 +49,15 @@ const Repositories = ({
           검색
         </Button>
       </InputWrapper>
+      <TooltipInfo $isVisible={isTooltipVisible}>
+        <div>
+          <LineText>검색버튼을 눌러 유효한</LineText>
+          <LineText>리포지토리인지 확인해주세요</LineText>
+        </div>
+        <TooltipClose type="button" onClick={handleTooltipClose}>
+          <IcCancelSmallWhite />
+        </TooltipClose>
+      </TooltipInfo>
     </RepositoriesContainer>
   );
 };
@@ -52,9 +65,8 @@ const Repositories = ({
 export default Repositories;
 
 const RepositoriesContainer = styled.div`
-  max-height: 6.6rem;
-
   margin-bottom: 9.7rem;
+  max-height: 6.6rem;
 `;
 
 const TitleContainer = styled.div`
@@ -90,6 +102,7 @@ const Info = styled.span`
 
 const InputWrapper = styled.div`
   display: flex;
+  position: relative;
 `;
 
 const Button = styled.button<{ $isEnabled: boolean }>`
@@ -104,4 +117,49 @@ const Button = styled.button<{ $isEnabled: boolean }>`
   color: ${({ theme, $isEnabled }) =>
     $isEnabled ? theme.colors.gray900 : theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_16};
+`;
+
+const TooltipInfo = styled.div<{ $isVisible: boolean }>`
+  display: flex;
+  position: absolute;
+  top: 47.2%;
+  visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
+
+  padding: 0.8rem 0.6rem 0.8rem 1rem;
+  margin-left: 30.4rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray400};
+
+  white-space: nowrap;
+  transform: translate(8px, -50%);
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
+
+  /* 화살표 스타일 */
+  &::after {
+    position: absolute;
+    top: 51%;
+    left: -1.2rem;
+
+    border-color: transparent rgb(100 104 117 / 100%) transparent transparent;
+    border-width: 0.7rem;
+    border-style: solid;
+    content: '';
+    transform: translateY(-50%);
+  }
+`;
+
+const TooltipClose = styled.button`
+  cursor: pointer;
+
+  display: flex;
+`;
+
+const LineText = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+  line-height: 1.8rem;
 `;
