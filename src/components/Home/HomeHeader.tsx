@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcWorkBookBlack } from '../../assets';
 import ic_home_banner_bg from '../../assets/icon/ic_home_banner_bg.svg';
+import { DAYS } from '../../constants/Home/day';
 
 const HomeHeader = () => {
   const nickname = sessionStorage.getItem('nickname');
@@ -11,16 +12,8 @@ const HomeHeader = () => {
   const month = today.getMonth() + 1;
   const day = today.getDate();
   const dayOfWeek = today.getDay();
-  const days = [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일',
-  ];
-  const currentDay = days[dayOfWeek];
+  const currentDay = DAYS[dayOfWeek];
+  
   const handleRegister = () => {
     navigate('/solve');
   };
@@ -28,7 +21,7 @@ const HomeHeader = () => {
   return (
     <Article>
       <BgImg alt="홈 배너 배경 이미지" src={ic_home_banner_bg} />
-      
+
       <Header>
         <DateText>
           {month}월 {day}일 {currentDay}
