@@ -56,7 +56,7 @@ const WeekRate = () => {
           <BtnInformation />
           <Tooltip>
             주간 성과율은 문제 개수와 상관없이
-            <LineText>문제풀이 여부를 측정하는 지표입니다.</LineText>
+            <LineText>성실도를 측정한 지표에요</LineText>
           </Tooltip>
         </Notic>
       </Header>
@@ -246,6 +246,7 @@ const LineText = styled.div`
 
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+  line-height: 1.8rem;
 `;
 
 const Notic = styled.div`
