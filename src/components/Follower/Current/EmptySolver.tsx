@@ -12,7 +12,7 @@ const EmptySolver = () => {
   return (
     <EmptySolverContainer>
       <TextContainer>
-        <Text>오늘 문제를 푼 팔로워가 아직 없어요</Text>
+        <Text>오늘 문제를 푼 사용자가 아직 없어요</Text>
         <Text>가장 먼저 문제를 풀어보세요!</Text>
       </TextContainer>
 
