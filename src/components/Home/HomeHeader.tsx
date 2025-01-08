@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcWorkBookBlack } from '../../assets';
-import ic_home_Header from '../../assets/icon/ic_home_Header.svg';
+import ic_home_banner_bg from '../../assets/icon/ic_home_banner_bg.svg';
 
 const HomeHeader = () => {
   const nickname = sessionStorage.getItem('nickname');
@@ -27,6 +27,8 @@ const HomeHeader = () => {
 
   return (
     <Article>
+      <BgImg alt="홈 배너 배경 이미지" src={ic_home_banner_bg} />
+      
       <Header>
         <DateText>
           {month}월 {day}일 {currentDay}
@@ -52,16 +54,31 @@ const HomeHeader = () => {
 export default HomeHeader;
 
 const Article = styled.article`
+  position: relative;
+
   width: 100%;
   margin-top: 6.4rem;
 
   border-radius: 1.2rem;
 
   max-width: 92.6rem;
-  background-image: url(${ic_home_Header});
+`;
+const BgImg = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+
+  width: 100%;
+  height: auto;
+
+  border-radius: 1.2rem;
 `;
 
 const Header = styled.header`
+  position: relative;
+  z-index: 1;
+
   padding: 3.2rem 3.6rem 3.4rem;
 `;
 
