@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { IcCancelSmallWhite } from '../../assets';
 import CommonButton from '../../common/CommonButton';
 import ErrorModal from '../../common/Modal/ErrorModal/ErrorModal';
 import usePatchUser from '../../libs/hooks/MyProfile/usePatchUser';
@@ -165,68 +166,73 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
 
   return (
     <ModalBackground>
-      <ProfileContainer onSubmit={handleSaveBtnClick}>
-        <BasicInfoContainer>
-          <BasicTitle>기본정보</BasicTitle>
-          <NameInfo user={name} />
-          <RepositoriesInfo
-            changeRepositories={changeRepositories}
-            repositories={repositories}
-            handleChangeInputs={handleChangeInputs}
-            handleRepositoriesCheck={handleRepositoriesCheck}
-          />
-          <GithubInfo
-            github={githubNickname}
-            handleChangeInputs={(e) => {
-              const { value } = e.target;
-              const completeGithubUrl = `https://github.com/${value.replace('https://github.com/', '')}`;
+      <ProfileEditContainer>
+        <ProfileContainer onSubmit={handleSaveBtnClick}>
+          <CloseContainer>
+            <IcCancelSmallWhite onClick={handleCancelBtnClick} />
+          </CloseContainer>
+          <BasicInfoContainer>
+            <BasicTitle>기본정보</BasicTitle>
+            <NameInfo user={name} />
+            <RepositoriesInfo
+              changeRepositories={changeRepositories}
+              repositories={repositories}
+              handleChangeInputs={handleChangeInputs}
+              handleRepositoriesCheck={handleRepositoriesCheck}
+            />
+            <GithubInfo
+              github={githubNickname}
+              handleChangeInputs={(e) => {
+                const { value } = e.target;
+                const completeGithubUrl = `https://github.com/${value.replace('https://github.com/', '')}`;
 
-              handleChangeInputs({
-                ...e,
-                target: {
-                  ...e.target,
-                  name: 'githubUrl',
-                  value: completeGithubUrl,
-                },
-              });
-            }}
-          />
-        </BasicInfoContainer>
-        <CodriveContainer>
-          <CodriveTitle>코드라이브 정보</CodriveTitle>
-          <NicknameInfo
-            changeNickname={changeNickname}
-            nickname={nickname}
-            handleChangeInputs={handleChangeInputs}
-            handleNicknameCheck={handleNicknameCheck}
-          />
-          <LanguageInfo
-            selectedTag={selectedLanguage}
-            handleChangeTag={handleChangeTag}
-          />
-          <IntroInfo
-            value={comment ? comment : ''}
-            onChange={handleChangeComment}
-          />
-        </CodriveContainer>
-        <ProfileButton>
-          <CancelButton type="button" onClick={handleCancelBtnClick}>
-            취소하기
-          </CancelButton>
-          <CommonButton
-            isActive={isActive}
-            category="Profile_save"
-            onClick={handleSaveBtnClick}
-          />
-        </ProfileButton>
+                handleChangeInputs({
+                  ...e,
+                  target: {
+                    ...e.target,
+                    name: 'githubUrl',
+                    value: completeGithubUrl,
+                  },
+                });
+              }}
+            />
+          </BasicInfoContainer>
+          <CodriveContainer>
+            <CodriveTitle>코드라이브 정보</CodriveTitle>
+            <NicknameInfo
+              changeNickname={changeNickname}
+              nickname={nickname}
+              handleChangeInputs={handleChangeInputs}
+              handleNicknameCheck={handleNicknameCheck}
+            />
+            <LanguageInfo
+              selectedTag={selectedLanguage}
+              handleChangeTag={handleChangeTag}
+            />
+            <IntroInfo
+              value={comment ? comment : ''}
+              onChange={handleChangeComment}
+            />
+          </CodriveContainer>
+          <ProfileButton>
+            <CancelButton type="button" onClick={handleCancelBtnClick}>
+              취소하기
+            </CancelButton>
+            <CommonButton
+              isActive={isActive}
+              category="Profile_save"
+              onClick={handleSaveBtnClick}
+            />
+          </ProfileButton>
 
-        {errModalOn && (
-          <ErrorModal
-            errMsg={patchUserErr}
-            onClose={() => setErrModalOn(false)}
-          />
-        )}
-      </ProfileContainer>
+          {errModalOn && (
+            <ErrorModal
+              errMsg={patchUserErr}
+              onClose={() => setErrModalOn(false)}
+            />
+          )}
+        </ProfileContainer>
+      </ProfileEditContainer>
     </ModalBackground>
   );
 };
@@ -244,21 +250,46 @@ const ModalBackground = styled.div`
   height: 100%;
 `;
 
+const ProfileEditContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  height: 61.8rem;
+  padding: 1.6rem;
+  margin-top: 10rem;
+
+  border-radius: 1.6rem;
+  background-color: ${({ theme }) => theme.colors.gray800};
+`;
+
+const CloseContainer = styled.div`
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+`;
+
 const ProfileContainer = styled.form`
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 100;
 
   height: 55.4rem;
-  padding: 6.4rem 9.6rem;
+  padding: 6.4rem 7.5rem;
 
-  border-radius: 1rem;
-  background-color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${({ theme }) => theme.colors.gray800};
   overflow-y: auto;
 
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: auto;
+  scrollbar-width: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.4rem;
+    background-color: ${({ theme }) => theme.colors.gray200};
+  }
 `;
 
 const BasicInfoContainer = styled.div`
