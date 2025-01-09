@@ -17,9 +17,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!user || isNotRegisted) {
-      !user
-        ? navigate('/login', { state: { isLandingActive: true } })
-        : navigate('/register');
+      navigate('/register');
     }
     return;
   });
