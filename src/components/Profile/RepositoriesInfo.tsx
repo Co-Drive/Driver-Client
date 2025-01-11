@@ -37,7 +37,7 @@ const RepositoriesContainer = styled.section`
   display: flex;
   align-items: center;
 
-  padding: 3.3rem 0 1.9rem;
+  padding: 3.2rem 0 1.4rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
 `;
