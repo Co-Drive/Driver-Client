@@ -37,7 +37,6 @@ const Router = () => {
               <Route element={<PrivateRoute />}>
                 <Route path="/:id" element={<MyProfilePage />} />
                 <Route path="/group" element={<GroupAllPage />} />
-                <Route path="/group/:id" element={<GroupDetail />} />
                 <Route path="/group/:id/admin" element={<AdminPage />} />
                 <Route path="/group/:id/member" element={<GroupMemberPage />} />
                 <Route path="/group-new" element={<GroupCreate />} />
@@ -63,6 +62,7 @@ const Router = () => {
                 path="/oauth/github/callback"
                 element={<LoginLoadingPage />}
               />
+              <Route path="/group/:id" element={<GroupDetail />} />
               <Route path="/solution/:id" element={<SolutionPage />} />
             </Routes>
           </ErrorBoundary>
