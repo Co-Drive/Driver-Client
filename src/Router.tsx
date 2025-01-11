@@ -53,16 +53,16 @@ const Router = () => {
                   path="/follower/:id/total"
                   element={<TotalSolutions />}
                 />
-                <Route path="/login" element={<LoginPage />} />
-                <Route
-                  path="/oauth/github/callback"
-                  element={<LoginLoadingPage />}
-                />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/group-all" element={<GroupAllPage />} />
                 <Route path="/group/:id/edit" element={<GroupEdit />} />
               </Route>
 
+              <Route path="/login" element={<LoginPage />} />
+              <Route
+                path="/oauth/github/callback"
+                element={<LoginLoadingPage />}
+              />
               <Route path="/solution/:id" element={<SolutionPage />} />
             </Routes>
           </ErrorBoundary>
