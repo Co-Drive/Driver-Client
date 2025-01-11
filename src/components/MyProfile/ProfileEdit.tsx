@@ -167,10 +167,11 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
   return (
     <ModalBackground>
       <ProfileEditContainer>
+        <ProfileTitle>프로필</ProfileTitle>
+        <CloseContainer>
+          <IcCancelSmallWhite onClick={handleCancelBtnClick} />
+        </CloseContainer>
         <ProfileContainer onSubmit={handleSaveBtnClick}>
-          <CloseContainer>
-            <IcCancelSmallWhite onClick={handleCancelBtnClick} />
-          </CloseContainer>
           <BasicInfoContainer>
             <BasicTitle>기본정보</BasicTitle>
             <NameInfo user={name} />
@@ -253,28 +254,39 @@ const ModalBackground = styled.div`
 const ProfileEditContainer = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 
   height: 61.8rem;
-  padding: 1.6rem;
+  padding: 6.2rem 3.6rem;
   margin-top: 10rem;
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.colors.gray800};
 `;
 
+const ProfileTitle = styled.h1`
+  width: 41.8rem;
+  padding-bottom: 2.1rem;
+  margin: 0 0 4rem 5.5rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_24};
+`;
+
 const CloseContainer = styled.div`
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 3rem;
+  right: 3rem;
+  cursor: pointer;
 `;
 
 const ProfileContainer = styled.form`
   display: flex;
   flex-direction: column;
-  position: relative;
 
   height: 55.4rem;
-  padding: 6.4rem 7.5rem;
+  padding: 0 5.5rem;
 
   background-color: ${({ theme }) => theme.colors.gray800};
   overflow-y: auto;
@@ -288,20 +300,20 @@ const ProfileContainer = styled.form`
 
   &::-webkit-scrollbar-thumb {
     border-radius: 0.4rem;
-    background-color: ${({ theme }) => theme.colors.gray200};
+    background-color: ${({ theme }) => theme.colors.gray400};
   }
 `;
 
 const BasicInfoContainer = styled.div`
-  margin-bottom: 4rem;
-`;
-
-const CodriveContainer = styled.div`
   margin-bottom: 5.6rem;
 `;
 
+const CodriveContainer = styled.div`
+  margin-bottom: 5.9rem;
+`;
+
 const BasicTitle = styled.h1`
-  margin-bottom: 5.2rem;
+  margin-bottom: 4rem;
 
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_20};
