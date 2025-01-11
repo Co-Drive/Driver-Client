@@ -39,7 +39,7 @@ const RepositoriesContainer = styled.section`
 
   padding: 3.3rem 0 1.9rem;
 
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
 `;
 
 const NicknameTitle = styled.h2`
