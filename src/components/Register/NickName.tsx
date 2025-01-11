@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { NickNameProps } from '../../types/Register/RegisterType';
 import CommonInput from './../../common/CommonInput';
@@ -89,11 +89,17 @@ const Button = styled.button<{ $isEnabled: boolean }>`
 
   border: none;
   border-radius: 0.6rem;
-  background-color: ${({ theme, $isEnabled }) =>
-    $isEnabled ? theme.colors.codrive_green : theme.colors.gray500};
-  color: ${({ theme, $isEnabled }) =>
-    $isEnabled ? theme.colors.gray900 : theme.colors.white};
-  ${({ theme }) => theme.fonts.title_bold_16};
+
+  ${({ theme, $isEnabled }) =>
+    $isEnabled
+      ? css`
+          background-color: ${theme.colors.codrive_green};
+          color: ${theme.colors.gray900};
+        `
+      : css`
+          background-color: ${theme.colors.gray500};
+          color: ${theme.colors.white};
+        `};
 `;
 
 export default NickName;
