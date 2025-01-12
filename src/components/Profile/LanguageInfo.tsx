@@ -26,7 +26,7 @@ const LanguageInfoContainer = styled.section`
   padding-bottom: 1.4rem;
   margin-bottom: 3.2rem;
 
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
 `;
 
 const TitleContainer = styled.div`
