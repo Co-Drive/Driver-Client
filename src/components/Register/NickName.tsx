@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { NickNameProps } from '../../types/Register/RegisterType';
 import CommonInput from './../../common/CommonInput';
@@ -10,6 +10,8 @@ const NickName = ({
   handleNicknameCheck,
 }: NickNameProps) => {
   const { isExistNickname, isClickedCheckBtn } = changeNickname;
+
+  const isButtonEnabled = nickname.length > 0 && nickname.length <= 10;
 
   return (
     <NickNameContainer>
@@ -26,7 +28,12 @@ const NickName = ({
           isExitedNickname={isExistNickname}
           handleChangeInputs={handleChangeInputs}
         />
-        <Button type="button" onClick={handleNicknameCheck}>
+        <Button
+          type="button"
+          onClick={handleNicknameCheck}
+          disabled={!isButtonEnabled}
+          $isEnabled={isButtonEnabled}
+        >
           검색
         </Button>
       </InputWrapper>
@@ -75,16 +82,24 @@ const InputWrapper = styled.div`
   display: flex;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ $isEnabled: boolean }>`
   width: 6.4rem;
   height: 4.8rem;
   margin-left: 1rem;
 
   border: none;
   border-radius: 0.6rem;
-  background-color: ${({ theme }) => theme.colors.codrive_green};
-  color: ${({ theme }) => theme.colors.gray900};
-  ${({ theme }) => theme.fonts.title_bold_16};
+
+  ${({ theme, $isEnabled }) =>
+    $isEnabled
+      ? css`
+          background-color: ${theme.colors.codrive_green};
+          color: ${theme.colors.gray900};
+        `
+      : css`
+          background-color: ${theme.colors.gray500};
+          color: ${theme.colors.white};
+        `};
 `;
 
 export default NickName;
