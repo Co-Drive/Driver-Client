@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcWorkBookBlack } from '../../assets';
@@ -13,33 +14,71 @@ const HomeHeader = () => {
   const day = today.getDate();
   const dayOfWeek = today.getDay();
   const currentDay = DAYS[dayOfWeek];
-  
+
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [isImgLoaded, setIsImgLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!imgRef.current) return;
+
+    const changeIsLoading = (img: HTMLImageElement) => {
+      if (img) {
+        const isLoadComplete = img.complete && img.naturalHeight !== 0;
+        setIsImgLoaded(isLoadComplete);
+      }
+    };
+
+    const handleLoad = () =>
+      changeIsLoading(imgRef.current as HTMLImageElement);
+
+    // once 옵션을 활용하여 이멘트 핸들러가 한 번만 호출되고, 이후 자동으로 제거되도록 구현
+    // load 이벤트는 이미지가 최초로 로드될 때만 발생하는 이벤트 -> 이미지가 이미 로드된 상태라면, 브라우저는 새로운 load 이벤트를 발생시키지 않음.
+
+    // 옵션 사용 : 이미지 로드 -> load 이벤트 발생 -> 이벤트 핸들러 실행 -> 상태 업데이트 -> 이벤트 리스너 자동 제거 => 결과: 상태가 정확히 한 번 업데이트 후 불필요한 이벤트 리스너가 남지 않음.
+    // 옵션 미사용: 이미지 로드 -> load 이벤트 발생 -> 이벤트 핸들러 실행 -> 상태 업데이트 -> 이벤트 리스너 유지
+    // 이미지가 이미 로드된 경우)) 이미지 로드됨(완료) -> load 이벤트 발생하지 않음 -> 이벤트 핸들러 실행되지 않음 -> 상태 업데이트 실패 => 결과: 상태가 초기 상태로 남음. 이미 로드된 이미지는 load 이벤트가 다시 발생하지 않음.
+    imgRef.current.addEventListener('load', handleLoad, { once: true });
+
+    return () => {
+      if (imgRef.current)
+        imgRef.current.removeEventListener('load', handleLoad);
+    };
+  }, [ic_home_banner_bg]);
+
   const handleRegister = () => {
     navigate('/solve');
   };
 
   return (
     <Article>
-      <BgImg alt="홈 배너 배경 이미지" src={ic_home_banner_bg} />
+      {isImgLoaded && (
+        <>
+          <BgImg
+            alt="홈 배너 배경 이미지"
+            src={ic_home_banner_bg}
+            ref={imgRef}
+          />
 
-      <Header>
-        <DateText>
-          {month}월 {day}일 {currentDay}
-        </DateText>
-        <NickNameContainer>
-          안녕하세요,<NickName>{nickname}</NickName>{' '}
-          <NickNameSub>님!</NickNameSub>
-        </NickNameContainer>
-        <PharseContainer>
-          <Pharse>오늘도 문제 풀어 볼까요?</Pharse>
-          <Button onClick={handleRegister}>
-            <IcContainer>
-              <IcWorkBookBlack />
-            </IcContainer>
-            <Title>문제풀이 등록하러 가기</Title>
-          </Button>
-        </PharseContainer>
-      </Header>
+          <Header>
+            <DateText>
+              {month}월 {day}일 {currentDay}
+            </DateText>
+            <NickNameContainer>
+              안녕하세요,<NickName>{nickname}</NickName>{' '}
+              <NickNameSub>님!</NickNameSub>
+            </NickNameContainer>
+            <PharseContainer>
+              <Pharse>오늘도 문제 풀어 볼까요?</Pharse>
+              <Button onClick={handleRegister}>
+                <IcContainer>
+                  <IcWorkBookBlack />
+                </IcContainer>
+                <Title>문제풀이 등록하러 가기</Title>
+              </Button>
+            </PharseContainer>
+          </Header>
+        </>
+      )}
     </Article>
   );
 };
@@ -56,6 +95,7 @@ const Article = styled.article`
 
   max-width: 92.6rem;
 `;
+
 const BgImg = styled.img`
   position: absolute;
   top: 0;
@@ -63,7 +103,6 @@ const BgImg = styled.img`
   z-index: 0;
 
   width: 100%;
-  height: auto;
 
   border-radius: 1.2rem;
 `;
