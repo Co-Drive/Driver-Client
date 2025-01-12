@@ -5,6 +5,7 @@ import { BtnInformation, IcCancelSmallWhite } from '../../assets';
 import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
 import WeekRateCustomLabel from './WeekRateCustomLabel';
 const WeekRate = () => {
+  const [isTooltipVisible, setIsTooltipVisible] = useState(true); // 추가된 상태
   const [stats, setStats] = useState({
     successRate: 0,
     weeklyCountDifference: 0,
@@ -16,9 +17,8 @@ const WeekRate = () => {
   const negativeNum = stats.weeklyCountDifference < 0;
   const isSolvedZero = stats.weeklyCount === 0;
 
-  const [isTooltipVisible, setIsTooltipVisible] = useState(true); // 추가된 상태
-
   const data = useGetUserAchieve();
+
   useEffect(() => {
     if (data) {
       const { successRate, weeklyCountDifference, weeklyCount } = data.data;
@@ -45,13 +45,16 @@ const WeekRate = () => {
   return (
     <Container>
       <Header>
-        <HeaderTitle>{'주간 성과율'}</HeaderTitle>
-        <TooltipInfo $isVisible={isTooltipVisible}>
-          <LineText>주간 성과율은 월요일마다 초기화 돼요</LineText>
-          <TooltipClose type="button" onClick={handleTooltipClose}>
-            <IcCancelSmallWhite />
-          </TooltipClose>
-        </TooltipInfo>
+        <TitleContainer>
+          <HeaderTitle>{'주간 성과율'}</HeaderTitle>
+          <TooltipInfo $isVisible={isTooltipVisible}>
+            <LineText>주간 성과율은 월요일마다 초기화 돼요</LineText>
+            <TooltipClose type="button" onClick={handleTooltipClose}>
+              <IcCancelSmallWhite />
+            </TooltipClose>
+          </TooltipInfo>
+        </TitleContainer>
+
         <Notic>
           <BtnInformation />
           <Tooltip>
@@ -156,8 +159,12 @@ const Container = styled.div`
 
 const Header = styled.header`
   display: flex;
+  justify-content: space-between;
+`;
 
-  white-space: nowrap;
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const HeaderTitle = styled.div`
@@ -262,11 +269,9 @@ const Notic = styled.div`
 const Tooltip = styled.div`
   display: block;
   position: absolute;
-  top: 3.3rem;
+  top: 2.7rem;
   visibility: hidden;
   z-index: 10;
-
-  /* max-width: 19.9rem; */
 
   height: auto;
   padding: 1.2rem 1.1rem;
