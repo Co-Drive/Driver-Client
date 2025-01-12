@@ -51,33 +51,29 @@ const HomeHeader = () => {
 
   return (
     <Article>
-      {isImgLoaded && (
-        <>
-          <BgImg
-            alt="홈 배너 배경 이미지"
-            src={ic_home_banner_bg}
-            ref={imgRef}
-          />
+      <BgImg alt="홈 배너 배경 이미지" src={ic_home_banner_bg} ref={imgRef} />
 
-          <Header>
-            <DateText>
-              {month}월 {day}일 {currentDay}
-            </DateText>
-            <NickNameContainer>
-              안녕하세요,<NickName>{nickname}</NickName>{' '}
-              <NickNameSub>님!</NickNameSub>
-            </NickNameContainer>
-            <PharseContainer>
-              <Pharse>오늘도 문제 풀어 볼까요?</Pharse>
-              <Button onClick={handleRegister}>
-                <IcContainer>
-                  <IcWorkBookBlack />
-                </IcContainer>
-                <Title>문제풀이 등록하러 가기</Title>
-              </Button>
-            </PharseContainer>
-          </Header>
-        </>
+      {isImgLoaded ? (
+        <Header>
+          <DateText>
+            {month}월 {day}일 {currentDay}
+          </DateText>
+          <NickNameContainer>
+            안녕하세요,<NickName>{nickname}</NickName>{' '}
+            <NickNameSub>님!</NickNameSub>
+          </NickNameContainer>
+          <PharseContainer>
+            <Pharse>오늘도 문제 풀어 볼까요?</Pharse>
+            <Button onClick={handleRegister}>
+              <IcContainer>
+                <IcWorkBookBlack />
+              </IcContainer>
+              <Title>문제풀이 등록하러 가기</Title>
+            </Button>
+          </PharseContainer>
+        </Header>
+      ) : (
+        <Skeleton />
       )}
     </Article>
   );
@@ -94,6 +90,45 @@ const Article = styled.article`
   border-radius: 1.2rem;
 
   max-width: 92.6rem;
+`;
+
+const Skeleton = styled.div`
+  width: 100%;
+  height: 18.85rem;
+
+  border-radius: 1.2rem;
+  box-shadow: 0 0 10px 10px rgb(255 255 255 / 5%);
+
+  @keyframes skeleton-gradient {
+    0% {
+      background-color: rgb(165 165 165 / 10%);
+    }
+
+    50% {
+      background-color: rgb(165 165 165 / 30%);
+    }
+
+    100% {
+      background-color: rgb(165 165 165 / 10%);
+    }
+  }
+
+  @keyframes skeleton-gradient {
+    0% {
+      background-color: rgb(165 165 165 / 10%);
+    }
+
+    50% {
+      background-color: rgb(165 165 165 / 30%);
+    }
+
+    100% {
+      background-color: rgb(165 165 165 / 10%);
+    }
+  }
+
+  -webkit-animation: skeleton-gradient 2.5s infinite ease-in-out;
+  animation: skeleton-gradient 2.5s infinite ease-in-out;
 `;
 
 const BgImg = styled.img`
