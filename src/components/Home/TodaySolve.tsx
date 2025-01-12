@@ -68,9 +68,7 @@ const TodaySolve = () => {
           <BtnInformation />
           <Tooltip>
             목표설정은 우측 상단 닉네임 {'>'} 내 프로필
-            <ToolTipNextLine>
-              {'>'} 나의 목표에서 설정 가능합니다.
-            </ToolTipNextLine>
+            <ToolTipNextLine>{'>'} 나의 목표에서 설정 가능해요</ToolTipNextLine>
           </Tooltip>
         </Notic>
       </TitleContainer>

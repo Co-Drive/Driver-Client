@@ -35,7 +35,7 @@ const NicknameInfoContainer = styled.section`
   padding-bottom: 1.9rem;
   margin-bottom: 3.2rem;
 
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
 `;
 
 const NicknameTitle = styled.h2`
