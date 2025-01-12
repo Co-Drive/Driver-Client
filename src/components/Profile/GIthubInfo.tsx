@@ -21,7 +21,7 @@ const GithubInfoContainer = styled.section`
 
   padding: 3.2rem 0 1.4rem;
 
-  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
 `;
 
 const GitHubTitle = styled.h2`

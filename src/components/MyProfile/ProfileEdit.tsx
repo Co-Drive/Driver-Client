@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { IcCancelSmallWhite } from '../../assets';
 import CommonButton from '../../common/CommonButton';
 import ErrorModal from '../../common/Modal/ErrorModal/ErrorModal';
 import usePatchUser from '../../libs/hooks/MyProfile/usePatchUser';
@@ -165,68 +166,74 @@ const ProfileEdilt = ({ handleCloseModal, initialData }: ProfileEdiltProps) => {
 
   return (
     <ModalBackground>
-      <ProfileContainer onSubmit={handleSaveBtnClick}>
-        <BasicInfoContainer>
-          <BasicTitle>기본정보</BasicTitle>
-          <NameInfo user={name} />
-          <RepositoriesInfo
-            changeRepositories={changeRepositories}
-            repositories={repositories}
-            handleChangeInputs={handleChangeInputs}
-            handleRepositoriesCheck={handleRepositoriesCheck}
-          />
-          <GithubInfo
-            github={githubNickname}
-            handleChangeInputs={(e) => {
-              const { value } = e.target;
-              const completeGithubUrl = `https://github.com/${value.replace('https://github.com/', '')}`;
+      <ProfileEditContainer>
+        <ProfileTitle>프로필</ProfileTitle>
+        <CloseContainer>
+          <IcCancelSmallWhite onClick={handleCancelBtnClick} />
+        </CloseContainer>
+        <ProfileContainer onSubmit={handleSaveBtnClick}>
+          <BasicInfoContainer>
+            <BasicTitle>기본정보</BasicTitle>
+            <NameInfo user={name} />
+            <RepositoriesInfo
+              changeRepositories={changeRepositories}
+              repositories={repositories}
+              handleChangeInputs={handleChangeInputs}
+              handleRepositoriesCheck={handleRepositoriesCheck}
+            />
+            <GithubInfo
+              github={githubNickname}
+              handleChangeInputs={(e) => {
+                const { value } = e.target;
+                const completeGithubUrl = `https://github.com/${value.replace('https://github.com/', '')}`;
 
-              handleChangeInputs({
-                ...e,
-                target: {
-                  ...e.target,
-                  name: 'githubUrl',
-                  value: completeGithubUrl,
-                },
-              });
-            }}
-          />
-        </BasicInfoContainer>
-        <CodriveContainer>
-          <CodriveTitle>코드라이브 정보</CodriveTitle>
-          <NicknameInfo
-            changeNickname={changeNickname}
-            nickname={nickname}
-            handleChangeInputs={handleChangeInputs}
-            handleNicknameCheck={handleNicknameCheck}
-          />
-          <LanguageInfo
-            selectedTag={selectedLanguage}
-            handleChangeTag={handleChangeTag}
-          />
-          <IntroInfo
-            value={comment ? comment : ''}
-            onChange={handleChangeComment}
-          />
-        </CodriveContainer>
-        <ProfileButton>
-          <CancelButton type="button" onClick={handleCancelBtnClick}>
-            취소하기
-          </CancelButton>
-          <CommonButton
-            isActive={isActive}
-            category="Profile_save"
-            onClick={handleSaveBtnClick}
-          />
-        </ProfileButton>
+                handleChangeInputs({
+                  ...e,
+                  target: {
+                    ...e.target,
+                    name: 'githubUrl',
+                    value: completeGithubUrl,
+                  },
+                });
+              }}
+            />
+          </BasicInfoContainer>
+          <CodriveContainer>
+            <CodriveTitle>코드라이브 정보</CodriveTitle>
+            <NicknameInfo
+              changeNickname={changeNickname}
+              nickname={nickname}
+              handleChangeInputs={handleChangeInputs}
+              handleNicknameCheck={handleNicknameCheck}
+            />
+            <LanguageInfo
+              selectedTag={selectedLanguage}
+              handleChangeTag={handleChangeTag}
+            />
+            <IntroInfo
+              value={comment ? comment : ''}
+              onChange={handleChangeComment}
+            />
+          </CodriveContainer>
+          <ProfileButton>
+            <CancelButton type="button" onClick={handleCancelBtnClick}>
+              취소하기
+            </CancelButton>
+            <CommonButton
+              isActive={isActive}
+              category="Profile_save"
+              onClick={handleSaveBtnClick}
+            />
+          </ProfileButton>
 
-        {errModalOn && (
-          <ErrorModal
-            errMsg={patchUserErr}
-            onClose={() => setErrModalOn(false)}
-          />
-        )}
-      </ProfileContainer>
+          {errModalOn && (
+            <ErrorModal
+              errMsg={patchUserErr}
+              onClose={() => setErrModalOn(false)}
+            />
+          )}
+        </ProfileContainer>
+      </ProfileEditContainer>
     </ModalBackground>
   );
 };
@@ -244,33 +251,69 @@ const ModalBackground = styled.div`
   height: 100%;
 `;
 
-const ProfileContainer = styled.form`
+const ProfileEditContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 100;
+
+  height: 61.8rem;
+  padding: 6.2rem 3.6rem;
+  margin-top: 10rem;
+
+  border-radius: 1.6rem;
+  background-color: ${({ theme }) => theme.colors.gray800};
+`;
+
+const ProfileTitle = styled.h1`
+  width: 41.8rem;
+  padding-bottom: 2.1rem;
+  margin: 0 0 4rem 5.5rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray600};
+  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => theme.fonts.title_bold_24};
+`;
+
+const CloseContainer = styled.div`
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  cursor: pointer;
+`;
+
+const ProfileContainer = styled.form`
+  display: flex;
+  flex-direction: column;
 
   height: 55.4rem;
-  padding: 6.4rem 9.6rem;
+  padding: 0 5.5rem;
 
-  border-radius: 1rem;
-  background-color: ${({ theme }) => theme.colors.gray900};
+  background-color: ${({ theme }) => theme.colors.gray800};
   overflow-y: auto;
 
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: auto;
+  scrollbar-width: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 0.4rem;
+    background-color: ${({ theme }) => theme.colors.gray400};
+  }
 `;
 
 const BasicInfoContainer = styled.div`
-  margin-bottom: 4rem;
-`;
-
-const CodriveContainer = styled.div`
   margin-bottom: 5.6rem;
 `;
 
+const CodriveContainer = styled.div`
+  margin-bottom: 5.9rem;
+`;
+
 const BasicTitle = styled.h1`
-  margin-bottom: 5.2rem;
+  margin-bottom: 4rem;
 
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_20};

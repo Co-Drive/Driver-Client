@@ -1,15 +1,26 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import { IcAddPhoto } from '../../assets';
+import { IcAddPhoto, IcCancelSmallWhite } from '../../assets';
 import { ImageSectionProps } from '../../types/GroupCreate/GroupCreateType';
 
 const ImageSection = ({
   previewImage,
   handleImageChange,
 }: ImageSectionProps) => {
+  const [isTooltipVisible, setIsTooltipVisible] = useState(true);
+
+  const handleTooltipClose = () => setIsTooltipVisible(false);
+
   return (
     <Section>
       <LabelContainer>
         <Label>대표 이미지</Label>
+        <TooltipInfo $isVisible={isTooltipVisible}>
+          <LineText>이미지는 최대 10MB까지 업로드 가능해요</LineText>
+          <TooltipClose type="button" onClick={handleTooltipClose}>
+            <IcCancelSmallWhite />
+          </TooltipClose>
+        </TooltipInfo>
       </LabelContainer>
       <ImageContainer
         onClick={() => document.getElementById('fileInput')?.click()}
@@ -41,7 +52,7 @@ const Label = styled.label`
   gap: 0.6rem;
   align-items: center;
 
-  margin: 0 0 2rem 0.2rem;
+  margin: 0 0.7rem 2rem 0.2rem;
 
   ${({ theme }) => theme.fonts.title_bold_20};
 
@@ -91,4 +102,51 @@ const EssentialText = styled.p`
 
   ${({ theme }) => theme.fonts.detail_regular_12};
   color: ${({ theme }) => theme.colors.gray300};
+`;
+
+const TooltipInfo = styled.div<{ $isVisible: boolean }>`
+  display: flex;
+  position: relative;
+  visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
+
+  padding: 0.6rem 1.1rem;
+  margin-top: 1.2rem;
+  margin-right: 2.8rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray400};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+
+  white-space: nowrap;
+  transform: translate(8px, -50%);
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
+
+  /* 화살표 스타일 */
+  &::after {
+    position: absolute;
+    top: 51%;
+    left: -1.2rem;
+
+    border-color: transparent rgb(100 104 117 / 100%) transparent transparent;
+    border-width: 0.7rem;
+    border-style: solid;
+    content: '';
+    transform: translateY(-50%);
+  }
+`;
+
+const TooltipClose = styled.button`
+  cursor: pointer;
+
+  display: flex;
+`;
+
+const LineText = styled.p`
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+  line-height: 1.8rem;
 `;

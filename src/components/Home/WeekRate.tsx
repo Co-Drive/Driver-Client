@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
-import { BtnInformation } from '../../assets';
+import { BtnInformation, IcCancelSmallWhite } from '../../assets';
 import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
 import WeekRateCustomLabel from './WeekRateCustomLabel';
 const WeekRate = () => {
@@ -15,6 +15,8 @@ const WeekRate = () => {
   const isSolvedExist = stats.weeklyCountDifference === 0;
   const negativeNum = stats.weeklyCountDifference < 0;
   const isSolvedZero = stats.weeklyCount === 0;
+
+  const [isTooltipVisible, setIsTooltipVisible] = useState(true); // 추가된 상태
 
   const data = useGetUserAchieve();
   useEffect(() => {
@@ -36,15 +38,25 @@ const WeekRate = () => {
     },
   ];
   const endAngle = 180 - (chartData[0].value / 100) * 180;
+
+  // 툴팁 닫기 함수
+  const handleTooltipClose = () => setIsTooltipVisible(false);
+
   return (
     <Container>
       <Header>
         <HeaderTitle>{'주간 성과율'}</HeaderTitle>
+        <TooltipInfo $isVisible={isTooltipVisible}>
+          <LineText>주간 성과율은 월요일마다 초기화 돼요</LineText>
+          <TooltipClose type="button" onClick={handleTooltipClose}>
+            <IcCancelSmallWhite />
+          </TooltipClose>
+        </TooltipInfo>
         <Notic>
           <BtnInformation />
           <Tooltip>
             주간 성과율은 문제 개수와 상관없이
-            <LineText>문제풀이 여부를 측정하는 지표입니다.</LineText>
+            <LineText>성실도를 측정한 지표에요</LineText>
           </Tooltip>
         </Notic>
       </Header>
@@ -135,7 +147,7 @@ export default WeekRate;
 const Container = styled.div`
   width: 45.4rem;
   height: 28.5rem;
-  padding: 3.6rem 3.4rem;
+  padding: 3.5rem 3.4rem;
 
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.colors.gray800};
@@ -149,9 +161,52 @@ const Header = styled.header`
 `;
 
 const HeaderTitle = styled.div`
+  margin-right: 0.7rem;
+
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.title_bold_20};
+`;
+
+const TooltipInfo = styled.div<{ $isVisible: boolean }>`
+  display: flex;
+  position: relative;
+  visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
+
+  padding: 0.6rem 1.1rem;
+  margin-top: 1.2rem;
+  margin-right: 2rem;
+
+  border-radius: 0.8rem;
+  background-color: ${({ theme }) => theme.colors.gray400};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+
+  white-space: nowrap;
+  transform: translate(8px, -50%);
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0.3s ease-in-out;
+
+  /* 화살표 스타일 */
+  &::after {
+    position: absolute;
+    top: 51%;
+    left: -1.2rem;
+
+    border-color: transparent rgb(100 104 117 / 100%) transparent transparent;
+    border-width: 0.7rem;
+    border-style: solid;
+    content: '';
+    transform: translateY(-50%);
+  }
+`;
+
+const TooltipClose = styled.button`
+  cursor: pointer;
+
+  display: flex;
 `;
 
 const ChartContainer = styled.div`
@@ -189,18 +244,14 @@ const LineText = styled.div`
   display: flex;
   align-items: center;
 
-  margin-top: 0.4rem;
-
   color: ${({ theme }) => theme.colors.white};
   font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+  line-height: 1.8rem;
 `;
 
 const Notic = styled.div`
-  display: flex;
   align-items: center;
   position: relative;
-
-  margin-left: 27.6rem;
 
   &:hover > div {
     visibility: visible;
