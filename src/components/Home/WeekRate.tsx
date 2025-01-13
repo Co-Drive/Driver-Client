@@ -6,6 +6,7 @@ import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
 import TooltipInfo from './../../common/TooltipInfo';
 import WeekRateCustomLabel from './WeekRateCustomLabel';
 const WeekRate = () => {
+  const [isTooltipVisible, setIsTooltipVisible] = useState(true); // 추가된 상태
   const [stats, setStats] = useState({
     successRate: 0,
     weeklyCountDifference: 0,
@@ -17,9 +18,8 @@ const WeekRate = () => {
   const negativeNum = stats.weeklyCountDifference < 0;
   const isSolvedZero = stats.weeklyCount === 0;
 
-  const [isTooltipVisible, setIsTooltipVisible] = useState(true); // 추가된 상태
-
   const data = useGetUserAchieve();
+
   useEffect(() => {
     if (data) {
       const { successRate, weeklyCountDifference, weeklyCount } = data.data;
@@ -46,18 +46,22 @@ const WeekRate = () => {
   return (
     <Container>
       <Header>
-        <HeaderTitle>{'주간 성과율'}</HeaderTitle>
-        <TooltipInfo
-          isVisible={isTooltipVisible}
-          onClick={handleTooltipClose}
-          text="주간 성과율은 월요일마다 초기화 돼요"
-        />
+        <TitleContainer>
+          <HeaderTitle>{'주간 성과율'}</HeaderTitle>
+          <TooltipInfo $isVisible={isTooltipVisible}>
+            <LineText>주간 성과율은 월요일마다 초기화 돼요</LineText>
+            <TooltipClose type="button" onClick={handleTooltipClose}>
+              <IcCancelSmallWhite />
+            </TooltipClose>
+          </TooltipInfo>
+        </TitleContainer>
+
         <Notic>
           <BtnInformation />
-          <Tooltips>
-            주간 성과율은 문제 개수와 상관없이
+          <Tooltip>
+            <LineText>주간 성과율은 문제 개수와 상관없이</LineText>
             <LineText>성실도를 측정한 지표에요</LineText>
-          </Tooltips>
+          </Tooltip>
         </Notic>
       </Header>
       <ChartContainer>
@@ -156,8 +160,12 @@ const Container = styled.div`
 
 const Header = styled.header`
   display: flex;
+  justify-content: space-between;
+`;
 
-  white-space: nowrap;
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const HeaderTitle = styled.div`
@@ -199,13 +207,12 @@ const MessageContainer = styled.div`
   margin-top: 0.3rem;
 `;
 
-const LineText = styled.div`
+const LineText = styled.p`
   display: flex;
   align-items: center;
 
   color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
-  line-height: 1.8rem;
+  ${({ theme }) => theme.fonts.body_ligth_12};
 `;
 
 const Notic = styled.div`
@@ -221,11 +228,9 @@ const Notic = styled.div`
 const Tooltips = styled.div`
   display: block;
   position: absolute;
-  top: 3.3rem;
+  top: 2.7rem;
   visibility: hidden;
   z-index: 10;
-
-  /* max-width: 19.9rem; */
 
   height: auto;
   padding: 1.2rem 1.1rem;
