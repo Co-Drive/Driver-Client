@@ -50,10 +50,10 @@ const Repositories = ({
         </Button>
       </InputWrapper>
       <TooltipInfo $isVisible={isTooltipVisible}>
-        <div>
+        <TextContainer>
           <LineText>검색버튼을 눌러 유효한</LineText>
           <LineText>리포지토리인지 확인해주세요</LineText>
-        </div>
+        </TextContainer>
         <TooltipClose type="button" onClick={handleTooltipClose}>
           <IcCancelSmallWhite />
         </TooltipClose>
@@ -158,13 +158,16 @@ const TooltipInfo = styled.div<{ $isVisible: boolean }>`
 `;
 
 const TooltipClose = styled.button`
-  cursor: pointer;
-
   display: flex;
+`;
+
+const TextContainer = styled.div`
+  display: grid;
+  gap: 0.4rem;
 `;
 
 const LineText = styled.p`
   color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
-  line-height: 1.8rem;
+
+  ${({ theme }) => theme.fonts.body_ligth_12};
 `;
