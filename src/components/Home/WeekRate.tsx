@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
-import { BtnInformation, IcCancelSmallWhite } from '../../assets';
+import { BtnInformation } from '../../assets';
 import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
+import TooltipInfo from './../../common/TooltipInfo';
 import WeekRateCustomLabel from './WeekRateCustomLabel';
 const WeekRate = () => {
   const [isTooltipVisible, setIsTooltipVisible] = useState(true); // 추가된 상태
@@ -47,20 +48,19 @@ const WeekRate = () => {
       <Header>
         <TitleContainer>
           <HeaderTitle>{'주간 성과율'}</HeaderTitle>
-          <TooltipInfo $isVisible={isTooltipVisible}>
-            <LineText>주간 성과율은 월요일마다 초기화 돼요</LineText>
-            <TooltipClose type="button" onClick={handleTooltipClose}>
-              <IcCancelSmallWhite />
-            </TooltipClose>
-          </TooltipInfo>
+          <TooltipInfo
+            isVisible={isTooltipVisible}
+            onClick={handleTooltipClose}
+            text="주간 성과율은 월요일마다 초기화 돼요"
+          />
         </TitleContainer>
 
         <Notic>
           <BtnInformation />
-          <Tooltip>
+          <Tooltips>
             <LineText>주간 성과율은 문제 개수와 상관없이</LineText>
             <LineText>성실도를 측정한 지표에요</LineText>
-          </Tooltip>
+          </Tooltips>
         </Notic>
       </Header>
       <ChartContainer>
@@ -175,47 +175,6 @@ const HeaderTitle = styled.div`
   ${({ theme }) => theme.fonts.title_bold_20};
 `;
 
-const TooltipInfo = styled.div<{ $isVisible: boolean }>`
-  display: flex;
-  position: relative;
-  visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
-
-  padding: 0.6rem 1.1rem;
-  margin-top: 1.2rem;
-  margin-right: 2rem;
-
-  border-radius: 0.8rem;
-  background-color: ${({ theme }) => theme.colors.gray400};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
-
-  white-space: nowrap;
-  transform: translate(8px, -50%);
-  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-  transition:
-    opacity 0.3s ease-in-out,
-    visibility 0.3s ease-in-out;
-
-  /* 화살표 스타일 */
-  &::after {
-    position: absolute;
-    top: 51%;
-    left: -1.2rem;
-
-    border-color: transparent rgb(100 104 117 / 100%) transparent transparent;
-    border-width: 0.7rem;
-    border-style: solid;
-    content: '';
-    transform: translateY(-50%);
-  }
-`;
-
-const TooltipClose = styled.button`
-  cursor: pointer;
-
-  display: flex;
-`;
-
 const ChartContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -265,7 +224,7 @@ const Notic = styled.div`
   }
 `;
 
-const Tooltip = styled.div`
+const Tooltips = styled.div`
   display: block;
   position: absolute;
   top: 2.7rem;
