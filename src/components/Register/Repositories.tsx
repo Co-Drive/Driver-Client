@@ -165,6 +165,6 @@ const TooltipClose = styled.button`
 
 const LineText = styled.p`
   color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+  ${({ theme }) => theme.fonts.body_ligth_12};
   line-height: 1.8rem;
 `;

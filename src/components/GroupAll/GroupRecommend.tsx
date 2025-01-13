@@ -91,8 +91,6 @@ const Tooltip = styled.div`
 
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.gray600};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
 
   white-space: nowrap;
 
