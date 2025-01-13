@@ -25,12 +25,10 @@ const TooltipContainer = styled.div<{ $isVisible?: boolean }>`
 
   padding: 0.6rem 1.1rem;
   margin-top: 1.2rem;
-  margin-right: 2rem;
+  margin-right: 4.2rem;
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray400};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
 
   white-space: nowrap;
   transform: translate(8px, -50%);
@@ -58,16 +56,10 @@ const Text = styled.p`
   align-items: center;
 
   color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
-  line-height: 1.8rem;
-
-  white-space: normal; /* 줄바꿈 허용 */
-  word-break: break-word; /* 단어가 길 경우 브레이크 */
+  ${({ theme }) => theme.fonts.body_ligth_12};
 `;
 
 const TooltipClose = styled.button`
-  cursor: pointer;
-
   display: flex;
   align-items: center;
 `;
