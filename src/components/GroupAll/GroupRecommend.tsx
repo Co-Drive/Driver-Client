@@ -122,7 +122,6 @@ const TooUser = styled.span`
 const Text = styled.p`
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.body_ligth_12};
-  line-height: 1.8rem;
 `;
 
 export default GroupRecommend;
