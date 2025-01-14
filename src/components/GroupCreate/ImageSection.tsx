@@ -106,6 +106,7 @@ const EssentialText = styled.p`
 
 const TooltipInfo = styled.div<{ $isVisible: boolean }>`
   display: flex;
+  align-items: center;
   position: relative;
   visibility: ${({ $isVisible }) => ($isVisible ? 'visible' : 'hidden')};
 
@@ -146,5 +147,4 @@ const TooltipClose = styled.button`
 const LineText = styled.p`
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.body_ligth_12};
-  line-height: 1.8rem;
 `;
