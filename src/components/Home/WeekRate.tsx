@@ -57,10 +57,10 @@ const WeekRate = () => {
 
         <Notic>
           <BtnInformation />
-          <Tooltips>
+          <Tooltip>
             <LineText>주간 성과율은 문제 개수와 상관없이</LineText>
             <LineText>성실도를 측정한 지표에요</LineText>
-          </Tooltips>
+          </Tooltip>
         </Notic>
       </Header>
       <ChartContainer>
@@ -224,8 +224,10 @@ const Notic = styled.div`
   }
 `;
 
-const Tooltips = styled.div`
-  display: block;
+const Tooltip = styled.div`
+  display: grid;
+  row-gap: 0.4rem;
+
   position: absolute;
   top: 2.7rem;
   visibility: hidden;
@@ -236,8 +238,6 @@ const Tooltips = styled.div`
 
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.gray600};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
 
   white-space: nowrap;
 

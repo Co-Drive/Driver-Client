@@ -72,12 +72,12 @@ const TextContainer = styled.div`
 
 const Nickname = styled.p`
   color: ${({ theme }) => theme.colors.codrive_green};
-  font-size: ${({ theme }) => theme.fonts.detail_regular_12};
+  ${({ theme }) => theme.fonts.detail_regular_12};
 `;
 
 const Text = styled.p`
   color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
+  ${({ theme }) => theme.fonts.body_ligth_12};
 
   white-space: nowrap;
 `;
