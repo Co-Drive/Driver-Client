@@ -7,7 +7,7 @@ interface TooltipProps {
   onClick: () => void;
 }
 
-const TooltipInfo = ({ isVisible, onClick, text }: TooltipProps) => {
+const DetailTooltip = ({ isVisible, onClick, text }: TooltipProps) => {
   return (
     <TooltipContainer $isVisible={isVisible}>
       <Text>{text}</Text>
@@ -64,4 +64,4 @@ const TooltipClose = styled.button`
   align-items: center;
 `;
 
-export default TooltipInfo;
+export default DetailTooltip;

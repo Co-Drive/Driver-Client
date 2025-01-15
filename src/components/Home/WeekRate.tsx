@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import styled from 'styled-components';
 import { BtnInformation } from '../../assets';
+import TooltipInfo from '../../common/DetailTooltip';
 import useGetUserAchieve from '../../libs/hooks/Home/useGetUserAchieve';
-import TooltipInfo from './../../common/TooltipInfo';
 import WeekRateCustomLabel from './WeekRateCustomLabel';
 const WeekRate = () => {
   const [isTooltipVisible, setIsTooltipVisible] = useState(true); // 추가된 상태

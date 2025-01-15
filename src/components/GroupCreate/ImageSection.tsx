@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { IcAddPhoto } from '../../assets';
+import TooltipInfo from '../../common/DetailTooltip';
 import { ImageSectionProps } from '../../types/GroupCreate/GroupCreateType';
-import TooltipInfo from './../../common/TooltipInfo';
 
 const ImageSection = ({
   previewImage,
