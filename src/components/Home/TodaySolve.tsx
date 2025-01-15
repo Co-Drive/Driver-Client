@@ -67,7 +67,9 @@ const TodaySolve = () => {
         <Notic>
           <BtnInformation />
           <Tooltip>
-            목표설정은 우측 상단 닉네임 {'>'} 내 프로필
+            <ToolTipNextLine>
+              목표설정은 우측 상단 닉네임 {'>'} 내 프로필
+            </ToolTipNextLine>
             <ToolTipNextLine>{'>'} 나의 목표에서 설정 가능해요</ToolTipNextLine>
           </Tooltip>
         </Notic>
@@ -166,8 +168,6 @@ const ToolTipNextLine = styled.span`
   display: flex;
   align-items: center;
 
-  margin-top: 0.4rem;
-
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.body_ligth_12};
 `;
@@ -223,7 +223,9 @@ const Notic = styled.div`
 `;
 
 const Tooltip = styled.div`
-  display: block;
+  display: grid;
+  row-gap: 0.4rem;
+
   position: absolute;
   top: 170%;
   visibility: hidden;
@@ -233,8 +235,6 @@ const Tooltip = styled.div`
 
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.gray600};
-  color: ${({ theme }) => theme.colors.white};
-  ${({ theme }) => theme.fonts.body_ligth_12};
 
   white-space: nowrap;
 
