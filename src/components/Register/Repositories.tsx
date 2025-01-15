@@ -159,7 +159,7 @@ const TooltipClose = styled.button`
 
 const TextContainer = styled.div`
   display: grid;
-  gap: 0.4rem;
+  row-gap: 0.4rem;
 `;
 
 const LineText = styled.p`
