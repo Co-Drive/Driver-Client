@@ -186,8 +186,6 @@ const TooltipInfo = styled.div<{ $isVisible: boolean }>`
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray400};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
 
   white-space: nowrap;
   transform: translate(8px, -50%);
@@ -266,7 +264,9 @@ const Notic = styled.div`
 `;
 
 const Tooltip = styled.div`
-  display: block;
+  display: grid;
+  row-gap: 0.4rem;
+
   position: absolute;
   top: 2.7rem;
   visibility: hidden;
@@ -277,8 +277,6 @@ const Tooltip = styled.div`
 
   border-radius: 0.8rem;
   background: ${({ theme }) => theme.colors.gray600};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fonts.body_ligth_12};
 
   white-space: nowrap;
 
