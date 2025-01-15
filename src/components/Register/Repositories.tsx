@@ -138,10 +138,6 @@ const TooltipInfo = styled.div<{ $isVisible: boolean }>`
 
   white-space: nowrap;
   transform: translate(8px, -50%);
-  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-  transition:
-    opacity 0.3s ease-in-out,
-    visibility 0.3s ease-in-out;
 
   /* 화살표 스타일 */
   &::after {
