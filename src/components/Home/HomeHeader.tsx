@@ -87,20 +87,6 @@ const Skeleton = styled.div`
     }
   }
 
-  @keyframes skeleton-gradient {
-    0% {
-      background-color: rgb(165 165 165 / 10%);
-    }
-
-    50% {
-      background-color: rgb(165 165 165 / 30%);
-    }
-
-    100% {
-      background-color: rgb(165 165 165 / 10%);
-    }
-  }
-
   -webkit-animation: skeleton-gradient 2.5s infinite ease-in-out;
   animation: skeleton-gradient 2.5s infinite ease-in-out;
 `;
