@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcWorkBookBlack } from '../../assets';
-import ic_home_banner_bg from '../../assets/icon/ic_home_banner_bg.svg';
+import img_home_banner from '../../assets/img/img_home_banner.png';
 import { DAYS } from '../../constants/Home/day';
 import useLoadImg from '../../libs/hooks/utils/useLoadImg';
 
@@ -17,7 +17,7 @@ const HomeHeader = () => {
   const currentDay = DAYS[dayOfWeek];
 
   const imgRef = useRef<HTMLImageElement>(null);
-  const isImgLoaded = useLoadImg({ imgRef, imgSrc: ic_home_banner_bg });
+  const isImgLoaded = useLoadImg({ imgRef, imgSrc: img_home_banner });
 
   const handleRegister = () => {
     navigate('/solve');
@@ -25,7 +25,7 @@ const HomeHeader = () => {
 
   return (
     <Article>
-      <BgImg alt="홈 배너 배경 이미지" src={ic_home_banner_bg} ref={imgRef} />
+      <BgImg alt="홈 배너 배경 이미지" src={img_home_banner} ref={imgRef} />
 
       {isImgLoaded ? (
         <Header>
