@@ -81,8 +81,6 @@ const Slash = styled.p`
   margin-left: 0.8rem;
 
   color: ${({ theme }) => theme.colors.gray300};
-  font-weight: 300;
-  font-size: 6.5rem;
 `;
 
 const CapacityContainer = styled.div`
