@@ -73,17 +73,19 @@ const Skeleton = styled.div`
   border-radius: 1.2rem;
   box-shadow: 0 0 10px 10px rgb(255 255 255 / 5%);
 
+  background-color: ${({ theme }) => theme.colors.gray700};
+
   @keyframes skeleton-gradient {
     0% {
-      background-color: rgb(165 165 165 / 10%);
+      opacity: 0.3;
     }
 
     50% {
-      background-color: rgb(165 165 165 / 30%);
+      opacity: 0.6;
     }
 
     100% {
-      background-color: rgb(165 165 165 / 10%);
+      opacity: 0.3;
     }
   }
 
