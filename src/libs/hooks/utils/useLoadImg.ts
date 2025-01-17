@@ -29,11 +29,6 @@ const useLoadImg = ({
     // 옵션 미사용: 이미지 로드 -> load 이벤트 발생 -> 이벤트 핸들러 실행 -> 상태 업데이트 -> 이벤트 리스너 유지
     // 이미지가 이미 로드된 경우)) 이미지 로드됨(완료) -> load 이벤트 발생하지 않음 -> 이벤트 핸들러 실행되지 않음 -> 상태 업데이트 실패 => 결과: 상태가 초기 상태로 남음. 이미 로드된 이미지는 load 이벤트가 다시 발생하지 않음.
     imgRef.current.addEventListener('load', handleLoad, { once: true });
-
-    return () => {
-      if (imgRef.current)
-        imgRef.current.removeEventListener('load', handleLoad);
-    };
   }, [imgSrc]);
 
   return isImgLoaded;
