@@ -1,7 +1,10 @@
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcWorkBookBlack } from '../../assets';
-import ic_home_Header from '../../assets/icon/ic_home_Header.svg';
+import img_home_banner from '../../assets/img/img_home_banner.png';
+import { DAYS } from '../../constants/Home/day';
+import useLoadImg from '../../libs/hooks/utils/useLoadImg';
 
 const HomeHeader = () => {
   const nickname = sessionStorage.getItem('nickname');
@@ -11,40 +14,41 @@ const HomeHeader = () => {
   const month = today.getMonth() + 1;
   const day = today.getDate();
   const dayOfWeek = today.getDay();
-  const days = [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일',
-  ];
-  const currentDay = days[dayOfWeek];
+  const currentDay = DAYS[dayOfWeek];
+
+  const imgRef = useRef<HTMLImageElement>(null);
+  const isImgLoaded = useLoadImg({ imgRef, imgSrc: img_home_banner });
+
   const handleRegister = () => {
     navigate('/solve');
   };
 
   return (
     <Article>
-      <Header>
-        <DateText>
-          {month}월 {day}일 {currentDay}
-        </DateText>
-        <NickNameContainer>
-          안녕하세요,<NickName>{nickname}</NickName>{' '}
-          <NickNameSub>님!</NickNameSub>
-        </NickNameContainer>
-        <PharseContainer>
-          <Pharse>오늘도 문제 풀어 볼까요?</Pharse>
-          <Button onClick={handleRegister}>
-            <IcContainer>
-              <IcWorkBookBlack />
-            </IcContainer>
-            <Title>문제풀이 등록하러 가기</Title>
-          </Button>
-        </PharseContainer>
-      </Header>
+      <BgImg alt="홈 배너 배경 이미지" src={img_home_banner} ref={imgRef} />
+
+      {isImgLoaded ? (
+        <Header>
+          <DateText>
+            {month}월 {day}일 {currentDay}
+          </DateText>
+          <NickNameContainer>
+            안녕하세요,<NickName>{nickname}</NickName>{' '}
+            <NickNameSub>님!</NickNameSub>
+          </NickNameContainer>
+          <PharseContainer>
+            <Pharse>오늘도 문제 풀어 볼까요?</Pharse>
+            <Button onClick={handleRegister}>
+              <IcContainer>
+                <IcWorkBookBlack />
+              </IcContainer>
+              <Title>문제풀이 등록하러 가기</Title>
+            </Button>
+          </PharseContainer>
+        </Header>
+      ) : (
+        <Skeleton />
+      )}
     </Article>
   );
 };
@@ -52,16 +56,58 @@ const HomeHeader = () => {
 export default HomeHeader;
 
 const Article = styled.article`
+  position: relative;
+
   width: 100%;
   margin-top: 6.4rem;
 
   border-radius: 1.2rem;
 
   max-width: 92.6rem;
-  background-image: url(${ic_home_Header});
+`;
+
+const Skeleton = styled.div`
+  width: 100%;
+  height: 18.85rem;
+
+  border-radius: 1.2rem;
+  box-shadow: 0 0 10px 10px rgb(255 255 255 / 5%);
+
+  background-color: ${({ theme }) => theme.colors.gray700};
+
+  @keyframes skeleton-gradient {
+    0% {
+      opacity: 0.3;
+    }
+
+    50% {
+      opacity: 0.6;
+    }
+
+    100% {
+      opacity: 0.3;
+    }
+  }
+
+  -webkit-animation: skeleton-gradient 2.5s infinite ease-in-out;
+  animation: skeleton-gradient 2.5s infinite ease-in-out;
+`;
+
+const BgImg = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+
+  width: 100%;
+
+  border-radius: 1.2rem;
 `;
 
 const Header = styled.header`
+  position: relative;
+  z-index: 1;
+
   padding: 3.2rem 3.6rem 3.4rem;
 `;
 
