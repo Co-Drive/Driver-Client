@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import img_home_banner from '../../../img_home_banner.png';
 import { IcWorkBookBlack } from '../../assets';
-import img_home_banner from '../../assets/img/img_home_banner.png';
 import { DAYS } from '../../constants/Home/day';
 import useLoadImg from '../../libs/hooks/utils/useLoadImg';
 
@@ -25,6 +25,7 @@ const HomeHeader = () => {
 
   return (
     <Article>
+      <link rel="preload" as="image" href={img_home_banner} />
       <BgImg alt="홈 배너 배경 이미지" src={img_home_banner} ref={imgRef} />
 
       {isImgLoaded ? (
@@ -100,6 +101,9 @@ const BgImg = styled.img`
   z-index: 0;
 
   width: 100%;
+  height: 18.85rem;
+
+  /* transition: opacity 0.2s ease-in-out; */
 
   border-radius: 1.2rem;
 `;
