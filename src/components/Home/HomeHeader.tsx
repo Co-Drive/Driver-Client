@@ -103,8 +103,6 @@ const BgImg = styled.img`
   width: 100%;
   height: 18.85rem;
 
-  /* transition: opacity 0.2s ease-in-out; */
-
   border-radius: 1.2rem;
 `;
 
