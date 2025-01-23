@@ -97,6 +97,7 @@ const InfoContainer = styled.div`
 const IconWrapper = styled.div`
   width: 3.5rem;
   height: 3.5rem;
+  cursor: pointer;
 `;
 
 const Language = styled.p`

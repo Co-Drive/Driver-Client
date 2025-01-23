@@ -95,6 +95,8 @@ const Arrow = styled.div`
   &:hover {
     background-color: ${({ theme }) => theme.colors.gray600};
   }
+
+  cursor: pointer;
 `;
 
 const SolverContainer = styled.article`

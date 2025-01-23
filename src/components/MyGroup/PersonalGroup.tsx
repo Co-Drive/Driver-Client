@@ -179,6 +179,7 @@ const Header = styled.header`
   margin-left: 0.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray700};
+  cursor: pointer;
 `;
 
 const Category = styled.p<{ $isClickedCategory: boolean }>`
@@ -256,4 +257,5 @@ const Sorting = styled.p<{ $isClicked: boolean }>`
   color: ${({ $isClicked, theme }) =>
     $isClicked ? theme.colors.white : theme.colors.gray500};
   ${({ theme }) => theme.fonts.body_medium_14};
+  cursor: pointer;
 `;

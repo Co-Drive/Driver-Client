@@ -188,6 +188,7 @@ const Sorting = styled.p<{ $isClicked: boolean }>`
   color: ${({ $isClicked, theme }) =>
     $isClicked ? theme.colors.white : theme.colors.gray500};
   ${({ theme }) => theme.fonts.body_medium_14};
+  cursor: pointer;
 `;
 
 export default GroupItem;

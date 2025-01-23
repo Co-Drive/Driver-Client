@@ -128,6 +128,8 @@ const RecommendCardContainer = styled.article<{
   &::-webkit-scrollbar {
     display: none;
   }
+
+  cursor: pointer;
 `;
 
 const CardContainer = styled.div`

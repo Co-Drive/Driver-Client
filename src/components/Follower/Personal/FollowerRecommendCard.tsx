@@ -184,6 +184,8 @@ const InformaitonContainer = styled.div`
     margin: -0.3rem 0 0 -0.2rem;
     opacity: 1;
   }
+
+  cursor: pointer;
 `;
 
 const RecommendCard = styled.article`
