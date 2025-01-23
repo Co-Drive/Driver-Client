@@ -35,7 +35,7 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      <ProfileImg src={profileImg}></ProfileImg>
+      <ProfileImg src={profileImg} alt="사용자 프로필 이미지"></ProfileImg>
       <ProfileInfo>
         <InfoContainer>
           <Language>{language}</Language>

@@ -84,7 +84,7 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
                       </SecretCardDesc>
                     </SecretCardBg>
                   )}
-                  <Img src={imageSrc} />
+                  <Img src={imageSrc} alt="그룹 대표 이미지" />
                 </CardImgContainer>
 
                 <Contents>

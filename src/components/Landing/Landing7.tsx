@@ -25,7 +25,10 @@ const Landing7 = () => {
         <LogoList>
           {[...images, ...images, ...images].map((src, index) => (
             <List key={index}>
-              <img src={src} alt={`이미지 ${index + 1}`} />
+              <img
+                src={src}
+                alt={`코딩테스트 사이트 로고 이미지 ${index + 1}`}
+              />
             </List>
           ))}
         </LogoList>

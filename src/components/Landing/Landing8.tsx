@@ -15,7 +15,7 @@ const Landing8 = () => {
         </Text>
       </LandingTop>
       <LandingBottom>
-        <LandingGroup src={LandingGroupImg} alt="랜딩 그룹 이미지" />
+        <LandingGroup src={LandingGroupImg} alt="문제풀이 스터디 그룹 이미지" />
         <IconWrapper>
           <IcLandingCursor />
         </IconWrapper>

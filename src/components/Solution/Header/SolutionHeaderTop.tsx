@@ -66,7 +66,7 @@ const SolutionHeaderTop = ({
       {followerId && !isLoading ? (
         <FollowerContainer onClick={handleClickProfile}>
           <FollowerInfoContainer>
-            <Img src={profileImg} />
+            <Img src={profileImg} alt="사용자 프로필 이미지" />
             <Nickname>{`${nickname} 님`}</Nickname>
             <IcArrowRightSmallGray />
           </FollowerInfoContainer>

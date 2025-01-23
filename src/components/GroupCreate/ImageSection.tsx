@@ -26,7 +26,7 @@ const ImageSection = ({
         onClick={() => document.getElementById('fileInput')?.click()}
       >
         {previewImage ? (
-          <Image src={previewImage} alt="대표 이미지" />
+          <Image src={previewImage} alt="그룹 대표 이미지 업로드하는 곳" />
         ) : (
           <IcAddPhoto />
         )}

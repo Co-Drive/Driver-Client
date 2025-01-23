@@ -12,7 +12,7 @@ const Landing10 = () => {
         </TitleContainer>
         <Text>해당 서비스는 프리미엄 서비스로 제공돼요.</Text>
       </LandingTop>
-      <ImgComputer src={ImgMac} />
+      <ImgComputer src={ImgMac} alt="COMING SOON 이미지" />
     </Landing10Container>
   );
 };

@@ -96,6 +96,7 @@ const FollowerRecommendCard = () => {
                         src={profileImg}
                         $isGithubExit={githubUrl?.length !== 0}
                         onClick={() => handleClickProfile(userId)}
+                        alt="사용자 프로필 이미지"
                       />
                       {githubUrl && (
                         <IcContainer>
