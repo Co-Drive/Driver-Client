@@ -1,46 +1,38 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { IcBtnInformation } from '../../assets';
 import RecommendCard from '../../common/RecommendCard';
-import { getRoomRecommend } from '../../libs/apis/GroupAll/getRoomRecommend';
+import useGetRoomRecommend from '../../libs/hooks/GroupAll/useGetRoomRecommend';
 
 const GroupRecommend = () => {
   const nickname = sessionStorage.getItem('nickname');
-  const [groupData, setGroupData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getRoomRecommend();
+  const id = sessionStorage.getItem('user')!!;
+  const userId = parseInt(id);
 
-      if (response.code === 200) {
-        const data = response.data;
+  const { data: groupData, isLoading } = useGetRoomRecommend(userId);
 
-        if (data && data.rooms) {
-          const limitedRooms = data.rooms.slice(0, 6);
-          setGroupData(limitedRooms);
-        }
-      }
-    };
-
-    fetchData();
-  }, []);
+  const limitedRooms = groupData?.data?.rooms?.slice(0, 6) || [];
 
   return (
-    <GroupRecommendContainer>
-      <TitleContainer>
-        <Nickname>{nickname}</Nickname>님을 위한 오늘의 추천 그룹
-        <Notic>
-          <IcBtnInformation />
-          <Tooltip>
-            <Text>
-              <TooUser>{nickname}</TooUser> 님 만을 위해
-            </Text>
-            <Text>6개씩 랜덤으로 그룹을 추천해드려요</Text>
-          </Tooltip>
-        </Notic>
-      </TitleContainer>
-      <RecommendCard group={groupData} isLongPage={true} />
-    </GroupRecommendContainer>
+    <>
+      {!isLoading && (
+        <GroupRecommendContainer>
+          <TitleContainer>
+            <Nickname>{nickname}</Nickname>님을 위한 오늘의 추천 그룹
+            <Notic>
+              <IcBtnInformation />
+              <Tooltip>
+                <Text>
+                  <TooUser>{nickname}</TooUser> 님 만을 위해
+                </Text>
+                <Text>6개씩 랜덤으로 그룹을 추천해드려요</Text>
+              </Tooltip>
+            </Notic>
+          </TitleContainer>
+          <RecommendCard group={limitedRooms} isLongPage={true} />
+        </GroupRecommendContainer>
+      )}
+    </>
   );
 };
 
