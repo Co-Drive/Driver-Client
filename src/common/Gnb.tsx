@@ -150,4 +150,5 @@ const GnbTab = styled.li<{ $isClickedList?: boolean; $isSolveGnb: boolean }>`
   }
 
   white-space: nowrap;
+  cursor: pointer;
 `;
