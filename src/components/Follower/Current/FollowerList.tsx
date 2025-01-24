@@ -12,7 +12,7 @@ const FollowerList = () => {
   };
 
   const handleClickSorting = (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const { innerHTML } = e.currentTarget;
     setSorting(innerHTML);
@@ -26,7 +26,11 @@ const FollowerList = () => {
         handleClickSorting={handleClickSorting}
       />
 
-      <CommonUserList sorting={sorting} selectedGroupId={selectedGroupId} isFollowerList={true} />
+      <CommonUserList
+        sorting={sorting}
+        selectedGroupId={selectedGroupId}
+        isFollowerList={true}
+      />
     </FollowerListContainer>
   );
 };
