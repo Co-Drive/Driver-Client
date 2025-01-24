@@ -25,7 +25,6 @@ const HomeHeader = () => {
 
   return (
     <Article>
-      <link rel="preload" as="image" href={img_home_banner} />
       <BgImg alt="홈 배너 배경 이미지" src={img_home_banner} ref={imgRef} />
 
       {isImgLoaded ? (
