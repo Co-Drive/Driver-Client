@@ -9,9 +9,9 @@ const GroupRecommend = () => {
   const id = sessionStorage.getItem('user')!!;
   const userId = parseInt(id);
 
-  const { data: groupData, isLoading } = useGetRoomRecommend(userId);
+  const { data, isLoading } = useGetRoomRecommend(userId);
 
-  const limitedRooms = groupData?.data?.rooms?.slice(0, 6) || [];
+  const group = data?.data?.rooms?.slice(0, 6) || [];
 
   return (
     <>
@@ -29,7 +29,7 @@ const GroupRecommend = () => {
               </Tooltip>
             </Notic>
           </TitleContainer>
-          <RecommendCard group={limitedRooms} isLongPage={true} />
+          <RecommendCard group={group} isLongPage={true} />
         </GroupRecommendContainer>
       )}
     </>
