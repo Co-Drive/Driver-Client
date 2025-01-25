@@ -1,12 +1,22 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcBtnInformation } from '../../assets';
 import RecommendCard from '../../common/RecommendCard';
 import useGetRoomRecommend from '../../libs/hooks/GroupAll/useGetRoomRecommend';
 
 const GroupRecommend = () => {
+  const navigate = useNavigate();
   const nickname = sessionStorage.getItem('nickname');
 
-  const id = sessionStorage.getItem('user')!!;
+  const id = sessionStorage.getItem('user');
+  if (!id) {
+    useEffect(() => {
+      navigate('/login');
+    }, []);
+
+    return;
+  }
   const userId = parseInt(id);
 
   const { data, isLoading } = useGetRoomRecommend(userId);
