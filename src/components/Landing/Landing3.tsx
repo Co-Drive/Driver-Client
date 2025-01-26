@@ -54,7 +54,7 @@ const Landing3 = ({ scrollToLanding4 }: Landing3Props) => {
         transition={{ type: 'spring', stiffness: 90, damping: 20 }}
       >
         <LandingImgContainer>
-          <LandingImg src={LandingCodriveImg} alt="코드라이브" />
+          <LandingImg src={LandingCodriveImg} alt="코드라이브 소개 이미지" />
         </LandingImgContainer>
       </motion.div>
       <LandingButton onClick={scrollToLanding4}>

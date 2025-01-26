@@ -95,6 +95,7 @@ const FollowerRecommendCard = () => {
                         src={profileImg}
                         $isGithubExit={githubUrl?.length !== 0}
                         onClick={() => handleClickProfile(userId)}
+                        alt="사용자 프로필 이미지"
                       />
                       {githubUrl && (
                         <IcContainer>
@@ -183,6 +184,8 @@ const InformaitonContainer = styled.div`
     margin: -0.3rem 0 0 -0.2rem;
     opacity: 1;
   }
+
+  cursor: pointer;
 `;
 
 const RecommendCard = styled.article`

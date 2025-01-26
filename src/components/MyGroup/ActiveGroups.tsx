@@ -134,6 +134,7 @@ const CarouselContainer = styled.div`
   gap: 1.8rem;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const GroupContainer = styled.div<{

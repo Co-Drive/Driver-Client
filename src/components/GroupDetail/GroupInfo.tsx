@@ -29,7 +29,7 @@ const GroupInfo = ({
     <GroupInfoContainer>
       <TopInfo>
         <Host onClick={handleClickHost}>
-          <ProfileImg src={profileImg} />
+          <ProfileImg src={profileImg} alt="사용자 프로필 이미지" />
           <Nickname>{nickname} 님</Nickname>
           <IcArrowRightSmallGray />
         </Host>

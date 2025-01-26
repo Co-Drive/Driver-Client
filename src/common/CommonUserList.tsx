@@ -197,6 +197,7 @@ const CommonUserList = ({
                       <ProfileImg
                         src={profileImg}
                         onClick={() => handleClickUserInfo(userId)}
+                        alt="사용자 프로필 이미지"
                       />
                       <UserContainer
                         $isAdmin={isAdmin}

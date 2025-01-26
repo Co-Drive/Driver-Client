@@ -34,7 +34,7 @@ const Landing1 = () => {
       <HomeBtn onClick={() => navigate('/login')}>지금 무료로 시작하기</HomeBtn>
       <motion.img
         src={LandingMoon}
-        alt="랜딩페이지"
+        alt="코드라이브 랜딩페이지"
         initial={{ translateY: 150 }}
         animate={scrollAnimation}
         transition={{ type: 'spring', stiffness: 100, damping: 20 }}

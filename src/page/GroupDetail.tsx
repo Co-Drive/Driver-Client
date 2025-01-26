@@ -94,7 +94,7 @@ const GroupDetail = () => {
       ) : (
         <GroupDetailContainer>
           <Header title={title} tags={tags} />
-          <GroupImg src={imageSrc} />
+          <GroupImg src={imageSrc} alt="그룹 대표 이미지" />
           <GroupInfo
             id={parseInt(id)}
             owner={owner}

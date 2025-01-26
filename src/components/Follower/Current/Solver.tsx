@@ -28,7 +28,7 @@ const Solver = ({ currentPage, users }: SolverProps) => {
             const { profileImg, nickname, userId } = solver;
             return (
               <SolverInfo key={nickname} onClick={() => handleClickBtn(userId)}>
-                <ProfileImg src={profileImg} />
+                <ProfileImg src={profileImg} alt="사용자 프로필 이미지" />
                 <Nickname>{nickname}</Nickname>
               </SolverInfo>
             );

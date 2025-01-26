@@ -33,8 +33,8 @@ const EmptyFollowerContainer = styled.article`
   align-items: center;
   flex-direction: column;
 
-  padding: 5.2rem 3.6rem 1.4rem 3.5rem;
   width: 100%;
+  padding: 5.2rem 3.6rem 1.4rem 3.5rem;
   margin-bottom: 1.5rem;
 `;
 

@@ -125,6 +125,7 @@ const FollowingList = () => {
                   src={user.profileImg}
                   $isGithubExit={user.githubUrl?.length !== 0}
                   onClick={() => handleClickProfile(user.userId)}
+                  alt="사용자 프로필 이미지"
                 />
                 {user.githubUrl && (
                   <IcContainer $lastUser={lastUser}>
@@ -173,6 +174,7 @@ const FollowingList = () => {
                   src={user.profileImg}
                   $isGithubExit={user.githubUrl?.length !== 0}
                   onClick={() => handleClickProfile(user.userId)}
+                  alt="사용자 프로필 이미지"
                 />
                 {user.githubUrl && (
                   <IcContainer $lastUser={lastUser}>
