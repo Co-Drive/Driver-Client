@@ -21,7 +21,7 @@ const GroupRecommend = () => {
 
   const { data, isLoading } = useGetRoomRecommend(userId);
 
-  const group = data?.data?.rooms?.slice(0, 6) || [];
+  const group = data?.data.rooms.slice(0, 6);
 
   return (
     <>
