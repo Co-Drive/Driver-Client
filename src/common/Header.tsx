@@ -124,6 +124,7 @@ const Header = ({ clickedCategory, handleClickCategory }: HeaderProps) => {
               <ProfileImg
                 src={profileImg}
                 onClick={() => navigate(`/${username}`)}
+                alt="사용자 프로필 이미지"
               />
             </ProfileContainer>
           )}

@@ -66,7 +66,7 @@ const SolutionHeaderTop = ({
       {followerId && !isLoading ? (
         <FollowerContainer onClick={handleClickProfile}>
           <FollowerInfoContainer>
-            <Img src={profileImg} />
+            <Img src={profileImg} alt="사용자 프로필 이미지" />
             <Nickname>{`${nickname} 님`}</Nickname>
             <IcArrowRightSmallGray />
           </FollowerInfoContainer>
@@ -102,7 +102,9 @@ const SolutionHeaderTop = ({
             </LvStarContainer>
           </LevelDetailContainer>
 
-          <IcInformation onClick={handleClickIc} />
+          <LevelmodalContainer>
+            <IcInformation onClick={handleClickIc} />
+          </LevelmodalContainer>
         </LevelContainer>
 
         {!followerId && (
@@ -195,6 +197,7 @@ const BtnIcContainer = styled.div`
   gap: 1.8rem;
 
   margin-right: 1.2rem;
+  cursor: pointer;
 `;
 
 const BottomContainer = styled.div`
@@ -254,4 +257,8 @@ const RemoveBtn = styled(commonBtnStyle)`
 
 const ModifyBtn = styled(commonBtnStyle)`
   background-color: ${({ theme }) => theme.colors.gray500};
+`;
+
+const LevelmodalContainer = styled.div`
+  cursor: pointer;
 `;

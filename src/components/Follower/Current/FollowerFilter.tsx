@@ -115,6 +115,7 @@ const GroupFilterContainer = styled.div`
 
   border-radius: 0.8rem;
   background-color: ${({ theme }) => theme.colors.gray700};
+  cursor: pointer;
 `;
 
 const SelectedGroup = styled.p<{ $isEmpty: boolean }>`
@@ -176,4 +177,5 @@ const Sorting = styled.button<{ $isClicked: boolean }>`
   color: ${({ $isClicked, theme }) =>
     $isClicked ? theme.colors.white : theme.colors.gray500};
   ${({ theme }) => theme.fonts.body_medium_14};
+  cursor: pointer;
 `;

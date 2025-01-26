@@ -16,6 +16,7 @@ const Options = ({ onSelectOption }: OptionsProps) => {
 
 const OptionsContainer = styled.div`
   position: absolute;
+  z-index: 1;
 
   width: 29.6rem;
   margin-top: 0.6rem;

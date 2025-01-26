@@ -78,12 +78,12 @@ const RecommendCard = ({
                   <SecretCardDesc>해당 그룹은 비밀그룹 입니다</SecretCardDesc>
                 </SecretCardBg>
               )}
-              <Img src={imageSrc} />
+              <Img src={imageSrc} alt="그룹 대표 이미지" />
             </CardImgContainer>
 
             <Info>
               <CardHeader>
-                <UserImg src={profileImg} />
+                <UserImg src={profileImg} alt="사용자 프로필 이미지" />
                 <TextId>
                   <Text>{nickname} 님</Text>
                   <Text>|</Text>
@@ -128,6 +128,8 @@ const RecommendCardContainer = styled.article<{
   &::-webkit-scrollbar {
     display: none;
   }
+
+  cursor: pointer;
 `;
 
 const CardContainer = styled.div`

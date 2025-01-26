@@ -91,7 +91,7 @@ const Top3Members = () => {
                   $winner={idx === 1}
                   $isNotRealUser={userId === -1}
                 >
-                  <ProfileImg src={profileImg} alt="프로필 이미지" />
+                  <ProfileImg src={profileImg} alt="사용자 프로필 이미지" />
                 </ProfileImgContainer>
                 <ProfileName $winner={idx === 1} $isNotRealUser={userId === -1}>
                   {nickname}

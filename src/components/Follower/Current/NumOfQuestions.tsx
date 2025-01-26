@@ -15,11 +15,13 @@ const NumOfQuestions = () => {
         <NumOfQuestionsContainer>
           <Header>
             <Title>문제 개수 그래프</Title>
-            <IcInformation />
-            <InformationTooltip
-              topContents="한 주간 팔로워들이"
-              bottomContents="푼 문제 개수를 보여주는 그래프입니다"
-            />
+            <InformationContainer>
+              <IcInformation />
+              <InformationTooltip
+                topContents="한 주간 팔로워들이"
+                bottomContents="푼 문제 개수를 보여주는 그래프입니다"
+              />
+            </InformationContainer>
           </Header>
 
           <GraphContainer>
@@ -54,19 +56,22 @@ const Header = styled.header`
   position: relative;
 
   margin-left: 0.4rem;
-
-  &:hover > div {
-    visibility: visible;
-    z-index: 1;
-
-    margin-left: 15.5rem;
-    opacity: 1;
-  }
 `;
 
 const Title = styled.p`
   color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.fonts.title_bold_20};
+`;
+
+const InformationContainer = styled.div`
+  &:hover > div {
+    visibility: visible;
+    z-index: 1;
+
+    opacity: 1;
+  }
+
+  cursor: pointer;
 `;
 
 const GraphContainer = styled.article`

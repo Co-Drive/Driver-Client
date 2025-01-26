@@ -40,7 +40,7 @@ const GroupInfo = ({
       {!isLoading && (
         <GroupInfoContainer>
           <ImgContainer>
-            <GroupImg src={imageSrc} />
+            <GroupImg src={imageSrc} alt="그룹 이미지" />
             {password && (
               <PassWordContainer>
                 <PasswordTxt>비밀번호</PasswordTxt>
@@ -92,7 +92,7 @@ const GroupInfo = ({
 
             {!isAdmin && (
               <Host typeof="button" onClick={handleClickHost}>
-                <ProfileImg src={profileImg} />
+                <ProfileImg src={profileImg} alt="사용자 프로필 이미지" />
                 <NicknameContainer>
                   <Nickname>{nickname}</Nickname>
                   <Nickname>님</Nickname>

@@ -5,6 +5,11 @@ import { SORTING } from '../../constants/Follower/currentConst';
 import useGetRoomsSort from '../../libs/hooks/GroupAll/useGetRoomSort';
 import { GroupsItemProps } from '../../types/GroupItem/groupItemType';
 import { removeSavedPage } from '../../utils/removeSavedPage';
+import {
+  ALL_TAG,
+  FIRST_TAGS,
+  SECOND_TAGS,
+} from './../../constants/GroupAll/TagsConst';
 import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
 
@@ -20,10 +25,6 @@ const GroupItem = () => {
   const [sliderValues, setSliderValues] = useState({ min: 0, max: 50 });
   const [sorting, setSorting] = useState(savedSorting || '최신순');
 
-  const ALL_TAG = 'ALL';
-  const firstRowTags = ['Python', 'Java', 'JavaScript', 'C++', 'C', 'C#'];
-  const secondRowTags = ['Kotlin', 'Swift', 'Ruby', 'Scala', 'Go'];
-
   // useGetRoomsSort 훅에서 데이터를 가져옴
   const { data } = useGetRoomsSort({
     sortType: sorting,
@@ -31,7 +32,7 @@ const GroupItem = () => {
     request: {
       // 서버 요청 시에만 인코딩
       tags: selectedTags.includes(ALL_TAG)
-        ? [...firstRowTags, ...secondRowTags] // 태그를 인코딩하지 않고 그대로 전달
+        ? [...FIRST_TAGS, ...SECOND_TAGS] // 태그를 인코딩하지 않고 그대로 전달
         : selectedTags.map((tag) => tag), // 인코딩되지 않은 상태로 유지
       min: sliderValues.min,
       max: sliderValues.max,
@@ -188,6 +189,7 @@ const Sorting = styled.p<{ $isClicked: boolean }>`
   color: ${({ $isClicked, theme }) =>
     $isClicked ? theme.colors.white : theme.colors.gray500};
   ${({ theme }) => theme.fonts.body_medium_14};
+  cursor: pointer;
 `;
 
 export default GroupItem;
