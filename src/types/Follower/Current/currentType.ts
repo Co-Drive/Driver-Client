@@ -49,7 +49,7 @@ export interface FollowerFilterProps {
   sorting: string;
   updateSelectedGroupId: (id: number) => void;
   handleClickSorting: (
-    e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
 }
 

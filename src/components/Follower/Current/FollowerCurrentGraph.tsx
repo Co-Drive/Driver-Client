@@ -169,4 +169,6 @@ const Graph = styled.span<{ $count: number }>`
         return '#08FF3F';
     }
   }};
+
+  cursor: pointer;
 `;

@@ -71,9 +71,9 @@ const FollowerFilter = ({
           return (
             <Sorting
               key={standard}
-              onClick={(
-                e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
-              ) => standard !== '|' && handleClickSorting(e)}
+              onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+                standard !== '|' && handleClickSorting(e)
+              }
               $isClicked={sorting === standard}
             >
               {standard}
@@ -98,6 +98,8 @@ const FilteredContainer = styled.header`
   margin-top: 6.2rem;
 
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray800};
+
+  cursor: pointer;
 `;
 
 const GroupFilterContainer = styled.div`
@@ -171,7 +173,7 @@ const SortContainer = styled.div`
   align-items: center;
 `;
 
-const Sorting = styled.p<{ $isClicked: boolean }>`
+const Sorting = styled.button<{ $isClicked: boolean }>`
   color: ${({ $isClicked, theme }) =>
     $isClicked ? theme.colors.white : theme.colors.gray500};
   ${({ theme }) => theme.fonts.body_medium_14};

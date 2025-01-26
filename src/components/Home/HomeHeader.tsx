@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import img_home_banner from '../../../img_home_banner.png';
 import { IcWorkBookBlack } from '../../assets';
-import img_home_banner from '../../assets/img/img_home_banner.png';
 import { DAYS } from '../../constants/Home/day';
 import useLoadImg from '../../libs/hooks/utils/useLoadImg';
 
@@ -100,6 +100,7 @@ const BgImg = styled.img`
   z-index: 0;
 
   width: 100%;
+  height: 18.85rem;
 
   border-radius: 1.2rem;
 `;

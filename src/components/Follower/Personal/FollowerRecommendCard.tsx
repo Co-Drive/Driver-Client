@@ -31,7 +31,6 @@ const FollowerRecommendCard = () => {
 
   const handleClickProfile = (userId: number) => {
     navigate(`/follower/${userId}`);
-    window.location.reload();
   };
 
   const handleClickFollowerBtn = (nickname: string) => {
