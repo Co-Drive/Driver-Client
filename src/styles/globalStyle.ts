@@ -1,12 +1,12 @@
 import { createGlobalStyle, css } from 'styled-components';
-import MontserratMedium from './fonts/Montserrat/Montserrat-Medium.ttf';
-import MontserratRegular from './fonts/Montserrat/Montserrat-Regular.ttf';
-import MontserratSemibold from './fonts/Montserrat/Montserrat-SemiBold.ttf';
-import SuitBold from './fonts/Suit/SUIT-Bold.ttf';
-import SuitLight from './fonts/Suit/SUIT-Light.ttf';
-import SuitMedium from './fonts/Suit/SUIT-Medium.ttf';
-import SuitRegular from './fonts/Suit/SUIT-Regular.ttf';
-import SuitSemiBold from './fonts/Suit/SUIT-SemiBold.ttf';
+import MontserratMedium from '../../fonts/Montserrat/Montserrat-Medium.ttf';
+import MontserratRegular from '../../fonts/Montserrat/Montserrat-Regular.ttf';
+import MontserratSemibold from '../../fonts/Montserrat/Montserrat-SemiBold.ttf';
+import SuitBold from '../../fonts/Suit/SUIT-Bold.ttf';
+import SuitLight from '../../fonts/Suit/SUIT-Light.ttf';
+import SuitMedium from '../../fonts/Suit/SUIT-Medium.ttf';
+import SuitRegular from '../../fonts/Suit/SUIT-Regular.ttf';
+import SuitSemiBold from '../../fonts/Suit/SUIT-SemiBold.ttf';
 
 export const reset = css`
   html,
