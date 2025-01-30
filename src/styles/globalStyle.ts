@@ -168,7 +168,7 @@ export const GlobalStyle = createGlobalStyle`
 
   font-family: MontserratSemibold;
   font-style: normal;
-  src: url(${MontserratSemibold}) format('truetype');
+  src: local('MontserratSemibold'), url(${MontserratSemibold}) format('truetype');
 }
 
 
@@ -177,7 +177,7 @@ export const GlobalStyle = createGlobalStyle`
 
   font-family: MontserratMedium;
   font-style: normal;
-  src: url(${MontserratMedium}) format('truetype');
+  src: local('MontserratMedium'), url(${MontserratMedium}) format('truetype');
 }
 
 @font-face {
@@ -185,7 +185,7 @@ export const GlobalStyle = createGlobalStyle`
 
   font-family: MontserratRegular;
   font-style: normal;
-  src: url(${MontserratRegular}) format('truetype');
+  src: local('MontserratRegular'), url(${MontserratRegular}) format('truetype');
 }
 
 @font-face {
@@ -193,7 +193,7 @@ export const GlobalStyle = createGlobalStyle`
 
   font-family: SuitBold;
   font-style: normal;
-  src: url(${SuitBold}) format('truetype');
+  src: local('SuitBold'), url(${SuitBold}) format('truetype');
 }
 
 @font-face {
@@ -201,7 +201,7 @@ export const GlobalStyle = createGlobalStyle`
 
   font-family: SuitSemiBold;
   font-style: normal;
-  src: url(${SuitSemiBold}) format('truetype');
+  src: local('SuitSemiBold'), url(${SuitSemiBold}) format('truetype');
 }
 
 @font-face {
@@ -209,7 +209,7 @@ export const GlobalStyle = createGlobalStyle`
 
   font-family: SuitMedium;
   font-style: normal;
-  src: url(${SuitMedium}) format('truetype');
+  src: local('SuitMedium'), url(${SuitMedium}) format('truetype');
 }
 
 @font-face {
@@ -217,7 +217,7 @@ export const GlobalStyle = createGlobalStyle`
 
   font-family: SuitRegular;
   font-style: normal;
-  src: url(${SuitRegular}) format('truetype');
+  src: local('SuitRegular'), url(${SuitRegular}) format('truetype');
 }
 
 @font-face {
@@ -225,7 +225,7 @@ export const GlobalStyle = createGlobalStyle`
 
   font-family: SuitLight;
   font-style: normal;
-  src: url(${SuitLight}) format('truetype');
+  src: local('SuitLight'), url(${SuitLight}) format('truetype');
 }
 
 
