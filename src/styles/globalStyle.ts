@@ -164,6 +164,8 @@ export const reset = css`
 export const GlobalStyle = createGlobalStyle`
 
 @font-face {
+  font-display: swap;
+
   font-family: MontserratSemibold;
   font-style: normal;
   src: url(${MontserratSemibold}) format('truetype');
@@ -171,42 +173,56 @@ export const GlobalStyle = createGlobalStyle`
 
 
 @font-face {
+  font-display: swap;
+
   font-family: MontserratMedium;
   font-style: normal;
   src: url(${MontserratMedium}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: MontserratRegular;
   font-style: normal;
   src: url(${MontserratRegular}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitBold;
   font-style: normal;
   src: url(${SuitBold}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitSemiBold;
   font-style: normal;
   src: url(${SuitSemiBold}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitMedium;
   font-style: normal;
   src: url(${SuitMedium}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitRegular;
   font-style: normal;
   src: url(${SuitRegular}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitLight;
   font-style: normal;
   src: url(${SuitLight}) format('truetype');
