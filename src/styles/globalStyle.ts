@@ -1,12 +1,12 @@
 import { createGlobalStyle, css } from 'styled-components';
-import MontserratMedium from './fonts/Montserrat/Montserrat-Medium.ttf';
-import MontserratRegular from './fonts/Montserrat/Montserrat-Regular.ttf';
-import MontserratSemibold from './fonts/Montserrat/Montserrat-SemiBold.ttf';
-import SuitBold from './fonts/Suit/SUIT-Bold.ttf';
-import SuitLight from './fonts/Suit/SUIT-Light.ttf';
-import SuitMedium from './fonts/Suit/SUIT-Medium.ttf';
-import SuitRegular from './fonts/Suit/SUIT-Regular.ttf';
-import SuitSemiBold from './fonts/Suit/SUIT-SemiBold.ttf';
+import MontserratMedium from '../../fonts/Montserrat/Montserrat-Medium.ttf';
+import MontserratRegular from '../../fonts/Montserrat/Montserrat-Regular.ttf';
+import MontserratSemibold from '../../fonts/Montserrat/Montserrat-SemiBold.ttf';
+import SuitBold from '../../fonts/Suit/SUIT-Bold.ttf';
+import SuitLight from '../../fonts/Suit/SUIT-Light.ttf';
+import SuitMedium from '../../fonts/Suit/SUIT-Medium.ttf';
+import SuitRegular from '../../fonts/Suit/SUIT-Regular.ttf';
+import SuitSemiBold from '../../fonts/Suit/SUIT-SemiBold.ttf';
 
 export const reset = css`
   html,
@@ -164,52 +164,68 @@ export const reset = css`
 export const GlobalStyle = createGlobalStyle`
 
 @font-face {
+  font-display: swap;
+
   font-family: MontserratSemibold;
   font-style: normal;
-  src: url(${MontserratSemibold}) format('truetype');
+  src: local('MontserratSemibold'), url(${MontserratSemibold}) format('truetype');
 }
 
 
 @font-face {
+  font-display: swap;
+
   font-family: MontserratMedium;
   font-style: normal;
-  src: url(${MontserratMedium}) format('truetype');
+  src: local('MontserratMedium'), url(${MontserratMedium}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: MontserratRegular;
   font-style: normal;
-  src: url(${MontserratRegular}) format('truetype');
+  src: local('MontserratRegular'), url(${MontserratRegular}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitBold;
   font-style: normal;
-  src: url(${SuitBold}) format('truetype');
+  src: local('SuitBold'), url(${SuitBold}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitSemiBold;
   font-style: normal;
-  src: url(${SuitSemiBold}) format('truetype');
+  src: local('SuitSemiBold'), url(${SuitSemiBold}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitMedium;
   font-style: normal;
-  src: url(${SuitMedium}) format('truetype');
+  src: local('SuitMedium'), url(${SuitMedium}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitRegular;
   font-style: normal;
-  src: url(${SuitRegular}) format('truetype');
+  src: local('SuitRegular'), url(${SuitRegular}) format('truetype');
 }
 
 @font-face {
+  font-display: swap;
+
   font-family: SuitLight;
   font-style: normal;
-  src: url(${SuitLight}) format('truetype');
+  src: local('SuitLight'), url(${SuitLight}) format('truetype');
 }
 
 
