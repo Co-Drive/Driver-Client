@@ -35,9 +35,9 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
       case solve[0]:
         return navigate('/solve');
       case solve[1]:
-        return navigate('/solution');
+        return navigate('/solution?page=1');
       case group[0]:
-        return navigate('/group');
+        return navigate('/group?page=1');
       case group[1]:
         return navigate('/group-new');
       case group[2]:

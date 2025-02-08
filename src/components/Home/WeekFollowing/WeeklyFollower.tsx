@@ -16,7 +16,7 @@ const WeeklyFollower = () => {
   const hasFollowers = !isLoading && followings.length > 0;
 
   const handleClickAllButton = () => {
-    navigate('/follower');
+    navigate('/follower?page=1');
   };
 
   while (!isLoading && followings.length < 3) {
