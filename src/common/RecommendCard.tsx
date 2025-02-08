@@ -5,11 +5,7 @@ import { ALL_TAG } from '../constants/utils/allTag';
 import { ClickCardProps } from '../types/Follower/Personal/personalType';
 import { RecommendCardProps } from '../types/GroupAll/RecommendCardType';
 
-const RecommendCard = ({
-  group,
-  isLongPage,
-  clickedPage,
-}: RecommendCardProps) => {
+const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
   const navigate = useNavigate();
 
   const handleClickCard = ({
@@ -18,6 +14,8 @@ const RecommendCard = ({
     isMember,
     isPublicRoom,
   }: ClickCardProps) => {
+    const queryStirng = location.search;
+    const clickedPage = Number(queryStirng.split('=')[1]);
     const myId = sessionStorage.getItem('user');
     const isOwner = myId && parseInt(myId) === userId;
     const navigatedPage = isPublicRoom ? `/group/${groupId}` : '/group-join';
@@ -26,14 +24,10 @@ const RecommendCard = ({
       : { roomId: groupId.toString(), notNavigateDetail: true };
 
     if (isOwner) {
-      navigate(
-        `/group/${groupId}/admin${clickedPage && `?page=${clickedPage}`}`
-      );
+      navigate(`/group/${groupId}/admin?page=${clickedPage}`);
     } else {
       isMember
-        ? navigate(
-            `/group/${groupId}/member${clickedPage && `?page=${clickedPage}`}`
-          )
+        ? navigate(`/group/${groupId}/member?page=${clickedPage}`)
         : navigate(navigatedPage, {
             state: navigatedState,
           });

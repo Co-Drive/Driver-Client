@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   IcArrowBottomWhite,
@@ -34,14 +34,12 @@ const CommonUserList = ({
 }: CommonUserListProps) => {
   const navigate = useNavigate();
 
-  const queryString = location.search;
-  const savedPage = Number(queryString.split('=')[1]);
-
   const [modalOn, setModalOn] = useState({
     warningModal: false,
     saveModal: false,
   });
-  const [clickedPage, setClickedPage] = useState(savedPage || 1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clickedPage = Number(searchParams.get('page'));
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
     clickedNickname: '',
@@ -137,15 +135,17 @@ const CommonUserList = ({
   };
 
   const handleClickPrevBtn = () => {
-    setClickedPage((prev) => prev - 1);
+    const prevPage = (clickedPage - 1).toString();
+    setSearchParams({ page: prevPage });
   };
 
   const handleClickPageNumber = (page: number) => {
-    setClickedPage(page);
+    setSearchParams({ page: page.toString() });
   };
 
   const handleClickNextBtn = () => {
-    setClickedPage((prev) => prev + 1);
+    const nextPage = (clickedPage + 1).toString();
+    setSearchParams({ page: nextPage });
   };
 
   useEffect(() => {
@@ -248,10 +248,7 @@ const CommonUserList = ({
                     </Contents>
 
                     {isExitAndClicked && (
-                      <AdditionalProblemsModal
-                        userId={userId}
-                        clickedPage={clickedPage}
-                      />
+                      <AdditionalProblemsModal userId={userId} />
                     )}
                   </ContentsContainer>
 

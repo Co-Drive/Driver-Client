@@ -16,5 +16,4 @@ export interface RecommendCardProps {
     isPublicRoom: boolean;
   }>;
   isLongPage: boolean;
-  clickedPage?: number;
 }

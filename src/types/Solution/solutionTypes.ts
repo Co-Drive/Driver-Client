@@ -38,7 +38,6 @@ export interface recordType {
 export interface SavedSolutionProps {
   record: recordType;
   followerId?: number;
-  clickedPage?: number;
   isModal?: boolean;
   removeBorder?: boolean;
 }

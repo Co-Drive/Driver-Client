@@ -4,12 +4,9 @@ import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../assets';
 import { PersonalGroupProps } from '../types/MyGroup/myGroupType';
 import RecommendCard from './RecommendCard';
 
-const Groups = ({
-  group,
-  totalPage,
-  clickedPage,
-  handleClickPages,
-}: PersonalGroupProps) => {
+const Groups = ({ group, totalPage, handleClickPages }: PersonalGroupProps) => {
+  const queryString = location.search;
+  const clickedPage = Number(queryString.split('=')[1]);
   const pages = Array.from(
     { length: totalPage > 0 ? totalPage : 1 },
     (_, idx) => idx + 1
@@ -19,11 +16,7 @@ const Groups = ({
 
   return (
     <React.Fragment>
-      <RecommendCard
-        group={group}
-        isLongPage={true}
-        clickedPage={clickedPage}
-      />
+      <RecommendCard group={group} isLongPage={true} />
 
       <PageNationBar>
         <IcArrowLeftSmallGray

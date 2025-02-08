@@ -26,7 +26,7 @@ const PageLayout = ({
       case '문제풀이':
         return navigate('/solve');
       case '그룹':
-        return navigate('/group');
+        return navigate('/group?page=1');
       default:
         return navigate('/login');
     }
