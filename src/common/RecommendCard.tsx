@@ -26,17 +26,18 @@ const RecommendCard = ({
       : { roomId: groupId.toString(), notNavigateDetail: true };
 
     if (isOwner) {
-      navigate(`/group/${groupId}/admin`);
+      navigate(
+        `/group/${groupId}/admin${clickedPage && `?page=${clickedPage}`}`
+      );
     } else {
       isMember
-        ? navigate(`/group/${groupId}/member`)
+        ? navigate(
+            `/group/${groupId}/member${clickedPage && `?page=${clickedPage}`}`
+          )
         : navigate(navigatedPage, {
             state: navigatedState,
           });
     }
-
-    if (clickedPage)
-      sessionStorage.setItem('savedPage', clickedPage.toString());
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
 import useGetRecentFollowerRecords from '../../libs/hooks/Follower/useGetRecentFollowerRecords';
@@ -9,7 +10,6 @@ import {
   recordType,
   SavedSolutionListProps,
 } from '../../types/Solution/solutionTypes';
-import { removeSavedPage } from '../../utils/removeSavedPage';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
@@ -41,8 +41,10 @@ const SavedSolutionList = ({
     !isUnsolvedDataLoading && solvedMonths && Math.max(...solvedMonths);
   const isRecentSolvedMonthExit = recentSolvedMonth && recentSolvedMonth > 0;
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [sorting, setSorting] = useState('최신순');
-  const [clickedPage, setClickedPage] = useState(1);
+  const [clickedPage, setClickedPage] = useState(Number(searchParams) || 1);
   const [selectedMonth, setSelectedMonth] = useState(
     isRecentSolvedMonthExit ? recentSolvedMonth : currentMonth
   );
@@ -75,38 +77,46 @@ const SavedSolutionList = ({
 
   const handleClickPrevBtn = (isPage: boolean) => {
     if (isPage) {
-      setClickedPage((prev) => prev - 1);
+      setClickedPage((prev) => {
+        const prevPage = prev - 1;
+        setSearchParams({ page: prevPage.toString() });
+        return prevPage;
+      });
     } else {
       setSelectedYear((year) => year - 1);
       setClickedPage(1);
+      setSearchParams({ page: '1' });
     }
 
-    removeSavedPage();
+    setSearchParams({ page: clickedPage.toString() });
   };
 
   const handleClickValue = ({ e, value }: ClickedValueProps) => {
     if (value) {
       setClickedPage(value);
+      setSearchParams({ page: value.toString() });
     } else {
       if (e) {
         const clickedMonth = parseInt(e.currentTarget.innerHTML);
         setSelectedMonth(clickedMonth);
         setClickedPage(1);
+        setSearchParams({ page: '1' });
       }
     }
-
-    removeSavedPage();
   };
 
   const handleClickNextBtn = (isPage: boolean) => {
     if (isPage) {
-      setClickedPage((prev) => prev + 1);
+      setClickedPage((prev) => {
+        const nextPage = prev + 1;
+        setSearchParams({ page: nextPage.toString() });
+        return nextPage;
+      });
     } else {
       setSelectedYear((year) => year + 1);
       setClickedPage(1);
+      setSearchParams({ page: '1' });
     }
-
-    removeSavedPage();
   };
 
   useEffect(() => {

@@ -21,7 +21,6 @@ import {
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
-import { removeSavedPage } from '../utils/removeSavedPage';
 import ErrorModal from './Modal/ErrorModal/ErrorModal';
 import SaveCheckModal from './Modal/SaveCheckModal/SaveCheckModal';
 import WarningModal from './Modal/WarningModal/WarningModal';
@@ -35,11 +34,14 @@ const CommonUserList = ({
 }: CommonUserListProps) => {
   const navigate = useNavigate();
 
+  const queryString = location.search;
+  const savedPage = Number(queryString.split('=')[1]);
+
   const [modalOn, setModalOn] = useState({
     warningModal: false,
     saveModal: false,
   });
-  const [clickedPage, setClickedPage] = useState(1);
+  const [clickedPage, setClickedPage] = useState(savedPage || 1);
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
     clickedNickname: '',
@@ -136,17 +138,14 @@ const CommonUserList = ({
 
   const handleClickPrevBtn = () => {
     setClickedPage((prev) => prev - 1);
-    removeSavedPage();
   };
 
   const handleClickPageNumber = (page: number) => {
     setClickedPage(page);
-    removeSavedPage();
   };
 
   const handleClickNextBtn = () => {
     setClickedPage((prev) => prev + 1);
-    removeSavedPage();
   };
 
   useEffect(() => {
