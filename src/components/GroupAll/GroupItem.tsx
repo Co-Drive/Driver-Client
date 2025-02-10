@@ -90,20 +90,6 @@ const GroupItem = () => {
     setSearchResults(filteredGroups);
   };
 
-  const handleClickPrevBtn = () => {
-    const prevPage = (clickedPage - 1).toString();
-    setSearchParams({ page: prevPage });
-  };
-
-  const handleClickPage = (page: number) => {
-    setSearchParams({ page: page.toString() });
-  };
-
-  const handleClickNextBtn = () => {
-    const nextPage = (clickedPage + 1).toString();
-    setSearchParams({ page: nextPage });
-  };
-
   return (
     <GroupContainer>
       <GroupTitle>그룹 전체 보기</GroupTitle>
@@ -128,15 +114,7 @@ const GroupItem = () => {
         ))}
       </SortContainer>
       <GroupsItemContainer>
-        <Groups
-          group={searchResults}
-          totalPage={totalPageRef.current}
-          handleClickPages={{
-            handleClickPrevBtn: handleClickPrevBtn,
-            handleClickPage: handleClickPage,
-            handleClickNextBtn: handleClickNextBtn,
-          }}
-        />
+        <Groups group={searchResults} totalPage={totalPageRef.current} />
       </GroupsItemContainer>
     </GroupContainer>
   );

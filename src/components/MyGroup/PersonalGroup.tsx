@@ -77,19 +77,6 @@ const PersonalGroup = () => {
     setSearchParams({ page: '1' });
   };
 
-  const handleClickPrevBtn = () => {
-    const prevPage = (clickedPage - 1).toString();
-    setSearchParams({ page: prevPage });
-  };
-
-  const handleClickPage = (page: number) => {
-    setSearchParams({ page: page.toString() });
-  };
-
-  const handleClickNextBtn = () => {
-    const nextPage = (clickedPage + 1).toString();
-    setSearchParams({ page: nextPage });
-  };
   return (
     <PersonalGroupContainer>
       <Header>
@@ -140,17 +127,7 @@ const PersonalGroup = () => {
           })}
         </SortContainer>
       </TopContainer>
-      {!isLoading && (
-        <Groups
-          group={group}
-          totalPage={totalPage}
-          handleClickPages={{
-            handleClickPrevBtn: handleClickPrevBtn,
-            handleClickPage: handleClickPage,
-            handleClickNextBtn: handleClickNextBtn,
-          }}
-        />
-      )}
+      {!isLoading && <Groups group={group} totalPage={totalPage} />}
     </PersonalGroupContainer>
   );
 };

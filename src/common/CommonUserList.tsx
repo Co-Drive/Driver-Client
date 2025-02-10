@@ -21,6 +21,11 @@ import {
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
+import {
+  handleClickNextBtn,
+  handleClickPage,
+  handleClickPrevBtn,
+} from '../utils/handleClickPage';
 import ErrorModal from './Modal/ErrorModal/ErrorModal';
 import SaveCheckModal from './Modal/SaveCheckModal/SaveCheckModal';
 import WarningModal from './Modal/WarningModal/WarningModal';
@@ -132,20 +137,6 @@ const CommonUserList = ({
         warningModal: false,
       });
     }
-  };
-
-  const handleClickPrevBtn = () => {
-    const prevPage = (clickedPage - 1).toString();
-    setSearchParams({ page: prevPage });
-  };
-
-  const handleClickPageNumber = (page: number) => {
-    setSearchParams({ page: page.toString() });
-  };
-
-  const handleClickNextBtn = () => {
-    const nextPage = (clickedPage + 1).toString();
-    setSearchParams({ page: nextPage });
   };
 
   useEffect(() => {
@@ -271,7 +262,11 @@ const CommonUserList = ({
 
       <PageNationBar $isEmpty={totalPage === 0}>
         <IcArrowLeftSmallGray
-          onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
+          style={{ cursor: 'pointer' }}
+          onClick={() =>
+            clickedPage !== 1 &&
+            handleClickPrevBtn({ clickedPage, setSearchParams })
+          }
         />
         {pages.map((_, idx) => {
           const page = idx + 1;
@@ -279,14 +274,20 @@ const CommonUserList = ({
             <PageNumber
               key={page}
               $isClicked={totalPage > 0 && clickedPage === page}
-              onClick={() => handleClickPageNumber(page)}
+              onClick={() =>
+                handleClickPage({ clickedPage: page, setSearchParams })
+              }
             >
               {page}
             </PageNumber>
           );
         })}
         <IcArrowRightSmallGray
-          onClick={() => clickedPage !== pages.length && handleClickNextBtn()}
+          style={{ cursor: 'pointer' }}
+          onClick={() =>
+            clickedPage !== pages.length &&
+            handleClickNextBtn({ clickedPage, setSearchParams })
+          }
         />
       </PageNationBar>
 
@@ -497,7 +498,7 @@ const PageNationBar = styled.div<{ $isEmpty: boolean }>`
   margin-top: ${({ $isEmpty }) => ($isEmpty ? `4.8rem` : `8.8rem`)};
 `;
 
-const PageNumber = styled.p<{ $isClicked: boolean }>`
+const PageNumber = styled.button<{ $isClicked: boolean }>`
   padding: 0.4rem 1rem;
 
   border-radius: 0.4rem;

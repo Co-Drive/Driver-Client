@@ -30,11 +30,6 @@ export interface GroupType {
 export interface PersonalGroupProps {
   totalPage: number;
   group: Array<GroupType>;
-  handleClickPages: {
-    handleClickPrevBtn: () => void;
-    handleClickPage: (page: number) => void;
-    handleClickNextBtn: () => void;
-  };
 }
 
 export interface GetRoomsProps {
