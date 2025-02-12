@@ -5,7 +5,6 @@ import Level from '../../components/Solution/Level';
 import { SavedSolutionProps } from '../../types/Solution/solutionTypes';
 
 const SavedSolution = ({
-  clickedPage,
   followerId,
   record,
   isModal,
@@ -18,8 +17,6 @@ const SavedSolution = ({
 
   const handleClickArrow = () => {
     navigate(`/solution/${recordId}`, { state: followerId });
-    if (clickedPage)
-      sessionStorage.setItem('savedPage', clickedPage.toString());
   };
 
   return (

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Groups from '../../common/Groups';
 import { SORTING } from '../../constants/Follower/currentConst';
 import useGetRoomsSort from '../../libs/hooks/GroupAll/useGetRoomSort';
 import { GroupsItemProps } from '../../types/GroupItem/groupItemType';
-import { removeSavedPage } from '../../utils/removeSavedPage';
 import {
   ALL_TAG,
   FIRST_TAGS,
@@ -14,13 +14,11 @@ import LanguageSelectBox from './groupFilter/LanguageSelectBox';
 import SearchBar from './groupFilter/SearchBar';
 
 const GroupItem = () => {
-  const savedPage = sessionStorage.getItem('savedPage');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clickedPage = Number(searchParams.get('page'));
   const savedSorting = sessionStorage.getItem('savedSorting');
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [clickedPage, setClickedPage] = useState(
-    savedPage ? parseInt(savedPage) : 1
-  );
   const [searchResults, setSearchResults] = useState<any[]>([]); // 검색 결과 상태
   const [sliderValues, setSliderValues] = useState({ min: 0, max: 50 });
   const [sorting, setSorting] = useState(savedSorting || '최신순');
@@ -69,10 +67,11 @@ const GroupItem = () => {
   useEffect(() => {
     if (rooms) {
       const filteredGroups = filterGroups(rooms);
+      const page = Math.min(clickedPage, totalPageRef.current).toString();
       setSearchResults(filteredGroups);
 
       totalPageRef.current = totalPage || 1;
-      setClickedPage((prevPage) => Math.min(prevPage, totalPageRef.current));
+      setSearchParams({ page: page });
     }
   }, [rooms, sorting, clickedPage, selectedTags, sliderValues]);
 
@@ -89,21 +88,6 @@ const GroupItem = () => {
 
   const handleChangeSearchBar = (filteredGroups: any[]) => {
     setSearchResults(filteredGroups);
-  };
-
-  const handleClickPrevBtn = () => {
-    setClickedPage((prev) => prev - 1);
-    removeSavedPage();
-  };
-
-  const handleClickPage = (page: number) => {
-    setClickedPage(page);
-    removeSavedPage();
-  };
-
-  const handleClickNextBtn = () => {
-    setClickedPage((prev) => prev + 1);
-    removeSavedPage();
   };
 
   return (
@@ -130,16 +114,7 @@ const GroupItem = () => {
         ))}
       </SortContainer>
       <GroupsItemContainer>
-        <Groups
-          group={searchResults}
-          totalPage={totalPageRef.current}
-          clickedPage={clickedPage}
-          handleClickPages={{
-            handleClickPrevBtn: handleClickPrevBtn,
-            handleClickPage: handleClickPage,
-            handleClickNextBtn: handleClickNextBtn,
-          }}
-        />
+        <Groups group={searchResults} totalPage={totalPageRef.current} />
       </GroupsItemContainer>
     </GroupContainer>
   );

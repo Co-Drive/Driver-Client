@@ -21,7 +21,7 @@ const usePatchRooms = () => {
       // roomId를 queryKey와 navigate에 사용
       queryClient.invalidateQueries({ queryKey: ['get-detail', roomId] });
       queryClient.invalidateQueries({ queryKey: ['get-rooms-id'] });
-      navigate(`/group/${roomId}/admin`);
+      navigate(`/group/${roomId}/admin?page=1`);
     },
     onError: (err: any) => {
       const message = err?.response?.data?.message || 'Something went wrong';

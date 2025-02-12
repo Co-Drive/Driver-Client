@@ -1,47 +1,52 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../assets';
 import { PersonalGroupProps } from '../types/MyGroup/myGroupType';
+import {
+  handleClickNextBtn,
+  handleClickPage,
+  handleClickPrevBtn,
+} from '../utils/handleClickPage';
 import RecommendCard from './RecommendCard';
 
-const Groups = ({
-  group,
-  totalPage,
-  clickedPage,
-  handleClickPages,
-}: PersonalGroupProps) => {
+const Groups = ({ group, totalPage }: PersonalGroupProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clickedPage = Number(searchParams.get('page'));
   const pages = Array.from(
     { length: totalPage > 0 ? totalPage : 1 },
     (_, idx) => idx + 1
   );
-  const { handleClickPrevBtn, handleClickPage, handleClickNextBtn } =
-    handleClickPages;
 
   return (
     <React.Fragment>
-      <RecommendCard
-        group={group}
-        isLongPage={true}
-        clickedPage={clickedPage}
-      />
+      <RecommendCard group={group} isLongPage={true} />
 
       <PageNationBar>
         <IcArrowLeftSmallGray
-          onClick={() => clickedPage > 1 && handleClickPrevBtn()}
+          onClick={() =>
+            clickedPage > 1 &&
+            handleClickPrevBtn({ clickedPage, setSearchParams })
+          }
         />
         {pages.map((page) => {
           return (
             <PageNumber
               key={page}
               $isClicked={totalPage > 0 && clickedPage === page}
-              onClick={() => handleClickPage(page)}
+              onClick={() =>
+                handleClickPage({ clickedPage: page, setSearchParams })
+              }
             >
               {page}
             </PageNumber>
           );
         })}
         <IcArrowRightSmallGray
-          onClick={() => clickedPage !== totalPage && handleClickNextBtn()}
+          onClick={() =>
+            clickedPage !== totalPage &&
+            handleClickNextBtn({ clickedPage, setSearchParams })
+          }
         />
       </PageNationBar>
     </React.Fragment>

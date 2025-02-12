@@ -55,7 +55,6 @@ export interface FollowerFilterProps {
 
 export interface AdditionalProblemsModalProps {
   userId: number;
-  clickedPage?: number;
 }
 
 export interface FollowerRecordsType {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   IcArrowBottomWhite,
@@ -21,7 +21,11 @@ import {
   ParticipantType,
   UserType,
 } from '../types/CommonUserList/userListType';
-import { removeSavedPage } from '../utils/removeSavedPage';
+import {
+  handleClickNextBtn,
+  handleClickPage,
+  handleClickPrevBtn,
+} from '../utils/handleClickPage';
 import ErrorModal from './Modal/ErrorModal/ErrorModal';
 import SaveCheckModal from './Modal/SaveCheckModal/SaveCheckModal';
 import WarningModal from './Modal/WarningModal/WarningModal';
@@ -39,7 +43,8 @@ const CommonUserList = ({
     warningModal: false,
     saveModal: false,
   });
-  const [clickedPage, setClickedPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clickedPage = Number(searchParams.get('page'));
   const [clickedContents, setClickedContents] = useState({
     clickedId: 0,
     clickedNickname: '',
@@ -132,21 +137,6 @@ const CommonUserList = ({
         warningModal: false,
       });
     }
-  };
-
-  const handleClickPrevBtn = () => {
-    setClickedPage((prev) => prev - 1);
-    removeSavedPage();
-  };
-
-  const handleClickPageNumber = (page: number) => {
-    setClickedPage(page);
-    removeSavedPage();
-  };
-
-  const handleClickNextBtn = () => {
-    setClickedPage((prev) => prev + 1);
-    removeSavedPage();
   };
 
   useEffect(() => {
@@ -249,10 +239,7 @@ const CommonUserList = ({
                     </Contents>
 
                     {isExitAndClicked && (
-                      <AdditionalProblemsModal
-                        userId={userId}
-                        clickedPage={clickedPage}
-                      />
+                      <AdditionalProblemsModal userId={userId} />
                     )}
                   </ContentsContainer>
 
@@ -275,7 +262,11 @@ const CommonUserList = ({
 
       <PageNationBar $isEmpty={totalPage === 0}>
         <IcArrowLeftSmallGray
-          onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
+          style={{ cursor: 'pointer' }}
+          onClick={() =>
+            clickedPage !== 1 &&
+            handleClickPrevBtn({ clickedPage, setSearchParams })
+          }
         />
         {pages.map((_, idx) => {
           const page = idx + 1;
@@ -283,14 +274,20 @@ const CommonUserList = ({
             <PageNumber
               key={page}
               $isClicked={totalPage > 0 && clickedPage === page}
-              onClick={() => handleClickPageNumber(page)}
+              onClick={() =>
+                handleClickPage({ clickedPage: page, setSearchParams })
+              }
             >
               {page}
             </PageNumber>
           );
         })}
         <IcArrowRightSmallGray
-          onClick={() => clickedPage !== pages.length && handleClickNextBtn()}
+          style={{ cursor: 'pointer' }}
+          onClick={() =>
+            clickedPage !== pages.length &&
+            handleClickNextBtn({ clickedPage, setSearchParams })
+          }
         />
       </PageNationBar>
 
@@ -501,7 +498,7 @@ const PageNationBar = styled.div<{ $isEmpty: boolean }>`
   margin-top: ${({ $isEmpty }) => ($isEmpty ? `4.8rem` : `8.8rem`)};
 `;
 
-const PageNumber = styled.p<{ $isClicked: boolean }>`
+const PageNumber = styled.button<{ $isClicked: boolean }>`
   padding: 0.4rem 1rem;
 
   border-radius: 0.4rem;

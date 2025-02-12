@@ -51,7 +51,7 @@ const GroupComplete = () => {
   const handleGroupPageRedirect = async () => {
     if (token && nickname) {
       const data = await getGroupInfo(uuid!);
-      navigate(`/group/${data.roomId}/admin`);
+      navigate(`/group/${data.roomId}/admin?page=1`);
     }
   };
 

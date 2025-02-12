@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
   IcStatusBlack,
@@ -9,16 +10,14 @@ import {
 import Groups from '../../common/Groups';
 import { SORTING, STATUS } from '../../constants/Follower/currentConst';
 import useGetRooms from '../../libs/hooks/utils/useGetRooms';
-import { removeSavedPage } from '../../utils/removeSavedPage';
 
 const PersonalGroup = () => {
   const GROUP_CATEGORY = ['내가 참여한 그룹', '내가 생성한 그룹'];
-  const savedPage = sessionStorage.getItem('savedPage');
   const savedCategory = sessionStorage.getItem('savedCategory');
 
-  const [clickedPage, setClickedPage] = useState(
-    savedPage ? parseInt(savedPage) : 1
-  );
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clickedPage = Number(searchParams.get('page'));
+
   const [clickedCategry, setClickedCategory] = useState(
     savedCategory ? savedCategory : GROUP_CATEGORY[0]
   );
@@ -75,22 +74,7 @@ const PersonalGroup = () => {
     setClickedCategory(innerHTML);
     sessionStorage.setItem('savedCategory', innerHTML);
 
-    setClickedPage(1);
-  };
-
-  const handleClickPrevBtn = () => {
-    setClickedPage((prev) => prev - 1);
-    removeSavedPage();
-  };
-
-  const handleClickPage = (page: number) => {
-    setClickedPage(page);
-    removeSavedPage();
-  };
-
-  const handleClickNextBtn = () => {
-    setClickedPage((prev) => prev + 1);
-    removeSavedPage();
+    setSearchParams({ page: '1' });
   };
 
   return (
@@ -143,18 +127,7 @@ const PersonalGroup = () => {
           })}
         </SortContainer>
       </TopContainer>
-      {!isLoading && (
-        <Groups
-          group={group}
-          totalPage={totalPage}
-          clickedPage={clickedPage}
-          handleClickPages={{
-            handleClickPrevBtn: handleClickPrevBtn,
-            handleClickPage: handleClickPage,
-            handleClickNextBtn: handleClickNextBtn,
-          }}
-        />
-      )}
+      {!isLoading && <Groups group={group} totalPage={totalPage} />}
     </PersonalGroupContainer>
   );
 };

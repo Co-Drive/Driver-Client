@@ -9,7 +9,7 @@ const usePostAnswer = (roomId: number) => {
     mutationFn: async ({ roomId, password }: PostAnswerProps) =>
       await postAnswer({ roomId, password }),
     onSuccess: () => {
-      navigate(`/group/${roomId}/member`);
+      navigate(`/group/${roomId}/member?page=1`);
     },
     onError: (err: { response: { data: { message: string } } }) => {
       const { message } = err.response.data;
