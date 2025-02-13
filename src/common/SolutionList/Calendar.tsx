@@ -63,30 +63,34 @@ const Calendar = ({ followerId }: CalendarProps) => {
   };
 
   return (
-    <CalendarContainer>
-      <YearContainer>
-        <IcArrowLeftSmallGray onClick={handleClickPrevBtn} />
-        <Year>{selectedYear}</Year>
-        <IcArrowRightSmallGray onClick={handleClickNextBtn} />
-      </YearContainer>
+    <>
+      {!isUnsolvedDataLoading && (
+        <CalendarContainer>
+          <YearContainer>
+            <IcArrowLeftSmallGray onClick={handleClickPrevBtn} />
+            <Year>{selectedYear}</Year>
+            <IcArrowRightSmallGray onClick={handleClickNextBtn} />
+          </YearContainer>
 
-      <MonthBoard>
-        {monthCalendar.map((month) => {
-          const disabled = unsolvedMonths.includes(month);
+          <MonthBoard>
+            {monthCalendar.map((month) => {
+              const disabled = unsolvedMonths.includes(month);
 
-          return (
-            <Month
-              key={month}
-              $disabled={disabled}
-              $isClicked={selectedMonth === month}
-              onClick={(e) => !disabled && handleClickMonth(e)}
-            >
-              {month}
-            </Month>
-          );
-        })}
-      </MonthBoard>
-    </CalendarContainer>
+              return (
+                <Month
+                  key={month}
+                  $disabled={disabled}
+                  $isClicked={selectedMonth === month}
+                  onClick={(e) => !disabled && handleClickMonth(e)}
+                >
+                  {month}
+                </Month>
+              );
+            })}
+          </MonthBoard>
+        </CalendarContainer>
+      )}
+    </>
   );
 };
 
