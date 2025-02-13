@@ -39,6 +39,10 @@ const ListFilter = ({
     return 12;
   }, [selectedYear, isUnsolvedDataLoading, unsolvedMonths]);
 
+  const handleClickDateFilter = () => {
+    setIsCalendarClicked(!isCalendarClicked);
+  };
+
   const handleClickPrevBtn = () => {
     const prevYear = (selectedYear - 1).toString();
 
@@ -81,10 +85,6 @@ const ListFilter = ({
       });
     }
   }, [recentMonth]);
-
-  const handleClickDateFilter = () => {
-    setIsCalendarClicked(!isCalendarClicked);
-  };
 
   return (
     <FilteredContainer>
