@@ -88,8 +88,6 @@ const SavedSolutionList = ({
           {!isSmallList && (
             <ListFilter
               sorting={sorting}
-              year={selectedYear}
-              month={selectedMonth}
               followerId={followerId}
               handleClickSorting={handleClickSorting}
             />

@@ -102,8 +102,6 @@ export interface ClickedValueProps {
 
 export interface ListFilterProps {
   sorting: string;
-  year: number;
-  month: number | boolean;
   followerId: number | undefined;
   handleClickSorting: (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>

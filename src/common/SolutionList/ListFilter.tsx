@@ -10,8 +10,6 @@ import Calendar from './Calendar';
 
 const ListFilter = ({
   sorting,
-  year,
-  month,
   followerId,
   handleClickSorting,
 }: ListFilterProps) => {
@@ -91,8 +89,8 @@ const ListFilter = ({
       <DateFilterContainer $isCalendarClicked={isCalendarClicked}>
         <IcCalendar onClick={handleClickDateFilter} />
         <DateContainer onClick={handleClickDateFilter}>
-          <Year>{year}년</Year>
-          <Month>{month}월</Month>
+          <Year>{selectedYear}년</Year>
+          <Month>{selectedMonth}월</Month>
         </DateContainer>
 
         {isCalendarClicked && !isUnsolvedDataLoading ? (
