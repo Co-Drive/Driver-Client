@@ -47,7 +47,12 @@ export interface LevelProps {
 }
 
 export interface CalendarProps {
-  followerId: number | undefined;
+  selectedYear: number;
+  selectedMonth: number;
+  unsolvedMonths: Array<number>;
+  handleClickPrevBtn: () => void;
+  handleClickMonth: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
+  handleClickNextBtn: () => void;
 }
 
 export interface UpdateTotalPageProps {

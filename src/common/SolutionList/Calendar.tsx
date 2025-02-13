@@ -1,96 +1,42 @@
-import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
-import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import { CalendarProps } from '../../types/Solution/solutionTypes';
 
-const Calendar = ({ followerId }: CalendarProps) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const selectedYear = Number(searchParams.get('year'));
-  const selectedMonth = Number(searchParams.get('month'));
-
-  const { unsolvedData, isLoading: isUnsolvedDataLoading } =
-    useGetUnsolvedMonths({
-      year: selectedYear,
-      followerId,
-    });
-  const { months: unsolvedMonths } =
-    !isUnsolvedDataLoading && unsolvedData.data;
-
+const Calendar = ({
+  selectedYear,
+  selectedMonth,
+  unsolvedMonths,
+  handleClickPrevBtn,
+  handleClickMonth,
+  handleClickNextBtn,
+}: CalendarProps) => {
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
-  const solvedMonths =
-    !isUnsolvedDataLoading &&
-    monthCalendar.filter((month) => !unsolvedMonths.includes(month));
-  const recentSolvedMonth =
-    !isUnsolvedDataLoading && solvedMonths && Math.max(...solvedMonths);
-  const isRecentSolvedMonthExit = recentSolvedMonth && recentSolvedMonth > 0;
-
-  const handleClickPrevBtn = () => {
-    const prevYear = (selectedYear - 1).toString();
-
-    setSearchParams({
-      page: '1',
-      year: prevYear,
-      month: isRecentSolvedMonthExit
-        ? recentSolvedMonth.toString()
-        : selectedMonth.toString(),
-    });
-  };
-
-  const handleClickMonth = (
-    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
-  ) => {
-    if (e) {
-      const clickedMonth = e.currentTarget.innerHTML;
-      setSearchParams({
-        page: '1',
-        year: selectedYear.toString(),
-        month: clickedMonth,
-      });
-    }
-  };
-
-  const handleClickNextBtn = () => {
-    const nextYear = (selectedYear + 1).toString();
-
-    setSearchParams({
-      page: '1',
-      year: nextYear,
-      month: isRecentSolvedMonthExit
-        ? recentSolvedMonth.toString()
-        : selectedMonth.toString(),
-    });
-  };
 
   return (
-    <>
-      {!isUnsolvedDataLoading && (
-        <CalendarContainer>
-          <YearContainer>
-            <IcArrowLeftSmallGray onClick={handleClickPrevBtn} />
-            <Year>{selectedYear}</Year>
-            <IcArrowRightSmallGray onClick={handleClickNextBtn} />
-          </YearContainer>
+    <CalendarContainer>
+      <YearContainer>
+        <IcArrowLeftSmallGray onClick={handleClickPrevBtn} />
+        <Year>{selectedYear}</Year>
+        <IcArrowRightSmallGray onClick={handleClickNextBtn} />
+      </YearContainer>
 
-          <MonthBoard>
-            {monthCalendar.map((month) => {
-              const disabled = unsolvedMonths.includes(month);
+      <MonthBoard>
+        {monthCalendar.map((month) => {
+          const disabled = unsolvedMonths.includes(month);
 
-              return (
-                <Month
-                  key={month}
-                  $disabled={disabled}
-                  $isClicked={selectedMonth === month}
-                  onClick={(e) => !disabled && handleClickMonth(e)}
-                >
-                  {month}
-                </Month>
-              );
-            })}
-          </MonthBoard>
-        </CalendarContainer>
-      )}
-    </>
+          return (
+            <Month
+              key={month}
+              $disabled={disabled}
+              $isClicked={selectedMonth === month}
+              onClick={(e) => !disabled && handleClickMonth(e)}
+            >
+              {month}
+            </Month>
+          );
+        })}
+      </MonthBoard>
+    </CalendarContainer>
   );
 };
 

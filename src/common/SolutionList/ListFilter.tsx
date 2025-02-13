@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { useSearchParams } from 'react-router-dom';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
 import { OLD_AND_NEW } from '../../constants/Follower/currentConst';
+import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import { ListFilterProps } from '../../types/Solution/solutionTypes';
 import Calendar from './Calendar';
 
@@ -14,6 +16,71 @@ const ListFilter = ({
   handleClickSorting,
 }: ListFilterProps) => {
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedYear = Number(searchParams.get('year'));
+  const selectedMonth = Number(searchParams.get('month'));
+
+  const { unsolvedData, isLoading: isUnsolvedDataLoading } =
+    useGetUnsolvedMonths({
+      year: selectedYear,
+      followerId,
+    });
+  const { months: unsolvedMonths } =
+    !isUnsolvedDataLoading && unsolvedData.data;
+
+  const recentMonth = useMemo(() => {
+    if (!isUnsolvedDataLoading)
+      for (let month = 12; month > 0; month--) {
+        if (!unsolvedMonths.includes(month)) {
+          return month;
+        }
+      }
+    return 12;
+  }, [selectedYear, isUnsolvedDataLoading, unsolvedMonths]);
+
+  const handleClickPrevBtn = () => {
+    const prevYear = (selectedYear - 1).toString();
+
+    setSearchParams({
+      page: '1',
+      year: prevYear,
+      month: recentMonth.toString(),
+    });
+  };
+
+  const handleClickMonth = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
+    if (e) {
+      const clickedMonth = e.currentTarget.innerHTML;
+      setSearchParams({
+        page: '1',
+        year: selectedYear.toString(),
+        month: clickedMonth,
+      });
+    }
+  };
+
+  const handleClickNextBtn = () => {
+    const nextYear = (selectedYear + 1).toString();
+
+    setSearchParams({
+      page: '1',
+      year: nextYear,
+      month: recentMonth.toString(),
+    });
+  };
+
+  useEffect(() => {
+    if (!isUnsolvedDataLoading) {
+      setSearchParams({
+        page: '1',
+        year: selectedYear.toString(),
+        month: recentMonth.toString(),
+      });
+    }
+  }, [recentMonth]);
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
@@ -28,10 +95,17 @@ const ListFilter = ({
           <Month>{month}월</Month>
         </DateContainer>
 
-        {isCalendarClicked ? (
+        {isCalendarClicked && !isUnsolvedDataLoading ? (
           <>
             <IcArrowTopWhite onClick={handleClickDateFilter} />
-            <Calendar followerId={followerId} />
+            <Calendar
+              selectedYear={selectedYear}
+              selectedMonth={selectedMonth}
+              unsolvedMonths={unsolvedMonths}
+              handleClickPrevBtn={handleClickPrevBtn}
+              handleClickMonth={handleClickMonth}
+              handleClickNextBtn={handleClickNextBtn}
+            />
           </>
         ) : (
           <IcArrowBottomWhite onClick={handleClickDateFilter} />
