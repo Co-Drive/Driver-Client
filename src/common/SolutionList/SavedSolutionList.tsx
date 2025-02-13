@@ -53,24 +53,25 @@ const SavedSolutionList = ({
     setSorting(innerHTML);
   };
 
-  const handleClickPrevBtn = (isPage: boolean) => {
-    if (isPage) {
-      const prevPage = (clickedPage - 1).toString();
-      setSearchParams({ page: prevPage });
-    }
+  const handleClickPrevBtn = () => {
+    const prevPage = (clickedPage - 1).toString();
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString();
+    setSearchParams({ page: prevPage, year: year, month: month });
   };
 
-  const handleClickValue = ({ value }: ClickedValueProps) => {
-    if (value) {
-      setSearchParams({ page: value.toString() });
-    }
+  const handleClickPage = ({ clickedPage }: ClickedValueProps) => {
+    const page = clickedPage.toString();
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString();
+    setSearchParams({ page: page.toString(), year: year, month: month });
   };
 
-  const handleClickNextBtn = (isPage: boolean) => {
-    if (isPage) {
-      const nextPage = (clickedPage + 1).toString();
-      setSearchParams({ page: nextPage });
-    }
+  const handleClickNextBtn = () => {
+    const nextPage = (clickedPage + 1).toString();
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString();
+    setSearchParams({ page: nextPage, year: year, month: month });
   };
 
   useEffect(() => {
@@ -107,14 +108,14 @@ const SavedSolutionList = ({
           {!isSmallList && (
             <PageNationBar>
               <IcArrowLeftSmallGray
-                onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
+                onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
               />
               {pages.map((page) => {
                 return (
                   <PageNumber
                     key={page}
                     $isClicked={clickedPage === page && totalPage > 0}
-                    onClick={() => handleClickValue({ value: page })}
+                    onClick={() => handleClickPage({ clickedPage: page })}
                   >
                     {page}
                   </PageNumber>
@@ -122,7 +123,7 @@ const SavedSolutionList = ({
               })}
               <IcArrowRightSmallGray
                 onClick={() =>
-                  clickedPage !== totalPage && handleClickNextBtn(true)
+                  clickedPage !== totalPage && handleClickNextBtn()
                 }
               />
             </PageNationBar>

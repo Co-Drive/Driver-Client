@@ -92,8 +92,7 @@ export interface UpdateSavedRecordsProps {
 }
 
 export interface ClickedValueProps {
-  e?: React.MouseEvent<HTMLSpanElement, MouseEvent>;
-  value?: number;
+  clickedPage: number;
 }
 
 export interface ListFilterProps {
