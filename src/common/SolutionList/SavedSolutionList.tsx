@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
 import useGetRecentFollowerRecords from '../../libs/hooks/Follower/useGetRecentFollowerRecords';
 import useGetMonthlySolution from '../../libs/hooks/Solution/useGetMonthlySolution';
-import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import {
   ClickedValueProps,
   recordType,
@@ -22,32 +21,11 @@ const SavedSolutionList = ({
   const isFollowerMode = myId && userId.toString() !== myId;
   const followerId = isFollowerMode ? userId : undefined;
 
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1;
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const { unsolvedData, isLoading: isUnsolvedDataLoading } =
-    useGetUnsolvedMonths({
-      year: selectedYear,
-      followerId,
-    });
-  const { months: unsolvedMonths } =
-    !isUnsolvedDataLoading && unsolvedData.data;
-
-  const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
-  const solvedMonths =
-    !isUnsolvedDataLoading &&
-    monthCalendar.filter((month) => !unsolvedMonths.includes(month));
-  const recentSolvedMonth =
-    !isUnsolvedDataLoading && solvedMonths && Math.max(...solvedMonths);
-  const isRecentSolvedMonthExit = recentSolvedMonth && recentSolvedMonth > 0;
-
+  const [sorting, setSorting] = useState('최신순');
   const [searchParams, setSearchParams] = useSearchParams();
   const clickedPage = Number(searchParams.get('page'));
-
-  const [sorting, setSorting] = useState('최신순');
-  const [selectedMonth, setSelectedMonth] = useState(
-    isRecentSolvedMonthExit ? recentSolvedMonth : currentMonth
-  );
+  const selectedYear = Number(searchParams.get('year'));
+  const selectedMonth = Number(searchParams.get('month'));
 
   const { data, isLoading } = isSmallList
     ? useGetRecentFollowerRecords({ userId })
@@ -79,23 +57,12 @@ const SavedSolutionList = ({
     if (isPage) {
       const prevPage = (clickedPage - 1).toString();
       setSearchParams({ page: prevPage });
-    } else {
-      setSelectedYear((year) => year - 1);
-      setSearchParams({ page: '1' });
     }
-
-    setSearchParams({ page: clickedPage.toString() });
   };
 
-  const handleClickValue = ({ e, value }: ClickedValueProps) => {
+  const handleClickValue = ({ value }: ClickedValueProps) => {
     if (value) {
       setSearchParams({ page: value.toString() });
-    } else {
-      if (e) {
-        const clickedMonth = parseInt(e.currentTarget.innerHTML);
-        setSelectedMonth(clickedMonth);
-        setSearchParams({ page: '1' });
-      }
     }
   };
 
@@ -103,9 +70,6 @@ const SavedSolutionList = ({
     if (isPage) {
       const nextPage = (clickedPage + 1).toString();
       setSearchParams({ page: nextPage });
-    } else {
-      setSelectedYear((year) => year + 1);
-      setSearchParams({ page: '1' });
     }
   };
 
@@ -125,11 +89,8 @@ const SavedSolutionList = ({
               sorting={sorting}
               year={selectedYear}
               month={selectedMonth}
-              unsolvedMonths={unsolvedMonths}
+              followerId={followerId}
               handleClickSorting={handleClickSorting}
-              handleClickPrevBtn={handleClickPrevBtn}
-              handleClickMonth={handleClickValue}
-              handleClickNextBtn={handleClickNextBtn}
             />
           )}
 

@@ -10,11 +10,8 @@ const ListFilter = ({
   sorting,
   year,
   month,
-  unsolvedMonths,
+  followerId,
   handleClickSorting,
-  handleClickPrevBtn,
-  handleClickMonth,
-  handleClickNextBtn,
 }: ListFilterProps) => {
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
@@ -34,16 +31,7 @@ const ListFilter = ({
         {isCalendarClicked ? (
           <>
             <IcArrowTopWhite onClick={handleClickDateFilter} />
-            <Calendar
-              date={{ clickedYear: year, clickedMonth: month }}
-              unsolvedMonths={unsolvedMonths}
-              handleClickPrevBtn={() => handleClickPrevBtn(false)}
-              handleClickMonth={(e) => {
-                handleClickMonth(e);
-                handleClickDateFilter();
-              }}
-              handleClickNextBtn={() => handleClickNextBtn(false)}
-            />
+            <Calendar followerId={followerId} />
           </>
         ) : (
           <IcArrowBottomWhite onClick={handleClickDateFilter} />
