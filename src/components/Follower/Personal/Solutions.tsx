@@ -15,9 +15,8 @@ const Solutions = ({ id, nickname }: SolutionsProps) => {
   const [disabledMoreBtn, setDisabledMoreBtn] = useState(false);
 
   const handleClickMoreBtn = () => {
-    navigate(`/follower/${id}/total`, {
-      state: { nickname: nickname },
-    });
+    sessionStorage.setItem('friendname', nickname);
+    navigate(`/follower/${id}/total?page=1`);
   };
 
   return (

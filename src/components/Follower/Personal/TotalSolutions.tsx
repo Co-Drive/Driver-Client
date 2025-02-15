@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcFollowingGray, IcUnfollowingWhite } from '../../../assets';
 import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
@@ -9,10 +9,11 @@ import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
 import PageLayout from '../../PageLayout/PageLayout';
 
 const TotalSolutions = () => {
-  const { state } = useLocation();
-  const { nickname } = state;
+  const navigate = useNavigate();
   const { id } = useParams();
-  if (!id) return;
+  const nickname = sessionStorage.getItem('friendname');
+  if (!id || !nickname) return navigate('/error');
+
   const userId = parseInt(id);
   const { data, isLoading } = useGetUserProfile(parseInt(id)) || {};
   const { isFollowing } = !isLoading && data?.data;
