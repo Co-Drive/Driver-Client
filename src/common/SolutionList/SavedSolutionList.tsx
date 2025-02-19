@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
@@ -10,6 +10,7 @@ import {
   recordType,
   SavedSolutionListProps,
 } from '../../types/Solution/solutionTypes';
+import { updateRecentMonth } from '../../utils/updateRecentMonth';
 import ListFilter from './ListFilter';
 import SavedSolution from './SavedSolution';
 
@@ -49,16 +50,6 @@ const SavedSolutionList = ({
 
   const { records, totalPage } = !isRecordsLoading && data.data;
 
-  const recentMonth = useMemo(() => {
-    if (!isUnsolvedDataLoading)
-      for (let month = 12; month > 0; month--) {
-        if (!unsolvedMonths.includes(month)) {
-          return month;
-        }
-      }
-    return 12;
-  }, [selectedYear, isUnsolvedDataLoading, unsolvedMonths]);
-
   const recordsArr =
     !isRecordsLoading &&
     (isSmallList && records.length > 5 ? records.slice(0, 5) : records);
@@ -68,6 +59,12 @@ const SavedSolutionList = ({
   );
 
   const isLoading = isRecordsLoading || isUnsolvedDataLoading;
+
+  const recentMonth = updateRecentMonth({
+    isUnsolvedDataLoading,
+    unsolvedMonths,
+    selectedYear,
+  });
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
