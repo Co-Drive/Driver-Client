@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
 import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
 import { CommonCalendarProps } from '../../types/Home/calendarType';
-import { updateRecentMonth } from '../../utils/updateRecentMonth';
 import CustomCalendar from './CustomCalendar';
 
 type ValuePiece = Date | null;
@@ -26,12 +25,6 @@ const CommonCalendar = ({
     year: clickedYear,
   });
   const { months: unsolvedMonths } = !isLoading && unsolvedData.data;
-
-  const recentMonth = updateRecentMonth({
-    isUnsolvedDataLoading: isLoading,
-    unsolvedMonths,
-    selectedYear: clickedYear,
-  });
 
   const customWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -62,13 +55,13 @@ const CommonCalendar = ({
         <DateContainer>
           <IcCalendar />
           <Year>{clickedYear}년</Year>
-          <Month>{recentMonth}월</Month>
+          <Month>{clickedMonth}월</Month>
           {isCalendarClicked ? (
             <CustomCalendarContainer>
               <IcArrowTopWhite />
               {!isLoading && (
                 <CustomCalendar
-                  date={{ clickedYear, clickedMonth: recentMonth }}
+                  date={{ clickedYear, clickedMonth }}
                   unsolvedMonths={unsolvedMonths}
                   handleClickPrevBtn={handleClickPrevBtn}
                   handleClickMonth={handleClickMonth}
