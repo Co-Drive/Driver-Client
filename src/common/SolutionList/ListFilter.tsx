@@ -82,7 +82,7 @@ const ListFilter = ({
         month: recentMonth.toString(),
       });
     }
-  }, [recentMonth]);
+  }, [recentMonth, isUnsolvedDataLoading]);
 
   return (
     <FilteredContainer>
@@ -93,7 +93,7 @@ const ListFilter = ({
           <Month>{selectedMonth}월</Month>
         </DateContainer>
 
-        {isCalendarClicked && !isUnsolvedDataLoading ? (
+        {isCalendarClicked ? (
           <>
             <IcArrowTopWhite onClick={handleClickDateFilter} />
             <Calendar
