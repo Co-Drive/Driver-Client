@@ -60,7 +60,7 @@ const SavedSolutionList = ({
           return month;
         }
       }
-    return 12;
+    return 1;
   }, [selectedYear, isUnsolvedDataLoading, unsolvedMonths]);
 
   const recordsArr =
