@@ -12,7 +12,7 @@ const CommonMonthSolve = ({ userId }: CommonMonthSolveProps) => {
   const currentMonth = new Date().getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
   const [clickedYear, setClickedYear] = useState(year);
   const [clickedMonth, setClickedMonth] = useState(currentMonth);
-  ``;
+
   const { data, isLoading } = useGetMonthSolve({
     userId: userId,
     year: clickedYear,
@@ -58,9 +58,6 @@ const WeekRateContainer = styled.div`
 
   width: 61.1rem;
   height: 41rem;
-
-  /* max-width: 41rem; */
-
   padding: 3.4rem 3.8rem 4.2rem 3.4rem;
 
   border-radius: 1.6rem;
