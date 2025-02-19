@@ -9,7 +9,6 @@ import {
 const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
   const { userId, successRate, profileImg, nickname, language } = user;
   const navigate = useNavigate();
-
   const handleClickBtn = () => {
     navigate(`/follower/${userId}`);
   };
