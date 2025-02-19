@@ -8,9 +8,12 @@ import {
 
 const HomeProfileCard = ({ user }: HomeProfileCardProps) => {
   const { userId, successRate, profileImg, nickname, language } = user;
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth() + 1;
   const navigate = useNavigate();
+
   const handleClickBtn = () => {
-    navigate(`/follower/${userId}`);
+    navigate(`/follower/${userId}?year=${year}&month=${month}`);
   };
 
   const CustomLabel = ({ profileImg }: CustomLabelProps) => {
