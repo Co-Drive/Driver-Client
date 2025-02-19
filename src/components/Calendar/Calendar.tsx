@@ -55,14 +55,14 @@ const CommonCalendar = ({
 
   return (
     <CalendarContainer>
-      <NavContainer $isClicked={isCalendarClicked === true}>
+      <NavContainer
+        $isClicked={isCalendarClicked === true}
+        onClick={handleClickCalendar}
+      >
         <DateContainer>
-          <CurrentDate onClick={handleClickCalendar}>
-            <IcCalendar />
-            <Year>{clickedYear}년</Year>
-            <Month>{recentMonth}월</Month>
-          </CurrentDate>
-
+          <IcCalendar />
+          <Year>{clickedYear}년</Year>
+          <Month>{recentMonth}월</Month>
           {isCalendarClicked ? (
             <CustomCalendarContainer>
               <IcArrowTopWhite />
@@ -147,6 +147,8 @@ const NavContainer = styled.div<{ $isClicked: boolean }>`
     css`
       outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
     `};
+
+  cursor: pointer;
 `;
 
 const DateContainer = styled.div`
@@ -155,15 +157,10 @@ const DateContainer = styled.div`
   position: relative;
 `;
 
-const CurrentDate = styled.div`
-  display: flex;
-  align-items: center;
-
-  cursor: pointer;
-`;
-
 const Year = styled.p`
-  padding: 0 0.4rem 0 1.4rem;
+  margin-right: 0.4rem;
+  margin-left: 1.4rem;
+  cursor: default;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -171,6 +168,9 @@ const Year = styled.p`
 `;
 
 const Month = styled.p`
+  margin-right: 0.4rem;
+  cursor: default;
+
   color: ${({ theme }) => theme.colors.white};
 
   ${({ theme }) => theme.fonts.body_medium_16};
@@ -182,8 +182,6 @@ const CustomCalendarContainer = styled.div`
   right: 0;
 
   transform: translateY(-50%);
-
-  cursor: pointer;
 `;
 
 const StyledCalendar = styled(Calendar)`
