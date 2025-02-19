@@ -5,7 +5,11 @@ export interface BoardProps {
 export interface CommonCalendarProps {
   clickedYear: number;
   clickedMonth: number;
-  board: BoardProps[];
+  data: {
+    data: {
+      board: BoardProps[];
+    };
+  };
   setClickedYear: React.Dispatch<React.SetStateAction<number>>;
   setClickedMonth: React.Dispatch<React.SetStateAction<number>>;
 }

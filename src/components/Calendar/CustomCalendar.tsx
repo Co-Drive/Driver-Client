@@ -19,6 +19,7 @@ const CustomCalendar = ({
   handleClickMonth,
   handleClickNextBtn,
 }: CustomCalendarProps) => {
+  const year = new Date().getFullYear();
   const { clickedYear, clickedMonth } = date;
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
 
@@ -32,7 +33,7 @@ const CustomCalendar = ({
 
       <MonthBoard>
         {monthCalendar.map((month) => {
-          const disabled = unsolvedMonths.includes(month);
+          const disabled = unsolvedMonths.includes(month) || clickedYear > year;
           return (
             <Month
               key={month}
