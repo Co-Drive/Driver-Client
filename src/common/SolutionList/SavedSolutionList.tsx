@@ -25,9 +25,13 @@ const SavedSolutionList = ({
 
   const [sorting, setSorting] = useState('최신순');
   const [searchParams, setSearchParams] = useSearchParams();
-  const clickedPage = Number(searchParams.get('page'));
-  const selectedYear = Number(searchParams.get('year'));
-  const selectedMonth = Number(searchParams.get('month'));
+  const clickedPage = isSmallList ? 0 : Number(searchParams.get('page'));
+  const selectedYear = isSmallList
+    ? new Date().getFullYear()
+    : Number(searchParams.get('year'));
+  const selectedMonth = isSmallList
+    ? new Date().getMonth() + 1
+    : Number(searchParams.get('month'));
 
   const { unsolvedData, isLoading: isUnsolvedDataLoading } =
     useGetUnsolvedMonths({

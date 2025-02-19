@@ -8,9 +8,8 @@ interface CommonMonthSolveProps {
 }
 
 const CommonMonthSolve = ({ userId }: CommonMonthSolveProps) => {
-  const currentMonth = new Date().getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
-
   const year = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1; // getMonth()는 0부터 시작하므로 +1 필요
   const [clickedYear, setClickedYear] = useState(year);
   const [clickedMonth, setClickedMonth] = useState(currentMonth);
 
