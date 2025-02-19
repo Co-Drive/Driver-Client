@@ -1,43 +1,30 @@
-/* stylelint-disable selector-class-pattern */
-
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // css import
 import styled, { css } from 'styled-components';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
 import useGetUnsolvedMonths from '../../libs/hooks/Solution/useGetUnsolvedMonths';
-import { BoardProps, CommonCalendarProps } from '../../types/Home/calendarType';
+import { CommonCalendarProps } from '../../types/Home/calendarType';
 import CustomCalendar from './CustomCalendar';
 
 type ValuePiece = Date | null;
-
 type SelectedDate = ValuePiece | [ValuePiece, ValuePiece];
 
 const CommonCalendar = ({
   clickedYear,
   clickedMonth,
-  data,
+  board,
   setClickedYear,
   setClickedMonth,
 }: CommonCalendarProps) => {
   const today = new Date();
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(today);
-  const [board, setBoard] = useState<BoardProps[]>([]);
 
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
-  const { unsolvedData } = useGetUnsolvedMonths({ year: clickedYear });
-
-  const unsolvedMonths = useRef<Array<number>>([]);
-
-  const getUnsolvedMonthsArr = () => {
-    if (unsolvedData) {
-      const { months } = unsolvedData.data;
-      unsolvedMonths.current = months;
-    }
-  };
-  useEffect(() => {
-    getUnsolvedMonthsArr();
-  }, [unsolvedData]);
+  const { unsolvedData, isLoading } = useGetUnsolvedMonths({
+    year: clickedYear,
+  });
+  const { months: unsolvedMonths } = !isLoading && unsolvedData.data;
 
   const customWeekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
@@ -59,17 +46,6 @@ const CommonCalendar = ({
     setSelectedDate(newDate);
   };
 
-  const upDatedCalendar = () => {
-    if (data) {
-      const { board } = data.data;
-      setBoard(board);
-    }
-  };
-
-  useEffect(() => {
-    upDatedCalendar();
-  }, [data]);
-
   return (
     <CalendarContainer>
       <NavContainer
@@ -83,13 +59,15 @@ const CommonCalendar = ({
           {isCalendarClicked ? (
             <CustomCalendarContainer>
               <IcArrowTopWhite />
-              <CustomCalendar
-                date={{ clickedYear, clickedMonth }}
-                unsolvedMonths={unsolvedMonths.current}
-                handleClickPrevBtn={handleClickPrevBtn}
-                handleClickMonth={handleClickMonth}
-                handleClickNextBtn={handleClickNextBtn}
-              />
+              {!isLoading && (
+                <CustomCalendar
+                  date={{ clickedYear, clickedMonth }}
+                  unsolvedMonths={unsolvedMonths}
+                  handleClickPrevBtn={handleClickPrevBtn}
+                  handleClickMonth={handleClickMonth}
+                  handleClickNextBtn={handleClickNextBtn}
+                />
+              )}
             </CustomCalendarContainer>
           ) : (
             <CustomCalendarContainer>

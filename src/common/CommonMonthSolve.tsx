@@ -13,14 +13,15 @@ const CommonMonthSolve = ({ userId }: CommonMonthSolveProps) => {
   const year = new Date().getFullYear();
   const [clickedYear, setClickedYear] = useState(year);
   const [clickedMonth, setClickedMonth] = useState(currentMonth);
-  ``;
+
   const { data, isLoading } = useGetMonthSolve({
     userId: userId,
     year: clickedYear,
     month: clickedMonth,
   });
 
-  const { totalCount, longestPeriod, maxCount } = !isLoading && data?.data;
+  const { totalCount, longestPeriod, maxCount, board } =
+    !isLoading && data?.data;
 
   return (
     <WeekRateContainer>
@@ -40,13 +41,15 @@ const CommonMonthSolve = ({ userId }: CommonMonthSolveProps) => {
         </LongestSolve>
       </div>
 
-      <CommonCalendar
-        clickedYear={clickedYear}
-        clickedMonth={clickedMonth}
-        data={data}
-        setClickedYear={setClickedYear}
-        setClickedMonth={setClickedMonth}
-      />
+      {!isLoading && (
+        <CommonCalendar
+          clickedYear={clickedYear}
+          clickedMonth={clickedMonth}
+          board={board}
+          setClickedYear={setClickedYear}
+          setClickedMonth={setClickedMonth}
+        />
+      )}
     </WeekRateContainer>
   );
 };
