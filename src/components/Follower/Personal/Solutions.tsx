@@ -11,14 +11,12 @@ export interface SolutionsProps {
 
 const Solutions = ({ id, nickname }: SolutionsProps) => {
   const navigate = useNavigate();
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth() + 1;
 
   const [disabledMoreBtn, setDisabledMoreBtn] = useState(false);
 
   const handleClickMoreBtn = () => {
     sessionStorage.setItem('friendname', nickname);
-    navigate(`/follower/${id}/total?page=1&year=${year}&month=${month}`);
+    navigate(`/follower/${id}/total?page=1`);
   };
 
   return (

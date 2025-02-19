@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcFollowingGray, IcUnfollowingWhite } from '../../../assets';
 import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
@@ -9,16 +9,15 @@ import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
 import PageLayout from '../../PageLayout/PageLayout';
 
 const TotalSolutions = () => {
-  const navigate = useNavigate();
   const { id } = useParams();
-  const nickname = sessionStorage.getItem('friendname');
-  if (!id || !nickname) return navigate('/error');
+  const nickname = String(sessionStorage.getItem('friendname'));
 
-  const userId = parseInt(id);
-  const { data, isLoading } = useGetUserProfile(parseInt(id)) || {};
+  const userId = id ? Number(id) : NaN;
+  const isInvalidId = isNaN(userId);
+  const { data, isLoading } = useGetUserProfile(userId) || {};
   const { isFollowing } = !isLoading && data?.data;
   const { mutation, updateFollowerErr } = useUpdateFollower();
-  const isError = updateFollowerErr.length > 0;
+  const isError = updateFollowerErr.length > 0 || isInvalidId || !nickname;
 
   const [errModalOn, setErrModalOn] = useState(isError);
   const [isClickedFollowBtn, setIsClickedFollowBtn] = useState(false);

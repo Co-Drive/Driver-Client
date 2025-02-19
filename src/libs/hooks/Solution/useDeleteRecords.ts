@@ -16,7 +16,7 @@ const useDeleteRecords = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
-      navigate('/solution');
+      navigate('/solution?page=1');
     },
   });
 
