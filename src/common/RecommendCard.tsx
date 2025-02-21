@@ -24,10 +24,10 @@ const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
       : { roomId: groupId.toString(), notNavigateDetail: true };
 
     if (isOwner) {
-      navigate(`/group/${groupId}/admin?page=${clickedPage}`);
+      navigate(`/group/${groupId}/admin?page=${clickedPage}&sort=NEW`);
     } else {
       isMember
-        ? navigate(`/group/${groupId}/member?page=${clickedPage}`)
+        ? navigate(`/group/${groupId}/member?page=${clickedPage}&sort=NEW`)
         : navigate(navigatedPage, {
             state: navigatedState,
           });

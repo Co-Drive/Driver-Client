@@ -130,7 +130,7 @@ const GroupEdit = () => {
     setSelectedTags(tags || []);
     setIsPublicGroup(!password);
     setSelectedImageFile(null);
-    navigate(`/group/${id}/admin?page=1`);
+    navigate(`/group/${id}/admin?page=1&sort=NEW`);
   };
 
   useEffect(() => {
