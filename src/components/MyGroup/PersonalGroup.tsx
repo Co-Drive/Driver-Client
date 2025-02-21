@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -42,10 +42,6 @@ const PersonalGroup = () => {
   const successData = !isLoading && data.data;
   const { totalPage, joinedRooms, createdRooms } = successData;
   const group = isJoinedRooms ? joinedRooms : createdRooms;
-
-  useEffect(() => {
-    sessionStorage.removeItem('savedPage');
-  }, []);
 
   const handleClickSorting = (
     e:
