@@ -17,17 +17,17 @@ const PersonalGroup = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const clickedPage = Number(searchParams.get('page'));
+  const sorting = String(searchParams.get('sort'));
 
   const [clickedCategry, setClickedCategory] = useState(
     savedCategory ? savedCategory : GROUP_CATEGORY[0]
   );
   const [filter, setFilter] = useState({
     clickedStatus: '모집 중',
-    sorting: '최신순',
   });
   const isJoinedRooms = clickedCategry === GROUP_CATEGORY[0];
 
-  const { clickedStatus, sorting } = filter;
+  const { clickedStatus } = filter;
   const { data, isLoading } = useGetRooms({
     sortType: sorting,
     page: clickedPage - 1,
@@ -50,17 +50,14 @@ const PersonalGroup = () => {
     isSorting: boolean
   ) => {
     const { innerText } = e.currentTarget;
+    const sort = innerText === '최신순' ? 'NEW' : 'DICT';
 
     isSorting
-      ? setFilter({
-          ...filter,
-          sorting: innerText,
-        })
+      ? setSearchParams({ page: '1', sort: sort })
       : setFilter({
           ...filter,
           clickedStatus: innerText,
         });
-    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
   };
 
   const handleClickCategory = (
@@ -70,7 +67,7 @@ const PersonalGroup = () => {
     setClickedCategory(innerHTML);
     sessionStorage.setItem('savedCategory', innerHTML);
 
-    setSearchParams({ page: '1' });
+    setSearchParams({ page: '1', sort: 'NEW' });
   };
 
   return (
@@ -111,11 +108,12 @@ const PersonalGroup = () => {
 
         <SortContainer>
           {SORTING.map((standard) => {
+            const clickedSort = sorting === 'NEW' ? '최신순' : '가나다순';
             return (
               <Sorting
                 key={standard}
                 onClick={(e) => standard !== '|' && handleClickSorting(e, true)}
-                $isClicked={sorting === standard}
+                $isClicked={clickedSort === standard}
               >
                 {standard}
               </Sorting>
