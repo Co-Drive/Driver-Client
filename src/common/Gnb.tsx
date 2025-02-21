@@ -37,7 +37,9 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
       case solve[0]:
         return navigate('/solve');
       case solve[1]:
-        return navigate(`/solution?page=1&year=${year}&month=${month}`);
+        return navigate(
+          `/solution?page=1&sort=NEW&year=${year}&month=${month}`
+        );
       case group[0]:
         return navigate('/group?page=1');
       case group[1]:

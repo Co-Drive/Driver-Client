@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
@@ -22,9 +22,9 @@ const SavedSolutionList = ({
   const isFollowerMode = myId && userId.toString() !== myId;
   const followerId = isFollowerMode ? userId : undefined;
 
-  const [sorting, setSorting] = useState('최신순');
   const [searchParams, setSearchParams] = useSearchParams();
   const clickedPage = isSmallList ? 0 : Number(searchParams.get('page'));
+  const sorting = isSmallList ? '' : String(searchParams.get('sort'));
   const selectedYear = isSmallList
     ? new Date().getFullYear()
     : Number(searchParams.get('year'));
@@ -77,28 +77,36 @@ const SavedSolutionList = ({
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => {
     const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
+    const sort = innerHTML === '최신순' ? 'NEW' : 'OLD';
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString();
+    setSearchParams({ page: '1', sort: sort, year: year, month: month });
   };
 
   const handleClickPrevBtn = () => {
     const prevPage = (clickedPage - 1).toString();
     const year = selectedYear.toString();
     const month = selectedMonth.toString();
-    setSearchParams({ page: prevPage, year: year, month: month });
+    setSearchParams({ page: prevPage, sort: 'NEW', year: year, month: month });
   };
 
   const handleClickPage = ({ clickedPage }: ClickedValueProps) => {
     const page = clickedPage.toString();
     const year = selectedYear.toString();
     const month = selectedMonth.toString();
-    setSearchParams({ page: page.toString(), year: year, month: month });
+    setSearchParams({
+      page: page.toString(),
+      sort: 'NEW',
+      year: year,
+      month: month,
+    });
   };
 
   const handleClickNextBtn = () => {
     const nextPage = (clickedPage + 1).toString();
     const year = selectedYear.toString();
     const month = selectedMonth.toString();
-    setSearchParams({ page: nextPage, year: year, month: month });
+    setSearchParams({ page: nextPage, sort: 'NEW', year: year, month: month });
   };
 
   useEffect(() => {

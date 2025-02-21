@@ -28,7 +28,7 @@ const usePostRecords = ({
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
         queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
-        navigate(`/solution?page=1`);
+        navigate(`/solution?page=1&sort=NEW`);
       }, 1500);
     },
   });

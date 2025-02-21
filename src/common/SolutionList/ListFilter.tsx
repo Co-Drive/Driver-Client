@@ -29,6 +29,7 @@ const ListFilter = ({
 
     setSearchParams({
       page: '1',
+      sort: sorting,
       year: prevYear,
       month: recentMonth.toString(),
     });
@@ -41,6 +42,7 @@ const ListFilter = ({
       const clickedMonth = e.currentTarget.innerHTML;
       setSearchParams({
         page: '1',
+        sort: sorting,
         year: selectedYear.toString(),
         month: clickedMonth,
       });
@@ -52,6 +54,7 @@ const ListFilter = ({
 
     setSearchParams({
       page: '1',
+      sort: sorting,
       year: nextYear,
       month: recentMonth.toString(),
     });
@@ -61,6 +64,7 @@ const ListFilter = ({
     if (!isUnsolvedDataLoading) {
       setSearchParams({
         page: '1',
+        sort: 'NEW',
         year: selectedYear.toString(),
         month: recentMonth.toString(),
       });
@@ -95,13 +99,14 @@ const ListFilter = ({
 
       <SortContainer>
         {OLD_AND_NEW.map((standard) => {
+          const clickedSort = sorting === 'NEW' ? '최신순' : '오래된순';
           return (
             <Sorting
               key={standard}
               onClick={(
                 e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
               ) => standard !== '|' && handleClickSorting(e)}
-              $isClicked={sorting === standard}
+              $isClicked={clickedSort === standard}
             >
               {standard}
             </Sorting>

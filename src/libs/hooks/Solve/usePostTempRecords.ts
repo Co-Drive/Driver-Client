@@ -20,7 +20,7 @@ const usePostTempRecords = (onClose?: () => void) => {
     onSuccess: ({ data }) => {
       if (data) {
         queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
-        navigate('/solution?page=1');
+        navigate('/solution?page=1&sort=NEW');
         onClose && onClose();
       }
     },
