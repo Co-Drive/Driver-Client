@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { useSearchParams } from 'react-router-dom';
 import { IcArrowBottomWhite, IcArrowTopWhite, IcCalendar } from '../../assets';
 import { OLD_AND_NEW } from '../../constants/Follower/currentConst';
 import { ListFilterProps } from '../../types/Solution/solutionTypes';
@@ -8,41 +9,83 @@ import Calendar from './Calendar';
 
 const ListFilter = ({
   sorting,
-  year,
-  month,
+  recentMonth,
   unsolvedMonths,
+  isUnsolvedDataLoading,
   handleClickSorting,
-  handleClickPrevBtn,
-  handleClickMonth,
-  handleClickNextBtn,
 }: ListFilterProps) => {
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedYear = Number(searchParams.get('year'));
+  const selectedMonth = Number(searchParams.get('month'));
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
   };
+
+  const handleClickPrevBtn = () => {
+    const prevYear = (selectedYear - 1).toString();
+
+    setSearchParams({
+      page: '1',
+      year: prevYear,
+      month: recentMonth.toString(),
+    });
+  };
+
+  const handleClickMonth = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
+    if (e) {
+      const clickedMonth = e.currentTarget.innerHTML;
+      setSearchParams({
+        page: '1',
+        year: selectedYear.toString(),
+        month: clickedMonth,
+      });
+    }
+  };
+
+  const handleClickNextBtn = () => {
+    const nextYear = (selectedYear + 1).toString();
+
+    setSearchParams({
+      page: '1',
+      year: nextYear,
+      month: recentMonth.toString(),
+    });
+  };
+
+  useEffect(() => {
+    if (!isUnsolvedDataLoading) {
+      setSearchParams({
+        page: '1',
+        year: selectedYear.toString(),
+        month: recentMonth.toString(),
+      });
+    }
+  }, [recentMonth, isUnsolvedDataLoading]);
 
   return (
     <FilteredContainer>
       <DateFilterContainer $isCalendarClicked={isCalendarClicked}>
         <IcCalendar onClick={handleClickDateFilter} />
         <DateContainer onClick={handleClickDateFilter}>
-          <Year>{year}년</Year>
-          <Month>{month}월</Month>
+          <Year>{selectedYear}년</Year>
+          <Month>{selectedMonth}월</Month>
         </DateContainer>
 
         {isCalendarClicked ? (
           <>
             <IcArrowTopWhite onClick={handleClickDateFilter} />
             <Calendar
-              date={{ clickedYear: year, clickedMonth: month }}
+              selectedYear={selectedYear}
+              selectedMonth={selectedMonth}
               unsolvedMonths={unsolvedMonths}
-              handleClickPrevBtn={() => handleClickPrevBtn(false)}
-              handleClickMonth={(e) => {
-                handleClickMonth(e);
-                handleClickDateFilter();
-              }}
-              handleClickNextBtn={() => handleClickNextBtn(false)}
+              handleClickPrevBtn={handleClickPrevBtn}
+              handleClickMonth={handleClickMonth}
+              handleClickNextBtn={handleClickNextBtn}
             />
           </>
         ) : (

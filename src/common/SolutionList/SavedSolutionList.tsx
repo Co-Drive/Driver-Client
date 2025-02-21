@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
@@ -22,34 +22,23 @@ const SavedSolutionList = ({
   const isFollowerMode = myId && userId.toString() !== myId;
   const followerId = isFollowerMode ? userId : undefined;
 
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth() + 1;
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [sorting, setSorting] = useState('최신순');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const clickedPage = isSmallList ? 0 : Number(searchParams.get('page'));
+  const selectedYear = isSmallList
+    ? new Date().getFullYear()
+    : Number(searchParams.get('year'));
+  const selectedMonth = isSmallList
+    ? new Date().getMonth() + 1
+    : Number(searchParams.get('month'));
+
   const { unsolvedData, isLoading: isUnsolvedDataLoading } =
     useGetUnsolvedMonths({
       year: selectedYear,
       followerId,
     });
-  const { months: unsolvedMonths } =
-    !isUnsolvedDataLoading && unsolvedData.data;
 
-  const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
-  const solvedMonths =
-    !isUnsolvedDataLoading &&
-    monthCalendar.filter((month) => !unsolvedMonths.includes(month));
-  const recentSolvedMonth =
-    !isUnsolvedDataLoading && solvedMonths && Math.max(...solvedMonths);
-  const isRecentSolvedMonthExit = recentSolvedMonth && recentSolvedMonth > 0;
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const clickedPage = Number(searchParams.get('page'));
-
-  const [sorting, setSorting] = useState('최신순');
-  const [selectedMonth, setSelectedMonth] = useState(
-    isRecentSolvedMonthExit ? recentSolvedMonth : currentMonth
-  );
-
-  const { data, isLoading } = isSmallList
+  const { data, isLoading: isRecordsLoading } = isSmallList
     ? useGetRecentFollowerRecords({ userId })
     : useGetMonthlySolution({
         userId: userId,
@@ -59,14 +48,30 @@ const SavedSolutionList = ({
         page: clickedPage - 1,
       });
 
-  const { records, totalPage } = !isLoading && data.data;
+  const { months: unsolvedMonths } =
+    !isUnsolvedDataLoading && unsolvedData.data;
+
+  const { records, totalPage } = !isRecordsLoading && data.data;
+
+  const recentMonth = useMemo(() => {
+    if (!isUnsolvedDataLoading)
+      for (let month = 12; month > 0; month--) {
+        if (!unsolvedMonths.includes(month)) {
+          return month;
+        }
+      }
+    return 1;
+  }, [selectedYear, isUnsolvedDataLoading, unsolvedMonths]);
+
   const recordsArr =
-    !isLoading &&
+    !isRecordsLoading &&
     (isSmallList && records.length > 5 ? records.slice(0, 5) : records);
   const pages = Array.from(
     { length: totalPage ? totalPage : 1 },
     (_, idx) => idx + 1
   );
+
+  const isLoading = isRecordsLoading || isUnsolvedDataLoading;
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
@@ -75,61 +80,45 @@ const SavedSolutionList = ({
     setSorting(innerHTML);
   };
 
-  const handleClickPrevBtn = (isPage: boolean) => {
-    if (isPage) {
-      const prevPage = (clickedPage - 1).toString();
-      setSearchParams({ page: prevPage });
-    } else {
-      setSelectedYear((year) => year - 1);
-      setSearchParams({ page: '1' });
-    }
-
-    setSearchParams({ page: clickedPage.toString() });
+  const handleClickPrevBtn = () => {
+    const prevPage = (clickedPage - 1).toString();
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString();
+    setSearchParams({ page: prevPage, year: year, month: month });
   };
 
-  const handleClickValue = ({ e, value }: ClickedValueProps) => {
-    if (value) {
-      setSearchParams({ page: value.toString() });
-    } else {
-      if (e) {
-        const clickedMonth = parseInt(e.currentTarget.innerHTML);
-        setSelectedMonth(clickedMonth);
-        setSearchParams({ page: '1' });
-      }
-    }
+  const handleClickPage = ({ clickedPage }: ClickedValueProps) => {
+    const page = clickedPage.toString();
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString();
+    setSearchParams({ page: page.toString(), year: year, month: month });
   };
 
-  const handleClickNextBtn = (isPage: boolean) => {
-    if (isPage) {
-      const nextPage = (clickedPage + 1).toString();
-      setSearchParams({ page: nextPage });
-    } else {
-      setSelectedYear((year) => year + 1);
-      setSearchParams({ page: '1' });
-    }
+  const handleClickNextBtn = () => {
+    const nextPage = (clickedPage + 1).toString();
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString();
+    setSearchParams({ page: nextPage, year: year, month: month });
   };
 
   useEffect(() => {
-    if (handleDisabledMoreBtn && !isLoading)
+    if (handleDisabledMoreBtn && !isRecordsLoading)
       records.length <= 5
         ? handleDisabledMoreBtn(true)
         : handleDisabledMoreBtn(false);
   }, [records]);
 
   return (
-    <ListContainer $isSmallList={isSmallList}>
+    <ListContainer $isSmallList={isSmallList} $isLoading={isLoading}>
       {!isLoading && (
         <>
           {!isSmallList && (
             <ListFilter
               sorting={sorting}
-              year={selectedYear}
-              month={selectedMonth}
+              recentMonth={recentMonth}
               unsolvedMonths={unsolvedMonths}
+              isUnsolvedDataLoading={isUnsolvedDataLoading}
               handleClickSorting={handleClickSorting}
-              handleClickPrevBtn={handleClickPrevBtn}
-              handleClickMonth={handleClickValue}
-              handleClickNextBtn={handleClickNextBtn}
             />
           )}
 
@@ -146,14 +135,14 @@ const SavedSolutionList = ({
           {!isSmallList && (
             <PageNationBar>
               <IcArrowLeftSmallGray
-                onClick={() => clickedPage !== 1 && handleClickPrevBtn(true)}
+                onClick={() => clickedPage !== 1 && handleClickPrevBtn()}
               />
               {pages.map((page) => {
                 return (
                   <PageNumber
                     key={page}
                     $isClicked={clickedPage === page && totalPage > 0}
-                    onClick={() => handleClickValue({ value: page })}
+                    onClick={() => handleClickPage({ clickedPage: page })}
                   >
                     {page}
                   </PageNumber>
@@ -161,7 +150,7 @@ const SavedSolutionList = ({
               })}
               <IcArrowRightSmallGray
                 onClick={() =>
-                  clickedPage !== totalPage && handleClickNextBtn(true)
+                  clickedPage !== totalPage && handleClickNextBtn()
                 }
               />
             </PageNationBar>
@@ -174,20 +163,22 @@ const SavedSolutionList = ({
 
 export default SavedSolutionList;
 
-const ListContainer = styled.section<{ $isSmallList: boolean }>`
+const ListContainer = styled.section<{
+  $isSmallList: boolean;
+  $isLoading: boolean;
+}>`
   display: flex;
   align-items: center;
   flex-direction: column;
 
   width: 100%;
-  ${({ $isSmallList }) =>
-    $isSmallList
-      ? css`
-          border-top: 0.1rem solid ${({ theme }) => theme.colors.gray600};
-        `
-      : css`
-          margin-top: 4.3rem;
-        `};
+
+  ${({ $isSmallList, $isLoading, theme }) => css`
+    ${$isSmallList
+      ? `border-top: 0.1rem solid ${theme.colors.gray600};`
+      : `margin-top: 4.3rem;`}
+    ${$isLoading && `height: 19.3rem;`}
+  `};
 `;
 
 const PageNationBar = styled.div`

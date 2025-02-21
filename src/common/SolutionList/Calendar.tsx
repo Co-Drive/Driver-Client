@@ -3,33 +3,33 @@ import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
 import { CalendarProps } from '../../types/Solution/solutionTypes';
 
 const Calendar = ({
-  date,
+  selectedYear,
+  selectedMonth,
   unsolvedMonths,
   handleClickPrevBtn,
   handleClickMonth,
   handleClickNextBtn,
 }: CalendarProps) => {
-  const year = new Date().getFullYear();
-  const { clickedYear, clickedMonth } = date;
   const monthCalendar = Array.from({ length: 12 }, (_, idx) => idx + 1);
 
   return (
     <CalendarContainer>
       <YearContainer>
         <IcArrowLeftSmallGray onClick={handleClickPrevBtn} />
-        <Year>{clickedYear}</Year>
+        <Year>{selectedYear}</Year>
         <IcArrowRightSmallGray onClick={handleClickNextBtn} />
       </YearContainer>
 
       <MonthBoard>
         {monthCalendar.map((month) => {
-          const disabled = unsolvedMonths.includes(month) || clickedYear > year;
+          const disabled = unsolvedMonths.includes(month);
+
           return (
             <Month
               key={month}
               $disabled={disabled}
-              $isClicked={clickedMonth === month}
-              onClick={(e) => !disabled && handleClickMonth({ e })}
+              $isClicked={selectedMonth === month}
+              onClick={(e) => !disabled && handleClickMonth(e)}
             >
               {month}
             </Month>

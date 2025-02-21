@@ -20,7 +20,7 @@ const Home = () => {
       navigate('/register');
     }
     return;
-  });
+  }, [userId, isNotRegisted]);
 
   return (
     <PageLayout category="홈">
