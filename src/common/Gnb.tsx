@@ -45,7 +45,7 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
       case group[1]:
         return navigate('/group-new');
       case group[2]:
-        return navigate('/my-group?page=1&sort=NEW');
+        return navigate('/my-group?page=1&sort=NEW&status=ACTIVE');
       case profile[0]:
         return navigate(`/${username}`);
       case profile[1]:
