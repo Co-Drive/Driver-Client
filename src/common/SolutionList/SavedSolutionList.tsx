@@ -61,7 +61,7 @@ const SavedSolutionList = ({
         }
       }
     return 1;
-  }, [selectedYear, isUnsolvedDataLoading, unsolvedMonths]);
+  }, [selectedYear, selectedMonth]);
 
   const recordsArr =
     !isRecordsLoading &&

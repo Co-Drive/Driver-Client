@@ -17,6 +17,7 @@ const ListFilter = ({
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const page = String(searchParams.get('page'));
   const selectedYear = Number(searchParams.get('year'));
   const selectedMonth = Number(searchParams.get('month'));
 
@@ -58,9 +59,9 @@ const ListFilter = ({
   };
 
   useEffect(() => {
-    if (!isUnsolvedDataLoading) {
+    if (!isUnsolvedDataLoading && page === '1') {
       setSearchParams({
-        page: '1',
+        page: page,
         year: selectedYear.toString(),
         month: recentMonth.toString(),
       });
