@@ -56,39 +56,34 @@ const GroupCreate = () => {
   };
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-    // 이미지 압축 옵션 설정
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 445,
       useWebWorker: true,
     };
-    if (file) {
-      try {
-        // 이미지 압축 (비동기)
-        const compressedBlob = await imageCompression(file, options);
 
-        // Blob을 File로 변환
-        const compressedFile = new File([compressedBlob], file.name, {
-          type: file.type,
-          lastModified: Date.now(),
-        });
+    try {
+      // 이미지 압축
+      const compressedBlob = await imageCompression(file, options);
+      const compressedFile = new File([compressedBlob], file.name, {
+        type: file.type,
+        lastModified: Date.now(),
+      });
 
-        setSelctedImageFIle(compressedFile);
+      setSelctedImageFIle(compressedFile);
 
-        // 미리보기 이미지 생성
-        const reader = new FileReader();
-        reader.onload = () => {
-          setPreviewImage(reader.result as string);
-        };
-        reader.readAsDataURL(compressedFile);
+      // 미리보기 이미지 생성
+      const reader = new FileReader();
+      reader.onload = () => setPreviewImage(reader.result as string);
+      reader.readAsDataURL(compressedFile);
 
-        // 파일 입력 필드 초기화
-        e.target.value = '';
-      } catch (error) {
-        console.error('이미지 압축 중 오류 발생:', error);
-      }
+      // 파일 입력 필드 초기화
+      e.target.value = '';
+    } catch (error) {
+      console.error('이미지 처리 중 오류 발생:', error);
     }
   };
 
