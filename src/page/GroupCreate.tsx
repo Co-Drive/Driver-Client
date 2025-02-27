@@ -1,3 +1,4 @@
+import imageCompression from 'browser-image-compression';
 import { useState } from 'react';
 import styled from 'styled-components';
 import CreateButton from '../components/GroupCreate/CreateButton';
@@ -54,18 +55,33 @@ const GroupCreate = () => {
     }
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
+    console.log(file);
+    // 이미지 압축 옵션 설정
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 445,
+      useWebWorker: true, // Web Worker 사용
+    };
     if (file) {
-      // 선택된 파일을 상태로 저장
-      setSelctedImageFIle(file);
-      const reader = new FileReader();
-      reader.onload = () => {
-        setPreviewImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-      // 파일 입력 필드 초기화
-      e.target.value = '';
+      try {
+        // 이미지 압축 (비동기)
+        const compressedFile = await imageCompression(file, options);
+        setSelctedImageFIle(compressedFile);
+
+        // 미리보기 이미지 생성
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreviewImage(reader.result as string);
+        };
+        reader.readAsDataURL(compressedFile);
+
+        // 파일 입력 필드 초기화
+        e.target.value = '';
+      } catch (error) {
+        console.error('이미지 압축 중 오류 발생:', error);
+      }
     }
   };
 
