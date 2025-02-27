@@ -60,8 +60,8 @@ const GroupCreate = () => {
     if (!file) return;
 
     const options = {
-      maxSizeMB: 1,
-      maxWidthOrHeight: 297,
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 1224,
       useWebWorker: true,
     };
 
