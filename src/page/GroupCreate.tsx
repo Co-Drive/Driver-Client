@@ -61,7 +61,7 @@ const GroupCreate = () => {
 
     const options = {
       maxSizeMB: 1,
-      maxWidthOrHeight: 445,
+      maxWidthOrHeight: 297,
       useWebWorker: true,
     };
 
