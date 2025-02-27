@@ -10,6 +10,7 @@ import TitleSection from '../components/GroupCreate/TitleSection';
 import PageLayout from '../components/PageLayout/PageLayout';
 import CommonButton from './../common/CommonButton';
 
+import imageCompression from 'browser-image-compression';
 import usePatchRooms from '../libs/hooks/GroupEdit/usePatchRooms';
 import useGetDetail from './../libs/hooks/GroupDetail/useGetDetail';
 import LoadingPage from './LoadingPage';
@@ -74,16 +75,35 @@ const GroupEdit = () => {
     setIsPublicGroup(active);
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    if (file) {
-      setSelectedImageFile(file); // 선택된 파일 저장
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 297,
+      useWebWorker: true,
+    };
+
+    try {
+      // 이미지 압축
+      const compressedBlob = await imageCompression(file, options);
+      const compressedFile = new File([compressedBlob], file.name, {
+        type: file.type,
+        lastModified: Date.now(),
+      });
+
+      setSelectedImageFile(compressedFile);
+
+      // 미리보기 이미지 생성
       const reader = new FileReader();
-      reader.onload = () => {
-        setPreviewImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      reader.onload = () => setPreviewImage(reader.result as string);
+      reader.readAsDataURL(compressedFile);
+
+      // 파일 입력 필드 초기화
       e.target.value = '';
+    } catch (error) {
+      console.error('이미지 처리 중 오류 발생:', error);
     }
   };
 
