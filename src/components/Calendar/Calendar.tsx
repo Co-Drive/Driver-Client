@@ -72,17 +72,16 @@ const CommonCalendar = ({
 
   return (
     <CalendarContainer>
-      <NavContainer
-        $isClicked={isCalendarClicked === true}
-        onClick={handleClickCalendar}
-      >
+      <NavContainer $isClicked={isCalendarClicked}>
         <DateContainer>
-          <IcCalendar />
-          <Year>{clickedYear}년</Year>
-          <Month>{clickedMonth}월</Month>
+          <CurrentDate onClick={handleClickCalendar}>
+            <IcCalendar />
+            <Year>{clickedYear}년</Year>
+            <Month>{clickedMonth}월</Month>
+          </CurrentDate>
           {isCalendarClicked ? (
             <CustomCalendarContainer>
-              <IcArrowTopWhite />
+              <IcArrowTopWhite onClick={handleClickCalendar} />
               <CustomCalendar
                 date={{ clickedYear, clickedMonth }}
                 unsolvedMonths={unsolvedMonths.current}
@@ -92,7 +91,7 @@ const CommonCalendar = ({
               />
             </CustomCalendarContainer>
           ) : (
-            <CustomCalendarContainer>
+            <CustomCalendarContainer onClick={handleClickCalendar}>
               <IcArrowBottomWhite />
             </CustomCalendarContainer>
           )}
@@ -162,8 +161,6 @@ const NavContainer = styled.div<{ $isClicked: boolean }>`
     css`
       outline: 0.1rem solid ${({ theme }) => theme.colors.gray500};
     `};
-
-  cursor: pointer;
 `;
 
 const DateContainer = styled.div`
@@ -172,10 +169,16 @@ const DateContainer = styled.div`
   position: relative;
 `;
 
+const CurrentDate = styled.div`
+  display: flex;
+  align-items: center;
+
+  cursor: pointer;
+`;
+
 const Year = styled.p`
   margin-right: 0.4rem;
   margin-left: 1.4rem;
-  cursor: default;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -184,7 +187,6 @@ const Year = styled.p`
 
 const Month = styled.p`
   margin-right: 0.4rem;
-  cursor: default;
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -197,6 +199,7 @@ const CustomCalendarContainer = styled.div`
   right: 0;
 
   transform: translateY(-50%);
+  cursor: pointer;
 `;
 
 const StyledCalendar = styled(Calendar)`

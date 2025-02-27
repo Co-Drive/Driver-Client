@@ -23,6 +23,8 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
   const solveGnb = category === '문제풀이';
   const profileGnb = category === 'profile';
   const gnbList = solveGnb ? solve : profileGnb ? profile : group;
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth() + 1;
 
   const [clickedList, setClickedList] = useState('');
 
@@ -35,7 +37,7 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
       case solve[0]:
         return navigate('/solve');
       case solve[1]:
-        return navigate('/solution?page=1');
+        return navigate(`/solution?page=1&year=${year}&month=${month}`);
       case group[0]:
         return navigate('/group?page=1');
       case group[1]:

@@ -21,6 +21,8 @@ const FollowerPage = () => {
   const { nickname } = !isLoading && data?.data;
   const scrollAnimation = useScrollAnimation();
 
+  sessionStorage.removeItem('friendname');
+
   return (
     <PageLayout category="홈">
       {!isLoading && (

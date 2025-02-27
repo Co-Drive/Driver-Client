@@ -19,8 +19,11 @@ const usePostTempRecords = (onClose?: () => void) => {
     },
     onSuccess: ({ data }) => {
       if (data) {
+        const year = new Date().getFullYear();
+        const month = new Date().getMonth() + 1;
+
         queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
-        navigate('/solution');
+        navigate(`/solution?page=1&year=${year}&month=${month}`);
         onClose && onClose();
       }
     },

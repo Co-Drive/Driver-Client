@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcFollowingGray, IcUnfollowingWhite } from '../../../assets';
 import ErrorModal from '../../../common/Modal/ErrorModal/ErrorModal';
@@ -9,18 +9,23 @@ import useUpdateFollower from '../../../libs/hooks/Follower/useUpdateFollower';
 import PageLayout from '../../PageLayout/PageLayout';
 
 const TotalSolutions = () => {
-  const { state } = useLocation();
-  const { nickname } = state;
   const { id } = useParams();
-  if (!id) return;
-  const userId = parseInt(id);
-  const { data, isLoading } = useGetUserProfile(parseInt(id)) || {};
+  const nickname = String(sessionStorage.getItem('friendname'));
+  const navigate = useNavigate();
+
+  const userId = id ? Number(id) : NaN;
+  const isInvalidId = isNaN(userId);
+  const { data, isLoading } = useGetUserProfile(userId) || {};
   const { isFollowing } = !isLoading && data?.data;
   const { mutation, updateFollowerErr } = useUpdateFollower();
-  const isError = updateFollowerErr.length > 0;
+  const isError = updateFollowerErr.length > 0 || isInvalidId || !nickname;
 
   const [errModalOn, setErrModalOn] = useState(isError);
   const [isClickedFollowBtn, setIsClickedFollowBtn] = useState(false);
+
+  const handleClickNickname = () => {
+    navigate(`/follower/${userId}`);
+  };
 
   const handleClickFollowBtn = () => {
     setIsClickedFollowBtn(true);
@@ -40,7 +45,7 @@ const TotalSolutions = () => {
       <TotalSolutionsContainer>
         <TopContainer>
           <NicknameContainer>
-            <Nickname>{nickname}</Nickname>
+            <Nickname onClick={handleClickNickname}>{nickname}</Nickname>
             <Text>님이 푼 문제</Text>
           </NicknameContainer>
 
@@ -100,6 +105,8 @@ const NicknameContainer = styled.div`
 const Nickname = styled.span`
   color: ${({ theme }) => theme.colors.codrive_green};
   ${({ theme }) => theme.fonts.title_bold_24};
+
+  cursor: pointer;
 `;
 
 const Text = styled.span`
