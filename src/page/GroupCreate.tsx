@@ -57,17 +57,24 @@ const GroupCreate = () => {
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
-    console.log(file);
+
     // 이미지 압축 옵션 설정
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 445,
-      useWebWorker: true, // Web Worker 사용
+      useWebWorker: true,
     };
     if (file) {
       try {
         // 이미지 압축 (비동기)
-        const compressedFile = await imageCompression(file, options);
+        const compressedBlob = await imageCompression(file, options);
+
+        // Blob을 File로 변환
+        const compressedFile = new File([compressedBlob], file.name, {
+          type: file.type,
+          lastModified: Date.now(),
+        });
+
         setSelctedImageFIle(compressedFile);
 
         // 미리보기 이미지 생성
