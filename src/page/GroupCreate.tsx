@@ -59,6 +59,12 @@ const GroupCreate = () => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const maxFileSizeMB = 5;
+    if (file.size > maxFileSizeMB * 1024 * 1024) {
+      e.target.value = ''; // 파일 입력 필드 초기화
+      return;
+    }
+
     const options = {
       maxSizeMB: 0.5,
       maxWidthOrHeight: 1224,
