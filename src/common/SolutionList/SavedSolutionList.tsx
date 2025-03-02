@@ -88,7 +88,12 @@ const SavedSolutionList = ({
     const prevPage = (clickedPage - 1).toString();
     const year = selectedYear.toString();
     const month = selectedMonth.toString();
-    setSearchParams({ page: prevPage, sort: 'NEW', year: year, month: month });
+    setSearchParams({
+      page: prevPage,
+      sort: sorting,
+      year: year,
+      month: month,
+    });
   };
 
   const handleClickPage = ({ clickedPage }: ClickedValueProps) => {
@@ -97,7 +102,7 @@ const SavedSolutionList = ({
     const month = selectedMonth.toString();
     setSearchParams({
       page: page.toString(),
-      sort: 'NEW',
+      sort: sorting,
       year: year,
       month: month,
     });
@@ -107,7 +112,12 @@ const SavedSolutionList = ({
     const nextPage = (clickedPage + 1).toString();
     const year = selectedYear.toString();
     const month = selectedMonth.toString();
-    setSearchParams({ page: nextPage, sort: 'NEW', year: year, month: month });
+    setSearchParams({
+      page: nextPage,
+      sort: sorting,
+      year: year,
+      month: month,
+    });
   };
 
   useEffect(() => {
