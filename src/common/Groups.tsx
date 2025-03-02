@@ -13,6 +13,7 @@ import RecommendCard from './RecommendCard';
 const Groups = ({ group, totalPage }: PersonalGroupProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const clickedPage = Number(searchParams.get('page'));
+  const sorting = String(searchParams.get('sort'));
   const pages = Array.from(
     { length: totalPage > 0 ? totalPage : 1 },
     (_, idx) => idx + 1
@@ -26,7 +27,7 @@ const Groups = ({ group, totalPage }: PersonalGroupProps) => {
         <IcArrowLeftSmallGray
           onClick={() =>
             clickedPage > 1 &&
-            handleClickPrevBtn({ clickedPage, setSearchParams })
+            handleClickPrevBtn({ clickedPage, sorting, setSearchParams })
           }
         />
         {pages.map((page) => {
@@ -35,7 +36,7 @@ const Groups = ({ group, totalPage }: PersonalGroupProps) => {
               key={page}
               $isClicked={totalPage > 0 && clickedPage === page}
               onClick={() =>
-                handleClickPage({ clickedPage: page, setSearchParams })
+                handleClickPage({ clickedPage: page, sorting, setSearchParams })
               }
             >
               {page}
@@ -45,7 +46,7 @@ const Groups = ({ group, totalPage }: PersonalGroupProps) => {
         <IcArrowRightSmallGray
           onClick={() =>
             clickedPage !== totalPage &&
-            handleClickNextBtn({ clickedPage, setSearchParams })
+            handleClickNextBtn({ clickedPage, sorting, setSearchParams })
           }
         />
       </PageNationBar>

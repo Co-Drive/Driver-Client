@@ -12,7 +12,10 @@ export const handleClickPrevBtn = ({
   setSearchParams,
 }: clickedPageType) => {
   const prevPage = (clickedPage - 1).toString();
-  setSearchParams({ page: prevPage, sort: sorting });
+
+  sorting === null
+    ? setSearchParams({ page: prevPage })
+    : setSearchParams({ page: prevPage, sort: sorting });
 };
 
 export const handleClickPage = ({
@@ -20,7 +23,10 @@ export const handleClickPage = ({
   sorting,
   setSearchParams,
 }: clickedPageType) => {
-  setSearchParams({ page: clickedPage.toString(), sort: sorting });
+  const page = clickedPage.toString();
+  sorting === null
+    ? setSearchParams({ page })
+    : setSearchParams({ page, sort: sorting });
 };
 
 export const handleClickNextBtn = ({
@@ -29,5 +35,7 @@ export const handleClickNextBtn = ({
   setSearchParams,
 }: clickedPageType) => {
   const nextPage = (clickedPage + 1).toString();
-  setSearchParams({ page: nextPage, sort: sorting });
+  sorting === null
+    ? setSearchParams({ page: nextPage })
+    : setSearchParams({ page: nextPage, sort: sorting });
 };
