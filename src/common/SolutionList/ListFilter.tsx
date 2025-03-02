@@ -17,7 +17,6 @@ const ListFilter = ({
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = String(searchParams.get('page'));
   const selectedYear = Number(searchParams.get('year'));
 
   const handleClickDateFilter = () => {
