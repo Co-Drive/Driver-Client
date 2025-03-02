@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { useSearchParams } from 'react-router-dom';
@@ -59,15 +59,6 @@ const ListFilter = ({
       month: selectedMonth.toString(),
     });
   };
-
-  useEffect(() => {
-    setSearchParams({
-      page: '1',
-      sort: sorting,
-      year: selectedYear.toString(),
-      month: selectedMonth.toString(),
-    });
-  }, [selectedMonth]);
 
   return (
     <FilteredContainer>
