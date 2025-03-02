@@ -26,9 +26,13 @@ const usePostRecords = ({
 
       setTimeout(() => handleCommitSuccess(false), 1000);
       setTimeout(() => {
+        const year = new Date().getFullYear();
+        const month = new Date().getMonth() + 1;
+
         queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
         queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
-        navigate(`/solution?page=1&sort=NEW`);
+        
+        navigate(`/solution?page=1&sort=NEW&year=${year}&month=${month}`);
       }, 1500);
     },
   });
