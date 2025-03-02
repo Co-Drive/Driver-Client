@@ -18,7 +18,7 @@ const ParticipatingGroup = ({ nickname }: ParticipatingGroupProps) => {
   const { data, isLoading } = useGetRooms({
     followerId: followerId,
     isJoinedRooms: true,
-    sortType: '최신순',
+    sortType: 'NEW',
   });
   const { joinedRooms } = !isLoading && data?.data;
 
