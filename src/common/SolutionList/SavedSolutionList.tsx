@@ -49,7 +49,8 @@ const SavedSolutionList = ({
     return 1;
   }, [isUnsolvedDataLoading, unsolvedMonths, selectedYear]);
 
-  const [selectedMonth, setSelectedMonth] = useState(recentMonth);
+  const initialMonth = isSmallList ? new Date().getMonth() + 1 : recentMonth;
+  const [selectedMonth, setSelectedMonth] = useState(initialMonth);
 
   const { data, isLoading: isRecordsLoading } = isSmallList
     ? useGetRecentFollowerRecords({ userId })
