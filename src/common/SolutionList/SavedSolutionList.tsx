@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { IcArrowLeftSmallGray, IcArrowRightSmallGray } from '../../assets';
@@ -28,15 +28,28 @@ const SavedSolutionList = ({
   const selectedYear = isSmallList
     ? new Date().getFullYear()
     : Number(searchParams.get('year'));
-  const selectedMonth = isSmallList
-    ? new Date().getMonth() + 1
-    : Number(searchParams.get('month'));
 
   const { unsolvedData, isLoading: isUnsolvedDataLoading } =
     useGetUnsolvedMonths({
       year: selectedYear,
       followerId,
     });
+
+  const { months: unsolvedMonths } =
+    !isUnsolvedDataLoading && unsolvedData.data;
+
+  const recentMonth = useMemo(() => {
+    if (!isUnsolvedDataLoading) {
+      for (let month = 12; month > 0; month--) {
+        if (!unsolvedMonths.includes(month)) {
+          return month;
+        }
+      }
+    }
+    return 1;
+  }, [isUnsolvedDataLoading, unsolvedMonths, selectedYear]);
+
+  const [selectedMonth, setSelectedMonth] = useState(recentMonth);
 
   const { data, isLoading: isRecordsLoading } = isSmallList
     ? useGetRecentFollowerRecords({ userId })
@@ -48,20 +61,7 @@ const SavedSolutionList = ({
         page: clickedPage - 1,
       });
 
-  const { months: unsolvedMonths } =
-    !isUnsolvedDataLoading && unsolvedData.data;
-
   const { records, totalPage } = !isRecordsLoading && data.data;
-
-  const recentMonth = useMemo(() => {
-    if (!isUnsolvedDataLoading)
-      for (let month = 12; month > 0; month--) {
-        if (!unsolvedMonths.includes(month)) {
-          return month;
-        }
-      }
-    return 1;
-  }, [selectedYear, isUnsolvedDataLoading, unsolvedMonths]);
 
   const recordsArr =
     !isRecordsLoading &&
@@ -116,6 +116,10 @@ const SavedSolutionList = ({
         : handleDisabledMoreBtn(false);
   }, [records]);
 
+  useEffect(() => {
+    setSelectedMonth(recentMonth);
+  }, [isUnsolvedDataLoading, unsolvedMonths, selectedYear]);
+
   return (
     <ListContainer $isSmallList={isSmallList} $isLoading={isLoading}>
       {!isLoading && (
@@ -123,9 +127,9 @@ const SavedSolutionList = ({
           {!isSmallList && (
             <ListFilter
               sorting={sorting}
-              recentMonth={recentMonth}
               unsolvedMonths={unsolvedMonths}
-              isUnsolvedDataLoading={isUnsolvedDataLoading}
+              selectedMonth={selectedMonth}
+              updateMonth={(month: number) => setSelectedMonth(month)}
               handleClickSorting={handleClickSorting}
             />
           )}

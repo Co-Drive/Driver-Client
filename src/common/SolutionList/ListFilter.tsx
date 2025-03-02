@@ -9,16 +9,15 @@ import Calendar from './Calendar';
 
 const ListFilter = ({
   sorting,
-  recentMonth,
   unsolvedMonths,
-  isUnsolvedDataLoading,
+  selectedMonth,
+  updateMonth,
   handleClickSorting,
 }: ListFilterProps) => {
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedYear = Number(searchParams.get('year'));
-  const selectedMonth = Number(searchParams.get('month'));
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
@@ -29,9 +28,9 @@ const ListFilter = ({
 
     setSearchParams({
       page: '1',
-      sort: sorting,
+      sort: 'NEW',
       year: prevYear,
-      month: recentMonth.toString(),
+      month: selectedMonth.toString(),
     });
   };
 
@@ -40,6 +39,7 @@ const ListFilter = ({
   ) => {
     if (e) {
       const clickedMonth = e.currentTarget.innerHTML;
+      updateMonth(Number(clickedMonth));
       setSearchParams({
         page: '1',
         sort: sorting,
@@ -54,22 +54,20 @@ const ListFilter = ({
 
     setSearchParams({
       page: '1',
-      sort: sorting,
+      sort: 'NEW',
       year: nextYear,
-      month: recentMonth.toString(),
+      month: selectedMonth.toString(),
     });
   };
 
   useEffect(() => {
-    if (!isUnsolvedDataLoading) {
-      setSearchParams({
-        page: '1',
-        sort: 'NEW',
-        year: selectedYear.toString(),
-        month: recentMonth.toString(),
-      });
-    }
-  }, [recentMonth, isUnsolvedDataLoading]);
+    setSearchParams({
+      page: '1',
+      sort: sorting,
+      year: selectedYear.toString(),
+      month: selectedMonth.toString(),
+    });
+  }, [selectedMonth]);
 
   return (
     <FilteredContainer>
