@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { useSearchParams } from 'react-router-dom';
@@ -18,6 +18,7 @@ const ListFilter = ({
 
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedYear = Number(searchParams.get('year'));
+  const curMonth = Number(searchParams.get('month'));
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
@@ -59,6 +60,17 @@ const ListFilter = ({
       month: selectedMonth.toString(),
     });
   };
+
+  useEffect(() => {
+    if (selectedMonth !== curMonth) {
+      setSearchParams({
+        page: '1',
+        sort: 'NEW',
+        year: selectedYear.toString(),
+        month: selectedMonth.toString(),
+      });
+    }
+  }, [selectedYear, selectedMonth]);
 
   return (
     <FilteredContainer>
