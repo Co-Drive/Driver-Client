@@ -19,7 +19,7 @@ const useDeleteRecords = () => {
       const month = new Date().getMonth() + 1;
 
       queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
-      navigate(`/solution?page=1&year=${year}&month=${month}`);
+      navigate(`/solution?page=1&sort=NEW&year=${year}&month=${month}`);
     },
   });
 

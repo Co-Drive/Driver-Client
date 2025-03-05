@@ -9,17 +9,16 @@ import Calendar from './Calendar';
 
 const ListFilter = ({
   sorting,
-  recentMonth,
   unsolvedMonths,
-  isUnsolvedDataLoading,
+  selectedMonth,
+  updateMonth,
   handleClickSorting,
 }: ListFilterProps) => {
   const [isCalendarClicked, setIsCalendarClicked] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = String(searchParams.get('page'));
   const selectedYear = Number(searchParams.get('year'));
-  const selectedMonth = Number(searchParams.get('month'));
+  const curMonth = Number(searchParams.get('month'));
 
   const handleClickDateFilter = () => {
     setIsCalendarClicked(!isCalendarClicked);
@@ -30,8 +29,9 @@ const ListFilter = ({
 
     setSearchParams({
       page: '1',
+      sort: 'NEW',
       year: prevYear,
-      month: recentMonth.toString(),
+      month: selectedMonth.toString(),
     });
   };
 
@@ -40,8 +40,10 @@ const ListFilter = ({
   ) => {
     if (e) {
       const clickedMonth = e.currentTarget.innerHTML;
+      updateMonth(Number(clickedMonth));
       setSearchParams({
         page: '1',
+        sort: sorting,
         year: selectedYear.toString(),
         month: clickedMonth,
       });
@@ -53,20 +55,22 @@ const ListFilter = ({
 
     setSearchParams({
       page: '1',
+      sort: 'NEW',
       year: nextYear,
-      month: recentMonth.toString(),
+      month: selectedMonth.toString(),
     });
   };
 
   useEffect(() => {
-    if (!isUnsolvedDataLoading && page === '1') {
+    if (selectedMonth !== curMonth) {
       setSearchParams({
-        page: page,
+        page: '1',
+        sort: 'NEW',
         year: selectedYear.toString(),
-        month: recentMonth.toString(),
+        month: selectedMonth.toString(),
       });
     }
-  }, [recentMonth, isUnsolvedDataLoading]);
+  }, [selectedYear, selectedMonth]);
 
   return (
     <FilteredContainer>
@@ -96,13 +100,14 @@ const ListFilter = ({
 
       <SortContainer>
         {OLD_AND_NEW.map((standard) => {
+          const clickedSort = sorting === 'NEW' ? '최신순' : '오래된순';
           return (
             <Sorting
               key={standard}
               onClick={(
                 e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
               ) => standard !== '|' && handleClickSorting(e)}
-              $isClicked={sorting === standard}
+              $isClicked={clickedSort === standard}
             >
               {standard}
             </Sorting>

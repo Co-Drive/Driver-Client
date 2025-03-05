@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonUserList from '../../../common/CommonUserList';
 import FollowerFilter from './FollowerFilter';
 
 const FollowerList = () => {
   const [selectedGroupId, setSelectedGroupId] = useState(0);
-  const [sorting, setSorting] = useState('최신순');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sorting = String(searchParams.get('sort'));
 
   const updateSelectedGroupId = (id: number) => {
     setSelectedGroupId(id);
@@ -15,7 +17,8 @@ const FollowerList = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
+    const sort = innerHTML === '최신순' ? 'NEW' : 'DICT';
+    setSearchParams({ page: '1', sort: sort });
   };
 
   return (

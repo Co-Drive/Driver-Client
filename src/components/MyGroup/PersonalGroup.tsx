@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import {
@@ -17,35 +17,23 @@ const PersonalGroup = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const clickedPage = Number(searchParams.get('page'));
+  const sorting = String(searchParams.get('sort'));
+  const status = String(searchParams.get('status'));
 
   const [clickedCategry, setClickedCategory] = useState(
     savedCategory ? savedCategory : GROUP_CATEGORY[0]
   );
-  const [filter, setFilter] = useState({
-    clickedStatus: '모집 중',
-    sorting: '최신순',
-  });
   const isJoinedRooms = clickedCategry === GROUP_CATEGORY[0];
 
-  const { clickedStatus, sorting } = filter;
   const { data, isLoading } = useGetRooms({
     sortType: sorting,
     page: clickedPage - 1,
-    status:
-      clickedStatus === '모집 중'
-        ? 'ACTIVE'
-        : clickedStatus === '모집 마감'
-          ? 'INACTIVE'
-          : 'CLOSED',
+    status,
     isJoinedRooms: isJoinedRooms,
   });
   const successData = !isLoading && data.data;
   const { totalPage, joinedRooms, createdRooms } = successData;
   const group = isJoinedRooms ? joinedRooms : createdRooms;
-
-  useEffect(() => {
-    sessionStorage.removeItem('savedPage');
-  }, []);
 
   const handleClickSorting = (
     e:
@@ -54,17 +42,17 @@ const PersonalGroup = () => {
     isSorting: boolean
   ) => {
     const { innerText } = e.currentTarget;
+    const sort = innerText === '최신순' ? 'NEW' : 'DICT';
+    const clickedStatus =
+      innerText === '모집 중'
+        ? 'ACTIVE'
+        : innerText === '모집 마감'
+          ? 'INACTIVE'
+          : 'CLOSED';
 
     isSorting
-      ? setFilter({
-          ...filter,
-          sorting: innerText,
-        })
-      : setFilter({
-          ...filter,
-          clickedStatus: innerText,
-        });
-    // 최신순/ 가나다순에 따라 서버 통신 들어갈 예정
+      ? setSearchParams({ page: '1', sort: sort, status: 'ACTIVE' })
+      : setSearchParams({ page: '1', sort: 'NEW', status: clickedStatus });
   };
 
   const handleClickCategory = (
@@ -74,7 +62,7 @@ const PersonalGroup = () => {
     setClickedCategory(innerHTML);
     sessionStorage.setItem('savedCategory', innerHTML);
 
-    setSearchParams({ page: '1' });
+    setSearchParams({ page: '1', sort: 'NEW', status: 'ACTIVE' });
   };
 
   return (
@@ -95,18 +83,29 @@ const PersonalGroup = () => {
 
       <TopContainer>
         <TotalStatus>
-          {STATUS.map((status, idx) => {
+          {STATUS.map((curStatus, idx) => {
+            const clickedStatus =
+              status === 'ACTIVE'
+                ? '모집 중'
+                : status === 'INACTIVE'
+                  ? '모집 마감'
+                  : '활동 종료';
+
             return (
               <StatusContainer
-                key={status}
+                key={curStatus}
                 type="button"
                 onClick={(e) => handleClickSorting(e, false)}
               >
-                {clickedStatus === status ? <IcSuccess /> : <IcSuccessGray />}
+                {clickedStatus === curStatus ? (
+                  <IcSuccess />
+                ) : (
+                  <IcSuccessGray />
+                )}
 
                 <Status $idx={idx}>
                   {idx === 0 ? <IcStatusBlack /> : <IcStatusWhite />}
-                  <Text $idx={idx}>{status}</Text>
+                  <Text $idx={idx}>{curStatus}</Text>
                 </Status>
               </StatusContainer>
             );
@@ -115,11 +114,12 @@ const PersonalGroup = () => {
 
         <SortContainer>
           {SORTING.map((standard) => {
+            const clickedSort = sorting === 'NEW' ? '최신순' : '가나다순';
             return (
               <Sorting
                 key={standard}
                 onClick={(e) => standard !== '|' && handleClickSorting(e, true)}
-                $isClicked={sorting === standard}
+                $isClicked={clickedSort === standard}
               >
                 {standard}
               </Sorting>

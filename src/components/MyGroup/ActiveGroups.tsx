@@ -42,10 +42,10 @@ const ActiveGroups = ({ totalActiveGroups }: ActiveGroupProps) => {
   }: ClickCardProps) => {
     const myId = sessionStorage.getItem('user');
     if (myId && parseInt(myId) === userId) {
-      navigate(`/group/${groupId}/admin?page=1`);
+      navigate(`/group/${groupId}/admin?page=1&sort=NEW`);
     } else {
       isMember
-        ? navigate(`/group/${groupId}/member?page=1`)
+        ? navigate(`/group/${groupId}/member?page=1&sort=NEW`)
         : navigate(`/group/${groupId}`, {
             state: { isPublicRoom: isPublicRoom },
           });

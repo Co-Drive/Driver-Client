@@ -15,13 +15,14 @@ const MemberHeader = ({
       <Title>{title}</Title>
       <SortContainer>
         {sortingFilter.map((standard) => {
+          const clickedSort = sorting === 'NEW' ? '최신순' : '가나다순';
           return (
             <Sorting
               key={standard}
               onClick={(
                 e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
               ) => standard !== '|' && handleClickSorting(e)}
-              $isClicked={sorting === standard}
+              $isClicked={clickedSort === standard}
             >
               {standard}
             </Sorting>

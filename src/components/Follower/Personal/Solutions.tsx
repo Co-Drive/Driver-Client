@@ -18,7 +18,9 @@ const Solutions = ({ id, nickname }: SolutionsProps) => {
 
   const handleClickMoreBtn = () => {
     sessionStorage.setItem('friendname', nickname);
-    navigate(`/follower/${id}/total?page=1&year=${year}&month=${month}`);
+    navigate(
+      `/follower/${id}/total?page=1&sort=NEW&year=${year}&month=${month}`
+    );
   };
 
   return (

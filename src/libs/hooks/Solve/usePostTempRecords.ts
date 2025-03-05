@@ -23,7 +23,7 @@ const usePostTempRecords = (onClose?: () => void) => {
         const month = new Date().getMonth() + 1;
 
         queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
-        navigate(`/solution?page=1&year=${year}&month=${month}`);
+        navigate(`/solution?page=1&sort=NEW&year=${year}&month=${month}`);
         onClose && onClose();
       }
     },

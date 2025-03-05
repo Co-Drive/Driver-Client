@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcArrowBottomGray, IcArrowTopGray } from '../../../assets';
 import { SORTING } from '../../../constants/Follower/currentConst';
@@ -12,6 +13,8 @@ const FollowerFilter = ({
 }: FollowerFilterProps) => {
   const [isGroupClicked, setIsGroupClicked] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState('');
+
+  const [_, setSearchParams] = useSearchParams();
 
   const { data, isLoading } = useGetJoinedGroupList();
   const { joinedRooms } = !isLoading && data?.data;
@@ -28,6 +31,7 @@ const FollowerFilter = ({
       setSelectedGroup(innerHTML);
       updateSelectedGroupId(id);
     }
+    setSearchParams({ page: '1', sort: 'NEW' });
   };
 
   const handleClickGroupFilter = () => {
@@ -68,13 +72,14 @@ const FollowerFilter = ({
 
       <SortContainer>
         {SORTING.map((standard) => {
+          const clickedSort = sorting === 'NEW' ? '최신순' : '가나다순';
           return (
             <Sorting
               key={standard}
               onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
                 standard !== '|' && handleClickSorting(e)
               }
-              $isClicked={sorting === standard}
+              $isClicked={clickedSort === standard}
             >
               {standard}
             </Sorting>

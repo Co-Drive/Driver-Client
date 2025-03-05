@@ -102,9 +102,9 @@ export interface ClickedValueProps {
 
 export interface ListFilterProps {
   sorting: string;
-  recentMonth: number;
   unsolvedMonths: Array<number>;
-  isUnsolvedDataLoading: boolean;
+  selectedMonth: number;
+  updateMonth: (month: number) => void;
   handleClickSorting: (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => void;
