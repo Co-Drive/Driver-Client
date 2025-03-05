@@ -31,7 +31,8 @@ const usePostRecords = ({
 
         queryClient.invalidateQueries({ queryKey: ['get-monthly-solution'] });
         queryClient.invalidateQueries({ queryKey: ['get-temp-records'] });
-        navigate(`/solution?page=1&year=${year}&month=${month}`);
+        
+        navigate(`/solution?page=1&sort=NEW&year=${year}&month=${month}`);
       }, 1500);
     },
   });

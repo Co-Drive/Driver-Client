@@ -14,8 +14,6 @@ const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
     isMember,
     isPublicRoom,
   }: ClickCardProps) => {
-    const queryStirng = location.search;
-    const clickedPage = Number(queryStirng.split('=')[1]);
     const myId = sessionStorage.getItem('user');
     const isOwner = myId && parseInt(myId) === userId;
     const navigatedPage = isPublicRoom ? `/group/${groupId}` : '/group-join';
@@ -24,10 +22,10 @@ const RecommendCard = ({ group, isLongPage }: RecommendCardProps) => {
       : { roomId: groupId.toString(), notNavigateDetail: true };
 
     if (isOwner) {
-      navigate(`/group/${groupId}/admin?page=${clickedPage}`);
+      navigate(`/group/${groupId}/admin?page=1&sort=NEW`);
     } else {
       isMember
-        ? navigate(`/group/${groupId}/member?page=${clickedPage}`)
+        ? navigate(`/group/${groupId}/member?page=1&sort=NEW`)
         : navigate(navigatedPage, {
             state: navigatedState,
           });

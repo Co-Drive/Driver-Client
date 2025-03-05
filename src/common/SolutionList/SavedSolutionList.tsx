@@ -22,21 +22,35 @@ const SavedSolutionList = ({
   const isFollowerMode = myId && userId.toString() !== myId;
   const followerId = isFollowerMode ? userId : undefined;
 
-  const [sorting, setSorting] = useState('최신순');
   const [searchParams, setSearchParams] = useSearchParams();
   const clickedPage = isSmallList ? 0 : Number(searchParams.get('page'));
+  const sorting = isSmallList ? '' : String(searchParams.get('sort'));
   const selectedYear = isSmallList
     ? new Date().getFullYear()
     : Number(searchParams.get('year'));
-  const selectedMonth = isSmallList
-    ? new Date().getMonth() + 1
-    : Number(searchParams.get('month'));
 
   const { unsolvedData, isLoading: isUnsolvedDataLoading } =
     useGetUnsolvedMonths({
       year: selectedYear,
       followerId,
     });
+
+  const { months: unsolvedMonths } =
+    !isUnsolvedDataLoading && unsolvedData.data;
+
+  const recentMonth = useMemo(() => {
+    if (!isUnsolvedDataLoading) {
+      for (let month = 12; month > 0; month--) {
+        if (!unsolvedMonths.includes(month)) {
+          return month;
+        }
+      }
+    }
+    return 1;
+  }, [isUnsolvedDataLoading, unsolvedMonths, selectedYear]);
+
+  const initialMonth = isSmallList ? new Date().getMonth() + 1 : recentMonth;
+  const [selectedMonth, setSelectedMonth] = useState(initialMonth);
 
   const { data, isLoading: isRecordsLoading } = isSmallList
     ? useGetRecentFollowerRecords({ userId })
@@ -48,20 +62,7 @@ const SavedSolutionList = ({
         page: clickedPage - 1,
       });
 
-  const { months: unsolvedMonths } =
-    !isUnsolvedDataLoading && unsolvedData.data;
-
   const { records, totalPage } = !isRecordsLoading && data.data;
-
-  const recentMonth = useMemo(() => {
-    if (!isUnsolvedDataLoading)
-      for (let month = 12; month > 0; month--) {
-        if (!unsolvedMonths.includes(month)) {
-          return month;
-        }
-      }
-    return 1;
-  }, [selectedYear, selectedMonth]);
 
   const recordsArr =
     !isRecordsLoading &&
@@ -77,28 +78,46 @@ const SavedSolutionList = ({
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => {
     const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
+    const sort = innerHTML === '최신순' ? 'NEW' : 'OLD';
+    const year = selectedYear.toString();
+    const month = selectedMonth.toString();
+    setSearchParams({ page: '1', sort: sort, year: year, month: month });
   };
 
   const handleClickPrevBtn = () => {
     const prevPage = (clickedPage - 1).toString();
     const year = selectedYear.toString();
     const month = selectedMonth.toString();
-    setSearchParams({ page: prevPage, year: year, month: month });
+    setSearchParams({
+      page: prevPage,
+      sort: sorting,
+      year: year,
+      month: month,
+    });
   };
 
   const handleClickPage = ({ clickedPage }: ClickedValueProps) => {
     const page = clickedPage.toString();
     const year = selectedYear.toString();
     const month = selectedMonth.toString();
-    setSearchParams({ page: page.toString(), year: year, month: month });
+    setSearchParams({
+      page: page.toString(),
+      sort: sorting,
+      year: year,
+      month: month,
+    });
   };
 
   const handleClickNextBtn = () => {
     const nextPage = (clickedPage + 1).toString();
     const year = selectedYear.toString();
     const month = selectedMonth.toString();
-    setSearchParams({ page: nextPage, year: year, month: month });
+    setSearchParams({
+      page: nextPage,
+      sort: sorting,
+      year: year,
+      month: month,
+    });
   };
 
   useEffect(() => {
@@ -108,6 +127,10 @@ const SavedSolutionList = ({
         : handleDisabledMoreBtn(false);
   }, [records]);
 
+  useEffect(() => {
+    setSelectedMonth(recentMonth);
+  }, [isUnsolvedDataLoading, unsolvedMonths, selectedYear]);
+
   return (
     <ListContainer $isSmallList={isSmallList} $isLoading={isLoading}>
       {!isLoading && (
@@ -115,9 +138,9 @@ const SavedSolutionList = ({
           {!isSmallList && (
             <ListFilter
               sorting={sorting}
-              recentMonth={recentMonth}
               unsolvedMonths={unsolvedMonths}
-              isUnsolvedDataLoading={isUnsolvedDataLoading}
+              selectedMonth={selectedMonth}
+              updateMonth={(month: number) => setSelectedMonth(month)}
               handleClickSorting={handleClickSorting}
             />
           )}

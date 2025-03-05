@@ -37,13 +37,15 @@ const Gnb = ({ category, handleOpenGnb }: GnbProps) => {
       case solve[0]:
         return navigate('/solve');
       case solve[1]:
-        return navigate(`/solution?page=1&year=${year}&month=${month}`);
+        return navigate(
+          `/solution?page=1&sort=NEW&year=${year}&month=${month}`
+        );
       case group[0]:
         return navigate('/group?page=1');
       case group[1]:
         return navigate('/group-new');
       case group[2]:
-        return navigate('/my-group?page=1');
+        return navigate('/my-group?page=1&sort=NEW&status=ACTIVE');
       case profile[0]:
         return navigate(`/${username}`);
       case profile[1]:

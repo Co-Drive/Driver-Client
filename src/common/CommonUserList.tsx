@@ -265,7 +265,7 @@ const CommonUserList = ({
           style={{ cursor: 'pointer' }}
           onClick={() =>
             clickedPage !== 1 &&
-            handleClickPrevBtn({ clickedPage, setSearchParams })
+            handleClickPrevBtn({ clickedPage, sorting, setSearchParams })
           }
         />
         {pages.map((_, idx) => {
@@ -275,7 +275,7 @@ const CommonUserList = ({
               key={page}
               $isClicked={totalPage > 0 && clickedPage === page}
               onClick={() =>
-                handleClickPage({ clickedPage: page, setSearchParams })
+                handleClickPage({ clickedPage: page, sorting, setSearchParams })
               }
             >
               {page}
@@ -286,7 +286,7 @@ const CommonUserList = ({
           style={{ cursor: 'pointer' }}
           onClick={() =>
             clickedPage !== pages.length &&
-            handleClickNextBtn({ clickedPage, setSearchParams })
+            handleClickNextBtn({ clickedPage, sorting, setSearchParams })
           }
         />
       </PageNationBar>

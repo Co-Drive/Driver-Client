@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import CommonUserList from '../../common/CommonUserList';
 import MemberHeader from '../GroupMember/MemberHeader';
@@ -9,14 +9,17 @@ const AdminMemberList = () => {
   if (!id) return;
   const groupId = parseInt(id);
 
-  const [sorting, setSorting] = useState('최신순');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sorting = String(searchParams.get('sort'));
 
   const handleClickSorting = (
     e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
   ) => {
     const { innerHTML } = e.currentTarget;
-    setSorting(innerHTML);
+    const sort = innerHTML === '최신순' ? 'NEW' : 'DICT';
+    setSearchParams({ page: '1', sort: sort });
   };
+
   return (
     <AdminListContainer>
       <MemberHeader

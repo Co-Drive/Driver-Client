@@ -26,10 +26,10 @@ const usePostAlarmRead = () => {
           navigate(`/follower/${dataId}`);
           break;
         case 'CREATED_PUBLIC_ROOM_REQUEST':
-          navigate(`/group/${dataId}/admin?page=1`);
+          navigate(`/group/${dataId}/admin?page=1&sort=NEW`);
           break;
         case 'CREATED_PRIVATE_ROOM_JOIN':
-          navigate(`/group/${dataId}/admin?page=1`);
+          navigate(`/group/${dataId}/admin?page=1&sort=NEW`);
           break;
         case 'PUBLIC_ROOM_REQUEST':
           navigate(`/group/${dataId}`, {
@@ -37,10 +37,10 @@ const usePostAlarmRead = () => {
           }); // state 를 true로 변경하여 신청하기 버튼 없애기
           break;
         case 'PUBLIC_ROOM_APPROVE':
-          navigate(`/group/${dataId}/member?page=1`);
+          navigate(`/group/${dataId}/member?page=1&sort=NEW`);
           break;
         case 'ROOM_STATUS_INACTIVE':
-          navigate('/my-group?page=1');
+          navigate('/my-group?page=1&sort=NEW&status=ACTIVE');
           break;
       }
       queryClient.invalidateQueries({ queryKey: ['get-alarm-read'] });

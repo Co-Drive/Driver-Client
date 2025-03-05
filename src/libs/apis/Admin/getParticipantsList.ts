@@ -7,7 +7,7 @@ const getParticipantsList = async ({
   page,
 }: GetMemberListProps) => {
   const { data } = await api.get(
-    `/rooms/${groupId}/participants/${sortType === '최신순' ? 'NEW' : 'OLD'}?page=${page}`
+    `/rooms/${groupId}/participants/${sortType}?page=${page}`
   );
 
   return data;
