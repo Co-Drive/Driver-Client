@@ -19,7 +19,7 @@ const ImageSection = ({
         <TooltipInfo
           isVisible={isTooltipVisible}
           onClick={handleTooltipClose}
-          text="이미지는 최대 10MB까지 업로드 가능해요"
+          text="이미지는 최대 5MB까지 업로드 가능해요"
         />
       </LabelContainer>
       <ImageContainer
