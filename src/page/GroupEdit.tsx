@@ -81,7 +81,7 @@ const GroupEdit = () => {
 
     const maxFileSizeMB = 5;
     if (file.size > maxFileSizeMB * 1024 * 1024) {
-      e.target.value = ''; // 파일 입력 필드 초기화
+      alert(`파일 크기가 ${maxFileSizeMB}MB를 초과했습니다.`);
       return;
     }
 
@@ -109,7 +109,7 @@ const GroupEdit = () => {
       // 파일 입력 필드 초기화
       e.target.value = '';
     } catch (error) {
-      console.error('이미지 처리 중 오류 발생:', error);
+      alert('이미지를 처리하는 도중 오류가 발생했습니다. 다시 시도해 주세요.');
     }
   };
 
