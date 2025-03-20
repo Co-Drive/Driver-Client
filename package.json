@@ -15,6 +15,7 @@
     "@types/event-source-polyfill": "^1.0.5",
     "@uiw/react-codemirror": "^4.23.0",
     "axios": "^1.7.2",
+    "browser-image-compression": "^2.0.2",
     "codemirror": "^6.0.1",
     "event-source-polyfill": "^1.0.31",
     "framer-motion": "^11.11.17",
