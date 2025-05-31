@@ -119,9 +119,7 @@ const SolutionHeaderTop = ({
         )}
       </BottomContainer>
 
-      {isLevelModalOn && (
-        <SolveToolTip isOpen={isLevelModalOn} handleClose={handleCloseModal} />
-      )}
+      {isLevelModalOn && <SolveToolTip onClose={handleCloseModal} />}
 
       {errModalOn && (
         <ErrorModal errMsg={deleteErr} onClose={() => setErrModalOn(false)} />
