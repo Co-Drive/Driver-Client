@@ -6,45 +6,33 @@ import {
   IcLevelTwo,
 } from '../../assets';
 
-export const TooltipData = [
+export const STARS = [
+  <IcLevelOne />,
+  <IcLevelTwo />,
+  <IcLevelThree />,
+  <IcLevelFour />,
+  <IcLevelFive />,
+];
+
+export const TOOLTIP_DATA = [
   {
-    star: <IcLevelOne />,
-    rank: 'Bronze',
-    level: 'Level 1',
-    swea: 'D1 - D2',
-    letCode: 'Easy',
-    hackerRank: 'Easy',
+    name: '백준',
+    level: ['Bronze', 'Sliver', 'Gold', 'Platinum', '그 이상'],
   },
   {
-    star: <IcLevelTwo />,
-    rank: 'Sliver',
-    level: 'Level 2',
-    swea: 'D2 - D3',
-    letCode: 'Easy',
-    hackerRank: 'Easy',
+    name: '프로그래머스',
+    level: ['Level 1', 'Level 2', 'Level 2', 'Level 3', '그 이상'],
   },
   {
-    star: <IcLevelThree />,
-    rank: 'Gold',
-    level: 'Level 2',
-    swea: 'D4',
-    letCode: 'Medium',
-    hackerRank: 'Medium',
+    name: 'SWEA',
+    level: ['D1 - D2', 'D2 - D3', 'D4', 'D5', 'D6 - D8'],
   },
   {
-    star: <IcLevelFour />,
-    rank: 'Platinum',
-    level: 'Level 3',
-    swea: 'D5',
-    letCode: 'Medium',
-    hackerRank: 'Medium',
+    name: '리트코드',
+    level: ['Easy', 'Easy', 'Medium', 'Medium', 'Hard'],
   },
   {
-    star: <IcLevelFive />,
-    rank: '그 이상',
-    level: '그 이상',
-    swea: 'D6 - D8',
-    letCode: 'Hard',
-    hackerRank: 'Hard',
+    name: '해커랭크',
+    level: ['Easy', 'Easy', 'Medium', 'Medium', 'Hard'],
   },
 ];

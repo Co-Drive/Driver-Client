@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import { IcCancelSmallWhite } from '../../../assets';
 import ModalPortal from '../../../common/Modal/ModalPortal';
-import { tooltipData } from '../../../constants/Solve/SolveTooltipConst';
+import {
+  STARS,
+  TOOLTIP_DATA,
+} from '../../../constants/Solve/SolveTooltipConst';
 import { SolveToopTipProps } from '../../../types/Solve/solveTooltipTypes';
 
 const SolveToolTip = ({ onClose }: SolveToopTipProps) => {
@@ -16,31 +19,21 @@ const SolveToolTip = ({ onClose }: SolveToopTipProps) => {
             </CloseButton>
           </Header>
           <DataTable>
-            {tooltipData.map((data, idx) => (
-              <TableRow key={idx}>
-                <Stars>{data.star}</Stars>
-                <DataContent $contentType="백준">
-                  <Name>백준</Name>
-                  {data.rank}
-                </DataContent>
-                <DataContent $contentType="프로그래머스">
-                  <Name>프로그래머스</Name>
-                  {data.level}
-                </DataContent>
-                <DataContent $contentType="SWEA">
-                  <Name>SWEA</Name>
-                  {data.swea}
-                </DataContent>
-                <DataContent $contentType="리트코드">
-                  <Name>리트코드</Name>
-                  {data.letCode}
-                </DataContent>
-                <DataContent $contentType="해커랭크">
-                  <Name>해커랭크</Name>
-                  {data.hackerRank}
-                </DataContent>
-              </TableRow>
-            ))}
+            {STARS.map((star, idx) => {
+              return (
+                <TableRow key={idx}>
+                  <Stars>{star}</Stars>
+                  {TOOLTIP_DATA.map(({ name, level }) => {
+                    return (
+                      <DataContent key={name} $contentType={name}>
+                        <Name>{name}</Name>
+                        {level[idx]}
+                      </DataContent>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
           </DataTable>
         </ModalContent>
       </ModalContainer>
