@@ -1,54 +1,50 @@
 import styled from 'styled-components';
 import { IcCancelSmallWhite } from '../../../assets';
 import ModalPortal from '../../../common/Modal/ModalPortal';
-import { TooltipData } from '../../../constants/Solve/SolveTooltipConst';
+import { tooltipData } from '../../../constants/Solve/SolveTooltipConst';
 import { SolveToopTipProps } from '../../../types/Solve/solveTooltipTypes';
 
-const SolveToolTip = ({ isOpen, handleClose }: SolveToopTipProps) => {
+const SolveToolTip = ({ handleClose }: SolveToopTipProps) => {
   return (
-    <>
-      {isOpen && (
-        <ModalPortal>
-          <ModalContainer onClick={handleClose}>
-            <ModalContent onClick={(e) => e.stopPropagation()}>
-              <Header>
-                <Title>문제 풀이 가이드</Title>
-                <CloseButton typeof="button" onClick={handleClose}>
-                  <IcCancelSmallWhite />
-                </CloseButton>
-              </Header>
-              <DataTable>
-                {TooltipData.map((data, idx) => (
-                  <TableRow key={idx}>
-                    <Stars>{data.star}</Stars>
-                    <DataContent $contentType="백준">
-                      <Name>백준</Name>
-                      {data.rank}
-                    </DataContent>
-                    <DataContent $contentType="프로그래머스">
-                      <Name>프로그래머스</Name>
-                      {data.level}
-                    </DataContent>
-                    <DataContent $contentType="SWEA">
-                      <Name>SWEA</Name>
-                      {data.swea}
-                    </DataContent>
-                    <DataContent $contentType="리트코드">
-                      <Name>리트코드</Name>
-                      {data.letCode}
-                    </DataContent>
-                    <DataContent $contentType="해커랭크">
-                      <Name>해커랭크</Name>
-                      {data.hackerRank}
-                    </DataContent>
-                  </TableRow>
-                ))}
-              </DataTable>
-            </ModalContent>
-          </ModalContainer>
-        </ModalPortal>
-      )}
-    </>
+    <ModalPortal>
+      <ModalContainer onClick={handleClose}>
+        <ModalContent onClick={(e) => e.stopPropagation()}>
+          <Header>
+            <Title>문제 풀이 가이드</Title>
+            <CloseButton typeof="button" onClick={handleClose}>
+              <IcCancelSmallWhite />
+            </CloseButton>
+          </Header>
+          <DataTable>
+            {tooltipData.map((data, idx) => (
+              <TableRow key={idx}>
+                <Stars>{data.star}</Stars>
+                <DataContent $contentType="백준">
+                  <Name>백준</Name>
+                  {data.rank}
+                </DataContent>
+                <DataContent $contentType="프로그래머스">
+                  <Name>프로그래머스</Name>
+                  {data.level}
+                </DataContent>
+                <DataContent $contentType="SWEA">
+                  <Name>SWEA</Name>
+                  {data.swea}
+                </DataContent>
+                <DataContent $contentType="리트코드">
+                  <Name>리트코드</Name>
+                  {data.letCode}
+                </DataContent>
+                <DataContent $contentType="해커랭크">
+                  <Name>해커랭크</Name>
+                  {data.hackerRank}
+                </DataContent>
+              </TableRow>
+            ))}
+          </DataTable>
+        </ModalContent>
+      </ModalContainer>
+    </ModalPortal>
   );
 };
 

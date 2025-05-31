@@ -70,7 +70,7 @@ const HeaderTop = ({
           <IcInformation />
         </button>
         {modalOn && (
-          <SolveToolTip handleClose={handleCloseModal} isOpen={modalOn} />
+          <SolveToolTip handleClose={handleCloseModal} />
         )}
       </LevelContainer>
     </HeaderTopContainer>
