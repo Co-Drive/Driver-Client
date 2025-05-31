@@ -4,14 +4,14 @@ import ModalPortal from '../../../common/Modal/ModalPortal';
 import { tooltipData } from '../../../constants/Solve/SolveTooltipConst';
 import { SolveToopTipProps } from '../../../types/Solve/solveTooltipTypes';
 
-const SolveToolTip = ({ handleClose }: SolveToopTipProps) => {
+const SolveToolTip = ({ onClose }: SolveToopTipProps) => {
   return (
     <ModalPortal>
-      <ModalContainer onClick={handleClose}>
+      <ModalContainer onClick={onClose}>
         <ModalContent onClick={(e) => e.stopPropagation()}>
           <Header>
             <Title>문제 풀이 가이드</Title>
-            <CloseButton typeof="button" onClick={handleClose}>
+            <CloseButton typeof="button" onClick={onClose}>
               <IcCancelSmallWhite />
             </CloseButton>
           </Header>

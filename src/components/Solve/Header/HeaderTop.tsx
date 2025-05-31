@@ -25,7 +25,7 @@ const HeaderTop = ({
     setModalOn(true);
   };
 
-  const handleCloseModal = () => {
+  const onClose = () => {
     setModalOn(false);
   };
 
@@ -70,7 +70,7 @@ const HeaderTop = ({
           <IcInformation />
         </button>
         {modalOn && (
-          <SolveToolTip handleClose={handleCloseModal} />
+          <SolveToolTip onClose={onClose} />
         )}
       </LevelContainer>
     </HeaderTopContainer>
