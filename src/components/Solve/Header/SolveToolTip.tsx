@@ -8,7 +8,7 @@ const SolveToolTip = ({ onClose }: SolveToopTipProps) => {
   return (
     <ModalPortal>
       <ModalContainer onClick={onClose}>
-        <ModalContent onClick={(e) => e.stopPropagation()}>
+        <ModalContent>
           <Header>
             <Title>문제 풀이 가이드</Title>
             <CloseButton typeof="button" onClick={onClose}>
