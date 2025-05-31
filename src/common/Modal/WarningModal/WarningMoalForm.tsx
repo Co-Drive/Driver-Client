@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { IcCancelSmallWhite, IcWarning } from '../../../assets';
 import { WarningModalProps } from '../../../types/Modal/modalType';
+import { handleClickBg } from '../../../utils/handleClickBg';
 
 const WarningMoalForm = ({
   isGroupStatusModal,
@@ -15,14 +16,8 @@ const WarningMoalForm = ({
     ? `[ ${data} ] ${data === '활동 종료' ? '로' : '으로'} 변경하시겠습니까?`
     : '내보내시겠습니까?';
 
-  const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.currentTarget === e.target && onClose) {
-      onClose();
-    }
-  };
-
   return (
-    <ModalFormConatiner onClick={handleClickBg}>
+    <ModalFormConatiner onClick={(e) => handleClickBg({ e, onClose })}>
       <ContentsContainer>
         <IcCancelContainer onClick={onClose}>
           <IcCancelSmallWhite />

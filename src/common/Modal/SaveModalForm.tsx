@@ -4,6 +4,7 @@ import { IcCancelSmallWhite, IcSuccess } from '../../assets';
 import usePostTempRecords from '../../libs/hooks/Solve/usePostTempRecords';
 import { ModalProps } from '../../types/Solve/solveTypes';
 import { debounce } from '../../utils/debounce';
+import { handleClickBg } from '../../utils/handleClickBg';
 
 const SaveModalForm = ({
   id,
@@ -33,7 +34,9 @@ const SaveModalForm = ({
   }, [postTempErr]);
 
   return (
-    <ContentsContainer>
+    <ContentsContainer
+      onClick={(e) => onClose && handleClickBg({ e, onClose })}
+    >
       <IcCancelContainer onClick={onClose}>
         <IcCancelSmallWhite />
       </IcCancelContainer>

@@ -3,6 +3,7 @@ import { ModalProps } from '../../types/Solve/solveTypes';
 import LinkCopyModalForm from './LinkCopyModalForm';
 import ModalPortal from './ModalPortal';
 import SaveModalForm from './SaveModalForm';
+import { handleClickBg } from '../../utils/handleClickBg';
 
 const Modal = ({
   id,
@@ -11,15 +12,11 @@ const Modal = ({
   questionInfo,
   codeblocks,
 }: ModalProps) => {
-  const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.currentTarget === e.target && onClose) {
-      onClose();
-    }
-  };
-
   return (
     <ModalPortal>
-      <ModalFormConatiner onClick={handleClickBg}>
+      <ModalFormConatiner
+        onClick={(e) => onClose && handleClickBg({ e, onClose })}
+      >
         {onClose ? (
           <SaveModalForm
             id={id}

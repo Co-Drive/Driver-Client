@@ -2,14 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IcCancelSmallWhite, IcWarning } from '../../../assets';
 import { ErrorModalProps } from '../../../types/Modal/modalType';
+import { handleClickBg } from '../../../utils/handleClickBg';
 
 const ErrorModalForm = ({ callbackPage, errMsg, onClose }: ErrorModalProps) => {
   const navigate = useNavigate();
-  const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.currentTarget === e.target && onClose) {
-      onClose();
-    }
-  };
 
   const handleClickCheckBtn = () => {
     if (callbackPage) {
@@ -19,7 +15,7 @@ const ErrorModalForm = ({ callbackPage, errMsg, onClose }: ErrorModalProps) => {
   };
 
   return (
-    <ModalFormConatiner onClick={handleClickBg}>
+    <ModalFormConatiner onClick={(e) => handleClickBg({ e, onClose })}>
       <ContentsContainer>
         <IcCancelContainer onClick={onClose}>
           <IcCancelSmallWhite />

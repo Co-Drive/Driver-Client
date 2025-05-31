@@ -3,23 +3,18 @@ import { IcSuccess } from '../../assets';
 import ModalPortal from '../../common/Modal/ModalPortal';
 import useGetRequests from '../../libs/hooks/GroupDetail/useGetRequests';
 import { ApplicationModalProps } from '../../types/GroupDetail/groupDetailType';
+import { handleClickBg } from '../../utils/handleClickBg';
 
 const ApplicationModal = ({ id, onClose }: ApplicationModalProps) => {
   const { data, isLoading } = useGetRequests(id);
   const { approvedCount, requests } = !isLoading && data.data;
   const isRequestsExit = !isLoading && requests.length !== 0;
 
-  const handleClickBg = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.currentTarget === e.target) {
-      onClose();
-    }
-  };
-
   return (
     <>
       {isRequestsExit && (
         <ModalPortal>
-          <ModalForm onClick={handleClickBg}>
+          <ModalForm onClick={(e) => handleClickBg({ e, onClose })}>
             <ModalContainer>
               <Modal>
                 <Header>신청 현황</Header>
